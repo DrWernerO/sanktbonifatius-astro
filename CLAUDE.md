@@ -3,6 +3,13 @@
 > **VOR jeder Arbeit an einer Seitenübernahme zuerst [`docs/ASTRO-HANDBUCH.md`](docs/ASTRO-HANDBUCH.md) lesen.**
 > Dort steht alles zu Architektur, Nav-Aufbau, Beitrags-/Termin-Kacheln und den
 > wiederkehrenden Fallstricken.
+>
+> **Ergänzend** liegt das **Team-Handbuch** unter [`docs/team-handbuch/`](docs/team-handbuch/):
+> WordPress-Seiten-IDs ([`07-seiten-inventar.md`](docs/team-handbuch/07-seiten-inventar.md)),
+> Design-System/Farben/Fonts ([`04-design-system.md`](docs/team-handbuch/04-design-system.md)),
+> Event-Kategorien ([`05-veranstaltungskalender.md`](docs/team-handbuch/05-veranstaltungskalender.md))
+> und der WordPress-Zugang ([`02-zugang-wordpress.md`](docs/team-handbuch/02-zugang-wordpress.md)).
+> Beim Bau einer neuen Seite dort die **Page-ID** und passende **Event-Kategorie** nachschlagen.
 
 ## Die wichtigsten Regeln in Kürze
 
