@@ -720,7 +720,7 @@ Das Formular ist **WP-unabhängig**: kein admin-ajax/Nonce/CORS mehr. Der Ablauf
    verschickt es per `nodemailer` als **PDF-Anhang** ans Pfarrbüro → gibt JSON `{success,data}` zurück.
 3. **PDF-Erzeugung** [`src/lib/taufe/fill-taufe.js`](../src/lib/taufe/fill-taufe.js): füllt die
    **ausfüllbare Vorlage** [`src/lib/taufe/taufe-vorlage.pdf`](../src/lib/taufe/taufe-vorlage.pdf)
-   (echte AcroForm-Felder, 36 Stück) — pixelgenau wie das amtliche Limburger Formular.
+   (echte AcroForm-Felder, 38 Stück — inkl. Seite/Lfd. Nr. oben rechts) — pixelgenau wie das amtliche Limburger Formular.
 4. **Server-Modus:** [`astro.config.mjs`](../astro.config.mjs) nutzt **`@astrojs/node`** (standalone);
    nur Routen mit `prerender = false` laufen server-seitig, alle Seiten bleiben statisch.
 
