@@ -1,0 +1,26 @@
+---
+// Hero der Seite „Kontakt" — WP-Seite 46800 (/kontakt/, ersetzt WP-Block `kt-hero`).
+// Eigene Klassen `astro-kthero` (Handbuch Abschnitt 3 — niemals WP-Klassen `kt-…`).
+// Inhalte fest gepflegt (selten geändert). Kein Bild in der WP-Vorlage → eleganter
+// dunkel-warmer Verlauf statt Foto (konsistent mit GdHero-Farbwelt).
+---
+<section class="astro-kthero">
+  <div class="astro-kthero__inner">
+    <p class="astro-kthero__eyebrow">Pfarrei St. Bonifatius · Frankfurt</p>
+    <h1 class="astro-kthero__title">Kontakt aufnehmen</h1>
+    <p class="astro-kthero__sub">
+      Wir freuen uns, von Ihnen zu hören &#8212; egal ob Sie Fragen haben,
+      ein Sakrament anfragen oder einfach Anschluss suchen.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-kthero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:380px;overflow:hidden;background:linear-gradient(135deg,#2c1a14 0%,#3a241b 55%,#1f130d 100%)}
+.astro-kthero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 0%,rgba(197,165,90,.18),transparent 55%)}
+.astro-kthero__inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:96px 40px 56px;color:#f0e8d8}
+.astro-kthero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-kthero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(36px,5.4vw,64px);margin:0}
+.astro-kthero__sub{font-size:clamp(16px,1.9vw,20px);color:#e8ddc9;line-height:1.55;margin:18px 0 0;max-width:620px}
+@media(max-width:600px){.astro-kthero{min-height:300px}.astro-kthero__inner{padding:80px 20px 40px}}
+</style>

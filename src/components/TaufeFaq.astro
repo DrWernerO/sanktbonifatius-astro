@@ -1,0 +1,49 @@
+---
+// „Häufige Fragen zur Taufe" (WP-Block `ta-faq`). Eigene Klassen `astro-tafaq`.
+// Natives <details> (kein JS, Handbuch 06 Abschnitt 1). Feste Inhalte.
+const FAQ = [
+  { q: 'Wie lasse ich mein Kind taufen &#8211; was ist der erste Schritt?',
+    a: 'Wählen Sie oben einen Wunschtermin aus und füllen Sie das Anmeldeformular weiter unten auf dieser Seite aus. Wir melden uns dann mit einer Bestätigung und vereinbaren das Vorbereitungsgespräch.' },
+  { q: 'Was kostet eine Taufe in Sankt Bonifatius?',
+    a: 'Die Taufe ist kostenlos. Freiwillige Spenden für die Gemeinde sind herzlich willkommen, aber keine Voraussetzung.' },
+  { q: 'Wie lange dauert ein Taufgottesdienst?',
+    a: 'Der Gottesdienst dauert 45 bis 60 Minuten. Er ist kindgerecht gestaltet &#8211; familiär, festlich und nicht zu lang.' },
+  { q: 'Wir sind nicht Mitglied der Pfarrei &#8211; sind wir willkommen?',
+    a: 'Ja, ausdrücklich. Wir begleiten Familien aus dem gesamten Frankfurter Stadtgebiet. Eine Pfarreimitgliedschaft ist keine Voraussetzung.' },
+  { q: 'Bis zu welchem Alter kann ich mein Kind taufen lassen?',
+    a: 'Es gibt keine Altersgrenze. Säuglinge, Kleinkinder und ältere Kinder können getauft werden. Ab dem Schulalter gestalten wir die Vorbereitung ausführlicher &#8211; sprechen Sie uns einfach an.' },
+  { q: 'Kann ich einen flexiblen Termin vereinbaren?',
+    a: 'Ja, nach Absprache mit dem Pfarrbüro ist das möglich. Schreiben Sie uns einfach eine E-Mail oder rufen Sie an.' },
+  { q: 'Was passiert, wenn das Kind am Tauftag krank ist?',
+    a: 'Melden Sie sich so früh wie möglich &#8211; wir finden gemeinsam eine Lösung und einen neuen Termin.' },
+  { q: 'Wie bekomme ich den Taufschein?',
+    a: 'Der Taufschein wird nach der Feier ausgestellt. Für einen späteren Auszug aus dem Taufregister wenden Sie sich ans Pfarrbüro: info@sanktbonifatius.de oder 069 695 97 58 50.' },
+];
+---
+<section class="astro-tafaq" id="ta-faq-section">
+  <div class="astro-tafaq__inner">
+    <h2 class="astro-tafaq__hl">Häufige Fragen zur Taufe</h2>
+    <div class="astro-tafaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-tafaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-tafaq{background:#fff;padding:72px 0}
+.astro-tafaq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-tafaq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-tafaq__list{max-width:840px;margin:0 auto}
+.astro-tafaq details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-tafaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-tafaq summary::-webkit-details-marker{display:none}
+.astro-tafaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-tafaq details[open] summary::after{transform:rotate(45deg)}
+.astro-tafaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+@media(max-width:600px){.astro-tafaq{padding:52px 0}.astro-tafaq__inner{padding:0 20px}}
+</style>

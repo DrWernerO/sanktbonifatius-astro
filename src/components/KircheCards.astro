@@ -1,0 +1,88 @@
+---
+// Detailkarten des Kirchenführers (WP-Block `kf-cards`): je Kunstwerk eine Karte mit Bild bzw.
+// Bild-Slider links und Fließtext rechts (Unterüberschriften `sub`, Absätze `p`, Zitate `quote`).
+// Eigene Klassen `astro-kfc`. Daten aus kirche.js. Slider-Logik im Client-Script unten.
+import { KF_CARDS } from '../data/kirche.js';
+---
+<section class="astro-kfc">
+  <div class="astro-kfc__in">
+    {KF_CARDS.map((c) => (
+      <article class="astro-kfc__card" id={c.id}>
+        <div class={`astro-kfc__img${c.imgs.length > 1 ? ' astro-kfc__img--slider' : ''}`} data-slider={c.imgs.length > 1 ? '' : null}>
+          {c.imgs.length > 1
+            ? c.imgs.map((im, k) => (
+                <div class={`astro-kfc__slide${k === 0 ? ' is-active' : ''}`} style={`background-image:url('${im}')`}></div>
+              ))
+            : <div class="astro-kfc__slide is-active" style={`background-image:url('${c.imgs[0]}')`}></div>}
+          {c.imgs.length > 1 && (
+            <div class="astro-kfc__dots">
+              {c.imgs.map((_, k) => (
+                <button type="button" class={`astro-kfc__dot${k === 0 ? ' is-active' : ''}`} data-dot={k} aria-label={`Bild ${k + 1}`}></button>
+              ))}
+            </div>
+          )}
+          <a class="astro-kfc__back" href="#kirchenfuehrer">↑ Zur Übersicht</a>
+        </div>
+        <div class="astro-kfc__body">
+          <p class="astro-kfc__num">{c.num}</p>
+          <h3 class="astro-kfc__title">{c.title}</h3>
+          {c.blocks.map((b) => (
+            b.k === 'sub' ? <p class="astro-kfc__sub">{b.t}</p>
+            : b.k === 'quote' ? <blockquote class="astro-kfc__quote">{b.t}</blockquote>
+            : <p class="astro-kfc__p">{b.t}</p>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-kfc{background:#fff;padding:56px 0}
+.astro-kfc__in{max-width:1080px;margin:0 auto;padding:0 32px;display:flex;flex-direction:column;gap:24px}
+.astro-kfc__card{display:grid;grid-template-columns:420px 1fr;height:480px;scroll-margin-top:90px;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+/* Bild / Slider */
+.astro-kfc__img{position:relative;background:#eee;overflow:hidden}
+.astro-kfc__slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .5s ease}
+.astro-kfc__slide.is-active{opacity:1}
+.astro-kfc__dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:2}
+.astro-kfc__dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.55);border:none;cursor:pointer;padding:0;transition:background .2s}
+.astro-kfc__dot.is-active{background:#fff}
+.astro-kfc__back{position:absolute;bottom:16px;left:16px;background:rgba(0,0,0,.55);color:#fff;padding:7px 14px;border-radius:999px;font-size:12px;text-decoration:none;backdrop-filter:blur(4px);transition:background .2s;z-index:2}
+.astro-kfc__back:hover{background:rgba(100,64,164,.85)}
+/* Text */
+.astro-kfc__body{background:#fff;padding:34px 38px;overflow-y:auto}
+.astro-kfc__num{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:13px;color:#6440a4;letter-spacing:.08em;margin:0 0 6px}
+.astro-kfc__title{font-family:'Playfair Display',Georgia,serif;font-size:26px;color:#6440a4;margin:0 0 16px;line-height:1.2}
+.astro-kfc__sub{font-family:'Playfair Display',Georgia,serif;font-size:13px;font-weight:700;color:#6440a4;text-transform:uppercase;letter-spacing:.08em;margin:22px 0 8px}
+.astro-kfc__body > .astro-kfc__sub:first-of-type{margin-top:0}
+.astro-kfc__p{font-size:15px;line-height:1.75;color:#3a3330;margin:0 0 12px}
+.astro-kfc__quote{border-left:3px solid #6440a4;margin:14px 0;padding:8px 0 8px 16px;color:#5a4a3a;font-style:italic;font-size:14px;line-height:1.75;white-space:pre-line}
+/* Scrollbar dezent */
+.astro-kfc__body::-webkit-scrollbar{width:8px}
+.astro-kfc__body::-webkit-scrollbar-thumb{background:rgba(100,64,164,.25);border-radius:8px}
+@media(max-width:820px){
+  .astro-kfc__card{grid-template-columns:1fr;height:auto}
+  .astro-kfc__img{height:260px}
+  .astro-kfc__body{overflow:visible;padding:28px 24px}
+}
+@media(max-width:600px){.astro-kfc__in{padding:0 16px}}
+</style>
+
+<script>
+(function(){
+  document.querySelectorAll('.astro-kfc__img[data-slider]').forEach(function(sl){
+    var slides = sl.querySelectorAll('.astro-kfc__slide');
+    var dots = sl.querySelectorAll('.astro-kfc__dot');
+    var cur = 0, n = slides.length, timer;
+    function go(i){
+      cur = (i + n) % n;
+      slides.forEach(function(s,k){ s.classList.toggle('is-active', k===cur); });
+      dots.forEach(function(d,k){ d.classList.toggle('is-active', k===cur); });
+    }
+    dots.forEach(function(d,k){ d.addEventListener('click', function(){ go(k); restart(); }); });
+    function restart(){ clearInterval(timer); timer = setInterval(function(){ go(cur+1); }, 5000); }
+    restart();
+  });
+})();
+</script>

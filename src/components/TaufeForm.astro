@@ -1,0 +1,246 @@
+---
+// ⚠️ KRITISCH: Taufe-Anmeldeformular (WP-Block `taufe-anmeldung`). Eigene Klassen `astro-taform`.
+// id="anmeldung" für die Sprungmarken aus Hero/Steps.
+//
+// ÜBERMITTLUNG (Dev-Stand, ohne WP-Änderung): Das Formular sendet die Felder per FormData an den
+// bestehenden WordPress-Handler `taufe_anmeldung` (admin-ajax.php) — dieser baut die Mail im
+// Diözesan-Formular-Look und schickt sie ans Pfarrbüro. Der WP-Handler bleibt UNANGETASTET
+// (die WP-Seite /segen-sakramente/taufe/ geht produktiv live). Da der WP-Nonce im statischen
+// Astro-Build fehlt, holt das Client-Script ihn unmittelbar vor dem Absenden aus der gerenderten
+// WP-Seite über den Vite-Proxy (kein SSL/CORS-Problem im Dev).
+//
+// 🔑 Feldnamen sind VERTRAG: Sie müssen exakt mit den Feldern des WP-Handlers / des
+// Diözesan-Formulars übereinstimmen (sonst kann die Mail/PDF nicht gefüllt werden). NICHT umbenennen.
+//
+// 🔜 Beim Astro-Umstieg ersetzt eine eigene Astro-API-Route + PDF-Generator diese Anbindung —
+// siehe ASTRO-HANDBUCH.md, Abschnitt „Taufe-Formular im Headless-Setup".
+
+const eltern = [
+  { key: 'vater',  legend: 'Vater'  },
+  { key: 'mutter', legend: 'Mutter' },
+];
+const paten = [
+  { key: 'pate1', titel: 'Pate/Patin 1' },
+  { key: 'pate2', titel: 'Pate/Patin 2' },
+];
+---
+<section class="astro-taform" id="anmeldung">
+  <div class="astro-taform__inner">
+    <div class="astro-taform__head">
+      <h2 class="astro-taform__hl">Mein Kind zur Taufe anmelden</h2>
+      <p class="astro-taform__sub">Das Formular wird sicher übermittelt und direkt an das Pfarrbüro weitergeleitet.</p>
+    </div>
+
+    <details class="astro-taform__details" id="astro-taform-details">
+      <summary class="astro-taform__summary">Anmeldeformular öffnen <span aria-hidden="true">&#9660;</span></summary>
+
+      <form id="astro-taform-form" class="astro-taform__form" novalidate>
+        <fieldset class="astro-taform__fs">
+          <legend class="astro-taform__legend">Wunschtermin für die Taufe</legend>
+          <div class="astro-taform__grid">
+            <label class="astro-taform__f">1. Wahl &#8211; Datum<input type="text" name="wunsch1_datum" placeholder="z. B. 13. Juni 2026" /></label>
+            <label class="astro-taform__f">1. Wahl &#8211; Kirche / Ort<input type="text" name="wunsch1_ort" placeholder="St. Bonifatius / St. Wendel / Herz Jesu" /></label>
+            <label class="astro-taform__f">2. Wahl &#8211; Datum<input type="text" name="wunsch2_datum" placeholder="Ausweichtermin (optional)" /></label>
+            <label class="astro-taform__f">2. Wahl &#8211; Kirche / Ort<input type="text" name="wunsch2_ort" /></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="astro-taform__fs">
+          <legend class="astro-taform__legend">Ihre Kontaktdaten</legend>
+          <div class="astro-taform__grid">
+            <label class="astro-taform__f">Telefonnummer<input type="tel" name="kontakt_telefon" /></label>
+            <label class="astro-taform__f">E-Mail-Adresse<input type="email" name="kontakt_email" /></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="astro-taform__fs">
+          <legend class="astro-taform__legend">Täufling</legend>
+          <div class="astro-taform__grid">
+            <label class="astro-taform__f">Name *<input type="text" name="tauf_name" required /></label>
+            <label class="astro-taform__f">Vornamen *<input type="text" name="tauf_vorname" required /></label>
+            <label class="astro-taform__f">Rufname<input type="text" name="tauf_rufname" /></label>
+            <label class="astro-taform__f">Geschlecht
+              <select name="tauf_geschlecht">
+                <option value="">&#8211; bitte wählen &#8211;</option>
+                <option>männlich</option><option>weiblich</option><option>divers</option>
+              </select>
+            </label>
+            <label class="astro-taform__f">Geburtsdatum<input type="date" name="tauf_gebdat" /></label>
+            <label class="astro-taform__f">Geburtsort<input type="text" name="tauf_geburtsort" /></label>
+            <label class="astro-taform__f">Standesamt des Geburtsorts<input type="text" name="tauf_standesamt" /></label>
+            <label class="astro-taform__f">Register-Nr.<input type="text" name="tauf_register" /></label>
+            <label class="astro-taform__f">Straße, Hausnummer<input type="text" name="tauf_strasse" /></label>
+            <label class="astro-taform__f">Wohnort<input type="text" name="tauf_wohnort" /></label>
+          </div>
+        </fieldset>
+
+        {eltern.map((e) => (
+          <fieldset class="astro-taform__fs">
+            <legend class="astro-taform__legend">{e.legend}</legend>
+            <div class="astro-taform__grid">
+              <label class="astro-taform__f">Name<input type="text" name={`${e.key}_name`} /></label>
+              <label class="astro-taform__f">Vorname<input type="text" name={`${e.key}_vorname`} /></label>
+              <label class="astro-taform__f">Geburtsdatum<input type="date" name={`${e.key}_gebdat`} /></label>
+              <label class="astro-taform__f">Geburtsname<input type="text" name={`${e.key}_geburtsname`} /></label>
+              <label class="astro-taform__f">Familienstand
+                <select name={`${e.key}_famstand`}>
+                  <option value="">&#8211; bitte wählen &#8211;</option>
+                  <option>ledig</option><option>verheiratet</option>
+                </select>
+              </label>
+              <label class="astro-taform__f">Konfession<input type="text" name={`${e.key}_konfession`} /></label>
+            </div>
+          </fieldset>
+        ))}
+
+        <fieldset class="astro-taform__fs">
+          <legend class="astro-taform__legend">Paten / Zeugen</legend>
+          {paten.map((p) => (
+            <div class="astro-taform__patgroup">
+              <p class="astro-taform__patname">{p.titel}</p>
+              <div class="astro-taform__grid">
+                <label class="astro-taform__f">Name, Vorname<input type="text" name={`${p.key}_name`} /></label>
+                <label class="astro-taform__f">Konfession<input type="text" name={`${p.key}_konfession`} /></label>
+                <label class="astro-taform__f astro-taform__f--wide">Straße, Hausnummer, Wohnort<input type="text" name={`${p.key}_strasse`} /></label>
+              </div>
+            </div>
+          ))}
+        </fieldset>
+
+        <fieldset class="astro-taform__fs">
+          <legend class="astro-taform__legend">Wohnung Eltern / Vater / Mutter</legend>
+          <p class="astro-taform__hint">Nur bei Abweichung von der Wohnung des Täuflings.</p>
+          <div class="astro-taform__grid">
+            <label class="astro-taform__f">Straße, Hausnummer<input type="text" name="eltern_strasse" /></label>
+            <label class="astro-taform__f">Wohnort<input type="text" name="eltern_wohnort" /></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="astro-taform__fs">
+          <legend class="astro-taform__legend">Weitere Angaben</legend>
+          <div class="astro-taform__grid">
+            <label class="astro-taform__f astro-taform__f--wide">Kirchliche Trauung (Traudatum, Trauort, Traukirche)<input type="text" name="trauung" /></label>
+            <label class="astro-taform__f">Traudatum<input type="date" name="traudatum" /></label>
+            <label class="astro-taform__f">Trauort und Traukirche
+              <select name="trauort">
+                <option value="">&#8211; bitte wählen &#8211;</option>
+                <option>Herz Jesu</option><option>St. Bonifatius</option><option>St. Wendel</option>
+              </select>
+            </label>
+            <label class="astro-taform__f astro-taform__f--wide">Bemerkungen<textarea name="bemerkungen" rows="3"></textarea></label>
+          </div>
+          <div class="astro-taform__consent">
+            <span class="astro-taform__consent-text">Wir/Ich sind/bin damit einverstanden, dass der Name unseres/meines Kindes veröffentlicht wird (nur im Zusammenhang der Taufe)</span>
+            <span class="astro-taform__radios">
+              <label><input type="radio" name="veroeffentlichung" value="Ja" /> Ja</label>
+              <label><input type="radio" name="veroeffentlichung" value="Nein" /> Nein</label>
+            </span>
+          </div>
+        </fieldset>
+
+        <p class="astro-taform__required">* Pflichtfeld</p>
+        <button type="submit" class="astro-taform__submit">Anmeldung absenden</button>
+        <div class="astro-taform__msg" id="astro-taform-msg" role="status" aria-live="polite" hidden></div>
+      </form>
+    </details>
+  </div>
+</section>
+
+<style is:global>
+.astro-taform{background:#f7f3ef;padding:72px 0}
+.astro-taform__inner{max-width:880px;margin:0 auto;padding:0 40px}
+.astro-taform__head{text-align:center;margin:0 0 32px}
+.astro-taform__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-taform__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:560px}
+.astro-taform__details{background:#fff;border-radius:14px;box-shadow:0 2px 16px rgba(30,21,18,.07);overflow:hidden}
+.astro-taform__summary{list-style:none;cursor:pointer;padding:22px 28px;font-size:17px;font-weight:600;color:#fff;background:#9a2d2d;display:flex;justify-content:center;align-items:center;gap:10px;transition:background .2s}
+.astro-taform__summary:hover{background:#7e2424}
+.astro-taform__summary::-webkit-details-marker{display:none}
+.astro-taform__details[open] .astro-taform__summary span{transform:rotate(180deg)}
+.astro-taform__summary span{display:inline-block;transition:transform .2s}
+.astro-taform__form{padding:30px 28px 34px}
+.astro-taform__fs{border:none;border-top:1px solid #ece3d8;padding:24px 0 4px;margin:0}
+.astro-taform__fs:first-of-type{border-top:none;padding-top:4px}
+.astro-taform__legend{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#9a2d2d;padding:0;margin:0 0 16px}
+.astro-taform__hint{font-size:13px;color:#928269;margin:-8px 0 14px}
+.astro-taform__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 18px}
+.astro-taform__f{display:flex;flex-direction:column;font-size:13px;font-weight:600;color:#6b5c52;gap:6px}
+.astro-taform__f--wide{grid-column:1 / -1}
+.astro-taform__f input,.astro-taform__f select,.astro-taform__f textarea{font-family:inherit;font-size:15px;font-weight:400;color:#2c2420;padding:10px 12px;border:1px solid #d9cfc2;border-radius:8px;background:#fdfbf8;transition:border-color .15s,box-shadow .15s}
+.astro-taform__f input:focus,.astro-taform__f select:focus,.astro-taform__f textarea:focus{outline:none;border-color:#9a2d2d;box-shadow:0 0 0 3px rgba(154,45,45,.12)}
+.astro-taform__f textarea{resize:vertical}
+.astro-taform__patgroup{margin:0 0 18px}
+.astro-taform__patgroup:last-child{margin-bottom:0}
+.astro-taform__patname{font-size:14px;font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-taform__consent{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:#f7f3ef;border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.astro-taform__consent-text{font-size:13.5px;color:#3d3530;line-height:1.5;flex:1;min-width:240px}
+.astro-taform__radios{display:flex;gap:18px;font-size:14px;color:#2c2420;font-weight:600}
+.astro-taform__radios label{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.astro-taform__required{font-size:13px;color:#928269;margin:22px 0 14px}
+.astro-taform__submit{display:block;width:100%;padding:16px;border:none;border-radius:50px;background:#9a2d2d;color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s}
+.astro-taform__submit:hover{background:#7e2424}
+.astro-taform__submit:disabled{opacity:.65;cursor:default}
+.astro-taform__msg{padding:14px 16px;border-radius:8px;margin:16px 0 0;font-size:14.5px;line-height:1.5}
+@media(max-width:600px){.astro-taform{padding:52px 0}.astro-taform__inner{padding:0 16px}.astro-taform__form{padding:24px 18px 28px}.astro-taform__grid{grid-template-columns:1fr}}
+</style>
+
+<script>
+(function(){
+  const form = document.getElementById('astro-taform-form');
+  if(!form) return;
+  const details = document.getElementById('astro-taform-details');
+  const msg  = document.getElementById('astro-taform-msg');
+  const btn  = form.querySelector('.astro-taform__submit');
+
+  // Endpunkte über den Vite-Proxy (Dev): kein SSL/CORS-Problem. Beim Astro-Umstieg ersetzt eine
+  // eigene API-Route diese Anbindung (siehe ASTRO-HANDBUCH).
+  const RENDERED_PAGE = '/wp-proxy/segen-sakramente/taufe/';
+  const AJAX_URL      = '/wp-proxy/wp-admin/admin-ajax.php';
+
+  // Holt den WP-Nonce frisch aus der gerenderten WP-Seite (taufeAjax = {..., nonce:"xxxx"}).
+  async function getNonce(){
+    try {
+      const html = await fetch(RENDERED_PAGE, { cache: 'no-store' }).then(function(r){ return r.text(); });
+      const m = html.match(/taufeAjax\s*=\s*\{[^}]*?nonce\s*:\s*["']([^"']+)["']/);
+      return m ? m[1] : '';
+    } catch(e) { return ''; }
+  }
+
+  function setMsg(ok, text){
+    msg.hidden = false;
+    msg.style.background = ok ? '#e8f5e9' : '#ffebee';
+    msg.style.border     = ok ? '1px solid #a5d6a7' : '1px solid #ef9a9a';
+    msg.style.color      = ok ? '#2e7d32' : '#c62828';
+    msg.textContent = (ok ? '✓ ' : '⚠ ') + text;
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet…';
+    try {
+      const nonce = await getNonce();
+      const data = new FormData(form);
+      data.append('action', 'taufe_anmeldung');
+      data.append('nonce', nonce);
+      const res = await fetch(AJAX_URL, { method: 'POST', body: data }).then(function(r){ return r.json(); });
+      if(res && res.success){
+        setMsg(true, typeof res.data === 'string' ? res.data : 'Vielen Dank! Ihre Anmeldung ist eingegangen. Wir melden uns bei Ihnen.');
+        form.reset();
+        if(details) details.open = true;
+        btn.disabled = false;
+        btn.textContent = 'Anmeldung absenden';
+      } else {
+        setMsg(false, (res && res.data) || 'Fehler beim Senden. Bitte versuchen Sie es erneut.');
+        btn.disabled = false;
+        btn.textContent = 'Anmeldung absenden';
+      }
+    } catch(err) {
+      setMsg(false, 'Verbindungsfehler. Bitte versuchen Sie es erneut oder rufen Sie uns an.');
+      btn.disabled = false;
+      btn.textContent = 'Anmeldung absenden';
+    }
+  });
+})();
+</script>

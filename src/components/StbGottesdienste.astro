@@ -1,0 +1,65 @@
+---
+// Gottesdienste-Sektion des Kirchorts St. Bonifatius (WP-Block `stb2-sec alt` + `stb2-prayer`).
+// Eigene Klassen `astro-stbgodi` auf der violetten Box; Sektions-Rahmen aus `astro-stbsec`
+// (StbWelcome.astro). Inhalte fest gepflegt. id="gottesdienste" für die Quicklink-Sprungmarke.
+const FORMATE = [
+  'BonEsprit – Lebendig, mit Musik und Begegnung',
+  'Fiat Lux – Atmosphärisch, mit Licht und Stille',
+  'Taizé – Meditativ, ökumenisch',
+  'Sonntagsgottesdienst – Die traditionelle Form',
+];
+// Termin-Zeilen: { day, text } ODER { day, href, link } (Verweis auf den Terminplan)
+const ZEITEN = [
+  { day: 'Täglich',  text: '09:00–17:00 Uhr Kirche geöffnet' },
+  { day: 'Sonntag',  text: '11:00 Uhr Eucharistiefeier' },
+  { day: 'Sonntag',  text: 'Kindergottesdienst', sub: '1. & 3. Sonntag im Monat (außerhalb der Ferien)' },
+  { day: 'Samstag',  text: '18:00 Uhr Vorabendmesse' },
+  { day: 'Taizé',        href: '/gottesdienst-glaube/gottesdienste-die-beruehren/', link: 'Zu den Terminen →' },
+  { day: 'BonEsprit',    href: '/gottesdienst-glaube/gottesdienste-die-beruehren/', link: 'Zu den Terminen →' },
+  { day: 'Fiat Lux',     href: '/gottesdienst-glaube/gottesdienste-die-beruehren/', link: 'Zu den Terminen →' },
+  { day: 'Familiengottesdienst', href: '/bonfamily/familiengottesdienste/',         link: 'Zu den Terminen →' },
+];
+---
+<section class="astro-stbsec is-alt" id="gottesdienste">
+  <div class="astro-stbsec__in">
+    <span class="astro-stbsec__eyebrow">Gottesdienste</span>
+    <h2 class="astro-stbsec__h2">Gottesdienste in St. Bonifatius</h2>
+    <p class="astro-stbsec__lead">Verschiedene Formate für verschiedene Menschen &ndash; vom meditativen Abend bis zum lebendigen Sonntagsgottesdienst.</p>
+
+    <div class="astro-stbgodi">
+      <div class="astro-stbgodi__intro">
+        <h3 class="astro-stbgodi__h">Unsere Gottesdienstformate</h3>
+        {FORMATE.map((f) => <p class="astro-stbgodi__p">{f}</p>)}
+        <a class="astro-stbgodi__btn" href="/gottesdienst-glaube/gottesdienstordnung/">Aktuelle Gottesdienstordnung</a>
+      </div>
+      <div class="astro-stbgodi__times">
+        {ZEITEN.map((z) => (
+          <div class="astro-stbgodi__row">
+            <span class="astro-stbgodi__day">{z.day}</span>
+            {z.link
+              ? <a href={z.href}>{z.link}</a>
+              : <span class="astro-stbgodi__val">{z.text}{z.sub && <small>{z.sub}</small>}</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-stbgodi{background:#6440a4;color:#fff;border-radius:14px;padding:54px 48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.astro-stbgodi__h{font-family:'Playfair Display',Georgia,serif;font-size:32px;color:#fff;margin:0 0 14px}
+.astro-stbgodi__p{font-size:16px;opacity:.95;margin:0 0 8px;line-height:1.6}
+.astro-stbgodi__btn{display:inline-flex;align-items:center;padding:14px 28px;border-radius:999px;background:#fff;color:#6440a4;text-decoration:none;font-weight:600;font-size:15px;transition:all .2s;margin-top:20px}
+.astro-stbgodi__btn:hover{background:#f0ebe0}
+.astro-stbgodi__times{background:rgba(255,255,255,.12);border-radius:10px;padding:24px}
+.astro-stbgodi__row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.18);font-size:15px;color:#fff}
+.astro-stbgodi__row:last-child{border-bottom:none}
+.astro-stbgodi__day{font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:13px;opacity:.85;flex-shrink:0}
+.astro-stbgodi__val{text-align:right}
+.astro-stbgodi__val small{display:block;font-size:11px;opacity:.65;font-weight:400;margin-top:2px}
+.astro-stbgodi__times a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+.astro-stbgodi__times a:hover{opacity:.8}
+@media(max-width:1024px){.astro-stbgodi{grid-template-columns:1fr;padding:40px 32px;gap:24px}}
+@media(max-width:760px){.astro-stbgodi{padding:32px 20px}.astro-stbgodi__h{font-size:22px}.astro-stbgodi__row{flex-wrap:wrap;gap:4px}.astro-stbgodi__val{text-align:left}}
+</style>

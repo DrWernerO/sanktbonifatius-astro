@@ -1,0 +1,52 @@
+---
+// „Wir begleiten Sie gern" — Seelsorgeteam (WP-Block `ta-team`). Eigene Klassen `astro-tateam`.
+// Fotos lokal in public/uploads/ (vom WP heruntergeladen, Handbuch 1b). Link zum Pastoralteam.
+const team = [
+  { name: 'Dr. Werner Otto',      role: 'Pfarrer',             img: '/uploads/2023/07/Bonifatius_Pastoralteam_Werner-edited-1.jpg' },
+  { name: 'Uwe Michler',          role: 'Gemeindereferent',    img: '/uploads/2023/05/Bonifatius_Pastoralteam_Uwe-edited.jpg' },
+  { name: 'Gaby Geagea',          role: 'Gemeindereferentin',  img: '/uploads/2023/07/Bonifatius_Pastoralteam_Gaby-e1659515837936-edited.jpg' },
+  { name: 'Martin Kestler',       role: 'Diakon',              img: '/uploads/2023/05/Bonifatius_Pastoralteam_Martin-e1659516162716-edited.jpg' },
+  { name: 'Lilian Wykipil',       role: 'Gemeindereferentin',  img: '/uploads/2023/09/lilian-wykipil-1.jpeg' },
+  { name: 'Bettina Rupp',         role: 'Gemeindereferentin',  img: '/uploads/2025/05/bettina-edited.jpg' },
+  { name: 'Dorothea Schneider',   role: 'Pastoralreferentin',  img: '/uploads/2024/01/Dorothea.jpg' },
+  { name: 'Sandra Roos-Greulich', role: 'Gemeindereferentin',  img: '/uploads/2023/05/Sandra-Roos-Greulich-edited-1.jpg' },
+];
+---
+<section class="astro-tateam">
+  <div class="astro-tateam__inner">
+    <div class="astro-tateam__head">
+      <h2 class="astro-tateam__hl">Wir begleiten Sie gern</h2>
+      <p class="astro-tateam__sub">Unser Seelsorgeteam begleitet Sie auf dem Weg zur Taufe.</p>
+    </div>
+    <div class="astro-tateam__grid">
+      {team.map((p) => (
+        <article class="astro-tateam-card">
+          <img class="astro-tateam-card__photo" src={p.img} alt={`Foto von ${p.name}`} loading="lazy" />
+          <h3 class="astro-tateam-card__name">{p.name}</h3>
+          <p class="astro-tateam-card__role">{p.role}</p>
+        </article>
+      ))}
+    </div>
+    <div class="astro-tateam__more">
+      <a class="astro-tateam__link" href="/ueberuns/pastoralteam/">Zum Seelsorgeteam &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-tateam{background:#f7f3ef;padding:72px 0}
+.astro-tateam__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-tateam__head{text-align:center;margin:0 0 40px}
+.astro-tateam__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-tateam__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:560px}
+.astro-tateam__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.astro-tateam-card{background:#fff;border-radius:12px;padding:22px 18px;text-align:center;box-shadow:0 2px 12px rgba(30,21,18,.05)}
+.astro-tateam-card__photo{width:104px;height:104px;border-radius:50%;object-fit:cover;margin:0 auto 14px;background:#ede8e1}
+.astro-tateam-card__name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2c2420;margin:0 0 4px}
+.astro-tateam-card__role{font-size:13px;letter-spacing:.03em;color:#928269;margin:0}
+.astro-tateam__more{text-align:center;margin:36px 0 0}
+.astro-tateam__link{display:inline-block;padding:13px 28px;border-radius:50px;border:1.5px solid #9a2d2d;color:#9a2d2d;font-size:15px;font-weight:600;transition:background .2s,color .2s}
+.astro-tateam__link:hover{background:#9a2d2d;color:#fff}
+@media(max-width:900px){.astro-tateam__grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.astro-tateam__grid{grid-template-columns:repeat(2,1fr);gap:14px}.astro-tateam{padding:52px 0}.astro-tateam__inner{padding:0 20px}}
+</style>

@@ -1,0 +1,58 @@
+---
+// Sakramente-Block der Seite „Gottesdienst & Glaube" (ersetzt WP-Block `gd-sakramente`).
+// Eigene Klassen `astro-gdsak`. 6 Sakramente-Karten + Segen-Box. SVG-Icons (kein Emoji).
+const cards = [
+  { href: '/segen-sakramente/taufe/',          label: 'Taufe',         sub: 'Ihr Kind taufen lassen – Infos & Termin',  icon: '<path d="M12 2C7.5 8 4 13 4 16a8 8 0 0 0 16 0c0-3-3.5-8-8-14z"/>' },
+  { href: '/segen-sakramente/erstkommunion/',  label: 'Kommunion',     sub: 'Erstkommunion anmelden – Ablauf & Termine', icon: '<circle cx="12" cy="9" r="4"/><path d="M5 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/>' },
+  { href: '/segen-sakramente/firmung/',         label: 'Firmung',       sub: 'Firmung vorbereiten – Anmeldung & Infos',   icon: '<path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.5l-4.9 2.7.9-5.5L4 8.8l5.5-.8z"/>' },
+  { href: '/segen-sakramente/beichte/',         label: 'Versöhnung',    sub: 'Zur Beichte – wann & wie es geht',          icon: '<path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5c-1.5 0-2.9-.4-4.1-1L3 20l1-5.4a8.4 8.4 0 1 1 17 .9z"/>' },
+  { href: '/segen-sakramente/trauung/',         label: 'Ehe',           sub: 'Kirchlich heiraten – erste Schritte',       icon: '<circle cx="8.5" cy="13" r="5"/><circle cx="15.5" cy="13" r="5"/>' },
+  { href: '/segen-sakramente/krankensalbung/',  label: 'Krankensalbung', sub: 'Krankensalbung anfragen – unkompliziert',  icon: '<path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/>' },
+];
+---
+<section class="astro-gdsak">
+  <div class="astro-gdsak__inner">
+    <div class="astro-gdsak__head">
+      <h2 class="astro-gdsak__hl">Zeichen der Nähe Gottes</h2>
+      <p class="astro-gdsak__sub">Sakramente sind wunderbare Zeichen der Nähe Gottes. Wir feiern sie so, dass Sie darin Freude, Stärkung und Zuspruch finden.</p>
+    </div>
+    <div class="astro-gdsak__grid">
+      {cards.map((c) => (
+        <a href={c.href} class="astro-gdsak-card">
+          <span class="astro-gdsak-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#9a2d2d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={c.icon} />
+          </span>
+          <span class="astro-gdsak-card__label">{c.label}</span>
+          <span class="astro-gdsak-card__sub">{c.sub}</span>
+        </a>
+      ))}
+    </div>
+    <div class="astro-gdsak__segen">
+      <h3 class="astro-gdsak__segen-hl">Segen</h3>
+      <p class="astro-gdsak__segen-text">„Benedicere“ – Gutes zusprechen. Durch den Segen spricht Gott jedem Menschen in seine persönliche Situation hinein seine heilende und gute Nähe zu.</p>
+      <a class="astro-gdsak__segen-link" href="/segen-sakramente/">Mehr über den Segen →</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdsak{background:#fff;padding:72px 0}
+.astro-gdsak__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-gdsak__head{text-align:center;margin:0 0 40px}
+.astro-gdsak__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-gdsak__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:620px}
+.astro-gdsak__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.astro-gdsak-card{display:flex;flex-direction:column;align-items:flex-start;padding:24px 24px;background:#f7f3ef;border-radius:10px;border-left:4px solid #9a2d2d;text-decoration:none;color:#2c2420;transition:transform .15s,box-shadow .2s}
+.astro-gdsak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(30,21,18,.1)}
+.astro-gdsak-card__icon{width:34px;height:34px;margin-bottom:14px}
+.astro-gdsak-card__icon svg{width:100%;height:100%}
+.astro-gdsak-card__label{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;margin-bottom:6px}
+.astro-gdsak-card__sub{font-size:14px;color:#6b5c52;line-height:1.5}
+.astro-gdsak__segen{margin:32px 0 0;padding:32px 36px;background:#f0e8d8;border-radius:12px;text-align:center}
+.astro-gdsak__segen-hl{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-gdsak__segen-text{font-size:16px;color:#6b5c52;line-height:1.65;margin:0 auto 18px;max-width:680px}
+.astro-gdsak__segen-link{font-size:14px;font-weight:600;color:#9a2d2d;border-bottom:1px solid rgba(154,45,45,.4);padding-bottom:2px;transition:border-color .2s}
+.astro-gdsak__segen-link:hover{border-color:#9a2d2d}
+@media(max-width:860px){.astro-gdsak__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-gdsak__grid{grid-template-columns:1fr}.astro-gdsak{padding:52px 0}.astro-gdsak__inner{padding:0 20px}.astro-gdsak__segen{padding:26px 22px}}
+</style>

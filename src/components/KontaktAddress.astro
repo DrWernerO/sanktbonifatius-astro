@@ -1,0 +1,49 @@
+---
+// „Wie Sie uns finden" — WP-Seite 46800 (ersetzt WP-Block `kt-address`).
+// Eigene Klassen `astro-ktaddr`. Feste Kontaktdaten. SVG-Icons (kein Emoji).
+const MAIL = 'info@sanktbonifatius.de';
+const MAPS = 'https://www.google.com/maps/search/Pfarrkirche+Sankt+Bonifatius+Frankfurt+Sachsenhausen';
+---
+<section class="astro-ktaddr">
+  <div class="astro-ktaddr__inner">
+    <h2 class="astro-ktaddr__hl">Wie Sie uns finden</h2>
+    <div class="astro-ktaddr__grid">
+      <div class="astro-ktaddr-block">
+        <svg class="astro-ktaddr-block__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <h3 class="astro-ktaddr-block__title">Pfarrbüro</h3>
+        <p class="astro-ktaddr-block__text">Holbeinstraße 70<br>60596 Frankfurt am Main</p>
+        <a class="astro-ktaddr-block__link" href={MAPS} target="_blank" rel="noopener">&#8594; Auf Google Maps ansehen</a>
+      </div>
+      <div class="astro-ktaddr-block">
+        <svg class="astro-ktaddr-block__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <h3 class="astro-ktaddr-block__title">Öffnungszeiten</h3>
+        <p class="astro-ktaddr-block__text">Mo &#8211; Do: 9&#8211;12 Uhr<br>Di u. Do: 14&#8211;16 Uhr<br>Fr: 9&#8211;12 Uhr</p>
+      </div>
+      <div class="astro-ktaddr-block">
+        <svg class="astro-ktaddr-block__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <h3 class="astro-ktaddr-block__title">E-Mail</h3>
+        <p class="astro-ktaddr-block__text"><a class="astro-ktaddr-block__link" href={`mailto:${MAIL}`}>{MAIL}</a></p>
+      </div>
+      <div class="astro-ktaddr-block">
+        <svg class="astro-ktaddr-block__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.17 6.17l1.17-1.17a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <h3 class="astro-ktaddr-block__title">Telefon</h3>
+        <p class="astro-ktaddr-block__text"><a class="astro-ktaddr-block__link" href="tel:+496969597585-0">069 69597585-0</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ktaddr{background:#f7f3ef;padding:72px 0}
+.astro-ktaddr__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-ktaddr__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 40px;text-align:center}
+.astro-ktaddr__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.astro-ktaddr-block{background:#fff;border-radius:12px;padding:28px 24px;box-shadow:0 2px 12px rgba(30,21,18,.05)}
+.astro-ktaddr-block__icon{width:34px;height:34px;color:#9a2d2d;margin:0 0 14px}
+.astro-ktaddr-block__title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-ktaddr-block__text{font-size:15px;color:#6b5c52;line-height:1.65;margin:0}
+.astro-ktaddr-block__link{color:#9a2d2d;font-weight:600;text-decoration:none;word-break:break-word}
+.astro-ktaddr-block__link:hover{text-decoration:underline}
+@media(max-width:900px){.astro-ktaddr__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-ktaddr{padding:52px 0}.astro-ktaddr__inner{padding:0 20px}.astro-ktaddr__grid{grid-template-columns:1fr}}
+</style>

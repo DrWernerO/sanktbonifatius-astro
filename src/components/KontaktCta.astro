@@ -1,0 +1,42 @@
+---
+// Abschluss-CTA + SEO-Fließtext — WP-Seite 46800 (ersetzt WP-Blöcke `kt-cta` + `kt-seo`).
+// Eigene Klassen `astro-ktcta`. Der untere Text trägt die SEO-Keywords der WP-Vorlage
+// (Pfarrei, Sachsenhausen, Oberrad, Sakramente …) sichtbar in den Seitenrumpf.
+const MAIL = 'info@sanktbonifatius.de';
+---
+<section class="astro-ktcta">
+  <div class="astro-ktcta__inner">
+    <h2 class="astro-ktcta__hl">Schreiben Sie uns</h2>
+    <p class="astro-ktcta__sub">Eine E-Mail genügt &#8212; wir melden uns zeitnah bei Ihnen.</p>
+    <a class="astro-ktcta__btn" href={`mailto:${MAIL}`}>E-Mail schreiben</a>
+  </div>
+
+  <div class="astro-ktcta__seo">
+    <h3 class="astro-ktcta__seo-hl">Pfarrei Sankt Bonifatius Frankfurt &#8212; Kontakt &amp; Ansprechpartner</h3>
+    <p>
+      Die katholische Pfarrei Sankt Bonifatius Frankfurt begleitet Menschen in Sachsenhausen
+      und Oberrad &#8212; von der Taufe bis zur Beerdigung, vom Kindergottesdienst bis zur
+      Seniorenmesse. Unser Pastoralteam steht Ihnen für seelsorgliche Gespräche, Sakramente
+      und alle Fragen des Gemeindelebens zur Verfügung.
+    </p>
+    <p>
+      Das Pfarrbüro in der Holbeinstraße 70 ist Ihre erste Anlaufstelle &#8212; persönlich
+      oder per E-Mail an <a href={`mailto:${MAIL}`}>{MAIL}</a>.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-ktcta{background:#fff}
+.astro-ktcta__inner{max-width:760px;margin:0 auto;padding:80px 40px;text-align:center}
+.astro-ktcta__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,42px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-ktcta__sub{font-size:clamp(16px,1.8vw,19px);color:#6b5c52;line-height:1.6;margin:0 0 30px}
+.astro-ktcta__btn{display:inline-block;padding:14px 32px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:15px;font-weight:600;letter-spacing:.02em;transition:background .2s}
+.astro-ktcta__btn:hover{background:#7e2424}
+.astro-ktcta__seo{max-width:820px;margin:0 auto;padding:0 40px 72px}
+.astro-ktcta__seo-hl{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-ktcta__seo p{font-size:15px;color:#928269;line-height:1.7;margin:0 0 12px}
+.astro-ktcta__seo a{color:#9a2d2d;text-decoration:none}
+.astro-ktcta__seo a:hover{text-decoration:underline}
+@media(max-width:560px){.astro-ktcta__inner{padding:56px 20px}.astro-ktcta__seo{padding:0 20px 52px}}
+</style>

@@ -1,0 +1,24 @@
+---
+// Digitaler Kirchenführer „Pfarrkirche St. Bonifatius" — WP-Seite 49303
+// (/ueberuns/kirchorte/st-bonifatius/kirche/, Unterseite von 47279). Vollständig aus eigenen
+// astro-Komponenten (kein set:html mit WP-Markup, vgl. Migrationsplan 9b). Nav + Footer global
+// aus Base.astro. Inhalte fest in src/data/kirche.js; nur der SEO-Head kommt live aus WordPress.
+import Base from '../../../../layouts/Base.astro';
+import KircheHero from '../../../../components/KircheHero.astro';
+import KircheArchitektur from '../../../../components/KircheArchitektur.astro';
+import KircheIndex from '../../../../components/KircheIndex.astro';
+import KircheCards from '../../../../components/KircheCards.astro';
+import KircheInfobar from '../../../../components/KircheInfobar.astro';
+import StbCta from '../../../../components/StbCta.astro';
+import { getSeoHead } from '../../../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/st-bonifatius/kirche/');
+---
+<Base seo={seo}>
+  <KircheHero />
+  <KircheArchitektur />
+  <KircheIndex />
+  <KircheCards />
+  <KircheInfobar />
+  <StbCta />
+</Base>

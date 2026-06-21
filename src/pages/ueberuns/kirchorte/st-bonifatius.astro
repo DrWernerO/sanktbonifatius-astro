@@ -1,0 +1,88 @@
+---
+// Kirchort „St. Bonifatius" — WP-Seite 47279 (/ueberuns/kirchorte/st-bonifatius/), vollständig
+// aus eigenen astro-stb…-Komponenten (kein set:html mit WP-Markup, vgl. Migrationsplan 9b /
+// Kontakt-Seite Abschnitt 11). Nav + Footer kommen global aus Base.astro.
+// Inhalte fest gepflegt (Kirchort-Daten ändern sich selten); nur der SEO-Head kommt live aus WP.
+import Base from '../../../layouts/Base.astro';
+import StbHero from '../../../components/StbHero.astro';
+import StbQuick from '../../../components/StbQuick.astro';
+import StbWelcome from '../../../components/StbWelcome.astro';
+import StbGottesdienste from '../../../components/StbGottesdienste.astro';
+import StbCards from '../../../components/StbCards.astro';
+import StbTeam from '../../../components/StbTeam.astro';
+import StbGallery from '../../../components/StbGallery.astro';
+import StbFaq from '../../../components/StbFaq.astro';
+import StbCta from '../../../components/StbCta.astro';
+import { getSeoHead } from '../../../lib/wordpress.js';
+
+// SEO (Titel/Description/OG/JSON-LD) aus der mit SEOPress optimierten WP-Seite übernehmen.
+const seo = await getSeoHead('/ueberuns/kirchorte/st-bonifatius/');
+
+const IMG = '/uploads';
+
+// „Unsere Angebote in St. Bonifatius" — 6 Karten
+const ANGEBOTE = [
+  { title: 'Ungewöhnliche Gottesdienste', href: '/gottesdienst-glaube/gottesdienste-die-beruehren/',
+    img: `${IMG}/2022/04/st-bonifatius-frankfurt31.jpg`, alt: 'Gottesdienst in St. Bonifatius',
+    text: 'Bei uns findet jeder das passende Angebot: Lebendige BonEsprit-Gottesdienste, atmosphärische Fiat-Lux-Abende und meditative Taizé-Feiern. Kommen Sie vorbei!',
+    more: 'Gottesdienste ansehen →' },
+  { title: 'BonFamily', href: '/bonfamily/',
+    img: `${IMG}/2023/04/BonFamily-gelb.png`, alt: 'BonFamily – Angebote für Familien',
+    text: 'Eltern-Kind-Treffs, eine Baby-Lounge, Afterwork-Treffen für die ganze Familie und familiengerechte Angebote – das ist BonFamily. Was wann stattfindet, erfahren Sie auf unserer BonFamily-Seite.',
+    more: 'Mehr erfahren →' },
+  { title: 'Gruppen &amp; Gemeinschaft', href: '/?page_id=49489',
+    img: `${IMG}/2022/03/StBonifatius_Begegnung.jpg`, alt: 'Begegnung und Gemeinschaft in St. Bonifatius',
+    text: 'Frauengruppe, BonLadies, Kirch-Café, Kirchenchor, Spätschicht, Ufü’s – viele Möglichkeiten, Gleichgesinnte zu finden.',
+    more: 'Alle Gruppen entdecken →' },
+  { title: 'Boni und JONA', href: '/jugend/',
+    img: `${IMG}/2022/03/StBonifatius_JONA.jpeg`, alt: 'Jugendkirche JONA in St. Bonifatius',
+    text: 'In St. Bonifatius ist die Jugendkirche JONA zuhause: Ein Schülercafé als Treffpunkt, Freizeiten, Jugendevents und eigene Gottesdienste für alle Jugendlichen in Sachsenhausen Frankfurt.',
+    more: 'Mehr erfahren →' },
+  { title: 'Baby- &amp; Familien-Lounge', href: '/bonfamily/#lounge',
+    img: `${IMG}/2022/11/babylounge-stbonifatius-frankfurt-32.jpg`, alt: 'Baby- und Familien-Lounge in St. Bonifatius',
+    text: 'Für Kinder bis einem Jahr die Baby-Lounge, für Kinder von 1–3 Jahren die Familien-Lounge: Spiellandschaft, Fingerspiele, Lieder und Gespräche für Eltern bei Kaffee und Tee.',
+    more: 'Mehr erfahren →' },
+  { title: 'Digitaler Kirchenführer', href: '/ueberuns/kirchorte/st-bonifatius/kirche/',
+    img: `${IMG}/2025/06/portal-stbonifatius.jpg`, alt: 'Portal der Kirche St. Bonifatius',
+    text: 'Hier erfahren Sie alles über die Architektur und Entstehungsgeschichte unserer Pfarrkirche. Unser digitaler Kirchenführer hält viele Informationen und multimediale Inhalte über die verschiedenen Kunstwerke bereit.',
+    more: 'Zum Kirchenführer →' },
+];
+
+// „Weitere Angebote am Kirchort" — 2 Karten
+const WEITERE = [
+  { title: 'Kita St. Bonifatius', href: '/kitas/st-bonifatius/',
+    img: `${IMG}/2022/03/kita_stbonifatius_logo.jpg`, alt: 'Kita St. Bonifatius',
+    text: 'Unsere Kindertagesstätte ist eine moderne Einrichtung mit 100 Kindern in 4 Kita- und 2 Krippen-Gruppen. Zeitgemäße Pädagogik und enge Anbindung an die Pfarrei.',
+    more: 'Mehr erfahren →' },
+  { title: 'Pfarrbücherei', href: '/?page_id=49496',
+    img: `${IMG}/2018/03/koeb-st-boniaftius-1-1.jpg`, alt: 'Pfarrbücherei St. Bonifatius',
+    text: 'Die Kath. Öffentliche Bücherei St. Bonifatius macht sehr aktive Arbeit. Unsere Spezialität: das Bilderbuch-Kino. Wir freuen uns immer auf den Besuch von Kindergruppen und Familien!',
+    more: 'Mehr erfahren →' },
+];
+---
+<Base seo={seo}>
+  <StbHero />
+  <StbQuick />
+  <StbWelcome />
+  <StbGottesdienste />
+  <StbCards
+    id="angebote"
+    alt={true}
+    eyebrow="Was uns ausmacht"
+    heading="Unsere Angebote in St. Bonifatius"
+    lead="Von besonderen Gottesdiensten über Familienprogramme bis zu Begegnungsorten – St. Bonifatius hat für jeden etwas."
+    cards={ANGEBOTE}
+  />
+  <StbCards
+    id="weitere-angebote"
+    two={true}
+    eyebrow="Für alle Generationen"
+    heading="Weitere Angebote am Kirchort"
+    lead="Von der Kita St. Bonifatius bis zur Pfarrbücherei – vielfältige Einrichtungen für Familien und die ganze Gemeinde."
+    cards={WEITERE}
+  />
+  <StbTeam />
+  <StbGallery />
+  <StbFaq />
+  <StbCta />
+</Base>

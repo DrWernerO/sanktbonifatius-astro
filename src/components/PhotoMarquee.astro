@@ -1,0 +1,89 @@
+---
+// Foto-Laufband "Unser Leben als Pfarrei" (ersetzt WP-Block `h6-marquee-wrap`).
+// CSS-Animation, doppelte Bildliste für nahtlosen Loop, prefers-reduced-motion beachtet.
+// Bilder lokal im Projekt unter public/uploads/ (vom WP heruntergeladen, Handbuch 1b).
+const HOST = '';
+const photos = [
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00001.jpg', a: 'Kircheninnenraum mit roter Beleuchtung und Kerzen' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00002.jpg', a: 'Große Gruppe feiert mit Konfetti in Innenraum' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00003.jpg', a: 'Zwei Jugendliche lächeln auf einer Feier' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00004.jpg', a: 'Menschen mit Regenschirmen in einer Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00005.jpg', a: 'Baby krabbelt durch grünen Spieltunnel im Wohnzimmer' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00006.jpg', a: 'Kinder mit Kerzen in einer Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00007.jpg', a: 'Imbissstand mit Pommes-Schild und Verkäufern' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00008.jpg', a: 'Blau beleuchteter Kirchenraum mit Altar und Kerzen' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00009.jpeg', a: 'Religiöse Prozession mit Ministranten im Park' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00010.jpg', a: 'Gruppe beim Kochkurs in Küche mit Schürzen' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00011.jpg', a: 'Diskussionsrunde mit Rednern vor kleinem Publikum' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00012.jpg', a: 'Kinder mit Kerzen bei einer Erstkommunion in Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00013.jpg', a: 'Priester zelebriert Messe bei Kerzenschein in Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00014.jpg', a: 'Priester im Gespräch im Kirchhof' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00015.jpg', a: 'Kinderchor singt vor EU-Flagge in Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00016.jpg', a: 'Mütter und Babys spielen gemeinsam im Kreis' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00017.jpg', a: 'Nachbarschaftsfest im grünen Innenhof mit Familien' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00018.jpg', a: 'Kinder bei kirchlicher Feier mit Kerzen und Mikrofon' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00019.jpg', a: 'Gemeindeleben bei Sankt Bonifatius' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00020-rotated.jpeg', a: 'Freundesgruppe auf Boot vor See bei Sonnenschein' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00021.jpeg', a: 'Drei Jugendliche springen lachend in einen Pool' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00022.jpg', a: 'Seniorinnen stoßen mit Sekt im Freien an' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00023.jpg', a: 'Flasche Weißwein und Glas im Garten' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00024.jpg', a: 'Orchester und Chor in Kirche mit Dirigentin' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00025.jpg', a: 'Religiöse Prozession mit Baldachin im Grünen' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00026.jpg', a: 'Rotes Kaffeemobil bei Outdoor-Veranstaltung im Park' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00027.jpg', a: 'Menschenmenge in Kirche mit Orgel und Kerzen' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00028.jpg', a: 'Zwei Ministranten bei Fronleichnamsprozession im Freien' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00029-rotated.jpg', a: 'Große Gruppe bei Gartenfest im Innenhof' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00030.jpg', a: 'Kind klettert auf gestapelten Kisten vor Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00031.jpg', a: 'Segnung eines jungen Mannes in einer Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00032-rotated.jpeg', a: 'Junge springt in See vor Bergkulisse' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00033.jpg', a: 'Barista reicht Kundin Kaffee am mobilen Verkaufswagen' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00034.jpeg', a: 'Sechs Jugendliche auf Geländer vor Hügellandschaft' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00035.jpg', a: 'Kinder mit gelb-weißen Fahnen in Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00036.jpg', a: 'Osterfeuer mit Ministranten und Gemeinde bei Nacht' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00037.jpg', a: 'Kinderchor in weißen Gewändern in Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00038.jpg', a: 'Kinder an Tisch bei Gemeindeveranstaltung im Freien' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00039.jpg', a: 'Chor singt in Kirche mit Klavierbegleitung' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00040.jpg', a: 'Familie mit Tickets neben DFB-Pokal' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00041.jpg', a: 'Menschen stoßen bei Gartenfeier mit Sekt an' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00042.jpg', a: 'Frau mit Baby überreicht Mädchen ein Mikrofon' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00043.jpg', a: 'Priester überreicht Kelch während Gottesdienst am Altar' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00044.jpg', a: 'Zwei Kinder spielen in Kiste auf Spielplatz' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00045.jpg', a: 'Kinder lesen Texte in einer Kirche vor' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00046.jpg', a: 'Gottesdienst mit Eintracht-Fans in Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00047.jpg', a: 'Priester erklärt Kindern Messe am Altar' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00048.jpg', a: 'Kinderkreis im Gottesdienst in großer Kirche' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00049.jpg', a: 'Kinder spielen unter buntem Schwungtuch im Garten' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00050.jpg', a: 'Gottesdienst mit Kerzen und blau beleuchtetem Altarraum' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00051.jpg', a: 'Zwei Personen kaufen Pommes an einem Stand' },
+  { u: '/uploads/2026/06/image-fotos-stbonifatius-00052.jpg', a: 'Mann durchsucht Kleidung auf Kleiderständer im Geschäft' },
+];
+// Bildliste verdoppeln → nahtloser Loop (Animation läuft -50% der Gesamtbreite).
+const loop = [...photos, ...photos];
+---
+<div class="astro-marquee">
+  <h2 class="astro-marquee__hl">Unser Leben als Pfarrei</h2>
+  <div class="astro-marquee__track">
+    {loop.map((p, i) => (
+      <img
+        decoding="async"
+        loading="lazy"
+        src={HOST + p.u}
+        alt={i < photos.length ? p.a : ''}
+        aria-hidden={i >= photos.length ? 'true' : undefined}
+      />
+    ))}
+  </div>
+</div>
+
+<style is:global>
+/* Auf Content-Breite begrenzt (kein Full-Bleed) → gleiche Breite wie die übrigen Sektionen,
+   plus vertikaler Abstand zu Nachbarelementen. */
+.astro-marquee{overflow:hidden;background:#2c2420;padding:14px 0;width:calc(100% - 80px);max-width:1120px;margin:48px auto;border-radius:12px}
+.astro-marquee__hl{text-align:center;color:#c5a55a;font-size:.75rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;margin:0 0 8px;font-family:'Source Sans 3',sans-serif}
+.astro-marquee__track{display:flex;gap:10px;width:max-content;animation:astro-marquee-scroll 150s linear infinite}
+.astro-marquee__track:hover{animation-play-state:paused}
+.astro-marquee__track img{height:204px;width:auto;object-fit:cover;border-radius:4px;display:block;flex-shrink:0}
+@keyframes astro-marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:600px){.astro-marquee{width:calc(100% - 40px);margin:32px auto}}
+@media(prefers-reduced-motion:reduce){.astro-marquee__track{animation:none;overflow-x:auto}}
+</style>

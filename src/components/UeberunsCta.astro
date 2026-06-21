@@ -1,0 +1,28 @@
+---
+// End-CTA der Seite „Über uns" (WP-Block `ta-endcta`). Eigene Klassen `astro-uecta`.
+// Fester Text + zwei Buttons (Kontakt, Spenden).
+---
+<section class="astro-uecta">
+  <div class="astro-uecta__wrap">
+    <h2 class="astro-uecta__h">Teil unserer Gemeinschaft werden?</h2>
+    <p class="astro-uecta__p">Kommen Sie vorbei, fragen Sie nach, machen Sie mit. Wir freuen uns auf Sie.</p>
+    <div class="astro-uecta__btns">
+      <a href="/kontakt/" class="astro-uecta__btn astro-uecta__btn--white">Kontakt aufnehmen</a>
+      <a href="/spenden/" class="astro-uecta__btn astro-uecta__btn--gold">Online spenden</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-uecta{background:linear-gradient(135deg,#ede4d5,#e8d8b8);padding:56px 0;text-align:center;border-top:1px solid #e0d8cf}
+.astro-uecta__wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+.astro-uecta__h{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#3a2e28;font-size:clamp(26px,3.6vw,36px);margin:0 0 16px}
+.astro-uecta__p{color:#6b5c52;max-width:500px;margin:0 auto 28px;font-size:16px;line-height:1.6}
+.astro-uecta__btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.astro-uecta__btn{display:inline-block;padding:13px 28px;border-radius:50px;font-size:14px;font-weight:600;letter-spacing:.02em;transition:background .2s,color .2s}
+.astro-uecta__btn--white{background:#fff;color:#3a2e28}
+.astro-uecta__btn--white:hover{background:#9a2d2d;color:#fff}
+.astro-uecta__btn--gold{background:#b88a3a;color:#fff}
+.astro-uecta__btn--gold:hover{background:#9a722c}
+@media(max-width:560px){.astro-uecta__wrap{padding:0 20px}}
+</style>

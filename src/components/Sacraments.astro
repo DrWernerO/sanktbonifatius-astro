@@ -1,0 +1,45 @@
+---
+// Sakramente-Karten (ersetzt WP-Block `boni-kasualien`). War fragil wegen WP-CSS →
+// eigene `astro-sac`-Klassen lösen das. 5 Karten, feste Inhalte, SVG-Icons.
+const cards = [
+  { href: '/segen-sakramente/taufe/', label: 'Taufe', sub: 'Ihr Kind taufen lassen',
+    icon: '<path d="M12 2C7.5 8 4 13 4 16a8 8 0 0 0 16 0c0-3-3.5-8-8-14z"/>' },
+  { href: '/segen-sakramente/trauung/', label: 'Kirchliche Trauung', sub: 'Heiraten in Frankfurt',
+    icon: '<circle cx="8.5" cy="12" r="5.5"/><circle cx="15.5" cy="12" r="5.5"/>' },
+  { href: '/kontakt/trauerfall/', label: 'Trauerfall & Beerdigung', sub: 'Begleitung in schwerer Zeit',
+    icon: '<path d="M12 3c.5 1.5 2 2.5 2 4C14 9 13 10.5 12 10.5S10 9 10 7c0-1.5 1.5-2.5 2-4z"/><rect x="9.5" y="10.5" width="5" height="10" rx="1"/><line x1="9.5" y1="21" x2="14.5" y2="21"/>' },
+  { href: '/segen-sakramente/firmung/', label: 'Firmung', sub: 'Vorbereitung 2026',
+    icon: '<path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.5l-4.9 2.7.9-5.5L4 8.8l5.5-.8z"/>' },
+  { href: '/kontakt/katholisch-werden/', label: 'Katholisch werden', sub: 'Taufe als Erwachsener',
+    icon: '<circle cx="12" cy="12" r="9"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="7" y1="12" x2="17" y2="12"/>' },
+];
+---
+<div class="astro-sac">
+  <h2 class="astro-sac__hl">Sakramente & Besondere Lebenssituationen</h2>
+  <div class="astro-sac__grid">
+    {cards.map((c) => (
+      <a href={c.href} class="astro-sac-card">
+        <div class="astro-sac-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#928269" stroke-width="1.5" aria-hidden="true" set:html={c.icon} />
+        </div>
+        <span class="astro-sac-card__label">{c.label}</span>
+        <span class="astro-sac-card__sub">{c.sub}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style is:global>
+.astro-sac{background:#f0e8d8;padding:32px 40px;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-sac__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,2.5vw,28px);color:#2c2420;text-align:center;margin:0 auto 20px;max-width:1100px;font-weight:700}
+.astro-sac__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:1100px;margin:0 auto}
+.astro-sac-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:22px 12px;background:#fff;border-radius:8px;border-top:3px solid #e0d8cf;text-decoration:none;color:#3a3228;transition:box-shadow .2s,transform .15s,border-top-color .2s}
+.astro-sac-card:hover{box-shadow:0 4px 16px rgba(146,130,105,.18);transform:translateY(-2px);border-top-color:#FFB400}
+.astro-sac-card__icon{width:38px;height:38px;margin-bottom:12px}
+.astro-sac-card__icon svg{width:100%;height:100%}
+.astro-sac-card__label{font-size:13px;font-weight:600;margin-bottom:4px;color:#2c2420}
+.astro-sac-card__sub{font-size:11px;color:#7a7168;line-height:1.4}
+@media(max-width:900px){.astro-sac__grid{grid-template-columns:repeat(3,1fr)}.astro-sac{padding:24px 14px}}
+@media(max-width:560px){.astro-sac__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:380px){.astro-sac__grid{grid-template-columns:1fr}}
+</style>

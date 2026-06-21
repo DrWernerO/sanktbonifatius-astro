@@ -1,0 +1,48 @@
+---
+// „Unsere Angebote" (WP-Block `ue-angebote`). Eigene Klassen `astro-uean`.
+// Fünf feste Schwerpunkt-Kacheln, je mit SVG-Icon (kein Emoji, Handbuch 8.7) + Link.
+const ITEMS = [
+  { href: '/gottesdienst-glaube/', name: 'Gottesdienst & Glaube', sub: 'Gottesdienste, Sakramente, Spiritualität',
+    svg: '<path d="M12 2v20M2 12h20"/>' },
+  { href: '/bonfamily/', name: 'BonFamily', sub: 'Familien, Kinder, Lounge, Sommerwoche',
+    svg: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { href: '/jugend/', name: 'Jugend', sub: 'JONA, ORCA, Freizeiten, Workshops',
+    svg: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>' },
+  { href: '/engagiert-leben/', name: 'Engagiert Leben', sub: 'Hilfenetz, Weltkirche, Inklusion',
+    svg: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>' },
+  { href: '/kultur-begegnung/', name: 'Kultur & Begegnung', sub: 'Kirchcafé, Konzerte, Chöre, BonCasino',
+    svg: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>' },
+];
+---
+<section class="astro-uean" id="ue-angebote">
+  <div class="astro-uean__wrap">
+    <h2 class="astro-uean__h">Unsere Angebote</h2>
+    <p class="astro-uean__lead">Fünf Schwerpunkte – für alle Alters- und Lebensgruppen.</p>
+    <div class="astro-uean__grid">
+      {ITEMS.map((it) => (
+        <a href={it.href} class="astro-uean__card">
+          <span class="astro-uean__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24" set:html={it.svg} />
+          </span>
+          <span class="astro-uean__name">{it.name}</span>
+          <span class="astro-uean__sub">{it.sub}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-uean{background:#f7f3ef;padding:64px 0;scroll-margin-top:96px}
+.astro-uean__wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+.astro-uean__h{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#3a2e28;text-align:center;font-size:clamp(26px,3.4vw,34px);margin:0 0 12px}
+.astro-uean__lead{text-align:center;color:#8a7a6e;max-width:560px;margin:0 auto 40px;font-size:16px}
+.astro-uean__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.astro-uean__card{display:flex;flex-direction:column;align-items:center;text-align:center;background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:28px 18px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.astro-uean__card:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(30,21,18,.10);border-color:#9a2d2d}
+.astro-uean__icon{display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;background:#9a2d2d;color:#fff;margin-bottom:16px}
+.astro-uean__name{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#3a2e28;font-size:17px;line-height:1.25;margin-bottom:8px}
+.astro-uean__sub{color:#8a7a6e;font-size:13px;line-height:1.5}
+@media(max-width:900px){.astro-uean__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-uean__wrap{padding:0 20px}.astro-uean__grid{grid-template-columns:1fr}}
+</style>

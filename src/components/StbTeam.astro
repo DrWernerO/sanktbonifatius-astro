@@ -1,0 +1,47 @@
+---
+// Team-Sektion „Ihr Team am Kirchort" (WP-Block `stb2-team`). Eigene Klassen `astro-stbteam`;
+// Sektions-Rahmen aus `astro-stbsec` (StbWelcome.astro). id="kontakt" für Quicklink/Hero-Sprung.
+// mailto im Klartext (wartbar; vgl. Handbuch 11 Kontakt-Seite). Fotos lokal in public/uploads/.
+const IMG = '/uploads';
+const TEAM = [
+  { name: 'Pfr. Dr. Werner Otto', role: 'Pfarrer',
+    photo: `${IMG}/2025/06/DSC00914.jpg`,
+    tel: '+4969695975860', telText: '069 695 97 58 60', mail: 'w.otto@sanktbonifatius.de' },
+  { name: 'Dorothea Schneider', role: 'Pastoralreferentin',
+    photo: `${IMG}/2025/06/DSC00891.jpg`,
+    tel: '+4969695975850', telText: '069 695 97 58 50', mail: 'd.schneider@sanktbonifatius.de' },
+  { name: 'Frank Weller', role: 'Küster / Hausmeister',
+    photo: `${IMG}/2018/01/KO_Boni_Weller.jpg`,
+    tel: '+491708359431', telText: '0170 835 94 31', mail: 'f.weller@sanktbonifatius.de' },
+];
+---
+<section class="astro-stbsec is-alt" id="kontakt">
+  <div class="astro-stbsec__in">
+    <span class="astro-stbsec__eyebrow">Wir sind für Sie da</span>
+    <h2 class="astro-stbsec__h2">Ihr Team am Kirchort</h2>
+    <p class="astro-stbsec__lead">Haben Sie Fragen, möchten ein Gespräch oder ein Sakrament anfragen? Sprechen Sie uns gerne an.</p>
+    <div class="astro-stbteam">
+      {TEAM.map((p) => (
+        <div class="astro-stbteam__person">
+          <div class="astro-stbteam__photo" role="img" aria-label={`Foto von ${p.name}`}
+               style={`background-image:url('${p.photo}')`}></div>
+          <h3 class="astro-stbteam__name">{p.name}</h3>
+          <p class="astro-stbteam__role">{p.role}</p>
+          <a href={`tel:${p.tel}`}>{p.telText}</a>
+          <a href={`mailto:${p.mail}`}>{p.mail}</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-stbteam{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
+.astro-stbteam__person{background:#fff;border-radius:12px;padding:32px 24px;text-align:center;box-shadow:0 2px 16px rgba(30,21,18,.12)}
+.astro-stbteam__photo{width:120px;height:120px;border-radius:50%;background-size:cover;background-position:center top;margin:0 auto 20px;box-shadow:0 4px 14px rgba(0,0,0,.15);border:4px solid #fff}
+.astro-stbteam__name{font-family:'Playfair Display',Georgia,serif;font-size:21px;color:#6440a4;margin:0 0 4px;font-weight:700}
+.astro-stbteam__role{color:#6b5c52;font-size:13px;margin:0 0 18px;letter-spacing:.08em;text-transform:uppercase}
+.astro-stbteam__person a{color:#1e1512;text-decoration:none;display:block;font-size:15px;margin:4px 0;transition:color .2s;word-break:break-word}
+.astro-stbteam__person a:hover{color:#6440a4}
+@media(max-width:640px){.astro-stbteam{grid-template-columns:1fr}}
+</style>

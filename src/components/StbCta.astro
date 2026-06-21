@@ -1,0 +1,22 @@
+---
+// Abschluss-CTA „Kommen Sie vorbei!" des Kirchorts St. Bonifatius (WP-Block `stb2-cta`).
+// Eigene Klassen `astro-stbcta`. Inhalt fest gepflegt.
+---
+<section class="astro-stbcta">
+  <div class="astro-stbcta__in">
+    <h2 class="astro-stbcta__h">Kommen Sie vorbei!</h2>
+    <p class="astro-stbcta__p">St. Bonifatius &middot; Holbeinstraße 70 &middot; 60596 Frankfurt am Main &middot; Täglich geöffnet 9&ndash;17 Uhr</p>
+    <a class="astro-stbcta__btn" href="/kontakt/">Kontakt aufnehmen</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-stbcta{background:linear-gradient(135deg,#4a2e1a,#3a2315);padding:56px 0;text-align:center;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-stbcta__in{max-width:1280px;margin:0 auto;padding:0 32px}
+.astro-stbcta__h{color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:36px;margin:0 0 18px}
+.astro-stbcta__p{max-width:640px;margin:0 auto 28px;color:rgba(255,255,255,.82);font-size:17px;line-height:1.6}
+.astro-stbcta__btn{display:inline-flex;align-items:center;padding:14px 28px;border-radius:999px;background:#fff;color:#6440a4;text-decoration:none;font-weight:600;font-size:15px;transition:all .2s}
+.astro-stbcta__btn:hover{background:#f0ebe0}
+@media(max-width:760px){.astro-stbcta__h{font-size:28px}}
+@media(max-width:600px){.astro-stbcta__in{padding:0 16px}}
+</style>

@@ -1,0 +1,37 @@
+---
+// „Unser Leitbild" (WP-Block `ue-leitbild`). Eigene Klassen `astro-uelb`.
+// Vier feste Karten (Quelle, Glaube, Sendung, Einladung).
+const CARDS = [
+  { t: 'Unsere Quelle',    p: 'Gottesdienste, in denen Gottes Nähe erfahrbar wird, das gemeinsame Gebet und das Hören auf das Wort Gottes.' },
+  { t: 'Unser Glaube',     p: 'Wir wissen uns geborgen in dem Gott, der uns überall menschlich und lebendig begegnet.' },
+  { t: 'Unsere Sendung',   p: 'Mit und für die Menschen das Leben und unsere Welt gestalten – mitten in Frankfurt.' },
+  { t: 'Unsere Einladung', p: 'In einer Gemeinschaft lebendigen Glauben erfahren; sich getragen und ermutigt fühlen, christliches Leben zu gestalten.' },
+];
+---
+<section class="astro-uelb">
+  <div class="astro-uelb__wrap">
+    <h2 class="astro-uelb__h">Unser Leitbild</h2>
+    <p class="astro-uelb__lead">Mitten in Frankfurt.<br>Mitten im Leben. Mitten im Glauben.</p>
+    <div class="astro-uelb__grid">
+      {CARDS.map((c) => (
+        <div class="astro-uelb__card">
+          <h3>{c.t}</h3>
+          <p>{c.p}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-uelb{background:#fff;padding:64px 0}
+.astro-uelb__wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+.astro-uelb__h{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#3a2e28;text-align:center;font-size:clamp(26px,3.4vw,34px);margin:0 0 12px}
+.astro-uelb__lead{text-align:center;color:#9a2d2d;max-width:680px;margin:0 auto 40px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(22px,3.2vw,32px);line-height:1.3}
+.astro-uelb__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.astro-uelb__card{background:#f7f3ef;border:1px solid #e0d8cf;border-radius:14px;padding:28px 24px}
+.astro-uelb__card h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#9a2d2d;font-size:19px;margin:0 0 10px}
+.astro-uelb__card p{color:#6b5c52;font-size:15px;line-height:1.7;margin:0}
+@media(max-width:900px){.astro-uelb__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-uelb__wrap{padding:0 20px}.astro-uelb__grid{grid-template-columns:1fr}}
+</style>

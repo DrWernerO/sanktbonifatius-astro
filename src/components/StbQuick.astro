@@ -1,0 +1,30 @@
+---
+// Quicklink-Leiste „Schnell zu:" des Kirchorts St. Bonifatius (WP-Block `stb2-quick`).
+// Eigene Klassen `astro-stbquick`. Sprungmarken zu den Sektionen dieser Seite.
+const LINKS = [
+  { label: 'Angebote',       href: '#angebote' },
+  { label: 'Gottesdienste',  href: '#gottesdienste' },
+  { label: 'Gruppen',        href: '/?page_id=49489' },
+  { label: 'Kontakt',        href: '#kontakt' },
+  { label: 'Häufige Fragen', href: '#faq' },
+];
+---
+<section class="astro-stbquick">
+  <div class="astro-stbquick__in">
+    <span class="astro-stbquick__lab">Schnell zu:</span>
+    <div class="astro-stbquick__row">
+      {LINKS.map((l) => <a href={l.href}>{l.label}</a>)}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-stbquick{background:#f7f3ef;padding:22px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-stbquick__in{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px}
+.astro-stbquick__lab{font-weight:700;color:#1e1512;font-size:15px;margin-right:6px}
+.astro-stbquick__row{display:flex;flex-wrap:wrap;gap:10px}
+.astro-stbquick a{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#fff;color:#1e1512;text-decoration:none;font-size:14px;font-weight:700;border:1px solid rgba(0,0,0,.08);transition:all .2s}
+.astro-stbquick a:hover{background:#6440a4;color:#fff;border-color:#6440a4}
+@media(max-width:760px){.astro-stbquick__in{flex-direction:column;align-items:flex-start}}
+@media(max-width:600px){.astro-stbquick__in{padding:0 16px}}
+</style>

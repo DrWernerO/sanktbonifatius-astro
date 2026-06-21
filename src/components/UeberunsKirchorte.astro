@@ -1,0 +1,55 @@
+---
+// „Unsere vier Kirchorte" (WP-Block `ue-kirchorte`). Eigene Klassen `astro-ueko`.
+// Vier feste Karten mit Bild + Text + „Mehr erfahren"-Link. Bilder lokal im Projekt unter public/uploads/ (vom WP heruntergeladen, Handbuch 1b).
+const IMG = '/uploads';
+const ORTE = [
+  { img: `${IMG}/2020/04/St.-Bonifatius-von-oben.jpg`, alt: 'Kirche St. Bonifatius', name: 'St. Bonifatius',
+    href: '/ueberuns/kirchorte/st-bonifatius/',
+    text: 'Expressionistisches Meisterwerk des Architekten Martin Weber aus dem Jahr 1927 – anerkannt als bedeutendster Kirchenbau des 20. Jahrhunderts im Bistum Limburg. Als Pfarrkirche bietet sie vielfältige Gottesdienstformate: Fiat Lux, BonEsprit und monatliche Taizé-Andachten. Das markante Gebäude prägt den Sachsenhäuser Stadtteil und ist Herz der Pfarrgemeinde.' },
+  { img: `${IMG}/2020/05/Kirche-HerzJesu-1.jpg`, alt: 'Kirche Herz Jesu', name: 'Herz Jesu',
+    href: '/ueberuns/kirchorte/herz-jesu/',
+    text: 'Die spätneugotische Hallenkirche in Oberrad wurde 1948 nach dem Zweiten Weltkrieg neu errichtet. Herz Jesu steht für eine sorgfältig gestaltete Liturgie und pflegt seit Jahrzehnten ökumenische Zusammenarbeit im Stadtteil. Eine herzliche Gemeinschaft, die sich in Nachbarschaftsprojekten und sozialem Engagement einbringt.' },
+  { img: `${IMG}/2020/05/KircheStAposteln.jpeg`, alt: 'Kirche St. Aposteln', name: 'St. Aposteln',
+    href: '/ueberuns/kirchorte/st-aposteln/',
+    text: 'Die 1957 geweihte Kirche in Alt-Sachsenhausen ist unser sozialpastoraler Schwerpunkt. Wir fragen uns immer neu: Was können wir für und mit den Menschen in der Stadt tun – besonders für die Benachteiligten? St. Aposteln engagiert sich in der Obdachlosenarbeit, bei der Ausgabe von Mahlzeiten und vielfältigen Begegnungsformaten.' },
+  { img: `${IMG}/2022/04/st-wendel-frankfurt0.jpeg`, alt: 'Kirche St. Wendel', name: 'St. Wendel',
+    href: '/ueberuns/kirchorte/st-wendel/',
+    text: 'Nach Plänen von Johannes Krahn 1955–1957 errichtet, ist St. Wendel ein lebendiger Mittelpunkt für Familien und alle Generationen. Das Angebot reicht von Kindermesse und Familienkatechese bis zu regelmäßigen Begegnungsangeboten für Senioren, Jugendliche und Familien im Stadtteil.' },
+];
+---
+<section class="astro-ueko" id="ue-kirchorte">
+  <div class="astro-ueko__wrap">
+    <h2 class="astro-ueko__h">Unsere vier Kirchorte</h2>
+    <p class="astro-ueko__lead">Vier Kirchen in Frankfurt Sachsenhausen und Oberrad – jede mit eigenem Profil und eigener Gemeinschaft.</p>
+    <div class="astro-ueko__grid">
+      {ORTE.map((o) => (
+        <div class="astro-ueko__card">
+          <img class="astro-ueko__img" src={o.img} alt={o.alt} loading="lazy" decoding="async" />
+          <div class="astro-ueko__body">
+            <h3>{o.name}</h3>
+            <p>{o.text}</p>
+            <a href={o.href} class="astro-ueko__link">Mehr erfahren →</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ueko{background:#f7f3ef;padding:64px 0;scroll-margin-top:96px}
+.astro-ueko__wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+.astro-ueko__h{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#3a2e28;text-align:center;font-size:clamp(26px,3.4vw,34px);margin:0 0 12px}
+.astro-ueko__lead{text-align:center;color:#8a7a6e;max-width:520px;margin:0 auto 40px;font-size:16px}
+.astro-ueko__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.astro-ueko__card{background:#fff;border:1px solid #e0d8cf;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(30,21,18,.06);transition:transform .2s,box-shadow .2s}
+.astro-ueko__card:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(30,21,18,.10)}
+.astro-ueko__img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.astro-ueko__body{padding:24px 26px 26px}
+.astro-ueko__body h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#9a2d2d;font-size:22px;margin:0 0 12px}
+.astro-ueko__body p{color:#6b5c52;font-size:15px;line-height:1.75;margin:0 0 16px}
+.astro-ueko__link{color:#9a2d2d;font-weight:600;font-size:14px}
+.astro-ueko__link:hover{color:#7e2424}
+@media(max-width:780px){.astro-ueko__grid{grid-template-columns:1fr}}
+@media(max-width:560px){.astro-ueko__wrap{padding:0 20px}}
+</style>

@@ -1,0 +1,59 @@
+---
+// „Unterlagen & Taufpaten" (WP-Block `ta-info-grid`). Eigene Klassen `astro-taunter`.
+// Zwei Infokarten mit Listen. Feste Inhalte.
+const unterlagen = [
+  'Geburtsurkunde des Kindes',
+  'Kontaktdaten der Taufpaten',
+  'Taufregister-Auszug &#8211; für alle Paten, die außerhalb unserer Pfarrei getauft wurden',
+  'Evangelische Paten: Patenschein vom Wohnsitz- oder Taufpfarramt der eigenen Gemeinde',
+];
+const paten = [
+  'Mindestens ein Taufpate muss der katholischen Kirche angehören und darf nicht aus ihr ausgetreten sein',
+  'Er oder sie muss gefirmt und mindestens 16 Jahre alt sein',
+  'Ein zweiter Pate darf einer anderen christlichen Konfession angehören; er gilt dann als Taufzeuge',
+  'Evangelische Taufpaten benötigen einen Patenschein &#8211; erhältlich beim Pfarramt ihres Wohnsitzes oder bei ihrem Taufpfarramt',
+  'Paten, die außerhalb unserer Pfarrei getauft wurden (gleich wo sie heute wohnen), bringen einen Auszug aus dem Taufregister mit',
+];
+---
+<section class="astro-taunter">
+  <div class="astro-taunter__inner">
+    <div class="astro-taunter__head">
+      <h2 class="astro-taunter__hl">Unterlagen &amp; Taufpaten</h2>
+      <p class="astro-taunter__sub">Was Sie für das Vorbereitungsgespräch benötigen &#8211; und wer als Taufpate in Frage kommt.</p>
+    </div>
+    <div class="astro-taunter__grid">
+      <article class="astro-taunter-card">
+        <h3 class="astro-taunter-card__title">Benötigte Unterlagen</h3>
+        <p class="astro-taunter-card__lead">Bitte zum ersten Gespräch mitbringen oder vorab einscannen:</p>
+        <ul class="astro-taunter-card__list">
+          {unterlagen.map((u) => (<li set:html={u} />))}
+        </ul>
+      </article>
+      <article class="astro-taunter-card">
+        <h3 class="astro-taunter-card__title">Taufpaten &#8211; wer kann Pate werden?</h3>
+        <ul class="astro-taunter-card__list">
+          {paten.map((p) => (<li set:html={p} />))}
+        </ul>
+        <p class="astro-taunter-card__note">Fragen zur Patenwahl beantworten wir gerne im persönlichen Gespräch.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-taunter{background:#fff;padding:72px 0}
+.astro-taunter__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-taunter__head{text-align:center;margin:0 0 40px}
+.astro-taunter__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-taunter__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:640px}
+.astro-taunter__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;align-items:start}
+.astro-taunter-card{background:#f7f3ef;border-radius:14px;padding:32px 30px;box-shadow:0 2px 12px rgba(30,21,18,.05)}
+.astro-taunter-card__title{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-taunter-card__lead{font-size:15px;color:#6b5c52;line-height:1.6;margin:0 0 16px}
+.astro-taunter-card__list{list-style:none;margin:0;padding:0}
+.astro-taunter-card__list li{position:relative;font-size:15px;color:#3d3530;line-height:1.55;padding:0 0 12px 30px}
+.astro-taunter-card__list li::before{content:"\2713";position:absolute;left:0;top:0;color:#9a2d2d;font-weight:700;font-size:16px}
+.astro-taunter-card__note{font-size:14px;color:#928269;font-style:italic;margin:16px 0 0}
+@media(max-width:820px){.astro-taunter__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-taunter{padding:52px 0}.astro-taunter__inner{padding:0 20px}}
+</style>

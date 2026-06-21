@@ -1,0 +1,28 @@
+---
+// Hero des digitalen Kirchenführers (WP-Seite 49303, Block `stb2-hero`). Eigene Klassen
+// `astro-kfhero` (goldene Regel). Full-Bleed-Bild + Verlauf + Titel/Untertitel (keine Buttons
+// in der Vorlage). Bild lokal im Projekt unter public/uploads/.
+const bg = '/uploads/2026/05/Sankt-Bonifatius-DJI.jpg';
+---
+<section class="astro-kfhero">
+  <div class="astro-kfhero__bg" role="img"
+       aria-label="Pfarrkirche St. Bonifatius in Frankfurt-Sachsenhausen, Luftaufnahme"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-kfhero__overlay"></div>
+  <div class="astro-kfhero__inner">
+    <span class="astro-kfhero__badge">Digitaler Kirchenführer</span>
+    <h1 class="astro-kfhero__title">Pfarrkirche St. Bonifatius</h1>
+    <p class="astro-kfhero__sub">Backsteinexpressionismus von Martin Weber – eine Kirche aus Licht und Beton. Entdecken Sie ihre Geschichte, Architektur und Kunstschätze im digitalen Kirchenführer.</p>
+  </div>
+</section>
+
+<style is:global>
+.astro-kfhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(70vh,560px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-kfhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 30%}
+.astro-kfhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.05) 0%,rgba(30,21,18,.55) 60%,rgba(30,21,18,.9) 100%)}
+.astro-kfhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px}
+.astro-kfhero__badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:6px 16px;margin-bottom:20px;color:#fff;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.astro-kfhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,5vw,66px);color:#fff;margin:0 0 14px;line-height:1.08;font-weight:700}
+.astro-kfhero__sub{color:rgba(255,255,255,.9);font-size:clamp(16px,1.9vw,21px);margin:0;max-width:680px;line-height:1.5}
+@media(max-width:600px){.astro-kfhero__inner{padding:0 16px 40px}}
+</style>

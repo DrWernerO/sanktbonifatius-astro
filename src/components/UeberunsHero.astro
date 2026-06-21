@@ -1,0 +1,39 @@
+---
+// Hero der Seite „Über uns" (WP-Block `ta-hero`). Eigene Klassen `astro-uehero`
+// (Handbuch Abschnitt 3). Full-Bleed-Bild + Overlay + Titel + zwei Buttons.
+// Inhalte fest gepflegt; Bild lokal im Projekt unter public/uploads/
+// (vom WP heruntergeladen → unabhängig vom Dev-Server, Handbuch 1b).
+const IMG = '/uploads';
+const bg = `${IMG}/2026/06/ueber-uns-stbonifatius.jpg`;
+---
+<section class="astro-uehero">
+  <div class="astro-uehero__bg" role="img"
+       aria-label="Kirche St. Bonifatius in Frankfurt Sachsenhausen"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-uehero__overlay"></div>
+  <div class="astro-uehero__inner">
+    <h1 class="astro-uehero__title">Wir sind<br><em>Sankt Bonifatius Frankfurt</em></h1>
+    <p class="astro-uehero__sub">Eine lebendige Pfarrei im Herzen Sachsenhausens und Oberrads – mit vier Kirchorten, rund 13.500 Gemeindemitgliedern und dem gemeinsamen Ziel: Gott immer wieder neu entdecken.</p>
+    <div class="astro-uehero__btns">
+      <a href="#ue-angebote" class="astro-uehero__btn astro-uehero__btn--white">Unsere Angebote</a>
+      <a href="#ue-kirchorte" class="astro-uehero__btn astro-uehero__btn--outline">Unsere Kirchorte ↓</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-uehero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:580px;display:flex;align-items:flex-end;overflow:hidden}
+.astro-uehero__bg{position:absolute;inset:0;background-size:cover;background-position:center 30%}
+.astro-uehero__overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.25) 0%,rgba(0,0,0,.45) 100%)}
+.astro-uehero__inner{position:relative;z-index:2;max-width:1140px;width:100%;margin:0 auto;padding:48px 40px 64px;color:#fff}
+.astro-uehero__title{font-family:'Playfair Display',Georgia,serif;font-weight:700;line-height:1.15;letter-spacing:-.01em;color:#fff;font-size:clamp(30px,5.5vw,58px);margin:0 0 14px;max-width:760px}
+.astro-uehero__title em{font-style:italic}
+.astro-uehero__sub{font-size:17px;color:rgba(255,255,255,.88);line-height:1.6;margin:0 0 28px;max-width:560px}
+.astro-uehero__btns{display:flex;flex-wrap:wrap;gap:12px}
+.astro-uehero__btn{display:inline-block;padding:13px 26px;border-radius:50px;font-size:14px;font-weight:600;letter-spacing:.02em;transition:background .2s,color .2s,border-color .2s}
+.astro-uehero__btn--white{background:#fff;color:#3a2e28}
+.astro-uehero__btn--white:hover{background:#f0e8d8}
+.astro-uehero__btn--outline{border:1px solid rgba(255,255,255,.6);color:#fff}
+.astro-uehero__btn--outline:hover{background:rgba(255,255,255,.14);border-color:#fff}
+@media(max-width:600px){.astro-uehero{min-height:460px}.astro-uehero__inner{padding:40px 20px 44px}}
+</style>

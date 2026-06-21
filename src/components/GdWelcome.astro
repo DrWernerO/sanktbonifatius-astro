@@ -1,0 +1,20 @@
+---
+// Begrüßungs-/Intro-Block (ersetzt WP-Block `gd-welcome`). Eigene Klassen `astro-gdwel`.
+---
+<section class="astro-gdwel">
+  <div class="astro-gdwel__inner">
+    <h2 class="astro-gdwel__hl">Willkommen!</h2>
+    <p class="astro-gdwel__text">Erleben Sie inspirierende Gottesdienste und vertiefen Sie Ihren Glauben in der Pfarrei St.&nbsp;Bonifatius in Frankfurt. Unsere vielfältigen Formate laden jeden ein – zur Begegnung mit Gott und mit anderen Menschen.</p>
+    <a class="astro-gdwel__btn" href="#termine">Aktueller Gottesdienstplan</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdwel{background:#fff;padding:64px 0}
+.astro-gdwel__inner{max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-gdwel__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 18px}
+.astro-gdwel__text{font-size:clamp(16px,1.8vw,19px);color:#6b5c52;line-height:1.65;margin:0 0 28px}
+.astro-gdwel__btn{display:inline-block;padding:12px 26px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:14px;font-weight:600;transition:background .2s}
+.astro-gdwel__btn:hover{background:#7e2424}
+@media(max-width:600px){.astro-gdwel{padding:48px 0}.astro-gdwel__inner{padding:0 20px}}
+</style>

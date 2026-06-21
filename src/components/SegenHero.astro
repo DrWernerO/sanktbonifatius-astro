@@ -1,0 +1,31 @@
+---
+// Hero der Seite „Segen und Sakramente" — WP-Seite 48265 (/segen-sakramente/, ersetzt WP-Block `ss-hero`).
+// Eigene Klassen `astro-sshero` (goldene Regel, Handbuch Abschnitt 3 — niemals WP-Klassen `ss-…`).
+// Full-Bleed-Bild + Verlauf-Overlay + Text. Bild lokal unter public/uploads/ (vom Dev-WP geladen,
+// unabhängig vom Server, vgl. Handbuch 1b). Inhalte fest gepflegt (selten geändert).
+const bg = '/uploads/2026/05/segen-sakramente-stbonifatius-frankfurt.jpg';
+---
+<section class="astro-sshero">
+  <div class="astro-sshero__bg" role="img"
+       aria-label="Kerzen und Licht in der Kirche St. Bonifatius in Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-sshero__overlay"></div>
+  <div class="astro-sshero__inner">
+    <p class="astro-sshero__eyebrow">Sankt Bonifatius &middot; Frankfurt am Main</p>
+    <h1 class="astro-sshero__title">Segen und Sakramente</h1>
+    <p class="astro-sshero__sub">
+      Gottes N&auml;he erfahren &#8212; in den Wendepunkten des Lebens und auf dem Weg des Glaubens.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-sshero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(70vh,560px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-sshero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
+.astro-sshero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.10) 0%,rgba(30,21,18,.45) 60%,rgba(30,21,18,.82) 100%)}
+.astro-sshero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;color:#f0e8d8}
+.astro-sshero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-sshero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,68px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700}
+.astro-sshero__sub{color:rgba(255,255,255,.9);font-size:clamp(16px,2vw,21px);margin:0;max-width:600px;line-height:1.5}
+@media(max-width:600px){.astro-sshero{height:min(64vh,460px)}.astro-sshero__inner{padding:0 20px 40px}}
+</style>

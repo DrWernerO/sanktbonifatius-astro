@@ -1,0 +1,86 @@
+---
+// Footer (im WP-Content NICHT enthalten → aus WP-Theme nachgebaut, Abschnitt 9b #9).
+// Inhalte aus dem Theme-Footer des Dev-Servers: Kontakt, Social, Kirchorte, Rechtliches.
+const social = [
+  { href: 'https://www.facebook.com/bonifatiusffm/', label: 'Facebook',
+    icon: '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>' },
+  { href: 'https://www.youtube.com/channel/UCwUa_yTKqhc06NANxVkhvYA', label: 'YouTube',
+    icon: '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="currentColor" stroke="none"/>' },
+  { href: 'https://www.instagram.com/bonifatiusffm/', label: 'Instagram',
+    icon: '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>' },
+];
+const kirchorte = [
+  { href: '/ueberuns/kirchorte/st-bonifatius/', name: 'St. Bonifatius' },
+  { href: '/ueberuns/kirchorte/herz-jesu/', name: 'Herz Jesu' },
+  { href: '/ueberuns/kirchorte/st-aposteln/', name: 'St. Aposteln' },
+  { href: '/ueberuns/kirchorte/st-wendel/', name: 'St. Wendel' },
+];
+const legal = [
+  { href: '/spenden/', name: 'Spenden' },
+  { href: '/impressum/', name: 'Impressum' },
+  { href: '/datenschutz/', name: 'Datenschutz' },
+];
+---
+<footer class="astro-footer">
+  <div class="astro-footer__inner">
+    <div class="astro-footer__col astro-footer__col--brand">
+      <p class="astro-footer__name">Sankt Bonifatius</p>
+      <p class="astro-footer__muted">Katholische Pfarrei<br />Frankfurt am Main</p>
+      <div class="astro-footer__soc">
+        {social.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="astro-footer__col">
+      <h3 class="astro-footer__hl">Zentrales Pfarrbüro</h3>
+      <address class="astro-footer__addr">
+        Holbeinstraße 70<br />
+        60596 Frankfurt am Main<br />
+        Telefon: <a href="tel:+4969695975850">069. 695 97 58 50</a><br />
+        <a href="mailto:info@sanktbonifatius.de">info@sanktbonifatius.de</a>
+      </address>
+    </div>
+
+    <div class="astro-footer__col">
+      <h3 class="astro-footer__hl">Unsere Kirchorte</h3>
+      <ul class="astro-footer__list">
+        {kirchorte.map((k) => (<li><a href={k.href}>{k.name}</a></li>))}
+      </ul>
+    </div>
+
+    <div class="astro-footer__col">
+      <h3 class="astro-footer__hl">Service</h3>
+      <ul class="astro-footer__list">
+        {legal.map((l) => (<li><a href={l.href}>{l.name}</a></li>))}
+      </ul>
+    </div>
+  </div>
+  <div class="astro-footer__bar">
+    <p>© {new Date().getFullYear()} Katholische Pfarrei Sankt Bonifatius Frankfurt</p>
+  </div>
+</footer>
+
+<style is:global>
+.astro-footer{background:#2c2420;color:#d4c9b5;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;padding:56px 0 0}
+.astro-footer__inner{max-width:1200px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.astro-footer__name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#f0e8d8;margin:0 0 10px}
+.astro-footer__muted{font-size:14px;color:#928269;line-height:1.5;margin:0 0 18px}
+.astro-footer__soc{display:flex;gap:14px}
+.astro-footer__soc a{color:#d4c9b5;transition:color .2s}
+.astro-footer__soc a:hover{color:#c5a55a}
+.astro-footer__hl{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#f0e8d8;margin:0 0 14px;letter-spacing:.02em}
+.astro-footer__addr{font-style:normal;font-size:14px;line-height:1.7;color:#d4c9b5}
+.astro-footer__addr a{color:#d4c9b5;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.astro-footer__addr a:hover{color:#c5a55a;border-color:#c5a55a}
+.astro-footer__list{list-style:none;margin:0;padding:0;font-size:14px;line-height:2}
+.astro-footer__list a{color:#d4c9b5;transition:color .2s}
+.astro-footer__list a:hover{color:#c5a55a}
+.astro-footer__bar{border-top:1px solid #4a3f37;margin-top:48px;padding:20px 40px;text-align:center}
+.astro-footer__bar p{font-size:12px;color:#928269;margin:0}
+@media(max-width:860px){.astro-footer__inner{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:520px){.astro-footer__inner{grid-template-columns:1fr;padding:0 24px}.astro-footer__bar{padding:20px 24px}}
+</style>

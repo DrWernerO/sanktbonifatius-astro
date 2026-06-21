@@ -1,0 +1,38 @@
+---
+// Abschluss-CTA „Fragen? Wir sind gern für Sie da." (WP-Block `ta-endcta`).
+// Eigene Klassen `astro-taendcta`. Telefon + E-Mail. Feste Inhalte.
+const tel = '+4969695975850';
+const telLabel = '069 695 97 58 50';
+---
+<section class="astro-taendcta">
+  <div class="astro-taendcta__inner">
+    <h2 class="astro-taendcta__hl">Fragen? Wir sind gern für Sie da.</h2>
+    <p class="astro-taendcta__sub">Rufen Sie uns an oder schreiben Sie uns &#8211; wir antworten persönlich.</p>
+    <div class="astro-taendcta__btns">
+      <a class="astro-taendcta__btn astro-taendcta__btn--primary" href={`tel:${tel}`}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        {telLabel}
+      </a>
+      <a class="astro-taendcta__btn astro-taendcta__btn--ghost" href="mailto:info@sanktbonifatius.de?subject=Frage%20zur%20Taufe">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+        E-Mail schreiben
+      </a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-taendcta{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%);color:#fff;padding:72px 0;overflow:hidden}
+.astro-taendcta::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 10%,rgba(255,255,255,.10),transparent 55%)}
+.astro-taendcta__inner{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-taendcta__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#fff;margin:0 0 14px}
+.astro-taendcta__sub{font-size:clamp(15px,1.8vw,19px);color:#f2dede;line-height:1.6;margin:0 0 32px}
+.astro-taendcta__btns{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px}
+.astro-taendcta__btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:600;transition:background .2s,border-color .2s,color .2s}
+.astro-taendcta__btn svg{width:19px;height:19px}
+.astro-taendcta__btn--primary{background:#fff;color:#9a2d2d}
+.astro-taendcta__btn--primary:hover{background:#f3e7d4}
+.astro-taendcta__btn--ghost{border:1.5px solid rgba(255,255,255,.6);color:#fff}
+.astro-taendcta__btn--ghost:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+@media(max-width:600px){.astro-taendcta{padding:56px 0}.astro-taendcta__inner{padding:0 20px}}
+</style>

@@ -1,0 +1,41 @@
+---
+// Hero der Seite „Taufe" (WP-Block `ta-hero`). Eigene Klassen `astro-tahero`
+// (Handbuch Abschnitt 3 — niemals WP-Klassen `ta-…`). Wie die WP-Vorlage mit Foto-Hintergrund
+// (taufe-stbonifatius-5.jpg, cover / center 30 %) + dunklem Verlauf für die Textlesbarkeit.
+// CSS-Hintergrundbild → role="img" + aria-label (Barrierefreiheit, Handbuch 1e). Buttons
+// springen zu den Anker-Sektionen #termine und #anmeldung.
+const heroImg = '/uploads/2023/03/taufe-stbonifatius-5.jpg';
+---
+<section class="astro-tahero">
+  <div class="astro-tahero__bg" role="img" aria-label="Taufgottesdienst in Sankt Bonifatius Frankfurt" style={`background-image:url('${heroImg}')`}></div>
+  <div class="astro-tahero__inner">
+    <p class="astro-tahero__eyebrow">Segen &amp; Sakramente · Pfarrei St. Bonifatius</p>
+    <h1 class="astro-tahero__title">Kind taufen in Frankfurt &#8211;<br />alle Familien sind willkommen</h1>
+    <p class="astro-tahero__sub">
+      Monatliche Taufgottesdienste in drei Kirchen. Kostenlos, offen für alle &#8211; auch für
+      Familien außerhalb der Pfarrei. Persönliche Begleitung durch unser Pastoralteam.
+    </p>
+    <div class="astro-tahero__btns">
+      <a class="astro-tahero__btn astro-tahero__btn--primary" href="#anmeldung">Jetzt anmelden</a>
+      <a class="astro-tahero__btn astro-tahero__btn--ghost" href="#termine">Nächste Termine &#8595;</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-tahero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:500px;overflow:hidden;background:#1f130d}
+.astro-tahero__bg{position:absolute;inset:0;background-size:cover;background-position:center 30%}
+.astro-tahero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,13,10,.05) 0%,rgba(20,13,10,.25) 55%,rgba(20,13,10,.55) 100%)}
+.astro-tahero__inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:120px 40px 64px;color:#f0e8d8}
+@media(min-width:768px){.astro-tahero{min-height:580px}}
+.astro-tahero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 16px}
+.astro-tahero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.06;color:#fff;font-size:clamp(34px,5.2vw,60px);margin:0}
+.astro-tahero__sub{font-size:clamp(16px,1.9vw,20px);color:#e8ddc9;line-height:1.55;margin:20px 0 0;max-width:640px}
+.astro-tahero__btns{display:flex;flex-wrap:wrap;gap:14px;margin:32px 0 0}
+.astro-tahero__btn{display:inline-block;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:600;letter-spacing:.02em;transition:background .2s,border-color .2s,color .2s}
+.astro-tahero__btn--primary{background:#9a2d2d;color:#fff}
+.astro-tahero__btn--primary:hover{background:#7e2424}
+.astro-tahero__btn--ghost{border:1.5px solid rgba(240,232,216,.55);color:#f0e8d8}
+.astro-tahero__btn--ghost:hover{border-color:#c5a55a;color:#fff}
+@media(max-width:600px){.astro-tahero{min-height:380px}.astro-tahero__inner{padding:100px 20px 44px}.astro-tahero__btn{padding:13px 22px}}
+</style>

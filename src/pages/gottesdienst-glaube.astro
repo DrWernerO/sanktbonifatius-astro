@@ -1,0 +1,42 @@
+---
+// Seite „Gottesdienst & Glaube" — WP-Seite 45667 (/gottesdienst-glaube/), vollständig aus
+// eigenen astro-Komponenten (kein set:html mit WP-Markup, vgl. Migrationsplan Abschnitt 9b).
+// Nav + Footer kommen global aus Base.astro.
+//
+// Termin-Block: dieselbe Komponente wie auf der Startseite (EventCalendar), aber gefiltert auf
+// die event-category „Gottesdienst + Glaube" (ID 2587) — zeigt also nur die Termine, die im
+// WP-Admin unter Kategorie dieses Kreuz gesetzt haben.
+import Base from '../layouts/Base.astro';
+import GdHero from '../components/GdHero.astro';
+import GdWelcome from '../components/GdWelcome.astro';
+import GdFormate from '../components/GdFormate.astro';
+import EventCalendar from '../components/EventCalendar.astro';
+import GdSacraments from '../components/GdSacraments.astro';
+import GdGallery from '../components/GdGallery.astro';
+import GdSeelsorge from '../components/GdSeelsorge.astro';
+import GdContactPersons from '../components/GdContactPersons.astro';
+import GdCta from '../components/GdCta.astro';
+import { getSeoHead } from '../lib/wordpress.js';
+
+// SEO (Titel/Description/OG/JSON-LD) aus der mit SEOPress optimierten WP-Seite übernehmen.
+const seo = await getSeoHead('/gottesdienst-glaube/');
+
+// event-category-ID „Gottesdienst + Glaube" (Dev-Server: /wp-json/wp/v2/event-category).
+const GOTTESDIENST_GLAUBE_CAT = 2587;
+---
+<Base seo={seo}>
+  <GdHero />
+  <GdWelcome />
+  <GdFormate />
+  <div id="termine"></div>
+  <EventCalendar
+    heading="Nächste Gottesdienst-Termine"
+    moreHref="/terminkalender/"
+    category={GOTTESDIENST_GLAUBE_CAT}
+  />
+  <GdSacraments />
+  <GdGallery />
+  <GdSeelsorge />
+  <GdContactPersons />
+  <GdCta />
+</Base>

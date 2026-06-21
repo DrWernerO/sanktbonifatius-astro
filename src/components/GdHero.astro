@@ -1,0 +1,39 @@
+---
+// Hero der Seite „Gottesdienst & Glaube" (ersetzt WP-Block `gd-hero`).
+// Eigene Klassen `astro-gdhero` (Abschnitt 3). Full-Bleed-Bild + Overlay + Text.
+// Inhalte fest gepflegt (selten geändert). Bilder lokal im Projekt unter public/uploads/ (vom WP heruntergeladen, Handbuch 1b).
+const IMG = '/uploads';
+const bg = `${IMG}/2022/10/taizegottesdienst-stbonifatius-10.jpg`;
+---
+<section class="astro-gdhero">
+  <div class="astro-gdhero__bg" role="img"
+       aria-label="Taizé-Gottesdienst in der Pfarrei Sankt Bonifatius Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-gdhero__overlay"></div>
+  <div class="astro-gdhero__inner">
+    <p class="astro-gdhero__eyebrow">Pfarrei St. Bonifatius · Frankfurt</p>
+    <h1 class="astro-gdhero__title">Gottesdienst &amp; Glaube</h1>
+    <p class="astro-gdhero__sub">Erleben Sie Gottesdienste, die berühren – von meditativ bis festlich, für jeden Glaubensweg.</p>
+    <div class="astro-gdhero__btns">
+      <a class="astro-gdhero__btn astro-gdhero__btn--primary" href="/gottesdienst-glaube/gottesdienstordnung/">Gottesdienstplan</a>
+      <a class="astro-gdhero__btn astro-gdhero__btn--ghost" href="#formate">Formate entdecken</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:560px;display:flex;align-items:flex-end;overflow:hidden}
+.astro-gdhero__bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.astro-gdhero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,12,8,.88) 0%,rgba(30,18,12,.5) 45%,rgba(30,18,12,.25) 100%)}
+.astro-gdhero__inner{position:relative;max-width:1200px;width:100%;margin:0 auto;padding:0 40px 64px;color:#f0e8d8}
+.astro-gdhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-gdhero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(40px,6vw,72px);margin:0}
+.astro-gdhero__sub{font-size:clamp(16px,1.9vw,20px);color:#e8ddc9;line-height:1.55;margin:18px 0 0;max-width:640px}
+.astro-gdhero__btns{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0}
+.astro-gdhero__btn{display:inline-block;padding:13px 26px;border-radius:50px;font-size:14px;font-weight:600;letter-spacing:.02em;transition:background .2s,color .2s,border-color .2s}
+.astro-gdhero__btn--primary{background:#9a2d2d;color:#fff}
+.astro-gdhero__btn--primary:hover{background:#7e2424}
+.astro-gdhero__btn--ghost{border:1px solid rgba(240,232,216,.55);color:#f0e8d8}
+.astro-gdhero__btn--ghost:hover{background:rgba(240,232,216,.12);border-color:#f0e8d8}
+@media(max-width:600px){.astro-gdhero{min-height:460px}.astro-gdhero__inner{padding:0 20px 44px}}
+</style>

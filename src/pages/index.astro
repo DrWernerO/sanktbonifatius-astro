@@ -1,0 +1,36 @@
+---
+// Startseite — vollständig aus eigenen astro-Komponenten (Migrationsplan Abschnitt 9b).
+// KEIN set:html mit WP-Theme-Markup mehr → die Seite ist vom WP-Theme entkoppelt.
+// Daten: feste Inhalte in den Komponenten; Termine/Beiträge live aus WP-API
+// (EventCalendar client-seitig, NewsGrid server-seitig).
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import QuickLinks from '../components/QuickLinks.astro';
+import ProgramGrid from '../components/ProgramGrid.astro';
+import Sacraments from '../components/Sacraments.astro';
+import EventCalendar from '../components/EventCalendar.astro';
+import NewsGrid from '../components/NewsGrid.astro';
+import ChurchLocations from '../components/ChurchLocations.astro';
+import PhotoMarquee from '../components/PhotoMarquee.astro';
+import FeatureBlocks from '../components/FeatureBlocks.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import NewsLightbox from '../components/NewsLightbox.astro';
+import { getSeoHead } from '../lib/wordpress.js';
+// Nav + Footer kommen global aus Base.astro — hier nicht mehr nötig.
+
+// SEO (Titel/Description/OG/JSON-LD) aus der mit SEOPress optimierten WP-Startseite übernehmen.
+const seo = await getSeoHead('/');
+---
+<Base seo={seo}>
+  <Hero />
+  <QuickLinks />
+  <ProgramGrid />
+  <Sacraments />
+  <EventCalendar />
+  <NewsGrid />
+  <ChurchLocations />
+  <PhotoMarquee />
+  <FeatureBlocks />
+  <CtaBanner />
+  <NewsLightbox />
+</Base>

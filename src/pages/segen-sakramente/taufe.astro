@@ -1,0 +1,39 @@
+---
+// Seite „Taufe" — WP-Seite 46566 (/segen-sakramente/taufe/), vollständig aus eigenen
+// astro-Komponenten (kein set:html mit WP-Markup, vgl. Migrationsplan Abschnitt 9b).
+// Nav + Footer kommen global aus Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden.
+//
+// ⚠️ Kritisch: Das Anmeldeformular (TaufeForm.astro) sendet an den WordPress-Handler
+// `taufe_anmeldung` (admin-ajax.php), der die Diözesan-PDF baut und per Mail ans Pfarrbüro
+// schickt. Dieser WP-Handler bleibt unangetastet — siehe Handbuch-Abschnitt „Taufe-Formular
+// im Headless-Setup". Feldnamen daher exakt erhalten.
+import Base from '../../layouts/Base.astro';
+import TaufeHero from '../../components/TaufeHero.astro';
+import TaufeStrip from '../../components/TaufeStrip.astro';
+import TaufeTermine from '../../components/TaufeTermine.astro';
+import TaufeSteps from '../../components/TaufeSteps.astro';
+import TaufeUnterlagen from '../../components/TaufeUnterlagen.astro';
+import TaufeFest from '../../components/TaufeFest.astro';
+import TaufeErwachsene from '../../components/TaufeErwachsene.astro';
+import TaufeFaq from '../../components/TaufeFaq.astro';
+import TaufeTeam from '../../components/TaufeTeam.astro';
+import TaufeForm from '../../components/TaufeForm.astro';
+import TaufeEndCta from '../../components/TaufeEndCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+// SEO (Titel/Description/OG/JSON-LD) aus der mit SEOPress optimierten WP-Seite übernehmen.
+const seo = await getSeoHead('/segen-sakramente/taufe/');
+---
+<Base seo={seo} title="Taufe">
+  <TaufeHero />
+  <TaufeStrip />
+  <TaufeTermine />
+  <TaufeSteps />
+  <TaufeUnterlagen />
+  <TaufeFest />
+  <TaufeErwachsene />
+  <TaufeFaq />
+  <TaufeTeam />
+  <TaufeForm />
+  <TaufeEndCta />
+</Base>

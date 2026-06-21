@@ -1,0 +1,20 @@
+---
+// BoniBlog — WP-Seite 45493 (/boniblog), komplett aus eigenen astro-Komponenten.
+// Nav + Footer kommen global aus Base.astro. Beiträge live aus der WP-API (BlogGrid),
+// Pfarrei-Infoblock statisch (ParishInfo).
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import BlogGrid from '../components/BlogGrid.astro';
+import ParishInfo from '../components/ParishInfo.astro';
+import NewsLightbox from '../components/NewsLightbox.astro';
+---
+<Base title="BoniBlog">
+  <PageHeader
+    eyebrow="Aus dem Leben unserer Pfarrei"
+    title="Boni-Blog"
+    sub="Neuigkeiten, Informationen, Fotos und Videos aus dem Leben unserer Pfarrei Sankt Bonifatius in Frankfurt&nbsp;Sachsenhausen."
+  />
+  <BlogGrid />
+  <ParishInfo />
+  <NewsLightbox />
+</Base>

@@ -1,0 +1,90 @@
+---
+// „Wie können wir Ihnen helfen?" — WP-Seite 46800 (ersetzt WP-Blöcke `kt-intro` + `kt-paths`).
+// Eigene Klassen `astro-ktpaths`. Feste Inhalte (selten geändert). SVG-Icons (kein Emoji,
+// Handbuch Lektion 7). E-Mail-Adressen direkt als mailto — die Empfänger steuern, wer welche
+// Anfrage erhält.
+const paths = [
+  {
+    title: 'Pfarrbüro',
+    text: 'Allgemeine Anfragen, Informationen zur Pfarrei, Anmeldungen und Verwaltungsangelegenheiten.',
+    mail: 'info@sanktbonifatius.de',
+    cta: 'Schreiben Sie uns',
+    icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  },
+  {
+    title: 'Sakramente oder Trauerfall anmelden',
+    text: 'Taufe, Hochzeit, Erstkommunion, Firmung oder Beerdigung — wir begleiten Sie bei den wichtigen Momenten.',
+    mail: 'info@sanktbonifatius.de',
+    cta: 'Anfragen',
+    icon: '<line x1="12" y1="2" x2="12" y2="22"/><line x1="4" y1="10" x2="20" y2="10"/>',
+  },
+  {
+    title: 'Seelsorge & Gespräch',
+    text: 'In schwierigen Zeiten, bei Trauer oder wenn Sie einfach reden möchten — wir sind für Sie da.',
+    mail: 'w.otto@sanktbonifatius.de',
+    cta: 'Kontakt aufnehmen',
+    icon: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+  },
+  {
+    title: 'Familien & Kinder',
+    text: 'BonFamily, Kindergottesdienste, Erstkommunion-Vorbereitung und Familienwoche.',
+    mail: 'f.hoffmann@sanktbonifatius.de',
+    cta: 'Mehr erfahren',
+    icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  },
+  {
+    title: 'Jugend & junge Erwachsene',
+    text: 'JONA, ORCA, Freizeiten und Workshops — Fragen zur Jugendarbeit beantworten wir gerne.',
+    mail: 'l.wykipil@sanktbonifatius.de',
+    cta: 'Fragen stellen',
+    icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>',
+  },
+  {
+    title: 'Neu in Frankfurt?',
+    text: 'Willkommen in Sachsenhausen! Wir helfen Ihnen gerne beim Ankommen.',
+    mail: 'info@sanktbonifatius.de',
+    cta: 'Hallo sagen',
+    icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+  },
+];
+---
+<section class="astro-ktpaths">
+  <div class="astro-ktpaths__inner">
+    <p class="astro-ktpaths__lead">
+      Die Pfarrei Sankt Bonifatius Frankfurt ist für Sie da &#8212; persönlich, per E-Mail
+      und telefonisch. Unser Pfarrbüro in Sachsenhausen (Holbeinstraße 70) ist Ihre erste
+      Anlaufstelle für Fragen zu Gottesdiensten, Sakramenten, Seelsorge und Gemeinschaftsleben
+      in Frankfurt am Main.
+    </p>
+    <h2 class="astro-ktpaths__hl">Wie können wir Ihnen helfen?</h2>
+    <div class="astro-ktpaths__grid">
+      {paths.map((p) => (
+        <article class="astro-ktpaths-card">
+          <svg class="astro-ktpaths-card__icon" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true" set:html={p.icon} />
+          <h3 class="astro-ktpaths-card__title">{p.title}</h3>
+          <p class="astro-ktpaths-card__text">{p.text}</p>
+          <a class="astro-ktpaths-card__btn" href={`mailto:${p.mail}`}>{p.cta}</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ktpaths{background:#fff;padding:72px 0}
+.astro-ktpaths__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-ktpaths__lead{font-size:clamp(16px,1.9vw,19px);color:#6b5c52;line-height:1.65;margin:0 auto 48px;max-width:760px;text-align:center}
+.astro-ktpaths__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-ktpaths__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.astro-ktpaths-card{display:flex;flex-direction:column;align-items:flex-start;background:#f7f3ef;border-radius:14px;padding:30px 28px;box-shadow:0 2px 12px rgba(30,21,18,.05);transition:transform .2s,box-shadow .2s}
+.astro-ktpaths-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(30,21,18,.1)}
+.astro-ktpaths-card__icon{width:38px;height:38px;color:#9a2d2d;margin:0 0 18px}
+.astro-ktpaths-card__title{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#2c2420;line-height:1.25;margin:0 0 12px}
+.astro-ktpaths-card__text{font-size:15px;color:#6b5c52;line-height:1.6;margin:0 0 22px;flex:1}
+.astro-ktpaths-card__btn{display:inline-block;padding:11px 22px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:14px;font-weight:600;letter-spacing:.02em;transition:background .2s}
+.astro-ktpaths-card__btn:hover{background:#7e2424}
+@media(max-width:980px){.astro-ktpaths__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.astro-ktpaths{padding:52px 0}.astro-ktpaths__inner{padding:0 20px}.astro-ktpaths__grid{grid-template-columns:1fr}}
+</style>

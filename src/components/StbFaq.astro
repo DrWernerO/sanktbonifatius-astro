@@ -1,0 +1,41 @@
+---
+// FAQ-Sektion „Häufige Fragen zu St. Bonifatius" (WP-Block `stb2-faq`). Eigene Klassen
+// `astro-stbfaq`; Sektions-Rahmen aus `astro-stbsec` (StbWelcome.astro). Natives <details>
+// (kein JS nötig). id="faq" für die Quicklink-Sprungmarke.
+const FAQ = [
+  { q: 'Wann ist die Kirche St. Bonifatius geöffnet?',
+    a: 'Die Pfarrkirche in der Holbeinstraße 70 ist täglich von 9 bis 17 Uhr geöffnet. Außerhalb dieser Zeiten finden regelmäßig Gottesdienste und Veranstaltungen statt.' },
+  { q: 'Wie komme ich zur Pfarrkirche St. Bonifatius?',
+    a: 'Die Pfarrkirche befindet sich in der Holbeinstraße 70 in Frankfurt-Sachsenhausen (60596). Eigene Parkplätze stehen zur Verfügung. St. Bonifatius ist gut fußläufig von mehreren Stationen des ÖPNV zu erreichen, z. B. Südbf., Schweizer Platz, Otto-Hahn-Platz, Stresemannallee.' },
+  { q: 'Welche Gottesdienste finden in St. Bonifatius statt?',
+    a: 'In St. Bonifatius finden verschiedene Gottesdienste statt: der lebendige BonEsprit, die atmosphärischen Fiat-Lux-Gottesdienste und die meditativen Taizé-Abende. Den aktuellen Plan finden Sie unter „Gottesdienst und Glaube“.' },
+  { q: 'Was ist die Jugendkirche JONA?',
+    a: 'JONA ist unsere Jugendkirche in St. Bonifatius – mit Schülercafé, Freizeiten, Jugendevents und eigenen Gottesdiensten. Ein Ort für alle Jugendlichen aus Sachsenhausen und Umgebung.' },
+  { q: 'Gibt es Angebote für Familien mit kleinen Kindern?',
+    a: 'Ja! BonFamily bietet Eltern-Kind-Treffs, Baby-Lounge (bis 1 Jahr), Familien-Lounge (1–3 Jahre) und familiengerechte Gottesdienste. Alle Angebote auf der BonFamily-Seite.' },
+];
+---
+<section class="astro-stbsec" id="faq">
+  <div class="astro-stbsec__in">
+    <span class="astro-stbsec__eyebrow">Fragen &amp; Antworten</span>
+    <h2 class="astro-stbsec__h2">Häufige Fragen zu St. Bonifatius</h2>
+    <div class="astro-stbfaq">
+      {FAQ.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <div class="astro-stbfaq__a">{f.a}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-stbfaq{max-width:840px;margin:0 auto}
+.astro-stbfaq details{background:#fff;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 16px rgba(30,21,18,.12);overflow:hidden}
+.astro-stbfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:16px;color:#1e1512}
+.astro-stbfaq summary::-webkit-details-marker{display:none}
+.astro-stbfaq summary::after{content:"+";font-size:22px;color:#6440a4;transition:transform .2s;flex-shrink:0;margin-left:12px}
+.astro-stbfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-stbfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+</style>

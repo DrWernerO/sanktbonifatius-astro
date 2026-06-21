@@ -1,0 +1,26 @@
+---
+// Willkommens-Sektion des Kirchorts St. Bonifatius (WP-Block `stb2-sec`, „Herzlich willkommen").
+// Eigene Klassen `astro-stbsec` (gemeinsame Sektions-Basis, auch von StbGottesdienste/StbCards/
+// StbTeam/StbFaq genutzt). Inhalt fest gepflegt.
+---
+<section class="astro-stbsec">
+  <div class="astro-stbsec__in">
+    <span class="astro-stbsec__eyebrow">Herzlich willkommen</span>
+    <h2 class="astro-stbsec__h2">St. Bonifatius &ndash; Ein Ort der Begegnung</h2>
+    <p class="astro-stbsec__lead">In Boni lieben wir Cappuccino und trinken gerne ein gutes Glas Wein &ndash; am liebsten vom eigenen Bonifatiuswein! Ob beim Kirchcafé nach dem Gottesdienst, bei der Spätschicht am Donnerstag oder bei BonFriday an sonnigen Freitagen im Pfarrgarten &ndash; überall haben Sie die Gelegenheit, nette Leute zu treffen und es sich gemeinsam gut gehen zu lassen. Wir freuen uns auf Sie!</p>
+  </div>
+</section>
+
+<style is:global>
+/* Gemeinsame Sektions-Basis für den Kirchort St. Bonifatius (Präfix astro-stbsec) */
+.astro-stbsec{padding:56px 0;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:90px}
+.astro-stbsec.is-alt{background:#f7f3ef}
+.astro-stbsec__in{max-width:1280px;margin:0 auto;padding:0 32px}
+.astro-stbsec__eyebrow{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;color:#6440a4;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.astro-stbsec__h2{font-family:'Playfair Display',Georgia,serif;font-size:38px;color:#6440a4;text-align:center;margin:0 0 16px;line-height:1.15}
+.astro-stbsec__lead{text-align:center;color:#6b5c52;max-width:680px;margin:0 auto 36px;font-size:17px;line-height:1.6}
+/* Lead als letztes Element (z.B. Welcome) braucht keinen Zusatzabstand zum Sektions-Padding */
+.astro-stbsec__in > .astro-stbsec__lead:last-child{margin-bottom:0}
+@media(max-width:760px){.astro-stbsec{padding:44px 0}.astro-stbsec__h2{font-size:28px}}
+@media(max-width:600px){.astro-stbsec__in{padding:0 16px}}
+</style>

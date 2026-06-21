@@ -1,0 +1,21 @@
+---
+// Seite „Kontakt" — WP-Seite 46800 (/kontakt/), vollständig aus eigenen astro-Komponenten
+// (kein set:html mit WP-Markup, vgl. Migrationsplan Abschnitt 9b). Nav + Footer kommen
+// global aus Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden.
+import Base from '../layouts/Base.astro';
+import KontaktHero from '../components/KontaktHero.astro';
+import KontaktPaths from '../components/KontaktPaths.astro';
+import KontaktAddress from '../components/KontaktAddress.astro';
+import KontaktCta from '../components/KontaktCta.astro';
+import { getSeoHead } from '../lib/wordpress.js';
+
+// SEO (Titel/Description/OG/JSON-LD inkl. ContactPage + CatholicChurch) aus der mit SEOPress
+// optimierten WP-Seite übernehmen.
+const seo = await getSeoHead('/kontakt/');
+---
+<Base seo={seo}>
+  <KontaktHero />
+  <KontaktPaths />
+  <KontaktAddress />
+  <KontaktCta />
+</Base>

@@ -1,0 +1,104 @@
+---
+// Termin-Detailseite (eine Route → automatisch je Termin eine Seite).
+// Aufbau: Bild-Hero mit Titel · Untertitel · kompakte Meta-Zeile (Datum·Zeit·Ort) · Beschreibung.
+// Termine haben keinen REST-Fließtext — die Beschreibung kommt aus der gerenderten WP-Seite
+// (getEventDetail liefert SEO-Head UND Beschreibung in EINEM Fetch).
+import Base from '../../layouts/Base.astro';
+import { getEventsFull, getEventDetail } from '../../lib/wordpress.js';
+
+export async function getStaticPaths() {
+  const events = await getEventsFull();
+  return events.map((event) => ({ params: { slug: event.slug }, props: { event } }));
+}
+
+const { event } = Astro.props;
+const m = event.meta || {};
+const { seo, description } = await getEventDetail(event.wpPath);
+
+const CHURCH = { bonifatius: 'St. Bonifatius', aposteln: 'St. Aposteln', georgen: 'Sankt Georgen', judas: 'St. Judas Thaddäus' };
+const decode = (s) =>
+  (s || '')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)))
+    .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'")
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ');
+
+function parseYmd(s) {
+  if (!s || s.length < 8) return null;
+  return new Date(Number(s.slice(0, 4)), Number(s.slice(4, 6)) - 1, Number(s.slice(6, 8)));
+}
+function fmt(d) {
+  return d ? d.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) : '';
+}
+const title = decode(event.title);
+const subtitle = decode(m.subtitle || '');
+const startD = parseYmd(m.start_date);
+const endD = parseYmd(m.end_date);
+const dateText = endD && m.end_date !== m.start_date ? `${fmt(startD)} – ${fmt(endD)}` : fmt(startD);
+const church = CHURCH[m.church] || m.church || '';
+// Kirchort nur ergänzen, wenn er nicht schon im Ort-Freitext steckt (sonst Dopplung).
+const place = [m.location, church && !(m.location || '').includes(church) ? church : ''].filter(Boolean).join(', ');
+const metaParts = [dateText, m.times, place].filter(Boolean); // kompakte Meta-Zeile
+const heroStyle = event.image ? `background-image:url('${event.image}')` : '';
+---
+<Base seo={seo} title={title}>
+  <header class={`astro-evd-hero${event.image ? '' : ' astro-evd-hero--plain'}`} style={heroStyle}>
+    <div class="astro-evd-hero__inner">
+      <p class="astro-evd-hero__eyebrow">Termin</p>
+      <h1 class="astro-evd-hero__title">{title}</h1>
+    </div>
+  </header>
+
+  <section class="astro-evd">
+    <div class="astro-evd__inner">
+      {subtitle && <p class="astro-evd__subtitle">{subtitle}</p>}
+      {metaParts.length > 0 && (
+        <p class="astro-evd__meta">
+          <svg class="astro-evd__meta-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          {metaParts.join(' · ')}
+        </p>
+      )}
+      {description
+        ? <div class="astro-evd__desc" set:html={description} />
+        : <p class="astro-evd__desc astro-evd__desc--empty">Weitere Informationen folgen.</p>}
+      <a href="/terminkalender/" class="astro-evd__back">← Alle Termine</a>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+.astro-evd-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;
+  min-height:460px;display:flex;align-items:flex-end;background-size:cover;background-position:center;background-color:#2c1a12}
+.astro-evd-hero::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(20,15,12,.88) 0%,rgba(20,15,12,.4) 50%,rgba(20,15,12,.2) 100%)}
+.astro-evd-hero--plain{background:linear-gradient(135deg,#2c1a12 0%,#4a2620 55%,#6b2e2a 100%)}
+.astro-evd-hero--plain::after{display:none}
+.astro-evd-hero__inner{position:relative;z-index:1;width:100%;max-width:1100px;margin:0 auto;padding:120px 40px 44px;color:#fff}
+.astro-evd-hero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 12px}
+.astro-evd-hero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.1;color:#fff;
+  font-size:clamp(32px,4.6vw,56px);margin:0;max-width:900px;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.astro-evd{background:#fff;padding:40px 0 64px}
+.astro-evd__inner{max-width:760px;margin:0 auto;padding:0 24px}
+.astro-evd__subtitle{font-family:'Playfair Display',serif;font-size:clamp(19px,2.2vw,24px);line-height:1.4;
+  color:#2c2420;font-weight:600;margin:0 0 18px}
+.astro-evd__meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px;color:#928269;
+  margin:0 0 28px;padding-bottom:24px;border-bottom:1px solid #ede8e1}
+.astro-evd__meta-icon{flex-shrink:0;color:#9a2d2d}
+.astro-evd__desc{font-size:17px;line-height:1.75;color:#3a3228}
+.astro-evd__desc > *:first-child{margin-top:0}
+.astro-evd__desc p{margin:0 0 18px}
+.astro-evd__desc h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#2c2420;margin:32px 0 12px}
+.astro-evd__desc h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:26px 0 10px}
+.astro-evd__desc a{color:#9a2d2d;text-decoration:underline;text-underline-offset:2px}
+.astro-evd__desc a:hover{color:#7e2424}
+.astro-evd__desc ul,.astro-evd__desc ol{margin:0 0 18px;padding-left:24px}
+.astro-evd__desc li{margin:0 0 8px}
+.astro-evd__desc img{max-width:100%;height:auto;border-radius:8px;margin:24px 0}
+.astro-evd__desc--empty{color:#928269;font-style:italic}
+.astro-evd__back{display:inline-block;margin-top:40px;font-size:14px;font-weight:600;color:#9a2d2d}
+.astro-evd__back:hover{color:#7e2424}
+@media(max-width:600px){
+  .astro-evd-hero{min-height:340px}
+  .astro-evd-hero__inner{padding:100px 20px 32px}
+}
+</style>

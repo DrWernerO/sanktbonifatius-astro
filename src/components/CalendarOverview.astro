@@ -1,0 +1,198 @@
+---
+// Volle, filterbare Termin-Übersicht (Präfix astro-cal). Client-seitig über den Vite-Proxy
+// (Browser kann das Dev-SSL nicht direkt — Abschnitt 1/7). Holt alle kommenden Termine,
+// baut Filter (Monat / Kirchort / Kategorie) aus den echten Daten und filtert rein clientseitig.
+---
+<section class="astro-cal">
+  <div class="astro-cal__inner">
+    <div class="astro-cal__filters" id="astro-cal-filters">
+      <label class="astro-cal__field">
+        <span class="astro-cal__label">Monat</span>
+        <select class="astro-cal__select" id="astro-cal-month"><option value="*">Alle Monate</option></select>
+      </label>
+      <label class="astro-cal__field">
+        <span class="astro-cal__label">Kirchort</span>
+        <select class="astro-cal__select" id="astro-cal-church"><option value="*">Alle Kirchorte</option></select>
+      </label>
+      <label class="astro-cal__field">
+        <span class="astro-cal__label">Kategorie</span>
+        <select class="astro-cal__select" id="astro-cal-cat"><option value="*">Alle Angebote</option></select>
+      </label>
+      <button type="button" class="astro-cal__clear" id="astro-cal-clear">Filter zurücksetzen</button>
+    </div>
+
+    <div class="astro-cal__list" id="astro-cal-list">
+      <p class="astro-cal__status">Termine werden geladen …</p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-cal{background:#f7f3ef;padding:56px 0 80px}
+.astro-cal__inner{max-width:1000px;margin:0 auto;padding:0 40px}
+.astro-cal__filters{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;
+  background:#fff;border-radius:12px;padding:20px 22px;
+  box-shadow:0 2px 12px rgba(30,21,18,.06);margin:0 0 28px;
+}
+.astro-cal__field{display:flex;flex-direction:column;gap:6px;flex:1 1 180px;min-width:160px}
+.astro-cal__label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#928269}
+.astro-cal__select{
+  font-family:inherit;font-size:14px;color:#2c2420;background:#f7f3ef;
+  border:1px solid #e3dace;border-radius:7px;padding:9px 11px;cursor:pointer;appearance:none;
+}
+.astro-cal__select:focus{outline:none;border-color:#9a2d2d}
+.astro-cal__clear{
+  flex:0 0 auto;font-family:inherit;font-size:13px;font-weight:600;color:#6b5c52;
+  background:transparent;border:1px solid #d8cfc2;border-radius:7px;padding:10px 16px;cursor:pointer;
+  transition:background .2s,color .2s,border-color .2s;
+}
+.astro-cal__clear:hover{background:#9a2d2d;border-color:#9a2d2d;color:#fff}
+.astro-cal__status{color:#928269;font-size:14px;padding:24px 0;text-align:center}
+
+.astro-cal__list{display:flex;flex-direction:column}
+.astro-cal__month-hl{
+  font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;
+  margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e3dace;
+}
+.astro-cal__list > .astro-cal__month-hl:first-child{margin-top:0}
+.astro-cal-ev{
+  display:grid;grid-template-columns:84px 1fr auto;gap:18px;align-items:center;
+  background:#fff;border-radius:10px;padding:16px 20px;margin:0 0 10px;text-decoration:none;
+  color:#2c2420;box-shadow:0 1px 6px rgba(30,21,18,.05);
+  transition:transform .15s,box-shadow .2s;border-left:4px solid #9a2d2d;
+}
+.astro-cal-ev:hover{transform:translateX(2px);box-shadow:0 4px 16px rgba(30,21,18,.12)}
+.astro-cal-ev__date{
+  font-family:'Playfair Display',serif;font-weight:700;color:#9a2d2d;line-height:1.15;text-align:center;
+}
+.astro-cal-ev__date b{display:block;font-size:22px}
+.astro-cal-ev__date span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#928269}
+.astro-cal-ev__main{min-width:0}
+.astro-cal-ev__title{font-size:16px;font-weight:600;line-height:1.3;margin:0 0 4px}
+.astro-cal-ev__sub{font-size:13px;color:#6b5c52;line-height:1.45;margin:0;
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.astro-cal-ev__meta{
+  text-align:right;font-size:12px;color:#928269;line-height:1.5;white-space:nowrap;flex-shrink:0;
+}
+.astro-cal-ev__meta b{display:block;color:#2c2420;font-weight:600}
+.astro-cal__empty{color:#928269;font-size:14px;padding:32px 0;text-align:center}
+
+@media(max-width:640px){
+  .astro-cal__inner{padding:0 20px}
+  .astro-cal-ev{grid-template-columns:64px 1fr;gap:14px;padding:14px 16px}
+  .astro-cal-ev__meta{grid-column:2;text-align:left;margin-top:2px}
+  .astro-cal-ev__date b{font-size:18px}
+}
+</style>
+
+<script>
+(function(){
+  const WP = '/wp-proxy/wp-json/wp/v2';
+  const MONTHS_LONG = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  const MONTHS_SHORT = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+  // Kirchort-Kürzel → voller Name (Abschnitt 7). Unbekannte fallen auf das Kürzel zurück.
+  const CHURCH_NAMES = {
+    bonifatius:'St. Bonifatius', aposteln:'St. Aposteln',
+    wendel:'St. Wendel', herzjesu:'Herz Jesu', 'herz-jesu':'Herz Jesu',
+    georgen:'Sankt Georgen', judas:'St. Judas Thaddäus',
+  };
+
+  const listEl   = document.getElementById('astro-cal-list');
+  const monthSel = document.getElementById('astro-cal-month');
+  const churchSel= document.getElementById('astro-cal-church');
+  const catSel   = document.getElementById('astro-cal-cat');
+  const clearBtn = document.getElementById('astro-cal-clear');
+  if(!listEl) return;
+
+  function md(str){ return { y:+str.slice(0,4), m:+str.slice(4,6), d:+str.slice(6,8) }; }
+  // WP-Termin-URL → interne Astro-Detailseite (/termine/<slug>/)
+  function localPath(u){ try { return new URL(u).pathname; } catch(e){ return u || '#'; } }
+  function opt(sel,val,label){ const o=document.createElement('option'); o.value=val; o.textContent=label; sel.appendChild(o); }
+
+  let EVENTS = [];
+
+  function render(){
+    const fMonth  = monthSel.value;
+    const fChurch = churchSel.value;
+    const fCat    = catSel.value;
+
+    const shown = EVENTS.filter(function(e){
+      const mOk = fMonth==='*'  || e._month===+fMonth;
+      const cOk = fChurch==='*' || e._church===fChurch;
+      const aOk = fCat==='*'    || (e._cats && e._cats.indexOf(+fCat)>-1);
+      return mOk && cOk && aOk;
+    });
+
+    if(!shown.length){ listEl.innerHTML='<p class="astro-cal__empty">Keine Termine für diese Auswahl.</p>'; return; }
+
+    let html='', curKey='';
+    shown.forEach(function(e){
+      const key = e._year+'-'+e._month;
+      if(key!==curKey){ curKey=key; html+='<h2 class="astro-cal__month-hl">'+MONTHS_LONG[e._month-1]+' '+e._year+'</h2>'; }
+      const church = CHURCH_NAMES[e._church] || e.event_meta.location || '';
+      html+=''
+        +'<a href="'+localPath(e.link)+'" class="astro-cal-ev">'
+        +  '<div class="astro-cal-ev__date"><b>'+e._day+'.</b><span>'+MONTHS_SHORT[e._month-1]+'</span></div>'
+        +  '<div class="astro-cal-ev__main">'
+        +    '<p class="astro-cal-ev__title">'+e.title.rendered+'</p>'
+        +    (e.event_meta.subtitle ? '<p class="astro-cal-ev__sub">'+e.event_meta.subtitle+'</p>' : '')
+        +  '</div>'
+        +  '<div class="astro-cal-ev__meta">'
+        +    (e.event_meta.times ? '<b>'+e.event_meta.times+'</b>' : '')
+        +    (church ? '<span>'+church+'</span>' : '')
+        +  '</div>'
+        +'</a>';
+    });
+    listEl.innerHTML=html;
+  }
+
+  async function init(){
+    const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
+    try{
+      const [evRes, catRes] = await Promise.all([
+        fetch(WP+'/event?per_page=100&_fields=id,title,link,event_meta,event-category'),
+        fetch(WP+'/event-category?per_page=50&_fields=id,name'),
+      ]);
+      const all = await evRes.json();
+      const cats = catRes.ok ? await catRes.json() : [];
+
+      EVENTS = all
+        .filter(function(e){ return e.event_meta && e.event_meta.start_date && e.event_meta.start_date >= today; })
+        .sort(function(a,b){ return a.event_meta.start_date.localeCompare(b.event_meta.start_date); })
+        .map(function(e){
+          const p = md(e.event_meta.start_date);
+          e._year=p.y; e._month=p.m; e._day=p.d;
+          e._church=(e.event_meta.church||'').toLowerCase();
+          e._cats=e['event-category']||[];
+          return e;
+        });
+
+      // Monatsfilter nur mit tatsächlich belegten Monaten füllen
+      const usedMonths=[...new Set(EVENTS.map(function(e){return e._month;}))].sort(function(a,b){return a-b;});
+      usedMonths.forEach(function(m){ opt(monthSel, String(m), MONTHS_LONG[m-1]); });
+
+      // Kirchorte aus den Daten
+      const usedChurches=[...new Set(EVENTS.map(function(e){return e._church;}).filter(Boolean))];
+      usedChurches.forEach(function(c){ opt(churchSel, c, CHURCH_NAMES[c]||c); });
+
+      // Kategorien: nur die, die auch vorkommen
+      const usedCats=new Set(); EVENTS.forEach(function(e){ e._cats.forEach(function(id){usedCats.add(id);}); });
+      cats.filter(function(c){return usedCats.has(c.id);})
+          .forEach(function(c){ opt(catSel, String(c.id), c.name.replace(/&amp;/g,'&')); });
+
+      render();
+    }catch(err){
+      listEl.innerHTML='<p class="astro-cal__empty">Termine konnten nicht geladen werden.</p>';
+      console.warn('Terminkalender:', err);
+    }
+  }
+
+  [monthSel,churchSel,catSel].forEach(function(s){ s.addEventListener('change', render); });
+  clearBtn.addEventListener('click', function(){
+    monthSel.value='*'; churchSel.value='*'; catSel.value='*'; render();
+  });
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+</script>

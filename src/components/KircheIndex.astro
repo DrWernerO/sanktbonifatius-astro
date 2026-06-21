@@ -1,0 +1,43 @@
+---
+// Übersichts-Index des Kirchenführers (WP-Block `kf-grid`): 12 runde Thumbnails, die per
+// Anker zur jeweiligen Detailkarte springen. Eigene Klassen `astro-kfidx`. Daten aus kirche.js.
+import { THUMBS } from '../data/kirche.js';
+---
+<section class="astro-kfidx" id="kirchenfuehrer">
+  <div class="astro-kfidx__in">
+    <span class="astro-kfidx__eyebrow">12 Kunstwerke entdecken</span>
+    <h2 class="astro-kfidx__h2">Digitaler Kirchenführer</h2>
+    <p class="astro-kfidx__lead">Klicken Sie auf ein Kunstwerk, um direkt zur ausführlichen Beschreibung zu springen.</p>
+    <div class="astro-kfidx__grid">
+      {THUMBS.map((t, i) => (
+        <a class="astro-kfidx__item" href={`#${t.id}`}>
+          <span class="astro-kfidx__img">
+            <span class="astro-kfidx__thumb" role="img" aria-label={t.title}
+                  style={`background-image:url('${t.img}')`}></span>
+          </span>
+          <span class="astro-kfidx__title">{t.title}</span>
+          <span class="astro-kfidx__num">{String(i + 1).padStart(2, '0')} / 12</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-kfidx{background:#f0ebf8;padding:64px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-kfidx__in{max-width:1080px;margin:0 auto;padding:0 32px}
+.astro-kfidx__eyebrow{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;color:#6440a4;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.astro-kfidx__h2{font-family:'Playfair Display',Georgia,serif;font-size:34px;color:#6440a4;text-align:center;margin:0 0 12px;line-height:1.15}
+.astro-kfidx__lead{text-align:center;color:#6b5c52;max-width:560px;margin:0 auto 40px;font-size:16px;line-height:1.6}
+.astro-kfidx__grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.astro-kfidx__item{display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 12px;background:#fff;border-radius:12px;border:2px solid transparent;text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .15s}
+.astro-kfidx__item:hover{border-color:#6440a4;box-shadow:0 6px 20px rgba(100,64,164,.15);transform:translateY(-2px)}
+.astro-kfidx__img{width:80px;height:80px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #f0ebf8;transition:border-color .2s;display:block}
+.astro-kfidx__item:hover .astro-kfidx__img{border-color:#6440a4}
+.astro-kfidx__thumb{display:block;width:130%;height:130%;margin:-15%;background-size:cover;background-position:center}
+.astro-kfidx__title{font-family:'Playfair Display',Georgia,serif;font-size:14px;font-weight:600;color:#6440a4;text-align:center;line-height:1.3}
+.astro-kfidx__num{font-size:11px;color:#928269;letter-spacing:.08em}
+@media(max-width:900px){.astro-kfidx__grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:560px){.astro-kfidx__grid{grid-template-columns:repeat(3,1fr)}.astro-kfidx__in{padding:0 16px}.astro-kfidx__h2{font-size:27px}}
+@media(max-width:380px){.astro-kfidx__grid{grid-template-columns:repeat(2,1fr)}}
+</style>

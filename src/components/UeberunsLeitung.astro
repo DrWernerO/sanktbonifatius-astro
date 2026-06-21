@@ -1,0 +1,40 @@
+---
+// „Leitung & Gremien" (WP-Block `ue-leitung`). Eigene Klassen `astro-uelt`.
+// Drei feste Karten + weiterführender Link.
+const CARDS = [
+  { t: 'Pfarrer',       p: 'Pfr. Dr. Werner Otto leitet die Pfarrei seit ihrer Gründung 2014 gemeinsam mit dem Seelsorge-Team.' },
+  { t: 'Pastoralteam',  p: 'Fünf Pastoralreferent*innen und zwei Priester bilden gemeinsam mit dem Pfarrer das hauptamtliche Team.' },
+  { t: 'Gremien',       p: 'Pfarrgemeinderat und Verwaltungsrat entscheiden gemeinsam über Pastoralkonzept, Finanzen und Baumaßnahmen.' },
+];
+---
+<section class="astro-uelt">
+  <div class="astro-uelt__wrap">
+    <h2 class="astro-uelt__h">Leitung &amp; Gremien</h2>
+    <p class="astro-uelt__lead">Die Leitung der Pfarrei wird gemeinschaftlich ausgeübt.</p>
+    <div class="astro-uelt__grid">
+      {CARDS.map((c) => (
+        <div class="astro-uelt__card">
+          <h3>{c.t}</h3>
+          <p>{c.p}</p>
+        </div>
+      ))}
+    </div>
+    <p class="astro-uelt__more"><a href="/ueberuns/leitung/">Mehr zu Leitung und Gremien →</a></p>
+  </div>
+</section>
+
+<style is:global>
+.astro-uelt{background:#fff;padding:64px 0}
+.astro-uelt__wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+.astro-uelt__h{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#3a2e28;text-align:center;font-size:clamp(26px,3.4vw,34px);margin:0 0 12px}
+.astro-uelt__lead{text-align:center;color:#8a7a6e;max-width:520px;margin:0 auto 40px;font-size:16px}
+.astro-uelt__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.astro-uelt__card{background:#f7f3ef;border:1px solid #e0d8cf;border-radius:12px;padding:28px 24px}
+.astro-uelt__card h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#9a2d2d;font-size:19px;margin:0 0 10px}
+.astro-uelt__card p{color:#6b5c52;font-size:15px;line-height:1.7;margin:0}
+.astro-uelt__more{text-align:center;margin:28px 0 0}
+.astro-uelt__more a{color:#9a2d2d;font-weight:600}
+.astro-uelt__more a:hover{color:#7e2424}
+@media(max-width:780px){.astro-uelt__grid{grid-template-columns:1fr}}
+@media(max-width:560px){.astro-uelt__wrap{padding:0 20px}}
+</style>

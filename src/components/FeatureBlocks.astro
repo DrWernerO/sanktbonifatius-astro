@@ -1,0 +1,61 @@
+---
+// Bild-Text-Blöcke (ersetzt WP-Block `sb-feat`). 4 Blöcke, abwechselnd Bild links/rechts,
+// abwechselnd weißer/cremefarbener Hintergrund. Feste Inhalte.
+const IMG = '/uploads';
+const blocks = [
+  { img: `${IMG}/2025/12/taizegottesdienst-stbonifatius-1-1024x683.jpg`,
+    alt: 'Taizé-Gottesdienst in Sankt Bonifatius Frankfurt',
+    hl: 'Inspirierende Gottesdienste',
+    txt: 'Suchen Sie einen Moment der Stille — oder einen Gottesdienst, der lebendig und manchmal unbequem ist? Von Kerzenlicht und Orgelklang bis zu Musik, die mitreißt: Wir feiern auf viele Weisen. Schauen Sie einfach vorbei.',
+    href: '/gottesdienst-glaube/', btn: 'Zu den Gottesdiensten', bg: 'w', reverse: false },
+  { img: `${IMG}/2023/08/segen-fuer-alle-stbonifatius-1024x683.jpg`,
+    alt: 'Segen und Sakramente in Sankt Bonifatius',
+    hl: 'Segen und Sakramente',
+    txt: 'Ein Kind kommt zur Welt. Sie wollen heiraten. Sie trauern. In den großen Momenten des Lebens sind wir für Sie da — nicht als Behörde, sondern als Gemeinschaft, die weiß, dass diese Momente zählen.',
+    href: '/segen-sakramente/', btn: 'Mehr erfahren', bg: 'c', reverse: true },
+  // Foto am 2026-06-14 im WP neu hochgeladen (gleiche URL) → ?v erzwingt frischen Browser-Cache
+  { img: `${IMG}/2026/06/fuer-alle-generationen-stbonifatius.jpg?v=20260614`,
+    alt: 'Gemeinschaft und Veranstaltungen bei Sankt Bonifatius',
+    hl: 'Vielfältige Veranstaltungen für alle Generationen',
+    txt: 'Kennen Sie das — man sucht etwas jenseits von Arbeit und Alltag? Menschen, mit denen man lacht, nachdenkt, gemeinsam handelt? Von Familienangeboten über Jugendfreizeiten bis zu Konzerten: Hier ist Platz für Sie.',
+    href: '/terminkalender/', btn: 'Alle Termine ansehen', bg: 'w', reverse: false, pos: '20% top' },
+  { img: `${IMG}/2025/12/st-bonifatius-engagement-1024x685.jpg`,
+    alt: 'Engagement bei Sankt Bonifatius Frankfurt',
+    hl: 'Engagement für eine offene Kirche',
+    txt: 'Sie möchten nicht nur konsumieren, sondern etwas bewegen? Ob Weltkirche, Suppenküche oder offener Kühlschrank — bei uns kann jeder mitgestalten, der mag. Willkommen und Ärmel hochgekrempelt.',
+    href: '/kontakt/engagement/', btn: 'Engagement entdecken', bg: 'c', reverse: true },
+];
+---
+{blocks.map((b) => (
+  <div class={`astro-feat astro-feat--${b.bg}${b.reverse ? ' astro-feat--r' : ''}`}>
+    <div class="astro-feat__in">
+      <div class="astro-feat__img" style={`background-image:url('${b.img}')${b.pos ? `;background-position:${b.pos}` : ''}`} role="img" aria-label={b.alt}></div>
+      <div class="astro-feat__body">
+        <h2 class="astro-feat__hl">{b.hl}</h2>
+        <div class="astro-feat__txt"><p>{b.txt}</p></div>
+        <a href={b.href} class="astro-feat__btn">{b.btn}</a>
+      </div>
+    </div>
+  </div>
+))}
+
+<style is:global>
+.astro-feat{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-feat--w{background:#fff}
+.astro-feat--c{background:#f7f3ef}
+.astro-feat__in{max-width:1200px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;min-height:440px}
+.astro-feat__img{background-size:cover;background-position:center;min-height:340px}
+.astro-feat__body{padding:72px 64px;display:flex;flex-direction:column;justify-content:center}
+.astro-feat__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,2.8vw,38px);font-weight:700;color:#1e1512;margin:0 0 18px;line-height:1.25;letter-spacing:-.01em}
+.astro-feat__txt{font-size:17px;line-height:1.75;color:#6b5c52;margin:0 0 32px;max-width:480px}
+.astro-feat__btn{display:inline-flex;align-items:center;background:#9a2d2d;color:#fff;padding:12px 28px;border-radius:50px;font-size:14px;font-weight:600;letter-spacing:.02em;text-decoration:none;width:fit-content;transition:opacity .2s}
+.astro-feat__btn:hover{opacity:.85}
+.astro-feat--r .astro-feat__img{order:2}
+.astro-feat--r .astro-feat__body{order:1}
+@media(max-width:860px){
+  .astro-feat__in{grid-template-columns:1fr;padding:0}
+  .astro-feat__img{min-height:260px;order:0!important}
+  .astro-feat__body{padding:40px 24px;order:1!important}
+  .astro-feat__txt{font-size:16px}
+}
+</style>

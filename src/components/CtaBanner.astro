@@ -1,0 +1,20 @@
+---
+// Abschluss-CTA "Neugierig geworden?" (ersetzt WP-Block `sb-bye`). Fester Text + Button.
+---
+<div class="astro-cta">
+  <div class="astro-cta__in">
+    <h2 class="astro-cta__hl">Neugierig geworden?</h2>
+    <p class="astro-cta__txt">Kommen Sie einfach vorbei — ohne Anmeldung, ohne Erwartung.</p>
+    <a href="/kontakt/" class="astro-cta__btn">Kontakt aufnehmen</a>
+  </div>
+</div>
+
+<style is:global>
+.astro-cta{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#4a2e1a,#3a2315);padding:96px 24px;text-align:center}
+.astro-cta__in{max-width:680px;margin:0 auto}
+.astro-cta__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,4vw,46px);font-weight:700;color:#f0e8d8;margin:0 0 20px;line-height:1.2}
+.astro-cta__txt{color:rgba(240,232,216,.8);font-size:18px;line-height:1.7;margin:0 0 40px}
+.astro-cta__btn{display:inline-flex;align-items:center;background:#9a2d2d;color:#fff;padding:14px 36px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:opacity .2s}
+.astro-cta__btn:hover{opacity:.85}
+@media(max-width:560px){.astro-cta{padding:48px 20px}}
+</style>

@@ -1,0 +1,46 @@
+---
+// „Aktuelle Gottesdiensttermine" — ChurchDesk-Widget-Einbindung.
+// Präfix: astro-gdotermine. Das Widget lädt client-seitig per script-Tag.
+// Widget-ID und Organisations-ID aus dem WP-HTML der Seite 46977 übernommen.
+//
+// HINWEIS Datums-Such-Leiste: Das Widget rendert oben eine „Startdatum → Enddatum · Suchen"-
+// Filterleiste. Deren Suchen-Button ist ein ChurchDesk-seitiger Bug (reagiert nicht — betrifft
+// auch die WP-Originalseite, von uns nicht behebbar, da Cross-Origin-iframe). Damit Besucher
+// nicht auf einen toten Button stoßen, wird die Leiste oben weggeschnitten: Der Container hat
+// `overflow:hidden`, das Widget wird per negativem margin-top um die Leistenhöhe hochgezogen
+// (--gdo-clip). Sollte ChurchDesk die Leistenhöhe ändern, hier nachjustieren.
+---
+<section class="astro-gdotermine" id="aktuelle-gottesdiensttermine">
+  <div class="astro-gdotermine__inner">
+    <h2 class="astro-gdotermine__hl">Aktuelle Gottesdiensttermine</h2>
+    <p class="astro-gdotermine__sub">
+      Alle Gottesdienstzeiten in Frankfurt Sachsenhausen und Oberrad — Messen, Andachten und besondere Formate für alle Altersgruppen.
+      Täglich aktualisiert. Kurzfristige Änderungen bitte beim <a href="/kontakt/">Pfarrbüro</a> erfragen.
+    </p>
+    <div class="astro-gdotermine__widget">
+      <div
+        data-churchdesk-widget-id="ZomR3fujIx_V"
+        data-churchdesk-organization-id="5499"
+        data-churchdesk-user-embed="true"
+        data-churchdesk-widget-type="event"
+      ></div>
+      <script is:inline src="https://widget.churchdesk.com/widget-loader.js"></script>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdotermine{background:#fff;padding:72px 40px}
+.astro-gdotermine__inner{max-width:960px;margin:0 auto}
+.astro-gdotermine__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,38px);color:#2c2420;margin:0 0 12px;text-align:center}
+.astro-gdotermine__sub{text-align:center;color:#928269;font-size:16px;line-height:1.65;margin:0 0 40px}
+.astro-gdotermine__sub a{color:#9a2d2d;text-decoration:underline}
+.astro-gdotermine__sub a:hover{color:#7e2424}
+/* --gdo-clip = Höhe der defekten ChurchDesk-Such-Leiste, die oben weggeschnitten wird. */
+.astro-gdotermine__widget{--gdo-clip:84px;border-radius:12px;overflow:hidden;box-shadow:0 2px 16px rgba(44,36,32,.07)}
+.astro-gdotermine__widget [data-churchdesk-widget-id]{display:block;margin-top:calc(-1 * var(--gdo-clip))}
+.astro-gdotermine__widget iframe{width:100%!important;border:0;display:block}
+@media(max-width:860px){.astro-gdotermine{padding:56px 24px}}
+/* Schmale Screens: Such-Leiste bricht um → höher, mehr abschneiden. */
+@media(max-width:560px){.astro-gdotermine__widget{--gdo-clip:150px}}
+</style>

@@ -1,0 +1,39 @@
+---
+// Foto-Galerie des Kirchorts St. Bonifatius (WP-Block `bon-marquee`) als endlos scrollende
+// Banderole. Eigene Klassen `astro-stbgal`. Bilder lokal im Projekt unter public/uploads/.
+// Hinweis: Die WP-Vorlage zeigte diese Galerie zweimal (doppelte id="galerie", Editier-Artefakt)
+// — hier bewusst nur EINMAL, sauber, eingebaut.
+const IMG = '/uploads/2022/04';
+const PHOTOS = [
+  'st-bonifatius-frankfurt22.jpg',
+  'st-bonifatius-frankfurt36.jpg',
+  'st-bonifatius-frankfurt35.jpg',
+  'st-bonifatius-frankfurt31.jpg',
+  'st-bonifatius-frankfurt40-scaled.jpg',
+  'st-bonifatius-frankfurt38-scaled.jpg',
+  'st-bonifatius-frankfurt34.jpg',
+  'st-bonifatius-frankfurt33.jpg',
+];
+// Liste verdoppeln → nahtlose Schleife (translateX -50%)
+const LOOP = [...PHOTOS, ...PHOTOS];
+---
+<section class="astro-stbgal" id="galerie" aria-label="Fotogalerie St. Bonifatius Frankfurt">
+  <p class="astro-stbgal__title">Fotogalerie &middot; St. Bonifatius Frankfurt</p>
+  <div class="astro-stbgal__track">
+    {LOOP.map((p, i) => (
+      <img src={`${IMG}/${p}`} alt="Impression aus St. Bonifatius Frankfurt"
+           decoding="async" aria-hidden={i >= PHOTOS.length ? 'true' : null} />
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-stbgal{overflow:hidden;background:#1e1512;padding:0 0 6px;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-stbgal__title{text-align:center;color:rgba(255,255,255,.6);font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:14px 0;margin:0}
+.astro-stbgal__track{display:flex;gap:8px;width:max-content;animation:astro-stbgal-scroll 90s linear infinite}
+.astro-stbgal__track:hover{animation-play-state:paused}
+.astro-stbgal__track img{height:240px;width:auto;object-fit:cover;border-radius:4px;display:block;flex-shrink:0}
+@keyframes astro-stbgal-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@media(max-width:600px){.astro-stbgal__track img{height:160px}}
+@media(prefers-reduced-motion:reduce){.astro-stbgal__track{animation:none}}
+</style>

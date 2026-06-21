@@ -1,0 +1,50 @@
+---
+// Wiederverwendbare Karten-Sektion des Kirchorts St. Bonifatius (WP-Block `stb2-grid`).
+// Eigene Klassen `astro-stbcard`; Sektions-Rahmen aus `astro-stbsec` (StbWelcome.astro).
+// Wird zweimal genutzt: „Unsere Angebote" (6 Karten) und „Weitere Angebote" (2 Karten, two).
+interface Card { title: string; text: string; more: string; href: string; img: string; alt: string }
+interface Props {
+  eyebrow: string;
+  heading: string;
+  lead: string;
+  cards: Card[];
+  alt?: boolean;     // cremefarbener Hintergrund
+  two?: boolean;     // 2-Spalten-Grid statt 3
+  id?: string;       // Sprungmarke (z.B. "angebote")
+}
+const { eyebrow, heading, lead, cards, alt = false, two = false, id } = Astro.props;
+---
+<section class={`astro-stbsec${alt ? ' is-alt' : ''}`} id={id}>
+  <div class="astro-stbsec__in">
+    <span class="astro-stbsec__eyebrow">{eyebrow}</span>
+    <h2 class="astro-stbsec__h2">{heading}</h2>
+    <p class="astro-stbsec__lead" set:html={lead}></p>
+    <div class={`astro-stbcard__grid${two ? ' is-two' : ''}`}>
+      {cards.map((c) => (
+        <a class="astro-stbcard" href={c.href}>
+          <div class="astro-stbcard__img" role="img" aria-label={c.alt}
+               style={`background-image:url('${c.img}')`}></div>
+          <div class="astro-stbcard__body">
+            <div class="astro-stbcard__title" set:html={c.title}></div>
+            <p class="astro-stbcard__text" set:html={c.text}></p>
+            <span class="astro-stbcard__more">{c.more}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-stbcard__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.astro-stbcard__grid.is-two{grid-template-columns:repeat(2,1fr);max-width:900px;margin:0 auto}
+.astro-stbcard{background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(30,21,18,.12);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;text-decoration:none;color:inherit}
+.astro-stbcard:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(30,21,18,.18)}
+.astro-stbcard__img{aspect-ratio:16/10;background-size:cover;background-position:center;background-color:#eee}
+.astro-stbcard__body{padding:26px 28px 28px;display:flex;flex-direction:column;flex:1}
+.astro-stbcard__title{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#6440a4;margin:0 0 12px;line-height:1.2}
+.astro-stbcard__text{font-size:15px;line-height:1.55;color:#3d3530;margin:0 0 16px;flex:1}
+.astro-stbcard__more{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#6440a4;display:inline-flex;align-items:center;gap:6px;margin-top:auto}
+@media(max-width:1024px){.astro-stbcard__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.astro-stbcard__grid,.astro-stbcard__grid.is-two{grid-template-columns:1fr}}
+</style>

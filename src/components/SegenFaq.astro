@@ -1,0 +1,47 @@
+---
+// „Antworten auf Ihre Fragen" (WP-Block `ss-faq`). Eigene Klassen `astro-ssfaq`.
+// Natives <details> (kein JS, Muster wie TaufeFaq). Feste Inhalte.
+const FAQ = [
+  { q: 'Muss ich Mitglied der Pfarrei Sankt Bonifatius sein?',
+    a: 'Nein. Die Sakramente und Segen stehen allen Katholikinnen und Katholiken offen &#8212; unabh&auml;ngig von Ihrer Heimatpfarrei. Wir freuen uns &uuml;ber jeden Kontakt.' },
+  { q: 'Wie melde ich mich f&uuml;r ein Sakrament an?',
+    a: 'Am einfachsten per E-Mail oder Telefon &uuml;ber unser Pfarrb&uuml;ro (069 695 97 58 50 &middot; info@sanktbonifatius.de). F&uuml;r Taufe, Firmung und Erstkommunion gibt es eigene Anmeldewege, die auf den jeweiligen Unterseiten beschrieben sind.' },
+  { q: 'Was kostet ein Sakrament oder Segen?',
+    a: 'Sakramente sind kostenlos &#8212; sie sind Gottes freies Geschenk. F&uuml;r Trauungen und Taufen entstehen je nach Wunsch Kosten f&uuml;r Kirchenmusik oder Blumenschmuck. Das besprechen wir gerne pers&ouml;nlich mit Ihnen.' },
+  { q: 'Kann ich als Erwachsener getauft werden?',
+    a: 'Ja nat&uuml;rlich. Wir erkl&auml;ren Ihnen gerne im pers&ouml;nlichen Gespr&auml;ch die verschiedenen M&ouml;glichkeiten der Vorbereitung auf die Taufe.' },
+  { q: 'K&ouml;nnen gleichgeschlechtliche Paare einen Segen empfangen?',
+    a: 'Ja. Wir laden alle Paare herzlich ein, ihre Partnerschaft segnen zu lassen &#8212; auch gleichgeschlechtliche Paare und Paare in zweiter Ehe. Der Segen ist Ausdruck von Gottes bedingungsloser Zuwendung.' },
+  { q: 'Wie lange dauert die Vorbereitung auf ein Sakrament?',
+    a: 'Das h&auml;ngt vom Sakrament ab. F&uuml;r Erstkommunion und Firmung gibt es eigene Vorbereitungskurse. Klicken Sie gerne oben auf die Links bei den Kacheln. F&uuml;r die anderen Sakramente findet ein Gespr&auml;ch mit einem Mitglied unseres Seelsorgeteams statt.' },
+];
+---
+<section class="astro-ssfaq">
+  <div class="astro-ssfaq__inner">
+    <p class="astro-ssfaq__eyebrow">H&auml;ufige Fragen</p>
+    <h2 class="astro-ssfaq__hl">Antworten auf Ihre Fragen</h2>
+    <div class="astro-ssfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-ssfaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ssfaq{background:#f7f3ef;padding:80px 0}
+.astro-ssfaq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-ssfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-ssfaq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-ssfaq__list{max-width:840px;margin:0 auto}
+.astro-ssfaq details{background:#fff;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-ssfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-ssfaq summary::-webkit-details-marker{display:none}
+.astro-ssfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-ssfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-ssfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+@media(max-width:600px){.astro-ssfaq{padding:56px 0}.astro-ssfaq__inner{padding:0 20px}}
+</style>

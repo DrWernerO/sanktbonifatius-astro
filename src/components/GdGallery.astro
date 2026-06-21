@@ -1,0 +1,96 @@
+---
+// Foto-Galerie „Schöne Gottesdienste" (ersetzt WP-Block `gd-gallery`) mit eigener Lightbox.
+// Eigene Klassen `astro-gdgal`. Bilder lokal im Projekt unter public/uploads/ (vom WP heruntergeladen, Handbuch 1b).
+const IMG = '/uploads/2022/04';
+const photos = [
+  { src: `${IMG}/schoene-gottesdienste-st-bonifatius1.jpg`, alt: 'Schöner Gottesdienst in St. Bonifatius (1)' },
+  { src: `${IMG}/schoene-gottesdienste-st-bonifatius2.jpg`, alt: 'Schöner Gottesdienst in St. Bonifatius (2)' },
+  { src: `${IMG}/schoene-gottesdienste-st-bonifatius4.jpg`, alt: 'Schöner Gottesdienst in St. Bonifatius (3)' },
+  { src: `${IMG}/schoene-gottesdienste-st-bonifatius5.jpg`, alt: 'Schöner Gottesdienst in St. Bonifatius (4)' },
+  { src: `${IMG}/schoene-gottesdienste-st-bonifatius6.jpg`, alt: 'Schöner Gottesdienst in St. Bonifatius (5)' },
+  { src: `${IMG}/schoene-gottesdienste-st-bonifatius7.jpg`, alt: 'Schöner Gottesdienst in St. Bonifatius (6)' },
+];
+---
+<section class="astro-gdgal">
+  <div class="astro-gdgal__inner">
+    <div class="astro-gdgal__head">
+      <h2 class="astro-gdgal__hl">Schöne Gottesdienste</h2>
+      <p class="astro-gdgal__sub">Fiat Lux und Taizé – Gottesdienste, die von besonderer Atmosphäre leben. Die Schönheit des Gottesdienstraums lässt uns etwas erahnen von der Schönheit Gottes.</p>
+      <p class="astro-gdgal__hint">Klicken Sie auf ein Foto, um die Galerie zu öffnen.</p>
+    </div>
+    <div class="astro-gdgal__grid" id="astro-gdgal-grid">
+      {photos.map((p, i) => (
+        <button type="button" class="astro-gdgal__cell" data-index={i} aria-label={`Foto ${i + 1} öffnen`}>
+          <img class="astro-gdgal__img" src={p.src} alt={p.alt} loading="lazy" />
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="astro-gdgal__lb" id="astro-gdgal-lb" aria-hidden="true">
+    <button type="button" class="astro-gdgal__lb-close" id="astro-gdgal-close" aria-label="Galerie schließen">&times;</button>
+    <button type="button" class="astro-gdgal__lb-nav astro-gdgal__lb-prev" id="astro-gdgal-prev" aria-label="Vorheriges Foto">&#8249;</button>
+    <img class="astro-gdgal__lb-img" id="astro-gdgal-lb-img" src="" alt="" />
+    <button type="button" class="astro-gdgal__lb-nav astro-gdgal__lb-next" id="astro-gdgal-next" aria-label="Nächstes Foto">&#8250;</button>
+    <span class="astro-gdgal__lb-count" id="astro-gdgal-count"></span>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdgal{background:#f7f3ef;padding:72px 0}
+.astro-gdgal__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-gdgal__head{text-align:center;margin:0 0 40px}
+.astro-gdgal__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-gdgal__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:640px}
+.astro-gdgal__hint{font-size:13px;color:#928269;margin:14px 0 0}
+.astro-gdgal__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.astro-gdgal__cell{padding:0;border:none;background:#ede8e1;border-radius:10px;overflow:hidden;cursor:pointer;aspect-ratio:4/3}
+.astro-gdgal__img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.astro-gdgal__cell:hover .astro-gdgal__img{transform:scale(1.06)}
+/* Lightbox */
+.astro-gdgal__lb{position:fixed;inset:0;z-index:2000;background:rgba(18,12,8,.92);display:none;align-items:center;justify-content:center}
+.astro-gdgal__lb.is-open{display:flex}
+.astro-gdgal__lb-img{max-width:88vw;max-height:84vh;border-radius:6px;box-shadow:0 12px 50px rgba(0,0,0,.5)}
+.astro-gdgal__lb-close{position:absolute;top:22px;right:28px;background:none;border:none;color:#f0e8d8;font-size:40px;line-height:1;cursor:pointer}
+.astro-gdgal__lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.35);border:none;color:#fff;font-size:44px;line-height:1;width:60px;height:80px;cursor:pointer;border-radius:8px;transition:background .2s}
+.astro-gdgal__lb-nav:hover{background:rgba(0,0,0,.6)}
+.astro-gdgal__lb-prev{left:22px}
+.astro-gdgal__lb-next{right:22px}
+.astro-gdgal__lb-count{position:absolute;bottom:24px;left:0;right:0;text-align:center;color:#e0d6c6;font-size:14px;letter-spacing:.05em}
+@media(max-width:860px){.astro-gdgal__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-gdgal__grid{grid-template-columns:1fr}.astro-gdgal{padding:52px 0}.astro-gdgal__inner{padding:0 20px}.astro-gdgal__lb-nav{width:46px;height:64px;font-size:34px}}
+</style>
+
+<script>
+(function(){
+  const grid  = document.getElementById('astro-gdgal-grid');
+  const lb     = document.getElementById('astro-gdgal-lb');
+  if(!grid || !lb) return;
+  const lbImg = document.getElementById('astro-gdgal-lb-img');
+  const count = document.getElementById('astro-gdgal-count');
+  const cells = Array.prototype.slice.call(grid.querySelectorAll('.astro-gdgal__cell'));
+  const sources = cells.map(function(c){ const im=c.querySelector('img'); return { src:im.src, alt:im.alt }; });
+  let cur = 0;
+
+  function show(i){
+    cur = (i + sources.length) % sources.length;
+    lbImg.src = sources[cur].src;
+    lbImg.alt = sources[cur].alt;
+    count.textContent = (cur+1) + ' / ' + sources.length;
+  }
+  function open(i){ show(i); lb.classList.add('is-open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+  function close(){ lb.classList.remove('is-open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+
+  cells.forEach(function(c,i){ c.addEventListener('click', function(){ open(i); }); });
+  document.getElementById('astro-gdgal-close').addEventListener('click', close);
+  document.getElementById('astro-gdgal-prev').addEventListener('click', function(){ show(cur-1); });
+  document.getElementById('astro-gdgal-next').addEventListener('click', function(){ show(cur+1); });
+  lb.addEventListener('click', function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('is-open')) return;
+    if(e.key==='Escape') close();
+    else if(e.key==='ArrowLeft') show(cur-1);
+    else if(e.key==='ArrowRight') show(cur+1);
+  });
+})();
+</script>

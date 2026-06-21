@@ -1,0 +1,47 @@
+---
+// „So läuft die Anmeldung" (WP-Block `ta-steps`). Eigene Klassen `astro-tasteps`.
+// 4 nummerierte Schritte + 2 CTAs (springen zu #anmeldung und #erwachsene). Feste Inhalte.
+const steps = [
+  { n: 1, title: 'Termin auswählen', text: 'Wählen Sie oben einen Wunschtermin in einer der drei Kirchen &#8211; gern mit Ausweichtermin.' },
+  { n: 2, title: 'Online anmelden', text: 'Das Formular weiter unten dauert ca. 5 Minuten und geht vollständig digital.' },
+  { n: 3, title: 'Unterlagen bereitstellen', text: 'Beschaffen Sie die erforderlichen Dokumente (s. u.) &#8211; wir melden uns nach Ihrer Anmeldung.' },
+  { n: 4, title: 'Vorbereitungsgespräch', text: 'Gemeinsam mit unserem Pastoralteam gestalten Sie die Taufe nach Ihren Wünschen.' },
+];
+---
+<section class="astro-tasteps">
+  <div class="astro-tasteps__inner">
+    <h2 class="astro-tasteps__hl">So läuft die Anmeldung</h2>
+    <div class="astro-tasteps__grid">
+      {steps.map((s) => (
+        <div class="astro-tasteps__step">
+          <span class="astro-tasteps__num">{s.n}</span>
+          <h3 class="astro-tasteps__title">{s.title}</h3>
+          <p class="astro-tasteps__text" set:html={s.text} />
+        </div>
+      ))}
+    </div>
+    <div class="astro-tasteps__cta">
+      <a class="astro-tasteps__btn astro-tasteps__btn--primary" href="#anmeldung">Kind zur Taufe anmelden &#8594;</a>
+      <a class="astro-tasteps__btn astro-tasteps__btn--ghost" href="#erwachsene">Als Erwachsener taufen lassen &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-tasteps{background:#f7f3ef;padding:72px 0}
+.astro-tasteps__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-tasteps__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 40px;text-align:center}
+.astro-tasteps__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.astro-tasteps__step{position:relative;background:#fff;border-radius:14px;padding:30px 24px 26px;box-shadow:0 2px 12px rgba(30,21,18,.05)}
+.astro-tasteps__num{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin:0 0 16px}
+.astro-tasteps__title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-tasteps__text{font-size:14.5px;color:#6b5c52;line-height:1.6;margin:0}
+.astro-tasteps__cta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:40px 0 0}
+.astro-tasteps__btn{display:inline-block;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:600;transition:background .2s,border-color .2s,color .2s}
+.astro-tasteps__btn--primary{background:#9a2d2d;color:#fff}
+.astro-tasteps__btn--primary:hover{background:#7e2424}
+.astro-tasteps__btn--ghost{border:1.5px solid #c9b89c;color:#6b5c52}
+.astro-tasteps__btn--ghost:hover{border-color:#9a2d2d;color:#9a2d2d}
+@media(max-width:900px){.astro-tasteps__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.astro-tasteps{padding:52px 0}.astro-tasteps__inner{padding:0 20px}.astro-tasteps__grid{grid-template-columns:1fr}}
+</style>

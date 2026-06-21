@@ -1,0 +1,63 @@
+---
+// Statischer Pfarrei-Info-Block für den BoniBlog (Präfix astro-pinfo).
+// Inhalte selten geändert → fest gepflegt (Abschnitt 9b "selten geändert → im Code").
+// Links 1:1 aus dem WP-Content übernommen.
+---
+<section class="astro-pinfo">
+  <div class="astro-pinfo__inner">
+    <p class="astro-pinfo__intro">
+      Die <strong>Katholische Pfarrei Sankt Bonifatius Frankfurt</strong> ist die Heimat von rund
+      14.000 Katholikinnen und Katholiken im Frankfurter Süden. Unsere Pfarrei umfasst die Kirchorte
+      <a href="/ueberuns/kirchorte/st-aposteln/">St. Aposteln</a>,
+      <a href="/ueberuns/kirchorte/st-bonifatius/">St. Bonifatius</a>,
+      <a href="/ueberuns/kirchorte/herz-jesu/">Herz Jesu</a> und
+      <a href="/ueberuns/kirchorte/st-wendel/">St. Wendel</a>. Im BoniBlog dokumentieren wir das
+      vielfältige Leben unserer Gemeinde – von Familienfesten und Jugendgruppen bis zu ökumenischen
+      Aktionen und sozialem Engagement.
+    </p>
+
+    <div class="astro-pinfo__cols">
+      <div class="astro-pinfo__col">
+        <h3 class="astro-pinfo__h3">Sie planen einen wichtigen Lebensschritt?</h3>
+        <p>
+          Ob <a href="/segen-sakramente/taufe/">Taufe</a>,
+          <a href="/segen-sakramente/trauung/">kirchliche Hochzeit</a>,
+          <a href="/segen-sakramente/erstkommunion/">Erstkommunion</a> oder
+          <a href="https://www.sanktbonifatius.de/kontakt/trauerfall/">Trauerfall</a> – wir begleiten
+          Sie in den entscheidenden Momenten Ihres Lebens. Sie finden auf unserer Website alle
+          Informationen zu Voraussetzungen, Anmeldeformularen und Ansprechpartnern.
+        </p>
+      </div>
+      <div class="astro-pinfo__col">
+        <h3 class="astro-pinfo__h3">Gottesdienstzeiten und Termine</h3>
+        <p>
+          Alle Messen, Andachten, Gemeindeveranstaltungen und Konzerte unserer Pfarrei finden Sie im
+          <a href="/terminkalender/">Terminkalender</a>. Folgen Sie uns auf Facebook, Instagram und
+          YouTube, um keine Neuigkeit zu verpassen.
+        </p>
+      </div>
+      <div class="astro-pinfo__col">
+        <h3 class="astro-pinfo__h3">St. Bonifatius in Sachsenhausen</h3>
+        <p>
+          Mit Hauptsitz in der Holbeinstraße 70, Frankfurt am Main, gut erreichbar aus Sachsenhausen,
+          Niederrad, Schwanheim und ganz Frankfurt. Auch internationale Gäste und Expats finden bei
+          uns eine geistliche Heimat.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pinfo{background:#f7f3ef;padding:64px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-pinfo__inner{max-width:1000px;margin:0 auto;padding:0 40px}
+.astro-pinfo__intro{font-size:clamp(16px,1.9vw,19px);line-height:1.7;color:#3a322c;margin:0 0 44px;text-align:center;max-width:780px;margin-left:auto;margin-right:auto}
+.astro-pinfo__intro strong{color:#2c2420}
+.astro-pinfo__cols{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.astro-pinfo__col p{font-size:14px;line-height:1.65;color:#6b5c52;margin:0}
+.astro-pinfo__h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:0 0 12px;line-height:1.3}
+.astro-pinfo a{color:#9a2d2d;text-decoration:none;border-bottom:1px solid rgba(154,45,45,.3);transition:color .2s,border-color .2s}
+.astro-pinfo a:hover{color:#7e2424;border-color:#7e2424}
+@media(max-width:860px){.astro-pinfo__cols{grid-template-columns:1fr;gap:28px}}
+@media(max-width:600px){.astro-pinfo__inner{padding:0 20px}}
+</style>

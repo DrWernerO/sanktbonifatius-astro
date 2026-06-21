@@ -1,0 +1,118 @@
+---
+// Seite „Segen und Sakramente" — WP-Seite 48265 (/segen-sakramente/), vollständig aus eigenen
+// astro-Komponenten (kein set:html mit WP-Markup, vgl. Migrationsplan Abschnitt 9b). Übersichts-
+// seite über dem bereits gebauten /segen-sakramente/taufe/. Nav + Footer kommen global aus
+// Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden. SEO live aus WP (SEOPress).
+//
+// Hinweis: Die Sakrament-Unterseiten Firmung/Erstkommunion/Trauung/Beichte/Krankensalbung sind
+// in Astro noch NICHT gebaut (nur Taufe). Die Kachel-Links zeigen bereits auf die künftigen
+// Pfade — vor Go-Live im Portfolio-Check abgleichen (Handbuch Abschnitt 12).
+import Base from '../../layouts/Base.astro';
+import SegenHero from '../../components/SegenHero.astro';
+import SegenStrip from '../../components/SegenStrip.astro';
+import SegenIntro from '../../components/SegenIntro.astro';
+import SegenTiles from '../../components/SegenTiles.astro';
+import SegenFaq from '../../components/SegenFaq.astro';
+import SegenCta from '../../components/SegenCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/segen-sakramente/');
+
+// „Gottes Segen für Sie" — 2 Segensformen
+const segen = [
+  {
+    img: '/uploads/2023/07/persoenlicher-segen-sanktbonifatius.jpg',
+    label: 'Persönlicher Segen',
+    title: 'Segen nach dem Gottesdienst',
+    text: 'Nach unseren monatlichen Taizégottesdiensten in St. Bonifatius laden wir Sie ein, sich persönlich segnen zu lassen. Außerdem jederzeit nach Vereinbarung mit einem unserer Priester.',
+    href: '/gottesdienst-glaube/gottesdienste-die-beruehren/',
+    linkText: 'Termine finden &#8594;',
+  },
+  {
+    img: '/uploads/2026/05/segen-sakramente-stbonifatius.jpeg',
+    pos: 'center',
+    label: 'Paarsegen',
+    title: 'Segen für Paare',
+    text: 'Segen für alle! Paare, die nicht kirchlich heiraten können oder wollen — z.&nbsp;B. in zweiter Ehe oder gleichgeschlechtliche Paare — laden wir herzlich ein, ihre Partnerschaft feierlich segnen zu lassen. Wir freuen uns auf Sie!',
+    href: 'mailto:pfarrer@sanktbonifatius.de?subject=Segen%20f%C3%BCr%20Paare',
+    linkText: 'Jetzt anfragen &#8594;',
+  },
+];
+
+// „Sakramente in unserer Pfarrei" — 6 Sakramente
+const sakramente = [
+  {
+    img: '/uploads/2023/03/taufe-stbonifatius-5.jpg',
+    label: 'Sakrament der Initiation',
+    title: 'Taufe',
+    text: 'In der Taufe schenkt Gott uns neues und ewiges Leben. Wir informieren Sie gerne, wie Sie selbst oder Ihr Kind die Taufe empfangen können.',
+    href: '/segen-sakramente/taufe/',
+    linkText: 'Zur Taufe &#8594;',
+  },
+  {
+    img: '/uploads/2026/05/firmung-mai2026-stbonifatius.jpg',
+    pos: 'center',
+    label: 'Sakrament der Reife',
+    title: 'Firmung',
+    text: 'Der Christ wird mit dem Heiligen Geist gesalbt und beauftragt, Jesus Christus im Leben zu bezeugen. Unsere Firmkurse gestalten wir mit vielfältigen Methoden.',
+    href: '/segen-sakramente/firmung/',
+    linkText: 'Zur Firmung &#8594;',
+  },
+  {
+    img: '/uploads/2026/03/erstkommunion2024-stbonifatius.jpeg',
+    pos: 'center 25%',
+    label: 'Sakrament der Mitte',
+    title: 'Eucharistie &amp; Erstkommunion',
+    text: 'Im Brot des Lebens gibt Gott unserer Seele Nahrung und erfüllt uns mit seiner Liebe. Die Erstkommunionvorbereitung ist für Kinder und Eltern eine bereichernde Erfahrung.',
+    href: '/segen-sakramente/erstkommunion/',
+    linkText: 'Zur Erstkommunion &#8594;',
+  },
+  {
+    img: '/uploads/2023/09/trauung-sankt-bonifatius.jpg',
+    pos: 'center 30%',
+    label: 'Sakrament der Ehe',
+    title: 'Kirchliche Trauung',
+    text: 'Gott verbindet zwei Menschen in seiner Liebe zu einem Bund fürs Leben. Wir tun alles, damit Ihre kirchliche Hochzeit ein unvergesslicher Tag wird.',
+    href: '/segen-sakramente/trauung/',
+    linkText: 'Zur Trauung &#8594;',
+  },
+  {
+    img: '/uploads/2023/07/sakramente-beichte-stbonifatius.jpg',
+    label: 'Sakrament der Versöhnung',
+    title: 'Beichte',
+    text: 'Gott verzeiht uns unsere Schwächen und schenkt uns einen neuen Anfang. Das Sakrament der Versöhnung ist Einladung zur Befreiung und inneren Erneuerung.',
+    href: '/segen-sakramente/beichte/',
+    linkText: 'Zur Beichte &#8594;',
+  },
+  {
+    img: '/uploads/2023/07/sakramente-krankensalbung-stbonifatius.jpg',
+    pos: 'center',
+    label: 'Sakrament der Kranken',
+    title: 'Krankensalbung',
+    text: 'Durch die Heilige Salbung schenkt Gott heilende Kraft für Körper und Seele. Dieses Sakrament stärkt in schwerer Krankheit und im Alter.',
+    href: '/segen-sakramente/krankensalbung/',
+    linkText: 'Zur Krankensalbung &#8594;',
+  },
+];
+---
+<Base seo={seo}>
+  <SegenHero />
+  <SegenStrip />
+  <SegenIntro />
+  <SegenTiles
+    heading="Gottes Segen für Sie"
+    intro="Segen ist nicht nur für besondere Anlässe — wir laden Sie ein, Gottes gute Nähe in Ihrem Leben zu erfahren."
+    cols={2}
+    bg="white"
+    tiles={segen}
+  />
+  <SegenTiles
+    heading="Sakramente in unserer Pfarrei"
+    intro="Über die Bedeutung der einzelnen Sakramente und wie Sie sie empfangen können, informieren wir Sie gerne persönlich."
+    cols={3}
+    bg="creme"
+    tiles={sakramente}
+  />
+  <SegenFaq />
+  <SegenCta />
+</Base>

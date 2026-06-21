@@ -1,0 +1,21 @@
+---
+// Info-Leiste am Seitenende des Kirchenführers (WP-Block: heller `stb2-root` mit Adresse +
+// Outline-Buttons). Eigene Klassen `astro-kfbar`. Links auf vorhandene Astro-Routen gebogen.
+---
+<section class="astro-kfbar">
+  <div class="astro-kfbar__in">
+    <span class="astro-kfbar__addr">Pfarrkirche St. Bonifatius &middot; Holbeinstraße 70 &middot; 60596 Frankfurt &middot; Mo&ndash;So 9&ndash;18 Uhr</span>
+    <a class="astro-kfbar__btn" href="/gottesdienst-glaube/">Gottesdienste</a>
+    <a class="astro-kfbar__btn" href="/kontakt/">Anfahrt &amp; Kontakt</a>
+    <a class="astro-kfbar__btn" href="/kontakt/pfarrbuero/">Kirchenführung anfragen</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-kfbar{background:#f0ebf8;padding:36px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-kfbar__in{max-width:1080px;margin:0 auto;padding:0 32px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center}
+.astro-kfbar__addr{font-size:15px;font-weight:600;color:#1e1512}
+.astro-kfbar__btn{display:inline-flex;align-items:center;padding:10px 22px;border-radius:999px;background:transparent;color:#6440a4;border:2px solid #6440a4;text-decoration:none;font-weight:600;font-size:14px;transition:all .2s}
+.astro-kfbar__btn:hover{background:#6440a4;color:#fff}
+@media(max-width:600px){.astro-kfbar__in{padding:0 16px}.astro-kfbar__addr{text-align:center}}
+</style>

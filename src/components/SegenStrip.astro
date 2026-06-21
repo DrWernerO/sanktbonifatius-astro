@@ -1,0 +1,30 @@
+---
+// Dunkler Info-Streifen direkt unter dem Hero (WP-Block `ss-strip`). Eigene Klassen `astro-ssstrip`.
+// SVG-Icons statt Emoji (Handbuch Lektion 7). Feste Inhalte.
+const items = [
+  { text: '7 Sakramente',
+    icon: '<path d="M12 2l2.4 5.6L20 8l-4 4 1 6-5-2.8L7 18l1-6-4-4 5.6-.4z"/>' },
+  { text: 'St. Bonifatius &middot; St. Wendel &middot; Herz Jesu &middot; St. Aposteln',
+    icon: '<path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/>' },
+];
+---
+<section class="astro-ssstrip">
+  <div class="astro-ssstrip__inner">
+    {items.map((it) => (
+      <div class="astro-ssstrip__item">
+        <svg class="astro-ssstrip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={it.icon} />
+        <span set:html={it.text} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-ssstrip{background:#1e1512;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;position:relative}
+.astro-ssstrip__inner{max-width:1200px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap}
+.astro-ssstrip__item{display:flex;align-items:center;gap:11px;padding:18px 34px;color:#f0e8d8;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;border-right:1px solid rgba(255,255,255,.1)}
+.astro-ssstrip__item:last-child{border-right:none}
+.astro-ssstrip__icon{width:20px;height:20px;flex-shrink:0;color:#c5a55a}
+@media(max-width:760px){.astro-ssstrip__inner{flex-direction:column;align-items:stretch}.astro-ssstrip__item{border-right:none;border-bottom:1px solid rgba(255,255,255,.1);padding:14px 24px;justify-content:center;text-align:center}.astro-ssstrip__item:last-child{border-bottom:none}}
+</style>

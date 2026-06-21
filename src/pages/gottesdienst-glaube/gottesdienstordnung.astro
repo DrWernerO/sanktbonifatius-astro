@@ -1,0 +1,22 @@
+---
+// Seite „Gottesdienstordnung" — WP-Seite 46977 (/gottesdienst-glaube/gottesdienstordnung/).
+// Vollständig aus eigenen astro-Komponenten gebaut (kein set:html mit WP-Markup).
+// Nav + Footer kommen global aus Base.astro (Handbuch 4b).
+// SEO-Head aus SEOPress via getSeoHead (Handbuch 1e).
+import Base from '../../layouts/Base.astro';
+import GdoHero from '../../components/GdoHero.astro';
+import GdoIntro from '../../components/GdoIntro.astro';
+import GdoTermine from '../../components/GdoTermine.astro';
+import ChurchLocations from '../../components/ChurchLocations.astro';
+import GdoOutro from '../../components/GdoOutro.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/gottesdienst-glaube/gottesdienstordnung/');
+---
+<Base seo={seo} title="Gottesdienstordnung — Pfarrei St. Bonifatius Frankfurt">
+  <GdoHero />
+  <GdoIntro />
+  <GdoTermine />
+  <ChurchLocations />
+  <GdoOutro />
+</Base>

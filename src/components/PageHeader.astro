@@ -1,0 +1,51 @@
+---
+// Wiederverwendbarer Seiten-Header für Unterseiten (Präfix astro-pghdr).
+// Eigene astro-Klassen → keine Kollision mit WP-Theme (Abschnitt 3).
+// Props: eyebrow (Kicker oben), title (Playfair), sub (Lauftext), icon (optionales SVG via slot).
+const { eyebrow = '', title = '', sub = '' } = Astro.props;
+const hasIcon = Astro.slots.has('icon');
+---
+<header class="astro-pghdr">
+  <div class="astro-pghdr__inner">
+    {hasIcon && <div class="astro-pghdr__icon"><slot name="icon" /></div>}
+    <div class="astro-pghdr__text">
+      {eyebrow && <p class="astro-pghdr__eyebrow">{eyebrow}</p>}
+      {title && <h1 class="astro-pghdr__title">{title}</h1>}
+      {sub && <p class="astro-pghdr__sub" set:html={sub} />}
+    </div>
+  </div>
+</header>
+
+<style is:global>
+.astro-pghdr{
+  width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;
+  background:linear-gradient(135deg,#2c1a12 0%,#4a2620 55%,#6b2e2a 100%);
+  color:#f0e8d8;padding:104px 0 56px; /* 104 = 80px Nav + Luft */
+}
+.astro-pghdr__inner{
+  max-width:1200px;margin:0 auto;padding:0 40px;
+  display:flex;align-items:center;gap:28px;
+}
+.astro-pghdr__icon{
+  flex-shrink:0;width:72px;height:72px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid rgba(197,165,90,.4);
+  display:flex;align-items:center;justify-content:center;color:#c5a55a;
+}
+.astro-pghdr__icon svg{width:34px;height:34px}
+.astro-pghdr__eyebrow{
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 10px;
+}
+.astro-pghdr__title{
+  font-family:'Playfair Display',serif;font-weight:700;line-height:1.1;color:#fff;
+  font-size:clamp(32px,4.4vw,52px);margin:0;
+}
+.astro-pghdr__sub{
+  font-size:clamp(15px,1.7vw,18px);color:#d4c9b5;line-height:1.55;margin:14px 0 0;max-width:680px;
+}
+@media(max-width:600px){
+  .astro-pghdr{padding:96px 0 44px}
+  .astro-pghdr__inner{padding:0 20px;gap:18px}
+  .astro-pghdr__icon{width:56px;height:56px}
+  .astro-pghdr__icon svg{width:26px;height:26px}
+}
+</style>

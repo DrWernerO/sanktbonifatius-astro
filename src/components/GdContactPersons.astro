@@ -1,0 +1,47 @@
+---
+// Ansprechpartner „Wir sind für Sie da" (ersetzt WP-Block `gd-ansprech`).
+// Eigene Klassen `astro-gdpers`. Fotos lokal im Projekt unter public/uploads/ (vom WP heruntergeladen, Handbuch 1b).
+const IMG = '/uploads';
+const persons = [
+  { name: 'Uwe Michler',     role: 'Pfarrer', mail: 'uwe.michler@sanktbonifatius.de', tel: '+49696959758-50', telLabel: '+49 69 6959758-50', img: `${IMG}/2023/05/Bonifatius_Pastoralteam_Uwe-edited.jpg` },
+  { name: 'Dr. Werner Otto', role: 'Pfarrer', mail: 'w.otto@sanktbonifatius.de',      tel: '+49696959758-50', telLabel: '+49 69 6959758-50', img: `${IMG}/2023/07/Bonifatius_Pastoralteam_Werner-edited-1.jpg` },
+];
+---
+<section class="astro-gdpers">
+  <div class="astro-gdpers__inner">
+    <div class="astro-gdpers__head">
+      <h2 class="astro-gdpers__hl">Wir sind für Sie da</h2>
+      <p class="astro-gdpers__sub">Haben Sie Fragen zu einem Gottesdienst, Sakrament oder einer spirituellen Begleitung? Schreiben Sie uns – wir nehmen uns Zeit.</p>
+    </div>
+    <div class="astro-gdpers__grid">
+      {persons.map((p) => (
+        <article class="astro-gdpers-card">
+          <img class="astro-gdpers-card__photo" src={p.img} alt={`Foto von ${p.name}`} loading="lazy" />
+          <div class="astro-gdpers-card__info">
+            <h3 class="astro-gdpers-card__name">{p.name}</h3>
+            <p class="astro-gdpers-card__role">{p.role}</p>
+            <a class="astro-gdpers-card__contact" href={`mailto:${p.mail}`}>{p.mail}</a>
+            <a class="astro-gdpers-card__contact" href={`tel:${p.tel}`}>{p.telLabel}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdpers{background:#f7f3ef;padding:72px 0}
+.astro-gdpers__inner{max-width:1000px;margin:0 auto;padding:0 40px}
+.astro-gdpers__head{text-align:center;margin:0 0 40px}
+.astro-gdpers__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-gdpers__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:620px}
+.astro-gdpers__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.astro-gdpers-card{display:flex;gap:20px;align-items:center;background:#fff;border-radius:12px;padding:22px 24px;box-shadow:0 2px 12px rgba(30,21,18,.06)}
+.astro-gdpers-card__photo{width:96px;height:96px;border-radius:50%;object-fit:cover;flex-shrink:0;background:#ede8e1}
+.astro-gdpers-card__name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 2px}
+.astro-gdpers-card__role{font-size:13px;letter-spacing:.04em;color:#928269;margin:0 0 10px}
+.astro-gdpers-card__contact{display:block;font-size:14px;color:#9a2d2d;line-height:1.6;word-break:break-word}
+.astro-gdpers-card__contact:hover{text-decoration:underline}
+@media(max-width:720px){.astro-gdpers__grid{grid-template-columns:1fr}.astro-gdpers{padding:52px 0}.astro-gdpers__inner{padding:0 20px}}
+@media(max-width:420px){.astro-gdpers-card{flex-direction:column;text-align:center;gap:14px}}
+</style>

@@ -1,0 +1,54 @@
+---
+// Programm-Kacheln (ersetzt WP-Block `boni-prog-wrap`). 5 farbige Kacheln, feste Inhalte.
+// SVG-Icons (kein Emoji). Die SEO-H1 bleibt erhalten (visuell versteckt).
+const tiles = [
+  { href: '/gottesdienst-glaube/', mod: 'gold', title: 'Gottesdienst & Glaube', sub: 'Wo erleben Sie Gott?',
+    icon: '<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>' },
+  { href: '/bonfamily/', mod: 'rot', title: 'BonFamily', sub: 'Wo wächst Ihre Familie im Glauben?',
+    icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { href: '/jugend/', mod: 'gruen', title: 'Jugend', sub: 'Wo finden Jugendliche ihren Weg?',
+    icon: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>' },
+  { href: '/engagiert-leben/', mod: 'violett', title: 'Engagiert Leben', sub: 'Wo möchten Sie etwas bewegen?',
+    icon: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>' },
+  { href: '/kultur-begegnung/', mod: 'tuerkis', title: 'Kultur & Begegnung', sub: 'Wo treffen Sie Gleichgesinnte?',
+    icon: '<path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>' },
+];
+---
+<section class="astro-prog-wrap">
+  <h2 class="astro-prog__hl">Unsere Angebote</h2>
+  <h1 class="astro-prog__seo">Katholische Pfarrei Sankt Bonifatius Frankfurt</h1>
+  <div class="astro-prog">
+    {tiles.map((t) => (
+      <a href={t.href} class={`astro-prog__tile astro-prog__tile--${t.mod}`}>
+        <div class="astro-prog__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" set:html={t.icon} />
+        </div>
+        <strong class="astro-prog__title">{t.title}</strong>
+        <span class="astro-prog__sub">{t.sub}</span>
+        <span class="astro-prog__arrow">→</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-prog-wrap{background:#fff;padding:48px 24px 32px;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-prog__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,2.5vw,28px);color:#2c2420;text-align:center;margin:0 auto 20px;max-width:1100px;font-weight:700}
+.astro-prog__seo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.astro-prog{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.astro-prog__tile{display:flex;flex-direction:column;padding:22px 18px 18px;text-decoration:none;color:#fff;gap:6px;border-radius:12px;overflow:hidden;transition:filter .2s}
+.astro-prog__tile:hover{filter:brightness(1.1)}
+.astro-prog__tile--gold{background:#FFB400}
+.astro-prog__tile--rot{background:#AF0003}
+.astro-prog__tile--gruen{background:#288C00}
+.astro-prog__tile--violett{background:#6E005A}
+.astro-prog__tile--tuerkis{background:#4D919B}
+.astro-prog__icon{width:34px;height:34px;opacity:.85;margin-bottom:4px}
+.astro-prog__icon svg{width:100%;height:100%}
+.astro-prog__title{font-size:15px;font-weight:700;line-height:1.25;color:#fff}
+.astro-prog__sub{font-size:11px;opacity:.8;line-height:1.4;flex:1;color:#fff}
+.astro-prog__arrow{font-size:16px;opacity:.55;color:#fff}
+@media(max-width:900px){.astro-prog{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.astro-prog{grid-template-columns:1fr 1fr}.astro-prog__tile:last-child{grid-column:span 2}.astro-prog-wrap{padding:32px 20px}}
+@media(max-width:420px){.astro-prog{grid-template-columns:1fr}.astro-prog__tile:last-child{grid-column:auto}}
+</style>

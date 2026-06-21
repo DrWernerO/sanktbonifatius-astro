@@ -1,0 +1,59 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+// `seo` = fertiger SEOPress-Head (HTML-String aus getSeoHead()). Wenn gesetzt, übernehmen wir
+// Titel/Description/OG/Twitter/JSON-LD aus WordPress; sonst greifen die Standard-Tags unten.
+const { title = 'Pfarrei Sankt Bonifatius Frankfurt', description = '', seo = '' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {seo
+    ? <Fragment set:html={seo} />
+    : <>
+        <title>{title} | Sankt Bonifatius Frankfurt</title>
+        {description && <meta name="description" content={description} />}
+      </>
+  }
+  <!-- Source Sans 3 (Fließtext) — wie das Ursprung-Theme -->
+  <link rel="preconnect" href="https://fonts.bunny.net" />
+  <link href="https://fonts.bunny.net/css?family=Source+Sans+3:400,500,600,400i,500i" rel="stylesheet" />
+  <!-- Playfair Display (Überschriften) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style is:global>
+    :root {
+      --clr-primary: #1a3a5c;
+      --clr-accent:  #c8a84b;
+      --clr-bg:      #ffffff;
+      --clr-text:    #1a1a1a;
+      --clr-muted:   #6b7280;
+      --radius:      8px;
+      --max-w:       1200px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--clr-text);
+      background: var(--clr-bg);
+      line-height: 1.6;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    html, body { overflow-x: hidden; }
+    .page-wrap { min-height: 100vh; }
+    html, body { overflow-x: hidden; }
+  </style>
+</head>
+<body>
+  <Nav />
+  <!-- 80px = Nav-Höhe -->
+  <div class="page-wrap">
+    <slot />
+  </div>
+  <Footer />
+</body>
+</html>

@@ -1,0 +1,25 @@
+---
+// „Unsere Pfarrei" (WP-Block `ue-pfarrei`). Eigene Klassen `astro-uepf`.
+// Fester Fließtext (vier Absätze).
+const PARAS = [
+  'Sankt Bonifatius ist mehr als eine Pfarrei: eine lebendige Gemeinschaft mitten in Frankfurt. Rund 13.500 Menschen aus Sachsenhausen und Oberrad feiern hier Gottesdienst, engagieren sich, suchen und finden — jeder auf seine Art.',
+  'Wir sind eine Kirche für Neugierige und Zweifelnde, für Familien und Alleinstehende, für Suchende und Verwurzelte. Mit vier Kirchorten, vielfältigen Gottesdienstformaten und einem offenen Pastoralteam wollen wir zeigen: Glaube geht mitten ins Leben — und mitten in die Stadt.',
+  '2014 haben fünf Gemeinden zu einer neuen Pfarrei zusammengefunden, die das Gebiet der Stadtteile Oberrad und Sachsenhausen umfasst. Was uns dabei trägt: die Überzeugung, dass Kirche nur dort lebendig bleibt, wo sie auf die Menschen zugeht — in der Seelsorge, im sozialen Engagement, in der Begegnung und im gemeinsamen Feiern.',
+  'Sie sind neugierig? Kommen Sie vorbei. Fragen Sie nach. Machen Sie mit.',
+];
+---
+<section class="astro-uepf">
+  <div class="astro-uepf__wrap">
+    <h2 class="astro-uepf__h">Unsere Pfarrei</h2>
+    {PARAS.map((p) => <p class="astro-uepf__p">{p}</p>)}
+  </div>
+</section>
+
+<style is:global>
+.astro-uepf{background:#fff;padding:64px 0}
+.astro-uepf__wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+.astro-uepf__h{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#3a2e28;font-size:clamp(26px,3.4vw,32px);margin:0 0 24px}
+.astro-uepf__p{font-size:16px;color:#6b5c52;line-height:1.85;max-width:800px;margin:0 0 18px}
+.astro-uepf__p:last-child{margin:0}
+@media(max-width:560px){.astro-uepf__wrap{padding:0 20px}}
+</style>

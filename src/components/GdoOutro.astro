@@ -1,0 +1,33 @@
+---
+// CTA-Abschluss der Gottesdienstordnung-Seite (ersetzt WP-Block `gdo-outro`).
+// Präfix: astro-gdooutro. Dunkler Verlauf, Fließtext, zwei Buttons.
+---
+<section class="astro-gdooutro">
+  <div class="astro-gdooutro__inner">
+    <h2 class="astro-gdooutro__hl">Alle herzlich willkommen</h2>
+    <p class="astro-gdooutro__text">
+      Die Pfarrei Sankt Bonifatius feiert jede Woche zahlreiche Gottesdienste in Frankfurt am Main — in Sachsenhausen und Oberrad, in verschiedenen Formaten und für alle Generationen. Ob stille Morgenandacht, festliche Sonntagsmesse oder moderner BonEsprit-Gottesdienst: Hier ist jeder willkommen, egal ob Sie zum ersten Mal kommen oder seit Jahren dabei sind. Besuchen Sie uns in St. Bonifatius, Herz Jesu, St. Aposteln oder St. Wendel.
+    </p>
+    <div class="astro-gdooutro__btns">
+      <a class="astro-gdooutro__btn astro-gdooutro__btn--primary" href="/kontakt/">Kontakt &amp; Anfahrt</a>
+      <a class="astro-gdooutro__btn astro-gdooutro__btn--ghost" href="/gottesdienst-glaube/">Gottesdienst &amp; Glaube</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdooutro{background:linear-gradient(135deg,#1e120c 0%,#2c1a10 50%,#1a0e08 100%);padding:80px 40px;text-align:center}
+.astro-gdooutro__inner{max-width:800px;margin:0 auto}
+.astro-gdooutro__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);color:#fff;margin:0 0 20px}
+.astro-gdooutro__text{color:#d4c9b5;font-size:clamp(15px,1.5vw,17px);line-height:1.75;margin:0 0 36px}
+.astro-gdooutro__btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.astro-gdooutro__btn{display:inline-block;padding:13px 28px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.astro-gdooutro__btn--primary{background:#9a2d2d;color:#fff;border:2px solid #9a2d2d}
+.astro-gdooutro__btn--primary:hover{background:#7e2424;border-color:#7e2424}
+.astro-gdooutro__btn--ghost{background:transparent;color:#f0e8d8;border:2px solid rgba(240,232,216,.4)}
+.astro-gdooutro__btn--ghost:hover{border-color:#c5a55a;color:#c5a55a}
+@media(max-width:600px){
+  .astro-gdooutro{padding:56px 24px}
+  .astro-gdooutro__btns{flex-direction:column;align-items:center}
+}
+</style>

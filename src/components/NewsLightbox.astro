@@ -1,0 +1,152 @@
+---
+// Lightbox für News (pin): Galerie (Blättern), Einzelbild + Text oder Video.
+// Grund: Die WP-Permalink-Seite (/pins/…) ist im Headless-Setup leer — die Galerien
+// wurden im Original per Lightbox gezeigt. News-Kacheln (data-news-id) öffnen daher hier
+// statt auf die tote Seite zu verlinken. Daten kommen als JSON aus getNewsPins().
+import { getNewsPins } from '../lib/wordpress.js';
+const news = await getNewsPins();
+const data = Object.fromEntries(
+  news.map((n) => [n.id, {
+    type: n.type,
+    title: n.title,
+    excerpt: n.excerpt,
+    image: n.image,
+    gallery: n.gallery,
+    video: n.video,
+  }])
+);
+---
+<script type="application/json" id="astro-news-data" set:html={JSON.stringify(data)} />
+
+<div class="astro-lb" id="astro-lb" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="News-Ansicht">
+  <button type="button" class="astro-lb__close" id="astro-lb-close" aria-label="Schließen">&times;</button>
+  <button type="button" class="astro-lb__nav astro-lb__nav--prev" id="astro-lb-prev" aria-label="Vorheriges Bild">&#8249;</button>
+  <button type="button" class="astro-lb__nav astro-lb__nav--next" id="astro-lb-next" aria-label="Nächstes Bild">&#8250;</button>
+  <div class="astro-lb__stage" id="astro-lb-stage"></div>
+  <div class="astro-lb__bar">
+    <p class="astro-lb__title" id="astro-lb-title"></p>
+    <p class="astro-lb__caption" id="astro-lb-caption"></p>
+    <p class="astro-lb__counter" id="astro-lb-counter"></p>
+  </div>
+</div>
+
+<style is:global>
+.astro-lb{position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(20,15,12,.94);padding:12px}
+.astro-lb[hidden]{display:none}
+.astro-lb__stage{flex:1;display:flex;align-items:center;justify-content:center;width:100%;max-width:1600px;min-height:0}
+.astro-lb__stage img,.astro-lb__stage video,.astro-lb__stage iframe{max-width:100%;max-height:88vh;width:auto;height:auto;border-radius:6px;display:block;background:#000}
+.astro-lb__stage iframe{width:min(100%,960px);aspect-ratio:16/9;height:auto}
+.astro-lb__bar{width:100%;max-width:1280px;text-align:center;color:#f0e8d8;padding:10px 8px 2px}
+.astro-lb__title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin:0 0 4px;color:#fff}
+.astro-lb__caption{font-size:14px;color:rgba(240,232,216,.8);margin:0;line-height:1.5}
+.astro-lb__counter{font-size:12px;letter-spacing:.08em;color:rgba(240,232,216,.55);margin:8px 0 0}
+.astro-lb__close{position:absolute;top:16px;right:20px;width:44px;height:44px;border:none;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:30px;line-height:1;cursor:pointer;transition:background .2s}
+.astro-lb__close:hover{background:rgba(255,255,255,.25)}
+.astro-lb__nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border:none;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:34px;line-height:1;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.astro-lb__nav:hover{background:rgba(255,255,255,.25)}
+.astro-lb__nav--prev{left:20px}
+.astro-lb__nav--next{right:20px}
+.astro-lb__nav[hidden]{display:none}
+@media(max-width:600px){.astro-lb__nav{width:42px;height:42px;font-size:26px}.astro-lb__nav--prev{left:8px}.astro-lb__nav--next{right:8px}}
+</style>
+
+<script>
+(function(){
+  var el = document.getElementById('astro-lb');
+  var dataEl = document.getElementById('astro-news-data');
+  if(!el || !dataEl) return;
+  var DATA = {};
+  try { DATA = JSON.parse(dataEl.textContent || '{}'); } catch(e){ return; }
+
+  var stage = document.getElementById('astro-lb-stage');
+  var titleEl = document.getElementById('astro-lb-title');
+  var capEl = document.getElementById('astro-lb-caption');
+  var counterEl = document.getElementById('astro-lb-counter');
+  var prevBtn = document.getElementById('astro-lb-prev');
+  var nextBtn = document.getElementById('astro-lb-next');
+  var closeBtn = document.getElementById('astro-lb-close');
+
+  var current = null;   // aktuelle News
+  var idx = 0;          // Galerie-Index
+
+  // WP-Bild in Vollauflösung: Dimensions-Suffix (-1024x683) entfernen → Original.
+  function full(url){ return (url || '').replace(/-\d+x\d+(\.[a-z]+)(\?.*)?$/i, '$1$2'); }
+  function setImg(img, url){
+    var big = full(url);
+    img.src = big;
+    if (big !== url) { img.onerror = function(){ img.onerror = null; img.src = url; }; } // Fallback
+  }
+
+  function render(){
+    if(!current) return;
+    var isGallery = current.type === 'gallery' && current.gallery && current.gallery.length;
+    var isVideo = current.type === 'video' && current.video;
+    stage.innerHTML = '';
+    if(isVideo){
+      var v = current.video;
+      var yt = v.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
+      var vimeo = v.match(/vimeo\.com\/(\d+)/);
+      if(yt){ stage.innerHTML = '<iframe src="https://www.youtube.com/embed/'+yt[1]+'" allowfullscreen frameborder="0"></iframe>'; }
+      else if(vimeo){ stage.innerHTML = '<iframe src="https://player.vimeo.com/video/'+vimeo[1]+'" allowfullscreen frameborder="0"></iframe>'; }
+      else { stage.innerHTML = '<video src="'+v+'" controls autoplay></video>'; }
+      prevBtn.hidden = true; nextBtn.hidden = true; counterEl.textContent = '';
+      capEl.textContent = current.excerpt || '';
+    } else if(isGallery){
+      var item = current.gallery[idx];
+      var img = document.createElement('img');
+      img.alt = item.a || current.title || '';
+      setImg(img, item.u);
+      stage.appendChild(img);
+      var multi = current.gallery.length > 1;
+      prevBtn.hidden = !multi; nextBtn.hidden = !multi;
+      counterEl.textContent = multi ? (idx+1) + ' / ' + current.gallery.length : '';
+      capEl.textContent = ''; // Alt-Text als Untertitel unerwünscht — nur Titel + Zähler
+    } else {
+      // Einzelbild-News
+      if(current.image){ var im = document.createElement('img'); im.alt = current.title || ''; setImg(im, current.image); stage.appendChild(im); }
+      prevBtn.hidden = true; nextBtn.hidden = true; counterEl.textContent = '';
+      capEl.textContent = current.excerpt || '';
+    }
+    titleEl.textContent = current.title || '';
+  }
+
+  function open(news){
+    current = news; idx = 0;
+    el.hidden = false; el.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    render();
+    closeBtn.focus();
+  }
+  function close(){
+    el.hidden = true; el.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    stage.innerHTML = ''; current = null;
+  }
+  function step(d){
+    if(!current || !current.gallery || !current.gallery.length) return;
+    idx = (idx + d + current.gallery.length) % current.gallery.length;
+    render();
+  }
+
+  // News-Kacheln abfangen (Galerie/Video/Bild öffnen statt zur leeren WP-Seite zu navigieren)
+  document.addEventListener('click', function(e){
+    var trigger = e.target.closest('[data-news-id]');
+    if(!trigger) return;
+    var news = DATA[trigger.getAttribute('data-news-id')];
+    if(!news) return;          // unbekannt → normaler Link
+    e.preventDefault();
+    open(news);
+  });
+
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', function(){ step(-1); });
+  nextBtn.addEventListener('click', function(){ step(1); });
+  el.addEventListener('click', function(e){ if(e.target === el) close(); });
+  document.addEventListener('keydown', function(e){
+    if(el.hidden) return;
+    if(e.key === 'Escape') close();
+    else if(e.key === 'ArrowLeft') step(-1);
+    else if(e.key === 'ArrowRight') step(1);
+  });
+})();
+</script>
