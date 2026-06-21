@@ -49,7 +49,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Erstkommunion | [Link](https://www.sanktbonifatius.de/segen-sakramente/erstkommunion/) | — | — | offen |  |
 | Firmung | [Link](https://www.sanktbonifatius.de/segen-sakramente/firmung/) | — | — | offen |  |
 | Krankensalbung | [Link](https://www.sanktbonifatius.de/segen-sakramente/krankensalbung/) | — | — | offen |  |
-| Taufe | [Link](https://www.sanktbonifatius.de/segen-sakramente/taufe/) | `src/pages/segen-sakramente/taufe.astro` | Werner | ✅ erledigt | Page-ID 46566, Anmeldeformular → WP-Handler taufe_anmeldung |
+| Taufe | [Link](https://www.sanktbonifatius.de/segen-sakramente/taufe/) | `src/pages/segen-sakramente/taufe.astro` | Werner | ✅ erledigt | Page-ID 46566; Anmeldeformular postet an eigene Route `/api/taufe-anmeldung` → erzeugt ausgefülltes amtliches PDF + Mailversand ans Pfarrbüro (Handbuch 13b). Offen erst beim Netlify-Go-Live: SMTP-Daten + Adapter |
 | Tauftermine | [Link](https://www.sanktbonifatius.de/segen-sakramente/taufe/tauftermine/) | — | Werner | ✅ erledigt | WP-Datenquelle (Page 50101) für den Tauftermine-Block; keine eigene Astro-Seite |
 | Trauung | [Link](https://www.sanktbonifatius.de/segen-sakramente/trauung/) | — | — | offen |  |
 
