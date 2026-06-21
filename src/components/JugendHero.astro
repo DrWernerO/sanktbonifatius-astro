@@ -1,0 +1,32 @@
+---
+// Hero der Seite „Jugend" — WP-Seite 46717 (/jugend/, ersetzt WP-Block `jug-hero`).
+// Eigene Klassen `astro-juhero` (goldene Regel, Handbuch Abschnitt 3 — niemals WP-Klassen `jug-…`).
+// Full-Bleed-Bild + Verlauf-Overlay + Text. Bild lokal unter public/uploads/ (vom Live-WP geladen,
+// unabhängig vom Server, vgl. Handbuch 1b). Inhalte fest gepflegt (selten geändert).
+const bg = '/uploads/2026/04/teaser-jugend-stbonifatius.jpeg';
+---
+<section class="astro-juhero">
+  <div class="astro-juhero__bg" role="img"
+       aria-label="Jugendliche der Pfarrei Sankt Bonifatius Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-juhero__overlay"></div>
+  <div class="astro-juhero__inner">
+    <p class="astro-juhero__eyebrow">Sankt Bonifatius &middot; Frankfurt am Main</p>
+    <h1 class="astro-juhero__title">Jugend</h1>
+    <p class="astro-juhero__sub">
+      Gemeinsam glauben, feiern und die Welt gestalten &#8212; f&uuml;r Jugendliche und junge
+      Erwachsene in unserer Pfarrei. In Kooperation mit der Kath. Jugendkirche JONA am selben Ort.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-juhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(70vh,560px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-juhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 35%}
+.astro-juhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.10) 0%,rgba(30,21,18,.50) 60%,rgba(30,21,18,.88) 100%)}
+.astro-juhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;color:#f0e8d8}
+.astro-juhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-juhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,68px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700}
+.astro-juhero__sub{color:rgba(255,255,255,.9);font-size:clamp(16px,2vw,21px);margin:0;max-width:640px;line-height:1.5}
+@media(max-width:600px){.astro-juhero{height:min(64vh,460px)}.astro-juhero__inner{padding:0 20px 40px}}
+</style>

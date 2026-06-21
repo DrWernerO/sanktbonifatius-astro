@@ -1,0 +1,72 @@
+---
+// „Unsere Angebote für junge Menschen" (WP-Block `jug-angebote`). Eigene Klassen `astro-juang`.
+// 3 Karten mit SVG-Icons (kein Emoji, Handbuch Abschnitt 8.7). Weißer Hintergrund
+// (Bänder-Prinzip: Welcome crème → Angebote weiß → EventCalendar crème). Feste Inhalte.
+const cards = [
+  {
+    icon: 'music',
+    title: 'Jugendgottesdienste',
+    text: 'Gottesdienste, die bewegen &#8212; mit Musik, kurzen Impulsen und Raum f&uuml;r eigene Fragen. Offen f&uuml;r alle Jugendlichen und jungen Erwachsenen.',
+    href: '#jugend-termine',
+    linkText: 'N&auml;chster Termin &#8594;',
+  },
+  {
+    icon: 'flame',
+    title: 'Firmung',
+    text: 'Die Firmvorbereitung begleitet dich auf dem Weg zu einem bewussten Ja zu deinem Glauben &#8212; in Gemeinschaft mit Gleichaltrigen, mit Ausfl&uuml;gen und Einkehrtagen.',
+    href: '/segen-sakramente/firmung/',
+    linkText: 'Mehr erfahren &#8594;',
+  },
+  {
+    icon: 'compass',
+    title: 'Freizeiten &amp; Ausfl&uuml;ge',
+    text: 'Gemeinsam neue Erfahrungen machen, lachen, beten und Freundschaften schlie&szlig;en &#8212; ob Tagesausflug, Wochenende oder Sommerfreizeit.',
+    href: '/jugend/kinder-und-jugendfreizeiten/',
+    linkText: 'Mehr erfahren &#8594;',
+  },
+];
+---
+<section class="astro-juang">
+  <div class="astro-juang__inner">
+    <div class="astro-juang__head">
+      <h2 class="astro-juang__hl">Unsere Angebote f&uuml;r junge Menschen</h2>
+    </div>
+    <div class="astro-juang__grid">
+      {cards.map((c) => (
+        <a class="astro-juang-card" href={c.href}>
+          <span class="astro-juang-card__icon" aria-hidden="true">
+            {c.icon === 'music' && (
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            )}
+            {c.icon === 'flame' && (
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3 4 5 4 9a4 4 0 0 1-8 0c0-1 .5-2 1-2.5C9 11 9 13 11 13c0-2-1-3 1-5 .5 2 2 2.5 2 3"/><path d="M8.5 11C8 12 8 13 8 14a4 4 0 0 0 8 0c0-2-1-3.5-2-5"/></svg>
+            )}
+            {c.icon === 'compass' && (
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="16.2 7.8 10.5 10.5 7.8 16.2 13.5 13.5 16.2 7.8"/></svg>
+            )}
+          </span>
+          <h3 class="astro-juang-card__title" set:html={c.title} />
+          <p class="astro-juang-card__text" set:html={c.text} />
+          <span class="astro-juang-card__link" set:html={c.linkText} />
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-juang{background:#fff;padding:80px 0}
+.astro-juang__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-juang__head{text-align:center;margin:0 0 44px}
+.astro-juang__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,42px);font-weight:700;color:#2c2420;margin:0;line-height:1.15}
+.astro-juang__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.astro-juang-card{display:flex;flex-direction:column;background:#f7f3ef;border-radius:12px;padding:32px 30px 30px;text-decoration:none;color:#2c2420;box-shadow:0 2px 14px rgba(30,21,18,.07);transition:transform .15s,box-shadow .2s}
+.astro-juang-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(30,21,18,.13)}
+.astro-juang-card__icon{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:#9a2d2d;color:#fff;margin:0 0 20px;flex-shrink:0}
+.astro-juang-card__title{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;margin:0 0 12px;line-height:1.2}
+.astro-juang-card__text{font-size:14.5px;color:#6b5c52;line-height:1.6;margin:0 0 18px;flex:1}
+.astro-juang-card__link{font-size:14px;font-weight:600;color:#9a2d2d;align-self:flex-start;border-bottom:1px solid rgba(154,45,45,.35);padding-bottom:2px;transition:border-color .2s}
+.astro-juang-card:hover .astro-juang-card__link{border-color:#9a2d2d}
+@media(max-width:860px){.astro-juang__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.astro-juang{padding:56px 0}.astro-juang__inner{padding:0 20px}.astro-juang__grid{grid-template-columns:1fr}}
+</style>

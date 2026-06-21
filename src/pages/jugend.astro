@@ -1,0 +1,37 @@
+---
+// Seite „Jugend" — WP-Seite 46717 (/jugend/), vollständig aus eigenen astro-Komponenten
+// (kein set:html mit WP-Markup, vgl. Migrationsplan Handbuch Abschnitt 9b). Nav + Footer kommen
+// global aus Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden.
+// SEO live aus WP (SEOPress) via getSeoHead('/jugend/').
+//
+// Termin-Block: vorhandener EventCalendar, gefiltert auf Event-Kategorie „Jugend" = 2589
+// (Team-Handbuch 07). In einen Anker-Container #jugend-termine gewickelt (Sprungziel der Buttons).
+import Base from '../layouts/Base.astro';
+import JugendHero from '../components/JugendHero.astro';
+import JugendWelcome from '../components/JugendWelcome.astro';
+import JugendAngebote from '../components/JugendAngebote.astro';
+import EventCalendar from '../components/EventCalendar.astro';
+import JugendKontakt from '../components/JugendKontakt.astro';
+import JugendFaq from '../components/JugendFaq.astro';
+import JugendCta from '../components/JugendCta.astro';
+import { getSeoHead } from '../lib/wordpress.js';
+
+const seo = await getSeoHead('/jugend/');
+---
+<Base seo={seo} title="Jugend – St. Bonifatius Frankfurt">
+  <JugendHero />
+  <JugendWelcome />
+  <JugendAngebote />
+  <div id="jugend-termine" class="astro-ju-anchor">
+    <EventCalendar heading="Nächste Jugend-Termine" category={2589} />
+  </div>
+  <JugendKontakt />
+  <JugendFaq />
+  <JugendCta />
+</Base>
+
+<style is:global>
+/* Anker-Versatz, damit die fixierte Nav (80px) das Sprungziel nicht verdeckt */
+.astro-ju-anchor{scroll-margin-top:96px}
+#jugend-kontakt{scroll-margin-top:96px}
+</style>
