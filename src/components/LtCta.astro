@@ -1,0 +1,28 @@
+---
+// End-CTA der Leitung-Seite „Kontakt aufnehmen". Eigene Klassen `astro-ltcta`.
+// E-Mail an Pfarrbüro + Kontaktseite. Feste Inhalte.
+---
+<section class="astro-ltcta">
+  <div class="astro-ltcta__in">
+    <h2 class="astro-ltcta__h2">Kontakt aufnehmen</h2>
+    <p class="astro-ltcta__p">Bei Fragen zu Gremien, Sitzungen oder zur Mitarbeit in der Pfarrei — wir freuen uns über Ihre Nachricht.</p>
+    <div class="astro-ltcta__btns">
+      <a href="mailto:info@sanktbonifatius.de" class="astro-ltcta__btn astro-ltcta__btn--gold">E-Mail schreiben</a>
+      <a href="/kontakt/" class="astro-ltcta__btn astro-ltcta__btn--outline">Zur Kontaktseite</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ltcta{background:linear-gradient(135deg,#2c2420,#3a2315);padding:72px 0;text-align:center;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-ltcta__in{max-width:680px;margin:0 auto;padding:0 40px}
+.astro-ltcta__h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#fff;font-size:clamp(28px,3.8vw,40px);margin:0 0 16px}
+.astro-ltcta__p{color:rgba(255,255,255,.85);font-size:17px;line-height:1.6;margin:0 auto 28px;max-width:520px}
+.astro-ltcta__btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.astro-ltcta__btn{display:inline-block;padding:14px 30px;border-radius:50px;font-size:14px;font-weight:600;letter-spacing:.02em;transition:background .2s,color .2s,border-color .2s}
+.astro-ltcta__btn--gold{background:#b88a3a;color:#fff}
+.astro-ltcta__btn--gold:hover{background:#9a722c}
+.astro-ltcta__btn--outline{border:1px solid rgba(255,255,255,.55);color:#fff}
+.astro-ltcta__btn--outline:hover{background:rgba(255,255,255,.14);border-color:#fff}
+@media(max-width:560px){.astro-ltcta{padding:52px 0}.astro-ltcta__in{padding:0 20px}}
+</style>

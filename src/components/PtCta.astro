@@ -1,0 +1,29 @@
+---
+// End-CTA der Pastoralteam-Seite „Sprechen Sie uns an". Eigene Klassen `astro-ptcta`.
+// Verlauf wie Inventar-Empfehlung; verlinkt auf Kontakt + Leitung & Gremien (interne Verlinkung
+// 48534 → 48782, Inventar). Feste Inhalte.
+---
+<section class="astro-ptcta">
+  <div class="astro-ptcta__in">
+    <h2 class="astro-ptcta__h2">Sprechen Sie uns an</h2>
+    <p class="astro-ptcta__p">Ob Taufe, Trauung, Beerdigung oder ein seelsorgliches Gespräch – wir freuen uns auf Ihre Nachricht.</p>
+    <div class="astro-ptcta__btns">
+      <a href="/kontakt/" class="astro-ptcta__btn astro-ptcta__btn--gold">Kontakt aufnehmen</a>
+      <a href="/ueberuns/leitung/" class="astro-ptcta__btn astro-ptcta__btn--outline">Leitung &amp; Gremien</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ptcta{background:linear-gradient(135deg,#4a2e1a,#3a2315);padding:72px 0;text-align:center;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-ptcta__in{max-width:680px;margin:0 auto;padding:0 40px}
+.astro-ptcta__h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#fff;font-size:clamp(28px,3.8vw,40px);margin:0 0 16px}
+.astro-ptcta__p{color:rgba(255,255,255,.85);font-size:17px;line-height:1.6;margin:0 auto 28px;max-width:520px}
+.astro-ptcta__btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.astro-ptcta__btn{display:inline-block;padding:14px 30px;border-radius:50px;font-size:14px;font-weight:600;letter-spacing:.02em;transition:background .2s,color .2s,border-color .2s}
+.astro-ptcta__btn--gold{background:#b88a3a;color:#fff}
+.astro-ptcta__btn--gold:hover{background:#9a722c}
+.astro-ptcta__btn--outline{border:1px solid rgba(255,255,255,.55);color:#fff}
+.astro-ptcta__btn--outline:hover{background:rgba(255,255,255,.14);border-color:#fff}
+@media(max-width:560px){.astro-ptcta{padding:52px 0}.astro-ptcta__in{padding:0 20px}}
+</style>

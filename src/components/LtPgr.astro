@@ -1,0 +1,73 @@
+---
+// „Pfarrgemeinderat" der Leitung-Seite. Eigene Klassen `astro-lt*` (Basis aus LtIntro).
+// Vorstand (3 Karten mit Foto) + weitere stimmberechtigte Mitglieder + Protokoll-PDFs +
+// Regionalsynodalrat. Fotos & PDFs lokal in public/uploads/ (Handbuch 1b).
+const IMG = '/uploads';
+const VORSTAND = [
+  { name: 'Ann-Kristin Schäfer', role: 'Vorsitzende', photo: `${IMG}/2024/01/Ann-Kristin-Schaefer-e1709112278654-300x300.jpg` },
+  { name: 'Martina Laudan', role: 'Stellvertretende Vorsitzende', photo: `${IMG}/2024/01/martina-laudan-e1709113224585-300x299.jpg` },
+  { name: 'Jutta-Maria Nieswand', role: 'Stellvertretende Vorsitzende', photo: `${IMG}/2024/01/jutta-nieswand-e1709114111391-300x300.jpg` },
+];
+const WEITERE = ['Catharina Belz','Reinhard Bok','Barbara Brüning','Johannes Dielmann','Dr. Jan Grossarth','Roland Hassel','Doly Kadavil','Christoph Murmann','Danielle Wendel-Baumert','Mareike Wink'];
+const PROTOKOLLE = [
+  { label: 'Protokoll der Sitzung vom 13. 01. 2026 (PDF)', href: `${IMG}/2026/04/Protokoll-PGR-Sitzung-2026-01-13.pdf` },
+  { label: 'Protokoll der Sitzung vom 10. 03. 2026 (PDF)', href: `${IMG}/2026/04/Protokoll-PGR-Sitzung-2026-03-10.pdf` },
+];
+---
+<section class="astro-ltsec is-white">
+  <div class="astro-ltsec__in">
+    <p class="astro-lt-eyebrow">Beraten &amp; Beschließen</p>
+    <h2 class="astro-lt-h2">Pfarrgemeinderat</h2>
+    <p class="astro-lt-p">Der Pfarrgemeinderat berät und beschließt gemeinsam über alle pastoralen Angelegenheiten der Gemeinde.</p>
+    <p class="astro-lt-p">Der PGR ist am 25./26. 11. 2023 neu gewählt worden. Er umfasst 12 gewählte Mitglieder aus allen Kirchorten und ist für eine Amtszeit von 4 Jahren eingesetzt. Die Sitzungen finden in der Regel alle zwei Monate statt und sind öffentlich.</p>
+
+    <h3 class="astro-lt-h3">Vorstand</h3>
+    <div class="astro-ltperson-grid">
+      {VORSTAND.map((p) => (
+        <div class="astro-ltperson">
+          <div class="astro-ltperson__photo" role="img" aria-label={`Foto von ${p.name}`}
+               style={`background-image:url('${p.photo}')`}></div>
+          <h4 class="astro-ltperson__name">{p.name}</h4>
+          <p class="astro-ltperson__role">{p.role}</p>
+        </div>
+      ))}
+    </div>
+
+    <h3 class="astro-lt-h3">Weitere stimmberechtigte Mitglieder</h3>
+    <ul class="astro-ltnames">
+      {WEITERE.map((n) => <li>{n}</li>)}
+    </ul>
+
+    <div class="astro-ltpgr__cols">
+      <div>
+        <h3 class="astro-lt-h3">Protokolle der letzten Sitzungen</h3>
+        <ul class="astro-ltpgr__pdfs">
+          {PROTOKOLLE.map((p) => (
+            <li>
+              <a href={p.href} target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="17" height="17" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                {p.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="astro-ltpgr__rsr">
+        <h4 class="astro-ltpgr__rsrh">Vertretung im Regionalsynodalrat</h4>
+        <p>Mitglied: <strong>Christoph Murmann</strong><br>Stellvertreter: <strong>Dr. Jan Grossarth</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ltpgr__cols{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:8px;align-items:start}
+.astro-ltpgr__pdfs{list-style:none;margin:0;padding:0}
+.astro-ltpgr__pdfs li{margin-bottom:10px}
+.astro-ltpgr__pdfs a{display:inline-flex;align-items:center;gap:10px;color:#9a2d2d;font-size:15px;font-weight:500;transition:color .2s}
+.astro-ltpgr__pdfs a:hover{color:#7e2424;text-decoration:underline}
+.astro-ltpgr__rsr{background:#f7f3ef;border-left:3px solid #b88a3a;border-radius:0 10px 10px 0;padding:20px 24px;margin-top:36px}
+.astro-ltpgr__rsrh{font-family:'Playfair Display',Georgia,serif;font-size:16px;color:#2c2420;margin:0 0 8px;font-weight:700}
+.astro-ltpgr__rsr p{color:#5b5048;font-size:15px;line-height:1.6;margin:0}
+@media(max-width:720px){.astro-ltpgr__cols{grid-template-columns:1fr;gap:8px}.astro-ltpgr__rsr{margin-top:16px}}
+</style>

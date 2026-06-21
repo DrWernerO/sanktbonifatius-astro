@@ -1,0 +1,45 @@
+---
+// FAQ der Gemeinschaft-Seite „Was Sie vielleicht fragen möchten". Eigene Klassen `astro-gmfaq`.
+// Natives <details> (kein JS, Muster wie SegenFaq/TaufeFaq). Feste Inhalte.
+const FAQ = [
+  { q: 'Muss ich katholisch sein, um mitzumachen?',
+    a: 'Nein. Unsere Gruppen und Angebote stehen Menschen aller Konfessionen und Weltanschauungen offen. Wir freuen uns über jeden, der sich einbringen möchte.' },
+  { q: 'Ich kenne noch niemanden — ist der Einstieg trotzdem möglich?',
+    a: 'Absolut. Am einfachsten ist es, Sie kommen mal zum Sonntagsgottesdienst und anschließend zum Kirchcafé. Sprechen Sie den Pfarrer oder eine beim Kaffeeausschank engagierte Person an. Oder rufen Sie uns gerne an.' },
+  { q: 'Wann und wo finden die Angebote statt?',
+    a: 'Schauen Sie einfach in den Terminkalender (Button unten) oder fragen Sie im Pfarrbüro nach.' },
+  { q: 'Ich habe wenig Zeit — gibt es auch kurzfristige Angebote?',
+    a: 'Ja. Neben regelmäßigen Gruppen gibt es auch Einzelveranstaltungen, Ausflüge und Projekte, bei denen Sie punktuell mitmachen können — ganz ohne dauerhafte Verpflichtung.' },
+  { q: 'Ich spreche wenig Deutsch — bin ich trotzdem willkommen?',
+    a: 'Selbstverständlich. Unsere Gemeinschaft ist international und mehrsprachig. In einzelnen Gottesdiensten und Angeboten sprechen wir auch Englisch, Französisch und andere Sprachen. Sprechen Sie uns einfach an.' },
+];
+---
+<section class="astro-gmfaq">
+  <div class="astro-gmfaq__in">
+    <p class="astro-gmfaq__eyebrow">Häufige Fragen</p>
+    <h2 class="astro-gmfaq__h2">Was Sie vielleicht fragen möchten</h2>
+    <div class="astro-gmfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <div class="astro-gmfaq__a">{f.a}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-gmfaq{background:#fff;padding:80px 0}
+.astro-gmfaq__in{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-gmfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#1f7a6d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-gmfaq__h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-gmfaq__list{max-width:840px;margin:0 auto}
+.astro-gmfaq details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;overflow:hidden}
+.astro-gmfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-gmfaq summary::-webkit-details-marker{display:none}
+.astro-gmfaq summary::after{content:"+";font-size:24px;color:#1f7a6d;transition:transform .2s;flex-shrink:0}
+.astro-gmfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-gmfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+@media(max-width:600px){.astro-gmfaq{padding:56px 0}.astro-gmfaq__in{padding:0 20px}}
+</style>

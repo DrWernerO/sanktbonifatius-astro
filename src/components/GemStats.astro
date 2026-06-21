@@ -1,0 +1,29 @@
+---
+// Info-Streifen unter dem Hero der Gemeinschaft-Seite (3 Kennzahlen). Eigene Klassen `astro-gmstats`.
+// Türkis-Band (Original-Theme). Feste Inhalte.
+const STATS = [
+  { big: '20 + Angebote', label: 'Gruppen & Kreise' },
+  { big: 'Das ganze Jahr', label: 'Gemeinsame Termine' },
+  { big: 'Offen für alle', label: 'Einfach anfangen' },
+];
+---
+<section class="astro-gmstats">
+  <div class="astro-gmstats__in">
+    {STATS.map((s) => (
+      <div class="astro-gmstats__item">
+        <span class="astro-gmstats__big">{s.big}</span>
+        <span class="astro-gmstats__label">{s.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-gmstats{background:#1f7a6d;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;padding:28px 0}
+.astro-gmstats__in{max-width:1140px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.astro-gmstats__item{text-align:center;color:#fff;padding:6px 0;border-left:1px solid rgba(255,255,255,.18)}
+.astro-gmstats__item:first-child{border-left:none}
+.astro-gmstats__big{display:block;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(20px,2.6vw,26px);line-height:1.2}
+.astro-gmstats__label{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.82);margin-top:6px}
+@media(max-width:600px){.astro-gmstats__in{grid-template-columns:1fr;gap:18px}.astro-gmstats__item{border-left:none;border-top:1px solid rgba(255,255,255,.18);padding-top:16px}.astro-gmstats__item:first-child{border-top:none;padding-top:6px}}
+</style>

@@ -1,0 +1,40 @@
+---
+// Intro-Lead der Leitung-Seite. Eigene Klassen `astro-lt*`. Enthält die GEMEINSAME Sektions-,
+// Personen- und Namens-Basis (astro-ltsec / astro-ltperson / astro-ltnames), die auch
+// LtPfarrer, LtPgr und LtVr nutzen (alle <style is:global>, Handbuch 3).
+---
+<section class="astro-ltintro">
+  <div class="astro-ltsec__in">
+    <p class="astro-ltintro__lead">Die Pfarrei Sankt Bonifatius Frankfurt wird gemeinschaftlich geleitet: Pfarrer, Pfarrgemeinderat und Verwaltungsrat arbeiten Hand in Hand — im Dienst der Gemeinde und aller Menschen, die zu uns kommen.</p>
+  </div>
+</section>
+
+<style is:global>
+/* ── Gemeinsame Sektions-Basis (Leitung) ───────────────────── */
+.astro-ltsec{padding:72px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:90px}
+.astro-ltsec.is-cream{background:#f7f3ef}
+.astro-ltsec.is-white{background:#fff}
+.astro-ltsec__in{max-width:1080px;margin:0 auto;padding:0 40px}
+.astro-lt-eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px}
+.astro-lt-h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#2c2420;font-size:clamp(26px,3.4vw,38px);margin:0 0 18px;line-height:1.15}
+.astro-lt-h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#2c2420;font-size:20px;margin:36px 0 18px}
+.astro-lt-p{color:#5b5048;font-size:16.5px;line-height:1.7;margin:0 0 14px;max-width:760px}
+/* ── Personen-Karten (Pfarrer / Vorsitz / PGR-Vorstand) ────── */
+.astro-ltperson-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px}
+.astro-ltperson{background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:28px 24px;text-align:center;box-shadow:0 2px 14px rgba(30,21,18,.06)}
+.astro-ltperson__photo{width:112px;height:112px;border-radius:50%;background-size:cover;background-position:center top;background-color:#ede4d5;margin:0 auto 18px;border:4px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.14);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#b88a3a}
+.astro-ltperson__name{font-family:'Playfair Display',Georgia,serif;font-size:20px;color:#2c2420;font-weight:700;margin:0 0 6px}
+.astro-ltperson__role{color:#9a2d2d;font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:600;margin:0 0 12px}
+.astro-ltperson a{display:block;color:#3a2e28;font-size:14.5px;margin:3px 0;transition:color .2s;word-break:break-word}
+.astro-ltperson a:hover{color:#9a2d2d}
+/* ── Namens-Listen (weitere Mitglieder) ────────────────────── */
+.astro-ltnames{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 24px;list-style:none;margin:0;padding:0}
+.astro-ltnames li{position:relative;padding-left:18px;color:#3d3530;font-size:15.5px;line-height:1.5}
+.astro-ltnames li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:#b88a3a}
+/* ── Intro ─────────────────────────────────────────────────── */
+.astro-ltintro{background:#fff;padding:56px 0 8px}
+.astro-ltintro .astro-ltsec__in{max-width:1080px}
+.astro-ltintro__lead{font-family:'Playfair Display',Georgia,serif;font-size:clamp(19px,2.2vw,24px);line-height:1.55;color:#3a2e28;margin:0;max-width:820px}
+@media(max-width:820px){.astro-ltperson-grid{grid-template-columns:repeat(2,1fr)}.astro-ltnames{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-ltsec{padding:52px 0}.astro-ltsec__in{padding:0 20px}.astro-ltperson-grid{grid-template-columns:1fr}.astro-ltnames{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,37 @@
+---
+// „Pfarrer & Pastoralteam" der Leitung-Seite. Eigene Klassen `astro-lt*` (Basis aus LtIntro).
+// Werner-Otto-Karte + Verweis auf Pastoralteam (interne Verlinkung 48782 → 48534).
+const WERNER_PHOTO = '/uploads/2023/07/Bonifatius_Pastoralteam_Werner-edited-1.jpg';
+---
+<section class="astro-ltsec is-cream">
+  <div class="astro-ltsec__in">
+    <p class="astro-lt-eyebrow">Seelsorge</p>
+    <h2 class="astro-lt-h2">Pfarrer &amp; Pastoralteam</h2>
+    <p class="astro-lt-p">Pfarrer Dr. Werner Otto leitet die Pfarrei seit ihrer Gründung im Jahr 2014. Die Seelsorge verantwortet das Pastoralteam gemeinsam — mit dem Pfarrer, fünf Pastoralreferentinnen und zwei Priesterlichen Mitarbeitern.</p>
+    <div class="astro-ltpfarrer">
+      <div class="astro-ltperson astro-ltperson--wide">
+        <div class="astro-ltperson__photo" role="img" aria-label="Foto von Dr. Werner Otto"
+             style={`background-image:url('${WERNER_PHOTO}')`}></div>
+        <div class="astro-ltperson__body">
+          <h3 class="astro-ltperson__name">Pfr. Dr. Werner Otto</h3>
+          <p class="astro-ltperson__role">Pfarrer</p>
+          <a href="tel:+4969695975860">069 695 97 58 60</a>
+          <a href="mailto:w.otto@sanktbonifatius.de">w.otto@sanktbonifatius.de</a>
+        </div>
+      </div>
+      <a href="/ueberuns/pastoralteam/" class="astro-ltpfarrer__link">
+        Zum Pastoralteam
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ltpfarrer{display:flex;flex-wrap:wrap;align-items:center;gap:28px;margin-top:24px}
+.astro-ltperson--wide{display:flex;align-items:center;gap:24px;text-align:left;max-width:460px;flex:1 1 360px}
+.astro-ltperson--wide .astro-ltperson__photo{margin:0;flex-shrink:0;width:104px;height:104px}
+.astro-ltpfarrer__link{display:inline-flex;align-items:center;gap:8px;color:#9a2d2d;font-weight:600;font-size:15px;transition:gap .2s,color .2s}
+.astro-ltpfarrer__link:hover{gap:12px;color:#7e2424}
+@media(max-width:560px){.astro-ltperson--wide{flex-direction:column;text-align:center;gap:16px}.astro-ltperson--wide .astro-ltperson__photo{margin:0 auto}}
+</style>

@@ -1,0 +1,30 @@
+---
+// End-CTA der Gemeinschaft-Seite „Kommen Sie zu uns". Eigene Klassen `astro-gmcta`.
+// id="mitmachen" (Sprungziel aus Hero). Türkis-Verlauf. Feste Inhalte.
+---
+<section class="astro-gmcta" id="mitmachen">
+  <div class="astro-gmcta__in">
+    <p class="astro-gmcta__eyebrow">Jetzt starten</p>
+    <h2 class="astro-gmcta__h2">Kommen Sie zu uns</h2>
+    <p class="astro-gmcta__p">Wir freuen uns auf Sie — egal wo Sie stehen und woher Sie kommen. Schreiben Sie uns oder besuchen Sie einfach einen Gottesdienst.</p>
+    <div class="astro-gmcta__btns">
+      <a href="/kontakt/" class="astro-gmcta__btn astro-gmcta__btn--white">Kontakt aufnehmen</a>
+      <a href="/terminkalender/" class="astro-gmcta__btn astro-gmcta__btn--outline">Termine ansehen</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-gmcta{background:linear-gradient(135deg,#1f7a6d,#176055);padding:72px 0;text-align:center;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:90px}
+.astro-gmcta__in{max-width:680px;margin:0 auto;padding:0 40px}
+.astro-gmcta__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;color:#9fdccf;margin:0 0 12px}
+.astro-gmcta__h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#fff;font-size:clamp(28px,3.8vw,40px);margin:0 0 16px}
+.astro-gmcta__p{color:rgba(255,255,255,.9);font-size:17px;line-height:1.6;margin:0 auto 28px;max-width:520px}
+.astro-gmcta__btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.astro-gmcta__btn{display:inline-block;padding:14px 30px;border-radius:50px;font-size:14px;font-weight:600;letter-spacing:.02em;transition:background .2s,color .2s,border-color .2s}
+.astro-gmcta__btn--white{background:#fff;color:#176055}
+.astro-gmcta__btn--white:hover{background:#eafaf6}
+.astro-gmcta__btn--outline{border:1px solid rgba(255,255,255,.6);color:#fff}
+.astro-gmcta__btn--outline:hover{background:rgba(255,255,255,.14);border-color:#fff}
+@media(max-width:560px){.astro-gmcta{padding:52px 0}.astro-gmcta__in{padding:0 20px}}
+</style>

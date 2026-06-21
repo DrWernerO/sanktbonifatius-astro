@@ -1,0 +1,63 @@
+---
+// „Verwaltungsrat" der Leitung-Seite. Eigene Klassen `astro-lt*` (Basis aus LtIntro).
+// Vorsitz (Werner Otto mit Foto + Wolfgang Sedlak mit Initialen) + weitere Mitglieder +
+// Aufgabenverteilung (Tabelle). Feste Inhalte.
+const WERNER_PHOTO = '/uploads/2023/07/Bonifatius_Pastoralteam_Werner-edited-1.jpg';
+const WEITERE = ['Stefanie Andres','Wolfgang Brugger','Eckhard Gathof','Markus Hauk','Andreas Klüber','Hubert Potthoff','Heribert Schmidt-Wallenborn','Dr. Moritz Schneider','Danielle Wendel-Baumert'];
+const AUFGABEN = [
+  { task: 'Verwaltungsleiterin', who: 'Annette Gause' },
+  { task: 'Kita-Koordinatorin', who: 'Sandra Roos-Greulich' },
+  { task: 'Haushaltsfragen', who: 'Wolfgang Brugger' },
+  { task: 'Rechtsfragen', who: 'Dr. Moritz Schneider' },
+  { task: 'Mietsachen', who: 'Eckhard Gathof' },
+];
+---
+<section class="astro-ltsec is-cream">
+  <div class="astro-ltsec__in">
+    <p class="astro-lt-eyebrow">Recht &amp; Wirtschaft</p>
+    <h2 class="astro-lt-h2">Verwaltungsrat</h2>
+    <p class="astro-lt-p">Der Verwaltungsrat vertritt die Pfarrei als Körperschaft öffentlichen Rechts und trägt die Verantwortung für Finanzen, Vermögen und Dienstgeberaufgaben.</p>
+
+    <h3 class="astro-lt-h3">Vorsitz</h3>
+    <div class="astro-ltperson-grid astro-ltperson-grid--two">
+      <div class="astro-ltperson">
+        <div class="astro-ltperson__photo" role="img" aria-label="Foto von Dr. Werner Otto"
+             style={`background-image:url('${WERNER_PHOTO}')`}></div>
+        <h4 class="astro-ltperson__name">Dr. Werner Otto</h4>
+        <p class="astro-ltperson__role">Pfarrer &amp; Vorsitzender kraft Amtes</p>
+        <a href="tel:+4969695975860">069 695 97 58 60</a>
+        <a href="mailto:w.otto@sanktbonifatius.de">w.otto@sanktbonifatius.de</a>
+      </div>
+      <div class="astro-ltperson">
+        <div class="astro-ltperson__photo" role="img" aria-label="Wolfgang Sedlak">WS</div>
+        <h4 class="astro-ltperson__name">Wolfgang Sedlak</h4>
+        <p class="astro-ltperson__role">Stellvertretender Vorsitzender</p>
+        <a href="mailto:wolfgang.k.sedlak@gmail.com">wolfgang.k.sedlak@gmail.com</a>
+      </div>
+    </div>
+
+    <h3 class="astro-lt-h3">Weitere Mitglieder</h3>
+    <ul class="astro-ltnames">
+      {WEITERE.map((n) => <li>{n}</li>)}
+    </ul>
+
+    <h3 class="astro-lt-h3">Aufgabenverteilung</h3>
+    <table class="astro-ltvr__table">
+      <thead><tr><th>Aufgabe</th><th>Zuständig</th></tr></thead>
+      <tbody>
+        {AUFGABEN.map((a) => (
+          <tr><td>{a.task}</td><td>{a.who}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<style is:global>
+.astro-ltperson-grid--two{grid-template-columns:repeat(2,1fr);max-width:620px}
+.astro-ltvr__table{width:100%;max-width:620px;border-collapse:collapse;margin-top:8px;background:#fff;border:1px solid #e0d8cf;border-radius:12px;overflow:hidden}
+.astro-ltvr__table th{text-align:left;background:#2c2420;color:#fff;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:14px 20px;font-weight:600}
+.astro-ltvr__table td{padding:14px 20px;border-top:1px solid #ede4d5;color:#3d3530;font-size:15.5px}
+.astro-ltvr__table td:first-child{font-weight:600;color:#2c2420}
+@media(max-width:560px){.astro-ltperson-grid--two{grid-template-columns:1fr}}
+</style>

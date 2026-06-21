@@ -1,0 +1,43 @@
+---
+// FAQ der Leitung-Seite „Häufige Fragen zu Leitung & Gremien". Eigene Klassen `astro-ltfaq`.
+// Natives <details> (Muster wie SegenFaq). Feste Inhalte.
+const FAQ = [
+  { q: 'Was ist der Pfarrgemeinderat (PGR) und was entscheidet er?',
+    a: 'Der Pfarrgemeinderat ist das demokratisch gewählte Beratungs- und Beschlussgremium der Pfarrei. Er besteht aus 12 gewählten Gemeindemitgliedern und berät gemeinsam mit dem Pfarrer über alle pastoralen Angelegenheiten — von Gottesdiensten und Gemeindeveranstaltungen bis hin zu Bildungs- und Sozialangeboten. Die aktuelle Amtszeit läuft von 2023 bis 2027. Sitzungen finden alle zwei Monate statt und sind öffentlich.' },
+  { q: 'Was macht der Verwaltungsrat?',
+    a: 'Der Verwaltungsrat vertritt die Pfarrei als Körperschaft öffentlichen Rechts und trägt die rechtlich-wirtschaftliche Verantwortung: Er beschließt den jährlichen Haushalt, verwaltet das Pfarreivermögen (Gebäude, Mieteinnahmen, Rücklagen) und ist Dienstgeber für die Angestellten der Pfarrei. Vorsitzender kraft Amtes ist der Pfarrer.' },
+  { q: 'Kann ich als Gemeindemitglied an PGR-Sitzungen teilnehmen?',
+    a: 'Ja. Die Sitzungen des Pfarrgemeinderats sind öffentlich. Aktuelle Termine und die Tagesordnung erhalten Sie über das Pfarrbüro (Tel. 069 695 97 58 50) oder per E-Mail an info@sanktbonifatius.de. Die Protokolle der letzten Sitzungen stehen weiter oben auf dieser Seite als PDF bereit.' },
+  { q: 'Wie kann ich mich in der Pfarrei ehrenamtlich engagieren?',
+    a: 'Die Pfarrei Sankt Bonifatius Frankfurt bietet vielfältige Wege für Ehrenamtliche — ob in Gottesdienst, Jugendarbeit, Caritas oder Verwaltung. Sprechen Sie uns einfach an: das Pfarrbüro vermittelt den richtigen Ansprechpartner. Mehr Informationen auch unter Mitmachen.' },
+];
+---
+<section class="astro-ltfaq">
+  <div class="astro-ltfaq__in">
+    <p class="astro-ltfaq__eyebrow">Häufige Fragen</p>
+    <h2 class="astro-ltfaq__h2">Häufige Fragen zu Leitung &amp; Gremien</h2>
+    <div class="astro-ltfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <div class="astro-ltfaq__a">{f.a}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ltfaq{background:#fff;padding:80px 0}
+.astro-ltfaq__in{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-ltfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-ltfaq__h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3.2vw,36px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-ltfaq__list{max-width:840px;margin:0 auto}
+.astro-ltfaq details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;overflow:hidden}
+.astro-ltfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-ltfaq summary::-webkit-details-marker{display:none}
+.astro-ltfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-ltfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-ltfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+@media(max-width:600px){.astro-ltfaq{padding:56px 0}.astro-ltfaq__in{padding:0 20px}}
+</style>

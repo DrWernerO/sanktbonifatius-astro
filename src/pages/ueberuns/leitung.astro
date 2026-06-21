@@ -1,0 +1,26 @@
+---
+// Seite „Leitung" — WP-Seite 48782 (/ueberuns/leitung/), vollständig aus eigenen
+// astro-Komponenten (Handbuch 9b). Nav + Footer global aus Base.astro (4b).
+// Bänder-Prinzip: dunkler Hero → weißer Intro → Crème Pfarrer → weißer PGR → Crème VR →
+// weiße FAQ → dunkler CTA. SEO-Head live aus WordPress via getSeoHead.
+import Base from '../../layouts/Base.astro';
+import LtHero from '../../components/LtHero.astro';
+import LtIntro from '../../components/LtIntro.astro';
+import LtPfarrer from '../../components/LtPfarrer.astro';
+import LtPgr from '../../components/LtPgr.astro';
+import LtVr from '../../components/LtVr.astro';
+import LtFaq from '../../components/LtFaq.astro';
+import LtCta from '../../components/LtCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/leitung/');
+---
+<Base seo={seo} title="Leitung der Pfarrei">
+  <LtHero />
+  <LtIntro />
+  <LtPfarrer />
+  <LtPgr />
+  <LtVr />
+  <LtFaq />
+  <LtCta />
+</Base>

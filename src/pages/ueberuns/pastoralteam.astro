@@ -1,0 +1,22 @@
+---
+// Seite „Pastoralteam" — WP-Seite 48534 (/ueberuns/pastoralteam/), vollständig aus eigenen
+// astro-Komponenten (Handbuch 9b). Nav + Footer global aus Base.astro (4b). Bänder-Prinzip:
+// dunkler Hero → heller Welcome → Crème Team → weiße FAQ → dunkler CTA (Inventar 48534).
+// SEO-Head live aus WordPress via getSeoHead.
+import Base from '../../layouts/Base.astro';
+import PtHero from '../../components/PtHero.astro';
+import PtWelcome from '../../components/PtWelcome.astro';
+import PtTeam from '../../components/PtTeam.astro';
+import PtFaq from '../../components/PtFaq.astro';
+import PtCta from '../../components/PtCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/pastoralteam/');
+---
+<Base seo={seo} title="Pastoralteam">
+  <PtHero />
+  <PtWelcome />
+  <PtTeam />
+  <PtFaq />
+  <PtCta />
+</Base>

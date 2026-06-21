@@ -1,0 +1,43 @@
+---
+// FAQ der Pastoralteam-Seite „Häufige Fragen". Eigene Klassen `astro-ptfaq`.
+// Natives <details> (Muster wie SegenFaq). Feste Inhalte.
+const FAQ = [
+  { q: 'Wie kann ich einen Termin mit einem Seelsorger vereinbaren?',
+    a: 'Sie können alle Seelsorgerinnen und Seelsorger direkt per Telefon oder E-Mail kontaktieren. Das zentrale Pfarrbüro ist unter 069 695 97 58 50 erreichbar. Dort werden Sie gerne an die richtige Ansprechperson weitervermittelt.' },
+  { q: 'Wer ist Ansprechpartner für Taufe, Trauung oder Beerdigung?',
+    a: 'Für Kasualien (Taufe, Trauung, Beerdigung) wenden Sie sich am besten an das Pfarrbüro (069 695 97 58 50) oder direkt an den zuständigen Pfarrer Ihres Kirchorts. Alle Mitglieder des Seelsorgeteams stehen für seelsorgliche Gespräche zur Verfügung.' },
+  { q: 'Welche Kirchorte gehören zur Pfarrei Sankt Bonifatius?',
+    a: 'Die Pfarrei umfasst vier Kirchorte in Frankfurt am Main: St. Aposteln, St. Bonifatius und St. Wendel in Sachsenhausen sowie Herz Jesu in Oberrad. Jeder Kirchort hat eine eigene Pastoralreferentin oder einen eigenen Pastoralreferenten als Ansprechperson.' },
+  { q: 'Ich bin nicht katholisch – kann ich trotzdem das Pastoralteam kontaktieren?',
+    a: 'Ja, selbstverständlich. Das Pastoralteam ist offen für alle Menschen, unabhängig von Konfession oder Glaube. Wenn Sie ein seelsorgliches Gespräch suchen, Fragen zum Glauben haben oder eine Gemeinschaft kennenlernen möchten, sind Sie herzlich willkommen.' },
+];
+---
+<section class="astro-ptfaq">
+  <div class="astro-ptfaq__in">
+    <p class="astro-ptfaq__eyebrow">Häufige Fragen</p>
+    <h2 class="astro-ptfaq__h2">Antworten auf Ihre Fragen</h2>
+    <div class="astro-ptfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <div class="astro-ptfaq__a">{f.a}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ptfaq{background:#fff;padding:80px 0}
+.astro-ptfaq__in{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-ptfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-ptfaq__h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-ptfaq__list{max-width:840px;margin:0 auto}
+.astro-ptfaq details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;overflow:hidden}
+.astro-ptfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-ptfaq summary::-webkit-details-marker{display:none}
+.astro-ptfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-ptfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-ptfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+@media(max-width:600px){.astro-ptfaq{padding:56px 0}.astro-ptfaq__in{padding:0 20px}}
+</style>

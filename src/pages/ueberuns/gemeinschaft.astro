@@ -1,0 +1,23 @@
+---
+// Seite „Gemeinschaft" — WP-Seite 48254 (/ueberuns/gemeinschaft/), vollständig aus eigenen
+// astro-Komponenten (Handbuch 9b „feste Inhalte"). Nav + Footer global aus Base.astro (4b).
+// SEO-Head live aus WordPress (SEOPress) via getSeoHead.
+import Base from '../../layouts/Base.astro';
+import GemHero from '../../components/GemHero.astro';
+import GemStats from '../../components/GemStats.astro';
+import GemWelcome from '../../components/GemWelcome.astro';
+import GemGroups from '../../components/GemGroups.astro';
+import GemFaq from '../../components/GemFaq.astro';
+import GemCta from '../../components/GemCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/gemeinschaft/');
+---
+<Base seo={seo} title="Gemeinschaft">
+  <GemHero />
+  <GemStats />
+  <GemWelcome />
+  <GemGroups />
+  <GemFaq />
+  <GemCta />
+</Base>

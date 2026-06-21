@@ -1,0 +1,21 @@
+---
+// Hero der Seite „Leitung" (WP-Seite 48782). Einfarbiger dunkler Hero + Gold-Akzentlinie
+// (analog Pastoralteam). Eigene Klassen `astro-lthero` (Handbuch 3).
+---
+<section class="astro-lthero">
+  <div class="astro-lthero__inner">
+    <p class="astro-lthero__eyebrow">Pfarrei Sankt Bonifatius Frankfurt</p>
+    <h1 class="astro-lthero__title">Die Leitung der Pfarrei</h1>
+    <p class="astro-lthero__sub">Pfarrer, Pfarrgemeinderat und Verwaltungsrat — gemeinsam tragen sie Verantwortung für das Leben in Sankt Bonifatius Frankfurt.</p>
+  </div>
+</section>
+
+<style is:global>
+.astro-lthero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:min(52vh,440px);background:linear-gradient(135deg,#2c2420,#3a2315);display:flex;flex-direction:column;justify-content:flex-end}
+.astro-lthero::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#b88a3a 0%,#d4aa5a 50%,#b88a3a 100%)}
+.astro-lthero__inner{max-width:1140px;width:100%;margin:0 auto;padding:64px 40px;color:#fff}
+.astro-lthero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;color:#d4aa5a;margin:0 0 14px}
+.astro-lthero__title{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#fff;font-size:clamp(34px,5vw,60px);line-height:1.1;margin:0 0 14px}
+.astro-lthero__sub{font-size:18px;color:rgba(255,255,255,.85);line-height:1.6;margin:0;max-width:640px}
+@media(max-width:600px){.astro-lthero{min-height:340px}.astro-lthero__inner{padding:44px 20px}}
+</style>

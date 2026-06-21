@@ -1,0 +1,32 @@
+---
+// Intro-Sektion „Was uns verbindet" der Gemeinschaft-Seite. Eigene Klassen `astro-gmwel`.
+// Feste Inhalte; zwei Buttons (Sprung zu Gruppen, Engagement-Seite).
+---
+<section class="astro-gmwel">
+  <div class="astro-gmwel__in">
+    <p class="astro-gmwel__eyebrow">Was uns verbindet</p>
+    <h2 class="astro-gmwel__h2">Mehr als eine Kirche —<br><span>eine lebendige Gemeinschaft</span></h2>
+    <p class="astro-gmwel__p">Die Pfarrei Sankt Bonifatius ist ein Ort, an dem Menschen zusammenkommen — ob beim Gottesdienst, im Chor, beim Bibelkreis oder beim gemeinsamen Essen. Unsere Gemeinschaft lebt von der Vielfalt ihrer Mitglieder: jung und alt, alteingesessen und neu zugezogen, aus vielen Kulturen und Ländern.</p>
+    <p class="astro-gmwel__p">Sie müssen nichts mitbringen außer Offenheit. Wir freuen uns auf Sie.</p>
+    <div class="astro-gmwel__btns">
+      <a href="#gruppen" class="astro-gmwel__btn astro-gmwel__btn--teal">Gruppen entdecken</a>
+      <a href="/kontakt/engagement/" class="astro-gmwel__btn astro-gmwel__btn--outline">Wie kann ich mitmachen?</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-gmwel{background:#fff;padding:72px 0;text-align:center}
+.astro-gmwel__in{max-width:760px;margin:0 auto;padding:0 40px}
+.astro-gmwel__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;color:#1f7a6d;letter-spacing:.06em;margin:0 0 12px}
+.astro-gmwel__h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#2c2420;font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0 0 24px}
+.astro-gmwel__h2 span{color:#1f7a6d}
+.astro-gmwel__p{color:#5b5048;font-size:17px;line-height:1.7;margin:0 auto 16px;max-width:640px}
+.astro-gmwel__btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+.astro-gmwel__btn{display:inline-block;padding:13px 28px;border-radius:50px;font-size:14px;font-weight:600;letter-spacing:.02em;transition:background .2s,color .2s,border-color .2s}
+.astro-gmwel__btn--teal{background:#1f7a6d;color:#fff}
+.astro-gmwel__btn--teal:hover{background:#176055}
+.astro-gmwel__btn--outline{border:1px solid #cdbfae;color:#3a2e28}
+.astro-gmwel__btn--outline:hover{border-color:#1f7a6d;color:#1f7a6d}
+@media(max-width:600px){.astro-gmwel{padding:52px 0}.astro-gmwel__in{padding:0 20px}}
+</style>

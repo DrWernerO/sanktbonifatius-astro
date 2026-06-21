@@ -1,0 +1,32 @@
+---
+// Hero der Seite „Gemeinschaft" (WP-Seite 48254, /ueberuns/gemeinschaft/). Eigene Klassen
+// `astro-gm` (Handbuch Abschnitt 3). Full-Bleed-Foto + Overlay + Titel + Button.
+// Türkis-Akzent (Original-Seite war Türkis-Theme). Bild lokal in public/uploads/ (Handbuch 1b).
+const bg = '/uploads/2026/04/Gemeinschaft.jpg';
+---
+<section class="astro-gmhero">
+  <div class="astro-gmhero__bg" role="img"
+       aria-label="Gemeinschaft in der Pfarrei Sankt Bonifatius Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-gmhero__ol"></div>
+  <div class="astro-gmhero__inner">
+    <p class="astro-gmhero__eyebrow">Pfarrei Sankt Bonifatius Frankfurt</p>
+    <h1 class="astro-gmhero__title">Gemeinschaft in<br><em>unserer Pfarrei</em></h1>
+    <p class="astro-gmhero__sub">Wir sind füreinander da — in Gottesdienst, Gebet und gelebter Nächstenliebe. Entdecken Sie, was uns verbindet.</p>
+    <a href="#mitmachen" class="astro-gmhero__btn">Jetzt mitmachen ↓</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-gmhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:560px;display:flex;align-items:flex-end;overflow:hidden}
+.astro-gmhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 35%}
+.astro-gmhero__ol{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,60,56,.30) 0%,rgba(15,45,42,.62) 100%)}
+.astro-gmhero__inner{position:relative;z-index:2;max-width:1140px;width:100%;margin:0 auto;padding:48px 40px 64px;color:#fff}
+.astro-gmhero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;color:#7fd1c4;letter-spacing:.04em;margin:0 0 14px}
+.astro-gmhero__title{font-family:'Playfair Display',Georgia,serif;font-weight:700;line-height:1.12;letter-spacing:-.01em;color:#fff;font-size:clamp(30px,5.5vw,58px);margin:0 0 16px;max-width:760px}
+.astro-gmhero__title em{font-style:italic}
+.astro-gmhero__sub{font-size:17px;color:rgba(255,255,255,.9);line-height:1.6;margin:0 0 28px;max-width:560px}
+.astro-gmhero__btn{display:inline-block;padding:14px 30px;border-radius:50px;font-size:15px;font-weight:600;letter-spacing:.02em;background:#1f7a6d;color:#fff;transition:background .2s,transform .2s}
+.astro-gmhero__btn:hover{background:#176055;transform:translateY(-2px)}
+@media(max-width:600px){.astro-gmhero{min-height:440px}.astro-gmhero__inner{padding:40px 20px 44px}}
+</style>
