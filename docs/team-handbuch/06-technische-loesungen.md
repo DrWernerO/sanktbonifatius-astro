@@ -852,6 +852,7 @@ In der `functions.php` (Theme `ursprung-bonifatius`) gibt es einen Block `/* ===
 2. **Rewrite-Endpoint `/llms.txt`** — `add_rewrite_rule` + `template_redirect`-Action mit `echo`-Zeilen (Doppelquotes mit `\n`).
 
 Am 2026-06-10 von 13 auf 36 Zeilen erweitert: alle Kasualien (inkl. Trauerfall mit Notfall-Telefon), Gottesdienst-Formate, Gemeinschaft, Pastoralteam/Leitung, 4 Kirchorte, Kontakt.
+Am 2026-06-21 auf 54 Zeilen erweitert: zusätzlich „Ueber uns"-Absatz, Schnellzugang (Startseite + Terminkalender), BonFamily und ein „Fuer KI-Assistenten: Haeufige Anfragen"-Block (typische Suchfragen → Zielseite). Alle Pfade vorab auf HTTP 200 geprüft.
 
 ### ✅ Go-Live erledigt (19.06.2026)
 Der Block ist auf **www** live — `https://www.sanktbonifatius.de/llms.txt` liefert die Übersicht aus, der AI-Crawler-Block steht in robots.txt. (Historisch: lag zunächst nur auf dev; beim Übertragen war ggf. ein Permalink-Flush nötig, damit die Rewrite-Rule griff.) Siehe Abschnitt 25.
