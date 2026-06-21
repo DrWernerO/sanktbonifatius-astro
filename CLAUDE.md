@@ -42,5 +42,7 @@ npm run dev   # läuft mit NODE_TLS_REJECT_UNAUTHORIZED=0 auf Port 4321
 - `src/pages/index.astro` — Startseite, Page-ID 45758, splittet Content am `ASTRO_SLOT`
 - `src/pages/kontakt.astro` — Kontakt-Seite (Page-ID 46800), 100 % eigene `Kontakt*`-Komponenten (Handbuch 11)
 - `src/pages/segen-sakramente/index.astro` — Übersicht „Segen und Sakramente" (Page-ID 48265), 100 % eigene `Segen*`-Komponenten (Handbuch 14)
-- `src/pages/segen-sakramente/taufe.astro` — Taufe-Seite (Page-ID 46566), 100 % eigene `Taufe*`-Komponenten; Anmeldeformular sendet an WP-Handler `taufe_anmeldung` (Handbuch 13/13b)
-- `astro.config.mjs` — Vite-Proxy `/wp-proxy`
+- `src/pages/segen-sakramente/taufe.astro` — Taufe-Seite (Page-ID 46566), 100 % eigene `Taufe*`-Komponenten; Anmeldeformular postet an eigene Route `/api/taufe-anmeldung` (Handbuch 13/13b)
+- `src/pages/api/taufe-anmeldung.ts` — API-Route: füllt das amtliche Taufe-PDF + verschickt es als Mail-Anhang (`prerender = false`)
+- `src/lib/taufe/` — `fill-taufe.js` (Formulardaten → PDF) + `taufe-vorlage.pdf` (ausfüllbare Vorlage); Generator: `scripts/build-taufe-vorlage.mjs`
+- `astro.config.mjs` — Vite-Proxy `/wp-proxy`; Server-Modus via `@astrojs/node` (für `/api/*`)

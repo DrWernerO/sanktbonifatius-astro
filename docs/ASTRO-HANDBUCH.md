@@ -706,65 +706,50 @@ Nav + Footer global aus `Base.astro` (Abschnitt 4b). Route liegt unter `pages/se
 
 ## 13b. ⚠️ Taufe-Anmeldeformular im Headless-Setup — Übermittlung & PDF (WICHTIG)
 
-> **Das Formular ist das kritische Element der Seite.** Es löst im WordPress-Admin den Versand
-> einer Mail im Look des **offiziellen Diözesan-Formulars „Anmeldung zur Taufe" (Limburg)** aus.
-> Vorlage liegt im Projekt: [`Taufe.pdf`](../Taufe.pdf).
+> **Das Formular ist das kritische Element der Seite.** Es erzeugt eine **ausgefüllte PDF im Look des
+> offiziellen Diözesan-Formulars „Anmeldung zur Taufe" (Limburg)** und verschickt sie ans Pfarrbüro.
+> Ausfüllbare Vorlage im Projekt: [`src/lib/taufe/taufe-vorlage.pdf`](../src/lib/taufe/taufe-vorlage.pdf).
 
-### Wie es heute funktioniert (Dev-Stand, OHNE WP-Änderung)
-Das WordPress baut die Mail serverseitig — **das bleibt vorerst die Quelle der Wahrheit** (die
-WP-Seite `/segen-sakramente/taufe/` geht produktiv live; ihr Formular muss funktionieren):
+### Stand: UMGESETZT in Astro (2026-06-21) — eigenes PDF + eigener Mailversand
+Das Formular ist **WP-unabhängig**: kein admin-ajax/Nonce/CORS mehr. Der Ablauf:
 
-- **WP-Handler** `taufe_anmeldung` (admin-ajax, im Child-Theme `ursprung-bonifatius`,
-  `functions.php` — siehe **Team-Handbuch `06-technische-loesungen.md` Abschnitt 15**) empfängt
-  `FormData`, baut die Mail und verschickt sie per `wp_mail()` ans Pfarrbüro. **Unangetastet lassen.**
-- **Astro-Formular** ([`TaufeForm.astro`](../src/components/TaufeForm.astro)) reproduziert **exakt
-  dieselben Feld-`name`-Attribute** (Vertrag! sonst kann der Handler die Mail nicht füllen) und
-  sendet per `fetch` an `admin-ajax.php`.
-- **Nonce-Problem & Lösung:** Im statischen Astro-Build fehlt der WP-Nonce (WP injiziert ihn nur in
-  die voll gerenderte Seite via `taufeAjax = {url, nonce}`). Das Client-Script holt ihn daher
-  **unmittelbar vor dem Absenden** aus der gerenderten WP-Seite über den Vite-Proxy und postet dann:
-  ```js
-  const RENDERED_PAGE = '/wp-proxy/segen-sakramente/taufe/';   // liefert taufeAjax={…,nonce:"…"}
-  const AJAX_URL      = '/wp-proxy/wp-admin/admin-ajax.php';
-  // getNonce(): Seite holen → /taufeAjax…nonce:"([^"]+)"/ → POST FormData + action + nonce
-  ```
-  Im Dev löst der Proxy SSL **und** Same-Origin → funktioniert ohne jede WP-Anpassung. Verifiziert
-  2026-06-15 (Nonce-Abruf ok). **Feldnamen sind als Vertrag dokumentiert** (Wunschtermin, Kontakt,
-  Täufling `tauf_*`, `vater_*`, `mutter_*`, `pate1_*`/`pate2_*`, `eltern_*`, `trauung`/`traudatum`/
-  `trauort`, `bemerkungen`, `veroeffentlichung`).
+1. **Formular** ([`TaufeForm.astro`](../src/components/TaufeForm.astro)) postet das `FormData`
+   per `fetch` an die eigene Route **`/api/taufe-anmeldung`** (kein WP-Aufruf mehr).
+2. **API-Route** [`src/pages/api/taufe-anmeldung.ts`](../src/pages/api/taufe-anmeldung.ts)
+   (`export const prerender = false`): liest die Felder → erzeugt das ausgefüllte PDF →
+   verschickt es per `nodemailer` als **PDF-Anhang** ans Pfarrbüro → gibt JSON `{success,data}` zurück.
+3. **PDF-Erzeugung** [`src/lib/taufe/fill-taufe.js`](../src/lib/taufe/fill-taufe.js): füllt die
+   **ausfüllbare Vorlage** [`src/lib/taufe/taufe-vorlage.pdf`](../src/lib/taufe/taufe-vorlage.pdf)
+   (echte AcroForm-Felder, 36 Stück) — pixelgenau wie das amtliche Limburger Formular.
+4. **Server-Modus:** [`astro.config.mjs`](../astro.config.mjs) nutzt **`@astrojs/node`** (standalone);
+   nur Routen mit `prerender = false` laufen server-seitig, alle Seiten bleiben statisch.
 
-> **Ehrlicher Stand:** Die WP-Mail **sieht aus wie** das Diözesan-Formular, ist aber **kein echtes
-> PDF**. Ein echtes ausgefülltes PDF als Anhang ist erst der Astro-Endzustand (unten).
+**Vorlage neu bauen** (Kopf/Logo/Felder ändern): Quell-Rohling + Logo liegen unter
+`scripts/taufe-assets/`, Generator ist [`scripts/build-taufe-vorlage.mjs`](../scripts/build-taufe-vorlage.mjs)
+(`node scripts/build-taufe-vorlage.mjs`). Der Kopf links wurde geleert und durch Logo + Pfarrei-Kontakt
++ „Diözese Limburg" ersetzt; Feld-Koordinaten stammen aus dem echten Linienraster (`pdftocairo -svg`).
 
-### 🔜 Was beim Astro-Umstieg zu tun ist (TODO — erst beim Wechsel)
-Sobald Astro produktiv läuft (Netlify, Abschnitt 1b), zwei Baustellen:
+**Feld-Mapping (Vertrag):** Die Formular-`name`-Attribute werden in `fill-taufe.js` auf die PDF-Felder
+abgebildet. Wo das amtliche Formular zusammenfasst, werden Einzelfelder gejoint (`tauf_strasse`+
+`tauf_wohnort`; `vater_name`+`vater_vorname`; `eltern_strasse`+`eltern_wohnort`; `trauung`/`traudatum`/
+`trauort`). **Wunschtermin + Kontakt** stehen nicht auf dem amtlichen Formular → wandern in die
+**Bemerkungen**. NICHT umbenennen, sonst greift das Mapping nicht.
 
-**A) Übermittlung produktionstauglich machen** (solange die WP-AJAX-Lösung bleibt):
-- Der Vite-Proxy `/wp-proxy` existiert **nur im Dev**. Statisch gehostet ist der Aufruf an die
-  CMS-Domain **cross-origin** → admin-ajax braucht **CORS-Header**, oder ein Proxy/Edge-Function.
-- Build-Zeit-Nonce wäre veraltet → der **client-seitige Nonce-Abruf** (oben) bleibt nötig, mit der
-  echten CMS-Domain statt `/wp-proxy`. Beim WP-Umzug `RENDERED_PAGE`/`AJAX_URL` auf
-  `cms.sanktbonifatius.de` umstellen (vgl. Domain-Umschreibung Abschnitt 1b/1e).
+> **Lokaler Test ohne Postfach:** Sind keine SMTP-Daten gesetzt, läuft ein **DEV-Modus** — das PDF
+> wird statt versendet unter `./.taufe-eingaben/` gespeichert (gitignored). Verifiziert 2026-06-21
+> (Formular abgeschickt → PDF korrekt erzeugt).
 
-**B) Echtes PDF + eigener Versand in Astro** (empfohlener Endzustand — macht das Formular komplett
-WP-unabhängig, kein Nonce/CORS/admin-ajax mehr):
-1. **Astro auf SSR/Serverless** umstellen (Adapter Netlify/Vercel/Cloudflare) — statisch allein
-   reicht für Formularverarbeitung nicht.
-2. **API-Route** `src/pages/api/taufe-anmeldung.ts`: validieren → PDF bauen → Mail mit Anhang →
-   JSON zurück. Das Formular postet dorthin statt an WP.
-3. **PDF-Erzeugung** mit **`pdf-lib`** (pure JS, läuft in Serverless — anders als Puppeteer):
-   - Empfohlen (a) **Overlay** der Anmeldedaten an festen Koordinaten **über die vorhandene
-     Vorlage** [`Taufe.pdf`](../Taufe.pdf) — diese ist **flach** (keine AcroForm-Felder, geprüft
-     2026-06-15), Koordinaten einmal ausmessen; **pixelgenau** wie das offizielle Formular.
-   - Alternative (b) Vorlage einmalig „fillable" machen (AcroForm-Felder setzen), dann `pdf-lib`
-     füllt benannte Felder. (c) Layout komplett im Code neu — am meisten Aufwand.
-4. **Mailversand** per `nodemailer` (SMTP des All-inkl-Postfachs) **oder** Mail-API (Resend/Postmark/
-   Mailgun); generiertes PDF als `Buffer`-Anhang. Zugangsdaten als **Env-Vars** beim Host
-   (NIE ins Repo — CLAUDE.md-Regel).
-5. Empfänger wie heute im WP-Handler (`info@`, `pfarrer@`, `w.otto@…` — Team-Handbuch 15).
+### 🔜 Offen — erst beim Netlify-Go-Live
+1. **SMTP-Zugangsdaten** des All-inkl-Postfachs als **Env-Vars** hinterlegen (NIE ins Repo):
+   `SMTP_HOST/PORT/USER/PASS`, `SMTP_FROM`, `TAUFE_TO` — Muster in [`.env.example`](../.env.example).
+   Empfänger wie bisher: `pfarrer@`, `info@`, `w.otto@sanktbonifatius.de` (Team-Handbuch 15).
+2. **Adapter umstellen:** für Netlify `@astrojs/netlify` statt `@astrojs/node` in `astro.config.mjs`.
+   Sicherstellen, dass die Vorlage `src/lib/taufe/taufe-vorlage.pdf` im Serverless-Bundle landet
+   (ggf. `includeFiles`/`functionPerRoute` prüfen — die Route liest sie über `import.meta.url`).
+3. Danach echten Versand mit Test-Anmeldung verifizieren (Mail kommt mit PDF-Anhang an).
 
-> Feldnamen aus `TaufeForm.astro` 1:1 als PDF-Feld-Mapping wiederverwenden → siehe Vorlage
-> [`Taufe.pdf`](../Taufe.pdf) für die Ziel-Anordnung (Täufling, Vater, Mutter, Paten, Weitere Angaben).
+> Die frühere WordPress-AJAX-Anbindung (`taufe_anmeldung`, Nonce-Abruf über `/wp-proxy`) ist abgelöst.
+> Der WP-Handler in `functions.php` bleibt unangetastet und versorgt weiterhin die alte WP-Seite.
 
 ---
 
