@@ -30,6 +30,9 @@ const form  = pdf.getForm();
 page.drawRectangle({ x: 41.5, y: PAGE_H - (23 + 74.5), width: 383, height: 74.5, color: rgb(1, 1, 1) });
 // Trennlinie Pfarrei | Nummern-Box sauber durchziehen
 page.drawLine({ start: { x: 426.5, y: PAGE_H - 16.2 }, end: { x: 426.5, y: PAGE_H - 134.5 }, thickness: 0.75, color: rgb(0, 0, 0) });
+// Feste „0000" bei Seite / Lfd. Nr. entfernen (werden unten zu Feldern)
+page.drawRectangle({ x: 428,  y: PAGE_H - 97, width: 60.5, height: 20, color: rgb(1, 1, 1) }); // Seite
+page.drawRectangle({ x: 490,  y: PAGE_H - 97, width: 61.8, height: 20, color: rgb(1, 1, 1) }); // Lfd. Nr.
 
 // 2) Logo + Pfarrei-Text
 const logoImg = await pdf.embedPng(fs.readFileSync(LOGO));
@@ -92,6 +95,10 @@ mk('bemerkungen', XL, XR, 654.4, 685.9, { multiline: true, size: 9 });
 const rg = form.createRadioGroup('veroeffentlichung');
 rg.addOptionToPage('Ja',   page, { x: 451.9, y: PAGE_H - 710.5, width: 11, height: 11, borderWidth: 0 });
 rg.addOptionToPage('Nein', page, { x: 486.9, y: PAGE_H - 710.5, width: 11, height: 11, borderWidth: 0 });
+
+// Nummern-Box oben rechts (vom Pfarrbüro auszufüllen)
+mk('seite', 428, 488.5, 77, 96, { size: 9 });
+mk('lfd_nr', 490, 551, 77, 96, { size: 9 });
 
 mk('unterschrift_datum', 120.4, 255.3, 724.0, 738.2, { size: 9 });
 mk('anmeldedatum', 42, 156.8, 772.3, 789);
