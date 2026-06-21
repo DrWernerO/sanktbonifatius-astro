@@ -2,18 +2,16 @@
 // ⚠️ KRITISCH: Taufe-Anmeldeformular (WP-Block `taufe-anmeldung`). Eigene Klassen `astro-taform`.
 // id="anmeldung" für die Sprungmarken aus Hero/Steps.
 //
-// ÜBERMITTLUNG (Dev-Stand, ohne WP-Änderung): Das Formular sendet die Felder per FormData an den
-// bestehenden WordPress-Handler `taufe_anmeldung` (admin-ajax.php) — dieser baut die Mail im
-// Diözesan-Formular-Look und schickt sie ans Pfarrbüro. Der WP-Handler bleibt UNANGETASTET
-// (die WP-Seite /segen-sakramente/taufe/ geht produktiv live). Da der WP-Nonce im statischen
-// Astro-Build fehlt, holt das Client-Script ihn unmittelbar vor dem Absenden aus der gerenderten
-// WP-Seite über den Vite-Proxy (kein SSL/CORS-Problem im Dev).
+// ÜBERMITTLUNG (Astro-Endzustand, ASTRO-HANDBUCH 13b/B): Das Formular sendet die Felder per
+// FormData an die eigene API-Route `/api/taufe-anmeldung` (src/pages/api/taufe-anmeldung.ts).
+// Diese erzeugt das ausgefüllte amtliche PDF (src/lib/taufe/) und verschickt es als Mail-Anhang
+// ans Pfarrbüro. Damit ist das Formular WP-unabhängig (kein admin-ajax/Nonce/CORS mehr).
+// Voraussetzung: Server-Modus (@astrojs/node in astro.config.mjs) + SMTP-Daten in .env.
 //
-// 🔑 Feldnamen sind VERTRAG: Sie müssen exakt mit den Feldern des WP-Handlers / des
-// Diözesan-Formulars übereinstimmen (sonst kann die Mail/PDF nicht gefüllt werden). NICHT umbenennen.
+// 🔑 Feldnamen sind VERTRAG: Sie müssen exakt mit dem Mapping in src/lib/taufe/fill-taufe.js
+// übereinstimmen (sonst landen Werte nicht im PDF). NICHT umbenennen.
 //
-// 🔜 Beim Astro-Umstieg ersetzt eine eigene Astro-API-Route + PDF-Generator diese Anbindung —
-// siehe ASTRO-HANDBUCH.md, Abschnitt „Taufe-Formular im Headless-Setup".
+// (Frühere Anbindung an den WordPress-Handler `taufe_anmeldung` siehe Git-Historie / Handbuch 13b.)
 
 const eltern = [
   { key: 'vater',  legend: 'Vater'  },
@@ -192,19 +190,8 @@ const paten = [
   const msg  = document.getElementById('astro-taform-msg');
   const btn  = form.querySelector('.astro-taform__submit');
 
-  // Endpunkte über den Vite-Proxy (Dev): kein SSL/CORS-Problem. Beim Astro-Umstieg ersetzt eine
-  // eigene API-Route diese Anbindung (siehe ASTRO-HANDBUCH).
-  const RENDERED_PAGE = '/wp-proxy/segen-sakramente/taufe/';
-  const AJAX_URL      = '/wp-proxy/wp-admin/admin-ajax.php';
-
-  // Holt den WP-Nonce frisch aus der gerenderten WP-Seite (taufeAjax = {..., nonce:"xxxx"}).
-  async function getNonce(){
-    try {
-      const html = await fetch(RENDERED_PAGE, { cache: 'no-store' }).then(function(r){ return r.text(); });
-      const m = html.match(/taufeAjax\s*=\s*\{[^}]*?nonce\s*:\s*["']([^"']+)["']/);
-      return m ? m[1] : '';
-    } catch(e) { return ''; }
-  }
+  // Eigene Astro-API-Route: erzeugt das PDF und verschickt es ans Pfarrbüro.
+  const ENDPOINT = '/api/taufe-anmeldung';
 
   function setMsg(ok, text){
     msg.hidden = false;
@@ -220,11 +207,8 @@ const paten = [
     btn.disabled = true;
     btn.textContent = 'Wird gesendet…';
     try {
-      const nonce = await getNonce();
       const data = new FormData(form);
-      data.append('action', 'taufe_anmeldung');
-      data.append('nonce', nonce);
-      const res = await fetch(AJAX_URL, { method: 'POST', body: data }).then(function(r){ return r.json(); });
+      const res = await fetch(ENDPOINT, { method: 'POST', body: data }).then(function(r){ return r.json(); });
       if(res && res.success){
         setMsg(true, typeof res.data === 'string' ? res.data : 'Vielen Dank! Ihre Anmeldung ist eingegangen. Wir melden uns bei Ihnen.');
         form.reset();

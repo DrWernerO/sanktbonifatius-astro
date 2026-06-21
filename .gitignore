@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# Taufe-Anmeldungen, die im Testmodus (ohne SMTP) lokal gespeichert werden
+.taufe-eingaben/
+
 # macOS-specific files
 .DS_Store
 
