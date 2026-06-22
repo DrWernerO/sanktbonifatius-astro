@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **81 Live-Seiten erfasst · 18 bereits in Astro übernommen (erledigt) · 63 offen.** Stand: 22.06.2026.
+> **81 Live-Seiten erfasst · 21 bereits in Astro übernommen (erledigt) · 2 entfallen bei Go-Live · 58 offen.** Stand: 22.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -19,7 +19,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 |---|---|---|---|---|---|
 | Über uns | [Link](https://www.sanktbonifatius.de/ueberuns/) | `src/pages/ueberuns.astro` | Werner | ✅ erledigt |  |
 | Barrierefreiheit | [Link](https://www.sanktbonifatius.de/ueberuns/barrierefreiheit/) | `src/pages/ueberuns/barrierefreiheit.astro` | Werner | ✅ erledigt | Page-ID 49119, eigene Bar*-Komponenten; Original-Foto-Hero, 4 Kirchorte als aufklappbare Zugänglichkeits-Infos |
-| ChurchDesk-Registrierung | [Link](https://www.sanktbonifatius.de/ueberuns/churchdesk-registrierung/) | — | — | offen |  |
+| ChurchDesk-Registrierung | [Link](https://www.sanktbonifatius.de/ueberuns/churchdesk-registrierung/) | `src/pages/ueberuns/churchdesk-registrierung.astro` | Werner | ✅ erledigt | Page-ID 49146, eigene ChurchDesk*-Komponenten (Präfix `astro-cd`); ChurchDesk-Anmeldeformular als Embed (forms.churchdesk.com), FAQ + Hilfe-Karten |
 | Finanzen | [Link](https://www.sanktbonifatius.de/ueberuns/finanzen/) | `src/pages/ueberuns/finanzen.astro` | Werner | ✅ erledigt | Page-ID 48786, eigene Fin*-Komponenten; Bistum-/Pfarrei-Haushalt als Balkengrafiken, Finanzbericht-PDF-Download (PDF in public/uploads) |
 | Gemeinschaft | [Link](https://www.sanktbonifatius.de/ueberuns/gemeinschaft/) | `src/pages/ueberuns/gemeinschaft.astro` | Werner | ✅ erledigt | Eigene Gem*-Komponenten (Hero, Stats, Welcome, Gruppen, FAQ, CTA) |
 | Leitung | [Link](https://www.sanktbonifatius.de/ueberuns/leitung/) | `src/pages/ueberuns/leitung.astro` | Werner | ✅ erledigt | Eigene Lt*-Komponenten; Pfarrgemeinderat & Verwaltungsrat mit Gremien-Listen |
@@ -31,8 +31,8 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
 | Kontakt | [Link](https://www.sanktbonifatius.de/kontakt/) | `src/pages/kontakt.astro` | Werner | ✅ erledigt | Page-ID 46800, eigene Kontakt*-Komponenten |
-| Beratung und Hilfe | [Link](https://www.sanktbonifatius.de/kontakt/beratung-und-hilfe/) | — | — | offen |  |
-| Engagement | [Link](https://www.sanktbonifatius.de/kontakt/engagement/) | — | — | offen |  |
+| Beratung und Hilfe | [Link](https://www.sanktbonifatius.de/kontakt/beratung-und-hilfe/) | `src/pages/kontakt/beratung-und-hilfe.astro` | Werner | ✅ erledigt | Page-ID 48312, eigene Beratung*-Komponenten (Präfix `astro-ber`); Notfall-Banner (Telefonseelsorge), Angebote, Ansprechpersonen mit Foto (Doly Kadavil, Martin Kestler), externe Beratungsstellen, Hinweisgeberschutz |
+| Engagement | [Link](https://www.sanktbonifatius.de/kontakt/engagement/) | `src/pages/kontakt/engagement.astro` | Werner | ✅ erledigt | Page-ID 48449, eigene Engagement*-Komponenten (Präfix `astro-eng`); 6 Engagement-Kacheln, Schritte, CTA (WP-Türkis bewusst auf Astro-Bordeaux umgestellt) |
 | Katholisch werden | [Link](https://www.sanktbonifatius.de/kontakt/katholisch-werden/) | — | — | offen |  |
 | Newsletter | [Link](https://www.sanktbonifatius.de/kontakt/newsletter/) | — | — | offen |  |
 | Pfarrbüro | [Link](https://www.sanktbonifatius.de/kontakt/pfarrbuero/) | — | — | offen |  |
@@ -147,5 +147,5 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Datenschutz | [Link](https://www.sanktbonifatius.de/datenschutz/) | — | — | offen |  |
 | Impressum | [Link](https://www.sanktbonifatius.de/impressum/) | — | — | offen |  |
 | Ich bleibe | [Link](https://www.sanktbonifatius.de/ich-bleibe/) | — | — | offen |  |
-| Was ist neu | [Link](https://www.sanktbonifatius.de/was-ist-neu/) | — | — | offen |  |
-| News aktualisieren | [Link](https://www.sanktbonifatius.de/news-aktualisieren/) | — | — | offen | Interne/technische Seite |
+| Was ist neu | [Link](https://www.sanktbonifatius.de/was-ist-neu/) | — | — | ⏏️ entfällt | Wird bei der Astro-Live-Stellung nicht übernommen |
+| News aktualisieren | [Link](https://www.sanktbonifatius.de/news-aktualisieren/) | — | — | ⏏️ entfällt | Interne/technische Seite; wird bei der Astro-Live-Stellung nicht übernommen |
