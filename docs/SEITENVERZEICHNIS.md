@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **81 Live-Seiten erfasst · 16 bereits in Astro übernommen (erledigt) · 65 offen.** Stand: 21.06.2026.
+> **81 Live-Seiten erfasst · 18 bereits in Astro übernommen (erledigt) · 63 offen.** Stand: 22.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -18,9 +18,9 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
 | Über uns | [Link](https://www.sanktbonifatius.de/ueberuns/) | `src/pages/ueberuns.astro` | Werner | ✅ erledigt |  |
-| Barrierefreiheit | [Link](https://www.sanktbonifatius.de/ueberuns/barrierefreiheit/) | — | — | offen |  |
+| Barrierefreiheit | [Link](https://www.sanktbonifatius.de/ueberuns/barrierefreiheit/) | `src/pages/ueberuns/barrierefreiheit.astro` | Werner | ✅ erledigt | Page-ID 49119, eigene Bar*-Komponenten; Original-Foto-Hero, 4 Kirchorte als aufklappbare Zugänglichkeits-Infos |
 | ChurchDesk-Registrierung | [Link](https://www.sanktbonifatius.de/ueberuns/churchdesk-registrierung/) | — | — | offen |  |
-| Finanzen | [Link](https://www.sanktbonifatius.de/ueberuns/finanzen/) | — | — | offen |  |
+| Finanzen | [Link](https://www.sanktbonifatius.de/ueberuns/finanzen/) | `src/pages/ueberuns/finanzen.astro` | Werner | ✅ erledigt | Page-ID 48786, eigene Fin*-Komponenten; Bistum-/Pfarrei-Haushalt als Balkengrafiken, Finanzbericht-PDF-Download (PDF in public/uploads) |
 | Gemeinschaft | [Link](https://www.sanktbonifatius.de/ueberuns/gemeinschaft/) | `src/pages/ueberuns/gemeinschaft.astro` | Werner | ✅ erledigt | Eigene Gem*-Komponenten (Hero, Stats, Welcome, Gruppen, FAQ, CTA) |
 | Leitung | [Link](https://www.sanktbonifatius.de/ueberuns/leitung/) | `src/pages/ueberuns/leitung.astro` | Werner | ✅ erledigt | Eigene Lt*-Komponenten; Pfarrgemeinderat & Verwaltungsrat mit Gremien-Listen |
 | Pastoralteam | [Link](https://www.sanktbonifatius.de/ueberuns/pastoralteam/) | `src/pages/ueberuns/pastoralteam.astro` | Werner | ✅ erledigt | Eigene Pt*-Komponenten; 11 Team-Karten + Foto-Hero (seelsorge-stbonifatius.jpg) |
@@ -55,15 +55,17 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 
 ## 5 · Kirchorte (mit Unterseiten)
 
+> **Astro-Strukturänderung (22.06.2026):** Kirchorte liegen im neuen Frontend auf der Hauptebene (`/kirchorte/…`, eigener Menüpunkt) statt unter „Über uns". Die Live-WordPress-URLs unten bleiben vorerst unverändert.
+
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
 | Kirchorte (Übersicht) | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/) | — | — | offen |  |
 | Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/) | — | — | offen |  |
 | St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/) | — | — | offen |  |
-| St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/) | `src/pages/ueberuns/kirchorte/st-bonifatius.astro` | Werner | ✅ erledigt |  |
+| St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/) | `src/pages/kirchorte/st-bonifatius.astro` | Werner | ✅ erledigt | Astro-Pfad jetzt `/kirchorte/st-bonifatius/` |
 | Bücherei St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/) | — | — | offen |  |
 | Gruppen St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/gruppen-st-bonifatius/) | — | — | offen |  |
-| Kirche St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/) | `src/pages/ueberuns/kirchorte/st-bonifatius/kirche.astro` | Werner | ✅ erledigt |  |
+| Kirche St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/) | `src/pages/kirchorte/st-bonifatius/kirche.astro` | Werner | ✅ erledigt | Astro-Pfad jetzt `/kirchorte/st-bonifatius/kirche/` |
 | Kirche – Altar | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/altar/) | — | — | offen |  |
 | Kirche – Beleuchtung | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/beleuchtung/) | — | — | offen |  |
 | Kirche – Bonifatius-Reliquie | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/bonifatius-reliquie/) | — | — | offen |  |
@@ -126,7 +128,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
-| Kitas | [Link](https://www.sanktbonifatius.de/kitas/) | — | — | offen |  |
+| Kitas | [Link](https://www.sanktbonifatius.de/kitas/) | — | — | offen | Im Astro-Menü jetzt eigener Hauptpunkt (`/kitas/`); Seite noch zu bauen |
 | Kita Deutschorden | [Link](https://www.sanktbonifatius.de/kitas/deutschorden-cs/) | — | — | offen |  |
 | Kita Herz Jesu | [Link](https://www.sanktbonifatius.de/kitas/herz-jesu-cs/) | — | — | offen |  |
 | Kita St. Aposteln | [Link](https://www.sanktbonifatius.de/kitas/st-aposteln-cs/) | — | — | offen |  |
