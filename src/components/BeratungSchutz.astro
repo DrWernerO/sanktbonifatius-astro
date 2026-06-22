@@ -1,0 +1,54 @@
+---
+// „Hinweisgeberschutz & Prävention" — Info-Blöcke der WP-Seite 48312.
+// Eigene Klassen `astro-ber-schutz`. Inhalte 1:1 aus WP. E-Mail im Klartext (im WP-Quelltext
+// als HTML-Entities verschleiert, hier dekodiert): d.kadavil@sanktbonifatius.de.
+const MAIL_PRAEVENTION = 'd.kadavil@sanktbonifatius.de';
+---
+<section class="astro-ber-schutz" id="astro-ber-hinweis">
+  <div class="astro-ber-schutz__inner">
+    <span class="astro-ber-eyebrow">Transparenz &amp; Schutz</span>
+    <h2 class="astro-ber-h2">Hinweisgeberschutz &amp; Prävention</h2>
+    <div class="astro-ber-schutz__stack">
+      <div class="astro-ber-schutz__block">
+        <h3 class="astro-ber-schutz__title">Externe Hinweisgeberstelle</h3>
+        <p class="astro-ber-schutz__text">
+          Wenn Sie Hinweise auf Fehlverhalten, Gesetzesverstöße oder Missstände in unserer
+          Pfarrei haben, können Sie diese vertraulich über die externe Hinweisgeberstelle des
+          Bistums Limburg melden. Ihre Identität bleibt dabei geschützt. Weitere Informationen
+          finden Sie auf der Website des Bistums Limburg.
+        </p>
+      </div>
+      <div class="astro-ber-schutz__block">
+        <h3 class="astro-ber-schutz__title">Prävention: Schutz vor sexualisierter Gewalt</h3>
+        <p class="astro-ber-schutz__text">
+          Die Pfarrei Sankt Bonifatius nimmt den Schutz von Kindern, Jugendlichen und
+          schutzbefohlenen Erwachsenen sehr ernst. Wir haben ein institutionelles
+          Schutzkonzept erarbeitet und benennen Doly Kadavil als Ansprechperson für alle
+          Fragen rund um Prävention und Grenzschutz. Betroffene können sich jederzeit
+          vertraulich an sie wenden:
+          <a href={`mailto:${MAIL_PRAEVENTION}`}>{MAIL_PRAEVENTION}</a>
+        </p>
+      </div>
+      <div class="astro-ber-schutz__block">
+        <h3 class="astro-ber-schutz__title">Institutionelles Schutzkonzept</h3>
+        <p class="astro-ber-schutz__text">
+          Unser institutionelles Schutzkonzept beschreibt verbindliche Standards für den
+          Umgang miteinander in unserer Pfarrei &#8212; für Haupt- und Ehrenamtliche
+          gleichermaßen. Es wird regelmäßig überprüft und weiterentwickelt.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ber-schutz{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#fff;padding:72px 24px}
+.astro-ber-schutz__inner{max-width:1100px;margin:0 auto}
+.astro-ber-schutz__stack{display:flex;flex-direction:column;gap:20px;margin-top:8px}
+.astro-ber-schutz__block{background:#f7f3ef;border-radius:12px;padding:28px 30px;border-left:4px solid #9a2d2d}
+.astro-ber-schutz__title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-ber-schutz__text{font-size:15px;color:#6b5c52;line-height:1.7;margin:0}
+.astro-ber-schutz__text a{color:#9a2d2d;text-decoration:none;font-weight:600;word-break:break-word}
+.astro-ber-schutz__text a:hover{text-decoration:underline}
+@media(max-width:600px){.astro-ber-schutz{padding:52px 20px}.astro-ber-schutz__block{padding:24px 22px}}
+</style>

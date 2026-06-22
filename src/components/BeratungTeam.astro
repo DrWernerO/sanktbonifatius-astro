@@ -1,0 +1,43 @@
+---
+// „Ansprechpersonen in unserer Pfarrei" — WP-Seite 48312. Eigene Klassen `astro-ber-team`.
+// Personenfotos lokal unter public/uploads (von Werner gelieferte URLs heruntergeladen).
+// E-Mails im Klartext (wartbar, Handbuch 11); im WP-Quelltext waren sie als HTML-Entities
+// verschleiert und wurden dekodiert.
+const PERSONEN = [
+  { name: 'Doly Kadavil', photo: '/uploads/2023/08/doly-kadavil.png', role: 'Pastoralreferentin · Prävention', mail: 'd.kadavil@sanktbonifatius.de' },
+  { name: 'Martin Kestler', photo: '/uploads/2022/06/martin-kestler.jpg', role: 'Pastoralreferent · Seelsorge', mail: 'm.kestler@sanktbonifatius.de' },
+];
+---
+<section class="astro-ber-team" id="astro-ber-team">
+  <div class="astro-ber-team__inner">
+    <span class="astro-ber-eyebrow">Direkt ansprechen</span>
+    <h2 class="astro-ber-h2">Ansprechpersonen in unserer Pfarrei</h2>
+    <p class="astro-ber-lead">Schreiben Sie uns eine E-Mail oder kommen Sie einfach vorbei. Wir freuen uns auf Sie.</p>
+    <div class="astro-ber-team__grid">
+      {PERSONEN.map((p) => (
+        <article class="astro-ber-team__card">
+          <img class="astro-ber-team__avatar" src={p.photo} alt={`Foto von ${p.name}`} loading="lazy" width="68" height="68" />
+          <div class="astro-ber-team__body">
+            <p class="astro-ber-team__name">{p.name}</p>
+            <p class="astro-ber-team__role">{p.role}</p>
+            <a class="astro-ber-team__link" href={`mailto:${p.mail}`}>{p.mail}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ber-team{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#fff;padding:72px 24px}
+.astro-ber-team__inner{max-width:1100px;margin:0 auto}
+.astro-ber-team__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:8px}
+.astro-ber-team__card{background:#f7f3ef;border-radius:12px;padding:28px;display:flex;gap:18px;align-items:center}
+.astro-ber-team__avatar{width:68px;height:68px;border-radius:50%;flex-shrink:0;object-fit:cover;object-position:center top;background:#f7f3ef;border:3px solid #fff;box-shadow:0 2px 10px rgba(30,21,18,.12)}
+.astro-ber-team__body{flex:1;min-width:0}
+.astro-ber-team__name{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:0 0 2px}
+.astro-ber-team__role{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c5a55a;margin:0 0 12px}
+.astro-ber-team__link{display:inline-block;font-size:14px;color:#9a2d2d;text-decoration:none;font-weight:600;word-break:break-word}
+.astro-ber-team__link:hover{text-decoration:underline}
+@media(max-width:600px){.astro-ber-team{padding:52px 20px}}
+</style>

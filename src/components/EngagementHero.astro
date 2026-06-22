@@ -1,0 +1,36 @@
+---
+// Hero der Seite „Engagement" — WP-Seite 48449 (/kontakt/engagement/, ersetzt WP-Block `eng-hero`).
+// Eigene Klassen `astro-eng` (goldene Regel, Handbuch Abschnitt 3 — niemals WP-Klassen `eng-…`).
+// WP nutzte ein türkises Overlay; hier in die warme Astro-Farbwelt (Bordeaux/Gold) überführt.
+// Full-Bleed-Bild + Verlauf-Overlay + Text. Bild lokal unter public/uploads/ (Handbuch 1b).
+// Einzige sichtbare <h1> der Seite.
+const bg = '/uploads/2026/05/engagement-stbonifatius.jpg';
+---
+<section class="astro-eng-hero">
+  <div class="astro-eng-hero__bg" role="img"
+       aria-label="Engagierte Menschen in der Pfarrei Sankt Bonifatius in Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-eng-hero__overlay"></div>
+  <div class="astro-eng-hero__inner">
+    <p class="astro-eng-hero__eyebrow">Pfarrei Sankt Bonifatius &middot; Frankfurt am Main</p>
+    <h1 class="astro-eng-hero__title">Dein Engagement z&auml;hlt.<br>Mach mit.</h1>
+    <p class="astro-eng-hero__sub">
+      In unserer Pfarrei kannst du dich einbringen &#8211; mit deinen F&auml;higkeiten, deiner Zeit
+      und deiner Energie. Konkret. Menschlich. Wirkungsvoll.
+    </p>
+    <a class="astro-eng-hero__cta" href="#ich-mache-mit">Jetzt mitmachen &#8594;</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-eng-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(72vh,640px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-eng-hero__bg{position:absolute;inset:0;background-size:cover;background-position:center 30%}
+.astro-eng-hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.12) 0%,rgba(126,36,36,.45) 55%,rgba(30,21,18,.86) 100%)}
+.astro-eng-hero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;color:#f0e8d8}
+.astro-eng-hero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-eng-hero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5.5vw,68px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700;letter-spacing:-.01em}
+.astro-eng-hero__sub{color:rgba(255,255,255,.92);font-size:clamp(16px,2vw,21px);margin:0 0 30px;max-width:600px;line-height:1.5}
+.astro-eng-hero__cta{display:inline-flex;align-items:center;gap:8px;width:fit-content;background:#fff;color:#9a2d2d;font-weight:700;font-size:15px;padding:14px 28px;border-radius:50px;text-decoration:none;transition:background .2s,color .2s}
+.astro-eng-hero__cta:hover{background:#f3e7d4;color:#7e2424}
+@media(max-width:600px){.astro-eng-hero{height:min(66vh,500px)}.astro-eng-hero__inner{padding:0 20px 40px}}
+</style>

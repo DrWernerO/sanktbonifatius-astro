@@ -1,0 +1,53 @@
+---
+// „Beratung, Seelsorge, Begleitung" — vier Angebots-Karten der WP-Seite 48312.
+// Eigene Klassen `astro-ber-cards`. Inhalte 1:1 aus der WP-Vorlage übernommen.
+const ANGEBOTE = [
+  {
+    title: 'Seelsorge & Beratung',
+    text: 'Sie wünschen Beratung oder seelische Begleitung? Unsere Pastoralreferentinnen und -referenten hören zu — vertraulich und ohne Wertung. Ob Lebenskrisen, Trauer oder allgemeine Fragen: Sie sind nicht allein.',
+  },
+  {
+    title: 'Geistliche Begleitung',
+    text: 'Sr. Bettina Rupp SSpS und Pater Gaby Geagea begleiten Menschen auf ihrem geistlichen Weg — beim Vertiefen der Gottesbeziehung, in Zeiten des Zweifelns und bei der Suche nach Sinn.',
+  },
+  {
+    title: 'Krisenintervention',
+    text: 'In akuten Krisen vermitteln wir weiter — an pastorale Fachkräfte, externe Beratungsstellen oder die Telefonseelsorge. Niemand muss eine Krise alleine durchstehen.',
+  },
+  {
+    title: 'Prävention',
+    text: 'Doly Kadavil koordiniert in unserer Pfarrei den Schutz vor sexualisierter Gewalt. Wenn Sie Fragen, Sorgen oder Hinweise haben — auch zu Grenzverletzungen — können Sie sich vertraulich an sie wenden.',
+  },
+];
+---
+<section class="astro-ber-cards" id="astro-ber-angebote">
+  <div class="astro-ber-cards__inner">
+    <span class="astro-ber-eyebrow">Was wir anbieten</span>
+    <h2 class="astro-ber-h2">Beratung, Seelsorge, Begleitung</h2>
+    <p class="astro-ber-lead">
+      Unsere geschulten Seelsorgerinnen und Seelsorger sind zur Verschwiegenheit verpflichtet.
+      Sie begleiten Menschen in schwierigen Lebenssituationen &#8212; ohne Vorbedingungen.
+    </p>
+    <div class="astro-ber-cards__grid">
+      {ANGEBOTE.map((a) => (
+        <article class="astro-ber-card">
+          <h3 class="astro-ber-card__title">{a.title}</h3>
+          <p class="astro-ber-card__text">{a.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ber-cards{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#f7f3ef;padding:72px 24px}
+.astro-ber-cards__inner{max-width:1100px;margin:0 auto}
+.astro-ber-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#c5a55a;margin:0 0 10px}
+.astro-ber-h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0 0 14px;line-height:1.2}
+.astro-ber-lead{font-size:17px;color:#6b5c52;max-width:660px;margin:0 0 44px;line-height:1.65}
+.astro-ber-cards__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.astro-ber-card{background:#fff;border-radius:12px;padding:30px 26px;box-shadow:0 2px 14px rgba(30,21,18,.07);border-top:3px solid #9a2d2d}
+.astro-ber-card__title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-ber-card__text{font-size:15px;color:#6b5c52;line-height:1.7;margin:0}
+@media(max-width:600px){.astro-ber-cards{padding:52px 20px}}
+</style>

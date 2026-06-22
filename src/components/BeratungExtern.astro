@@ -1,0 +1,75 @@
+---
+// „Weitere Beratungsangebote" — externe Anlauf-/Hilfestellen der WP-Seite 48312.
+// Eigene Klassen `astro-ber-extern`. Alle Rufnummern und der externe Link 1:1 aus WP
+// übernommen (Krisen-/Hilfe-Kontakte dürfen nicht verfälscht werden). Externe Hilfe-Links
+// als absolute URLs (Caritas/Frankfurt etc., Handbuch INTERNE LINKS).
+const STELLEN = [
+  {
+    title: 'Telefonseelsorge',
+    desc: 'Kostenlos, anonym und rund um die Uhr — für alle Menschen in Not oder Krise, unabhängig von Konfession oder Hintergrund.',
+    contacts: [
+      { tel: '08001110111', label: '0800 111 0 111' },
+      { tel: '08001110222', label: '0800 111 0 222' },
+    ],
+  },
+  {
+    title: 'Bistum Limburg — Unabhängige Ansprechpersonen',
+    desc: 'Bei Fragen zu Grenzverletzungen oder sexualisierter Gewalt durch kirchliche Mitarbeitende stehen diese unabhängigen Ansprechpersonen des Bistums zur Verfügung.',
+    contacts: [
+      { name: 'Hans Georg Dahl', tel: '01723005578', label: '0172 300 55 78' },
+      { name: 'Dr. Ursula Rieke', tel: '01754891039', label: '0175 489 10 39' },
+    ],
+  },
+  {
+    title: 'Nicht-kirchliche Beratungsstellen',
+    desc: 'In Frankfurt gibt es zahlreiche unabhängige Beratungsstellen für Lebens-, Familien- und psychologische Beratung. Die Stadt Frankfurt vermittelt gerne weiter.',
+    links: [
+      { href: 'https://www.frankfurt.de/beratung', label: 'frankfurt.de/beratung' },
+    ],
+  },
+];
+---
+<section class="astro-ber-extern">
+  <div class="astro-ber-extern__inner">
+    <span class="astro-ber-eyebrow">Darüber hinaus</span>
+    <h2 class="astro-ber-h2">Weitere Beratungsangebote</h2>
+    <p class="astro-ber-lead">Manchmal ist eine unabhängige, externe Anlaufstelle der richtige Weg. Hier finden Sie verlässliche Kontakte.</p>
+    <div class="astro-ber-extern__grid">
+      {STELLEN.map((s) => (
+        <article class="astro-ber-extern__card">
+          <h3 class="astro-ber-extern__title">{s.title}</h3>
+          <p class="astro-ber-extern__desc">{s.desc}</p>
+          <div class="astro-ber-extern__contact">
+            {s.contacts && s.contacts.map((c) => (
+              <p class="astro-ber-extern__row">
+                {c.name && <span class="astro-ber-extern__name">{c.name}</span>}
+                <a href={`tel:${c.tel}`}>{c.label}</a>
+              </p>
+            ))}
+            {s.links && s.links.map((l) => (
+              <p class="astro-ber-extern__row">
+                <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
+              </p>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ber-extern{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#f7f3ef;padding:72px 24px}
+.astro-ber-extern__inner{max-width:1100px;margin:0 auto}
+.astro-ber-extern__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px;margin-top:8px}
+.astro-ber-extern__card{background:#fff;border-radius:12px;padding:26px;border-left:4px solid #c5a55a;box-shadow:0 2px 12px rgba(30,21,18,.06)}
+.astro-ber-extern__title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2c2420;margin:0 0 8px;line-height:1.25}
+.astro-ber-extern__desc{font-size:14px;color:#6b5c52;margin:0 0 16px;line-height:1.6}
+.astro-ber-extern__contact{font-size:15px}
+.astro-ber-extern__row{margin:0 0 8px}
+.astro-ber-extern__row:last-child{margin-bottom:0}
+.astro-ber-extern__name{display:block;font-size:13px;color:#6b5c52;font-weight:600;margin-bottom:1px}
+.astro-ber-extern__contact a{color:#9a2d2d;text-decoration:none;font-weight:600}
+.astro-ber-extern__contact a:hover{text-decoration:underline}
+@media(max-width:600px){.astro-ber-extern{padding:52px 20px}}
+</style>

@@ -1,0 +1,57 @@
+---
+// „Jetzt persönlich anmelden" — WP-Seite 49146 (ersetzt WP-Block `cd-form`).
+// Eigene Klassen `astro-cd-form` (Handbuch Abschnitt 3). Der RAHMEN ist eine eigene
+// astro-cd-Komponente; das eigentliche ChurchDesk-Anmeldeformular ist ein externes
+// EMBED (iframe zu forms.churchdesk.com) — dieses Embed wird funktional 1:1 aus dem
+// WP-Content übernommen (per set:html NUR für das Embed-Snippet, siehe Aufgabe).
+// Das postMessage-Resize-Script stammt ebenfalls aus dem WP-Original und passt die
+// iframe-Höhe an (FORM_RESIZE_HEIGHT).
+const embed = `<div id="form__63e6ce65963b630007d9c535" class="astro-cd-embed">
+  <iframe src="https://forms.churchdesk.com/f/Wj5a-w2rxX/embed" title="ChurchDesk-Registrierungsformular für Ehrenamtliche der Pfarrei Sankt Bonifatius" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>`;
+---
+<section class="astro-cd-form" id="anmeldung">
+  <div class="astro-cd-form__inner">
+    <div class="astro-cd-form__head">
+      <h2 class="astro-cd-form__hl">Jetzt persönlich anmelden</h2>
+      <p class="astro-cd-form__sub">
+        Bitte füllen Sie das Formular vollständig aus. Wir melden uns nach Eingang bei Ihnen.
+      </p>
+    </div>
+    <div class="astro-cd-form__box">
+      <Fragment set:html={embed} />
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+// Aus dem WP-Original 1:1 übernommen: passt die ChurchDesk-iframe-Höhe an, sobald das
+// eingebettete Formular per postMessage (FORM_RESIZE_HEIGHT) seine Höhe meldet.
+(function(){
+  var e = window.addEventListener ? 'addEventListener' : 'attachEvent';
+  if (window.cdFormEventHandlersRegistered) return;
+  window[e](e === 'attachEvent' ? 'onmessage' : 'message', function(ev){
+    if (ev.data && ev.data.source === 'cdFormEmbed' && ev.data.action === 'FORM_RESIZE_HEIGHT') {
+      var t = ev.data.formId;
+      var d = document.getElementById(t);
+      if (d) {
+        var n = ev.data.height + 40;
+        d.style.height = n + 'px';
+      }
+    }
+  }, false);
+  window.cdFormEventHandlersRegistered = true;
+})();
+</script>
+
+<style is:global>
+.astro-cd-form{background:#f7f3ef;padding:48px 0 80px}
+.astro-cd-form__inner{max-width:880px;margin:0 auto;padding:0 40px}
+.astro-cd-form__head{text-align:center;margin:0 0 28px}
+.astro-cd-form__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,32px);color:#2c2420;margin:0 0 8px;font-weight:700;line-height:1.15}
+.astro-cd-form__sub{font-size:15px;color:#6b5c52;margin:0;line-height:1.6}
+.astro-cd-form__box{background:#fff;border-radius:14px;padding:32px;box-shadow:0 8px 28px rgba(30,21,18,.06);border:1px solid #e0d8cf}
+.astro-cd-embed{position:relative;overflow:hidden;max-width:100%;border-radius:8px}
+.astro-cd-embed iframe{position:relative;top:0;left:0;width:100%;border:0;min-height:680px}
+@media(max-width:600px){.astro-cd-form{padding:36px 0 56px}.astro-cd-form__inner{padding:0 20px}.astro-cd-form__box{padding:20px}}
+</style>

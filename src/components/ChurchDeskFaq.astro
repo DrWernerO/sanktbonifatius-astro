@@ -1,0 +1,62 @@
+---
+// „Häufige Fragen zur ChurchDesk-Registrierung" — WP-Seite 49146 (ersetzt WP-Block `cd-faq`).
+// Eigene Klassen `astro-cd-faq` (Handbuch Abschnitt 3). Natives <details>/<summary> für
+// barrierefreies Auf-/Zuklappen ohne JavaScript. Inhalte 1:1 aus dem WP-Content (5 FAQ).
+// Interner Link in FAQ 5 zeigt auf /gruppen-treffpunkte/ (in Astro noch nicht gebaut, Handbuch 12).
+const faqs = [
+  {
+    q: 'Wer kann sich anmelden?',
+    a: ['Die Anmeldung richtet sich an einzelne Menschen, die sich in der Pfarrei Sankt Bonifatius Frankfurt ehrenamtlich engagieren. Sie melden sich also als Person an, nicht als Gruppe. Die Anmeldung ist kostenlos und unkompliziert.'],
+  },
+  {
+    q: 'Welche Vorteile habe ich durch ChurchDesk?',
+    a: ['Sie können das gesamte Veranstaltungsangebot der Pfarrei online ansehen. Sie tauschen in den ChurchDesk-Gruppen mit anderen Ehrenamtlichen Nachrichten und Dokumente aus. Und das Pastoralteam gibt Ihnen über die ChurchDesk-Mail wichtige Informationen weiter.'],
+  },
+  {
+    q: 'Welche Angaben benötigen wir von Ihnen?',
+    a: ['Wir brauchen Ihren Namen und Ihre Kontaktdaten, damit wir Sie in ChurchDesk anlegen können. Das Formular führt Sie Schritt für Schritt durch alle Punkte.'],
+  },
+  {
+    q: 'Was passiert nach der Anmeldung?',
+    a: ['Das Pfarrbüro prüft Ihre Anmeldung und richtet Ihren Zugang ein. Anschließend erhalten Sie Ihre Zugangsdaten und können das Veranstaltungsangebot ansehen, sich mit anderen Ehrenamtlichen austauschen und die Informationen des Pastoralteams empfangen.'],
+  },
+  {
+    q: 'Wo finde ich die Gruppen und Treffpunkte der Pfarrei?',
+    a: ['Eine Übersicht aller Gruppen und Treffpunkte in unserer Pfarrei finden Sie auf der <a href="/gruppen-treffpunkte/">Gruppen-Seite</a>. Vielleicht passt eine bestehende Gruppe ja schon zu Ihrem Anliegen.'],
+  },
+];
+---
+<section class="astro-cd-faq">
+  <div class="astro-cd-faq__inner">
+    <div class="astro-cd-faq__head">
+      <h2 class="astro-cd-faq__hl">Häufige Fragen zur ChurchDesk-Registrierung</h2>
+      <p class="astro-cd-faq__sub">Die wichtigsten Antworten rund um Ihre persönliche Anmeldung.</p>
+    </div>
+    {faqs.map((f) => (
+      <details class="astro-cd-faq-item">
+        <summary>{f.q}</summary>
+        <div class="astro-cd-faq-item__inner">
+          {f.a.map((p) => <p set:html={p} />)}
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-cd-faq{background:#ede4d5;padding:64px 0}
+.astro-cd-faq__inner{max-width:780px;margin:0 auto;padding:0 40px}
+.astro-cd-faq__head{text-align:center;margin:0 0 28px}
+.astro-cd-faq__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,32px);color:#2c2420;margin:0 0 8px;font-weight:700;line-height:1.15}
+.astro-cd-faq__sub{font-size:15px;color:#6b5c52;margin:0;line-height:1.6}
+.astro-cd-faq-item{background:#fff;border-radius:10px;margin-bottom:12px;border:1px solid #e0d8cf;overflow:hidden}
+.astro-cd-faq-item summary{list-style:none;cursor:pointer;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Playfair Display',Georgia,serif;font-size:16px;font-weight:700;color:#2c2420;line-height:1.4}
+.astro-cd-faq-item summary::-webkit-details-marker{display:none}
+.astro-cd-faq-item summary::after{content:'+';font-size:24px;color:#c5a55a;font-weight:300;flex-shrink:0;transition:transform .25s}
+.astro-cd-faq-item[open] summary::after{transform:rotate(45deg)}
+.astro-cd-faq-item__inner{padding:0 24px 20px;border-top:1px solid #e0d8cf;padding-top:16px}
+.astro-cd-faq-item__inner p{font-size:14.5px;color:#6b5c52;line-height:1.7;margin:0 0 8px}
+.astro-cd-faq-item__inner p:last-child{margin:0}
+.astro-cd-faq-item__inner a{color:#9a2d2d;font-weight:600;text-decoration:underline}
+@media(max-width:600px){.astro-cd-faq{padding:48px 0}.astro-cd-faq__inner{padding:0 20px}}
+</style>

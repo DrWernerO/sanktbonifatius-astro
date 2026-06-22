@@ -171,6 +171,9 @@ export async function getMenuItems() {
 
 // Render-Host (kurze Domain mit GÜLTIGEM Zertifikat — liefert dasselbe HTML wie der Kasserver).
 const WP_RENDER_ORIGIN = 'https://dev.sanktbonifatius.de';
+// Live-Render-Host: für einzelne Seiten, die NUR auf www SEO-optimiert wurden (dev ist dort
+// noch generisch). Per zweitem Argument an getSeoHead() übergeben (Standard bleibt dev).
+export const WP_RENDER_LIVE = 'https://www.sanktbonifatius.de';
 // Produktive Frontend-Domain für canonical/og:url (Umzug: Handbuch Abschnitt 1b).
 // Bild-/Datei-URLs (/wp-content/) werden NICHT umgeschrieben (bleiben auf dem WP-Host).
 const PUBLIC_SITE = 'https://sanktbonifatius.de';
@@ -318,7 +321,7 @@ function extractSeoTags(html) {
   for (const m of head.matchAll(/<meta\s+name=["']twitter:[^"']*["'][^>]*>/gi)) tags.push(m[0]);
   for (const m of head.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi)) tags.push(m[0]);
   return tags.join('\n').replace(
-    /https:\/\/dev\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?(?!\/wp-content)/g,
+    /https:\/\/(?:dev|www)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?(?!\/wp-content)/g,
     PUBLIC_SITE,
   );
 }
@@ -341,9 +344,9 @@ function extractEventBody(html) {
   return filtered.join('\n');
 }
 
-export async function getSeoHead(path = '/') {
+export async function getSeoHead(path = '/', origin = WP_RENDER_ORIGIN) {
   try {
-    const res = await fetch(WP_RENDER_ORIGIN + path, { headers: { 'User-Agent': 'Mozilla/5.0' }, cache: 'no-store' });
+    const res = await fetch(origin + path, { headers: { 'User-Agent': 'Mozilla/5.0' }, cache: 'no-store' });
     if (!res.ok) return '';
     return extractSeoTags(await res.text());
   } catch {

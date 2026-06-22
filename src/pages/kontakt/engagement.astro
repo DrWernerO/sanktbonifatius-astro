@@ -1,0 +1,145 @@
+---
+// Seite „Engagement" — WP-Seite 48449 (/kontakt/engagement/), vollständig aus eigenen
+// astro-Komponenten (kein set:html mit WP-Markup, vgl. Handbuch 14). Nav + Footer kommen global
+// aus Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden. SEO live aus WP (SEOPress).
+//
+// Liegt in src/pages/kontakt/ → koexistiert mit der bestehenden src/pages/kontakt.astro.
+// Relative Import-Pfade ../../ wegen Unterordner.
+//
+// Farbwelt: WP-Türkis wurde bewusst NICHT übernommen, sondern in die warme Astro-Welt
+// (Bordeaux #9a2d2d / Gold #c5a55a) überführt — konsistent mit den übrigen Seiten.
+//
+// Interne Links aus dem WP-Content auf saubere Astro-Pfade übernommen. Einige Ziele sind in
+// Astro noch NICHT gebaut (siehe Bericht/Handbuch 12) — hrefs zeigen schon auf die künftigen Pfade.
+import Base from '../../layouts/Base.astro';
+import EngagementHero from '../../components/EngagementHero.astro';
+import EngagementStrip from '../../components/EngagementStrip.astro';
+import EngagementIntro from '../../components/EngagementIntro.astro';
+import EngagementTiles from '../../components/EngagementTiles.astro';
+import EngagementSteps from '../../components/EngagementSteps.astro';
+import EngagementCta from '../../components/EngagementCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/kontakt/engagement/');
+
+// „Konkret & nahbar — was du tun kannst" — 6 Engagement-Bereiche (1:1 aus WP-Seite 48449)
+const cards = [
+  {
+    // Notenblatt-Icon
+    icon: '<path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>',
+    title: 'Gottesdienst-Teams',
+    lead: 'Mitarbeit in einem unserer Gottesdienst-Teams &#8211; eine tolle M&ouml;glichkeit, sich kreativ einzubringen und dabei den eigenen Glauben und das theologische Wissen zu vertiefen.',
+    opts: [
+      {
+        title: 'Fiat Lux, BonEsprit oder Taiz&eacute;',
+        text: 'Kreative Gestaltung, Musik, Lesung, Begleitung &#8211; jedes Format hat seinen eigenen Stil und braucht engagierte Menschen.',
+        quote: 'Die Mitarbeit im Fiat-Lux-Team ist f&uuml;r mich eine pers&ouml;nliche Bereicherung und ich genie&szlig;e einfach diese sch&ouml;nen Gottesdienste.',
+      },
+    ],
+    href: '/gottesdienst-glaube/gottesdienste-die-beruehren/',
+    linkText: 'Mehr &uuml;ber unsere Gottesdienst-Formate &#8594;',
+  },
+  {
+    // Familien-/Personen-Icon
+    icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    title: 'BonFamily &amp; Familien',
+    lead: 'Bei BonFamily dabei sein &#8211; unserem bunten Programm rund um kreative Gottesdienste, Kinderprojekte und Eltern-Treffpunkte. F&uuml;r alle, die sich f&uuml;r Kinder und Familien stark machen wollen.',
+    opts: [
+      {
+        title: 'Kreativgottesdienste, Kinderprojekte, Eltern-Treffpunkte',
+        text: 'Ideen einbringen, mitgestalten, begleiten &#8211; f&uuml;r Kinder jeden Alters und ihre Familien.',
+        quote: 'Ich bringe meine Ideen ins Kreativgottesdienst-Team ein &#8211; und sehe, wie Kinderaugen leuchten.',
+      },
+    ],
+    href: '/bonfamily/',
+    linkText: 'Mehr &uuml;ber BonFamily &#8594;',
+  },
+  {
+    // Herz-Icon
+    icon: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+    title: 'Soziales Engagement',
+    lead: 'Menschen in schwierigen Lebenslagen begleiten, unterst&uuml;tzen, beistehen &#8211; mit Zeit, Herz und deinen pers&ouml;nlichen F&auml;higkeiten.',
+    opts: [
+      {
+        title: 'Nachbarschafts-Hilfsnetz',
+        text: '&Auml;ltere oder eingeschr&auml;nkte Menschen im Alltag unterst&uuml;tzen &#8211; mit Zeit, Herz und einer Portion Pragmatismus.',
+        quote: 'Ich bringe Frau M. einmal die Woche zum Arzt &#8211; und meistens auch zum L&auml;cheln.',
+      },
+      {
+        title: 'Sozialberatung &#8222;Im Dialog&#8220;',
+        text: 'Menschen in schwierigen Lebenslagen begleiten &#8211; z.&nbsp;B. bei Beh&ouml;rdeng&auml;ngen oder Antragstellungen.',
+        quote: 'Ich habe selbst einen vollen Job &#8211; aber einmal im Monat helfe ich jemandem, sich nicht verloren zu f&uuml;hlen.',
+      },
+    ],
+    href: '/engagiert-leben/',
+    linkText: 'Mehr &uuml;ber soziales Engagement &#8594;',
+  },
+  {
+    // Standort-/Blatt-Icon
+    icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+    title: 'Nachhaltigkeit &amp; Miteinander',
+    lead: 'Lebensmittel retten, Kleidung teilen, Menschen begegnen &#8211; auch eine Stunde pro Woche macht einen Unterschied.',
+    opts: [
+      {
+        title: 'Offener K&uuml;hlschrank &amp; Foodsharing',
+        text: 'Lebensmittel vor dem M&uuml;ll retten und fair teilen &#8211; flexibel und ohne gro&szlig;e Verpflichtung.',
+        quote: 'Ich bin beruflich viel unterwegs &#8211; aber eine Stunde pro Woche Foodsharing schaffe ich immer.',
+      },
+      {
+        title: 'Kleider-Caf&eacute; (KleiCa)',
+        text: 'Kleidung sortieren, Kaffee ausschenken, Menschen begegnen &#8211; ein Ort, an dem Nachhaltigkeit Freude macht.',
+        quote: 'Das ist wie Second-Hand mit Seele &#8211; und man trifft spannende Leute.',
+      },
+    ],
+    href: '/engagiert-leben/',
+    linkText: 'Mehr &uuml;ber Nachhaltigkeit &#8594;',
+  },
+  {
+    // Gremien-/Bildschirm-Icon
+    icon: '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+    title: 'Mitgestaltung &amp; Gremien',
+    lead: 'Verantwortung &uuml;bernehmen und die Pfarrei aktiv mitgestalten &#8211; f&uuml;r alle, die ihr Know-how nicht nur f&uuml;r die eigene Karriere einsetzen wollen.',
+    opts: [
+      {
+        title: 'Pfarrgemeinderat, Verwaltungsrat, Kirchort-R&auml;te',
+        text: 'Mitdenken und mitentscheiden: &uuml;ber Geb&auml;ude, Kita-Konzepte und nachhaltige Investitionen.',
+        quote: 'Ich will, dass mein Know-how nicht nur meiner Firma, sondern auch der Gesellschaft dient.',
+      },
+    ],
+    href: '/ueberuns/leitung/',
+    linkText: 'Mehr &uuml;ber Mitgestaltung &#8594;',
+  },
+  {
+    // Noten-/Musik-Icon
+    icon: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+    title: 'Musik &amp; Kultur',
+    lead: 'Freude an Gesang, Konzerten und Kulturevents &#8211; ob als Musiker:in, Techniker:in oder Organisationstalent. Vom Kinderchor bis zum Gospelchor haben wir einiges zu bieten.',
+    opts: [
+      {
+        title: 'Kirchench&ouml;re',
+        text: 'Kinderchor, Jugendchor, Gospelchor &#8211; einfach mitsingen und Teil etwas Sch&ouml;nem sein.',
+        quote: 'Die Auftritte mit dem Chor sind f&uuml;r mich immer etwas ganz Besonderes.',
+      },
+      {
+        title: 'Konzerte &amp; Kulturveranstaltungen',
+        text: 'Mitwirken als Musiker:in, Techniker:in oder Organisationstalent &#8211; das kulturelle Leben der Pfarrei mitpr&auml;gen.',
+        quote: 'Musik ist mein Ausgleich &#8211; hier teile ich sie mit anderen.',
+      },
+    ],
+    href: '/kultur-begegnung/',
+    linkText: 'Mehr &uuml;ber Musik &amp; Kultur &#8594;',
+  },
+];
+---
+<Base seo={seo}>
+  <EngagementHero />
+  <EngagementStrip />
+  <EngagementIntro />
+  <EngagementTiles
+    eyebrow="Deine Möglichkeiten"
+    heading="Konkret &amp; nahbar &#8211; was du tun kannst"
+    cards={cards}
+  />
+  <EngagementSteps />
+  <EngagementCta />
+</Base>

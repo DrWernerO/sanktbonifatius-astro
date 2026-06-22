@@ -1,0 +1,48 @@
+---
+// Hilfe-Karten am Seitenende — WP-Seite 49146 (ersetzt WP-Block `cd-help`).
+// Eigene Klassen `astro-cd-help` (Handbuch Abschnitt 3). Inhalte 1:1 aus dem WP-Content (2 Karten).
+// Links: /kontakt/pfarrbuero/ (in Astro noch nicht gebaut) und /gruppen-treffpunkte/ (ebenfalls
+// noch nicht gebaut) — Handbuch Abschnitt 12 (Portfolio-Check vor Go-Live). Icon-Glyphen wie im
+// WP-Original (?/+), dekorativ → aria-hidden.
+const cards = [
+  {
+    glyph: '?',
+    title: 'Fragen zur Anmeldung?',
+    text: 'Sie sind sich unsicher, ob eine Anmeldung für Sie passt oder welche Angaben Sie machen müssen? Das Pfarrbüro hilft Ihnen gerne weiter.',
+    href: '/kontakt/pfarrbuero/',
+    linkText: 'Pfarrbüro kontaktieren &#8594;',
+  },
+  {
+    glyph: '+',
+    title: 'Sie suchen eine Gruppe?',
+    text: 'Sie möchten sich einer bestehenden Gruppe anschließen? Hier finden Sie unsere Gruppen und Treffpunkte in der Pfarrei.',
+    href: '/gruppen-treffpunkte/',
+    linkText: 'Gruppen ansehen &#8594;',
+  },
+];
+---
+<section class="astro-cd-help">
+  <div class="astro-cd-help__inner">
+    {cards.map((c) => (
+      <div class="astro-cd-help-card">
+        <div class="astro-cd-help-card__icon" aria-hidden="true">{c.glyph}</div>
+        <h3 class="astro-cd-help-card__title">{c.title}</h3>
+        <p class="astro-cd-help-card__text">{c.text}</p>
+        <a class="astro-cd-help-card__link" href={c.href} set:html={c.linkText} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-cd-help{background:#fff;padding:56px 0}
+.astro-cd-help__inner{max-width:880px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.astro-cd-help-card{background:linear-gradient(135deg,#faf6ee,#ede4d5);border-radius:14px;padding:28px;border:1px solid #e0d8cf}
+.astro-cd-help-card__icon{width:44px;height:44px;background:#c5a55a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 0 16px;font-size:20px;font-weight:700;font-family:'Playfair Display',Georgia,serif}
+.astro-cd-help-card__title{font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#2c2420;margin:0 0 10px;font-weight:700;line-height:1.3}
+.astro-cd-help-card__text{font-size:14.5px;color:#6b5c52;line-height:1.65;margin:0 0 14px}
+.astro-cd-help-card__link{display:inline-flex;align-items:center;color:#9a2d2d;font-weight:600;text-decoration:none;font-size:14px}
+.astro-cd-help-card__link:hover{text-decoration:underline}
+@media(max-width:680px){.astro-cd-help__inner{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-cd-help{padding:44px 0}.astro-cd-help__inner{padding:0 20px}}
+</style>

@@ -1,0 +1,29 @@
+---
+// Intro „Willkommen bei uns" der Seite „Engagement" (WP-Block `eng-intro`).
+// Eigene Klassen `astro-eng-intro`. Feste Inhalte (1:1 aus WP übernommen).
+---
+<section class="astro-eng-intro">
+  <div class="astro-eng-intro__inner">
+    <p class="astro-eng-intro__eyebrow">Willkommen bei uns</p>
+    <h2 class="astro-eng-intro__hl">Mehr als eine Kirche &#8211;<br>eine lebendige Gemeinschaft</h2>
+    <p class="astro-eng-intro__lead">
+      In der Pfarrei Sankt Bonifatius Frankfurt kannst du dich mit deinen F&auml;higkeiten einbringen
+      &#8211; ganz konkret, ganz menschlich, ganz du. Ob du lieber anpackst, organisierst oder kreativ
+      wirst: Es gibt einen Platz f&uuml;r dich.
+    </p>
+    <p class="astro-eng-intro__lead">
+      Vom Gottesdienst-Team bis zum Kleider-Caf&eacute;, von der Sozialberatung bis zum Chor &#8211;
+      unsere Pfarrei lebt davon, dass Menschen etwas beitragen. Und sie gewinnen dabei selbst.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-eng-intro{background:#fff;padding:80px 0}
+.astro-eng-intro__inner{max-width:820px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-eng-intro__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 16px;font-weight:600}
+.astro-eng-intro__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.8vw,44px);font-weight:700;color:#2c2420;margin:0 0 22px;line-height:1.15}
+.astro-eng-intro__lead{font-size:clamp(16px,1.9vw,19px);color:#6b5c52;line-height:1.7;margin:0 auto 14px;max-width:680px}
+.astro-eng-intro__lead:last-child{margin-bottom:0}
+@media(max-width:600px){.astro-eng-intro{padding:56px 0}.astro-eng-intro__inner{padding:0 20px}}
+</style>

@@ -1,0 +1,26 @@
+---
+// Seite „ChurchDesk-Registrierung" (Nav-Label „Gruppe anmelden mit ChurchDesk") — WP-Seite 49146
+// (/ueberuns/churchdesk-registrierung/), vollständig aus eigenen astro-cd-Komponenten (kein
+// set:html mit WP-Theme-Markup; nur das externe ChurchDesk-Embed in ChurchDeskForm wird per
+// set:html funktional 1:1 übernommen). Nav + Footer kommen global aus Base.astro (Handbuch 4b) —
+// hier NICHT erneut einbinden. SEO live aus WP (SEOPress) via getSeoHead.
+//
+// Hinweis (Handbuch 12 — tote Links, bewusst belassen): Die internen Links /kontakt/pfarrbuero/
+// und /gruppen-treffpunkte/ (in Hilfe-Karten + FAQ) zeigen auf in Astro noch NICHT gebaute Seiten.
+import Base from '../../layouts/Base.astro';
+import ChurchDeskHero from '../../components/ChurchDeskHero.astro';
+import ChurchDeskInfo from '../../components/ChurchDeskInfo.astro';
+import ChurchDeskForm from '../../components/ChurchDeskForm.astro';
+import ChurchDeskFaq from '../../components/ChurchDeskFaq.astro';
+import ChurchDeskHelp from '../../components/ChurchDeskHelp.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/churchdesk-registrierung/');
+---
+<Base seo={seo}>
+  <ChurchDeskHero />
+  <ChurchDeskInfo />
+  <ChurchDeskForm />
+  <ChurchDeskFaq />
+  <ChurchDeskHelp />
+</Base>

@@ -1,0 +1,39 @@
+---
+// 3-Schritte-Sektion „So einfach startest du" der Seite „Engagement" (WP-Block `eng-steps`).
+// Eigene Klassen `astro-eng-steps`. Feste Inhalte (1:1 aus WP übernommen).
+const steps = [
+  { num: '1', title: 'Bereich w&auml;hlen',
+    text: 'Schau dir die sechs Bereiche an und entscheide, was zu dir passt &#8211; nach deinen F&auml;higkeiten, Interessen oder deiner verf&uuml;gbaren Zeit.' },
+  { num: '2', title: 'Meldung geben',
+    text: 'Schreib uns einfach &#8211; eine kurze Nachricht gen&uuml;gt. Wir melden uns pers&ouml;nlich bei dir und besprechen gemeinsam den n&auml;chsten Schritt.' },
+  { num: '3', title: 'Loslegen',
+    text: 'Wir f&uuml;hren dich ein, stellen das Team vor und begleiten dich beim Einstieg &#8211; kein Vorwissen n&ouml;tig, nur Lust auf Gemeinschaft.' },
+];
+---
+<section class="astro-eng-steps">
+  <div class="astro-eng-steps__inner">
+    <h2 class="astro-eng-steps__hl">So einfach startest du</h2>
+    <div class="astro-eng-steps__grid">
+      {steps.map((s) => (
+        <div class="astro-eng-step">
+          <div class="astro-eng-step__num">{s.num}</div>
+          <h3 class="astro-eng-step__title" set:html={s.title} />
+          <p class="astro-eng-step__text" set:html={s.text} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-eng-steps{background:#fff;padding:80px 0}
+.astro-eng-steps__inner{max-width:900px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-eng-steps__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,42px);font-weight:700;color:#2c2420;margin:0 0 48px;line-height:1.15}
+.astro-eng-steps__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.astro-eng-step{display:flex;flex-direction:column;align-items:center;gap:14px}
+.astro-eng-step__num{width:56px;height:56px;background:#9a2d2d;border-radius:50%;color:#fff;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.astro-eng-step__title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:0}
+.astro-eng-step__text{font-size:14.5px;color:#6b5c52;line-height:1.6;margin:0}
+@media(max-width:760px){.astro-eng-steps__grid{grid-template-columns:1fr;gap:36px}}
+@media(max-width:600px){.astro-eng-steps{padding:56px 0}.astro-eng-steps__inner{padding:0 20px}}
+</style>

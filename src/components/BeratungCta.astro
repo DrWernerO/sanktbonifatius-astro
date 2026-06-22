@@ -1,0 +1,52 @@
+---
+// Abschluss-CTA / Adresse + SEO-Fließtext — WP-Seite 48312. Eigene Klassen `astro-ber-cta`.
+// Adresse + Telefon + E-Mail 1:1 aus WP (E-Mail im Quelltext als HTML-Entities verschleiert,
+// hier dekodiert: info@sanktbonifatius.de). Interner Link auf /kontakt/pfarrbuero/ ist in
+// Astro noch NICHT gebaut — Pfad bewusst sauber gelassen (Handbuch Abschnitt 12, kein 404-Fix
+// vor Go-Live). Unterer Block trägt die SEO-Keywords der WP-Vorlage sichtbar in den Rumpf.
+const MAIL = 'info@sanktbonifatius.de';
+const TEL = '06969597585050';
+---
+<section class="astro-ber-cta">
+  <div class="astro-ber-cta__inner">
+    <span class="astro-ber-cta__eyebrow">Persönlich vorbeikommen</span>
+    <h2 class="astro-ber-cta__hl">Sie finden uns in Sachsenhausen</h2>
+    <p class="astro-ber-cta__sub">Unser Pfarrbüro steht Ihnen offen. Kommen Sie vorbei &#8212; oder rufen Sie uns an.</p>
+    <address class="astro-ber-cta__address">
+      Sankt Bonifatius Frankfurt<br>
+      Holbeinstraße 70 &#183; 60596 Frankfurt am Main<br>
+      <a href={`tel:${TEL}`}>069 695 97 58 50</a><br>
+      <a href={`mailto:${MAIL}`}>{MAIL}</a>
+    </address>
+    <a class="astro-ber-cta__btn" href="/kontakt/pfarrbuero/">Öffnungszeiten &amp; Anfahrt</a>
+  </div>
+
+  <div class="astro-ber-cta__seo">
+    <h2 class="astro-ber-cta__seo-hl">Seelsorge und Beratung in Frankfurt-Sachsenhausen</h2>
+    <p class="astro-ber-cta__seo-text">
+      Die Pfarrei Sankt Bonifatius Frankfurt bietet seelische Beratung, geistliche Begleitung
+      und Krisenintervention in Frankfurt-Sachsenhausen an. Unsere Pastoralreferentinnen und
+      -referenten sind vertrauliche Ansprechpersonen &#8212; für Gemeindemitglieder und alle,
+      die Unterstützung suchen. Wir vermitteln auch zu externen Beratungsstellen, zur
+      Telefonseelsorge (0800 111 0 111 / 0800 111 0 222) und zu den unabhängigen
+      Ansprechpersonen des Bistums Limburg.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-ber-cta{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#2c2420}
+.astro-ber-cta__inner{max-width:780px;margin:0 auto;padding:64px 40px 0;text-align:center}
+.astro-ber-cta__eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 12px}
+.astro-ber-cta__hl{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:#fff;margin:0 0 14px}
+.astro-ber-cta__sub{font-size:16px;color:#c8b89a;max-width:520px;margin:0 auto 28px;line-height:1.6}
+.astro-ber-cta__address{font-style:normal;font-size:16px;color:#e8dcc8;line-height:1.9;margin:0 0 28px}
+.astro-ber-cta__address a{color:#c5a55a;text-decoration:none}
+.astro-ber-cta__address a:hover{text-decoration:underline}
+.astro-ber-cta__btn{display:inline-block;padding:13px 32px;background:#9a2d2d;color:#fff;text-decoration:none;border-radius:50px;font-size:15px;font-weight:600;transition:background .18s}
+.astro-ber-cta__btn:hover{background:#7e2424}
+.astro-ber-cta__seo{max-width:780px;margin:0 auto;padding:48px 40px 64px}
+.astro-ber-cta__seo-hl{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#e8dcc8;margin:0 0 14px}
+.astro-ber-cta__seo-text{font-size:15px;color:#a8988a;line-height:1.7;margin:0}
+@media(max-width:560px){.astro-ber-cta__inner{padding:52px 20px 0}.astro-ber-cta__seo{padding:40px 20px 52px}}
+</style>
