@@ -1,0 +1,135 @@
+---
+// „Haushaltsplanung der Pfarrei 2026" — Übersicht, Einnahmen, Ausgaben, Erläuterungen.
+// Eigene Klassen `astro-fin-p`. Feste Inhalte (WP 48786). Balkenbreite = Prozentanteil.
+const STATS = [
+  { val: '8,1 Mio. €', cap: 'Gesamthaushalt der Pfarrei' },
+  { val: '6,9 Mio. €', cap: 'davon die fünf Kindergärten' },
+  { val: '1,22 Mio. €', cap: 'für den Pfarrbetrieb' },
+];
+const EINNAHMEN = [
+  { label: 'Zuweisungen vom Bistum Limburg', amount: 'ca. 703.000 €', pct: 58 },
+  { label: 'Mieteinnahmen aus Pfarrimmobilien', amount: 'ca. 316.000 €', pct: 26 },
+  { label: 'Sonstige Einnahmen', amount: 'ca. 86.000 €', pct: 7 },
+  { label: 'Kollekten und Spenden', amount: 'ca. 60.000 €', pct: 5 },
+  { label: 'Erbbauzinsen und Zinserträge', amount: 'ca. 55.000 €', pct: 5 },
+];
+const AUSGABEN = [
+  { label: 'Personal (Gehälter und Sozialabgaben)', amount: 'ca. 453.000 €', pct: 37 },
+  { label: 'Gebäude (Betrieb und Unterhalt)', amount: 'ca. 366.000 €', pct: 30 },
+  { label: 'Pastorale Arbeit', amount: 'ca. 176.000 €', pct: 14 },
+  { label: 'Verwaltung', amount: 'ca. 93.000 €', pct: 8 },
+  { label: 'Anschaffungen / Instandhaltung', amount: 'ca. 38.000 €', pct: 3 },
+  { label: 'Abgaben und Finanzaufwendungen', amount: 'ca. 20.000 €', pct: 2 },
+  { label: 'Weiterleitung von Kollekten', amount: 'ca. 20.000 €', pct: 2 },
+];
+const DETAILS = [
+  { q: 'Zum Personal',
+    a: 'Hier sind die Gehälter und Sozialabgaben der Angestellten der Pfarrei erfasst – Küster, Organisten, Verwaltungsmitarbeitende und weitere hauptamtliche Kräfte. Die Gehälter der Seelsorger (Priester und pastorale Mitarbeitende) sind nicht enthalten, da diese vom Bistum direkt getragen werden.' },
+  { q: 'Zu den Gebäudekosten',
+    a: 'Mit rund 366.000 € ist der laufende Betrieb unserer Liegenschaften einer der größten Posten. Allein Heizung, Strom und Wasser kosten ca. 163.000 € im Jahr. Dazu kommen Reparaturen, Instandhaltung und geplante Baumaßnahmen. Die Pfarrei unterhält mehrere Kirchen, Pfarrhäuser und Gemeindezentren.' },
+  { q: 'Zur pastoralen Arbeit',
+    a: 'Mit rund 176.000 € ist dies der drittgrößte Posten. Hier sind alle Ausgaben für Gottesdienste, Sakramente, Gemeindeveranstaltungen, Bildungsangebote, Jugendarbeit, Kirchenmusik sowie sämtliche weiteren Aktivitäten des Gemeindelebens zusammengefasst.' },
+  { q: 'Zur Weiterleitung von Kollekten',
+    a: 'Ein Teil der in den Gottesdiensten gesammelten Kollekten ist zweckgebunden und wird an kirchliche Hilfswerke weitergegeben – zum Beispiel Misereor oder Adveniat. Diese Gelder fließen nicht in den Pfarrhaushalt, sondern werden direkt weitergereicht.' },
+];
+---
+<section class="astro-fin-p">
+  <div class="astro-fin-p__inner">
+    <p class="astro-fin-p__eyebrow">Pfarrei Sankt Bonifatius</p>
+    <h2 class="astro-fin-p__hl">Haushaltsplanung der Pfarrei 2026</h2>
+    <p class="astro-fin-p__intro">
+      Der Gesamthaushalt der Pfarrei Sankt Bonifatius umfasst 2026 rund <strong>8,1 Mio. €</strong>.
+      Davon entfallen ca. <strong>6,9 Mio. €</strong> auf die fünf Kindergärten — eigene
+      Einrichtungen mit eigenen Budgets, überwiegend staatlich finanziert. Für den
+      <strong>Pfarrbetrieb</strong> (Gottesdienste, Seelsorge, Gebäude, Verwaltung) stehen rund
+      <strong>1,22 Mio. €</strong> zur Verfügung.
+    </p>
+
+    <div class="astro-fin-p__stats">
+      {STATS.map((s) => (
+        <div class="astro-fin-p__stat">
+          <span class="astro-fin-p__stat-val">{s.val}</span>
+          <span class="astro-fin-p__stat-cap">{s.cap}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="astro-fin-p__grid">
+      <div class="astro-fin-p__col">
+        <h3 class="astro-fin-p__col-hl">Woher kommt das Geld?</h3>
+        {EINNAHMEN.map((it) => (
+          <div class="astro-fin-p__row">
+            <div class="astro-fin-p__rowhead">
+              <span class="astro-fin-p__label">{it.label}</span>
+              <span class="astro-fin-p__amt">{it.amount} · {it.pct}&nbsp;%</span>
+            </div>
+            <div class="astro-fin-p__track"><span class="astro-fin-p__fill astro-fin-p__fill--in" style={`width:${it.pct}%`} aria-hidden="true"></span></div>
+          </div>
+        ))}
+        <div class="astro-fin-p__sum"><span>Gesamt</span><span>ca. 1,22 Mio. € · 100&nbsp;%</span></div>
+      </div>
+
+      <div class="astro-fin-p__col">
+        <h3 class="astro-fin-p__col-hl">Wofür wird es ausgegeben?</h3>
+        {AUSGABEN.map((it) => (
+          <div class="astro-fin-p__row">
+            <div class="astro-fin-p__rowhead">
+              <span class="astro-fin-p__label">{it.label}</span>
+              <span class="astro-fin-p__amt">{it.amount} · {it.pct}&nbsp;%</span>
+            </div>
+            <div class="astro-fin-p__track"><span class="astro-fin-p__fill astro-fin-p__fill--out" style={`width:${it.pct}%`} aria-hidden="true"></span></div>
+          </div>
+        ))}
+        <div class="astro-fin-p__sum"><span>Gesamt</span><span>ca. 1,22 Mio. € · 100&nbsp;%</span></div>
+      </div>
+    </div>
+
+    <div class="astro-fin-p__details">
+      {DETAILS.map((d) => (
+        <details>
+          <summary>{d.q}</summary>
+          <div class="astro-fin-p__a">{d.a}</div>
+        </details>
+      ))}
+    </div>
+
+    <p class="astro-fin-p__note">
+      Grundlage: Planungsrechnung 2026 (1. Entwurf), erstellt vom Bischöflichen Ordinariat Limburg,
+      Fachbereich Verwaltungsunterstützung, Stand 11. November 2025. Alle Beträge sind gerundet.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-fin-p{background:#fff;padding:72px 0}
+.astro-fin-p__inner{max-width:1080px;margin:0 auto;padding:0 40px}
+.astro-fin-p__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px;text-align:center}
+.astro-fin-p__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 18px;text-align:center}
+.astro-fin-p__intro{max-width:760px;margin:0 auto 36px;font-size:17px;color:#3d3530;line-height:1.7;text-align:center}
+.astro-fin-p__intro strong{color:#2c2420}
+.astro-fin-p__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0 0 48px}
+.astro-fin-p__stat{background:#f7f3ef;border-radius:14px;padding:26px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.astro-fin-p__stat-val{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,32px);font-weight:700;color:#9a2d2d;line-height:1}
+.astro-fin-p__stat-cap{font-size:14px;color:#6b5c52;line-height:1.4}
+.astro-fin-p__grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.astro-fin-p__col-hl{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#2c2420;margin:0 0 20px}
+.astro-fin-p__row{margin-bottom:14px}
+.astro-fin-p__rowhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px}
+.astro-fin-p__label{font-size:14.5px;color:#2c2420;font-weight:600}
+.astro-fin-p__amt{font-size:13.5px;color:#6b5c52;white-space:nowrap}
+.astro-fin-p__track{height:10px;background:#ede4d5;border-radius:6px;overflow:hidden}
+.astro-fin-p__fill{display:block;height:100%;border-radius:6px}
+.astro-fin-p__fill--in{background:linear-gradient(90deg,#7a8a5a,#5c6e3a)}
+.astro-fin-p__fill--out{background:linear-gradient(90deg,#b88a3a,#9a2d2d)}
+.astro-fin-p__sum{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:2px solid #e6dccf;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#2c2420}
+.astro-fin-p__details{max-width:840px;margin:48px auto 0}
+.astro-fin-p__details details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;overflow:hidden}
+.astro-fin-p__details summary{padding:18px 22px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:15.5px;color:#2c2420}
+.astro-fin-p__details summary::-webkit-details-marker{display:none}
+.astro-fin-p__details summary::after{content:"+";font-size:22px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-fin-p__details details[open] summary::after{transform:rotate(45deg)}
+.astro-fin-p__a{padding:0 22px 18px;font-size:14.5px;color:#3d3530;line-height:1.65}
+.astro-fin-p__note{max-width:840px;margin:28px auto 0;font-size:12.5px;color:#928269;line-height:1.6;text-align:center;font-style:italic}
+@media(max-width:820px){.astro-fin-p__grid{grid-template-columns:1fr;gap:36px}}
+@media(max-width:600px){.astro-fin-p{padding:52px 0}.astro-fin-p__inner{padding:0 20px}.astro-fin-p__stats{grid-template-columns:1fr;gap:12px}}
+</style>

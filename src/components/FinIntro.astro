@@ -1,0 +1,20 @@
+---
+// Einleitung der Finanzen-Seite (WP 48786). Eigene Klassen `astro-fin-intro`. Feste Inhalte.
+---
+<section class="astro-fin-intro">
+  <div class="astro-fin-intro__inner">
+    <p class="astro-fin-intro__lead">
+      Schon seit über 10 Jahren legt die Katholische Kirche in Deutschland ihre Haushalte
+      vollständig offen. Die Haushalte der Bistümer und der Pfarreien sind für jeden einsehbar.
+      Auf dieser Seite informieren wir Sie, wie die Kirchensteuer im Bistum Limburg und in der
+      Pfarrei Sankt Bonifatius verwendet wird.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-fin-intro{background:#fff}
+.astro-fin-intro__inner{max-width:820px;margin:0 auto;padding:64px 40px 8px;text-align:center}
+.astro-fin-intro__lead{font-size:clamp(17px,2vw,20px);color:#3d3530;line-height:1.7;margin:0}
+@media(max-width:600px){.astro-fin-intro__inner{padding:48px 20px 8px}}
+</style>

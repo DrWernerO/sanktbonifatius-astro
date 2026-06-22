@@ -1,0 +1,101 @@
+---
+// „Wege an unseren Kirchorten" — Zugänglichkeit der vier Kirchorte als aufklappbare
+// <details>-Blöcke (WP 49119). Eigene Klassen `astro-bar-ko`. Feste Inhalte.
+const ORTE = [
+  {
+    name: 'Kirchort St. Aposteln',
+    abs: [
+      'Den Kirchplatz erreicht man durch ein Drängelgitter vom Parkplatz aus oder über Stufen auf der Straßenseite. Der Kirchplatz ist etwas uneben.',
+      'Die Kirche ist ebenerdig vom Kirchhof aus zugänglich und auch selbst eben.',
+      'Hinten in der Kirche ist das KleiCa (Kleider-Café) mit Bänken und Tischen. Die KleiCa-Boutique ist auf der Orgelempore über eine Wendeltreppe zugänglich.',
+      'Die Seitenkapelle auf der rechten Seite, in der z.B. auch der offene Kühlschrank steht, ist ebenerdig zugänglich.',
+      'Der Altarraum ist zugänglich über Stufen und über eine schmale Rampe am rechten Rand, die für einen Rollstuhl i.a. zu schmal ist.',
+      'Eine nicht-behindertengerechte Toilette ist von der Kirche aus ebenerdig über die Sakristei erreichbar. Behindertengerechte Toiletten sind in Planung.',
+      'Der Gemeinderaum hinter der Sakristei ist zurzeit nicht nutzbar. Alle Veranstaltungen finden im Kirchenraum statt.',
+    ],
+  },
+  {
+    name: 'Kirchort St. Bonifatius und Jugendkirche JONA',
+    abs: [
+      'Die mobile Rampe ist in der Toilette im Treppenhaus links der Kirche gelagert.',
+      'Der Kirchhof St. Bonifatius ist ebenerdig von der Holbeinstraße oder der Thorwaldsenstraße erreichbar.',
+      'Ein Behindertenparkplatz befindet sich an der Holbeinstraße. Auch die Nutzung des Kirchhofs ist nach Absprache möglich.',
+      'Links am Kirchhof befindet sich das Pfarrhaus, das nur über Stufen zugänglich ist. Auch die Klingel ist nur über Stufen erreichbar. Dort befinden sich das Pfarrbüro, die Büros des Pastoralteams und der Jugendkirche Jona, das römische Zimmer und die Konferenzräume der Jugendkirche Jona. Bitte vereinbaren Sie bei Bedarf einen Termin für ein Treffen in einem barrierefreien Raum.',
+      'Die Kirche ist über eine ausklappbare Rampe und einen Plattformlift (max. Traglast 200 kg) am Eingang Thorwaldsenstraße erreichbar. Dort befindet sich auch der Zugang zur Bücherei. Außerdem gibt es Zugänge über eine Freitreppe und über das Treppenhaus links der Kirche. Das Kirchenschiff ist eben. Die im Boden eingelassenen Lichter rechts und links an den Wänden können blenden, dies sollten Sie bei Sehschwäche oder Alterssichtigkeit beachten. Gottesdienste werden im Allgemeinen rund um den ebenerdigen Altar im Kirchenschiff gefeiert. Der Hochaltar und die Sakristei sind nur über Stufen erreichbar.',
+      'Im Treppenhaus links der Kirche befindet sich eine noch nicht behindertengerecht ausgebaute Toilette, die über die dort deponierte Rampe einen engen Zugang hat. Dahinter führen viele Stufen hinab in den großen Pfarrsaal oder hinauf in die Kirche und weiter zur Orgelbühne.',
+      'Links von der Kirche an der Holbeinstraße ist das Schülercafé Orca. Es ist teils über Rampen erreichbar. Die Toilettentüren sind für einen Rollstuhl leider zu schmal.',
+      'Hinter der Kirche in der Achenbachstraße 1 befindet sich die Krypta. Sie ist nur über Stufen zugänglich.',
+      'Neben der Krypta ist der kleine Pfarrsaal, der stufenfrei zugänglich ist. Die Toilette und auch die Küche sind für einen Rollstuhl zu schmal.',
+      'In den Pfarrgarten gelangt man aus dem kleinen Pfarrsaal mit Hilfe der mobilen Rampe oder über eine Schwelle. Auch ein Zugang vom Kirchhof aus ist möglich. Der Rasen ist uneben.',
+      'Der Turnraum des Kindergartens in der Achenbachstraße 5 ist barrierefrei zugänglich.',
+      'Die Boni-Lounge in der Burnitzstraße 10 ist zugänglich mit der mobilen Rampe. Die Toilette ist nicht rollstuhlgeeignet.',
+    ],
+  },
+  {
+    name: 'Kirchort Herz Jesu',
+    abs: [
+      'Auf dem Gelände befindet sich die Kirche, das Gemeindehaus und das Pfarrhaus. Die mobile Rampe befindet sich in der Sakristei.',
+      'Die Mathildenstraße hat eine Steigung und der Bürgersteig ist vor der Einfahrt nicht abgeflacht. Auch der Kirchhof hat eine leichte Steigung und ist leicht uneben.',
+      'Während der Gottesdienstzeiten und auch sonst nach Absprache kann der Kirchhof als Behindertenparkplatz genutzt werden.',
+      'Das Gemeindehaus hat einen Aufzug in den ersten Stock. Dort befinden sich Konferenzraum, Küche und großer und kleiner Gemeindesaal. Das Geschirr ist in der Küche in den Oberschränken untergebracht. Im ersten Stock befindet sich auch eine Behindertentoilette, die auch während der Gottesdienstzeiten zugänglich ist.',
+      'Der Jugendkeller im Gemeindehaus ist nur über eine Treppe erreichbar.',
+      'In die Kirche kommt man über die gemauerte Rampe rechts von den Eingangsstufen am Garteneingang. Die Kirche selbst ist eben, mit Stock sollte man allerdings aufgrund leichter Unebenheiten der Platten vorsichtig gehen. Die Orgelbühne ist durch eine schmale Wendeltreppe im Kirchturm erreichbar. Der Altarraum ist mit Hilfe der in der Sakristei deponierten mobilen Rampe erreichbar, die zweimal umgelegt werden muss.',
+      'Der Garten ist ebenerdig zugänglich.',
+      'Das Pfarrhaus unterhalb der Kirche ist nur über Stufen erreichbar. Dort befindet sich das Pfarrbüro und die Bücherei und ein kleiner Konferenzraum. Die Bücherei hat einen Online-Medienkatalog, so dass Absprachen z.B. über E-Mail möglich sind.',
+    ],
+  },
+  {
+    name: 'Kirchort St. Wendel',
+    abs: [
+      'Alle Gebäude von St. Wendel haben die Adresse „Altes Schützenhüttengäßchen 6“. In der Mitte liegt die Kirche. Links von der Kirche liegt das Pfarrhaus. Rechts von der Kirche auf der anderen Seite des Kirchhofs finden Sie das Gemeindehaus. Der Kirchgarten liegt hinter der Kirche.',
+      'Die mobile Rampe befindet sich im Pfarrhaus.',
+      'Der Kirchhof ist ebenerdig zugänglich und auch selbst ebenerdig.',
+      'Am alten Schützenhüttengässchen befindet sich neben dem Eingang zum Kirchhof ein Behindertenparkplatz. Nach Rücksprache kann ggf. auch der Kirchhof genutzt werden.',
+      'Die Kirche und die Sakristei sind ebenerdig zugänglich. Mit Stock sollte man vorsichtig gehen, da die Platten wenig Griff haben. Der Altarraum ist nur über Stufen erreichbar. Die Orgelbühne ist über eine Wendeltreppe erreichbar. Der Zugang zur Taufkapelle kann nur über eine Treppe mit drei Stufen ohne Handlauf erreicht werden.',
+      'Das Hochparterre des Gemeindehauses ist über eine mobile Rampe zugänglich. Eine feste Rampe ist in Planung. Im Hochparterre befindet sich auf einer Ebene Gemeindesaal mit Bücherei, der Bühnenraum sowie eine Küche. Das Geschirr in der Küche ist teils auch in den Unterschränken untergebracht.',
+      'Es gibt eine Behindertentoilette, die für kleinere Rollstühle geeignet ist und kurze Griffe hat.',
+      'Das Untergeschoß mit Saal und Küche ist nur über Stufen zugänglich.',
+      'Das Pfarrhaus ist über eine Stufe oder mit Hilfe der dort deponierten mobilen Rampe zugänglich. Im Pfarrhaus befinden sich Büros und das Gartenzimmer. Toilette und Küche sind nicht rollstuhlgeeignet.',
+      'Der Garten hinter der Kirche hat am Gartentor des Kirchhofs eine Schwelle.',
+    ],
+  },
+];
+---
+<section class="astro-bar-ko">
+  <div class="astro-bar-ko__inner">
+    <h2 class="astro-bar-ko__hl">Wege an unseren Kirchorten</h2>
+    <p class="astro-bar-ko__intro">
+      Klicken Sie auf einen Kirchort für detaillierte Informationen zur Zugänglichkeit.
+    </p>
+
+    <div class="astro-bar-ko__list">
+      {ORTE.map((ort) => (
+        <details class="astro-bar-ko__item">
+          <summary>
+            <span>{ort.name}</span>
+            <span class="astro-bar-ko__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="astro-bar-ko__body">
+            {ort.abs.map((p) => <p>{p}</p>)}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bar-ko{background:#fff;padding:72px 0}
+.astro-bar-ko__inner{max-width:880px;margin:0 auto;padding:0 40px}
+.astro-bar-ko__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 10px;text-align:center}
+.astro-bar-ko__intro{font-size:16px;color:#6b5c52;margin:0 0 36px;text-align:center}
+.astro-bar-ko__item{background:#f7f3ef;border:1px solid #e0d8cf;border-radius:12px;margin-bottom:12px;overflow:hidden}
+.astro-bar-ko__item summary{padding:22px 26px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Playfair Display',serif;font-size:clamp(17px,2vw,21px);font-weight:700;color:#2c2420}
+.astro-bar-ko__item summary::-webkit-details-marker{display:none}
+.astro-bar-ko__icon{flex-shrink:0;font-family:system-ui,sans-serif;font-size:26px;line-height:1;color:#9a2d2d;transition:transform .2s}
+.astro-bar-ko__item[open] .astro-bar-ko__icon{transform:rotate(45deg)}
+.astro-bar-ko__body{padding:4px 26px 24px}
+.astro-bar-ko__body p{font-size:15.5px;color:#3d3530;line-height:1.7;margin:0 0 14px;padding-left:18px;border-left:2px solid #e0d8cf}
+.astro-bar-ko__body p:last-child{margin-bottom:0}
+@media(max-width:600px){.astro-bar-ko{padding:52px 0}.astro-bar-ko__inner{padding:0 20px}.astro-bar-ko__item summary{padding:18px 20px}.astro-bar-ko__body{padding:4px 20px 20px}}
+</style>

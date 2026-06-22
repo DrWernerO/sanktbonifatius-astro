@@ -1,0 +1,43 @@
+---
+// „Finanzbericht herunterladen" — Download-Karte (WP 48786). Eigene Klassen `astro-fin-dl`.
+// PDF liegt lokal in public/uploads (Original vom Bistum). Sollte später auch in die
+// WordPress-Mediathek (uploads/2026/05/) hochgeladen werden, damit die Sekretärinnen sie
+// pflegen können — auf dem Dev-Server fehlt sie derzeit (404). Vgl. Handbuch 1b/1d.
+const PDF = '/uploads/2026/05/26-01-05_Finanzbericht_Bistum_Limburg_2024.pdf';
+---
+<section class="astro-fin-dl">
+  <div class="astro-fin-dl__inner">
+    <h2 class="astro-fin-dl__hl">Finanzbericht herunterladen</h2>
+    <p class="astro-fin-dl__sub">
+      Detaillierte Informationen zur Verwendung der Kirchensteuermittel im Bistum Limburg:
+    </p>
+
+    <div class="astro-fin-dl__card">
+      <div class="astro-fin-dl__icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+      </div>
+      <div class="astro-fin-dl__body">
+        <h3 class="astro-fin-dl__card-hl">Finanzbericht Bistum Limburg 2024</h3>
+        <p class="astro-fin-dl__card-txt">
+          Vollständiger Jahresbericht mit detaillierter Aufschlüsselung aller Einnahmen und
+          Ausgaben des Bistums Limburg.
+        </p>
+        <a class="astro-fin-dl__btn" href={PDF} target="_blank" rel="noopener">PDF herunterladen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-fin-dl{background:#f7f3ef;padding:72px 0}
+.astro-fin-dl__inner{max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-fin-dl__hl{font-family:'Playfair Display',serif;font-size:clamp(24px,3.2vw,36px);font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-fin-dl__sub{font-size:16px;color:#6b5c52;margin:0 0 28px}
+.astro-fin-dl__card{display:flex;align-items:flex-start;gap:20px;text-align:left;background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:28px;box-shadow:0 4px 20px rgba(30,21,18,.06)}
+.astro-fin-dl__icon{flex-shrink:0;width:52px;height:52px;border-radius:12px;background:#9a2d2d;color:#fff;display:flex;align-items:center;justify-content:center}
+.astro-fin-dl__card-hl{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 8px}
+.astro-fin-dl__card-txt{font-size:14.5px;color:#6b5c52;line-height:1.6;margin:0 0 16px}
+.astro-fin-dl__btn{display:inline-flex;align-items:center;padding:11px 24px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:14px;font-weight:600;transition:background .2s}
+.astro-fin-dl__btn:hover{background:#7e2424}
+@media(max-width:600px){.astro-fin-dl{padding:52px 0}.astro-fin-dl__inner{padding:0 20px}.astro-fin-dl__card{flex-direction:column;gap:14px;padding:22px}}
+</style>

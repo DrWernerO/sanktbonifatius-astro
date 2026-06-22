@@ -1,0 +1,25 @@
+---
+// Hero der Seite „Barrierefreiheit" — WP-Seite 49119 (/ueberuns/barrierefreiheit/).
+// Übernimmt den ursprünglichen WordPress-Hero: Foto + abdunkelnder Verlauf, Eyebrow
+// „Wege für alle". Echtes <img> (object-fit:cover) statt CSS-Hintergrund (Bild-SEO + verlässlich).
+const HERO = '/uploads/2024/01/barrierefreiheit-stbonifatius.jpg';
+---
+<section class="astro-bar-hero">
+  <img class="astro-bar-hero__img" src={HERO} alt="Barrierefreiheit – Symbole für Rollstuhl, Hören und Mobilität" loading="eager" />
+  <div class="astro-bar-hero__inner">
+    <p class="astro-bar-hero__eyebrow">Wege für alle</p>
+    <h1 class="astro-bar-hero__title">Barrierefreiheit</h1>
+    <p class="astro-bar-hero__sub">Unsere Pfarrei ebnet Wege.</p>
+  </div>
+</section>
+
+<style is:global>
+.astro-bar-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:460px;overflow:hidden;color:#fff}
+.astro-bar-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.astro-bar-hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(30,21,18,.3) 0%,rgba(30,21,18,.55) 60%,rgba(30,21,18,.85) 100%)}
+.astro-bar-hero__inner{position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;padding:110px 40px 56px}
+.astro-bar-hero__eyebrow{font-family:'Playfair Display',serif;font-style:italic;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#d4aa5a;margin:0 0 14px;font-weight:700}
+.astro-bar-hero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(38px,6vw,64px);margin:0;letter-spacing:-.01em}
+.astro-bar-hero__sub{font-size:clamp(16px,2vw,19px);color:rgba(255,255,255,.9);line-height:1.55;margin:14px 0 0;max-width:580px;font-style:italic}
+@media(max-width:600px){.astro-bar-hero{min-height:380px}.astro-bar-hero__inner{padding:92px 20px 40px}}
+</style>

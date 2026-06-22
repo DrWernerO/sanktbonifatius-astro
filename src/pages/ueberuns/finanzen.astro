@@ -1,0 +1,24 @@
+---
+// Seite „Transparenz & Finanzen" — WP-Seite 48786 (/ueberuns/finanzen/), vollständig aus eigenen
+// astro-fin-…-Komponenten (kein set:html mit WP-Markup, vgl. Handbuch 9b / Kontakt-Seite 11).
+// Nav + Footer kommen global aus Base.astro (4b). Inhalte fest gepflegt (Zahlen ändern sich
+// jährlich, dann hier aktualisieren); nur der SEO-Head kommt live aus WordPress (SEOPress).
+import Base from '../../layouts/Base.astro';
+import FinHero from '../../components/FinHero.astro';
+import FinIntro from '../../components/FinIntro.astro';
+import FinBistum from '../../components/FinBistum.astro';
+import FinPfarrei from '../../components/FinPfarrei.astro';
+import FinDownload from '../../components/FinDownload.astro';
+import FinCta from '../../components/FinCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/finanzen/');
+---
+<Base seo={seo} title="Transparenz & Finanzen">
+  <FinHero />
+  <FinIntro />
+  <FinBistum />
+  <FinPfarrei />
+  <FinDownload />
+  <FinCta />
+</Base>

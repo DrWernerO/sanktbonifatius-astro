@@ -1,0 +1,29 @@
+---
+// Hero der Seite „Transparenz & Finanzen" — WP-Seite 48786 (/ueberuns/finanzen/).
+// Eigene Klassen `astro-fin-hero`. Foto-Hero: Finanz-Motiv (Münzstapel auf einem Diagramm)
+// als echtes <img> (object-fit:cover) + abdunkelnder Verlauf darüber.
+// Echtes <img> statt CSS-Hintergrund → von Google indexierbar (Bild-SEO) + verlässlich.
+const HERO = '/uploads/2026/06/finanzen-hero.jpg';
+---
+<section class="astro-fin-hero">
+  <img class="astro-fin-hero__img" src={HERO} alt="Aufsteigende Münzstapel auf einem Finanzdiagramm" loading="eager" />
+  <div class="astro-fin-hero__inner">
+    <p class="astro-fin-hero__eyebrow">Pfarrei St. Bonifatius · Frankfurt</p>
+    <h1 class="astro-fin-hero__title">Transparenz &amp; Finanzen</h1>
+    <p class="astro-fin-hero__sub">
+      Wir legen offen, wie Kirchensteuermittel in der Pfarrei und im Bistum Limburg
+      eingesetzt werden — nachvollziehbar und transparent.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-fin-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:520px;overflow:hidden;color:#fff}
+.astro-fin-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:0}
+.astro-fin-hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(30,21,18,.32) 0%,rgba(30,21,18,.58) 50%,rgba(30,21,18,.92) 100%)}
+.astro-fin-hero__inner{position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;padding:120px 40px 56px}
+.astro-fin-hero__eyebrow{font-family:'Playfair Display',serif;font-style:italic;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#d4aa5a;margin:0 0 14px;font-weight:700}
+.astro-fin-hero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(36px,5.4vw,64px);margin:0;letter-spacing:-.01em}
+.astro-fin-hero__sub{font-size:clamp(16px,1.9vw,20px);color:rgba(255,255,255,.9);line-height:1.55;margin:18px 0 0;max-width:600px}
+@media(max-width:600px){.astro-fin-hero{min-height:420px}.astro-fin-hero__inner{padding:96px 20px 40px}}
+</style>

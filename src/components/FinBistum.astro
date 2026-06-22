@@ -1,0 +1,67 @@
+---
+// „Kirchensteuer im Bistum Limburg" — Aufschlüsselung von 100 € Kirchensteuermitteln
+// (Haushalt 2024). Eigene Klassen `astro-fin-b`. Feste Inhalte (WP 48786).
+// Balkenbreite = Eurobetrag (Summe = 100 €), absteigend sortiert für klare Lesbarkeit.
+const ITEMS = [
+  { label: 'Seelsorge', amount: '42,10 €', val: 42.1, note: 'davon Pfarreien 36,90 €' },
+  { label: 'Allgemeine Verwaltung', amount: '13,20 €', val: 13.2 },
+  { label: 'Familie und Generationen', amount: '13,00 €', val: 13.0 },
+  { label: 'Soziale und caritative Aufgaben', amount: '8,70 €', val: 8.7 },
+  { label: 'Bildung, Kunst & Kultur', amount: '7,00 €', val: 7.0 },
+  { label: 'Finanzen', amount: '6,20 €', val: 6.2 },
+  { label: 'Leitung & Gremien', amount: '5,30 €', val: 5.3 },
+  { label: 'Weltkirche & Gemeinschaft', amount: '4,50 €', val: 4.5 },
+];
+---
+<section class="astro-fin-b">
+  <div class="astro-fin-b__inner">
+    <p class="astro-fin-b__eyebrow">Haushalt 2024</p>
+    <h2 class="astro-fin-b__hl">Kirchensteuer im Bistum Limburg</h2>
+    <p class="astro-fin-b__intro">So werden 100 € Kirchensteuermittel im Bistum Limburg verwendet:</p>
+
+    <div class="astro-fin-b__feature">
+      <span class="astro-fin-b__big">42,10 €</span>
+      <span class="astro-fin-b__big-cap">von 100 € fließen in die Seelsorge</span>
+    </div>
+
+    <div class="astro-fin-b__bars">
+      {ITEMS.map((it) => (
+        <div class="astro-fin-b__row">
+          <div class="astro-fin-b__head">
+            <span class="astro-fin-b__label">{it.label}</span>
+            <span class="astro-fin-b__amt">{it.amount}</span>
+          </div>
+          <div class="astro-fin-b__track">
+            <span class="astro-fin-b__fill" style={`width:${it.val}%`} aria-hidden="true"></span>
+          </div>
+          {it.note && <span class="astro-fin-b__note">{it.note}</span>}
+        </div>
+      ))}
+    </div>
+
+    <div class="astro-fin-b__total">
+      <span>Gesamt pro 100 € Kirchensteuer</span>
+      <span>100,00 €</span>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-fin-b{background:#f7f3ef;padding:72px 0}
+.astro-fin-b__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-fin-b__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px;text-align:center}
+.astro-fin-b__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 10px;text-align:center}
+.astro-fin-b__intro{font-size:16px;color:#6b5c52;margin:0 0 30px;text-align:center}
+.astro-fin-b__feature{display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:14px;padding:26px;margin:0 0 32px;box-shadow:0 4px 20px rgba(30,21,18,.06)}
+.astro-fin-b__big{font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,56px);font-weight:700;color:#9a2d2d;line-height:1}
+.astro-fin-b__big-cap{font-size:15px;color:#6b5c52}
+.astro-fin-b__row{margin-bottom:16px}
+.astro-fin-b__head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:5px}
+.astro-fin-b__label{font-size:15px;color:#2c2420;font-weight:600}
+.astro-fin-b__amt{font-size:15px;color:#9a2d2d;font-weight:700;white-space:nowrap}
+.astro-fin-b__track{height:11px;background:#e6dccf;border-radius:6px;overflow:hidden}
+.astro-fin-b__fill{display:block;height:100%;background:linear-gradient(90deg,#b88a3a,#9a2d2d);border-radius:6px}
+.astro-fin-b__note{display:inline-block;font-size:12.5px;color:#928269;margin-top:4px;font-style:italic}
+.astro-fin-b__total{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:18px;border-top:2px solid #d8cbbd;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2c2420}
+@media(max-width:600px){.astro-fin-b{padding:52px 0}.astro-fin-b__inner{padding:0 20px}}
+</style>

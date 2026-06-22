@@ -1,0 +1,19 @@
+---
+// Einleitung der Barrierefreiheit-Seite (WP 49119). Eigene Klassen `astro-bar-intro`.
+---
+<section class="astro-bar-intro">
+  <div class="astro-bar-intro__inner">
+    <p class="astro-bar-intro__lead">
+      Auf dieser Seite möchten wir Sie über die Zugangsmöglichkeiten zu unseren vier Kirchen und zu
+      den sonstigen Räumlichkeiten an unseren Kirchorten informieren. Für eine bessere
+      Übersichtlichkeit haben wir die Informationen nach den vier Kirchorten geordnet.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-bar-intro{background:#fff}
+.astro-bar-intro__inner{max-width:820px;margin:0 auto;padding:64px 40px 8px;text-align:center}
+.astro-bar-intro__lead{font-size:clamp(17px,2vw,20px);color:#3d3530;line-height:1.7;margin:0}
+@media(max-width:600px){.astro-bar-intro__inner{padding:48px 20px 8px}}
+</style>

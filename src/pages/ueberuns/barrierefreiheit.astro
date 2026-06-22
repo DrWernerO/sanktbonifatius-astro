@@ -1,0 +1,21 @@
+---
+// Seite „Barrierefreiheit" — WP-Seite 49119 (/ueberuns/barrierefreiheit/), Pflichtseite, vollständig
+// aus eigenen astro-bar-…-Komponenten (kein set:html mit WP-Markup, vgl. Handbuch 9b / Kontakt 11).
+// Nav + Footer kommen global aus Base.astro (4b). Inhalte fest gepflegt; SEO-Head live aus WordPress.
+import Base from '../../layouts/Base.astro';
+import BarHero from '../../components/BarHero.astro';
+import BarIntro from '../../components/BarIntro.astro';
+import BarAnsprechpartner from '../../components/BarAnsprechpartner.astro';
+import BarKirchorte from '../../components/BarKirchorte.astro';
+import BarCta from '../../components/BarCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/barrierefreiheit/');
+---
+<Base seo={seo} title="Barrierefreiheit">
+  <BarHero />
+  <BarIntro />
+  <BarAnsprechpartner />
+  <BarKirchorte />
+  <BarCta />
+</Base>
