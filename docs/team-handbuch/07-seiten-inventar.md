@@ -122,6 +122,7 @@
 | `newsletter` | **48663** | publish | ChurchDesk-Abo-Formular |
 | `katholischwerden` | **48544** | publish | Live-Slug `katholisch-werden`. 3 Wege: Taufe / Aufnahme / Wiederaufnahme |
 | `kontakt2` | 46800 | publish | Live-Slug `kontakt` |
+| `beratung-und-hilfe` | **48312** | publish | Unterseite von `/kontakt/`. Seelsorge/Beratung, Notfall-Banner, Ansprechpersonen, externe Stellen, Hinweisgeberschutz. **SEO (22.06.2026):** eigener SEOPress-Titel + Meta-Description gesetzt (vorher Startseiten-Default); JSON-LD WebPage+BreadcrumbList+CatholicChurch ergänzt; Hero-H1 auf „Beratung und Hilfe" vereinheitlicht |
 | `terminkalender2` | 47024 | publish | Live-Slug `terminkalender` |
 | `firmung` (alt) | 46776 | ❌ gelöscht | Durch 46778 abgelöst |
 | `firmung2` | 46778 | publish | **Live** (Live-Slug `firmung`) |

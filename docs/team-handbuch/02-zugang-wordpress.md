@@ -149,6 +149,24 @@ Die Meta-Checkbox „Seitentitel ausblenden" ist nicht als `show_in_rest: true` 
 
 Nach jedem Gutenberg-Speichern prüfen, ob die Checkbox noch aktiv ist.
 
+> **✅ Gegenstück — SEO-Titel & Meta-Description GEHEN per REST (SEOPress).**
+> Anders als bei der WhatsApp-Seite (`functions.php`-Lösung) ist für SEO-Titel und
+> Meta-Description **kein** `functions.php`-Eingriff nötig: Die Website nutzt das Plugin
+> **SEOPress**, dessen Felder als `meta` per REST setzbar sind:
+> ```javascript
+> wp.apiFetch({
+>   path: '/wp/v2/pages/POST_ID',
+>   method: 'POST',
+>   data: { meta: {
+>     _seopress_titles_title: 'Seiten-Titel – St. Bonifatius Frankfurt',
+>     _seopress_titles_desc:  'Eigene Meta-Description, 150–160 Zeichen.'
+>   }}
+> });
+> ```
+> Per curl analog mit `-u "$WP_USER:$WP_PASS"` und JSON-Body `{"meta":{…}}`.
+> `og:title`/`og:description` übernimmt SEOPress automatisch aus diesen Feldern
+> (Social-Bild separat: `_seopress_social_fb_img`). Bewährt 22.06.2026 an Seite 48312.
+
 ### 6. Draft-Preview-URL
 Entwürfe sind für Nicht-Eingeloggte nur sichtbar via:
 ```
