@@ -22,6 +22,9 @@
    CSS/Client-JS lädt per HMR. Bei zähem JS-Cache: privates Browser-Fenster.
 4. **WP-Sektionen ersetzen** via `removeRange` + `ASTRO_SLOT` in `src/lib/wordpress.js`;
    `<style>`-Blöcke aus dem Schnitt bewahren.
+5. **Seitenübersicht immer aktuell halten:** Bei jeder neu gebauten, verschobenen oder
+   strukturell geänderten Seite sofort `docs/SEITENVERZEICHNIS.md` mitpflegen (Astro-Pfad,
+   Status ✅/offen, Bemerkung **und** den Zähler oben) — als eigenen `Doku:`-Commit.
 
 ## Hosting-Stand (Details in Handbuch 1b–1d)
 - **WordPress** läuft auf **All-inkl** (kasserver.com) → bleibt dort (Backend/CMS).
