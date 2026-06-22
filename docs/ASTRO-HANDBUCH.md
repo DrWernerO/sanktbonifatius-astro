@@ -11,12 +11,21 @@ Beim nächsten Seiten-Projekt **zuerst dieses Dokument lesen**, dann loslegen.
 
 ## 1. Architektur & warum es so gebaut ist
 
+> **UPDATE 2026-06-22 — Quelle ist jetzt die LIVE-Seite `https://www.sanktbonifatius.de`.**
+> Nach dem Go-Live ist www die aktuelle, vollständige und SEO-optimierte Quelle (der Dev-Server
+> ist jetzt veraltet). Live hat ein **gültiges Zertifikat**, daher entfallen die früheren
+> Dev-Notbehelfe (`NODE_TLS_REJECT_UNAUTHORIZED=0`/`secure:false` nicht mehr nötig — im
+> dev-Script bleibt das Flag nur als harmloser Rest). Quell-Domains zentral in
+> `src/lib/wordpress.js` (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs` (`WP_LIVE`).
+> Die Code-Beispiele weiter unten nennen teils noch den alten Dev-Host — gemeint ist jetzt www.
+
 | Thema | Lösung |
 |-------|--------|
-| Inhalte kommen von | **Dev-Server** `https://dev.sanktbonifatius.de.w021941a.kasserver.com` (nicht live — live ist veraltet) |
-| Dev-Server hat | selbst-signiertes SSL-Zertifikat → Browser lehnt direkten Zugriff ab |
-| Server-seitig (Astro-Build) | Fetch direkt zum Dev-Server, erlaubt durch `NODE_TLS_REJECT_UNAUTHORIZED=0` |
-| Client-seitig (Browser) | Fetch über **Vite-Proxy** `/wp-proxy/...` → kein SSL-Problem |
+| Inhalte kommen von | **Live-Seite** `https://www.sanktbonifatius.de` (seit 2026-06-22; Dev-Server abgelöst) |
+| Live hat | **gültiges** SSL-Zertifikat → direkter Zugriff möglich, kein Workaround nötig |
+| Server-seitig (Astro-Build) | Fetch direkt zu www (`WP_API` / `WP_RENDER_ORIGIN`) |
+| Client-seitig (Browser) | Fetch über **Vite-Proxy** `/wp-proxy/...` → www (gleiche Origin, kein CORS) |
+| Beim Netlify-Go-Live | WordPress zieht auf `cms.`-Subdomain → Quell-Domains erneut anpassen (Abschnitt 1b) |
 | Sekretärinnen arbeiten weiter in | WordPress-Admin, unverändert |
 
 ### Die zwei festen Bausteine (nie löschen)

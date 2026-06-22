@@ -13,9 +13,12 @@
 
 ## Die wichtigsten Regeln in Kürze
 
-1. **Inhalte kommen vom Dev-Server** `dev.sanktbonifatius.de.w021941a.kasserver.com`
-   (live ist veraltet). Server-seitig direkt (`NODE_TLS_REJECT_UNAUTHORIZED=0`),
-   client-seitig über Vite-Proxy `/wp-proxy/...` (selbst-signiertes SSL).
+1. **Inhalte kommen von der LIVE-Seite** `https://www.sanktbonifatius.de` (seit 2026-06-22;
+   früher der Dev-Server, der jetzt veraltet ist). Live hat ein **gültiges Zertifikat** —
+   server-seitig direkt, client-seitig weiterhin über Vite-Proxy `/wp-proxy/...` (gleiche
+   Origin, kein SSL/CORS-Problem). Quell-Domains zentral in `src/lib/wordpress.js`
+   (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs` (`WP_LIVE`). **Beim späteren
+   Netlify-Go-Live** zieht WordPress auf eine `cms.`-Subdomain um → dann hier erneut anpassen.
 2. **Eigene Komponenten IMMER mit Präfix `astro-`** — nie WP-Theme-Klassen (`bh2-…`)
    wiederverwenden, sonst überschreibt das WP-CSS unsere Styles.
 3. **Server-seitige Änderungen (`lib/*.js`, `.astro`-Frontmatter) → Dev-Server neu starten.**
