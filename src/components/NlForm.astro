@@ -1,0 +1,56 @@
+---
+// „Jetzt abonnieren" — WP-Seite 48663 (ersetzt WP-Block `nl-form-sec`). Eigene Klassen
+// `astro-nlform`. Der RAHMEN ist eine eigene astro-Komponente; das eigentliche Abo-Formular
+// ist ein externes EMBED (iframe zu forms.churchdesk.com), funktional 1:1 aus dem WP-Content
+// übernommen (per set:html NUR für das Embed-Snippet). Das postMessage-Resize-Script stammt
+// ebenfalls aus dem WP-Original (FORM_RESIZE_HEIGHT), Muster wie ChurchDeskForm.astro.
+const embed = `<div id="form__64fe16eb3ccecf0007c1775c" class="astro-nlform__embed">
+  <iframe src="https://forms.churchdesk.com/f/Duf7gO_IQC/embed" title="Newsletter-Anmeldeformular der Pfarrei Sankt Bonifatius (Pfarrbrief abonnieren)" data-cookieconsent="ignore" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" style="border:0;"></iframe>
+</div>`;
+---
+<section class="astro-nlform" id="abonnieren">
+  <div class="astro-nlform__inner">
+    <div class="astro-nlform__head">
+      <h2 class="astro-nlform__hl">Jetzt abonnieren</h2>
+      <p class="astro-nlform__sub">
+        Tragen Sie Ihre E-Mail-Adresse ein — und erhalten Sie den nächsten Pfarrbrief
+        direkt in Ihr Postfach.
+      </p>
+    </div>
+    <div class="astro-nlform__box">
+      <Fragment set:html={embed} />
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+// Aus dem WP-Original 1:1 übernommen: passt die ChurchDesk-iframe-Höhe an, sobald das
+// eingebettete Formular per postMessage (FORM_RESIZE_HEIGHT) seine Höhe meldet.
+(function(){
+  var e = window.addEventListener ? 'addEventListener' : 'attachEvent';
+  if (window.cdFormEventHandlersRegistered) return;
+  window[e](e === 'attachEvent' ? 'onmessage' : 'message', function(ev){
+    if (ev.data && ev.data.source === 'cdFormEmbed' && ev.data.action === 'FORM_RESIZE_HEIGHT') {
+      var t = ev.data.formId;
+      var d = document.getElementById(t);
+      if (d) {
+        var n = ev.data.height + 40;
+        d.style.height = n + 'px';
+      }
+    }
+  }, false);
+  window.cdFormEventHandlersRegistered = true;
+})();
+</script>
+
+<style is:global>
+.astro-nlform{background:#f7f3ef;padding:48px 0 64px}
+.astro-nlform__inner{max-width:760px;margin:0 auto;padding:0 40px}
+.astro-nlform__head{text-align:center;margin:0 0 28px}
+.astro-nlform__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,34px);color:#2c2420;margin:0 0 10px;font-weight:700;line-height:1.15}
+.astro-nlform__sub{font-size:15px;color:#6b5c52;margin:0 auto;line-height:1.6;max-width:520px}
+.astro-nlform__box{background:#fff;border-radius:14px;padding:32px;box-shadow:0 8px 28px rgba(30,21,18,.06);border:1px solid #e0d8cf}
+.astro-nlform__embed{position:relative;overflow:hidden;max-width:100%;border-radius:8px}
+.astro-nlform__embed iframe{position:relative;top:0;left:0;width:100%;border:0;min-height:520px}
+@media(max-width:600px){.astro-nlform{padding:36px 0 48px}.astro-nlform__inner{padding:0 20px}.astro-nlform__box{padding:20px}}
+</style>

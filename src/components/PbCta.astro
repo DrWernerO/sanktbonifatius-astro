@@ -1,0 +1,55 @@
+---
+// Abschluss-CTA + SEO-Fließtext — WP-Seite 47815 (ersetzt WP-Blöcke `pb-cta` + `pb-seo`).
+// Eigene Klassen `astro-pbcta`. Der untere Text trägt die SEO-Keywords der WP-Vorlage
+// (Pfarrbüro, Öffnungszeiten, Sachsenhausen, Oberrad …) sichtbar in den Seitenrumpf.
+const MAIL = 'info@sanktbonifatius.de';
+---
+<section class="astro-pbcta">
+  <div class="astro-pbcta__inner">
+    <h2 class="astro-pbcta__hl">Wie können wir Ihnen helfen?</h2>
+    <p class="astro-pbcta__sub">
+      Schreiben Sie uns, rufen Sie an oder kommen Sie während unserer Öffnungszeiten vorbei
+      — wir freuen uns auf Sie.
+    </p>
+    <div class="astro-pbcta__btns">
+      <a class="astro-pbcta__btn" href={`mailto:${MAIL}`}>E-Mail schreiben</a>
+      <a class="astro-pbcta__btn astro-pbcta__btn--ghost" href="/kontakt/">Alle Kontaktwege</a>
+    </div>
+  </div>
+
+  <div class="astro-pbcta__seo">
+    <h3 class="astro-pbcta__seo-hl">Pfarrbüro Sankt Bonifatius Frankfurt — Öffnungszeiten, Kontakt &amp; Team</h3>
+    <p>
+      Das Pfarrbüro der Pfarrei Sankt Bonifatius Frankfurt (Holbeinstraße 70, 60596 Frankfurt
+      am Main) ist Ihre zentrale Anlaufstelle für alle Verwaltungsangelegenheiten der Pfarrei.
+      Unser sechsköpfiges Team betreut Anliegen rund um Sakramente (Taufe, Erstkommunion,
+      Firmung, Trauung, Beerdigung), Kirchenbücher, Öffentlichkeitsarbeit, Buchhaltung und
+      Raumvermietungen.
+    </p>
+    <p>
+      Öffnungszeiten Pfarrbüro Frankfurt: Di, Mi, Do, Fr 09:00–12:00 Uhr · Do zusätzlich
+      14:30–17:00 Uhr · Mo geschlossen. Telefon: 069 695 97 58 50 · E-Mail
+      <a href={`mailto:${MAIL}`}>{MAIL}</a>. Das Pfarrbüro liegt im Herzen von
+      Frankfurt-Sachsenhausen und betreut die Stadtteile Sachsenhausen und Oberrad. Es ist
+      gut mit öffentlichen Verkehrsmitteln erreichbar.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-pbcta{background:#fff}
+.astro-pbcta__inner{max-width:760px;margin:0 auto;padding:80px 40px 40px;text-align:center}
+.astro-pbcta__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,42px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-pbcta__sub{font-size:clamp(16px,1.8vw,19px);color:#6b5c52;line-height:1.6;margin:0 0 30px}
+.astro-pbcta__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.astro-pbcta__btn{display:inline-block;padding:14px 32px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:15px;font-weight:600;letter-spacing:.02em;text-decoration:none;transition:background .2s}
+.astro-pbcta__btn:hover{background:#7e2424}
+.astro-pbcta__btn--ghost{background:transparent;color:#9a2d2d;border:1.5px solid #9a2d2d}
+.astro-pbcta__btn--ghost:hover{background:#9a2d2d;color:#fff}
+.astro-pbcta__seo{max-width:820px;margin:0 auto;padding:0 40px 72px}
+.astro-pbcta__seo-hl{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-pbcta__seo p{font-size:15px;color:#928269;line-height:1.7;margin:0 0 12px}
+.astro-pbcta__seo a{color:#9a2d2d;text-decoration:none}
+.astro-pbcta__seo a:hover{text-decoration:underline}
+@media(max-width:560px){.astro-pbcta__inner{padding:56px 20px 32px}.astro-pbcta__seo{padding:0 20px 52px}}
+</style>

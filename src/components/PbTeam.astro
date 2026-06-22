@@ -1,0 +1,62 @@
+---
+// „Ihr Verwaltungsteam" — 6 Karten (Foto, Name, Rolle, Aufgaben, E-Mail) — WP-Seite 47815
+// (ersetzt WP-Block `pb-team`). Eigene Klassen `astro-pbteam`. Fotos lokal in
+// public/uploads/2026/06 (Handbuch 1b). mailto im Klartext (wartbar). aria-label auf Foto.
+const IMG = '/uploads/2026/06';
+const TEAM = [
+  { name: 'Annette Gause', role: 'Verwaltungsleiterin',
+    task: 'Leitung der Pfarreiverwaltung und Koordination aller Verwaltungsbereiche.',
+    photo: `${IMG}/Annette-Gause-300x300.jpg`, mail: 'a.gause@sanktbonifatius.de' },
+  { name: 'Manuela König', role: 'Koordination & Öffentlichkeitsarbeit',
+    task: 'Koordination, Öffentlichkeitsarbeit, Pfarrbrief / Newsletter, Webseite, Erstkommunion, Pfarrgemeinderat, Vermietungen.',
+    photo: `${IMG}/Manuela-Koenig-300x300.jpg`, mail: 'm.koenig@sanktbonifatius.de' },
+  { name: 'Ivana Buhac', role: 'Verwaltung & Öffentlichkeitsarbeit',
+    task: 'Kirchenaustritte, Jobtickets, Öffentlichkeitsarbeit / Webseite, Verwaltungsrat, Vermietungen, Rekonziliation / Konversion.',
+    photo: `${IMG}/Ivana-Buhac-300x300.jpg`, mail: 'i.buhac@sanktbonifatius.de' },
+  { name: 'Andrea Hanselmann', role: 'Buchhaltung & Standesamt',
+    task: 'Eheschließung, Kirchenbücher, Todesfälle, Buchhaltung, allg. Verwaltungsarbeiten.',
+    photo: `${IMG}/Andrea-Hanselmann-300x300.jpg`, mail: 'a.hanselmann@sanktbonifatius.de' },
+  { name: 'Neda Tadic', role: 'Sakramente & Buchhaltung',
+    task: 'Taufe, Firmung, allg. Verwaltungsarbeit, Buchhaltung, Lektoren- und Kommunionhelferplan.',
+    photo: `${IMG}/Neda-Tadic-300x300.jpg`, mail: 'n.tadic@sanktbonifatius.de' },
+  { name: 'Katharina Sattler', role: 'Gottesdienstplanung & Immobilien',
+    task: 'Gottesdienstplanung, Immobilienverwaltung.',
+    photo: `${IMG}/Katharina-Sattler-300x300.jpg`, mail: 'k.sattler@sanktbonifatius.de' },
+];
+---
+<section class="astro-pbteam">
+  <div class="astro-pbteam__inner">
+    <h2 class="astro-pbteam__hl">Ihr Verwaltungsteam</h2>
+    <p class="astro-pbteam__sub">Sechs engagierte Mitarbeiterinnen stehen Ihnen in allen Verwaltungsangelegenheiten zur Seite.</p>
+    <div class="astro-pbteam__grid">
+      {TEAM.map((p) => (
+        <div class="astro-pbteam__card">
+          <div class="astro-pbteam__photo" role="img" aria-label={`Foto von ${p.name}`}
+               style={`background-image:url('${p.photo}')`}></div>
+          <h3 class="astro-pbteam__name">{p.name}</h3>
+          <p class="astro-pbteam__role">{p.role}</p>
+          <p class="astro-pbteam__task">{p.task}</p>
+          <a class="astro-pbteam__mail" href={`mailto:${p.mail}`}>{p.mail}</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pbteam{background:#f7f3ef;padding:80px 0}
+.astro-pbteam__inner{max-width:1140px;margin:0 auto;padding:0 40px}
+.astro-pbteam__hl{font-family:'Playfair Display',serif;font-weight:700;color:#2c2420;text-align:center;font-size:clamp(26px,3.4vw,38px);margin:0 0 12px}
+.astro-pbteam__sub{text-align:center;color:#6b5c52;font-size:16px;line-height:1.6;margin:0 auto 44px;max-width:600px}
+.astro-pbteam__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.astro-pbteam__card{background:#fff;border-radius:14px;padding:32px 24px;text-align:center;box-shadow:0 2px 16px rgba(30,21,18,.07);transition:transform .2s,box-shadow .2s}
+.astro-pbteam__card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(30,21,18,.12)}
+.astro-pbteam__photo{width:120px;height:120px;border-radius:50%;background-size:cover;background-position:center top;margin:0 auto 20px;box-shadow:0 4px 14px rgba(0,0,0,.15);border:4px solid #fff;background-color:#ede4d5}
+.astro-pbteam__name{font-family:'Playfair Display',serif;font-size:21px;color:#2c2420;margin:0 0 6px;font-weight:700}
+.astro-pbteam__role{color:#9a2d2d;font-size:12px;margin:0 0 12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.astro-pbteam__task{color:#6b5c52;font-size:14px;line-height:1.6;margin:0 0 16px}
+.astro-pbteam__mail{display:inline-block;color:#3a2e28;font-size:14px;font-weight:600;word-break:break-word;transition:color .2s}
+.astro-pbteam__mail:hover{color:#9a2d2d}
+@media(max-width:900px){.astro-pbteam__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-pbteam{padding:56px 0}.astro-pbteam__inner{padding:0 20px}.astro-pbteam__grid{grid-template-columns:1fr}}
+</style>

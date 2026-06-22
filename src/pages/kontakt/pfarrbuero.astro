@@ -1,0 +1,24 @@
+---
+// Seite „Pfarrbüro" — WP-Seite 47815 (/kontakt/pfarrbuero/, Parent 46800 Kontakt),
+// vollständig aus eigenen astro-pb-Komponenten (kein set:html mit WP-Theme-Markup).
+// Nav + Footer kommen global aus Base.astro (Handbuch 4b) — hier NICHT erneut einbinden.
+// SEO live aus WP (SEOPress) via getSeoHead.
+import Base from '../../layouts/Base.astro';
+import PbHero from '../../components/PbHero.astro';
+import PbIntro from '../../components/PbIntro.astro';
+import PbTeam from '../../components/PbTeam.astro';
+import PbRent from '../../components/PbRent.astro';
+import PbFaq from '../../components/PbFaq.astro';
+import PbCta from '../../components/PbCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/kontakt/pfarrbuero/');
+---
+<Base seo={seo} title="Pfarrbüro – Sankt Bonifatius Frankfurt">
+  <PbHero />
+  <PbIntro />
+  <PbTeam />
+  <PbRent />
+  <PbFaq />
+  <PbCta />
+</Base>

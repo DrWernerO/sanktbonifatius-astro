@@ -1,0 +1,29 @@
+---
+// „Raumvermietungen" — WP-Seite 47815 (ersetzt WP-Block `pb-rent`). Eigene Klassen `astro-pbrent`.
+// Eigene Mietanfrage-Adresse (raum@) im Klartext.
+const MAIL = 'raum@sanktbonifatius.de';
+---
+<section class="astro-pbrent">
+  <div class="astro-pbrent__inner">
+    <svg class="astro-pbrent__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg>
+    <div class="astro-pbrent__body">
+      <h2 class="astro-pbrent__hl">Raumvermietungen</h2>
+      <p class="astro-pbrent__text">
+        Sie möchten einen unserer Gemeinderäume mieten? Bei Mietanfragen schreiben Sie uns
+        bitte eine E-Mail an:
+      </p>
+      <a class="astro-pbrent__btn" href={`mailto:${MAIL}`}>{MAIL}</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pbrent{background:#fff;padding:0 40px 72px}
+.astro-pbrent__inner{max-width:900px;margin:0 auto;display:flex;gap:24px;align-items:flex-start;background:linear-gradient(135deg,#2c1a14,#3a241b);border-radius:16px;padding:36px 40px;color:#f0e8d8}
+.astro-pbrent__icon{width:40px;height:40px;color:#c5a55a;flex-shrink:0;margin-top:4px}
+.astro-pbrent__hl{font-family:'Playfair Display',serif;font-size:clamp(20px,2.6vw,26px);font-weight:700;color:#fff;margin:0 0 10px}
+.astro-pbrent__text{font-size:15px;color:#e8ddc9;line-height:1.65;margin:0 0 16px;max-width:520px}
+.astro-pbrent__btn{display:inline-block;padding:11px 24px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s}
+.astro-pbrent__btn:hover{background:#b8434c}
+@media(max-width:600px){.astro-pbrent{padding:0 20px 52px}.astro-pbrent__inner{padding:28px 22px;flex-direction:column;gap:14px}}
+</style>

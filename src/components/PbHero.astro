@@ -1,0 +1,39 @@
+---
+// Hero der Seite „Pfarrbüro" — WP-Seite 47815 (/kontakt/pfarrbuero/, ersetzt WP-Block `pb-hero`).
+// Eigene Klassen `astro-pbhero` (Handbuch Abschnitt 3 — niemals WP-Klassen `pb-…`).
+// Die WP-Vorlage hatte einen ECHTEN Foto-Hero (Verwaltungsteam-Foto) → wird hier übernommen
+// (Handbuch-Regel: eigener WP-Hero erscheint auch in Astro). Bild lokal unter public/uploads/
+// (vom Live-WP geladen, unabhängig vom Server, Handbuch 1b). Full-Bleed-Bild + Verlauf-Overlay.
+const bg = '/uploads/2026/06/Verwaltungsteam-stbonifatius-frankfurt.jpg';
+---
+<section class="astro-pbhero">
+  <div class="astro-pbhero__bg" role="img"
+       aria-label="Das Verwaltungsteam des Pfarrbüros von Sankt Bonifatius Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-pbhero__overlay"></div>
+  <div class="astro-pbhero__inner">
+    <p class="astro-pbhero__eyebrow">Pfarrei Sankt Bonifatius · Frankfurt</p>
+    <h1 class="astro-pbhero__title">Pfarrbüro</h1>
+    <p class="astro-pbhero__addr">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Holbeinstraße 70 · Frankfurt-Sachsenhausen
+    </p>
+    <p class="astro-pbhero__sub">
+      Unsere Verwaltungskräfte sind erste Ansprechpartnerinnen für alle Fragen und
+      Anliegen — persönlich, telefonisch oder per E-Mail.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-pbhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;height:min(64vh,560px);min-height:420px;overflow:hidden}
+.astro-pbhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 15%}
+.astro-pbhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.15) 0%,rgba(30,21,18,.45) 55%,rgba(30,21,18,.82) 100%)}
+.astro-pbhero__inner{position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;padding:0 40px 56px;color:#f0e8d8}
+.astro-pbhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.astro-pbhero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(36px,5.4vw,64px);margin:0;text-shadow:0 2px 14px rgba(0,0,0,.45)}
+.astro-pbhero__addr{display:flex;align-items:center;gap:9px;font-size:15px;color:#f0e8d8;margin:16px 0 0;text-shadow:0 1px 6px rgba(0,0,0,.55)}
+.astro-pbhero__addr svg{width:18px;height:18px;color:#c5a55a;flex-shrink:0}
+.astro-pbhero__sub{font-size:clamp(16px,1.9vw,20px);color:rgba(255,255,255,.92);line-height:1.55;margin:18px 0 0;max-width:620px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+@media(max-width:600px){.astro-pbhero{height:min(58vh,440px)}.astro-pbhero__inner{padding:0 20px 40px}}
+</style>

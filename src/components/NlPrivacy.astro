@@ -1,0 +1,35 @@
+---
+// „Datenschutz & Abmeldung" — WP-Seite 48663 (ersetzt WP-Block `nl-privacy`).
+// Eigene Klassen `astro-nlpriv`. Feste Inhalte, SVG-Icon (kein Emoji).
+---
+<section class="astro-nlpriv">
+  <div class="astro-nlpriv__inner">
+    <div class="astro-nlpriv__box">
+      <svg class="astro-nlpriv__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      <div class="astro-nlpriv__text">
+        <h2 class="astro-nlpriv__hl">Datenschutz &amp; Abmeldung</h2>
+        <p>
+          Ihre E-Mail-Adresse wird ausschließlich für den Versand des Pfarrbriefs verwendet
+          und nicht an Dritte weitergegeben. Das Anmeldeformular wird von <strong>ChurchDesk</strong>
+          betrieben — einem zertifizierten Anbieter, der die Anforderungen der DSGVO erfüllt.
+        </p>
+        <p>
+          Sie können sich jederzeit und ohne Angabe von Gründen über den Abmeldelink in jeder
+          E-Mail wieder austragen.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-nlpriv{background:#f7f3ef;padding:0 0 80px}
+.astro-nlpriv__inner{max-width:760px;margin:0 auto;padding:0 40px}
+.astro-nlpriv__box{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:28px 32px}
+.astro-nlpriv__icon{width:30px;height:30px;color:#9a2d2d;flex-shrink:0;margin-top:2px}
+.astro-nlpriv__hl{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-nlpriv__text p{font-size:14.5px;color:#6b5c52;line-height:1.7;margin:0 0 10px}
+.astro-nlpriv__text p:last-child{margin-bottom:0}
+.astro-nlpriv__text strong{color:#3a2e28}
+@media(max-width:600px){.astro-nlpriv{padding:0 0 56px}.astro-nlpriv__inner{padding:0 20px}.astro-nlpriv__box{padding:22px;flex-direction:column;gap:12px}}
+</style>

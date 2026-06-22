@@ -1,0 +1,28 @@
+---
+// Hero der Seite „Newsletter / Pfarrbrief abonnieren" — WP-Seite 48663
+// (/kontakt/newsletter/, ersetzt WP-Block `nl-hero`). Eigene Klassen `astro-nlhero`
+// (Handbuch Abschnitt 3). Feste Inhalte. Dunkel-warmer Verlauf (kein Bild in der Vorlage).
+---
+<section class="astro-nlhero">
+  <div class="astro-nlhero__inner">
+    <p class="astro-nlhero__eyebrow">Pfarrei Sankt Bonifatius · Frankfurt</p>
+    <h1 class="astro-nlhero__title">Immer informiert —<br>unser Pfarrbrief</h1>
+    <p class="astro-nlhero__sub">
+      Gottesdienstordnung, Veranstaltungen und Neuigkeiten aus der Pfarrei — kostenlos,
+      direkt in Ihr Postfach.
+    </p>
+    <a class="astro-nlhero__btn" href="#abonnieren">Jetzt abonnieren</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-nlhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:420px;overflow:hidden;background:linear-gradient(135deg,#2a9387 0%,#1f7a6d 48%,#155349 100%)}
+.astro-nlhero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 22% 12%,rgba(127,209,196,.38),transparent 58%)}
+.astro-nlhero__inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:104px 40px 60px;color:#f0e8d8}
+.astro-nlhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-nlhero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.06;color:#fff;font-size:clamp(34px,5.2vw,62px);margin:0}
+.astro-nlhero__sub{font-size:clamp(16px,1.9vw,20px);color:#e8ddc9;line-height:1.55;margin:18px 0 0;max-width:600px}
+.astro-nlhero__btn{display:inline-block;margin:28px 0 0;padding:14px 32px;border-radius:50px;background:#c5a55a;color:#2c2420;font-size:15px;font-weight:700;letter-spacing:.02em;text-decoration:none;transition:background .2s}
+.astro-nlhero__btn:hover{background:#d4b76c}
+@media(max-width:600px){.astro-nlhero{min-height:360px}.astro-nlhero__inner{padding:88px 20px 44px}}
+</style>

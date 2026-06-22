@@ -1,0 +1,71 @@
+---
+// „Ihre Anlaufstelle" + Büro-Infokarte — WP-Seite 47815 (ersetzt WP-Blöcke `pb-intro` + `pb-offices`).
+// Eigene Klassen `astro-pbintro`. Feste Kontaktdaten, SVG-Icons (kein Emoji). Öffnungszeiten
+// exakt aus der WP-Vorlage übernommen.
+const MAIL = 'info@sanktbonifatius.de';
+const TEL_HREF = 'tel:+4969695975850';
+const TEL_TEXT = '069 695 97 58 50';
+const MAPS = 'https://www.google.com/maps/search/Pfarrei+Sankt+Bonifatius+Holbeinstra%C3%9Fe+70+Frankfurt';
+---
+<section class="astro-pbintro">
+  <div class="astro-pbintro__inner">
+    <p class="astro-pbintro__eyebrow">Ihre Anlaufstelle</p>
+    <p class="astro-pbintro__lead">
+      Das Pfarrbüro der Pfarrei Sankt Bonifatius Frankfurt ist die zentrale Anlaufstelle für
+      alle kirchlichen Anliegen in Frankfurt-Sachsenhausen und Oberrad — ob Taufe, Hochzeit,
+      Beerdigung oder Erstkontakt. Wir freuen uns auf Ihren Besuch oder Anruf.
+    </p>
+
+    <div class="astro-pbintro__card">
+      <h2 class="astro-pbintro__cardhl">Zentrales Pfarrbüro St. Bonifatius</h2>
+      <div class="astro-pbintro__grid">
+        <div class="astro-pbintro__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <h3 class="astro-pbintro__label">Adresse</h3>
+            <p class="astro-pbintro__text">Holbeinstraße 70<br>60596 Frankfurt am Main</p>
+            <a class="astro-pbintro__link" href={MAPS} target="_blank" rel="noopener">&#8594; Auf Google Maps ansehen</a>
+          </div>
+        </div>
+        <div class="astro-pbintro__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.17 6.17l1.17-1.17a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div>
+            <h3 class="astro-pbintro__label">Telefon</h3>
+            <p class="astro-pbintro__text"><a class="astro-pbintro__link" href={TEL_HREF}>{TEL_TEXT}</a></p>
+          </div>
+        </div>
+        <div class="astro-pbintro__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+          <div>
+            <h3 class="astro-pbintro__label">Öffnungszeiten</h3>
+            <p class="astro-pbintro__text">Di, Mi, Do, Fr: 09:00 – 12:00 Uhr<br>Do zusätzlich: 14:30 – 17:00 Uhr<br>Mo: geschlossen</p>
+          </div>
+        </div>
+        <div class="astro-pbintro__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div>
+            <h3 class="astro-pbintro__label">E-Mail</h3>
+            <p class="astro-pbintro__text"><a class="astro-pbintro__link" href={`mailto:${MAIL}`}>{MAIL}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pbintro{background:#fff;padding:72px 0}
+.astro-pbintro__inner{max-width:900px;margin:0 auto;padding:0 40px}
+.astro-pbintro__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-pbintro__lead{font-size:clamp(17px,2vw,20px);color:#3d3530;line-height:1.65;margin:0 0 44px;text-align:center;max-width:760px;margin-left:auto;margin-right:auto}
+.astro-pbintro__card{background:#f7f3ef;border:1px solid #e0d8cf;border-radius:16px;padding:40px}
+.astro-pbintro__cardhl{font-family:'Playfair Display',serif;font-size:clamp(20px,2.6vw,26px);font-weight:700;color:#2c2420;margin:0 0 28px;text-align:center}
+.astro-pbintro__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.astro-pbintro__item{display:flex;gap:14px}
+.astro-pbintro__item>svg{width:26px;height:26px;color:#9a2d2d;flex-shrink:0;margin-top:2px}
+.astro-pbintro__label{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2c2420;margin:0 0 6px}
+.astro-pbintro__text{font-size:15px;color:#6b5c52;line-height:1.65;margin:0}
+.astro-pbintro__link{color:#9a2d2d;font-weight:600;text-decoration:none;word-break:break-word}
+.astro-pbintro__link:hover{text-decoration:underline}
+@media(max-width:640px){.astro-pbintro{padding:52px 0}.astro-pbintro__inner{padding:0 20px}.astro-pbintro__card{padding:28px 22px}.astro-pbintro__grid{grid-template-columns:1fr;gap:24px}}
+</style>

@@ -1,0 +1,47 @@
+---
+// „Antworten auf Ihre Fragen" — WP-Seite 47815 (ersetzt WP-Block `pb-faq`). Eigene Klassen
+// `astro-pbfaq`. Natives <details> (kein JS, Muster wie SegenFaq/TaufeFaq). Feste Inhalte.
+const FAQ = [
+  { q: 'Muss ich einen Termin vereinbaren oder kann ich einfach während der Öffnungszeiten vorbeikommen?',
+    a: 'Für die meisten Anliegen können Sie einfach während unserer Öffnungszeiten ins Pfarrbüro kommen — eine Voranmeldung ist nicht erforderlich. Für aufwendigere Gespräche (z.&nbsp;B. Raumvermietung, Tauf- oder Hochzeitsanmeldungen) empfehlen wir, vorher kurz anzurufen, damit wir uns Zeit für Sie nehmen können.' },
+  { q: 'Welche Unterlagen brauche ich für eine Tauf- oder Sakramentenanmeldung?',
+    a: 'Bitte besuchen Sie am besten unsere Seite <a href="/segen-sakramente/">Segen + Sakramente</a>. Wenn Sie dort auf den Button mit dem entsprechenden Sakrament klicken, finden Sie alle Informationen in übersichtlicher Darstellung.' },
+  { q: 'Kann ich kirchliche Urkunden (Tauf-, Firmungs-, Heiratsurkunde) im Pfarrbüro bestellen?',
+    a: 'Ja. Urkunden über Sakramente, die in unserer Pfarrei gespendet wurden, stellen wir Ihnen gerne aus. Bitte kontaktieren Sie uns telefonisch oder per E-Mail und geben Sie Name, Geburtsdatum und das ungefähre Datum des Sakraments an. Urkunden aus anderen Pfarreien müssen dort direkt angefordert werden.' },
+  { q: 'An wen wende ich mich bei einem Trauerfall und einer Beerdigungsanmeldung?',
+    a: 'Beim Trauerfall ist das Pfarrbüro Ihre erste Anlaufstelle. Wir stellen den Kontakt zu unserem Seelsorgeteam her. Ein Mitglied unseres Seelsorgeteams wird sich dann bei Ihnen melden, um alle Schritte für die Vorbereitung der Trauerfeier in Ruhe mit Ihnen durchzugehen, damit es ein schöner und würdiger Abschied wird.' },
+  { q: 'Wie funktioniert die Rückkehr in die Kirche nach einem Kirchenaustritt?',
+    a: 'Die Wiederaufnahme in die Kirche (Rekonziliation) ist ein Prozess, der im Gespräch mit einem Mitglied des Seelsorgeteams beginnt. Er informiert Sie persönlich über alle notwendigen Schritte und Formalitäten.' },
+];
+---
+<section class="astro-pbfaq">
+  <div class="astro-pbfaq__inner">
+    <p class="astro-pbfaq__eyebrow">Häufige Fragen</p>
+    <h2 class="astro-pbfaq__hl">Antworten auf Ihre Fragen</h2>
+    <div class="astro-pbfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-pbfaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pbfaq{background:#f7f3ef;padding:80px 0}
+.astro-pbfaq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-pbfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-pbfaq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-pbfaq__list{max-width:840px;margin:0 auto}
+.astro-pbfaq details{background:#fff;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-pbfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-pbfaq summary::-webkit-details-marker{display:none}
+.astro-pbfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-pbfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-pbfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+.astro-pbfaq__a a{color:#9a2d2d;font-weight:600;text-decoration:none}
+.astro-pbfaq__a a:hover{text-decoration:underline}
+@media(max-width:600px){.astro-pbfaq{padding:56px 0}.astro-pbfaq__inner{padding:0 20px}}
+</style>

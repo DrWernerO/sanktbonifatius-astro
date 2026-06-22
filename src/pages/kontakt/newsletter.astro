@@ -1,0 +1,22 @@
+---
+// Seite „Newsletter / Pfarrbrief abonnieren" — WP-Seite 48663 (/kontakt/newsletter/,
+// Parent 46800 Kontakt), vollständig aus eigenen astro-nl-Komponenten (kein set:html mit
+// WP-Theme-Markup; nur das externe ChurchDesk-Embed in NlForm wird per set:html funktional
+// 1:1 übernommen). Nav + Footer kommen global aus Base.astro (Handbuch 4b). SEO live aus WP.
+import Base from '../../layouts/Base.astro';
+import NlHero from '../../components/NlHero.astro';
+import NlStrip from '../../components/NlStrip.astro';
+import NlIntro from '../../components/NlIntro.astro';
+import NlForm from '../../components/NlForm.astro';
+import NlPrivacy from '../../components/NlPrivacy.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/kontakt/newsletter/');
+---
+<Base seo={seo} title="Pfarrbrief abonnieren – Sankt Bonifatius Frankfurt">
+  <NlHero />
+  <NlStrip />
+  <NlIntro />
+  <NlForm />
+  <NlPrivacy />
+</Base>
