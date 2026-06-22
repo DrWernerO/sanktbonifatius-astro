@@ -600,7 +600,20 @@ unabhängig vom WP-Theme.
 5. Eigene Komponenten **immer mit `astro-`-Präfix**.
 6. Nav + Footer kommen **automatisch** aus `Base.astro` (Abschnitt 4b) — nicht erneut einbinden;
    ggf. `EventCalendar`/`NewsGrid`/`PageHeader` wiederverwenden.
-7. Server neu starten, im **privaten Fenster** testen, Reihenfolge per Positions-Scan prüfen.
+7. **Hero prüfen: Hat die WP-Seite einen eigenen Hero, muss er auch in Astro erscheinen.**
+   Nicht nur den Text ansehen, sondern die **CSS-Regel** des Hero-Blocks (`.{präfix}-hero`)
+   im `<style>` der WP-Seite — dort steht, ob ein **Foto** dahinterliegt:
+   ```bash
+   curl -sk ".../wp-json/wp/v2/pages/<id>?_fields=content" \
+     | python3 -c "import sys,json,re;h=json.load(sys.stdin)['content']['rendered'];print('\n'.join(re.findall(r'\.[a-z0-9-]*hero[^{]*\{[^}]*background[^}]*\}',h)))"
+   ```
+   - **Foto-Hero** (`background:…url(…)` oder `<img>`) → Bild lokal nach `public/uploads/<jahr>/<monat>/`
+     laden (Handbuch 1b) und als Full-Bleed-Hintergrund + Verlauf-Overlay übernehmen (Muster
+     `SegenHero.astro`/`PbHero.astro`). **Nicht** stillschweigend durch einen reinen Farbverlauf
+     ersetzen — das verliert das vom WP gewollte Bild.
+   - **Reiner Verlauf-Hero** (kein Bild) → eigener `astro-`-Verlauf ist ok (Muster `KontaktHero`/
+     `NlHero`); Farbton an die WP-Vorlage anlehnen, aber freundlich/lesbar halten.
+8. Server neu starten, im **privaten Fenster** testen, Reihenfolge per Positions-Scan prüfen.
 
 ---
 

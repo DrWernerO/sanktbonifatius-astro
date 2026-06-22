@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **81 Live-Seiten erfasst · 21 bereits in Astro übernommen (erledigt) · 2 entfallen bei Go-Live · 58 offen.** Stand: 22.06.2026.
+> **81 Live-Seiten erfasst · 23 bereits in Astro übernommen (erledigt) · 2 entfallen bei Go-Live · 56 offen.** Stand: 22.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -34,8 +34,8 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Beratung und Hilfe | [Link](https://www.sanktbonifatius.de/kontakt/beratung-und-hilfe/) | `src/pages/kontakt/beratung-und-hilfe.astro` | Werner | ✅ erledigt | Page-ID 48312, eigene Beratung*-Komponenten (Präfix `astro-ber`); Notfall-Banner (Telefonseelsorge), Angebote, Ansprechpersonen mit Foto (Doly Kadavil, Martin Kestler), externe Beratungsstellen, Hinweisgeberschutz |
 | Engagement | [Link](https://www.sanktbonifatius.de/kontakt/engagement/) | `src/pages/kontakt/engagement.astro` | Werner | ✅ erledigt | Page-ID 48449, eigene Engagement*-Komponenten (Präfix `astro-eng`); 6 Engagement-Kacheln, Schritte, CTA (WP-Türkis bewusst auf Astro-Bordeaux umgestellt) |
 | Katholisch werden | [Link](https://www.sanktbonifatius.de/kontakt/katholisch-werden/) | — | — | offen |  |
-| Newsletter | [Link](https://www.sanktbonifatius.de/kontakt/newsletter/) | — | — | offen |  |
-| Pfarrbüro | [Link](https://www.sanktbonifatius.de/kontakt/pfarrbuero/) | — | — | offen |  |
+| Newsletter | [Link](https://www.sanktbonifatius.de/kontakt/newsletter/) | `src/pages/kontakt/newsletter.astro` | Werner | ✅ erledigt | Page-ID 48663, eigene Nl*-Komponenten (Präfix `astro-nl`); Hero, Bordeaux-Streifen (3 Argumente), Intro, ChurchDesk-Abo-Formular als Embed (`forms.churchdesk.com/f/Duf7gO_IQC`, postMessage-Resize wie ChurchDeskForm), Datenschutz-Box |
+| Pfarrbüro | [Link](https://www.sanktbonifatius.de/kontakt/pfarrbuero/) | `src/pages/kontakt/pfarrbuero.astro` | Werner | ✅ erledigt | Page-ID 47815, eigene Pb*-Komponenten (Präfix `astro-pb`); Hero, Anlaufstelle + Büro-Infokarte (Adresse/Telefon/Öffnungszeiten/E-Mail), Verwaltungsteam (6 Fotos lokal `public/uploads/2026/06`), Raumvermietung (raum@), 5 FAQ, CTA + SEO-Text |
 | Seelsorge | [Link](https://www.sanktbonifatius.de/kontakt/seelsorge/) | — | — | offen |  |
 | Trauerfall | [Link](https://www.sanktbonifatius.de/kontakt/trauerfall/) | — | — | offen |  |
 | WhatsApp-Kanal | [Link](https://www.sanktbonifatius.de/kontakt/whatsapp-kanal/) | — | — | offen |  |
