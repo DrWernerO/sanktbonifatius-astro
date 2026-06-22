@@ -1,5 +1,6 @@
-// Server-seitig: direkt zum Dev-Server (NODE_TLS_REJECT_UNAUTHORIZED=0 gesetzt)
-const WP_API = 'https://dev.sanktbonifatius.de.w021941a.kasserver.com/wp-json/wp/v2';
+// Server-seitig: direkt zur LIVE-Seite (www, gültiges Zertifikat). Frühere Quelle war der
+// Dev-Server; seit 2026-06-22 ist www die aktuelle Inhalts-Quelle (Handbuch Abschnitt 1).
+const WP_API = 'https://www.sanktbonifatius.de/wp-json/wp/v2';
 
 export async function getPage(slug) {
   const res = await fetch(
@@ -169,11 +170,9 @@ export async function getMenuItems() {
 // Statt das nachzubauen, holen wir den gerenderten <head> der Dev-Seite und übernehmen
 // nur die SEO-Tags. So fließt die WP-SEO-Arbeit automatisch in die Astro-Seiten.
 
-// Render-Host (kurze Domain mit GÜLTIGEM Zertifikat — liefert dasselbe HTML wie der Kasserver).
-const WP_RENDER_ORIGIN = 'https://dev.sanktbonifatius.de';
-// Live-Render-Host: für einzelne Seiten, die NUR auf www SEO-optimiert wurden (dev ist dort
-// noch generisch). Per zweitem Argument an getSeoHead() übergeben (Standard bleibt dev).
-export const WP_RENDER_LIVE = 'https://www.sanktbonifatius.de';
+// Render-Host: LIVE-Seite (www) — liefert das aktuelle, SEO-optimierte HTML (gültiges Zertifikat).
+// Frühere Quelle war der Dev-Server; seit 2026-06-22 ist www die Quelle (Handbuch Abschnitt 1).
+const WP_RENDER_ORIGIN = 'https://www.sanktbonifatius.de';
 // Produktive Frontend-Domain für canonical/og:url (Umzug: Handbuch Abschnitt 1b).
 // Bild-/Datei-URLs (/wp-content/) werden NICHT umgeschrieben (bleiben auf dem WP-Host).
 const PUBLIC_SITE = 'https://sanktbonifatius.de';

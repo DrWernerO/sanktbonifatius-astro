@@ -6,8 +6,6 @@
 // Würdevoller, ruhiger Ton (sensibles Thema). Eigener CSS-Präfix `astro-ber`.
 // SEO-Head live aus WordPress via getSeoHead (macht intern einen Netz-Call — nur im echten
 // Build/Dev relevant; bei WP-Ausfall liefert getSeoHead leeren String, Base nutzt Fallback).
-// Hinweis: Diese Seite wurde NUR auf www SEO-optimiert (dev liefert noch den generischen
-// Standard-Head). Daher SEO-Head bewusst von der Live-Domain (WP_RENDER_LIVE) ziehen.
 import Base from '../../layouts/Base.astro';
 import BeratungHero from '../../components/BeratungHero.astro';
 import BeratungNotfall from '../../components/BeratungNotfall.astro';
@@ -16,9 +14,9 @@ import BeratungTeam from '../../components/BeratungTeam.astro';
 import BeratungExtern from '../../components/BeratungExtern.astro';
 import BeratungSchutz from '../../components/BeratungSchutz.astro';
 import BeratungCta from '../../components/BeratungCta.astro';
-import { getSeoHead, WP_RENDER_LIVE } from '../../lib/wordpress.js';
+import { getSeoHead } from '../../lib/wordpress.js';
 
-const seo = await getSeoHead('/kontakt/beratung-und-hilfe/', WP_RENDER_LIVE);
+const seo = await getSeoHead('/kontakt/beratung-und-hilfe/');
 ---
 <Base seo={seo} title="Beratung und Hilfe">
   <BeratungHero />

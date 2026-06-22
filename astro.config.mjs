@@ -4,7 +4,8 @@ import sitemap from '@astrojs/sitemap';
 import node from '@astrojs/node';
 
 // https://astro.build/config
-const WP_DEV = 'https://dev.sanktbonifatius.de.w021941a.kasserver.com';
+// Inhalts-Quelle: LIVE-Seite (www, gültiges Zertifikat). Früher Dev-Server (Handbuch 1).
+const WP_LIVE = 'https://www.sanktbonifatius.de';
 
 export default defineConfig({
   // Produktive Frontend-Domain (Handbuch 1b). Basis für sitemap + canonical-URLs.
@@ -17,13 +18,12 @@ export default defineConfig({
   vite: {
     server: {
       proxy: {
-        // Alle /wp-proxy/ Aufrufe werden serverseitig an den Dev-Server weitergeleitet
-        // → Browser spricht nur localhost, kein SSL-Problem
+        // Alle /wp-proxy/ Aufrufe werden serverseitig an die Live-Seite (www) weitergeleitet
+        // → Browser spricht nur localhost. Live hat ein gültiges Zertifikat (kein secure:false nötig).
         '/wp-proxy': {
-          target: WP_DEV,
+          target: WP_LIVE,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/wp-proxy/, ''),
-          secure: false,
         }
       }
     }

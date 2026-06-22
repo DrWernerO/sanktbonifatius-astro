@@ -134,16 +134,14 @@ const {
     }).join('');
   }
 
-  const WP_BASE = 'https://dev.sanktbonifatius.de.w021941a.kasserver.com';
-
   async function loadImage(id) {
     if (!id) return null;
     try {
       const r = await fetch(WP+'/media/'+id+'?_fields=source_url');
       const d = await r.json();
       if (!d.source_url) return null;
-      // Absolute Dev-Server-URLs → Proxy-Pfad umschreiben (Browser kann Dev-SSL nicht direkt)
-      return d.source_url.replace(/^https?:\/\/dev\.sanktbonifatius\.de(\.w021941a\.kasserver\.com)?/, '/wp-proxy');
+      // Absolute WP-URLs (www/dev) → Proxy-Pfad umschreiben (gleiche Origin, kein CORS/SSL-Thema)
+      return d.source_url.replace(/^https?:\/\/(?:www|dev)\.sanktbonifatius\.de(\.w021941a\.kasserver\.com)?/, '/wp-proxy');
     } catch(e) { return null; }
   }
 
