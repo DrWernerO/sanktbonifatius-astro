@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **79 Live-Seiten erfasst · 25 bereits in Astro übernommen bzw. per Direktlink erledigt · 54 offen.** Stand: 23.06.2026.
+> **79 Live-Seiten erfasst · 26 bereits in Astro übernommen bzw. per Direktlink erledigt · 53 offen.** Stand: 23.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -94,7 +94,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
-| BoniFamily | [Link](https://www.sanktbonifatius.de/bonfamily/) | — | — | offen |  |
+| BoniFamily | [Link](https://www.sanktbonifatius.de/bonfamily/) | `src/pages/bonfamily.astro` | Frank | ✅ erledigt | Page-ID 45898; eigene Bf*-Komponenten (Präfix `astro-bf`); Hero, Strip, Welcome, EventCalendar (Kat. 2586), Gottesdienste, Taufe-Teaser, Lounge-Karten, Fotogalerie (11 Fotos), Ansprechpartner, FAQ, CTA |
 | Familiengottesdienste | [Link](https://www.sanktbonifatius.de/bonfamily/familiengottesdienste/) | — | — | offen |  |
 | Familientreffpunkte | [Link](https://www.sanktbonifatius.de/bonfamily/familientreffpunkte/) | — | — | offen |  |
 | WhatsApp-Kanal | [Link](https://www.sanktbonifatius.de/bonfamily/whatsapp-kanal/) | — (Nav-Direktlink) | Werner | ✅ erledigt | Keine eigene Astro-Seite nötig — Verweis auf den WhatsApp-Kanal (Abo): `whatsapp.com/channel/0029VbB7E1CLikgAZ8cyHk1a` |

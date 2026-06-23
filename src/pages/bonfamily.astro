@@ -1,0 +1,49 @@
+---
+// Seite „BonFamily" — WP-Seite 45898 (/bonfamily/), vollständig aus eigenen Astro-Komponenten
+// (kein set:html mit WP-Markup, vgl. Handbuch 9b). Nav + Footer global aus Base.astro (Handbuch 4b).
+// SEO live aus WP (SEOPress) via getSeoHead('/bonfamily/').
+// EventCalendar gefiltert auf BonFamily-Kategorie = 2586 (Team-Handbuch 07).
+import Base from '../layouts/Base.astro';
+import BfHero from '../components/BfHero.astro';
+import BfStrip from '../components/BfStrip.astro';
+import BfWelcome from '../components/BfWelcome.astro';
+import BfGottesdienste from '../components/BfGottesdienste.astro';
+import BfTaufe from '../components/BfTaufe.astro';
+import BfLounge from '../components/BfLounge.astro';
+import BfGallery from '../components/BfGallery.astro';
+import BfKontakt from '../components/BfKontakt.astro';
+import BfFaq from '../components/BfFaq.astro';
+import BfCta from '../components/BfCta.astro';
+import EventCalendar from '../components/EventCalendar.astro';
+import { getSeoHead } from '../lib/wordpress.js';
+
+const seo = await getSeoHead('/bonfamily/');
+---
+<Base seo={seo} title="BonFamily – Familien & Kinder · St. Bonifatius Frankfurt">
+  <BfHero />
+  <BfStrip />
+  <BfWelcome />
+  <div id="bonfamily-termine" class="astro-bf-anchor">
+    <EventCalendar
+      heading="Nächste BonFamily-Termine"
+      moreHref="/terminkalender/"
+      category={2586}
+    />
+  </div>
+  <BfGottesdienste />
+  <BfTaufe />
+  <BfLounge />
+  <BfGallery />
+  <BfKontakt />
+  <BfFaq />
+  <BfCta />
+</Base>
+
+<style is:global>
+/* Anker-Versatz: fixierte Nav (80px) verdeckt sonst den Sprung-Anker */
+.astro-bf-anchor { scroll-margin-top: 96px; }
+#bonfamily-gottesdienste,
+#bonfamily-lounge,
+#bonfamily-kontakt,
+#bonfamily-faq { scroll-margin-top: 96px; }
+</style>

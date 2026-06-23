@@ -1,0 +1,29 @@
+---
+// Welcome-Block BonFamily — Einleitungstext, zentriert, weißer Hintergrund.
+// Präfix `astro-bfwelcome` (nicht `bf-welcome-sec`).
+---
+<section class="astro-bfwelcome">
+  <div class="astro-bfwelcome__inner">
+    <h2 class="astro-bfwelcome__title">
+      Familie ist, wenn man&nbsp;f&uuml;reinander da&nbsp;ist
+    </h2>
+    <p class="astro-bfwelcome__lead">
+      BonFamily ist das Familienprogramm der Pfarrei Sankt Bonifatius Frankfurt.
+      Ein Raum f&uuml;r Familien mit Kindern, die Gemeinschaft suchen, gemeinsam feiern
+      und sich gegenseitig unterst&uuml;tzen wollen.
+    </p>
+    <p class="astro-bfwelcome__text">
+      Ob Gottesdienste, Treffpunkte f&uuml;r Kinder und Familien oder besondere Angebote:
+      Hier ist jede Familie willkommen.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-bfwelcome{padding:72px 40px;background:#fff}
+.astro-bfwelcome__inner{max-width:820px;margin:0 auto;text-align:center}
+.astro-bfwelcome__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,40px);font-weight:700;color:#2c2420;margin:0 0 24px;line-height:1.2}
+.astro-bfwelcome__lead{font-size:18px;line-height:1.7;color:#3d2b1a;margin:0 0 16px;font-weight:500}
+.astro-bfwelcome__text{font-size:16px;line-height:1.7;color:#6b5c52;margin:0}
+@media(max-width:600px){.astro-bfwelcome{padding:52px 20px}}
+</style>

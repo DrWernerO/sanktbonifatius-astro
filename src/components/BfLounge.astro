@@ -1,0 +1,91 @@
+---
+// Lounge-Section BonFamily — Baby-Lounge + Familien-Lounge als zwei Karten.
+// Präfix `astro-bflounge` (nicht `bf-lounge-...`).
+const lounges = [
+  {
+    badge: 'Baby-Lounge',
+    target: 'Für Babys bis 12 Monate & ihre Eltern',
+    title: 'Baby-Lounge',
+    desc: 'Eine liebevoll gestaltete Spiellandschaft für die Kleinsten. Eltern kommen entspannt miteinander ins Gespräch, während die Babys spielen und die Welt entdecken.',
+    wann: 'Freitags, 09:30 – 11:30 Uhr',
+    wo: 'St. Bonifatius, Holbeinstraße 70\nKleiner Pfarrsaal, Eingang Achenbachstraße',
+    note: 'Kostenlos · Keine Anmeldung nötig',
+    href: '#bonfamily-kontakt',
+  },
+  {
+    badge: 'Familien-Lounge',
+    target: 'Für Kinder von 1 – 3 Jahren & ihre Eltern',
+    title: 'Familien-Lounge',
+    desc: 'Toben, spielen, lachen – und die Eltern können sich dabei entspannen und austauschen. Unsere Familien-Lounge ist ein offener Treffpunkt für Familien im Alltag.',
+    wann: 'Freitags, 15:30 – 17:30 Uhr',
+    wo: 'St. Bonifatius, Holbeinstraße 70\nKleiner Pfarrsaal, Eingang Achenbachstraße',
+    note: 'Kostenlos · Einfach vorbeikommen',
+    href: '#bonfamily-kontakt',
+  },
+];
+---
+<section id="bonfamily-lounge" class="astro-bflounge">
+  <div class="astro-bflounge__inner">
+    <div class="astro-bflounge__head">
+      <h2 class="astro-bflounge__title">Regelmäßige Treffpunkte</h2>
+      <p class="astro-bflounge__sub">
+        W&ouml;chentliche Begegnung f&uuml;r Familien &ndash; in entspannter Atmosph&auml;re,
+        kostenlos und herzlich willkommen.
+      </p>
+    </div>
+    <div class="astro-bflounge__grid">
+      {lounges.map(l => (
+        <div class="astro-bflounge__card">
+          <div class="astro-bflounge__card-head">
+            <span class="astro-bflounge__badge">{l.badge}</span>
+            <span class="astro-bflounge__target">{l.target}</span>
+          </div>
+          <div class="astro-bflounge__card-body">
+            <h3 class="astro-bflounge__card-title">{l.title}</h3>
+            <p class="astro-bflounge__card-desc">{l.desc}</p>
+            <div class="astro-bflounge__details">
+              <div class="astro-bflounge__detail-row">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>{l.wann}</span>
+              </div>
+              <div class="astro-bflounge__detail-row">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>{l.wo}</span>
+              </div>
+            </div>
+            <p class="astro-bflounge__note">{l.note}</p>
+          </div>
+          <div class="astro-bflounge__card-footer">
+            <a href={l.href} class="astro-bflounge__link">Mehr Infos</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bflounge{padding:72px 0;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:96px}
+.astro-bflounge__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-bflounge__head{text-align:center;margin-bottom:48px}
+.astro-bflounge__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-bflounge__sub{font-size:17px;color:#6b5c52;margin:0;max-width:540px;margin-inline:auto;line-height:1.6}
+.astro-bflounge__grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.astro-bflounge__card{background:#f7f3ef;border-radius:16px;border:1px solid #e0d8cf;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(30,21,18,.06)}
+.astro-bflounge__card-head{background:#9a2d2d;padding:20px 28px;display:flex;flex-direction:column;gap:4px}
+.astro-bflounge__badge{font-size:13px;font-weight:700;color:#fff;letter-spacing:.04em}
+.astro-bflounge__target{font-size:13px;color:rgba(255,255,255,.78)}
+.astro-bflounge__card-body{padding:28px;flex:1;display:flex;flex-direction:column;gap:16px}
+.astro-bflounge__card-title{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#2c2420;margin:0}
+.astro-bflounge__card-desc{font-size:15px;line-height:1.65;color:#5a4a3a;margin:0;flex:1}
+.astro-bflounge__details{display:flex;flex-direction:column;gap:8px}
+.astro-bflounge__detail-row{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#3d2b1a;line-height:1.4}
+.astro-bflounge__detail-row svg{flex-shrink:0;margin-top:1px;color:#9a2d2d}
+.astro-bflounge__note{font-size:13px;color:#928269;font-style:italic;margin:0}
+.astro-bflounge__card-footer{padding:0 28px 24px}
+.astro-bflounge__link{display:inline-flex;align-items:center;font-size:14px;font-weight:600;color:#9a2d2d;text-decoration:none;gap:4px}
+.astro-bflounge__link::after{content:'→';transition:transform .15s}
+.astro-bflounge__link:hover::after{transform:translateX(4px)}
+@media(max-width:760px){.astro-bflounge__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-bflounge__inner{padding:0 20px}.astro-bflounge{padding:52px 0}}
+</style>

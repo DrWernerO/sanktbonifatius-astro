@@ -3,9 +3,10 @@
   "configurations": [
     {
       "name": "astro-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 4321
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["-c", "PATH=/Users/frankhoffmann/.node/bin:$PATH npm run dev"],
+      "port": 4321,
+      "autoPort": false
     }
   ]
 }

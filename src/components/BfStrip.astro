@@ -1,0 +1,32 @@
+---
+// Schnellzugriff-Band der BonFamily-Seite — Präfix `astro-bfstrip` (nicht `bf-strip`).
+const links = [
+  { label: 'Baby- & Familienlounge', href: '#bonfamily-lounge' },
+  { label: 'Gottesdienste für Kinder', href: '#bonfamily-gottesdienste' },
+  { label: 'Taufe', href: '/segen-sakramente/taufe/' },
+  { label: 'Kontakt', href: '#bonfamily-kontakt' },
+  { label: 'FAQ', href: '#bonfamily-faq' },
+];
+---
+<div class="astro-bfstrip">
+  <div class="astro-bfstrip__inner">
+    <span class="astro-bfstrip__label">Schnellzugriff</span>
+    <nav class="astro-bfstrip__links" aria-label="Seitennavigation BonFamily">
+      {links.map(l => (
+        <a href={l.href} class="astro-bfstrip__link">{l.label}</a>
+      ))}
+    </nav>
+  </div>
+</div>
+
+<style is:global>
+.astro-bfstrip{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#f7f3ef;border-bottom:1px solid #e0d8cf}
+.astro-bfstrip__inner{max-width:1280px;margin:0 auto;padding:14px 40px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.astro-bfstrip__label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#928269;white-space:nowrap;flex-shrink:0}
+.astro-bfstrip__links{display:flex;gap:8px;flex-wrap:wrap}
+.astro-bfstrip__link{display:inline-flex;align-items:center;padding:7px 16px;font-size:13px;font-weight:500;color:#5a4a3a;text-decoration:none;background:#fff;border-radius:20px;border:1px solid #e0d6cc;transition:background .15s,color .15s,border-color .15s}
+.astro-bfstrip__link::after{content:' →';opacity:.35}
+.astro-bfstrip__link:hover{background:#9a2d2d;color:#fff;border-color:#9a2d2d}
+.astro-bfstrip__link:hover::after{opacity:.8}
+@media(max-width:680px){.astro-bfstrip__inner{padding:12px 20px}.astro-bfstrip__label{display:none}}
+</style>

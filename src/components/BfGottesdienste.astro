@@ -1,0 +1,69 @@
+---
+// Gottesdienste-Section BonFamily — dunkle Band-Section mit 3 Gottesdiensttypen.
+// Präfix `astro-bfgd` (nicht `bf-gd-...`).
+const items = [
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+    title: 'Bilderbuchgottesdienst',
+    desc: 'Ein kindgerechter Gottesdienst rund um ein Bilderbuch – für Kinder ab 2 Jahren und ihre Familien in der Bücherei.',
+    meta: 'Monatlich · 11:00 Uhr',
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M9.5 3a9 9 0 0 1 5 0M3 9.5a9 9 0 0 1 0 5M9.5 21a9 9 0 0 1-5 0M21 14.5a9 9 0 0 1 0-5"/></svg>`,
+    title: 'Kreativgottesdienst',
+    desc: 'Kinder gestalten, malen und erleben Glauben mit allen Sinnen – bunt, lebendig und mit der ganzen Gemeinde.',
+    meta: 'Monatlich · 11:00 Uhr',
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    title: 'Familiengottesdienst',
+    desc: 'Fröhlich, bunt und abwechslungsreich – Gottesdienste für die ganze Familie in St. Bonifatius und St. Wendel.',
+    meta: 'St. Bonifatius · St. Wendel',
+  },
+];
+---
+<section id="bonfamily-gottesdienste" class="astro-bfgd">
+  <div class="astro-bfgd__inner">
+    <div class="astro-bfgd__head">
+      <h2 class="astro-bfgd__title">Gottesdienste für Kinder und Familien</h2>
+      <p class="astro-bfgd__sub">
+        Lebendig, bunt und kindgerecht &ndash; so feiern Kinder und Familien
+        Gottesdienst bei uns in Sachsenhausen.
+      </p>
+    </div>
+    <div class="astro-bfgd__grid">
+      {items.map(item => (
+        <div class="astro-bfgd__card">
+          <div class="astro-bfgd__icon" set:html={item.icon} />
+          <h3 class="astro-bfgd__card-title">{item.title}</h3>
+          <p class="astro-bfgd__card-desc">{item.desc}</p>
+          <span class="astro-bfgd__card-meta">{item.meta}</span>
+        </div>
+      ))}
+    </div>
+    <div class="astro-bfgd__cta">
+      <a href="/terminkalender/" class="astro-bfgd__btn">
+        Alle Gottesdienst-Termine im Überblick
+      </a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bfgd{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#2c1f10 0%,#3d2b1a 60%,#4a3420 100%);padding:72px 0;scroll-margin-top:96px}
+.astro-bfgd__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-bfgd__head{text-align:center;margin-bottom:48px}
+.astro-bfgd__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#fff;margin:0 0 14px}
+.astro-bfgd__sub{font-size:17px;color:rgba(255,255,255,.75);margin:0;max-width:600px;margin-inline:auto;line-height:1.6}
+.astro-bfgd__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
+.astro-bfgd__card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:32px 28px;display:flex;flex-direction:column;gap:12px}
+.astro-bfgd__icon{color:#c5a55a;flex-shrink:0}
+.astro-bfgd__card-title{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#fff;margin:0}
+.astro-bfgd__card-desc{font-size:15px;line-height:1.6;color:rgba(255,255,255,.72);margin:0;flex:1}
+.astro-bfgd__card-meta{font-size:12px;letter-spacing:.08em;color:#c5a55a;text-transform:uppercase}
+.astro-bfgd__cta{text-align:center}
+.astro-bfgd__btn{display:inline-flex;align-items:center;padding:12px 28px;background:transparent;color:#c5a55a;border:1px solid rgba(197,165,90,.5);border-radius:50px;font-size:14px;font-weight:600;text-decoration:none;transition:background .18s,border-color .18s}
+.astro-bfgd__btn:hover{background:rgba(197,165,90,.12);border-color:#c5a55a}
+@media(max-width:860px){.astro-bfgd__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-bfgd__inner{padding:0 20px}.astro-bfgd{padding:52px 0}}
+</style>

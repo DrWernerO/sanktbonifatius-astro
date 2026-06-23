@@ -1,0 +1,119 @@
+---
+// Fotogalerie BonFamily — 11 Fotos lokal, 3 Thumbnails + "Alle Fotos" → Lightbox.
+// Präfix `astro-bfgal` (nicht `bf-gallery`). Muster aus TaufeFest.astro / GdGallery.astro.
+const photos = [
+  '/uploads/2023/07/bonfamily-auswahl-1.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-2.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-3.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-4.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-5.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-6.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-8.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-9.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-10.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-11.jpg',
+  '/uploads/2023/07/bonfamily-auswahl-12.jpg',
+];
+const preview = photos.slice(0, 3);
+---
+<section class="astro-bfgal">
+  <div class="astro-bfgal__inner">
+    <div class="astro-bfgal__head">
+      <h2 class="astro-bfgal__title">Fotos aus dem BonFamily-Leben</h2>
+      <p class="astro-bfgal__sub">Einblicke in unsere Veranstaltungen, Gottesdienste und Lounges.</p>
+    </div>
+    <div class="astro-bfgal__grid">
+      {preview.map((src, i) => (
+        <button class="astro-bfgal__thumb" data-index={i} aria-label={`Foto ${i + 1} von ${photos.length} ansehen`}>
+          <img src={src} alt={`BonFamily Foto ${i + 1}`} loading="lazy" />
+        </button>
+      ))}
+    </div>
+    <div class="astro-bfgal__more">
+      <button class="astro-bfgal__btn" id="astro-bfgal-open">
+        Alle {photos.length} Fotos anzeigen
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="astro-bfgal-lb" id="astro-bfgal-lb" role="dialog" aria-modal="true" aria-label="Fotogalerie BonFamily" hidden>
+  <button class="astro-bfgal-lb__close" id="astro-bfgal-close" aria-label="Galerie schließen">&times;</button>
+  <button class="astro-bfgal-lb__nav astro-bfgal-lb__nav--prev" id="astro-bfgal-prev" aria-label="Vorheriges Foto">&#8249;</button>
+  <div class="astro-bfgal-lb__img-wrap">
+    <img class="astro-bfgal-lb__img" id="astro-bfgal-img" src="" alt="" />
+    <p class="astro-bfgal-lb__counter" id="astro-bfgal-counter"></p>
+  </div>
+  <button class="astro-bfgal-lb__nav astro-bfgal-lb__nav--next" id="astro-bfgal-next" aria-label="Nächstes Foto">&#8250;</button>
+</div>
+
+<script define:vars={{ photos }}>
+(function () {
+  const lb   = document.getElementById('astro-bfgal-lb');
+  const img  = document.getElementById('astro-bfgal-img');
+  const ctr  = document.getElementById('astro-bfgal-counter');
+  let cur = 0;
+
+  function show(i) {
+    cur = (i + photos.length) % photos.length;
+    img.src = photos[cur];
+    img.alt = 'BonFamily Foto ' + (cur + 1);
+    ctr.textContent = (cur + 1) + ' / ' + photos.length;
+  }
+  function open(i) {
+    show(i);
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    document.getElementById('astro-bfgal-close').focus();
+  }
+  function close() {
+    lb.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('astro-bfgal-open').addEventListener('click', () => open(0));
+  document.querySelectorAll('.astro-bfgal__thumb').forEach(btn => {
+    btn.addEventListener('click', () => open(Number(btn.dataset.index)));
+  });
+  document.getElementById('astro-bfgal-close').addEventListener('click', close);
+  document.getElementById('astro-bfgal-prev').addEventListener('click', () => show(cur - 1));
+  document.getElementById('astro-bfgal-next').addEventListener('click', () => show(cur + 1));
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+  });
+})();
+</script>
+
+<style is:global>
+.astro-bfgal{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-bfgal__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-bfgal__head{text-align:center;margin-bottom:36px}
+.astro-bfgal__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-bfgal__sub{font-size:16px;color:#6b5c52;margin:0}
+.astro-bfgal__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.astro-bfgal__thumb{border:none;padding:0;cursor:pointer;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:#e0d8cf}
+.astro-bfgal__thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;display:block}
+.astro-bfgal__thumb:hover img{transform:scale(1.04)}
+.astro-bfgal__more{text-align:center}
+.astro-bfgal__btn{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;background:transparent;color:#9a2d2d;border:1.5px solid #c5a0a0;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;transition:background .18s,color .18s}
+.astro-bfgal__btn:hover{background:#9a2d2d;color:#fff;border-color:#9a2d2d}
+/* Lightbox */
+.astro-bfgal-lb{position:fixed;inset:0;background:rgba(20,10,4,.92);z-index:9000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.astro-bfgal-lb[hidden]{display:none}
+.astro-bfgal-lb__img-wrap{position:relative;max-width:90vw;max-height:80vh;display:flex;flex-direction:column;align-items:center;gap:12px}
+.astro-bfgal-lb__img{max-width:90vw;max-height:78vh;object-fit:contain;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,.5)}
+.astro-bfgal-lb__counter{color:rgba(255,255,255,.6);font-size:13px;letter-spacing:.08em;margin:0}
+.astro-bfgal-lb__close{position:fixed;top:20px;right:24px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:26px;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.astro-bfgal-lb__close:hover{background:rgba(255,255,255,.22)}
+.astro-bfgal-lb__nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:36px;width:52px;height:52px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.astro-bfgal-lb__nav:hover{background:rgba(255,255,255,.2)}
+.astro-bfgal-lb__nav--prev{left:16px}
+.astro-bfgal-lb__nav--next{right:16px}
+@media(max-width:600px){.astro-bfgal__inner{padding:0 20px}.astro-bfgal{padding:52px 0}.astro-bfgal__grid{grid-template-columns:1fr 1fr;gap:8px}.astro-bfgal-lb__nav{width:40px;height:40px;font-size:28px}}
+</style>

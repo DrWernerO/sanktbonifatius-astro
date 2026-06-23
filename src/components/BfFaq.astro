@@ -1,0 +1,60 @@
+---
+// FAQ-Section BonFamily — 5 Fragen als natives <details>. Präfix `astro-bffaq`.
+const faqs = [
+  {
+    frage: 'Was ist BonFamily und für wen ist es gedacht?',
+    antwort: 'BonFamily ist das Familien- und Kinderprogramm der Pfarrei Sankt Bonifatius Frankfurt in Sachsenhausen. Das Angebot richtet sich in der Regel an Familien mit Kindern von 0 bis 14 Jahren, egal ob Sie der Kirche nahestehen oder einfach neugierig sind.',
+  },
+  {
+    frage: 'Muss ich Mitglied der Kirche sein?',
+    antwort: 'Nein. Alle BonFamily-Angebote stehen offen für Familien jeder Konfession und auch für konfessionslose Familien. Herzlich willkommen sind alle, die Gemeinschaft und Austausch suchen.',
+  },
+  {
+    frage: 'Sind Baby-Lounge und Familien-Lounge kostenfrei?',
+    antwort: 'Ja, die Lounge-Angebote sind kostenfrei. Über eine kleine Spende für Kaffee und Kuchen freuen wir uns. Eine Voranmeldung ist nicht nötig.',
+  },
+  {
+    frage: 'Wo finden die Veranstaltungen statt?',
+    antwort: 'Die meisten BonFamily-Veranstaltungen finden an den Kirchorten Sankt Bonifatius und Sankt Wendel in Frankfurt-Sachsenhausen statt. Der genaue Ort ist für die jeweiligen Veranstaltungen angegeben.',
+  },
+  {
+    frage: 'Kann ich ehrenamtlich bei BonFamily mitmachen?',
+    antwort: 'Sehr gerne! Das ehrenamtliche BonFamily-Team freut sich über neue Gesichter. Melden Sie sich gerne direkt bei Frank Hoffmann (f.hoffmann@sanktbonifatius.de) oder Dorothea Schneider (d.schneider@sanktbonifatius.de).',
+  },
+];
+---
+<section id="bonfamily-faq" class="astro-bffaq">
+  <div class="astro-bffaq__inner">
+    <div class="astro-bffaq__head">
+      <h2 class="astro-bffaq__title">Häufig gestellte Fragen</h2>
+    </div>
+    <div class="astro-bffaq__list">
+      {faqs.map(f => (
+        <details class="astro-bffaq__item">
+          <summary class="astro-bffaq__q">
+            <span class="astro-bffaq__q-text">{f.frage}</span>
+            <span class="astro-bffaq__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="astro-bffaq__a">{f.antwort}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bffaq{padding:72px 0;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:96px}
+.astro-bffaq__inner{max-width:860px;margin:0 auto;padding:0 40px}
+.astro-bffaq__head{text-align:center;margin-bottom:40px}
+.astro-bffaq__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,36px);font-weight:700;color:#2c2420;margin:0}
+.astro-bffaq__list{display:flex;flex-direction:column;gap:0}
+.astro-bffaq__item{border-bottom:1px solid #e0d8cf}
+.astro-bffaq__item:first-child{border-top:1px solid #e0d8cf}
+.astro-bffaq__q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;list-style:none;font-size:16px;font-weight:600;color:#2c2420;line-height:1.4}
+.astro-bffaq__q::-webkit-details-marker{display:none}
+.astro-bffaq__q:hover .astro-bffaq__q-text{color:#9a2d2d}
+.astro-bffaq__icon{font-size:22px;color:#9a2d2d;flex-shrink:0;transition:transform .2s;line-height:1;font-weight:300}
+.astro-bffaq__item[open] .astro-bffaq__icon{transform:rotate(45deg)}
+.astro-bffaq__a{padding:0 0 20px;font-size:15px;line-height:1.7;color:#5a4a3a}
+@media(max-width:600px){.astro-bffaq__inner{padding:0 20px}.astro-bffaq{padding:52px 0}.astro-bffaq__q{font-size:15px}}
+</style>

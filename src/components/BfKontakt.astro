@@ -1,0 +1,71 @@
+---
+// Ansprechpartner-Section BonFamily — Frank Hoffmann + Dorothea Schneider.
+// Präfix `astro-bfkontakt` (nicht `bf-mc-...`). Kein Foto lokal vorhanden → Initialen-Circle.
+const personen = [
+  {
+    name: 'Frank Hoffmann',
+    rolle: 'Koordination BonFamily',
+    initialen: 'FH',
+    email: 'f.hoffmann@sanktbonifatius.de',
+    tel: '069 695 97 58-53',
+  },
+  {
+    name: 'Dorothea Schneider',
+    rolle: 'BonFamily · Familien & Kinder',
+    initialen: 'DS',
+    email: 'd.schneider@sanktbonifatius.de',
+    tel: '069 695 97 58-50',
+  },
+];
+---
+<section id="bonfamily-kontakt" class="astro-bfkontakt">
+  <div class="astro-bfkontakt__inner">
+    <div class="astro-bfkontakt__head">
+      <h2 class="astro-bfkontakt__title">Ihre Ansprechpartner</h2>
+      <p class="astro-bfkontakt__sub">
+        Haben Sie Fragen zu BonFamily? M&ouml;chten Sie sich anmelden oder mitmachen?
+        Schreiben Sie uns.
+      </p>
+    </div>
+    <div class="astro-bfkontakt__grid">
+      {personen.map(p => (
+        <div class="astro-bfkontakt__card">
+          <div class="astro-bfkontakt__circle" role="img" aria-label={`Porträt von ${p.name}`}>
+            {p.initialen}
+          </div>
+          <div class="astro-bfkontakt__info">
+            <h3 class="astro-bfkontakt__name">{p.name}</h3>
+            <p class="astro-bfkontakt__rolle">{p.rolle}</p>
+            <a href={`mailto:${p.email}`} class="astro-bfkontakt__link astro-bfkontakt__link--mail">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              {p.email}
+            </a>
+            <a href={`tel:${p.tel.replace(/\s/g, '')}`} class="astro-bfkontakt__link astro-bfkontakt__link--tel">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              {p.tel}
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bfkontakt{padding:72px 0;background:#ede4d5;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:96px}
+.astro-bfkontakt__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-bfkontakt__head{text-align:center;margin-bottom:48px}
+.astro-bfkontakt__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-bfkontakt__sub{font-size:17px;color:#5a4a3a;margin:0;max-width:520px;margin-inline:auto;line-height:1.6}
+.astro-bfkontakt__grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:800px;margin:0 auto}
+.astro-bfkontakt__card{background:#fff;border-radius:16px;padding:36px 32px;display:flex;align-items:flex-start;gap:24px;box-shadow:0 4px 20px rgba(30,21,18,.07);border:1px solid #e0d8cf}
+.astro-bfkontakt__circle{width:72px;height:72px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:.02em}
+.astro-bfkontakt__info{display:flex;flex-direction:column;gap:8px;min-width:0}
+.astro-bfkontakt__name{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#2c2420;margin:0}
+.astro-bfkontakt__rolle{font-size:14px;color:#928269;font-style:italic;margin:0}
+.astro-bfkontakt__link{display:flex;align-items:center;gap:7px;font-size:13px;color:#5a4a3a;text-decoration:none;word-break:break-all;transition:color .15s}
+.astro-bfkontakt__link:hover{color:#9a2d2d}
+.astro-bfkontakt__link svg{flex-shrink:0;color:#9a2d2d}
+@media(max-width:760px){.astro-bfkontakt__grid{grid-template-columns:1fr}.astro-bfkontakt__card{flex-direction:column;align-items:center;text-align:center}.astro-bfkontakt__link{justify-content:center}}
+@media(max-width:600px){.astro-bfkontakt__inner{padding:0 20px}.astro-bfkontakt{padding:52px 0}}
+</style>

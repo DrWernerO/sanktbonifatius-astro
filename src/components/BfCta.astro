@@ -1,0 +1,35 @@
+---
+// Abschluss-CTA BonFamily — dunkles Band, zwei Buttons.
+// Präfix `astro-bfcta` (nicht `bf-section`).
+---
+<section class="astro-bfcta">
+  <div class="astro-bfcta__inner">
+    <h2 class="astro-bfcta__title">Neugierig geworden?</h2>
+    <p class="astro-bfcta__text">
+      Kommen Sie einfach vorbei &ndash; zur Baby-Lounge, zum Kinderchor oder beim nächsten
+      Familiengottesdienst. Oder schreiben Sie uns. BonFamily lebt von offenen Türen.
+    </p>
+    <div class="astro-bfcta__btns">
+      <a href="#bonfamily-termine" class="astro-bfcta__btn astro-bfcta__btn--primary">
+        Nächste Veranstaltung ansehen
+      </a>
+      <a href="mailto:f.hoffmann@sanktbonifatius.de" class="astro-bfcta__btn astro-bfcta__btn--outline">
+        Fragen? Schreib uns
+      </a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bfcta{padding:72px 0;background:linear-gradient(135deg,#4a2e1a 0%,#3a2315 100%);width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-bfcta__inner{max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-bfcta__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,40px);font-weight:700;color:#fff;margin:0 0 16px}
+.astro-bfcta__text{font-size:17px;line-height:1.7;color:rgba(255,255,255,.78);margin:0 0 36px}
+.astro-bfcta__btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.astro-bfcta__btn{display:inline-flex;align-items:center;padding:13px 28px;border-radius:50px;font-size:14px;font-weight:600;text-decoration:none;transition:background .18s,color .18s,border-color .18s}
+.astro-bfcta__btn--primary{background:#9a2d2d;color:#fff;border:2px solid #9a2d2d}
+.astro-bfcta__btn--primary:hover{background:#7e2424;border-color:#7e2424}
+.astro-bfcta__btn--outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4)}
+.astro-bfcta__btn--outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+@media(max-width:600px){.astro-bfcta__inner{padding:0 20px}.astro-bfcta{padding:52px 0}.astro-bfcta__btns{flex-direction:column;align-items:center}}
+</style>
