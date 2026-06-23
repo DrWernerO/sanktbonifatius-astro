@@ -1,0 +1,78 @@
+---
+// BonFamily Musicalprojekt — Projektankündigung mit Plakat-Bild.
+// Präfix `astro-bfmusical`. Hintergrund #ede4d5 (Sand) für Wechsel nach EventCalendar (Crème) und vor Gottesdienste (Weiß).
+---
+<section id="bonfamily-musical" class="astro-bfmusical">
+  <div class="astro-bfmusical__inner">
+    <div class="astro-bfmusical__text">
+      <span class="astro-bfmusical__badge">Aktuelles Projekt</span>
+      <h2 class="astro-bfmusical__title">BonFamily Musicalprojekt</h2>
+      <p class="astro-bfmusical__subtitle">&bdquo;Aufregung im G&auml;nsestall&ldquo; &ndash; Ein Musical in 9 Szenen</p>
+      <p class="astro-bfmusical__lead">
+        Im Familiengottesdienst am 15. November in St. Wendel f&uuml;hren wir das Musical
+        &bdquo;Aufregung im G&auml;nsestall&ldquo; aus dem Dehm Verlag auf. Das Kindermusical
+        erz&auml;hlt in neun Szenen die Geschichte des Heiligen Martin von Tours &ndash; von seiner
+        Zeit als r&ouml;mischer Soldat &uuml;ber die bekannte Mantelteilung bis hin zu seinem
+        Wirken als Bischof.
+      </p>
+      <p class="astro-bfmusical__gesucht-label">Wir suchen:</p>
+      <ul class="astro-bfmusical__rollen">
+        <li>S&auml;ngerinnen und S&auml;nger im Chor</li>
+        <li>Schauspielerinnen und Schauspieler mit Sprechrolle</li>
+        <li>Schauspielerinnen und Schauspieler ohne Sprechrolle</li>
+        <li>Helfer:innen f&uuml;r B&uuml;hnenbild und Durchf&uuml;hrung</li>
+      </ul>
+      <p class="astro-bfmusical__note">
+        Egal ob mit oder ohne B&uuml;hnenerfahrung &ndash; jede und jeder ist herzlich willkommen!
+      </p>
+      <ul class="astro-bfmusical__facts">
+        <li class="astro-bfmusical__fact">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span><strong>15. November</strong> &middot; Familiengottesdienst &middot; St. Wendel</span>
+        </li>
+        <li class="astro-bfmusical__fact">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Anmeldefrist: <strong>16. Juli 2026</strong></span>
+        </li>
+      </ul>
+      <div class="astro-bfmusical__btns">
+        <a href="https://forms.churchdesk.com/f/L4zYCgQGky" target="_blank" rel="noopener" class="astro-bfmusical__btn astro-bfmusical__btn--primary">
+          Jetzt anmelden
+        </a>
+      </div>
+    </div>
+    <div class="astro-bfmusical__poster">
+      <img
+        src="/uploads/2026/06/Musical_Plakat.png"
+        alt="Plakat: Aufregung im Gänsestall – BonFamily Musical 2026"
+        class="astro-bfmusical__img"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bfmusical{padding:72px 0;background:#ede4d5;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:96px}
+.astro-bfmusical__inner{max-width:1200px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
+.astro-bfmusical__badge{display:inline-block;background:#9a2d2d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:50px;margin-bottom:16px}
+.astro-bfmusical__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 10px;line-height:1.15}
+.astro-bfmusical__subtitle{font-size:18px;font-weight:600;color:#2c2420;margin:0 0 20px;font-style:italic}
+.astro-bfmusical__lead{font-size:16px;line-height:1.7;color:#5a4a3a;margin:0 0 20px}
+.astro-bfmusical__gesucht-label{font-size:14px;font-weight:700;color:#2c2420;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px}
+.astro-bfmusical__rollen{list-style:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:6px}
+.astro-bfmusical__rollen li{font-size:15px;color:#3d2b1a;padding-left:18px;position:relative;line-height:1.5}
+.astro-bfmusical__rollen li::before{content:'→';position:absolute;left:0;color:#9a2d2d;font-size:13px}
+.astro-bfmusical__note{font-size:14px;color:#6b5c52;font-style:italic;margin:0 0 24px}
+.astro-bfmusical__facts{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:10px}
+.astro-bfmusical__fact{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:#3d2b1a;line-height:1.5}
+.astro-bfmusical__fact svg{flex-shrink:0;margin-top:2px;color:#9a2d2d}
+.astro-bfmusical__btns{display:flex;gap:12px;flex-wrap:wrap}
+.astro-bfmusical__btn{display:inline-flex;align-items:center;padding:11px 26px;border-radius:50px;font-size:14px;font-weight:600;text-decoration:none;transition:background .18s,color .18s,border-color .18s}
+.astro-bfmusical__btn--primary{background:#9a2d2d;color:#fff;border:2px solid #9a2d2d}
+.astro-bfmusical__btn--primary:hover{background:#7e2424;border-color:#7e2424}
+.astro-bfmusical__poster{flex-shrink:0}
+.astro-bfmusical__img{width:440px;height:auto;max-width:100%;border-radius:12px;box-shadow:0 8px 32px rgba(30,21,18,.15);display:block}
+@media(max-width:900px){.astro-bfmusical__inner{grid-template-columns:1fr}.astro-bfmusical__poster{display:none}}
+@media(max-width:600px){.astro-bfmusical__inner{padding:0 20px}.astro-bfmusical{padding:52px 0}}
+</style>

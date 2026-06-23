@@ -6,6 +6,7 @@ const personen = [
     name: 'Frank Hoffmann',
     rolle: 'Koordination BonFamily',
     initialen: 'FH',
+    foto: '/uploads/2025/06/DSC00850.jpg',
     email: 'f.hoffmann@sanktbonifatius.de',
     tel: '069 695 97 58-53',
   },
@@ -13,6 +14,7 @@ const personen = [
     name: 'Dorothea Schneider',
     rolle: 'BonFamily · Familien & Kinder',
     initialen: 'DS',
+    foto: '/uploads/2025/06/DSC00891.jpg',
     email: 'd.schneider@sanktbonifatius.de',
     tel: '069 695 97 58-50',
   },
@@ -30,8 +32,8 @@ const personen = [
     <div class="astro-bfkontakt__grid">
       {personen.map(p => (
         <div class="astro-bfkontakt__card">
-          <div class="astro-bfkontakt__circle" role="img" aria-label={`Porträt von ${p.name}`}>
-            {p.initialen}
+          <div class="astro-bfkontakt__circle">
+            <img src={p.foto} alt={`Porträt von ${p.name}`} class="astro-bfkontakt__foto" loading="lazy" />
           </div>
           <div class="astro-bfkontakt__info">
             <h3 class="astro-bfkontakt__name">{p.name}</h3>
@@ -59,7 +61,8 @@ const personen = [
 .astro-bfkontakt__sub{font-size:17px;color:#5a4a3a;margin:0;max-width:520px;margin-inline:auto;line-height:1.6}
 .astro-bfkontakt__grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:800px;margin:0 auto}
 .astro-bfkontakt__card{background:#fff;border-radius:16px;padding:36px 32px;display:flex;align-items:flex-start;gap:24px;box-shadow:0 4px 20px rgba(30,21,18,.07);border:1px solid #e0d8cf}
-.astro-bfkontakt__circle{width:72px;height:72px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:.02em}
+.astro-bfkontakt__circle{width:80px;height:80px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #9a2d2d}
+.astro-bfkontakt__foto{width:100%;height:100%;object-fit:cover;display:block}
 .astro-bfkontakt__info{display:flex;flex-direction:column;gap:8px;min-width:0}
 .astro-bfkontakt__name{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#2c2420;margin:0}
 .astro-bfkontakt__rolle{font-size:14px;color:#928269;font-style:italic;margin:0}

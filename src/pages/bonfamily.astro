@@ -7,6 +7,7 @@ import Base from '../layouts/Base.astro';
 import BfHero from '../components/BfHero.astro';
 import BfStrip from '../components/BfStrip.astro';
 import BfWelcome from '../components/BfWelcome.astro';
+import BfMusical from '../components/BfMusical.astro';
 import BfGottesdienste from '../components/BfGottesdienste.astro';
 import BfTaufe from '../components/BfTaufe.astro';
 import BfLounge from '../components/BfLounge.astro';
@@ -30,6 +31,7 @@ const seo = await getSeoHead('/bonfamily/');
       category={2586}
     />
   </div>
+  <BfMusical />
   <BfGottesdienste />
   <BfTaufe />
   <BfLounge />
