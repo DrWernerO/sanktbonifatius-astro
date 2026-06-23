@@ -10,14 +10,15 @@ const bg = '/uploads/2026/04/bonfamily-hero.jpg';
        style={`background-image:url('${bg}')`}></div>
   <div class="astro-bfhero__overlay"></div>
   <div class="astro-bfhero__inner">
-    <p class="astro-bfhero__eyebrow">Familien &amp; Kinder &middot; Frankfurt-Sachsenhausen</p>
-    <h1 class="astro-bfhero__title">Herzlich willkommen bei BonFamily</h1>
+    <span class="astro-bfhero__badge">Familien &amp; Kinder in Frankfurt-Sachsenhausen</span>
+    <h1 class="astro-bfhero__title">Herzlich<br>willkommen<br>bei <span class="astro-bfhero__accent">BonFamily</span></h1>
     <p class="astro-bfhero__sub">
       Das bunte Familien- und Kinderprogramm der Pfarrei &ndash; f&uuml;r Babys,
       Kleinkinder, Schulkinder und Eltern. Offen f&uuml;r alle!
     </p>
     <div class="astro-bfhero__btns">
       <a href="#bonfamily-termine" class="astro-bfhero__btn astro-bfhero__btn--primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Nächste Termine
       </a>
       <a href="https://whatsapp.com/channel/0029VbB7E1CLikgAZ8cyHk1a"
@@ -35,7 +36,8 @@ const bg = '/uploads/2026/04/bonfamily-hero.jpg';
 .astro-bfhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
 .astro-bfhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.08) 0%,rgba(30,21,18,.45) 55%,rgba(30,21,18,.88) 100%)}
 .astro-bfhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 64px;color:#f0e8d8}
-.astro-bfhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-bfhero__badge{display:inline-block;background:#9a2d2d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin:0 0 20px}
+.astro-bfhero__accent{color:#9a2d2d}
 .astro-bfhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,5vw,66px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700}
 .astro-bfhero__sub{color:rgba(255,255,255,.88);font-size:clamp(16px,2vw,20px);margin:0 0 32px;max-width:620px;line-height:1.5}
 .astro-bfhero__btns{display:flex;gap:12px;flex-wrap:wrap}
