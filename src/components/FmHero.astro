@@ -1,0 +1,21 @@
+---
+// Hero „Familientreffpunkte" — Präfix `astro-fmhero`.
+// Warmer Farbverlauf (kein Foto laut WP-Original), Bordeaux-Akzent passend zur BonFamily-Linie.
+---
+<section class="astro-fmhero">
+  <div class="astro-fmhero__inner">
+    <span class="astro-fmhero__eyebrow">BonFamily · Pfarrei Sankt Bonifatius Frankfurt</span>
+    <h1 class="astro-fmhero__title">Familientreffpunkte</h1>
+    <p class="astro-fmhero__sub">Familien-Lounges und Eltern-Kind-Gruppen für Babys, Kleinkinder und ihre Eltern an unseren Kirchorten in Frankfurt.</p>
+  </div>
+</section>
+
+<style is:global>
+.astro-fmhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:420px;display:flex;align-items:flex-end;background:linear-gradient(135deg,#4a2e1a 0%,#7a3a2a 40%,#9a2d2d 100%);overflow:hidden}
+.astro-fmhero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,8,5,.1) 0%,rgba(20,8,5,.55) 100%)}
+.astro-fmhero__inner{position:relative;max-width:1100px;margin:0 auto;width:100%;padding:100px 40px 60px;color:#fff}
+.astro-fmhero__eyebrow{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:14px}
+.astro-fmhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,60px);font-weight:700;color:#fff;margin:0 0 16px;line-height:1.05}
+.astro-fmhero__sub{font-size:clamp(16px,1.8vw,19px);color:rgba(255,255,255,.88);line-height:1.6;margin:0;max-width:620px}
+@media(max-width:600px){.astro-fmhero__inner{padding:80px 20px 48px}}
+</style>

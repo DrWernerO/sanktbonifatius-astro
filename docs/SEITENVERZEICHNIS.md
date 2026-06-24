@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **79 Live-Seiten erfasst · 27 bereits in Astro übernommen bzw. per Direktlink erledigt · 52 offen.** Stand: 24.06.2026.
+> **79 Live-Seiten erfasst · 30 bereits in Astro übernommen bzw. per Direktlink erledigt · 49 offen.** Stand: 24.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -95,9 +95,9 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
 | BoniFamily | [Link](https://www.sanktbonifatius.de/bonfamily/) | `src/pages/bonfamily.astro` | Frank | ✅ erledigt | Page-ID 45898; eigene Bf*-Komponenten (Präfix `astro-bf`); Hero, Strip, Welcome, EventCalendar (Kat. 2586), Gottesdienste, Taufe-Teaser, Lounge-Karten, Fotogalerie (11 Fotos), Ansprechpartner, FAQ, CTA |
-| Familiengottesdienste | [Link](https://www.sanktbonifatius.de/bonfamily/familiengottesdienste/) | — | — | offen |  |
-| Familientreffpunkte | [Link](https://www.sanktbonifatius.de/bonfamily/familientreffpunkte/) | — | — | offen |  |
-| WhatsApp-Kanal | [Link](https://www.sanktbonifatius.de/bonfamily/whatsapp-kanal/) | — (Nav-Direktlink) | Werner | ✅ erledigt | Keine eigene Astro-Seite nötig — Verweis auf den WhatsApp-Kanal (Abo): `whatsapp.com/channel/0029VbB7E1CLikgAZ8cyHk1a` |
+| Familiengottesdienste | [Link](https://www.sanktbonifatius.de/bonfamily/familiengottesdienste/) | `src/pages/bonfamily/familiengottesdienste.astro` | Frank | ✅ erledigt | Page-ID 48268; eigene Kfg*-Komponenten (Präfix `astro-kfg`); Foto-Hero, Info-Strip (1.&3. Sonntag), Intro, 2 Format-Kacheln (Bilderbuch-/Kreativ-/Familiengottesdienst) mit Fotos, Terminliste 3-spaltig, 6 FAQ, CTA |
+| Familientreffpunkte | [Link](https://www.sanktbonifatius.de/bonfamily/familientreffpunkte/) | `src/pages/bonfamily/familientreffpunkte.astro` | Frank | ✅ erledigt | Page-ID 49158; eigene Fm*-Komponenten (Präfix `astro-fm`); Hero, Intro, 2 Treffpunkt-Karten (Baby-Lounge + Familien-Lounge St. Bonif. / Eltern-Kind-Gruppe St. Wendel) mit Fotos, Schnell-Links, Kontakt-Section |
+| WhatsApp-Kanal | [Link](https://www.sanktbonifatius.de/bonfamily/whatsapp-kanal/) | `src/pages/bonfamily/whatsapp-kanal.astro` | Frank | ✅ erledigt | Page-ID 49171; eigene Wa*-Komponenten (Präfix `astro-wa`); grüner WA-Farbverlauf-Hero, 3 Vorteils-Karten, Reason-Section, 5 FAQ, CTA |
 
 ## 8 · Jugend (mit Unterseiten)
 

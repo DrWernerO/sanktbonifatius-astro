@@ -1,0 +1,21 @@
+---
+// Seite „Familientreffpunkte" — WP-Seite 49158 (/bonfamily/familientreffpunkte/)
+// Vollständig aus eigenen Astro-Komponenten (Präfix astro-fm).
+// Nav + Footer global aus Base.astro (Handbuch 4b).
+import Base from '../../layouts/Base.astro';
+import FmHero from '../../components/FmHero.astro';
+import FmIntro from '../../components/FmIntro.astro';
+import FmGrid from '../../components/FmGrid.astro';
+import FmQuick from '../../components/FmQuick.astro';
+import FmContact from '../../components/FmContact.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/bonfamily/familientreffpunkte/');
+---
+<Base seo={seo} title="Familientreffpunkte · BonFamily · St. Bonifatius Frankfurt">
+  <FmHero />
+  <FmIntro />
+  <FmGrid />
+  <FmQuick />
+  <FmContact />
+</Base>

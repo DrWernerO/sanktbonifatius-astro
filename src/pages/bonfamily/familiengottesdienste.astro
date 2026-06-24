@@ -1,0 +1,25 @@
+---
+// Seite „Familiengottesdienste" — WP-Seite 48268 (/bonfamily/familiengottesdienste/)
+// Vollständig aus eigenen Astro-Komponenten (Präfix astro-kfg).
+// Nav + Footer global aus Base.astro (Handbuch 4b).
+import Base from '../../layouts/Base.astro';
+import KfgHero from '../../components/KfgHero.astro';
+import KfgStrip from '../../components/KfgStrip.astro';
+import KfgIntro from '../../components/KfgIntro.astro';
+import KfgFormate from '../../components/KfgFormate.astro';
+import KfgTermine from '../../components/KfgTermine.astro';
+import KfgFaq from '../../components/KfgFaq.astro';
+import KfgCta from '../../components/KfgCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/bonfamily/familiengottesdienste/');
+---
+<Base seo={seo} title="Kinder- & Familiengottesdienste · BonFamily · St. Bonifatius Frankfurt">
+  <KfgHero />
+  <KfgStrip />
+  <KfgIntro />
+  <KfgFormate />
+  <KfgTermine />
+  <KfgFaq />
+  <KfgCta />
+</Base>

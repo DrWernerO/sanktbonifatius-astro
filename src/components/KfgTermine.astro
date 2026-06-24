@@ -1,0 +1,65 @@
+---
+// Termine „Familiengottesdienste" — Präfix `astro-kfgtermine`.
+// Feste Termine — bei Änderungen hier direkt anpassen.
+const cols = [
+  {
+    title: 'Bilderbuchgottesdienste',
+    time: '11:00 Uhr · in der Bücherei',
+    dates: ['So., 05.04.2026', 'So., 03.05.2026', 'So., 07.06.2026'],
+    note: 'Nur an Sonntagen außerhalb der Ferien. Änderungen möglich — aktuelle Infos im Pfarrbrief oder auf ChurchDesk.',
+  },
+  {
+    title: 'Kreativgottesdienste',
+    time: '11:00 Uhr · im Pfarrsaal / Krypta',
+    dates: ['So., 12.04.2026', 'So., 10.05.2026', 'So., 14.06.2026'],
+    note: 'Der genaue Raum (Großer Pfarrsaal oder Krypta) wird kurzfristig bekanntgegeben.',
+  },
+  {
+    title: 'Familiengottesdienste',
+    time: '11:00 Uhr · St. Bonifatius & St. Wendel',
+    dates: ['So., 15.03.2026', 'So., 17.05.2026', 'So., 21.06.2026'],
+    note: 'Im Anschluss gemeinsames Kirchcafé oder Familienbrunch — alle willkommen.',
+  },
+];
+---
+<section class="astro-kfgtermine">
+  <div class="astro-kfgtermine__inner">
+    <h2 class="astro-kfgtermine__title">Aktuelle Termine</h2>
+    <div class="astro-kfgtermine__grid">
+      {cols.map(col => (
+        <div class="astro-kfgtermine__col">
+          <div class="astro-kfgtermine__col-head">
+            <h3 class="astro-kfgtermine__col-title">{col.title}</h3>
+            <p class="astro-kfgtermine__col-time">{col.time}</p>
+          </div>
+          <ul class="astro-kfgtermine__list">
+            {col.dates.map(d => (
+              <li class="astro-kfgtermine__item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                {d}
+              </li>
+            ))}
+          </ul>
+          <p class="astro-kfgtermine__note">{col.note}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-kfgtermine{padding:72px 0;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-kfgtermine__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-kfgtermine__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0 0 40px;text-align:center}
+.astro-kfgtermine__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.astro-kfgtermine__col{background:#f7f3ef;border:1px solid #e0d8cf;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:20px}
+.astro-kfgtermine__col-head{border-bottom:2px solid #9a2d2d;padding-bottom:14px}
+.astro-kfgtermine__col-title{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;color:#2c2420;margin:0 0 6px}
+.astro-kfgtermine__col-time{font-size:13px;color:#9a2d2d;font-weight:600;margin:0}
+.astro-kfgtermine__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;flex:1}
+.astro-kfgtermine__item{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;color:#3d2b1a}
+.astro-kfgtermine__item svg{flex-shrink:0;color:#9a2d2d}
+.astro-kfgtermine__note{font-size:13px;color:#928269;line-height:1.5;font-style:italic;margin:0;border-top:1px solid #e8e0d8;padding-top:14px}
+@media(max-width:860px){.astro-kfgtermine__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-kfgtermine__inner{padding:0 20px}.astro-kfgtermine{padding:52px 0}}
+</style>

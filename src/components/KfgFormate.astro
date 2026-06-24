@@ -1,0 +1,76 @@
+---
+// Format-Kacheln „Familiengottesdienste" — Präfix `astro-kfgfmt`.
+// 2 Kacheln: Kindergottesdienste + Familiengottesdienste.
+const formate = [
+  {
+    img: '/uploads/2026/06/260329_Bonifatsius-1013293.jpg',
+    alt: 'Kinder beim Kindergottesdienst in St. Bonifatius Frankfurt',
+    badge: 'Für Kinder (ca. 4–12 Jahre)',
+    title: 'Kindergottesdienste',
+    desc: 'Parallel zur Sonntagsmesse um 11 Uhr feiern Kinder ihren eigenen Gottesdienst — lebendig, altersgerecht und voller Entdeckerfreude. Zwei Formate wechseln sich ab:',
+    details: [
+      { label: 'Bilderbuchgottesdienst', text: 'in der Bücherei: Ein Bilderbuch öffnet Türen zu Glaubensfragen. Gemeinsam hören, staunen und besprechen.' },
+      { label: 'Kreativgottesdienst', text: 'in Krypta oder Pfarrsaal: Malen, Basteln, Gestalten — der Glaube wird mit Händen erfahrbar.' },
+    ],
+    note: 'Zur Gabenbereitung kommen alle Kinder zurück in die Kirche und feiern gemeinsam mit der Gemeinde weiter.',
+  },
+  {
+    img: '/uploads/2026/06/familiengottesdienst-bonifatius-00027.jpg',
+    alt: 'Familiengottesdienst mit Musik in St. Bonifatius Frankfurt',
+    badge: 'Für die ganze Familie',
+    title: 'Familiengottesdienste',
+    desc: 'Mitmachen, Mitsingen, Mitfeiern — unsere Familiengottesdienste sind für alle da. Moderne Musik steckt an, Gespräche stärken, und lebensnahe Impulse ermuntern dazu, Gottes Wort mit in den Familienalltag zu nehmen.',
+    details: [
+      { label: null, text: 'Ob Sie zum ersten Mal dabei sind oder seit Jahren zur Gemeinde gehören: hier ist jede und jeder willkommen.' },
+    ],
+    note: 'An besonderen Festtagen (Advent, Weihnachten, Ostern) finden eigene Familiengottesdienste statt — bitte Termine beachten.',
+  },
+];
+---
+<section class="astro-kfgfmt">
+  <div class="astro-kfgfmt__inner">
+    <h2 class="astro-kfgfmt__title">Für jedes Alter das Richtige</h2>
+    <div class="astro-kfgfmt__grid">
+      {formate.map(f => (
+        <article class="astro-kfgfmt__card">
+          <div class="astro-kfgfmt__img-wrap">
+            <img src={f.img} alt={f.alt} class="astro-kfgfmt__img" loading="lazy" width="800" height="534" />
+            <span class="astro-kfgfmt__badge">{f.badge}</span>
+          </div>
+          <div class="astro-kfgfmt__body">
+            <h3 class="astro-kfgfmt__card-title">{f.title}</h3>
+            <p class="astro-kfgfmt__card-desc">{f.desc}</p>
+            <ul class="astro-kfgfmt__details">
+              {f.details.map(d => (
+                <li class="astro-kfgfmt__detail-item">
+                  {d.label && <strong>{d.label}:</strong>} {d.text}
+                </li>
+              ))}
+            </ul>
+            <p class="astro-kfgfmt__note">{f.note}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-kfgfmt{padding:56px 0 72px;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-kfgfmt__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-kfgfmt__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0 0 40px;text-align:center}
+.astro-kfgfmt__grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.astro-kfgfmt__card{background:#fff;border:1px solid #e0d8cf;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(30,21,18,.07)}
+.astro-kfgfmt__img-wrap{position:relative;height:260px;overflow:hidden;flex-shrink:0}
+.astro-kfgfmt__img{width:100%;height:100%;object-fit:cover;display:block}
+.astro-kfgfmt__badge{position:absolute;top:16px;left:16px;background:#9a2d2d;color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:.03em}
+.astro-kfgfmt__body{padding:28px}
+.astro-kfgfmt__card-title{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-kfgfmt__card-desc{font-size:15px;line-height:1.65;color:#5a4a3a;margin:0 0 16px}
+.astro-kfgfmt__details{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:10px;border-left:3px solid #e0d8cf;padding-left:16px}
+.astro-kfgfmt__detail-item{font-size:14px;line-height:1.6;color:#5a4a3a}
+.astro-kfgfmt__detail-item strong{color:#9a2d2d}
+.astro-kfgfmt__note{font-size:13px;color:#928269;font-style:italic;margin:0;border-top:1px solid #f0e8d8;padding-top:14px}
+@media(max-width:860px){.astro-kfgfmt__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-kfgfmt__inner{padding:0 20px}.astro-kfgfmt{padding:40px 0 56px}}
+</style>

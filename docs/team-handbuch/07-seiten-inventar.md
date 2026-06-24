@@ -83,6 +83,8 @@
 |---|---|---|---|
 | `gottesdienstordnung2` | **46977** | publish | Live-Slug `gottesdienstordnung`. 5 Format-Kacheln + ChurchDesk-Widget — Hero: `image-fotos-stbonifatius-00047` |
 | `kinder-familiengottesdienste` | **48268** | publish | Live-Slug `familiengottesdienste`. Rot-Theme, 1.+3. Sonntag |
+| `familientreffpunkte` | **49158** | publish | Live-Slug `familientreffpunkte`. Child von BonFamily (45898). Baby-/Familien-Lounge St. Bonifatius + Eltern-Kind-Gruppe St. Wendel |
+| `whatsapp-kanal` (BonFamily) | **49171** | publish | Live-Slug `whatsapp-kanal`. Child von BonFamily (45898). Kanal: `0029VbC6BfmJ3juxrDFhJy16` (abweichend von Nav-Link `0029VbB7E1CLikgAZ8cyHk1a`) |
 | `segen-sakramente2` | **48265** | publish | Live-Slug `segen-sakramente` (löst alte 17686 ab). Gelb-Theme, 6 Sakramente-Kacheln |
 | `gottesdienst-glaube2` | 45667 | publish | Live-Slug `gottesdienst-glaube` |
 

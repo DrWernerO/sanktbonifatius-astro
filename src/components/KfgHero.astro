@@ -1,0 +1,25 @@
+---
+// Hero „Familiengottesdienste" — Präfix `astro-kfghero`.
+// Foto-Hero (Full-Bleed), Bild lokal unter public/uploads/2026/05/.
+const bg = '/uploads/2026/05/familiengottesdienst-stbonifatius-frankfurt.jpg';
+---
+<section class="astro-kfghero" id="kfg-top">
+  <div class="astro-kfghero__bg" role="img"
+       aria-label="Familiengottesdienst in St. Bonifatius Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-kfghero__overlay"></div>
+  <div class="astro-kfghero__inner">
+    <h1 class="astro-kfghero__title">Kinder- und Familiengottesdienste</h1>
+    <p class="astro-kfghero__sub">Lebendig, kreativ, herzlich &mdash; Gottes Wort erfahren auf eine Weise, die wirklich berührt. Für Familien, Kinder und alle, die dazugehören möchten.</p>
+  </div>
+</section>
+
+<style is:global>
+.astro-kfghero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:560px;display:flex;align-items:flex-end;overflow:hidden;background:#1a0e08}
+.astro-kfghero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%;filter:brightness(.85)}
+.astro-kfghero__overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,4,2,.15) 0%,rgba(20,8,5,.5) 45%,rgba(35,10,8,.88) 100%)}
+.astro-kfghero__inner{position:relative;max-width:1100px;width:100%;margin:0 auto;padding:0 40px 64px;color:#f0e8d8}
+.astro-kfghero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(38px,5.5vw,66px);margin:0 0 16px}
+.astro-kfghero__sub{font-size:clamp(16px,1.9vw,20px);color:#e8ddc9;line-height:1.55;margin:0;max-width:640px}
+@media(max-width:600px){.astro-kfghero__inner{padding:0 20px 48px}.astro-kfghero{min-height:440px}}
+</style>

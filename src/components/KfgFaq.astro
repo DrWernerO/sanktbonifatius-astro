@@ -1,0 +1,64 @@
+---
+// FAQ „Familiengottesdienste" — Präfix `astro-kfgfaq`. Natives <details>.
+const faqs = [
+  {
+    q: 'Ab welchem Alter können Kinder am Kindergottesdienst teilnehmen?',
+    a: 'Der Kindergottesdienst richtet sich an Kinder im Grundschulalter (ca. 4–12 Jahre). Kleinere Kinder sind natürlich willkommen, aber die Inhalte sind auf diese Altersgruppe zugeschnitten. Babys und Kleinkinder können selbstverständlich mit in den Familiengottesdiensten dabei sein.',
+  },
+  {
+    q: 'Müssen wir Gemeindemitglieder sein, um teilzunehmen?',
+    a: 'Nein — unsere Kinder- und Familiengottesdienste sind offen für alle. Ob Sie schon lange zur Gemeinde gehören, gerade erst in Frankfurt angekommen sind oder Kirche einfach kennenlernen möchten: Sie sind herzlich eingeladen. Keine Voranmeldung nötig.',
+  },
+  {
+    q: 'Wie läuft der Kindergottesdienst genau ab?',
+    a: 'Die Kinder starten gemeinsam mit ihren Eltern in der Kirche zur 11-Uhr-Messe. Dann gehen sie mit den Begleiterinnen in die Bücherei (Bilderbuchgottesdienst) oder in den Pfarrsaal/die Krypta (Kreativgottesdienst). Zur Gabenbereitung kommen alle Kinder zurück und feiern die zweite Hälfte gemeinsam mit der Gemeinde.',
+  },
+  {
+    q: 'Findet der Kindergottesdienst auch in den Ferien statt?',
+    a: 'Nein — der Kindergottesdienst findet nur außerhalb der hessischen Schulferien statt. An Feriensonntagen gibt es stattdessen eine normale Sonntagsmesse um 11 Uhr. Aktuelle Termine finden Sie im Pfarrbrief oder auf dieser Seite.',
+  },
+  {
+    q: 'Wo findet der Gottesdienst statt — St. Bonifatius oder St. Wendel?',
+    a: 'Der Kindergottesdienst findet in St. Bonifatius (Sachsenhausen) statt — parallel zur dortigen 11-Uhr-Messe. Familiengottesdienste können in beiden Kirchorten gefeiert werden. Bitte schauen Sie bei jedem Termin auf die konkrete Angabe.',
+  },
+  {
+    q: 'Wie kann ich mich engagieren oder mithelfen?',
+    a: 'Wir freuen uns immer über Menschen, die mitgestalten möchten! Ob Sie eine Einheit übernehmen, Ideen einbringen oder einfach mithelfen wollen — sprechen Sie uns gerne an. Über das Pfarrbüro (069 695 97 58 50) oder per Mail vermitteln wir den Kontakt zu den Ehrenamtlichen, die den Kindergottesdienst gestalten.',
+  },
+];
+---
+<section class="astro-kfgfaq">
+  <div class="astro-kfgfaq__inner">
+    <div class="astro-kfgfaq__head">
+      <h2 class="astro-kfgfaq__title">Alles, was Sie wissen möchten</h2>
+    </div>
+    <div class="astro-kfgfaq__list">
+      {faqs.map(f => (
+        <details class="astro-kfgfaq__item">
+          <summary class="astro-kfgfaq__q">
+            {f.q}
+            <svg class="astro-kfgfaq__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p class="astro-kfgfaq__a">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-kfgfaq{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-kfgfaq__inner{max-width:860px;margin:0 auto;padding:0 40px}
+.astro-kfgfaq__head{text-align:center;margin-bottom:48px}
+.astro-kfgfaq__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0}
+.astro-kfgfaq__list{display:flex;flex-direction:column;gap:10px}
+.astro-kfgfaq__item{background:#fff;border:1px solid #e0d8cf;border-radius:12px;overflow:hidden}
+.astro-kfgfaq__item[open]{border-color:#9a2d2d}
+.astro-kfgfaq__q{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px;cursor:pointer;font-size:16px;font-weight:600;color:#2c2420;list-style:none;line-height:1.4}
+.astro-kfgfaq__q::-webkit-details-marker{display:none}
+.astro-kfgfaq__q:hover{background:#f7f3ef}
+.astro-kfgfaq__chevron{flex-shrink:0;color:#9a2d2d;transition:transform .2s}
+.astro-kfgfaq__item[open] .astro-kfgfaq__chevron{transform:rotate(180deg)}
+.astro-kfgfaq__a{padding:0 24px 20px;font-size:15px;line-height:1.7;color:#5a4a3a;margin:0}
+@media(max-width:600px){.astro-kfgfaq__inner{padding:0 20px}.astro-kfgfaq{padding:52px 0}}
+</style>

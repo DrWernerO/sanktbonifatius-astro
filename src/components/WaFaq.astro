@@ -1,0 +1,63 @@
+---
+// FAQ „BonFamily WhatsApp-Kanal" — Präfix `astro-wafaq`. Natives <details>.
+const faqs = [
+  {
+    q: 'Was wird im Kanal gepostet?',
+    a: 'Wir informieren über aktuelle BonFamily-Angebote: Familiengottesdienste, Baby- und Familien-Lounges, Eltern-Kind-Gruppen, Feste, kurzfristige Änderungen und Inhalte rund um Familien in der Pfarrei Sankt Bonifatius Frankfurt.',
+  },
+  {
+    q: 'Sehen andere meine Telefonnummer?',
+    a: 'Nein. Im WhatsApp-Kanal-Format ist Ihre Nummer für andere Abonnenten nicht sichtbar – und auch nicht für uns als Betreiber. Sie können sich ohne Sorge um Ihre Privatsphäre anmelden.',
+  },
+  {
+    q: 'Kann ich Nachrichten beantworten oder mitschreiben?',
+    a: 'Nein, ein WhatsApp-Kanal ist ein One-Way-Format: Nur wir können Nachrichten posten. Sie können auf Posts mit Emojis reagieren, aber keine Nachrichten schreiben. Das verhindert eine Nachrichtenflut und macht den Kanal angenehm zu nutzen.',
+  },
+  {
+    q: 'Wie kann ich den Kanal verlassen oder stummschalten?',
+    a: 'Sie können jederzeit über den Kanal-Eintrag in WhatsApp Benachrichtigungen stummschalten oder den Kanal komplett verlassen – ohne uns informieren zu müssen.',
+  },
+  {
+    q: 'Brauche ich WhatsApp dafür?',
+    a: 'Ja, für den Kanal benötigen Sie die WhatsApp-App auf Ihrem Handy. Wenn Sie kein WhatsApp nutzen möchten, finden Sie die wichtigsten BonFamily-Infos auch auf unserer Website oder im <a href="/kontakt/newsletter/">BonFamily-Newsletter</a>.',
+  },
+];
+---
+<section class="astro-wafaq">
+  <div class="astro-wafaq__inner">
+    <div class="astro-wafaq__head">
+      <h2 class="astro-wafaq__title">Häufige Fragen</h2>
+      <p class="astro-wafaq__sub">Antworten auf die meistgestellten Fragen zum BonFamily-Kanal.</p>
+    </div>
+    <div class="astro-wafaq__list">
+      {faqs.map(f => (
+        <details class="astro-wafaq__item">
+          <summary class="astro-wafaq__q">
+            {f.q}
+            <svg class="astro-wafaq__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="astro-wafaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-wafaq{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-wafaq__inner{max-width:860px;margin:0 auto;padding:0 40px}
+.astro-wafaq__head{text-align:center;margin-bottom:48px}
+.astro-wafaq__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-wafaq__sub{font-size:17px;color:#6b5c52;margin:0}
+.astro-wafaq__list{display:flex;flex-direction:column;gap:10px}
+.astro-wafaq__item{background:#fff;border:1px solid #e0d8cf;border-radius:12px;overflow:hidden}
+.astro-wafaq__item[open]{border-color:#128C7E}
+.astro-wafaq__q{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px;cursor:pointer;font-size:16px;font-weight:600;color:#2c2420;list-style:none;line-height:1.4}
+.astro-wafaq__q::-webkit-details-marker{display:none}
+.astro-wafaq__q:hover{background:#f7f3ef}
+.astro-wafaq__chevron{flex-shrink:0;color:#128C7E;transition:transform .2s}
+.astro-wafaq__item[open] .astro-wafaq__chevron{transform:rotate(180deg)}
+.astro-wafaq__a{padding:0 24px 20px;font-size:15px;line-height:1.7;color:#5a4a3a}
+.astro-wafaq__a a{color:#128C7E;text-decoration:underline}
+@media(max-width:600px){.astro-wafaq__inner{padding:0 20px}.astro-wafaq{padding:52px 0}}
+</style>

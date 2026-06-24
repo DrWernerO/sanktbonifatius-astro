@@ -1,0 +1,52 @@
+---
+// Vorteils-Karten „BonFamily WhatsApp-Kanal" — Präfix `astro-waben`.
+const benefits = [
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+    title: 'Kein Stress',
+    text: 'Ein Klick genügt zum Abonnieren. Da nur wir posten können, gibt es keine Nachrichtenflut wie in so manch anderem Gruppenchat.',
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+    title: 'Privatsphäre',
+    text: 'Ihre Telefonnummer ist für andere Abonnenten – und auch für uns – nicht sichtbar.',
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+    title: 'Flexibel',
+    text: 'Sie entscheiden – Benachrichtigungen können jederzeit stummgeschaltet oder der Kanal verlassen werden.',
+  },
+];
+---
+<section class="astro-waben">
+  <div class="astro-waben__inner">
+    <div class="astro-waben__head">
+      <h2 class="astro-waben__title">So einfach &amp; sicher ist es</h2>
+      <p class="astro-waben__sub">Drei Gründe, warum sich der WhatsApp-Kanal lohnt.</p>
+    </div>
+    <div class="astro-waben__grid">
+      {benefits.map(b => (
+        <div class="astro-waben__card">
+          <div class="astro-waben__icon" set:html={b.icon} />
+          <h3 class="astro-waben__card-title">{b.title}</h3>
+          <p class="astro-waben__card-text">{b.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-waben{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-waben__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-waben__head{text-align:center;margin-bottom:48px}
+.astro-waben__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-waben__sub{font-size:17px;color:#6b5c52;margin:0;max-width:500px;margin-inline:auto}
+.astro-waben__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.astro-waben__card{background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:36px 28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 4px 20px rgba(30,21,18,.05)}
+.astro-waben__icon{color:#128C7E;flex-shrink:0}
+.astro-waben__card-title{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:700;color:#2c2420;margin:0}
+.astro-waben__card-text{font-size:15px;line-height:1.65;color:#6b5c52;margin:0;flex:1}
+@media(max-width:860px){.astro-waben__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-waben__inner{padding:0 20px}.astro-waben{padding:52px 0}}
+</style>
