@@ -35,7 +35,7 @@ const loop = [...photos, ...photos];
         src={p.u}
         alt={i < photos.length ? p.a : ''}
         aria-hidden={i >= photos.length ? 'true' : undefined}
-        loading="lazy"
+        loading={i < photos.length ? 'eager' : 'lazy'}
         decoding="async"
       />
     ))}
