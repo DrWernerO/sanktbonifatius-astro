@@ -1,0 +1,110 @@
+---
+// „Unsere besonderen Formate" (ersetzt WP-Block `gd-fcards`). Eigene Klassen `astro-gdbfmt`.
+// 3 Karten: Fiat Lux, Taizé, BonEsprit. SVG-Symbole statt Emoji (Handbuch 8.7).
+// Termine fest gepflegt; pro Termin Datum + optionaler Mitwirkenden-Zusatz.
+const formats = [
+  {
+    mod: 'fiatlux',
+    name: 'Fiat Lux',
+    tagline: 'Meditativ · Kerzenlicht · Stille',
+    // Kerze/Flamme
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c1.5 2 3 3.4 3 5a3 3 0 0 1-6 0c0-1.6 1.5-3 3-5z"/><path d="M9 12h6v8a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg>`,
+    desc: 'Ein stiller, berührender Gottesdienst bei Kerzenlicht. Mit wechselnden Solisten, die ihren Instrumenten stimmungsvolle Klänge entlocken und eindrucksvoller Beleuchtung. Mit kurzen geistlichen Impulsen und Raum für persönliche Einkehr. Für alle, die Gott im Leisen begegnen möchten.',
+    termine: [
+      { date: 'Sa 19. September 2026', act: 'mit dem Frankfurter Saxophon Orchester' },
+      { date: 'Sa 17. Oktober 2026', act: 'mit Christopher Brandt an der Gitarre' },
+      { date: 'Sa 14. November 2026', act: 'mit Sue Schlotte am Cello' },
+      { date: 'Sa 19. Dezember 2026', act: 'mit Bastian Fiebig am Saxophon' },
+      { date: 'Sa 16. Januar 2027', act: '' },
+    ],
+    location: 'Pfarrkirche St. Bonifatius, 18:30 Uhr',
+  },
+  {
+    mod: 'taize',
+    name: 'Taizé',
+    tagline: 'Ökumenisch · Gesang · Gemeinschaft',
+    // Note / Gesang
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>`,
+    desc: 'Die wunderschönen meditativen Gesänge der Gemeinschaft von Taizé, eine stimmungsvolle Beleuchtung und Zeiten der Stille schaffen einen Raum der inneren Einkehr. Wer möchte, kann einen persönlichen Segen empfangen. Ökumenisch offen – für Suchende und Glaubende aller Konfessionen.',
+    termine: [
+      { date: 'Sa 22. August 2026', act: '' },
+      { date: 'Sa 26. September 2026', act: '' },
+      { date: 'Sa 24. Oktober 2026', act: '' },
+      { date: 'Sa 21. November 2026', act: '' },
+      { date: 'Sa 23. Januar 2027', act: '' },
+    ],
+    location: 'Pfarrkirche St. Bonifatius, 18:30 Uhr',
+  },
+  {
+    mod: 'bonesprit',
+    name: 'BonEsprit',
+    tagline: 'Lebendig · Zeitgemäß · Offen',
+    // Gemeinschaft / Menschen
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    desc: 'Lebendige, zeitgemäße Gottesdienste mit Band, persönlichem Impuls und echter Gemeinschaft. Spontan, ehrlich und nah am Leben – offen für alle, die Glauben neu entdecken oder vertiefen möchten. Keine Vorkenntnisse, keine Hürden – einfach kommen.',
+    termine: [
+      { date: 'So 13. September 2026', act: 'mit der Band Sandkorn' },
+      { date: 'So 8. November 2026', act: 'mit dem Chor Surprise und C. Kuhn' },
+      { date: 'So 13. Dezember 2026', act: 'mit Lukas Kienast an Keyboard und Gesang' },
+    ],
+    location: 'Pfarrkirche St. Bonifatius, 11:00 Uhr',
+  },
+];
+---
+<section class="astro-gdbfmt" id="formate">
+  <div class="astro-gdbfmt__inner">
+    <h2 class="astro-gdbfmt__hl">Unsere besonderen Formate</h2>
+    <div class="astro-gdbfmt__grid">
+      {formats.map((f) => (
+        <article class={`astro-gdbfmt-card astro-gdbfmt-card--${f.mod}`}>
+          <div class="astro-gdbfmt-card__top">
+            <span class="astro-gdbfmt-card__symbol" set:html={f.icon} />
+            <div>
+              <h3 class="astro-gdbfmt-card__name">{f.name}</h3>
+              <p class="astro-gdbfmt-card__tagline">{f.tagline}</p>
+            </div>
+          </div>
+          <p class="astro-gdbfmt-card__desc">{f.desc}</p>
+          <div class="astro-gdbfmt-card__divider"></div>
+          <p class="astro-gdbfmt-card__dates-head">Termine</p>
+          <ul class="astro-gdbfmt-card__dates">
+            {f.termine.map((t) => (
+              <li>
+                <span class="astro-gdbfmt-card__date">{t.date}</span>
+                {t.act && <span class="astro-gdbfmt-card__act">{t.act}</span>}
+              </li>
+            ))}
+          </ul>
+          <p class="astro-gdbfmt-card__location">{f.location}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdbfmt{background:#f7f3ef;padding:72px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-gdbfmt__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-gdbfmt__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,42px);font-weight:700;color:#2c2420;text-align:center;margin:0 0 44px}
+.astro-gdbfmt__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
+.astro-gdbfmt-card{background:#fff;border-radius:14px;padding:30px 28px;box-shadow:0 2px 14px rgba(44,36,32,.06);border-top:4px solid #9a2d2d;display:flex;flex-direction:column}
+.astro-gdbfmt-card--taize{border-top-color:#c5a55a}
+.astro-gdbfmt-card--bonesprit{border-top-color:#6b8e7f}
+.astro-gdbfmt-card__top{display:flex;align-items:center;gap:14px;margin:0 0 18px}
+.astro-gdbfmt-card__symbol{flex-shrink:0;width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#f7f3ef;color:#9a2d2d}
+.astro-gdbfmt-card--taize .astro-gdbfmt-card__symbol{color:#a8842f}
+.astro-gdbfmt-card--bonesprit .astro-gdbfmt-card__symbol{color:#4f7264}
+.astro-gdbfmt-card__symbol svg{width:26px;height:26px}
+.astro-gdbfmt-card__name{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#2c2420;margin:0}
+.astro-gdbfmt-card__tagline{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#928269;margin:4px 0 0}
+.astro-gdbfmt-card__desc{font-size:15px;color:#6b5c52;line-height:1.6;margin:0 0 20px}
+.astro-gdbfmt-card__divider{height:1px;background:#ece4da;margin:0 0 18px}
+.astro-gdbfmt-card__dates-head{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px}
+.astro-gdbfmt-card__dates{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:10px;flex-grow:1}
+.astro-gdbfmt-card__dates li{display:flex;flex-direction:column;gap:2px}
+.astro-gdbfmt-card__date{font-size:15px;font-weight:600;color:#2c2420}
+.astro-gdbfmt-card__act{font-size:13px;color:#928269}
+.astro-gdbfmt-card__location{font-size:13px;color:#6b5c52;margin:0;padding-top:14px;border-top:1px solid #ece4da}
+@media(max-width:860px){.astro-gdbfmt__grid{grid-template-columns:1fr;max-width:520px;margin:0 auto}}
+@media(max-width:600px){.astro-gdbfmt{padding:52px 0}.astro-gdbfmt__inner{padding:0 20px}}
+</style>

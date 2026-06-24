@@ -1,0 +1,26 @@
+---
+// „Wo wir feiern" (ersetzt WP-Block `gd-maps-wrap`). Eigene Klassen `astro-gdbmaps`.
+// Adresse der Pfarrkirche + Link zu Google Maps (kein iframe-Embed, datensparsam).
+const mapsHref = 'https://maps.google.com/?q=Pfarrkirche+St.+Bonifatius+Holbeinstra%C3%9Fe+70+Frankfurt';
+---
+<section class="astro-gdbmaps">
+  <div class="astro-gdbmaps__inner">
+    <h2 class="astro-gdbmaps__hl">Wo wir feiern</h2>
+    <p class="astro-gdbmaps__addr">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Pfarrkirche St. Bonifatius · Holbeinstraße 70 · 60596 Frankfurt am Main
+    </p>
+    <a class="astro-gdbmaps__btn" href={mapsHref} target="_blank" rel="noopener">In Google Maps öffnen</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdbmaps{background:#fff;padding:64px 0}
+.astro-gdbmaps__inner{max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-gdbmaps__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 18px}
+.astro-gdbmaps__addr{display:inline-flex;align-items:center;gap:10px;font-size:clamp(15px,1.8vw,18px);color:#6b5c52;line-height:1.55;margin:0 0 26px}
+.astro-gdbmaps__addr svg{width:20px;height:20px;color:#9a2d2d;flex-shrink:0}
+.astro-gdbmaps__btn{display:inline-block;padding:13px 28px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:14px;font-weight:600;transition:background .2s}
+.astro-gdbmaps__btn:hover{background:#7e2424}
+@media(max-width:600px){.astro-gdbmaps{padding:48px 0}.astro-gdbmaps__inner{padding:0 20px}.astro-gdbmaps__addr{flex-direction:column;gap:8px}}
+</style>

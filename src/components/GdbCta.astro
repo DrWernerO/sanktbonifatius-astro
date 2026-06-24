@@ -1,0 +1,20 @@
+---
+// CTA „Kommen Sie einfach vorbei" (ersetzt WP-Block `gd-cta`). Eigene Klassen `astro-gdbcta`.
+---
+<section class="astro-gdbcta">
+  <div class="astro-gdbcta__inner">
+    <h2 class="astro-gdbcta__hl">Kommen Sie einfach vorbei</h2>
+    <p class="astro-gdbcta__sub">Alle Gottesdienste sind offen für jeden. Keine Anmeldung, keine Vorkenntnisse nötig.</p>
+    <a class="astro-gdbcta__btn" href="/gottesdienst-glaube/gottesdienstordnung/">Vollständige Gottesdienstordnung →</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-gdbcta{background:linear-gradient(135deg,#2c1a12 0%,#4a2620 55%,#6b2e2a 100%);color:#f0e8d8;padding:72px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-gdbcta__inner{max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-gdbcta__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.6vw,40px);font-weight:700;color:#fff;margin:0 0 16px}
+.astro-gdbcta__sub{font-size:clamp(15px,1.8vw,18px);color:#e0d6c6;line-height:1.65;margin:0 auto 30px;max-width:520px}
+.astro-gdbcta__btn{display:inline-block;padding:14px 32px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:15px;font-weight:600;transition:background .2s}
+.astro-gdbcta__btn:hover{background:#7e2424}
+@media(max-width:600px){.astro-gdbcta{padding:52px 0}.astro-gdbcta__inner{padding:0 20px}}
+</style>

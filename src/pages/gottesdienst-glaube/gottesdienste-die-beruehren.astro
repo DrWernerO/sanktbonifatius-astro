@@ -1,0 +1,23 @@
+---
+// Seite „Gottesdienste, die berühren" — WP-Seite 47578
+// (/gottesdienst-glaube/gottesdienste-die-beruehren/), vollständig aus eigenen astro-Komponenten
+// (kein set:html mit WP-Markup, vgl. Handbuch 9b). Nav + Footer global aus Base.astro (Handbuch 4b).
+// SEO live aus WP (SEOPress) via getSeoHead(). Eigene Klassen mit Präfix `astro-gdb`
+// (gottesdienste-die-berühren) — nicht `astro-gd` (Elternseite) und nicht WP `gd-` (Handbuch 3).
+import Base from '../../layouts/Base.astro';
+import GdbHero from '../../components/GdbHero.astro';
+import GdbIntro from '../../components/GdbIntro.astro';
+import GdbFormate from '../../components/GdbFormate.astro';
+import GdbCta from '../../components/GdbCta.astro';
+import GdbMaps from '../../components/GdbMaps.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/gottesdienst-glaube/gottesdienste-die-beruehren/');
+---
+<Base seo={seo} title="Gottesdienste, die berühren · St. Bonifatius Frankfurt">
+  <GdbHero />
+  <GdbIntro />
+  <GdbFormate />
+  <GdbCta />
+  <GdbMaps />
+</Base>
