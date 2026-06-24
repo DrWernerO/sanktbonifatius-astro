@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **79 Live-Seiten erfasst · 26 bereits in Astro übernommen bzw. per Direktlink erledigt · 53 offen.** Stand: 23.06.2026.
+> **79 Live-Seiten erfasst · 27 bereits in Astro übernommen bzw. per Direktlink erledigt · 52 offen.** Stand: 24.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -85,7 +85,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
 | Gottesdienst & Glaube | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/) | `src/pages/gottesdienst-glaube.astro` | Werner | ✅ erledigt | Page-ID 45667 |
-| Gottesdienste, die berühren | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/gottesdienste-die-beruehren/) | — | — | offen |  |
+| Gottesdienste, die berühren | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/gottesdienste-die-beruehren/) | `src/pages/gottesdienst-glaube/gottesdienste-die-beruehren.astro` | Werner | ✅ erledigt | Page-ID 47578, eigene Gdb*-Komponenten (Präfix `astro-gdb`); Foto-Hero, Intro, 3 Format-Karten (Fiat Lux/Taizé/BonEsprit mit Terminen), CTA, „Wo wir feiern" (Maps-Link) |
 | Gottesdienstordnung | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/gottesdienstordnung/) | `src/pages/gottesdienst-glaube/gottesdienstordnung.astro` | Werner | ✅ erledigt |  |
 | Online-Gebetbuch | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/online-gebetbuch/) | — | — | offen |  |
 | Taufanmeldung | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/taufanmeldung/) | — | — | offen | Inhaltlich von der Taufe-Seite (Abschnitt 4) abgedeckt |

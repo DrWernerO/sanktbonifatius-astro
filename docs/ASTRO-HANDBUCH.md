@@ -856,3 +856,94 @@ Die Sakrament-Kacheln verlinken auf `/segen-sakramente/firmung/`, `…/erstkommu
 `…/beichte/`, `…/krankensalbung/` — diese Seiten sind in Astro **noch nicht gebaut** (nur **Taufe**
 existiert). Pfade zeigen schon auf den künftigen Zielort (konsistent mit `GdSacraments.astro`). Vor
 Go-Live im Portfolio-Check (Abschnitt 12) abgleichen bzw. die nächsten Sakrament-Unterseiten bauen.
+
+---
+
+## 15. Seite „BonFamily" (Page 45898, `/bonfamily/`) — eigene Komponenten ✅
+
+**Stand: ABGESCHLOSSEN.** Familien-/Kinder-Übersichtsseite, wie „Kontakt" (Abschnitt 11), „Taufe"
+(Abschnitt 13) und „Segen und Sakramente" (Abschnitt 14) vollständig aus eigenen `astro-`-Komponenten
+gebaut, **ohne `set:html` mit WP-Markup**. Feste Inhalte direkt in den Komponenten; nur **Termine**
+(EventCalendar, live aus WP) und der **SEO-Head** kommen aus WordPress.
+
+### Aufbau ([`src/pages/bonfamily.astro`](../src/pages/bonfamily.astro))
+```astro
+<Base seo={await getSeoHead('/bonfamily/')} title="BonFamily – Familien & Kinder · …">
+  <BfHero />            <!-- astro-bfhero    : 3-zeiliger Titel („BonFamily" in Rot), Pill-Badge, Foto-Hero -->
+  <BfStrip />           <!-- astro-bfstrip   : zentrierte Schnellzugriff-Leiste -->
+  <BfWelcome />         <!-- astro-bfwelcome : Willkommens-Text (ein Absatz/Block) -->
+  <EventCalendar … />   <!-- astro-ev        : „Nächste BonFamily-Termine", category={2586} -->
+  <BfMusical />         <!-- astro-bfmusical : Musicalprojekt-Ankündigung + Plakat (id=bonfamily-musical) -->
+  <BfGottesdienste />   <!-- astro-bfgd      : dunkle Band-Section, 3 Gottesdiensttypen (id=bonfamily-gottesdienste) -->
+  <BfTaufe />           <!-- astro-bftaufe   : Taufe-Teaser → /segen-sakramente/taufe/ -->
+  <BfLounge />          <!-- astro-bflounge  : Baby-Lounge + Familien-Lounge, 2 Karten (id=bonfamily-lounge) -->
+  <BfGallery />         <!-- astro-bfgal     : 11 Fotos lokal, 3 Thumbnails + „Alle Fotos" → Lightbox -->
+  <BfKontakt />         <!-- astro-bfkontakt : Ansprechpartner mit Foto (id=bonfamily-kontakt) -->
+  <BfFaq />             <!-- astro-bffaq     : FAQ, natives <details> (id=bonfamily-faq) -->
+  <BfCta />             <!-- astro-bfcta     : Abschluss-CTA -->
+</Base>
+```
+Nav + Footer global aus `Base.astro` (Abschnitt 4b). Route `pages/bonfamily.astro` → WP-Pfad
+`/bonfamily/` (wichtig für `getSeoHead` + canonical).
+
+### Termine: gefilterter EventCalendar
+`<EventCalendar category={2586} />` zeigt nur die BonFamily-Event-Kategorie (ID **2586**, Team-Handbuch 07).
+Der Block liegt in `<div id="bonfamily-termine" class="astro-bf-anchor">`; seitenspezifisches
+`<style is:global>` in `bonfamily.astro` färbt **nur hier** die Termin-Überschriften Bordeaux (`#9a2d2d`)
+und setzt die Karten auf weißen Hintergrund — der EventCalendar selbst bleibt unverändert/wiederverwendbar.
+
+### Sprung-Anker
+Die Schnellzugriff-Leiste (`BfStrip`) springt zu den Section-IDs (`#bonfamily-musical`,
+`-gottesdienste`, `-lounge`, `-kontakt`, `-faq`). `scroll-margin-top: 96px` gleicht die fixierte
+80px-Nav aus (im globalen `<style>` der Seite).
+
+### Bilder & Galerie
+- **11 Galerie-Fotos** lokal unter `public/uploads/2023/07/bonfamily-auswahl-*.jpg` (vom WP geladen,
+  Abschnitt 1b), Hero `public/uploads/2026/04/bonfamily-hero.jpg`, Musical-Plakat unter
+  `public/uploads/2026/06/`.
+- Galerie-Lightbox folgt dem Muster `TaufeFest.astro` / `GdGallery.astro` (3 Thumbnails →
+  „Alle Fotos" öffnet die volle Galerie mit Blättern + Zähler).
+
+> **Hinweis (goldene Regel, Abschnitt 3):** Durchgängiges Präfix `astro-bf…` (z.B. `astro-bfgd`,
+> **nicht** `bf-gd-…`) — keine WP-Theme-Klassen wiederverwenden.
+
+---
+
+## 16. Seite „Gottesdienste, die berühren" (Page 47578, `/gottesdienst-glaube/gottesdienste-die-beruehren/`) ✅
+
+**Stand: ABGESCHLOSSEN.** Unterseite von „Gottesdienst & Glaube". Wie Kontakt/Taufe/Segen/BonFamily
+vollständig aus eigenen `astro-`-Komponenten gebaut, **ohne `set:html` mit WP-Markup**. Feste Inhalte
+direkt in den Komponenten; nur der SEO-Head kommt live aus WordPress.
+
+### Aufbau ([`src/pages/gottesdienst-glaube/gottesdienste-die-beruehren.astro`](../src/pages/gottesdienst-glaube/gottesdienste-die-beruehren.astro))
+```astro
+<Base seo={await getSeoHead('/gottesdienst-glaube/gottesdienste-die-beruehren/')} title="…">
+  <GdbHero />     <!-- astro-gdbhero  : Full-Bleed-Foto-Hero + 2 Buttons (Gottesdienstordnung, Kontakt) -->
+  <GdbIntro />    <!-- astro-gdbintro : „Wo Glaube Raum bekommt" -->
+  <GdbFormate />  <!-- astro-gdbfmt   : „Unsere besonderen Formate" — 3 Karten Fiat Lux/Taizé/BonEsprit -->
+  <GdbCta />      <!-- astro-gdbcta   : „Kommen Sie einfach vorbei" → Gottesdienstordnung -->
+  <GdbMaps />     <!-- astro-gdbmaps  : „Wo wir feiern" — Adresse + Google-Maps-Link (kein iframe) -->
+</Base>
+```
+Route liegt in `pages/gottesdienst-glaube/` (Verzeichnis existierte schon wegen `gottesdienstordnung.astro`)
+→ erzeugt exakt den WP-Pfad (wichtig für `getSeoHead` + canonical).
+
+### Präfix-Wahl (goldene Regel, Abschnitt 3)
+Die WP-Seite nutzt `gd-hero`, `gd-intro`, `gd-fc…`, `gd-cta`, `gd-maps-wrap`. Diese sind tabu.
+**Achtung doppelte Kollisionsgefahr:** Die Elternseite „Gottesdienst & Glaube" belegt bereits
+`astro-gd…` (`GdHero`, `GdWelcome` …). Daher hier **eigenes Präfix `astro-gdb`** (gottesdienste-die-
+berühren), damit weder WP-`gd-` noch die `astro-gd`-Klassen der Elternseite kollidieren.
+
+### Format-Karten (`GdbFormate.astro`)
+3 Karten aus einem Daten-Array (`name`, `tagline`, SVG-`icon`, `desc`, `termine[]` mit
+`{date, act}`, `location`). Pro Termin Datum + optionaler Mitwirkenden-Zusatz (`act`). Farb-Akzent
+je Format über `--<mod>`-Modifier (Bordeaux/Gold/Grün am oberen Kartenrand + Icon-Farbe). Symbole
+als **SVG** (Kerze/Note/Gemeinschaft), kein Emoji (Abschnitt 8.7). Grid 3-spaltig, ≤860px einspaltig.
+
+### Bild
+Ein Foto-Hero (`stbonifatius-gottesdienste-die-beruehren.jpg`), einmalig vom WP nach
+`public/uploads/2023/07/` geladen (Abschnitt 1b) und als Full-Bleed-Hintergrund + Verlauf-Overlay
+übernommen (Muster `GdHero`/`SegenHero`). Keine weiteren Bilder auf der Seite.
+
+> **Termine fest im Code** (nicht aus der WP-API), da es sich um wenige, planbare Sondertermine
+> handelt. Ändern sie sich, in `GdbFormate.astro` im `formats`-Array pflegen.
