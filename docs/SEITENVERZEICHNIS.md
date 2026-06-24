@@ -90,11 +90,11 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Online-Gebetbuch | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/online-gebetbuch/) | — | — | offen |  |
 | Taufanmeldung | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/taufanmeldung/) | — | — | offen | Inhaltlich von der Taufe-Seite (Abschnitt 4) abgedeckt |
 
-## 7 · BoniFamily (mit Unterseiten)
+## 7 · BonFamily (mit Unterseiten)
 
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
-| BoniFamily | [Link](https://www.sanktbonifatius.de/bonfamily/) | `src/pages/bonfamily.astro` | Frank | ✅ erledigt | Page-ID 45898; eigene Bf*-Komponenten (Präfix `astro-bf`); Hero, Strip, Welcome, EventCalendar (Kat. 2586), Gottesdienste, Taufe-Teaser, Lounge-Karten, Fotogalerie (11 Fotos), Ansprechpartner, FAQ, CTA |
+| BonFamily | [Link](https://www.sanktbonifatius.de/bonfamily/) | `src/pages/bonfamily.astro` | Frank | ✅ erledigt | Page-ID 45898; eigene Bf*-Komponenten (Präfix `astro-bf`); Hero, Strip, Welcome, EventCalendar (Kat. 2586), Gottesdienste, Taufe-Teaser, Lounge-Karten, Fotogalerie (11 Fotos), Ansprechpartner, FAQ, CTA |
 | Familiengottesdienste | [Link](https://www.sanktbonifatius.de/bonfamily/familiengottesdienste/) | `src/pages/bonfamily/familiengottesdienste.astro` | Frank | ✅ erledigt | Page-ID 48268; eigene Kfg*-Komponenten (Präfix `astro-kfg`); Foto-Hero, Info-Strip (1.&3. Sonntag), Intro, 2 Format-Kacheln (Bilderbuch-/Kreativ-/Familiengottesdienst) mit Fotos, Terminliste 3-spaltig, 6 FAQ, CTA |
 | Familientreffpunkte | [Link](https://www.sanktbonifatius.de/bonfamily/familientreffpunkte/) | `src/pages/bonfamily/familientreffpunkte.astro` | Frank | ✅ erledigt | Page-ID 49158; eigene Fm*-Komponenten (Präfix `astro-fm`); Hero, Intro, 2 Treffpunkt-Karten (Baby-Lounge + Familien-Lounge St. Bonif. / Eltern-Kind-Gruppe St. Wendel) mit Fotos, Schnell-Links, Kontakt-Section |
 | WhatsApp-Kanal | [Link](https://www.sanktbonifatius.de/bonfamily/whatsapp-kanal/) | `src/pages/bonfamily/whatsapp-kanal.astro` | Frank | ✅ erledigt | Page-ID 49171; eigene Wa*-Komponenten (Präfix `astro-wa`); grüner WA-Farbverlauf-Hero, 3 Vorteils-Karten, CTA-Box „Heißer Draht", 5 FAQ |
