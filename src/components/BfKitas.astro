@@ -1,0 +1,86 @@
+---
+// Kita-Teaser auf der BonFamily-Seite — Infokachel mit Link zur Kitas-Übersichtsseite.
+// Präfix `astro-bfkitas`.
+const kitas = [
+  'Kita St. Bonifatius',
+  'Kita St. Aposteln',
+  'Kita Herz Jesu',
+  'Kita St. Wendel',
+  'Kita Deutschorden',
+];
+---
+<section class="astro-bfkitas">
+  <div class="astro-bfkitas__wrap">
+    <div class="astro-bfkitas__card">
+
+      <div class="astro-bfkitas__icon-col">
+        <div class="astro-bfkitas__icon-ring">
+          <!-- Haus / Kita-Icon -->
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
+               stroke="#9a2d2d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+               aria-hidden="true">
+            <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+            <path d="M9 21V12h6v9"/>
+            <circle cx="17" cy="8" r="2.5" fill="#f7f3ef" stroke="#9a2d2d" stroke-width="1.4"/>
+            <path d="M17 6.5v1.3l.8.8" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <span class="astro-bfkitas__eyebrow">Pfarrei St. Bonifatius</span>
+      </div>
+
+      <div class="astro-bfkitas__body">
+        <h2 class="astro-bfkitas__title">Unsere Kindertagesstätten</h2>
+        <p class="astro-bfkitas__lead">
+          Fünf Kitas in der Pfarrei — mit herzlicher Betreuung, christlichen Werten und viel Raum
+          zum Spielen, Lernen und Wachsen. Für Kinder von 0 bis 6 Jahren.
+        </p>
+        <ul class="astro-bfkitas__list">
+          {kitas.map(k => (
+            <li class="astro-bfkitas__item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#9a2d2d" aria-hidden="true">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              </svg>
+              {k}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="astro-bfkitas__cta-col">
+        <a href="/kitas/" class="astro-bfkitas__btn">
+          Zu den Kitas
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bfkitas{padding:56px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-bfkitas__wrap{max-width:960px;margin:0 auto;padding:0 40px}
+.astro-bfkitas__card{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(30,21,18,.11);padding:40px 48px;border-left:4px solid #9a2d2d}
+.astro-bfkitas__icon-col{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:80px}
+.astro-bfkitas__icon-ring{width:72px;height:72px;border-radius:50%;background:#fdf4f4;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.astro-bfkitas__eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9a2d2d;text-align:center;line-height:1.3}
+.astro-bfkitas__body{border-left:1px solid #e8ddd4;border-right:1px solid #e8ddd4;padding:0 40px}
+.astro-bfkitas__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,2.2vw,26px);font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-bfkitas__lead{font-size:15px;line-height:1.65;color:#5a4a3a;margin:0 0 16px;max-width:480px}
+.astro-bfkitas__list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
+.astro-bfkitas__item{display:flex;align-items:center;gap:7px;font-size:14px;color:#3d2b1a;font-weight:500}
+.astro-bfkitas__cta-col{display:flex;align-items:center;justify-content:center;min-width:160px}
+.astro-bfkitas__btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:#9a2d2d;color:#fff;border-radius:50px;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .18s}
+.astro-bfkitas__btn:hover{background:#7e2424}
+@media(max-width:860px){
+  .astro-bfkitas__card{grid-template-columns:1fr;gap:28px;padding:32px 28px}
+  .astro-bfkitas__icon-col{flex-direction:row;min-width:unset}
+  .astro-bfkitas__body{border:none;padding:0}
+  .astro-bfkitas__cta-col{justify-content:flex-start;min-width:unset}
+}
+@media(max-width:600px){.astro-bfkitas__wrap{padding:0 20px}.astro-bfkitas{padding:40px 0}.astro-bfkitas__list{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,54 @@
+---
+// Auto-scrollende Fotogalerie BonFamily — 18 Fotos aus WP-Mediathek Ordner BonFamily/Fotogalerie.
+// IDs 50665–50682, alle in wp-content/uploads/2026/06/.
+// CSS-Animation, doppelte Bildliste für nahtlosen Loop. Muster: PhotoMarquee.astro.
+// Präfix `astro-bfmarquee`.
+const BASE = 'https://www.sanktbonifatius.de/wp-content/uploads/2026/06/';
+const photos = [
+  { u: BASE + '3_StMartin_cf_1.jpg',                     a: 'Kinder beim Martinsfest in der Pfarrei' },
+  { u: BASE + '250316_Wendel_FamiGo_hires-03027.jpg',    a: 'FamiGo in St. Wendel – Familien unterwegs' },
+  { u: BASE + '250316_Wendel_FamiGo_hires-03157.jpg',    a: 'FamiGo in St. Wendel – gemeinsam aktiv' },
+  { u: BASE + '250316_Wendel_FamiGo_hires-03245.jpg',    a: 'FamiGo in St. Wendel – Begegnung und Spaß' },
+  { u: BASE + '250406_Bilderbuch_GoDi_hires-05850.jpg',  a: 'Bilderbuch-Gottesdienst – Kinder und Glaube' },
+  { u: BASE + '250516_BonFriday_hires-9515.jpg',         a: 'BonFriday – Jugendliche beim Familienfest' },
+  { u: BASE + '250516_BonFriday_hires-9612.jpg',         a: 'BonFriday – Begegnung bei Sankt Bonifatius' },
+  { u: BASE + '260329_Bonifatsius-1013293.jpg',          a: 'Gemeinschaftsleben in der Pfarrei' },
+  { u: BASE + 'Babylounge_hires-0249.jpg',               a: 'Baby-Lounge – Babys spielen gemeinsam' },
+  { u: BASE + 'Babylounge_hires-0689.jpg',               a: 'Baby-Lounge – Eltern und Babys in der Gemeinschaft' },
+  { u: BASE + 'BonFriday-14.jpg',                        a: 'BonFriday – Familien und Kinder beim Fest' },
+  { u: BASE + 'BonFriday-18.jpg',                        a: 'BonFriday – Lebendige Begegnung in der Pfarrei' },
+  { u: BASE + 'BonFriday-22.jpg',                        a: 'BonFriday – Spaß für die ganze Familie' },
+  { u: BASE + 'familiengottesdienst-bonifatius-00011.jpg', a: 'Familiengottesdienst in St. Bonifatius' },
+  { u: BASE + 'familiengottesdienst-bonifatius-00017.jpg', a: 'Kinder im Familiengottesdienst' },
+  { u: BASE + 'familiengottesdienst-bonifatius-00027.jpg', a: 'Gottesdienst mit Familien in der Pfarrei' },
+  { u: BASE + 'familiengottesdienst-bonifatius-00031.jpg', a: 'Familiengottesdienst – gemeinsam feiern' },
+  { u: BASE + 'kinder-familie-stbonifatius-5.jpg',        a: 'Kinder und Familien bei Sankt Bonifatius Frankfurt' },
+];
+// Doppelt → nahtloser Loop (Animation läuft -50% der Gesamtbreite)
+const loop = [...photos, ...photos];
+---
+<div class="astro-bfmarquee">
+  <p class="astro-bfmarquee__hl">Einblicke in unser BonFamily-Leben</p>
+  <div class="astro-bfmarquee__track">
+    {loop.map((p, i) => (
+      <img
+        src={p.u}
+        alt={i < photos.length ? p.a : ''}
+        aria-hidden={i >= photos.length ? 'true' : undefined}
+        loading="lazy"
+        decoding="async"
+      />
+    ))}
+  </div>
+</div>
+
+<style is:global>
+.astro-bfmarquee{overflow:hidden;background:#2c2420;padding:14px 0;width:calc(100% - 80px);max-width:1120px;margin:48px auto;border-radius:12px}
+.astro-bfmarquee__hl{text-align:center;color:#c5a55a;font-size:.75rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;margin:0 0 10px;font-family:'Source Sans 3',sans-serif}
+.astro-bfmarquee__track{display:flex;gap:10px;width:max-content;animation:astro-bfmarquee-scroll 120s linear infinite}
+.astro-bfmarquee__track:hover{animation-play-state:paused}
+.astro-bfmarquee__track img{height:200px;width:auto;object-fit:cover;border-radius:4px;display:block;flex-shrink:0}
+@keyframes astro-bfmarquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:600px){.astro-bfmarquee{width:calc(100% - 40px);margin:32px auto}}
+@media(prefers-reduced-motion:reduce){.astro-bfmarquee__track{animation:none;overflow-x:auto}}
+</style>
