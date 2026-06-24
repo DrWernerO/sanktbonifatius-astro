@@ -1,0 +1,59 @@
+---
+// „Kontakt zur Pfarrei" — WP-Seite 47631 (WP-Block `tr-contact-sec`, oberer Teil). Eigene Klassen
+// `astro-trcontact`. Pfarrbüro-Infokarte (Adresse/Telefon/E-Mail). Anker `astro-trcontact` ist
+// das Ziel des Hero-Buttons. E-Mail im Klartext (wartbar, Handbuch 11).
+const TEL = '+4969695975850';
+const TEL_LABEL = '069 – 69597585-0';
+const MAIL = 'info@sanktbonifatius.de';
+---
+<section class="astro-trcontact" id="astro-trcontact">
+  <div class="astro-trcontact__inner">
+    <div class="astro-trcontact__intro">
+      <span class="astro-trcontact__eyebrow">Wir sind erreichbar</span>
+      <h2 class="astro-trcontact__hl">Kontakt zur Pfarrei Sankt Bonifatius Frankfurt</h2>
+      <p class="astro-trcontact__text">
+        In einem Trauerfall sind wir so schnell wie möglich für Sie da. Rufen Sie uns im Pfarrbüro
+        an oder schreiben Sie uns — wir verständigen dann umgehend eine Seelsorgerin oder einen
+        Seelsorger, der sich persönlich bei Ihnen meldet.
+      </p>
+    </div>
+    <div class="astro-trcontact__card">
+      <p class="astro-trcontact__card-eyebrow">Wir sind für Sie da</p>
+      <p class="astro-trcontact__card-name">Pfarrbüro Sankt Bonifatius</p>
+      <p class="astro-trcontact__row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Holbeinstraße 70, 60596 Frankfurt am Main
+      </p>
+      <p class="astro-trcontact__row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a href={`tel:${TEL}`}>{TEL_LABEL}</a>
+      </p>
+      <p class="astro-trcontact__row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        <a href={`mailto:${MAIL}`}>{MAIL}</a>
+      </p>
+      <p class="astro-trcontact__note">
+        Das Pfarrbüro verständigt eine Seelsorgerin oder einen Seelsorger, der sich zeitnah
+        persönlich bei Ihnen meldet.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-trcontact{background:#f7f3ef;padding:80px 0}
+.astro-trcontact__inner{max-width:1080px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.astro-trcontact__eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px}
+.astro-trcontact__hl{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,34px);font-weight:700;color:#2c2420;margin:0 0 16px;line-height:1.25}
+.astro-trcontact__text{font-size:16px;color:#5c534c;line-height:1.7;margin:0}
+.astro-trcontact__card{background:#2c2420;border-radius:16px;padding:36px;color:#f0e8d8}
+.astro-trcontact__card-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#c5a55a;margin:0 0 6px}
+.astro-trcontact__card-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;margin:0 0 22px}
+.astro-trcontact__row{display:flex;align-items:flex-start;gap:12px;font-size:16px;color:#e8dcc8;line-height:1.5;margin:0 0 16px}
+.astro-trcontact__row svg{width:19px;height:19px;color:#c5a55a;flex-shrink:0;margin-top:2px}
+.astro-trcontact__row a{color:#c5a55a;text-decoration:none}
+.astro-trcontact__row a:hover{text-decoration:underline}
+.astro-trcontact__note{font-size:14px;color:#a8988a;line-height:1.6;margin:22px 0 0;padding-top:20px;border-top:1px solid rgba(240,232,216,.15)}
+@media(max-width:780px){.astro-trcontact__inner{grid-template-columns:1fr;gap:32px}}
+@media(max-width:600px){.astro-trcontact{padding:56px 0}.astro-trcontact__inner{padding:0 20px}.astro-trcontact__card{padding:28px}}
+</style>

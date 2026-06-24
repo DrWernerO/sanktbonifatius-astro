@@ -1,0 +1,36 @@
+---
+// Info-Sektion „Was ist geistliche Begleitung?" / „Für wen ist das Angebot?" — WP-Seite 48947
+// (WP-Block `sl-info`). Eigene Klassen `astro-slinfo`. Zwei Info-Karten nebeneinander.
+const BLOECKE = [
+  {
+    title: 'Was ist geistliche Begleitung?',
+    text: 'Geistliche Begleitung steht jedem offen. Sie besteht darin, anderen zu helfen, die Freude zu erfahren, angenommen und geliebt zu werden, wie sie wirklich sind. Sie bietet ein betendes Zuhören, das einlädt, in unserem Herzen einen Raum für Gottes Stimme zu schaffen.',
+  },
+  {
+    title: 'Für wen ist das Angebot?',
+    text: 'Das Angebot richtet sich an alle Menschen — unabhängig von Konfession oder Lebensweg. Ob in Umbruchphasen, bei geistlichen Fragen oder einfach auf der Suche nach Orientierung: Sie brauchen keinen besonderen Anlass, um in Kontakt zu treten.',
+  },
+];
+---
+<section class="astro-slinfo">
+  <div class="astro-slinfo__inner">
+    <div class="astro-slinfo__grid">
+      {BLOECKE.map((b) => (
+        <article class="astro-slinfo__card">
+          <h2 class="astro-slinfo__title">{b.title}</h2>
+          <p class="astro-slinfo__text">{b.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-slinfo{background:#fff;padding:80px 0}
+.astro-slinfo__inner{max-width:1000px;margin:0 auto;padding:0 40px}
+.astro-slinfo__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+.astro-slinfo__card{background:#f7f3ef;border-radius:14px;padding:36px;border-left:4px solid #c5a55a}
+.astro-slinfo__title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-slinfo__text{font-size:16px;color:#5c534c;line-height:1.7;margin:0}
+@media(max-width:600px){.astro-slinfo{padding:56px 0}.astro-slinfo__inner{padding:0 20px}.astro-slinfo__card{padding:28px}}
+</style>

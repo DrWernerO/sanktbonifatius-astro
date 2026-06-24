@@ -1,0 +1,45 @@
+---
+// Abschluss-CTA „Sie müssen diesen Weg nicht alleine gehen" — WP-Seite 47631 (WP-Block
+// `tr-closing-cta`). Eigene Klassen `astro-trcta`. Dunkler Abschluss mit Anruf- + E-Mail-Button.
+const TEL = '+4969695975850';
+const TEL_LABEL = '069 – 69597585-0';
+const MAIL = 'info@sanktbonifatius.de';
+---
+<section class="astro-trcta">
+  <div class="astro-trcta__inner">
+    <span class="astro-trcta__eyebrow">Wir sind für Sie da</span>
+    <h2 class="astro-trcta__hl">Sie müssen diesen Weg nicht alleine gehen</h2>
+    <p class="astro-trcta__sub">
+      Rufen Sie uns an — jederzeit. Wir hören zu, nehmen uns Zeit für Sie und begleiten Sie
+      durch alle nächsten Schritte in Ihrem Tempo.
+    </p>
+    <div class="astro-trcta__btns">
+      <a class="astro-trcta__btn astro-trcta__btn--primary" href={`tel:${TEL}`}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Jetzt anrufen
+      </a>
+      <a class="astro-trcta__btn astro-trcta__btn--outline" href={`mailto:${MAIL}`}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        Per E-Mail schreiben
+      </a>
+    </div>
+    <p class="astro-trcta__foot">Pfarrbüro Sankt Bonifatius · {TEL_LABEL} · {MAIL}</p>
+  </div>
+</section>
+
+<style is:global>
+.astro-trcta{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(160deg,#2c2420 0%,#3a1f10 100%)}
+.astro-trcta__inner{max-width:760px;margin:0 auto;padding:76px 40px;text-align:center}
+.astro-trcta__eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 12px}
+.astro-trcta__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,42px);font-weight:700;color:#fff;margin:0 0 16px;line-height:1.2}
+.astro-trcta__sub{font-size:16px;color:#d4c5b0;max-width:560px;margin:0 auto 30px;line-height:1.65}
+.astro-trcta__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:0 0 26px}
+.astro-trcta__btn{display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .18s,color .18s}
+.astro-trcta__btn svg{width:18px;height:18px}
+.astro-trcta__btn--primary{background:#9a2d2d;color:#fff}
+.astro-trcta__btn--primary:hover{background:#7e2424}
+.astro-trcta__btn--outline{background:transparent;color:#f0e8d8;border:2px solid rgba(240,232,216,.5)}
+.astro-trcta__btn--outline:hover{background:#f0e8d8;color:#2c2420;border-color:#f0e8d8}
+.astro-trcta__foot{font-size:14px;color:#a8988a;margin:0}
+@media(max-width:560px){.astro-trcta__inner{padding:56px 20px}.astro-trcta__btn{width:100%;justify-content:center}}
+</style>

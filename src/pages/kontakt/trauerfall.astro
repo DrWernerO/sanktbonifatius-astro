@@ -1,0 +1,28 @@
+---
+// Seite „Trauerfall" — WP-Seite 47631 (/kontakt/trauerfall/), vollständig aus eigenen
+// astro-Komponenten (Handbuch 9b/11). Nav + Footer global aus Base.astro (4b) — hier NICHT
+// erneut einbinden. Bänder-Prinzip: Foto-Hero → weißes Intro → Crème Angebote → weiße Schritte →
+// Crème Kontakt → weiße FAQ → dunkler CTA. Würdevoll-ruhiger Ton (sehr sensibles Thema).
+// Eigener CSS-Präfix `astro-tr`. SEO-Head live aus WordPress via getSeoHead (bei WP-Ausfall
+// leerer String → Base nutzt Fallback-Tags).
+import Base from '../../layouts/Base.astro';
+import TrHero from '../../components/TrHero.astro';
+import TrIntro from '../../components/TrIntro.astro';
+import TrCards from '../../components/TrCards.astro';
+import TrSteps from '../../components/TrSteps.astro';
+import TrContact from '../../components/TrContact.astro';
+import TrFaq from '../../components/TrFaq.astro';
+import TrCta from '../../components/TrCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/kontakt/trauerfall/');
+---
+<Base seo={seo} title="Trauerfall — Begleitung und Bestattung">
+  <TrHero />
+  <TrIntro />
+  <TrCards />
+  <TrSteps />
+  <TrContact />
+  <TrFaq />
+  <TrCta />
+</Base>

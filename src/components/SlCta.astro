@@ -1,0 +1,34 @@
+---
+// Abschluss-CTA „Kontakt aufnehmen" — WP-Seite 48947 (WP-Block `sl-cta`). Eigene Klassen
+// `astro-slcta`. Dunkler Abschluss-Block. Buttons auf die Kontakt-Übersicht und das (bereits
+// gebaute) Pastoralteam.
+---
+<section class="astro-slcta">
+  <div class="astro-slcta__inner">
+    <span class="astro-slcta__eyebrow">Wir sind für Sie da</span>
+    <h2 class="astro-slcta__hl">Kontakt aufnehmen</h2>
+    <p class="astro-slcta__sub">
+      Wenden Sie sich an unser Pfarrbüro oder sprechen Sie die Begleiterinnen direkt an.
+      Seelsorgliche Gespräche sind selbstverständlich vertraulich.
+    </p>
+    <div class="astro-slcta__btns">
+      <a class="astro-slcta__btn astro-slcta__btn--primary" href="/kontakt/">Pfarrbüro kontaktieren</a>
+      <a class="astro-slcta__btn astro-slcta__btn--outline" href="/ueberuns/pastoralteam/">Pastoralteam</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-slcta{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#2c2420}
+.astro-slcta__inner{max-width:780px;margin:0 auto;padding:72px 40px;text-align:center}
+.astro-slcta__eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 12px}
+.astro-slcta__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.2vw,40px);font-weight:700;color:#fff;margin:0 0 14px}
+.astro-slcta__sub{font-size:16px;color:#c8b89a;max-width:560px;margin:0 auto 30px;line-height:1.6}
+.astro-slcta__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.astro-slcta__btn{display:inline-block;padding:14px 32px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .18s,color .18s}
+.astro-slcta__btn--primary{background:#9a2d2d;color:#fff}
+.astro-slcta__btn--primary:hover{background:#7e2424}
+.astro-slcta__btn--outline{background:transparent;color:#f0e8d8;border:2px solid rgba(240,232,216,.5)}
+.astro-slcta__btn--outline:hover{background:#f0e8d8;color:#2c2420;border-color:#f0e8d8}
+@media(max-width:560px){.astro-slcta__inner{padding:56px 20px}}
+</style>

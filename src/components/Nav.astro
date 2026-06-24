@@ -25,16 +25,10 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
 <nav class="bh3a-hdr" aria-label="Hauptnavigation">
   <div class="bh3a-hdr__in">
 
-    <!-- Logo / Brand -->
+    <!-- Logo / Brand (offizielles CD-Logo: Ring + Schriftzug + Frankfurt am Main) -->
     <a href="/" class="bh3a-brand">
-      <div class="bh3a-brand__ring">
-        <img src="/uploads/2025/09/sanktbonifatius-favicon.png"
-             alt="Sankt Bonifatius" width="80" height="80" />
-      </div>
-      <span class="bh3a-brand__txt">
-        <span class="bh3a-brand__name">Sankt Bonifatius</span>
-        <span class="bh3a-brand__sub">Frankfurt am Main</span>
-      </span>
+      <img src="/uploads/2025/09/sanktbonifatius-logo.png"
+           alt="Sankt Bonifatius Frankfurt am Main" width="360" height="140" />
     </a>
 
     <!-- Social Icons (Mitte) -->
@@ -87,6 +81,7 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
           <a href="https://whatsapp.com/channel/0029VbB7E1CLikgAZ8cyHk1a" target="_blank" rel="noopener">WhatsApp Kanal</a>
           <a href="/kontakt/engagement/">Mitmachen</a>
           <a href="/kontakt/beratung-und-hilfe/">Beratung &amp; Hilfe</a>
+          <a href="/kontakt/seelsorge/">Seelsorge</a>
           <a href="/kontakt/trauerfall/">Trauerfall</a>
           <a href="/kontakt/katholisch-werden/">Katholisch werden</a>
           <a href="/kontakt/newsletter/">Newsletter</a>
@@ -116,19 +111,10 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
     display: flex; align-items: center; height: 80px;
   }
   .bh3a-brand {
-    display: flex; align-items: center; gap: 11px;
+    display: flex; align-items: center;
     text-decoration: none; flex-shrink: 0;
   }
-  .bh3a-brand__ring img { width: 80px; height: 80px; border-radius: 50%; display: block; }
-  .bh3a-brand__txt { display: flex; flex-direction: column; }
-  .bh3a-brand__name {
-    font-family: 'Playfair Display', Georgia, serif; font-size: 18px;
-    color: #f0e8d8; letter-spacing: .02em; line-height: 1.2;
-  }
-  .bh3a-brand__sub {
-    font-size: 11px; color: #d4c9b5;
-    letter-spacing: .08em; text-transform: uppercase;
-  }
+  .bh3a-brand img { height: 76px; width: auto; display: block; }
   .bh3a-soc {
     display: flex; gap: 18px; align-items: center;
     margin-left: auto; margin-right: 20px;

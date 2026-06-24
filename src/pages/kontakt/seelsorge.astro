@@ -1,0 +1,28 @@
+---
+// Seite „Seelsorge & geistliche Begleitung" — WP-Seite 48947 (/kontakt/seelsorge/), vollständig
+// aus eigenen astro-Komponenten (Handbuch 9b/11). Nav + Footer global aus Base.astro (4b) — hier
+// NICHT erneut einbinden. Bänder-Prinzip: warmer Verlauf-Hero → weißes Intro → dunkles Zitat →
+// Crème Begleiterinnen → weiße Info → Crème FAQ → dunkler CTA. Ruhiger, einladender Ton.
+// Eigener CSS-Präfix `astro-sl`. SEO-Head live aus WordPress via getSeoHead (bei WP-Ausfall
+// leerer String → Base nutzt Fallback-Tags).
+import Base from '../../layouts/Base.astro';
+import SlHero from '../../components/SlHero.astro';
+import SlIntro from '../../components/SlIntro.astro';
+import SlQuote from '../../components/SlQuote.astro';
+import SlPersons from '../../components/SlPersons.astro';
+import SlInfo from '../../components/SlInfo.astro';
+import SlFaq from '../../components/SlFaq.astro';
+import SlCta from '../../components/SlCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/kontakt/seelsorge/');
+---
+<Base seo={seo} title="Seelsorge & geistliche Begleitung">
+  <SlHero />
+  <SlIntro />
+  <SlQuote />
+  <SlPersons />
+  <SlInfo />
+  <SlFaq />
+  <SlCta />
+</Base>

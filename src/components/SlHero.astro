@@ -1,0 +1,26 @@
+---
+// Hero der Seite „Seelsorge & geistliche Begleitung" — WP-Seite 48947 (/kontakt/seelsorge/,
+// ersetzt WP-Block `sl-hero`). Eigene Klassen `astro-slhero` (Handbuch 3 — nie WP-Klassen `sl-…`).
+// Die WP-Vorlage hat KEIN Hero-Foto, nur einen warmen Verlauf → eigener Verlauf-Hero (Handbuch 10).
+// Farbton an die WP-Vorlage angelehnt (warmes Braun/Gold), ruhig und einladend.
+---
+<section class="astro-slhero">
+  <div class="astro-slhero__inner">
+    <p class="astro-slhero__eyebrow">Pfarrei Sankt Bonifatius · Frankfurt</p>
+    <h1 class="astro-slhero__title">Seelsorge &amp;<br>geistliche Begleitung</h1>
+    <p class="astro-slhero__sub">
+      Persönliche Gespräche, Begleitung in Lebenskrisen, geistliche Orientierung —
+      wir sind für Sie da. Diskret und ohne Urteil.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-slhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:440px;overflow:hidden;background:linear-gradient(135deg,#3a1f10 0%,#5a3520 35%,#7a4a28 65%,#9a6535 100%)}
+.astro-slhero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 24% 16%,rgba(197,165,90,.32),transparent 60%)}
+.astro-slhero__inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:104px 40px 60px;color:#f0e8d8}
+.astro-slhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#e8c87a;margin:0 0 14px}
+.astro-slhero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.06;color:#fff;font-size:clamp(34px,5.2vw,62px);margin:0;text-shadow:0 2px 14px rgba(0,0,0,.3)}
+.astro-slhero__sub{font-size:clamp(16px,1.9vw,20px);color:#ece0cc;line-height:1.55;margin:18px 0 0;max-width:620px}
+@media(max-width:600px){.astro-slhero{min-height:380px}.astro-slhero__inner{padding:88px 20px 44px}}
+</style>

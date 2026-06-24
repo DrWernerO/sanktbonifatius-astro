@@ -1,0 +1,41 @@
+---
+// „Trauerbegleitung und Seelsorge in Frankfurt" — WP-Seite 47631 (WP-Block `tr-steps-sec`).
+// Eigene Klassen `astro-trsteps`. 3 nummerierte Schritte. Feste Inhalte aus der WP-Vorlage.
+const SCHRITTE = [
+  { n: '1', title: 'Rufen Sie uns an — wir sind für Sie da',
+    text: 'In den ersten schweren Stunden müssen Sie nicht allein entscheiden. Rufen Sie im Pfarrbüro an. Ein Mitglied des Seelsorgeteams wird sich zeitnah bei Ihnen melden. Wir hören zu, nehmen uns Zeit für Sie und besprechen gemeinsam alle nächsten Schritte in Ihrem Tempo.' },
+  { n: '2', title: 'Gemeinsam eine würdige Trauerfeier gestalten',
+    text: 'Wir planen die Trauerfeier ganz nach Ihren Wünschen und nach dem, was den Verstorbenen ausgemacht hat: mit persönlichen Texten, Musik, Kerzen und Ritualen, die berühren. Eine Feier, die dem Leben gerecht wird.' },
+  { n: '3', title: 'Mit Rat und Tat an Ihrer Seite',
+    text: 'Von Beratung bei der Auswahl des Bestattungsunternehmens über die Trauerfeier und auf Wunsch auch danach. Wir begleiten Sie durch alle Fragen und Formalitäten. Unsere professionelle Trauerbegleitung geht dabei über den Abschiedstag hinaus. Und wir beten mit Ihnen gemeinsam für Ihren verstorbenen Angehörigen.' },
+];
+---
+<section class="astro-trsteps">
+  <div class="astro-trsteps__inner">
+    <h2 class="astro-trsteps__hl">Trauerbegleitung und Seelsorge in Frankfurt</h2>
+    <div class="astro-trsteps__list">
+      {SCHRITTE.map((s) => (
+        <article class="astro-trsteps__step">
+          <span class="astro-trsteps__num">{s.n}</span>
+          <div class="astro-trsteps__body">
+            <h3 class="astro-trsteps__title">{s.title}</h3>
+            <p class="astro-trsteps__text">{s.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-trsteps{background:#fff;padding:80px 0}
+.astro-trsteps__inner{max-width:880px;margin:0 auto;padding:0 40px}
+.astro-trsteps__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 44px;text-align:center;line-height:1.2}
+.astro-trsteps__list{display:flex;flex-direction:column;gap:32px}
+.astro-trsteps__step{display:flex;gap:26px;align-items:flex-start}
+.astro-trsteps__num{flex-shrink:0;width:54px;height:54px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',serif;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.astro-trsteps__body{flex:1;padding-top:4px}
+.astro-trsteps__title{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-trsteps__text{font-size:16px;color:#5c534c;line-height:1.7;margin:0}
+@media(max-width:600px){.astro-trsteps{padding:56px 0}.astro-trsteps__inner{padding:0 20px}.astro-trsteps__step{gap:18px}.astro-trsteps__num{width:46px;height:46px;font-size:20px}}
+</style>

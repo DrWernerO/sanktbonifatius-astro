@@ -1,0 +1,36 @@
+---
+// Hero der Seite „Trauerfall" — WP-Seite 47631 (/kontakt/trauerfall/, ersetzt WP-Block `tr-hero`).
+// Eigene Klassen `astro-trhero` (Handbuch 3 — nie WP-Klassen `tr-…`). Die WP-Vorlage hat einen
+// ECHTEN Foto-Hero → wird übernommen (Handbuch 10). Bild lokal unter public/uploads (vom Live-WP,
+// Handbuch 1b). Full-Bleed-Bild + dunkler Verlauf-Overlay, würdevoll-ruhiger Ton (sensibles Thema).
+const bg = '/uploads/2023/07/stbonifatius-gottesdienste-die-beruehren.jpg';
+---
+<section class="astro-trhero">
+  <div class="astro-trhero__bg" role="img"
+       aria-label="Stimmungsvoller Gottesdienst in der Kirche Sankt Bonifatius Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-trhero__overlay"></div>
+  <div class="astro-trhero__inner">
+    <p class="astro-trhero__eyebrow">Seelsorge in der Trauer</p>
+    <h1 class="astro-trhero__title">Wenn ein Mensch stirbt</h1>
+    <p class="astro-trhero__sub">
+      Trauerfall in Frankfurt? Wir begleiten Sie in Ihrem Schmerz — mit Seelsorge,
+      Sterbesakramenten und menschlicher Nähe. Die Pfarrei Sankt Bonifatius Frankfurt ist
+      für Sie da.
+    </p>
+    <a class="astro-trhero__btn" href="#astro-trcontact">Kontakt aufnehmen</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-trhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:480px;height:min(60vh,540px);overflow:hidden}
+.astro-trhero__bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.astro-trhero__overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(30,18,10,.62) 0%,rgba(44,30,18,.85) 100%)}
+.astro-trhero__inner{position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;padding:0 40px 60px;color:#f0e8d8}
+.astro-trhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.astro-trhero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(34px,5.4vw,62px);margin:0;text-shadow:0 2px 14px rgba(0,0,0,.45)}
+.astro-trhero__sub{font-size:clamp(16px,1.9vw,20px);color:rgba(255,255,255,.94);line-height:1.55;margin:18px 0 0;max-width:640px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.astro-trhero__btn{display:inline-block;margin:28px 0 0;padding:14px 32px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s}
+.astro-trhero__btn:hover{background:#7e2424}
+@media(max-width:600px){.astro-trhero{min-height:420px}.astro-trhero__inner{padding:0 20px 44px}}
+</style>

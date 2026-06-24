@@ -1,0 +1,44 @@
+---
+// „Häufige Fragen zur kirchlichen Bestattung in Frankfurt" — WP-Seite 47631 (WP-Block
+// `tr-contact-sec`, FAQ-Teil). Eigene Klassen `astro-trfaq`. Natives <details> (kein JS,
+// Muster wie PbFaq). Telefon/E-Mail als klickbare Links im Antworttext.
+const FAQ = [
+  { q: 'Was muss ich nach einem Todesfall zuerst tun?',
+    a: 'Nach dem Tod eines Menschen stellt der Arzt den Totenschein aus. Anschließend meldet das Bestattungsinstitut den Sterbefall beim Standesamt. Für die kirchliche Trauerfeier wenden Sie sich zeitnah bitte an unser Pfarrbüro — wir begleiten Sie bei allen weiteren Schritten.' },
+  { q: 'Wie vereinbare ich eine kirchliche Bestattung in Frankfurt?',
+    a: 'Rufen Sie das Pfarrbüro Sankt Bonifatius unter <a href="tel:+4969695975850">069&nbsp;–&nbsp;69597585-0</a> an oder schreiben Sie an <a href="mailto:info@sanktbonifatius.de">info@sanktbonifatius.de</a>. Gemeinsam besprechen wir den Ablauf der Trauerfeier — zu einem Zeitpunkt, der für Sie passt.' },
+  { q: 'Bietet die Pfarrei Trauerbegleitung auch nach der Beerdigung an?',
+    a: 'Ja. Trauer endet nicht mit der Bestattung. Unser seelsorgerisches Team steht Ihnen und Ihren Angehörigen auch in den Wochen und Monaten danach zur Seite — durch persönliche Gespräche, Trauergruppen und gemeinsame Gedenkfeiern in unserer Pfarrei.' },
+];
+---
+<section class="astro-trfaq">
+  <div class="astro-trfaq__inner">
+    <p class="astro-trfaq__eyebrow">Häufige Fragen</p>
+    <h2 class="astro-trfaq__hl">Häufige Fragen zur kirchlichen Bestattung in Frankfurt</h2>
+    <div class="astro-trfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-trfaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-trfaq{background:#fff;padding:80px 0}
+.astro-trfaq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-trfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-trfaq__hl{font-family:'Playfair Display',serif;font-size:clamp(24px,3.2vw,38px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center;line-height:1.2}
+.astro-trfaq__list{max-width:840px;margin:0 auto}
+.astro-trfaq details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.04);overflow:hidden}
+.astro-trfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-trfaq summary::-webkit-details-marker{display:none}
+.astro-trfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-trfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-trfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+.astro-trfaq__a a{color:#9a2d2d;font-weight:600;text-decoration:none}
+.astro-trfaq__a a:hover{text-decoration:underline}
+@media(max-width:600px){.astro-trfaq{padding:56px 0}.astro-trfaq__inner{padding:0 20px}}
+</style>

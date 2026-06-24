@@ -1,0 +1,78 @@
+---
+// „Ansprechpartner für geistliche Begleitung" — WP-Seite 48947 (WP-Block `sl-persons`).
+// Eigene Klassen `astro-slpers`. Personenfotos lokal unter public/uploads (vom Live-WP geladen,
+// Handbuch 1b). E-Mails im Klartext (wartbar, Handbuch 11; im WP-Quelltext entity-verschleiert).
+const PERSONEN = [
+  {
+    name: 'P. Gaby Geagea cml.',
+    photo: '/uploads/2023/07/Bonifatius_Pastoralteam_Gaby-e1659515837936-edited-1024x1024.jpg',
+    role: 'Geistliche Begleitung',
+    quote: '„Es freut mich, dass Sie sich für Geistliche Begleitung interessieren. Ich stehe Ihnen gerne auf Ihrem spirituellen Weg zur Seite. Ich höre Ihnen aufmerksam zu und gehe auf Ihre individuellen Bedürfnisse ein, ohne dabei moralische Urteile zu fällen."',
+    tel: '+491727600361',
+    telLabel: '0172 760 03 61',
+    mail: 'g.geagea@sanktbonifatius.de',
+  },
+  {
+    name: 'Sr. Bettina Rupp SSpS',
+    photo: '/uploads/2023/05/Sr.-Bettina-Rupp-edited.jpg',
+    role: 'Geistliche Begleitung',
+    quote: '„Was wir im Auge haben, das prägt uns, dahin werden wir verwandelt." Ich freue mich, mit Ihnen gemeinsam im Gespräch zu schauen, was das Leben für Sie bereit hält und wohin Gott Sie führen will.',
+    tel: null,
+    telLabel: null,
+    mail: 'b.rupp@sanktbonifatius.de',
+  },
+];
+---
+<section class="astro-slpers">
+  <div class="astro-slpers__inner">
+    <span class="astro-slpers__eyebrow">Vertraulich an Ihrer Seite</span>
+    <h2 class="astro-slpers__hl">Ansprechpartner für geistliche Begleitung</h2>
+    <p class="astro-slpers__lead">
+      Unsere Begleiterinnen stehen Ihnen vertraulich zur Seite — auf Ihrem ganz eigenen Weg.
+    </p>
+    <div class="astro-slpers__grid">
+      {PERSONEN.map((p) => (
+        <article class="astro-slpers__card">
+          <img class="astro-slpers__avatar" src={p.photo} alt={`Foto von ${p.name}`} loading="lazy" width="96" height="96" />
+          <div class="astro-slpers__body">
+            <p class="astro-slpers__name">{p.name}</p>
+            <p class="astro-slpers__role">{p.role}</p>
+            <p class="astro-slpers__quote">{p.quote}</p>
+            <div class="astro-slpers__contact">
+              {p.tel && (
+                <a class="astro-slpers__link" href={`tel:${p.tel}`}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  {p.telLabel}
+                </a>
+              )}
+              <a class="astro-slpers__link" href={`mailto:${p.mail}`}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+                {p.mail}
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-slpers{background:#f7f3ef;padding:80px 0}
+.astro-slpers__inner{max-width:1100px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-slpers__eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px}
+.astro-slpers__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-slpers__lead{font-size:17px;color:#5c534c;line-height:1.6;max-width:580px;margin:0 auto 40px}
+.astro-slpers__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;text-align:left}
+.astro-slpers__card{background:#fff;border-radius:14px;padding:32px;display:flex;gap:22px;box-shadow:0 4px 20px rgba(30,21,18,.06)}
+.astro-slpers__avatar{width:96px;height:96px;border-radius:50%;flex-shrink:0;object-fit:cover;object-position:center top;border:4px solid #f7f3ef;box-shadow:0 2px 10px rgba(30,21,18,.12)}
+.astro-slpers__body{flex:1;min-width:0}
+.astro-slpers__name{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#2c2420;margin:0 0 2px}
+.astro-slpers__role{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-slpers__quote{font-size:15px;color:#5c534c;line-height:1.65;font-style:italic;margin:0 0 18px}
+.astro-slpers__contact{display:flex;flex-direction:column;gap:8px}
+.astro-slpers__link{display:flex;align-items:center;gap:9px;font-size:14px;color:#9a2d2d;text-decoration:none;font-weight:600;word-break:break-word}
+.astro-slpers__link svg{width:17px;height:17px;color:#c5a55a;flex-shrink:0}
+.astro-slpers__link:hover{text-decoration:underline}
+@media(max-width:600px){.astro-slpers{padding:56px 0}.astro-slpers__inner{padding:0 20px}.astro-slpers__card{flex-direction:column;align-items:center;text-align:center;padding:28px 24px}.astro-slpers__contact{align-items:center}}
+</style>
