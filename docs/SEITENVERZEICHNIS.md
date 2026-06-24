@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **79 Live-Seiten erfasst · 30 bereits in Astro übernommen bzw. per Direktlink erledigt · 49 offen.** Stand: 24.06.2026.
+> **79 Live-Seiten erfasst · 32 bereits in Astro übernommen bzw. per Direktlink erledigt · 47 offen.** Stand: 24.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -36,8 +36,8 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Katholisch werden | [Link](https://www.sanktbonifatius.de/kontakt/katholisch-werden/) | — | — | offen |  |
 | Newsletter | [Link](https://www.sanktbonifatius.de/kontakt/newsletter/) | `src/pages/kontakt/newsletter.astro` | Werner | ✅ erledigt | Page-ID 48663, eigene Nl*-Komponenten (Präfix `astro-nl`); Hero, Bordeaux-Streifen (3 Argumente), Intro, ChurchDesk-Abo-Formular als Embed (`forms.churchdesk.com/f/Duf7gO_IQC`, postMessage-Resize wie ChurchDeskForm), Datenschutz-Box |
 | Pfarrbüro | [Link](https://www.sanktbonifatius.de/kontakt/pfarrbuero/) | `src/pages/kontakt/pfarrbuero.astro` | Werner | ✅ erledigt | Page-ID 47815, eigene Pb*-Komponenten (Präfix `astro-pb`); Hero, Anlaufstelle + Büro-Infokarte (Adresse/Telefon/Öffnungszeiten/E-Mail), Verwaltungsteam (6 Fotos lokal `public/uploads/2026/06`), Raumvermietung (raum@), 5 FAQ, CTA + SEO-Text |
-| Seelsorge | [Link](https://www.sanktbonifatius.de/kontakt/seelsorge/) | — | — | offen |  |
-| Trauerfall | [Link](https://www.sanktbonifatius.de/kontakt/trauerfall/) | — | — | offen |  |
+| Seelsorge | [Link](https://www.sanktbonifatius.de/kontakt/seelsorge/) | `src/pages/kontakt/seelsorge.astro` | Werner | ✅ erledigt | Page-ID 48947, eigene Sl*-Komponenten (Präfix `astro-sl`); Verlaufs-Hero (Vorlage ohne Foto), Intro, Merton-Zitat, 2 geistliche Begleiterinnen (Gaby Geagea, Sr. Bettina Rupp) mit Foto, Info-Blöcke, 4 FAQ, CTA |
+| Trauerfall | [Link](https://www.sanktbonifatius.de/kontakt/trauerfall/) | `src/pages/kontakt/trauerfall.astro` | Werner | ✅ erledigt | Page-ID 47631, eigene Tr*-Komponenten (Präfix `astro-tr`); Foto-Hero, Intro, 6 Angebots-Karten, 3 Schritte, Pfarrbüro-Kontaktkarte, 3 FAQ, CTA mit Anruf-/E-Mail-Button. Würdevoll-ruhiger Ton |
 | WhatsApp-Kanal | [Link](https://www.sanktbonifatius.de/kontakt/whatsapp-kanal/) | — (Nav-Direktlink) | Werner | ✅ erledigt | Keine eigene Astro-Seite nötig — Nav verlinkt direkt auf den WhatsApp-Kanal (Abo): `whatsapp.com/channel/0029VbB7E1CLikgAZ8cyHk1a` |
 
 ## 4 · Segen und Sakramente (mit Unterseiten)
