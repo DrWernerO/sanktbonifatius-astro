@@ -444,13 +444,32 @@ bleibt ohne Props unverändert):
 | `heading` | `Unsere nächsten Veranstaltungen` | Überschrift über den Kacheln |
 | `moreHref` | `/terminkalender/` | Ziel des „Alle Termine →"-Links |
 | `category` | `0` | event-category-**ID**; gesetzt → zeigt **nur** Termine dieser Kategorie |
+| `categoryLabel` | `''` | Klarname der Kategorie (z.B. `Engagiert Leben`) — für den Hinweistext, wenn es keine weiteren Termine gibt (siehe Regel unten) |
 
 `category` landet als `data-category` auf `<section class="astro-ev">`; das Client-Script liest es und
 filtert zusätzlich zum Datum (`per_page` auf 100 erhöht, damit eine Kategorie-Teilmenge reicht).
 Kategorie-IDs liefert `/wp-json/wp/v2/event-category`. Beispiel (Seite „Gottesdienst & Glaube"):
 ```astro
-<EventCalendar heading="Nächste Gottesdienst-Termine" category={2587} />
+<EventCalendar heading="Nächste Gottesdienst-Termine" category={2587} categoryLabel="Gottesdienst & Glaube" />
 ```
+
+### ⭐ Regel: Verhalten bei wenigen/keinen Terminen (gilt für ALLE Terminblöcke)
+Der Block hat drei Spalten (2 Vorschau-Kacheln + „Weitere Termine"). Je nach Terminzahl
+**graceful degradieren** — niemals eine hängende „Lädt …"-Kachel oder leere Lücke zeigen:
+- **≥ 3 Termine:** Kachel 1 + 2 = nächste zwei Termine, Spalte 3 = Liste „Weitere Termine" (`slice(2,6)`).
+- **Genau 2 Termine:** beide Kacheln gefüllt, „Weitere Termine" zeigt den Hinweistext (s.u.).
+- **Nur 1 Termin:** **zweite Vorschau-Kachel entfällt** (kein Platzhalter), Grid wird 2-spaltig;
+  „Weitere Termine" zeigt den Hinweistext.
+- **0 Termine:** beide Kacheln entfallen, nur „Weitere Termine" mit Hinweistext.
+
+**Hinweistext** (Überschrift bleibt immer „Weitere Termine"): bei gesetztem `categoryLabel`
+„*Aktuell keine weiteren Termine im Bereich „&lt;Label&gt;".*", sonst „*Aktuell keine weiteren Termine.*".
+(„Bereich" statt „Programmsparte/Kategorie" — Sprachgebrauch der Seiten.) Die Spaltenzahl passt
+sich automatisch der Zahl sichtbarer Kacheln an. Umgesetzt im Client-Script von `EventCalendar.astro`.
+
+> **Wichtig — das ist Datenpflege, kein Code-Thema:** Füllen sich die zweite Kachel/Liste nicht,
+> liegt es daran, dass im WordPress zu wenige Termine dieser **Kategorie** zugeordnet sind. Sobald
+> das Pfarrbüro mehr Termine der Kategorie zuweist, erscheinen sie beim nächsten Build automatisch.
 
 - **Client-seitig** (Browser-Script) Fetch über Proxy: `/wp-proxy/wp-json/wp/v2/event?per_page=30`
 - Filter: nur kommende Termine (`event_meta.start_date >= heute`, Format `YYYYMMDD`), aufsteigend sortiert
@@ -947,3 +966,44 @@ Ein Foto-Hero (`stbonifatius-gottesdienste-die-beruehren.jpg`), einmalig vom WP 
 
 > **Termine fest im Code** (nicht aus der WP-API), da es sich um wenige, planbare Sondertermine
 > handelt. Ändern sie sich, in `GdbFormate.astro` im `formats`-Array pflegen.
+
+---
+
+## 17. Seite „Engagiert Leben" (Page 46769, `/engagiert-leben/`) + 2 Unterseiten ✅
+
+**Stand: ABGESCHLOSSEN (2026-06-26).** Übersichtsseite „Engagiert Leben" plus die beiden
+Unterseiten „Nachbarschaftliches Hilfenetz" und „Offener Kühlschrank". Wie alle bisherigen
+Seiten (Kontakt/Taufe/Segen/BonFamily) vollständig aus eigenen `astro-`-Komponenten gebaut,
+**ohne `set:html` mit WP-Markup**. Feste Inhalte direkt in den Komponenten; nur der SEO-Head
+kommt live aus WordPress, auf der Übersicht zusätzlich die **Termine** (EventCalendar).
+
+> **⚠️ Namens-Falle:** Es gibt zwei verschiedene Seiten — die hier (`/engagiert-leben/`, Präfix
+> `astro-el`) ist **NICHT** die Seite „Engagement" (`/kontakt/engagement/`, Präfix `astro-eng`,
+> Page 48449). Beim Bau eindeutig die richtige Page-ID/den richtigen Slug verwenden.
+
+### Aufbau & Präfixe (goldene Regel, Abschnitt 3)
+WP nutzt die Theme-Präfixe `el-`, `nh-`, `ok-` → tabu. Eigene Präfixe je Seite:
+
+| Seite | Page-ID | Route | Präfix | Komponenten |
+|-------|---------|-------|--------|-------------|
+| Engagiert Leben (Übersicht) | 46769 | `src/pages/engagiert-leben/index.astro` | `astro-el` | `ElHero`, `ElIntro`, `ElTiles`, `ElFaq`, `ElCta` + `EventCalendar` (Kat. **2590**) |
+| Nachbarschaftliches Hilfenetz | 49124 | `src/pages/engagiert-leben/nachbarschaftliches-hilfenetz.astro` | `astro-nh` | `NhHero`, `NhIntro`, `NhTestimonials`, `NhAreas`, `NhCosts`, `NhContact`, `NhFaq`, `NhCta` |
+| Offener Kühlschrank | 49123 | `src/pages/engagiert-leben/offener-kuehlschrank.astro` | `astro-ok` | `OkHero`, `OkLead`, `OkIntro`, `OkCards`, `OkBg`, `OkStandort`, `OkFaq`, `OkCta` |
+
+Route der Übersicht als `engagiert-leben/index.astro`, die Unterseiten als Geschwister-Dateien
+im selben Verzeichnis → erzeugen exakt die WP-Pfade (wichtig für `getSeoHead` + canonical).
+
+### Farben & Bilder
+- **Hausfarben statt WP-Sonderfarben:** Die WP-Vorlagen nutzten Lila (Übersicht) bzw. Grün
+  (Hilfenetz). Bewusst auf die Hausfarben umgestellt (Bordeaux `#9a2d2d`, Gold `#c5a55a`) —
+  wie bei der Engagement-Seite (Türkis→Bordeaux). Konsistenz vor WP-Originalfarbe.
+- **9 Bilder lokal** unter `public/uploads/<jahr>/<monat>/` (vom Live-WP geladen, Abschnitt 1b):
+  3 Foto-Heroes (`…/2023/08/sankt-bonifatius-thema-engagiert-leben.jpg`,
+  `…/2021/10/Nachbarschaftliches_Hilfenetz.jpg`, `…/2023/07/foodworkshop-2.jpg`),
+  5 Kachelbilder der Übersicht und das Hochformat-Foto der Hilfenetz-Koordinatorin
+  (`…/2023/12/Helga_Jantschek--1024x1434.jpg`).
+
+### Offene Punkte (Abschnitt 12 — tote Links, bewusst belassen)
+Auf der Übersicht zeigen die Kacheln **Inklusion** und **Kleider Café** noch auf
+`/engagiert-leben/` (im WP-Original ebenso), **Sozialberatung** auf einen `mailto:`. Eigene
+Astro-Unterseiten dafür gibt es noch nicht — beim Portfolio-Check vor Go-Live abgleichen.

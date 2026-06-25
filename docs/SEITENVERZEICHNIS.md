@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 49 bereits in Astro übernommen bzw. per Direktlink erledigt · 31 offen.** Stand: 26.06.2026.
+> **80 Live-Seiten erfasst · 52 bereits in Astro übernommen bzw. per Direktlink erledigt · 28 offen.** Stand: 26.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -116,9 +116,9 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
-| Engagiert leben | [Link](https://www.sanktbonifatius.de/engagiert-leben/) | — | — | offen |  |
-| Nachbarschaftliches Hilfenetz | [Link](https://www.sanktbonifatius.de/engagiert-leben/nachbarschaftliches-hilfenetz/) | — | — | offen |  |
-| Offener Kühlschrank | [Link](https://www.sanktbonifatius.de/engagiert-leben/offener-kuehlschrank/) | — | — | offen |  |
+| Engagiert leben | [Link](https://www.sanktbonifatius.de/engagiert-leben/) | `src/pages/engagiert-leben/index.astro` | Werner | ✅ erledigt | Page-ID 46769, eigene `astro-el`-Komponenten (Hero, Intro, 4 Angebots-Kacheln, EventCalendar Kat. 2590, FAQ, CTA); Hausfarben statt WP-Lila (Inklusion-Kachel auf Wunsch entfernt). **⚠️ Offen: „Kleider Café" und „Allgemeine Sozialberatung" haben noch KEINE eigene Unterseite — „Kleider Café" zeigt vorerst auf `/engagiert-leben/`, „Sozialberatung" auf eine `mailto:`-Adresse. Vor Go-Live verlinken bzw. Unterseiten bauen.** |
+| Nachbarschaftliches Hilfenetz | [Link](https://www.sanktbonifatius.de/engagiert-leben/nachbarschaftliches-hilfenetz/) | `src/pages/engagiert-leben/nachbarschaftliches-hilfenetz.astro` | Werner | ✅ erledigt | Page-ID 49124, eigene `astro-nh`-Komponenten (Hero, Intro+Caritas-Callout, Testimonials, 10 Bereiche, Kosten 21,50 €, Kontakt Helga Jantschek, FAQ, CTA) |
+| Offener Kühlschrank | [Link](https://www.sanktbonifatius.de/engagiert-leben/offener-kuehlschrank/) | `src/pages/engagiert-leben/offener-kuehlschrank.astro` | Werner | ✅ erledigt | Page-ID 49123, eigene `astro-ok`-Komponenten (Hero, Lead, Intro, 2 Mitmach-Karten, Hintergrund, Standort+Maps-Link, FAQ, CTA) |
 
 ## 10 · Kultur & Begegnung (mit Unterseiten)
 
