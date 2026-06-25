@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 39 bereits in Astro übernommen bzw. per Direktlink erledigt · 41 offen.** Stand: 25.06.2026.
+> **80 Live-Seiten erfasst · 41 bereits in Astro übernommen bzw. per Direktlink erledigt · 39 offen.** Stand: 25.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -33,7 +33,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Kontakt | [Link](https://www.sanktbonifatius.de/kontakt/) | `src/pages/kontakt.astro` | Werner | ✅ erledigt | Page-ID 46800, eigene Kontakt*-Komponenten |
 | Beratung und Hilfe | [Link](https://www.sanktbonifatius.de/kontakt/beratung-und-hilfe/) | `src/pages/kontakt/beratung-und-hilfe.astro` | Werner | ✅ erledigt | Page-ID 48312, eigene Beratung*-Komponenten (Präfix `astro-ber`); Notfall-Banner (Telefonseelsorge), Angebote, Ansprechpersonen mit Foto (Doly Kadavil, Martin Kestler), externe Beratungsstellen, Hinweisgeberschutz |
 | Engagement | [Link](https://www.sanktbonifatius.de/kontakt/engagement/) | `src/pages/kontakt/engagement.astro` | Werner | ✅ erledigt | Page-ID 48449, eigene Engagement*-Komponenten (Präfix `astro-eng`); 6 Engagement-Kacheln, Schritte, CTA (WP-Türkis bewusst auf Astro-Bordeaux umgestellt) |
-| Katholisch werden | [Link](https://www.sanktbonifatius.de/kontakt/katholisch-werden/) | — | — | offen |  |
+| Katholisch werden | [Link](https://www.sanktbonifatius.de/kontakt/katholisch-werden/) | `src/pages/kontakt/katholisch-werden.astro` | Werner | ✅ erledigt | Page-ID 48544, eigene Kw*-Komponenten (Präfix `astro-kw`); Verlauf-Hero (WP-Hero-Foto existiert nicht/404 → Verlauf), Strip (3 Wege), Taufe-Block + Röm-8,15-Zitat, 3 Weg-Kacheln (Kindertaufe → /segen-sakramente/taufe/, Erwachsenentaufe + Aufnahme → /kontakt/), 5 FAQ, CTA |
 | Newsletter | [Link](https://www.sanktbonifatius.de/kontakt/newsletter/) | `src/pages/kontakt/newsletter.astro` | Werner | ✅ erledigt | Page-ID 48663, eigene Nl*-Komponenten (Präfix `astro-nl`); Hero, Bordeaux-Streifen (3 Argumente), Intro, ChurchDesk-Abo-Formular als Embed (`forms.churchdesk.com/f/Duf7gO_IQC`, postMessage-Resize wie ChurchDeskForm), Datenschutz-Box |
 | Pfarrbüro | [Link](https://www.sanktbonifatius.de/kontakt/pfarrbuero/) | `src/pages/kontakt/pfarrbuero.astro` | Werner | ✅ erledigt | Page-ID 47815, eigene Pb*-Komponenten (Präfix `astro-pb`); Hero, Anlaufstelle + Büro-Infokarte (Adresse/Telefon/Öffnungszeiten/E-Mail), Verwaltungsteam (6 Fotos lokal `public/uploads/2026/06`), Raumvermietung (raum@), 5 FAQ, CTA + SEO-Text |
 | Seelsorge | [Link](https://www.sanktbonifatius.de/kontakt/seelsorge/) | `src/pages/kontakt/seelsorge.astro` | Werner | ✅ erledigt | Page-ID 48947, eigene Sl*-Komponenten (Präfix `astro-sl`); Verlaufs-Hero (Vorlage ohne Foto), Intro, Merton-Zitat, 2 geistliche Begleiterinnen (Gaby Geagea, Sr. Bettina Rupp) mit Foto, Info-Blöcke, 4 FAQ, CTA |
@@ -92,7 +92,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Gottesdienst & Glaube | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/) | `src/pages/gottesdienst-glaube.astro` | Werner | ✅ erledigt | Page-ID 45667 |
 | Gottesdienste, die berühren | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/gottesdienste-die-beruehren/) | `src/pages/gottesdienst-glaube/gottesdienste-die-beruehren.astro` | Werner | ✅ erledigt | Page-ID 47578, eigene Gdb*-Komponenten (Präfix `astro-gdb`); Foto-Hero, Intro, 3 Format-Karten (Fiat Lux/Taizé/BonEsprit mit Terminen), CTA, „Wo wir feiern" (Maps-Link) |
 | Gottesdienstordnung | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/gottesdienstordnung/) | `src/pages/gottesdienst-glaube/gottesdienstordnung.astro` | Werner | ✅ erledigt |  |
-| Taufanmeldung | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/taufanmeldung/) | — | — | offen | Inhaltlich von der Taufe-Seite (Abschnitt 4) abgedeckt |
+| Taufanmeldung | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/taufanmeldung/) | `src/pages/gottesdienst-glaube/taufanmeldung.astro` | Werner | ✅ erledigt | Page-ID 48011, eigene Tan*-Komponenten (Präfix `astro-tan`): Verlauf-Hero + Hinweise (Patenamt/Trauung/Vollständigkeit) + CTA. Anmeldeformular = wiederverwendete `TaufeForm` (gleicher PDF-/Mail-Vertrag wie Taufe-Seite, Handbuch 13b), auf dieser Seite per Script aufgeklappt |
 
 ## 7 · BonFamily (mit Unterseiten)
 
