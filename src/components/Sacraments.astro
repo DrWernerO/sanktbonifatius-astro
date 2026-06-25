@@ -27,6 +27,9 @@ const cards = [
       </a>
     ))}
   </div>
+  <div class="astro-sac__more">
+    <a href="/segen-sakramente/" class="astro-sac__more-link">Alle Sakramente &amp; Segen &#8594;</a>
+  </div>
 </div>
 
 <style is:global>
@@ -39,6 +42,9 @@ const cards = [
 .astro-sac-card__icon svg{width:100%;height:100%}
 .astro-sac-card__label{font-size:13px;font-weight:600;margin-bottom:4px;color:#2c2420}
 .astro-sac-card__sub{font-size:11px;color:#7a7168;line-height:1.4}
+.astro-sac__more{max-width:1100px;margin:20px auto 0;text-align:center}
+.astro-sac__more-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:#9a2d2d;text-decoration:none;transition:color .2s}
+.astro-sac__more-link:hover{color:#7e2424;text-decoration:underline}
 @media(max-width:900px){.astro-sac__grid{grid-template-columns:repeat(3,1fr)}.astro-sac{padding:24px 14px}}
 @media(max-width:560px){.astro-sac__grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:380px){.astro-sac__grid{grid-template-columns:1fr}}
