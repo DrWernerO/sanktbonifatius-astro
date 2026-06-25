@@ -28,14 +28,6 @@ const CARDS = [
     text: 'Ehrenamtlich für Herz Jesu – Vorsitz, Mitglieder und Zuständigkeiten des Kirchortrats.',
     more: 'Zum Kirchortrat →',
   },
-  {
-    title: 'Newsletter abonnieren',
-    href: '/kontakt/newsletter/',
-    img: `${IMG}/2026/06/Bonifatius_HerzJesu_Kirchturm-0829.jpg`,
-    alt: 'Kirchturm Herz Jesu Frankfurt-Oberrad',
-    text: 'Aktuelle Termine, Neuigkeiten und Einladungen aus Herz Jesu – bequem per E-Mail. Kostenlos, jederzeit kündbar.',
-    more: 'Newsletter abonnieren →',
-  },
 ];
 ---
 <section class="astro-hjsec" id="angebote">
@@ -60,7 +52,7 @@ const CARDS = [
 </section>
 
 <style is:global>
-.astro-hjcard__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.astro-hjcard__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .astro-hjcard{background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(30,21,18,.12);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;text-decoration:none;color:inherit}
 .astro-hjcard:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(30,21,18,.18)}
 .astro-hjcard__img{aspect-ratio:16/10;background-size:cover;background-position:center;background-color:#eee}
@@ -68,6 +60,6 @@ const CARDS = [
 .astro-hjcard__title{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:#9a2d2d;margin:0 0 10px;line-height:1.2}
 .astro-hjcard__text{font-size:14px;line-height:1.55;color:#3d3530;margin:0 0 14px;flex:1}
 .astro-hjcard__more{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#9a2d2d;display:inline-flex;align-items:center;gap:6px;margin-top:auto}
-@media(max-width:1100px){.astro-hjcard__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.astro-hjcard__grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.astro-hjcard__grid{grid-template-columns:1fr}}
 </style>
