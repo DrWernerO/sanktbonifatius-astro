@@ -1,0 +1,30 @@
+---
+// Hero der Seite „Anmeldung zur Taufe" — WP-Seite 48011 (/gottesdienst-glaube/taufanmeldung/).
+// Eigene Klassen `astro-tan-hero` (Prefix `astro-tan`, getrennt vom Taufe-Seiten-Prefix `astro-ta`,
+// um Kollisionen zu vermeiden — Handbuch Abschnitt 3 + 16). Die WP-Vorlage hat KEIN Hero-Foto →
+// warmer Verlauf-Hero (Handbuch Checkliste 7). Einzige sichtbare <h1> der Seite.
+---
+<section class="astro-tan-hero">
+  <div class="astro-tan-hero__inner">
+    <p class="astro-tan-hero__eyebrow">Sakrament der Taufe</p>
+    <h1 class="astro-tan-hero__title">Anmeldung zur Taufe</h1>
+    <p class="astro-tan-hero__sub">
+      Sch&ouml;n, dass Sie Ihr Kind taufen lassen m&ouml;chten. F&uuml;llen Sie das Formular in Ruhe
+      aus &#8212; wir melden uns pers&ouml;nlich bei Ihnen, um alles Weitere zu besprechen.
+    </p>
+    <a class="astro-tan-hero__cta" href="#anmeldung">Zum Anmeldeformular &#8594;</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-tan-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#4a2e1a 0%,#7e2424 58%,#3a2315 100%);display:flex;align-items:flex-end;min-height:min(52vh,420px);overflow:hidden}
+.astro-tan-hero::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#b88a3a 0%,#d4aa5a 50%,#b88a3a 100%)}
+.astro-tan-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 22% 12%,rgba(255,255,255,.08),transparent 55%)}
+.astro-tan-hero__inner{position:relative;z-index:1;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;color:#f0e8d8}
+.astro-tan-hero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#c8a96e;margin:0 0 14px}
+.astro-tan-hero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5.5vw,62px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700;letter-spacing:-.01em}
+.astro-tan-hero__sub{color:rgba(255,255,255,.9);font-size:clamp(16px,2vw,20px);margin:0 0 28px;max-width:640px;line-height:1.55}
+.astro-tan-hero__cta{display:inline-flex;align-items:center;gap:8px;width:fit-content;background:#fff;color:#9a2d2d;font-weight:700;font-size:15px;padding:14px 28px;border-radius:50px;text-decoration:none;transition:background .2s,color .2s}
+.astro-tan-hero__cta:hover{background:#f3e7d4;color:#7e2424}
+@media(max-width:600px){.astro-tan-hero{min-height:min(48vh,360px)}.astro-tan-hero__inner{padding:0 20px 40px}}
+</style>

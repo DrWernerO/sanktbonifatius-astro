@@ -1,0 +1,33 @@
+---
+// Abschluss-CTA „Der erste Schritt ist ein Gespräch" (WP-Block `kw-cta`). Eigene Klassen `astro-kw-cta`.
+// Feste Inhalte (1:1 aus WP-Seite 48544). Zwei Buttons → /kontakt/ und /gottesdienst-glaube/.
+---
+<section class="astro-kw-cta">
+  <div class="astro-kw-cta__inner">
+    <p class="astro-kw-cta__eyebrow">Wir freuen uns auf Sie</p>
+    <h2 class="astro-kw-cta__hl">Der erste Schritt ist ein Gespr&auml;ch</h2>
+    <p class="astro-kw-cta__sub">
+      Rufen Sie uns an, schreiben Sie uns eine E-Mail oder kommen Sie einfach vorbei.
+      Wir nehmen uns gerne Zeit f&uuml;r Sie.
+    </p>
+    <div class="astro-kw-cta__btns">
+      <a class="astro-kw-cta__btn" href="/kontakt/">Kontakt aufnehmen &#8594;</a>
+      <a class="astro-kw-cta__btn astro-kw-cta__btn--ghost" href="/gottesdienst-glaube/">Gottesdienste entdecken</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-kw-cta{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#4a2e1a,#3a2315);color:#fff;padding:80px 0;overflow:hidden}
+.astro-kw-cta::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 10%,rgba(255,255,255,.08),transparent 55%)}
+.astro-kw-cta__inner{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-kw-cta__eyebrow{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#c8a96e;margin:0 0 16px}
+.astro-kw-cta__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,40px);font-weight:700;color:#fff;margin:0 0 16px}
+.astro-kw-cta__sub{font-size:clamp(15px,1.8vw,19px);color:rgba(255,255,255,.82);line-height:1.6;margin:0 0 36px}
+.astro-kw-cta__btns{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px}
+.astro-kw-cta__btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;background:#fff;color:#9a2d2d;transition:background .2s,color .2s}
+.astro-kw-cta__btn:hover{background:#f3e7d4;color:#7e2424}
+.astro-kw-cta__btn--ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+.astro-kw-cta__btn--ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+@media(max-width:600px){.astro-kw-cta{padding:56px 0}.astro-kw-cta__inner{padding:0 20px}}
+</style>

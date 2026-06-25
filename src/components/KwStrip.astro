@@ -1,0 +1,32 @@
+---
+// Dunkler Info-Streifen unter dem Hero (WP-Block `kw-strip`). Eigene Klassen `astro-kw-strip`.
+// SVG-Icons statt Emoji (Handbuch Lektion 7). Die 3 Wege „katholisch zu werden" (1:1 aus WP).
+const items = [
+  { text: 'Taufe empfangen',
+    icon: '<path d="M12 2v6"/><path d="M5 8h14l-1.5 11a2 2 0 0 1-2 1.8H8.5a2 2 0 0 1-2-1.8L5 8z"/><path d="M9 13a3 3 0 0 0 6 0"/>' },
+  { text: 'Aufnahme aus anderer Konfession',
+    icon: '<path d="M14 9V5a3 3 0 0 0-6 0v4"/><path d="M5 9h14l-1 12H6L5 9z"/><circle cx="12" cy="15" r="2"/>' },
+  { text: 'Wiederaufnahme nach Austritt',
+    icon: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>' },
+];
+---
+<section class="astro-kw-strip">
+  <div class="astro-kw-strip__inner">
+    {items.map((it) => (
+      <div class="astro-kw-strip__item">
+        <svg class="astro-kw-strip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={it.icon} />
+        <span set:html={it.text} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-kw-strip{background:#1e1512;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;position:relative}
+.astro-kw-strip__inner{max-width:1200px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap}
+.astro-kw-strip__item{display:flex;align-items:center;gap:11px;padding:18px 34px;color:#f0e8d8;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-right:1px solid rgba(255,255,255,.1)}
+.astro-kw-strip__item:last-child{border-right:none}
+.astro-kw-strip__icon{width:20px;height:20px;flex-shrink:0;color:#c5a55a}
+@media(max-width:760px){.astro-kw-strip__inner{flex-direction:column;align-items:stretch}.astro-kw-strip__item{border-right:none;border-bottom:1px solid rgba(255,255,255,.1);padding:14px 24px;justify-content:center;text-align:center}.astro-kw-strip__item:last-child{border-bottom:none}}
+</style>

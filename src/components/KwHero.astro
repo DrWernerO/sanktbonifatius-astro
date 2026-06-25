@@ -1,0 +1,29 @@
+---
+// Hero der Seite „Katholisch werden" — WP-Seite 48544 (/kontakt/katholisch-werden/, WP-Block `kw-hero`).
+// Eigene Klassen `astro-kw-hero` (goldene Regel, Handbuch Abschnitt 3 — niemals WP-Klassen `kw-…`).
+//
+// Die WP-Vorlage referenziert ein Hero-Foto, das auf der Live-Seite NICHT existiert (404, auch
+// nicht in der Mediathek). Daher hier — wie KontaktHero/NlHero/SeelsorgeHero (Handbuch Checkliste 7)
+// — ein warmer Verlauf-Hero statt eines fehlenden Bildes. Einzige sichtbare <h1> der Seite.
+---
+<section class="astro-kw-hero">
+  <div class="astro-kw-hero__inner">
+    <p class="astro-kw-hero__eyebrow">Ein neuer Anfang</p>
+    <h1 class="astro-kw-hero__title">Katholisch werden</h1>
+    <p class="astro-kw-hero__sub">
+      Ob Sie getauft werden m&ouml;chten, aus einer anderen Konfession kommen oder nach einem
+      Kirchenaustritt zur&uuml;ckfinden &#8212; wir begleiten Sie herzlich auf Ihrem Weg.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-kw-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#4a2e1a 0%,#7e2424 58%,#3a2315 100%);display:flex;align-items:flex-end;min-height:min(56vh,460px);overflow:hidden}
+.astro-kw-hero::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#b88a3a 0%,#d4aa5a 50%,#b88a3a 100%)}
+.astro-kw-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 22% 12%,rgba(255,255,255,.08),transparent 55%)}
+.astro-kw-hero__inner{position:relative;z-index:1;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 60px;color:#f0e8d8}
+.astro-kw-hero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#c8a96e;margin:0 0 14px}
+.astro-kw-hero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5.5vw,64px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700;letter-spacing:-.01em}
+.astro-kw-hero__sub{color:rgba(255,255,255,.9);font-size:clamp(16px,2vw,21px);margin:0;max-width:640px;line-height:1.55}
+@media(max-width:600px){.astro-kw-hero{min-height:min(52vh,400px)}.astro-kw-hero__inner{padding:0 20px 40px}}
+</style>

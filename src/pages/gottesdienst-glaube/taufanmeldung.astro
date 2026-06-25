@@ -1,0 +1,33 @@
+---
+// Seite „Anmeldung zur Taufe" — WP-Seite 48011 (/gottesdienst-glaube/taufanmeldung/).
+// Nav + Footer kommen global aus Base.astro (Handbuch 4b). SEO live aus WP (SEOPress).
+//
+// WICHTIG: Das eigentliche Anmeldeformular ist IDENTISCH mit dem der Taufe-Seite (gleiche Feldnamen,
+// gleicher PDF-/Mail-Vertrag, Handbuch 13b). Deshalb wird hier die bewährte TaufeForm-Komponente
+// WIEDERVERWENDET (keine zweite Formular-Logik) — sie postet an /api/taufe-anmeldung und erzeugt
+// das amtliche PDF. Drumherum eigene `astro-tan`-Komponenten (Hero, Hinweise, CTA).
+//
+// Liegt in src/pages/gottesdienst-glaube/ (Verzeichnis existiert bereits) → erzeugt exakt den
+// WP-Pfad /gottesdienst-glaube/taufanmeldung/ (wichtig für getSeoHead + canonical).
+import Base from '../../layouts/Base.astro';
+import TanHero from '../../components/TanHero.astro';
+import TanHinweise from '../../components/TanHinweise.astro';
+import TaufeForm from '../../components/TaufeForm.astro';
+import TanCta from '../../components/TanCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/gottesdienst-glaube/taufanmeldung/');
+---
+<Base seo={seo} title="Anmeldung zur Taufe – St. Bonifatius Frankfurt">
+  <TanHero />
+  <TanHinweise />
+  <TaufeForm />
+  <TanCta />
+</Base>
+
+<script>
+  // Auf dieser dedizierten Anmelde-Seite das Formular gleich aufgeklappt zeigen
+  // (TaufeForm versteckt es sonst hinter einem <details>-Toggle).
+  const d = document.getElementById('astro-taform-details');
+  if (d) d.setAttribute('open', '');
+</script>

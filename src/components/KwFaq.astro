@@ -1,0 +1,45 @@
+---
+// „Häufige Fragen" der Seite „Katholisch werden" (WP-Block `kw-faq`). Eigene Klassen `astro-kw-faq`.
+// Natives <details> (kein JS, Muster wie SegenFaq/TaufeFaq). Feste Inhalte (1:1 aus WP-Seite 48544).
+const FAQ = [
+  { q: 'Was passiert bei der Taufe?',
+    a: 'Bei der Taufe wird Wasser &uuml;ber den Kopf gegossen und die Taufformel gesprochen: &#8222;Ich taufe dich im Namen des Vaters und des Sohnes und des Heiligen Geistes.&#8220; Die Taufe ist ein einmaliges und unwiederholbares Sakrament &#8212; sie hinterl&auml;sst ein bleibendes Zeichen im Leben eines Menschen.' },
+  { q: 'Muss ich regelm&auml;&szlig;ig in die Kirche gehen, um mein Kind taufen zu lassen?',
+    a: 'Nein. Was z&auml;hlt, ist Ihre Bereitschaft, Ihr Kind im Glauben zu begleiten. Das pers&ouml;nliche Taufgespr&auml;ch mit unserem Seelsorgeteam hilft Ihnen dabei, die richtigen Schritte zu finden.' },
+  { q: 'Ich bin evangelisch getauft &#8212; muss ich nochmals getauft werden?',
+    a: 'Nein. Die evangelische (und orthodoxe) Taufe wird von der katholischen Kirche vollst&auml;ndig anerkannt. F&uuml;r den &Uuml;bertritt ist keine neue Taufe n&ouml;tig &#8212; stattdessen findet eine feierliche Aufnahme in die Kirche statt.' },
+  { q: 'Was brauche ich f&uuml;r die Wiederaufnahme nach dem Kirchenaustritt?',
+    a: 'Sie ben&ouml;tigen Ihren Taufschein aus der Pfarrei, in der Sie getauft wurden (falls Sie in St. Bonifatius getauft wurden, entf&auml;llt dies). Hilfreich ist auch das Datum und der Ort Ihres Kirchenaustritts. Am Anfang steht immer ein pers&ouml;nliches Gespr&auml;ch mit unserem Seelsorgeteam.' },
+  { q: 'An wen wende ich mich?',
+    a: 'Wenden Sie sich an unser Zentrales Pfarrb&uuml;ro &#8212; per E-Mail, Telefon oder pers&ouml;nlich. Oder sprechen Sie nach einem Gottesdienst einfach ein Mitglied unseres Seelsorgeteams an. Wir freuen uns auf Sie.' },
+];
+---
+<section class="astro-kw-faq">
+  <div class="astro-kw-faq__inner">
+    <p class="astro-kw-faq__eyebrow">H&auml;ufige Fragen</p>
+    <h2 class="astro-kw-faq__hl">Antworten auf Ihre Fragen</h2>
+    <div class="astro-kw-faq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-kw-faq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-kw-faq{background:#fff;padding:80px 0}
+.astro-kw-faq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-kw-faq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-kw-faq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-kw-faq__list{max-width:840px;margin:0 auto}
+.astro-kw-faq details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-kw-faq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:'Playfair Display',serif;font-weight:600;font-size:17px;color:#1e1512}
+.astro-kw-faq summary::-webkit-details-marker{display:none}
+.astro-kw-faq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-kw-faq details[open] summary::after{transform:rotate(45deg)}
+.astro-kw-faq__a{padding:0 24px 20px;font-size:15px;color:#3a2e28;line-height:1.75}
+@media(max-width:600px){.astro-kw-faq{padding:56px 0}.astro-kw-faq__inner{padding:0 20px}}
+</style>
