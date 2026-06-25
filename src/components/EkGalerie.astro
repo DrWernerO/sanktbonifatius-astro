@@ -1,0 +1,114 @@
+---
+// Foto-Galerie der Seite „Erstkommunion" (WP-Seite 47424). Eigene Klassen `astro-ekgal`,
+// eigene Lightbox (Muster wie GdGallery). Bilder lokal in public/uploads/2026/06/ (vom WP
+// heruntergeladen, Handbuch 1b) — large-Variante der Mediathek-Serie erstkommunion-stbonifatius-2026000NN.
+//
+// Im Raster erscheinen NUR 3 Vorschaubilder (006, 023, 034 — von Werner gewählt); die Lightbox
+// zeigt ALLE 34 Bilder der Serie in numerischer Reihenfolge.
+const IMG = '/uploads/2026/06';
+// Vollständige Serie 1..34 in numerischer Reihenfolge (Lightbox-Inhalt).
+const photos = Array.from({ length: 34 }, (_, i) => {
+  const n = String(i + 1).padStart(5, '0');
+  return {
+    src: `${IMG}/erstkommunion-stbonifatius-2026${n}.jpg`,
+    alt: `Erstkommunion in St. Bonifatius Frankfurt (${i + 1})`,
+  };
+});
+// Drei Vorschaukacheln (0-basierte Indizes in `photos`): Bild 006, 023, 034.
+const previewIndexes = [5, 22, 33];
+---
+<section class="astro-ekgal">
+  <div class="astro-ekgal__inner">
+    <div class="astro-ekgal__head">
+      <p class="astro-ekgal__eyebrow">Impressionen</p>
+      <h2 class="astro-ekgal__hl">Erstkommunion in unserer Pfarrei</h2>
+      <p class="astro-ekgal__sub">Ein festlicher Tag voller Freude &#8212; Eindr&uuml;cke von der Feier der Erstkommunion in St. Bonifatius Frankfurt.</p>
+      <p class="astro-ekgal__hint">Klicken Sie auf ein Foto, um alle {photos.length} Bilder zu &ouml;ffnen.</p>
+    </div>
+    <div class="astro-ekgal__grid" id="astro-ekgal-grid">
+      {previewIndexes.map((idx, pos) => (
+        <button type="button" class="astro-ekgal__cell" data-index={idx} aria-label={`Galerie ab Foto ${idx + 1} öffnen`}>
+          <img class="astro-ekgal__img" src={photos[idx].src} alt={photos[idx].alt} loading="lazy" />
+          {pos === previewIndexes.length - 1 && (
+            <span class="astro-ekgal__more">+{photos.length - previewIndexes.length} Fotos</span>
+          )}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="astro-ekgal__lb" id="astro-ekgal-lb" aria-hidden="true">
+    <button type="button" class="astro-ekgal__lb-close" id="astro-ekgal-close" aria-label="Galerie schließen">&times;</button>
+    <button type="button" class="astro-ekgal__lb-nav astro-ekgal__lb-prev" id="astro-ekgal-prev" aria-label="Vorheriges Foto">&#8249;</button>
+    <img class="astro-ekgal__lb-img" id="astro-ekgal-lb-img" src="" alt="" />
+    <button type="button" class="astro-ekgal__lb-nav astro-ekgal__lb-next" id="astro-ekgal-next" aria-label="Nächstes Foto">&#8250;</button>
+    <span class="astro-ekgal__lb-count" id="astro-ekgal-count"></span>
+  </div>
+
+  <script type="application/json" id="astro-ekgal-data" set:html={JSON.stringify(photos)}></script>
+</section>
+
+<style is:global>
+.astro-ekgal{background:#f7f3ef;padding:72px 0}
+.astro-ekgal__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-ekgal__head{text-align:center;margin:0 0 40px}
+.astro-ekgal__eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px}
+.astro-ekgal__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-ekgal__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:640px}
+.astro-ekgal__hint{font-size:13px;color:#928269;margin:14px 0 0}
+.astro-ekgal__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.astro-ekgal__cell{position:relative;padding:0;border:none;background:#ede8e1;border-radius:10px;overflow:hidden;cursor:pointer;aspect-ratio:4/3}
+.astro-ekgal__img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.astro-ekgal__cell:hover .astro-ekgal__img{transform:scale(1.06)}
+.astro-ekgal__more{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(30,21,18,.55);color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:clamp(18px,2.4vw,26px);font-weight:700;letter-spacing:.02em;pointer-events:none}
+/* Lightbox */
+.astro-ekgal__lb{position:fixed;inset:0;z-index:2000;background:rgba(18,12,8,.92);display:none;align-items:center;justify-content:center}
+.astro-ekgal__lb.is-open{display:flex}
+.astro-ekgal__lb-img{max-width:88vw;max-height:84vh;border-radius:6px;box-shadow:0 12px 50px rgba(0,0,0,.5)}
+.astro-ekgal__lb-close{position:absolute;top:22px;right:28px;background:none;border:none;color:#f0e8d8;font-size:40px;line-height:1;cursor:pointer}
+.astro-ekgal__lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.35);border:none;color:#fff;font-size:44px;line-height:1;width:60px;height:80px;cursor:pointer;border-radius:8px;transition:background .2s}
+.astro-ekgal__lb-nav:hover{background:rgba(0,0,0,.6)}
+.astro-ekgal__lb-prev{left:22px}
+.astro-ekgal__lb-next{right:22px}
+.astro-ekgal__lb-count{position:absolute;bottom:24px;left:0;right:0;text-align:center;color:#e0d6c6;font-size:14px;letter-spacing:.05em}
+@media(max-width:860px){.astro-ekgal__grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.astro-ekgal{padding:52px 0}.astro-ekgal__inner{padding:0 20px}.astro-ekgal__lb-nav{width:46px;height:64px;font-size:34px}}
+</style>
+
+<script>
+(function(){
+  const grid = document.getElementById('astro-ekgal-grid');
+  const lb   = document.getElementById('astro-ekgal-lb');
+  const data = document.getElementById('astro-ekgal-data');
+  if(!grid || !lb || !data) return;
+  const lbImg = document.getElementById('astro-ekgal-lb-img');
+  const count = document.getElementById('astro-ekgal-count');
+  let sources = [];
+  try { sources = JSON.parse(data.textContent || '[]'); } catch(e) { return; }
+  if(!sources.length) return;
+  let cur = 0;
+
+  function show(i){
+    cur = (i + sources.length) % sources.length;
+    lbImg.src = sources[cur].src;
+    lbImg.alt = sources[cur].alt;
+    count.textContent = (cur+1) + ' / ' + sources.length;
+  }
+  function open(i){ show(i); lb.classList.add('is-open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+  function close(){ lb.classList.remove('is-open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+
+  grid.querySelectorAll('.astro-ekgal__cell').forEach(function(c){
+    c.addEventListener('click', function(){ open(parseInt(c.getAttribute('data-index'),10) || 0); });
+  });
+  document.getElementById('astro-ekgal-close').addEventListener('click', close);
+  document.getElementById('astro-ekgal-prev').addEventListener('click', function(){ show(cur-1); });
+  document.getElementById('astro-ekgal-next').addEventListener('click', function(){ show(cur+1); });
+  lb.addEventListener('click', function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('is-open')) return;
+    if(e.key==='Escape') close();
+    else if(e.key==='ArrowLeft') show(cur-1);
+    else if(e.key==='ArrowRight') show(cur+1);
+  });
+})();
+</script>
