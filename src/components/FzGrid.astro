@@ -1,0 +1,137 @@
+---
+// Freizeiten-Grid der Unterseite „Kinder- & Jugendfreizeiten" (WP-Block `fz-grid-wrap`).
+// Eigene Klassen `astro-fzgrid` (goldene Regel, Handbuch 3 — niemals WP-Klassen `fz-…`).
+// 6 Karten aus einem Daten-Array. Bilder lokal unter public/uploads/ (Handbuch 1b).
+// Externe Anmelde-Links (JONA, ChurchDesk) + Flyer-PDFs liegen weiterhin auf www
+// (Download-URLs ziehen erst beim WP-Umzug auf cms., Handbuch 1b). Mailto bleibt mailto.
+//
+// Faithful zur Live-Seite (SEO-Quelle): Termine, Altersangaben, Orte und Anmeldewege
+// 1:1 übernommen. Ändert sich eine Freizeit, hier im `freizeiten`-Array pflegen.
+const freizeiten = [
+  {
+    img: '/uploads/2025/12/freizeiten-jugend-2026.jpg',
+    alt: 'Kinder baden gemeinsam in einem klaren See',
+    badge: '14–17 Jahre', region: 'Italien',
+    title: 'Sommerfreizeit am Lago Maggiore',
+    dates: '03.07.–17.07.2026', place: 'Lago Maggiore',
+    text: 'Das schönste Abenteuer des Jahres erlebst du hier! Sonne auf der Haut, Wasser vor dir und eine Gruppe, die schnell zu einer kleinen Gemeinschaft wird. Diese Freizeit schenkt dir Abstand vom Alltag und unvergessliche Momente zwischen Baden, Spielen, Gesprächen und Abenteuern.',
+    links: [{ label: 'Anmeldung über JONA', href: 'https://jugendkirche-frankfurt.bistumlimburg.de/angebote/freizeiten', primary: true, ext: true }],
+  },
+  {
+    img: '/uploads/2025/12/sommerfreizeit-daenemark-herz-jesu-2026.jpg',
+    alt: 'Gruppenfreizeit in Dänemark',
+    badge: '8–17 Jahre', region: 'Dänemark · Herz Jesu',
+    title: 'Herz Jesu Sommerfreizeit nach Dänemark',
+    dates: '17.07.–01.08.2026', place: 'Oddesundlejren (DK)',
+    text: 'Verbringe zwei unvergessliche Wochen mit uns in Oddesundlejren! Wir spielen eine Menge cooler Spiele, du lernst tolle neue Leute kennen und gewinnst Freunde fürs Leben. Gemeinschaft steht bei uns an erster Stelle.',
+    links: [
+      { label: 'Direkt zur Anmeldung', href: 'https://www.sanktbonifatius.de/wp-content/uploads/2025/12/Anmeldung-Herz-Jesu-Sommerfreizeit-2026.pdf', primary: true, ext: true },
+      { label: 'Flyer (PDF)', href: 'https://www.sanktbonifatius.de/wp-content/uploads/2025/12/Herz-Jesu-Dansk-Flyer2026.pdf', ext: true },
+    ],
+  },
+  {
+    img: '/uploads/2026/05/boni-sommerfreizeit-1024x692.jpg',
+    alt: 'Boni-Sommerfreizeit im Elbtal',
+    badge: '7–18 Jahre', region: 'Elbtal · Boni',
+    title: 'Boni-Sommerfreizeit im Elbtal',
+    dates: '26.07.–05.08.2026', place: 'Burg Waldmannshausen, Elbtal',
+    text: 'Abenteuer, Spiel und Spaß mit Freunden oder jenen, die es noch werden sollen. Du hast Lust auf draußen sein, Bewegung, Musik, Lagerfeuer und kreative Aktionen? Das Schullandheim Burg Waldmannshausen im Elbtal bietet dafür die perfekte Umgebung. Die Plätze sind begrenzt.',
+    links: [{ label: 'Direkt anmelden', href: 'https://forms.churchdesk.com/f/RWGSraAgsi', primary: true, ext: true }],
+  },
+  {
+    img: '/uploads/2025/12/Jugend-Freizeiten-privat.jpg',
+    alt: 'Zeltlager im Westerwald',
+    badge: 'Kinder & Jugend', region: 'Westerwald · St. Wendel',
+    title: 'Zeltlager 2026 · St. Wendel',
+    dates: '01.08.–08.08.2026', place: 'Karlsheim, Kirchähr',
+    text: 'Auch 2026 geht es wieder ins Zeltlager! Dieses Jahr fahren wir zur Jugendbegegnungsstätte Karlsheim (Kirchähr) in 56412 Gackenbach – ein schöner Zeltplatz direkt am Wald mit Flusszugang sowie Volley- und Fußballfeld. Die Anmeldung erfolgt digital per QR-Code (ab 26.04.2026 in St. Wendel ausgehängt).',
+    links: [{ label: 'Rückfragen per Mail', href: 'mailto:jugendfahrtenstwendel@gmail.com', primary: true }],
+  },
+  {
+    img: '/uploads/2026/02/jugendfreizeit-2026-entdecke-den-osten-1024x724.jpg',
+    alt: 'Jugendfreizeit in Ostdeutschland',
+    badge: '14–18 Jahre', region: 'Ostdeutschland',
+    title: 'Jugendfreizeit 2026 – Entdecke den Osten',
+    dates: '04.10.–10.10.2026', place: 'Dresden, Leipzig, Elbsandsteingebirge',
+    text: 'Du hast Lust auf eine Woche voller Action, Gemeinschaft und unvergesslicher Erlebnisse? Dieses Mal heißt es: „Entdecke den Osten!“ Wir erkunden spannende Städte wie Leipzig und Dresden und genießen die beeindruckende Natur des Elbsandsteingebirges.',
+    note: 'Anmeldung bis 12.04.2026',
+    links: [
+      { label: 'Direkt zur Anmeldung', href: 'https://forms.churchdesk.com/f/-tgiaVCknY', primary: true, ext: true },
+      { label: 'Flyer (PDF)', href: 'https://www.sanktbonifatius.de/wp-content/uploads/2026/02/Jugendfreizeit-2026-entdecke-den-Osten.pdf', ext: true },
+    ],
+  },
+  {
+    img: '/uploads/2025/12/path-7399332_1280-pixabay-1024x682.jpg',
+    alt: 'Bergweg in Tirol',
+    badge: '14–21 Jahre', region: 'Tirol · Save the Date',
+    title: 'Bergabenteuer 2026 in Tirol',
+    dates: '05.10.–10.10.2026', place: 'Paznauntal (Tirol)',
+    text: 'Lasst uns die Berge erkunden – packt eure Neugier ein! Wir machen uns auf den Weg zu einem kleinen Abenteuer zwischen Bergen, Tannen und gemütlichen Hütten. Keine großen Märsche – eher Entdeckertouren: kurze Wege, gute Gesellschaft, und abends Geschichten, Musik und kleine Momente zum Durchatmen.',
+    links: [{ label: 'Anmeldung per Mail', href: 'mailto:g.geagea@sanktbonifatius.de', primary: true }],
+  },
+];
+---
+<section class="astro-fzgrid" id="alle-freizeiten">
+  <div class="astro-fzgrid__in">
+    <div class="astro-fzgrid__head">
+      <h2>Alle Freizeiten 2026</h2>
+      <p>Sortiert nach Reisedatum. Die Plätze sind begrenzt &#8212; eine frühzeitige Anmeldung lohnt sich.</p>
+    </div>
+    <div class="astro-fzgrid__grid">
+      {freizeiten.map((f) => (
+        <article class="astro-fzgrid__card">
+          <div class="astro-fzgrid__img">
+            <img src={f.img} alt={f.alt} loading="lazy" decoding="async" />
+            <span class="astro-fzgrid__badge">{f.badge}</span>
+          </div>
+          <div class="astro-fzgrid__body">
+            <p class="astro-fzgrid__region">{f.region}</p>
+            <h3 class="astro-fzgrid__title">{f.title}</h3>
+            <p class="astro-fzgrid__meta">
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M7 3v3M17 3v3M4 8h16M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/></svg>
+              <span>{f.dates} &middot; {f.place}</span>
+            </p>
+            <p class="astro-fzgrid__text">{f.text}</p>
+            {f.note && <p class="astro-fzgrid__note">{f.note}</p>}
+            <div class="astro-fzgrid__links">
+              {f.links.map((l) => (
+                <a class={`astro-fzgrid__btn ${l.primary ? 'astro-fzgrid__btn--primary' : 'astro-fzgrid__btn--ghost'}`}
+                   href={l.href}
+                   {...(l.ext ? { target: '_blank', rel: 'noopener' } : {})}>{l.label}</a>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-fzgrid{background:#f7f3ef;padding:64px 24px}
+.astro-fzgrid__in{max-width:1200px;margin:0 auto}
+.astro-fzgrid__head{text-align:center;margin-bottom:44px}
+.astro-fzgrid__head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,4vw,38px);color:#2c2420;margin:0 0 10px;font-weight:700}
+.astro-fzgrid__head p{font-size:15.5px;color:#6b5c52;margin:0;max-width:560px;margin-inline:auto}
+.astro-fzgrid__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
+.astro-fzgrid__card{display:flex;flex-direction:column;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(44,36,32,.06);transition:transform .2s,box-shadow .2s}
+.astro-fzgrid__card:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(44,36,32,.12)}
+.astro-fzgrid__img{position:relative;aspect-ratio:16/10;overflow:hidden}
+.astro-fzgrid__img img{width:100%;height:100%;object-fit:cover;display:block}
+.astro-fzgrid__badge{position:absolute;top:12px;left:12px;background:rgba(154,45,45,.94);color:#fff;font-size:12px;font-weight:600;letter-spacing:.02em;padding:5px 12px;border-radius:50px}
+.astro-fzgrid__body{display:flex;flex-direction:column;flex:1;padding:22px 22px 24px}
+.astro-fzgrid__region{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#c5a55a;font-weight:600;margin:0 0 8px}
+.astro-fzgrid__title{font-family:'Playfair Display',Georgia,serif;font-size:21px;color:#2c2420;margin:0 0 12px;line-height:1.25;font-weight:700}
+.astro-fzgrid__meta{display:flex;align-items:center;gap:8px;color:#9a2d2d;font-size:13.5px;font-weight:600;margin:0 0 14px}
+.astro-fzgrid__meta svg{flex:0 0 auto}
+.astro-fzgrid__text{font-size:14.5px;color:#6b5c52;line-height:1.6;margin:0 0 16px}
+.astro-fzgrid__note{font-size:13px;font-weight:600;color:#7e2424;background:#f7ece9;border-radius:8px;padding:7px 12px;margin:0 0 16px}
+.astro-fzgrid__links{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto}
+.astro-fzgrid__btn{display:inline-flex;align-items:center;padding:10px 18px;border-radius:50px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s,border-color .2s,color .2s}
+.astro-fzgrid__btn--primary{background:#9a2d2d;color:#fff}
+.astro-fzgrid__btn--primary:hover{background:#b8423f}
+.astro-fzgrid__btn--ghost{border:1.5px solid #d6cabb;color:#6b5c52}
+.astro-fzgrid__btn--ghost:hover{border-color:#9a2d2d;color:#9a2d2d}
+@media(max-width:980px){.astro-fzgrid__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.astro-fzgrid{padding:48px 18px}.astro-fzgrid__grid{grid-template-columns:1fr}}
+</style>

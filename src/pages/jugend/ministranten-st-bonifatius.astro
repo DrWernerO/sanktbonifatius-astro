@@ -1,0 +1,27 @@
+---
+// Seite „Ministranten St. Bonifatius" — WP-Seite 49156
+// (/jugend/ministranten-st-bonifatius/), Unterseite von „Jugend" (jugend.astro, Page 46717).
+// Vollständig aus eigenen astro-Komponenten (kein set:html mit WP-Markup, Handbuch 9b).
+// Präfix `astro-mn` (WP nutzt `mn-` → tabu, goldene Regel Handbuch 3).
+// Nav + Footer global aus Base.astro (Handbuch 4b). SEO live aus WP via getSeoHead.
+import Base from '../../layouts/Base.astro';
+import MnHero from '../../components/MnHero.astro';
+import MnWelcome from '../../components/MnWelcome.astro';
+import MnSpecials from '../../components/MnSpecials.astro';
+import MnPlan from '../../components/MnPlan.astro';
+import MnTeam from '../../components/MnTeam.astro';
+import MnContact from '../../components/MnContact.astro';
+import MnCta from '../../components/MnCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/jugend/ministranten-st-bonifatius/');
+---
+<Base seo={seo} title="Ministranten St. Bonifatius – Pfarrei Frankfurt">
+  <MnHero />
+  <MnWelcome />
+  <MnSpecials />
+  <MnPlan />
+  <MnTeam />
+  <MnContact />
+  <MnCta />
+</Base>

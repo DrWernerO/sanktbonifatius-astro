@@ -1,0 +1,57 @@
+---
+// Seite „Reisebedingungen" — WP-Seite 32113 (/jugend/reisebedingungen/),
+// Unterseite von „Jugend". Reine Rechtstext-Seite (keine Bilder/Design-Blöcke):
+// eigener Hero + Prosa-Container im Blog-Detail-Muster (Handbuch 6). Der Text kommt
+// LIVE aus WordPress (content.rendered) → die Sekretärinnen pflegen ihn weiter im WP-Editor.
+// Eigene Klassen `astro-rb` (WP hat hier nur `wp-block-list`, kein Theme-Präfix → keine Kollision).
+// Nav + Footer global aus Base.astro (Handbuch 4b). SEO live aus WP via getSeoHead.
+import Base from '../../layouts/Base.astro';
+import RbHero from '../../components/RbHero.astro';
+import { getPageById, getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/jugend/reisebedingungen/');
+const page = await getPageById(32113);
+let body = page?.content?.rendered ?? '';
+// Sektionstitel „N. Titel" (z.B. „1. Anmeldung …") → echte <h2> (Semantik/SEO).
+// Textbasiert + robust gegen WP-Auszeichnungsfehler (Sektion 5 nicht fett; Sektion 9
+// hat ein kaputtes <strong>). Ein Absatz wird zur Überschrift, wenn sein reiner Text mit
+// „Zahl. " beginnt, kurz ist und KEIN Unterpunkt („9.1 …") ist; Inline-Tags werden entfernt.
+body = body.replace(/<p>([\s\S]*?)<\/p>/gi, (whole, inner) => {
+  const text = inner.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  if (/^\d+\.\s+\D/.test(text) && !/^\d+\.\d/.test(text) && text.length < 80) {
+    return `<h2 class="astro-rbprose__h">${text}</h2>`;
+  }
+  return whole;
+});
+const FALLBACK = !body;
+---
+<Base seo={seo} title="Reisebedingungen für Kinder- & Jugendfreizeiten – St. Bonifatius">
+  <RbHero />
+  <section class="astro-rbprose">
+    <div class="astro-rbprose__in">
+      {FALLBACK ? (
+        <p class="astro-rbprose__note">
+          Die Reisebedingungen können derzeit nicht geladen werden. Bitte wenden Sie sich an das
+          Pfarrbüro: <a href="mailto:info@sanktbonifatius.de">info@sanktbonifatius.de</a>.
+        </p>
+      ) : (
+        <div class="astro-rbprose__body" set:html={body}></div>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+.astro-rbprose{background:#fff;padding:64px 24px 80px}
+.astro-rbprose__in{max-width:780px;margin:0 auto}
+.astro-rbprose__body{color:#4a3f38;font-size:16px;line-height:1.75}
+.astro-rbprose__body .astro-rbprose__h{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,2.6vw,26px);color:#9a2d2d;font-weight:700;margin:40px 0 14px;padding-bottom:10px;border-bottom:1px solid #ece3da;line-height:1.25}
+.astro-rbprose__body .astro-rbprose__h:first-child{margin-top:0}
+.astro-rbprose__body p{margin:0 0 14px}
+.astro-rbprose__body ul{margin:0 0 18px;padding-left:22px}
+.astro-rbprose__body li{margin:0 0 6px}
+.astro-rbprose__body strong{color:#2c2420}
+.astro-rbprose__body a{color:#9a2d2d;font-weight:600}
+.astro-rbprose__note{color:#6b5c52;font-size:16px;line-height:1.7}
+@media(max-width:600px){.astro-rbprose{padding:48px 18px 60px}}
+</style>

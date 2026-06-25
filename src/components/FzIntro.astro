@@ -1,0 +1,20 @@
+---
+// Intro der Unterseite „Kinder- & Jugendfreizeiten" (WP-Block `fz-intro`).
+// Eigene Klassen `astro-fzintro`. Fester Text (selten geändert).
+---
+<section class="astro-fzintro">
+  <div class="astro-fzintro__in">
+    <p class="astro-fzintro__lead">
+      Willkommen bei den Kinder- und Jugendfreizeiten der Pfarrei Sankt Bonifatius Frankfurt.
+      Hier verschaffst du dir einen &Uuml;berblick und findest heraus, welches Angebot das
+      richtige f&uuml;r dich ist.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-fzintro{background:#fff;padding:64px 24px 8px}
+.astro-fzintro__in{max-width:820px;margin:0 auto;text-align:center}
+.astro-fzintro__lead{font-size:clamp(16px,1.9vw,19px);color:#6b5c52;line-height:1.7;margin:0}
+@media(max-width:600px){.astro-fzintro{padding:48px 20px 4px}}
+</style>

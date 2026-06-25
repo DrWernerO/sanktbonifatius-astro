@@ -1,0 +1,32 @@
+---
+// Abschluss-CTA „Komm vorbei und mach mit" (WP-Block `mn-cta`). Eigene Klassen `astro-mncta`.
+// Warm-brauner Verlauf (Design-System §5) — konsistent mit JugendCta.
+---
+<section class="astro-mncta">
+  <div class="astro-mncta__in">
+    <p class="astro-mncta__eyebrow">Mach mit</p>
+    <h2 class="astro-mncta__hl">Komm vorbei und mach mit</h2>
+    <p class="astro-mncta__sub">
+      Du m&ouml;chtest Ministrantin oder Ministrant in St. Bonifatius werden?
+      Schreib uns eine Mail &#8212; wir freuen uns auf dich.
+    </p>
+    <div class="astro-mncta__btns">
+      <a class="astro-mncta__btn astro-mncta__btn--primary"
+         href="mailto:ministranten@sanktbonifatius.de?subject=Ich%20m%C3%B6chte%20Ministrant%2Fin%20werden">Mail an das Mini-Team</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-mncta{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#4a2e1a 0%,#3a2315 100%);color:#fff;padding:76px 0;overflow:hidden}
+.astro-mncta::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 10%,rgba(197,165,90,.16),transparent 55%)}
+.astro-mncta__in{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-mncta__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#d4aa5a;margin:0 0 14px;font-weight:600}
+.astro-mncta__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#fff;margin:0 0 14px}
+.astro-mncta__sub{font-size:clamp(15px,1.8vw,19px);color:rgba(255,255,255,.85);line-height:1.6;margin:0 auto 32px;max-width:540px}
+.astro-mncta__btns{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px}
+.astro-mncta__btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s}
+.astro-mncta__btn--primary{background:#9a2d2d;color:#fff}
+.astro-mncta__btn--primary:hover{background:#b8423f}
+@media(max-width:600px){.astro-mncta{padding:56px 0}.astro-mncta__in{padding:0 20px}}
+</style>

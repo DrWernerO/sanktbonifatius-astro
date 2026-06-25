@@ -1,0 +1,22 @@
+---
+// Seite „Kinder- & Jugendfreizeiten" — WP-Seite 49157
+// (/jugend/kinder-und-jugendfreizeiten/), Unterseite von „Jugend" (jugend.astro, Page 46717).
+// Vollständig aus eigenen astro-Komponenten (kein set:html mit WP-Markup, Handbuch 9b).
+// Präfix `astro-fz` (WP nutzt `fz-` → tabu, goldene Regel Handbuch 3).
+// Nav + Footer kommen global aus Base.astro (Handbuch 4b) — hier NICHT erneut einbinden.
+// SEO live aus WP (SEOPress) via getSeoHead('/jugend/kinder-und-jugendfreizeiten/').
+import Base from '../../layouts/Base.astro';
+import FzHero from '../../components/FzHero.astro';
+import FzIntro from '../../components/FzIntro.astro';
+import FzGrid from '../../components/FzGrid.astro';
+import FzCta from '../../components/FzCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/jugend/kinder-und-jugendfreizeiten/');
+---
+<Base seo={seo} title="Kinder- & Jugendfreizeiten 2026 – St. Bonifatius Frankfurt">
+  <FzHero />
+  <FzIntro />
+  <FzGrid />
+  <FzCta />
+</Base>
