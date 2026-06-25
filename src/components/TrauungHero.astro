@@ -1,0 +1,37 @@
+---
+// Hero der Seite „Kirchliche Trauung" — WP-Seite 47394 (/segen-sakramente/trauung/, WP-Block `tr-hero`).
+// Eigene Klassen `astro-tr-hero` (goldene Regel, Handbuch Abschnitt 3 — WP-Klassen `tr-…` tabu).
+// Foto-Hero (Live-Mediathek, HTTP 200) → Bild + dunkler Gradient (Muster FirmHero, Handbuch § 4/10).
+// Einzige sichtbare <h1> der Seite.
+---
+<section class="astro-tr-hero">
+  <div class="astro-tr-hero__inner">
+    <span class="astro-tr-hero__eyebrow">Sakrament der Ehe</span>
+    <h1 class="astro-tr-hero__title">Kirchliche Trauung in der Pfarrei St. Bonifatius Frankfurt</h1>
+    <p class="astro-tr-hero__sub">
+      &#8222;Ich nehme dich an und verspreche dir die Treue.&#8220; Begleitung auf dem Weg zu
+      Ihrer kirchlichen Hochzeit &#8211; pers&ouml;nlich, herzlich und ganz nach Ihren W&uuml;nschen.
+    </p>
+    <div class="astro-tr-hero__btns">
+      <a class="astro-tr-hero__btn" href="#tr-kontakt">Jetzt Kontakt aufnehmen</a>
+      <a class="astro-tr-hero__btn astro-tr-hero__btn--ghost" href="#tr-anmeldung">Anmeldung &amp; Ablauf &#8595;</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-tr-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:520px;display:flex;align-items:flex-end;overflow:hidden}
+@media(min-width:768px){.astro-tr-hero{min-height:600px}}
+.astro-tr-hero::before{content:"";position:absolute;inset:0;background-image:url('https://www.sanktbonifatius.de/wp-content/uploads/2023/09/trauung-sankt-bonifatius.jpg');background-size:cover;background-position:center 25%;z-index:0}
+.astro-tr-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.18) 0%,rgba(30,21,18,.5) 55%,rgba(30,21,18,.88) 100%);z-index:1}
+.astro-tr-hero__inner{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:48px 48px 60px;color:#fff}
+.astro-tr-hero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.95rem;color:#c8a96e;letter-spacing:.06em;display:block;margin-bottom:12px}
+.astro-tr-hero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,5vw,60px);font-weight:700;color:#fff;margin:0 0 16px;line-height:1.12;max-width:880px}
+.astro-tr-hero__sub{font-size:clamp(16px,2vw,21px);color:rgba(255,255,255,.85);max-width:600px;line-height:1.65;margin:0 0 28px}
+.astro-tr-hero__btns{display:flex;gap:14px;flex-wrap:wrap}
+.astro-tr-hero__btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:50px;font-size:15px;font-weight:700;text-decoration:none;background:#9a2d2d;color:#fff;transition:background .2s,color .2s}
+.astro-tr-hero__btn:hover{background:#7e2424}
+.astro-tr-hero__btn--ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
+.astro-tr-hero__btn--ghost:hover{background:rgba(255,255,255,.14)}
+@media(max-width:600px){.astro-tr-hero{min-height:460px}.astro-tr-hero__inner{padding:0 20px 40px}}
+</style>

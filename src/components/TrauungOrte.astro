@@ -1,0 +1,55 @@
+---
+// „In welchen Kirchen unserer Pfarrei können Sie heiraten?" (WP-Block `tr-orte`).
+// Eigene Klassen `astro-tr-orte`. Drei Kirchort-Karten 1:1 aus WP-Seite 47394, Bilder aus Live-Mediathek.
+// Links: St. Bonifatius + Herz Jesu zeigen auf die gebauten Astro-Kirchortseiten; St. Wendel ist in
+// Astro noch nicht gebaut → künftiger Pfad /kirchorte/st-wendel/ (toter Link, Handbuch § 12).
+const ORTE = [
+  { name: 'St. Bonifatius',
+    img: 'https://www.sanktbonifatius.de/wp-content/uploads/2020/04/St.-Bonifatius-von-oben.jpg',
+    text: 'Unsere wundersch&ouml;ne Pfarrkirche bietet einen festlichen Rahmen. Durch die im Halbkreis aufgestellten St&uuml;hle lassen sich Gottesdienste besonders gemeinschaftlich feiern &#8211; nah am Altar und nah beieinander.',
+    href: '/kirchorte/st-bonifatius/' },
+  { name: 'St. Wendel',
+    img: 'https://www.sanktbonifatius.de/wp-content/uploads/2022/04/st-wendel-frankfurt0.jpeg',
+    text: 'Eine gro&szlig;e Kirche mit eindrucksvollem Ambiente &#8211; ideal f&uuml;r Trauungen mit vielen G&auml;sten und musikalischer Gestaltung in feierlichem Rahmen.',
+    href: '/kirchorte/st-wendel/' },
+  { name: 'Herz Jesu',
+    img: 'https://www.sanktbonifatius.de/wp-content/uploads/2020/05/Kirche-HerzJesu-1.jpg',
+    text: 'Die &auml;lteste Kirche unserer Pfarrei in Sachsenhausen-Oberrad eignet sich besonders f&uuml;r intimere Feiern &#8211; mit warmem Charakter und besonderer Atmosph&auml;re.',
+    href: '/kirchorte/herz-jesu/' },
+];
+---
+<section class="astro-tr-orte">
+  <div class="astro-tr-orte__head">
+    <h2>In welchen Kirchen unserer Pfarrei k&ouml;nnen Sie heiraten?</h2>
+    <p class="astro-tr-orte__sub">Drei Kirchorte in Frankfurt-Sachsenhausen stehen f&uuml;r Ihre Trauung bereit</p>
+  </div>
+  <div class="astro-tr-orte__grid">
+    {ORTE.map((o) => (
+      <article class="astro-tr-ort">
+        <div class="astro-tr-ort__img" style={`background-image:url('${o.img}')`} role="img" aria-label={o.name}></div>
+        <div class="astro-tr-ort__body">
+          <h3 class="astro-tr-ort__name">{o.name}</h3>
+          <p class="astro-tr-ort__text" set:html={o.text} />
+          <a class="astro-tr-ort__link" href={o.href}>Zur Kirche &#8594;</a>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-tr-orte{background:#fff;padding:64px 0}
+.astro-tr-orte__head{text-align:center;max-width:760px;margin:0 auto 44px;padding:0 24px}
+.astro-tr-orte__head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;margin:0 0 10px}
+.astro-tr-orte__sub{color:#6b5c52;font-size:1rem;margin:0;line-height:1.6}
+.astro-tr-orte__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:1140px;margin:0 auto;padding:0 48px}
+.astro-tr-ort{display:flex;flex-direction:column;background:#faf6f0;border:1px solid #e7ddd0;border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(30,21,18,.05);transition:transform .25s ease,box-shadow .25s ease}
+.astro-tr-ort:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(30,21,18,.10)}
+.astro-tr-ort__img{height:200px;background-size:cover;background-position:center}
+.astro-tr-ort__body{display:flex;flex-direction:column;flex:1;padding:24px 24px 26px}
+.astro-tr-ort__name{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;color:#1e1512;font-weight:700;margin:0 0 10px}
+.astro-tr-ort__text{color:#6b5c52;font-size:.93rem;line-height:1.65;margin:0 0 18px;flex:1}
+.astro-tr-ort__link{align-self:flex-start;color:#9a2d2d;font-weight:700;font-size:.92rem;text-decoration:none}
+.astro-tr-ort__link:hover{text-decoration:underline}
+@media(max-width:900px){.astro-tr-orte__grid{grid-template-columns:1fr;max-width:520px;padding:0 20px}}
+</style>

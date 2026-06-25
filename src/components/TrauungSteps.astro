@@ -1,0 +1,71 @@
+---
+// „So läuft Ihre Trauungsanmeldung ab" (WP-Block `tr-steps`). Eigene Klassen `astro-tr-steps`.
+// Vier Schritte + Hinweis-Box „außerhalb unserer Pfarrei heiraten" 1:1 aus WP-Seite 47394.
+// id="tr-anmeldung" als Sprungziel aus dem Hero-Button.
+const STEPS = [
+  { num: '1', title: 'Kontakt aufnehmen',
+    text: 'Wenden Sie sich m&ouml;glichst fr&uuml;hzeitig an unser Zentrales Pfarrb&uuml;ro &#8211; idealerweise mindestens 9 Monate vor Ihrem Wunschtermin. Gerade an Wochenenden sind unsere Priester und Diakone h&auml;ufig lange im Voraus ausgebucht. Sie erreichen uns per E-Mail unter <a href="mailto:pfarrer@sanktbonifatius.de">pfarrer@sanktbonifatius.de</a> oder telefonisch unter <a href="tel:0696130090">069 61300-9</a>. Das Zentrale Pfarrb&uuml;ro hilft Ihnen gerne weiter.' },
+  { num: '2', title: 'Pers&ouml;nliches Erstgespr&auml;ch',
+    text: 'Ein Priester oder Diakon aus unserem Pastoralteam meldet sich bei Ihnen und vereinbart einen Gespr&auml;chstermin. Gemeinsam besprechen wir die Gestaltung Ihrer Trauung: Kirchenmusik, Lesungen, Gebete &#8211; und alles, was Ihren Tag unvergesslich macht.' },
+  { num: '3', title: 'Unterlagen einreichen',
+    text: 'F&uuml;r die Anmeldung Ihrer Trauung ben&ouml;tigen Sie folgende Unterlagen:',
+    list: [
+      'Aktueller Auszug aus dem Taufregister &#8211; erh&auml;ltlich beim Pfarrb&uuml;ro der jeweiligen Taufgemeinde (entf&auml;llt bei Taufe in unserer Pfarrei)',
+      'Kopie der Urkunde &uuml;ber die staatliche Eheschlie&szlig;ung',
+      'Namen Ihrer Trauzeugen &#8211; Sie sind in der Wahl v&ouml;llig frei, es gibt keinerlei Vorgaben',
+    ] },
+  { num: '4', title: 'Ein unvergesslicher Tag',
+    text: 'Wir gestalten Ihre Hochzeit ganz individuell nach Ihren W&uuml;nschen, so dass es ein wunderbares Fest wird.' },
+];
+---
+<section class="astro-tr-steps" id="tr-anmeldung">
+  <div class="astro-tr-steps__head">
+    <h2>So l&auml;uft Ihre Trauungsanmeldung ab</h2>
+    <p class="astro-tr-steps__sub">In vier Schritten zum sch&ouml;nsten Tag Ihres Lebens</p>
+  </div>
+  <div class="astro-tr-steps__list">
+    {STEPS.map((s) => (
+      <div class="astro-tr-step">
+        <div class="astro-tr-step__num">{s.num}</div>
+        <div class="astro-tr-step__body">
+          <h3 set:html={s.title} />
+          <p set:html={s.text} />
+          {s.list && (
+            <ul class="astro-tr-step__ul">
+              {s.list.map((li) => <li set:html={li} />)}
+            </ul>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="astro-tr-extern">
+    <h3>Sie m&ouml;chten au&szlig;erhalb unserer Pfarrei heiraten?</h3>
+    <p>
+      Das Wohnsitzpfarramt ist immer f&uuml;r die Ehevorbereitung zust&auml;ndig. Bitte nehmen Sie
+      fr&uuml;hzeitig Kontakt zu uns auf &#8211; wir begleiten Sie durch alle notwendigen Schritte
+      und stellen den Kontakt zur Trauungspfarrei her.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-tr-steps{background:#fff;padding:64px 0;scroll-margin-top:96px}
+.astro-tr-steps__head{text-align:center;max-width:760px;margin:0 auto 44px;padding:0 24px}
+.astro-tr-steps__head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;margin:0 0 10px}
+.astro-tr-steps__sub{color:#6b5c52;font-size:1rem;margin:0;line-height:1.6}
+.astro-tr-steps__list{display:grid;gap:18px;max-width:840px;margin:0 auto;padding:0 48px}
+.astro-tr-step{display:flex;gap:20px;align-items:flex-start;background:#faf6f0;border:1px solid #e7ddd0;border-radius:14px;padding:24px 26px;box-shadow:0 6px 22px rgba(30,21,18,.04)}
+.astro-tr-step__num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.astro-tr-step__body h3{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;color:#1e1512;font-weight:700;margin:6px 0 8px}
+.astro-tr-step__body p{color:#5a4a3a;font-size:.95rem;line-height:1.7;margin:0}
+.astro-tr-step__body a{color:#9a2d2d;text-decoration:none;font-weight:600}
+.astro-tr-step__body a:hover{text-decoration:underline}
+.astro-tr-step__ul{margin:12px 0 0;padding-left:20px;color:#5a4a3a;font-size:.93rem;line-height:1.65}
+.astro-tr-step__ul li{margin:0 0 8px}
+.astro-tr-extern{max-width:840px;margin:28px auto 0;padding:26px 30px;background:#ede4d5;border-left:4px solid #9a2d2d;border-radius:10px}
+.astro-tr-extern h3{font-family:'Playfair Display',Georgia,serif;font-size:1.15rem;color:#1e1512;font-weight:700;margin:0 0 10px}
+.astro-tr-extern p{color:#5a4a3a;font-size:.95rem;line-height:1.7;margin:0}
+@media(max-width:600px){.astro-tr-steps{padding:56px 0}.astro-tr-steps__list{padding:0 20px}.astro-tr-step{padding:20px;gap:16px}.astro-tr-extern{margin:24px 20px 0;padding:22px}}
+</style>

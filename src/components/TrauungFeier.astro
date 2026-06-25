@@ -1,0 +1,44 @@
+---
+// „Wie läuft eine kirchliche Trauung ab?" (WP-Block `tr-feier`). Eigene Klassen `astro-tr-feier`.
+// Vier Phasen des Traugottesdienstes 1:1 aus WP-Seite 47394.
+const PHASEN = [
+  { num: '1', title: 'Einzug &amp; Begr&uuml;&szlig;ung',
+    text: 'Das Brautpaar zieht feierlich in die Kirche ein. Der Priester oder Diakon begr&uuml;&szlig;t die Gemeinde und er&ouml;ffnet den Gottesdienst mit einem Er&ouml;ffnungsgebet.' },
+  { num: '2', title: 'Wortgottesdienst',
+    text: 'Lesungen aus der Bibel, ein Psalm und die Ansprache des Priesters bilden den Wortgottesdienst. Gerne gestalten Sie diesen Teil mit eigenen Texten und Lesenden mit.' },
+  { num: '3', title: 'Das Eheversprechen',
+    text: 'Der Priester segnet die Ringe als Zeichen der ehelichen Treue. Br&auml;utigam und Braut versprechen sich gegenseitig die Treue und stecken dabei einander die Ringe an. Der Priester best&auml;tigt den Ehebund und ruft Gottes reichen Segen auf die Eheleute herab.' },
+  { num: '4', title: 'Abschluss &amp; Segen',
+    text: 'In den F&uuml;rbitten wird f&uuml;r die Eheleute, ihre Angeh&ouml;rigen und in den Anliegen des Paares gebetet. Dabei k&ouml;nnen Familienangeh&ouml;rige und Freunde mitwirken. Der Gottesdienst schlie&szlig;t mit dem Vaterunser und dem Segen.' },
+];
+---
+<section class="astro-tr-feier">
+  <div class="astro-tr-feier__head">
+    <h2>Wie l&auml;uft eine kirchliche Trauung ab?</h2>
+    <p class="astro-tr-feier__sub">Von der Begr&uuml;&szlig;ung bis zum Segen &#8211; was Sie erwartet</p>
+  </div>
+  <div class="astro-tr-feier__grid">
+    {PHASEN.map((p) => (
+      <div class="astro-tr-feier__item">
+        <div class="astro-tr-feier__num">{p.num}</div>
+        <div class="astro-tr-feier__body">
+          <h3 set:html={p.title} />
+          <p set:html={p.text} />
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-tr-feier{background:#ede4d5;padding:64px 0}
+.astro-tr-feier__head{text-align:center;max-width:760px;margin:0 auto 44px;padding:0 24px}
+.astro-tr-feier__head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;margin:0 0 10px}
+.astro-tr-feier__sub{color:#6b5c52;font-size:1rem;margin:0;line-height:1.6}
+.astro-tr-feier__grid{display:grid;gap:18px;max-width:840px;margin:0 auto;padding:0 48px}
+.astro-tr-feier__item{display:flex;gap:20px;align-items:flex-start;background:#fff;border:1px solid #e7ddd0;border-radius:14px;padding:24px 26px;box-shadow:0 6px 22px rgba(30,21,18,.04)}
+.astro-tr-feier__num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.astro-tr-feier__body h3{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;color:#1e1512;font-weight:700;margin:6px 0 8px}
+.astro-tr-feier__body p{color:#5a4a3a;font-size:.95rem;line-height:1.7;margin:0}
+@media(max-width:600px){.astro-tr-feier{padding:56px 0}.astro-tr-feier__grid{padding:0 20px}.astro-tr-feier__item{padding:20px;gap:16px}}
+</style>

@@ -1,0 +1,32 @@
+---
+// Quick-Strip der Seite „Kirchliche Trauung" (WP-Block `tr-strip`). Eigene Klassen `astro-tr-strip`.
+// Drei Kernaussagen 1:1 aus WP-Seite 47394.
+const ITEMS = [
+  { label: 'Pers&ouml;nliche Begleitung',
+    text: 'Ein Priester oder Diakon begleitet Sie durch den gesamten Prozess.' },
+  { label: 'Keine Kirchensteuer erforderlich',
+    text: 'Wenn einer der Partner der Kath. Kirche angeh&ouml;rt, ist die Trauung kostenlos.' },
+  { label: 'Drei Kirchorte in Frankfurt',
+    text: 'St. Bonifatius, St. Wendel und Herz Jesu.' },
+];
+---
+<section class="astro-tr-strip">
+  <div class="astro-tr-strip__inner">
+    {ITEMS.map((it) => (
+      <div class="astro-tr-strip__item">
+        <p class="astro-tr-strip__label" set:html={it.label} />
+        <p class="astro-tr-strip__text" set:html={it.text} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-tr-strip{background:#9a2d2d;padding:42px 0}
+.astro-tr-strip__inner{max-width:1140px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.astro-tr-strip__item{text-align:center;padding:0 12px}
+.astro-tr-strip__item + .astro-tr-strip__item{border-left:1px solid rgba(255,255,255,.22)}
+.astro-tr-strip__label{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.15rem;color:#fff;margin:0 0 6px}
+.astro-tr-strip__text{font-size:.92rem;color:rgba(255,255,255,.82);margin:0;line-height:1.55}
+@media(max-width:720px){.astro-tr-strip__inner{grid-template-columns:1fr;gap:24px;padding:0 20px}.astro-tr-strip__item + .astro-tr-strip__item{border-left:none;border-top:1px solid rgba(255,255,255,.22);padding-top:24px}}
+</style>

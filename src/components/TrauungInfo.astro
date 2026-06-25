@@ -1,0 +1,50 @@
+---
+// Info-Band „Was bedeutet die kirchliche Trauung?" (WP-Block `tr-info`). Eigene Klassen `astro-tr-info`.
+// Bibelzitat + erklärender Text + „Die Vorzüge einer kirchlichen Trauung"-Liste 1:1 aus WP-Seite 47394.
+const VORZUEGE = [
+  '<strong>Pers&ouml;nliche Begleitung</strong> durch ein Mitglied des Seelsorgeteams.',
+  'Wir nehmen uns <strong>viel Zeit f&uuml;r die Vorbereitung</strong> und individuelle Beratung des Brautpaars.',
+  'Wir <strong>gestalten die Feier gemeinsam</strong> mit Ihnen: eigene Liedw&uuml;nsche, biblische Lesungen, eine pers&ouml;nlich auf das Brautpaar abgestimmte Ansprache.',
+  'Ob als <strong>stille Zeremonie</strong> im kleinen Kreis oder als <strong>festliche Trauungsmesse</strong> mit Chor und gro&szlig;em Gel&auml;ut &#8211; in unserer Pfarrei finden Sie den passenden Rahmen.',
+  'Unsere <strong>drei Kirchorte</strong> in Frankfurt bieten unterschiedliche Atmosph&auml;ren, von der kleinen intimen Kapelle bis zur weitr&auml;umigen Pfarrkirche.',
+  'Wir verf&uuml;gen &uuml;ber <strong>langj&auml;hrige Erfahrung</strong>, um zu helfen, dass die Hochzeit zu einem unvergesslichen Fest wird.',
+  'F&uuml;r die kirchliche Trauung entstehen <strong>keinerlei Kosten</strong>. Diese sind mit der Kirchensteuer abgegolten.',
+];
+---
+<section class="astro-tr-info">
+  <div class="astro-tr-info__inner">
+    <h2>Was bedeutet die kirchliche Trauung?</h2>
+    <p class="astro-tr-info__subtitle">Das Sakrament der Ehe &#8211; ein Versprechen f&uuml;rs Leben</p>
+    <p class="astro-tr-info__quote">
+      &#8222;Ich verspreche dir die Treue in guten und in b&ouml;sen Tagen, in Gesundheit und
+      Krankheit, bis der Tod uns scheidet.&#8220;
+    </p>
+    <p class="astro-tr-info__text">
+      Mit diesen Worten schlie&szlig;en zwei Christinnen und Christen einen besonderen Bund
+      f&uuml;r&#8217;s Leben &#8211; das Sakrament der Ehe. Gott segnet diesen Bund und erf&uuml;llt
+      die Beziehung der beiden mit seiner Liebe und seinem guten Geist.
+    </p>
+
+    <h3 class="astro-tr-info__h3">Die Vorz&uuml;ge einer kirchlichen Trauung</h3>
+    <ul class="astro-tr-info__list">
+      {VORZUEGE.map((v) => (
+        <li><span set:html={v} /></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-tr-info{background:#ede4d5;padding:78px 0}
+.astro-tr-info__inner{max-width:820px;margin:0 auto;padding:0 48px}
+.astro-tr-info h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,36px);color:#1e1512;font-weight:700;margin:0 0 10px;text-align:center}
+.astro-tr-info__subtitle{font-family:'Playfair Display',Georgia,serif;font-style:italic;color:#9a2d2d;font-size:1.1rem;text-align:center;margin:0 0 28px}
+.astro-tr-info__quote{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(1.15rem,2.1vw,1.45rem);color:#3a2e28;text-align:center;max-width:680px;margin:0 auto 24px;line-height:1.5}
+.astro-tr-info__text{color:#5a4a3a;font-size:1rem;line-height:1.8;max-width:680px;margin:0 auto;text-align:center}
+.astro-tr-info__h3{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,2.6vw,26px);color:#1e1512;font-weight:700;margin:48px 0 20px;text-align:center}
+.astro-tr-info__list{list-style:none;margin:0;padding:0;display:grid;gap:14px;max-width:720px;margin:0 auto}
+.astro-tr-info__list li{position:relative;padding-left:34px;color:#5a4a3a;font-size:.98rem;line-height:1.65}
+.astro-tr-info__list li::before{content:"";position:absolute;left:0;top:.35em;width:18px;height:18px;border-radius:50%;background:#9a2d2d;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center}
+.astro-tr-info__list strong{color:#3a2e28}
+@media(max-width:600px){.astro-tr-info{padding:56px 0}.astro-tr-info__inner{padding:0 20px}}
+</style>

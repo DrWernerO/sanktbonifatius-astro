@@ -1,0 +1,50 @@
+---
+// „Häufige Fragen zur kirchlichen Trauung in Frankfurt" (WP-Block `tr-faq`). Eigene Klassen
+// `astro-tr-faq`. Natives <details> (kein JS, Muster wie FirmFaq). 7 Fragen 1:1 aus WP-Seite 47394.
+const FAQ = [
+  { q: 'K&ouml;nnen auch konfessionsverschiedene Paare kirchlich heiraten?',
+    a: 'Ja. Eine konfessionsverschiedene Ehe &#8211; z. B. zwischen einem/einer Katholik:in und einer evangelischen Christ:in &#8211; ist m&ouml;glich. In bestimmten F&auml;llen ist eine bisch&ouml;fliche Erlaubnis erforderlich. Sprechen Sie uns einfach an &#8211; wir beraten Sie gerne.' },
+  { q: 'Wie weit im Voraus sollten wir uns anmelden?',
+    a: 'Wir empfehlen eine Anmeldung mindestens 9 Monate vor dem gew&uuml;nschten Termin, da Priester und Kirchorte fr&uuml;hzeitig ausgebucht sein k&ouml;nnen.' },
+  { q: 'Wann finden Trauungen statt?',
+    a: 'Trauungen finden in der Regel samstags statt. Termine und Verf&uuml;gbarkeit der Kirchorte kl&auml;ren wir gerne im pers&ouml;nlichen Gespr&auml;ch.' },
+  { q: 'Was kostet eine kirchliche Trauung?',
+    a: 'F&uuml;r die Trauung selbst entstehen keinerlei Kosten. F&uuml;r die musikalische Gestaltung empfehlen wir Ihnen gerne geeignete Musiker:innen. Das Honorar k&ouml;nnen Sie mit diesen direkt ausmachen. Alle Details besprechen wir transparent im Erstgespr&auml;ch.' },
+  { q: 'K&ouml;nnen wir die Trauungsfeier selbst mitgestalten?',
+    a: 'Ja! Wir gestalten die Trauungsfeier gemeinsam mit Ihnen. Eigene Liedw&uuml;nsche, pers&ouml;nliche Lesungen, besondere Gesten &#8211; vieles ist m&ouml;glich. Im Erstgespr&auml;ch sprechen wir alles gemeinsam durch.' },
+  { q: 'Muss ich in der Pfarrei St. Bonifatius gemeldet sein?',
+    a: 'Nein. Grunds&auml;tzlich kann jedes katholische Paar in unserer Pfarrei heiraten &#8211; auch wenn der Hauptwohnsitz woanders liegt. Entscheidend ist die Zustimmung des Pfarrers. Nehmen Sie fr&uuml;hzeitig Kontakt auf, damit wir gemeinsam die beste L&ouml;sung finden.' },
+  { q: 'Kann oder muss man an einem Ehevorbereitungskurs teilnehmen?',
+    a: 'Gerne informieren wir Sie &uuml;ber die M&ouml;glichkeit, an einem der Ehevorbereitungskurse teilzunehmen. Diese Kurse werden von der Kath. Stadtkirche Frankfurt angeboten und erfreuen sich sehr gro&szlig;er Beliebtheit. Die Teilnahme ist ein gro&szlig;er Gewinn, aber keine Voraussetzung f&uuml;r die Trauung.' },
+];
+---
+<section class="astro-tr-faq">
+  <div class="astro-tr-faq__inner">
+    <h2>H&auml;ufige Fragen zur kirchlichen Trauung in Frankfurt</h2>
+    <p class="astro-tr-faq__intro">Hier finden Sie Antworten auf die h&auml;ufigsten Fragen rund um Ihre kirchliche Hochzeit.</p>
+    <div class="astro-tr-faq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-tr-faq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-tr-faq{background:#fff;padding:64px 0}
+.astro-tr-faq__inner{max-width:760px;margin:0 auto;padding:0 48px}
+.astro-tr-faq h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 8px}
+.astro-tr-faq__intro{text-align:center;color:#6b5c52;margin:0 0 40px;font-size:1rem}
+.astro-tr-faq details{border-bottom:1px solid #e0d8cf;overflow:hidden}
+.astro-tr-faq summary{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;list-style:none;font-weight:600;color:#1e1512;font-size:1rem;gap:16px}
+.astro-tr-faq summary::-webkit-details-marker{display:none}
+.astro-tr-faq summary::after{content:"+";font-size:1.4rem;color:#9a2d2d;flex-shrink:0;transition:transform .2s;font-weight:700;line-height:1}
+.astro-tr-faq details[open] summary::after{transform:rotate(45deg)}
+.astro-tr-faq__a{padding:0 0 18px;color:#5a4a3a;font-size:.95rem;line-height:1.7}
+.astro-tr-faq__a a{color:#9a2d2d;text-decoration:none;font-weight:600}
+.astro-tr-faq__a a:hover{text-decoration:underline}
+@media(max-width:600px){.astro-tr-faq{padding:56px 0}.astro-tr-faq__inner{padding:0 20px}}
+</style>

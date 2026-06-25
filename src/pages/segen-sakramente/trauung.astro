@@ -1,0 +1,30 @@
+---
+// Seite „Kirchliche Trauung" — WP-Seite 47394 (/segen-sakramente/trauung/), vollständig aus eigenen
+// astro-Komponenten (kein set:html mit WP-Markup, vgl. Handbuch 14). Nav + Footer kommen global
+// aus Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden. SEO live aus WP (SEOPress).
+//
+// Liegt in src/pages/segen-sakramente/ neben taufe.astro / firmung.astro. Relative Import-Pfade ../../
+// wegen Unterordner. Prefix `astro-tr-` (WP-Klassen `tr-…` tabu, Regel 3).
+import Base from '../../layouts/Base.astro';
+import TrauungHero from '../../components/TrauungHero.astro';
+import TrauungStrip from '../../components/TrauungStrip.astro';
+import TrauungInfo from '../../components/TrauungInfo.astro';
+import TrauungOrte from '../../components/TrauungOrte.astro';
+import TrauungFeier from '../../components/TrauungFeier.astro';
+import TrauungSteps from '../../components/TrauungSteps.astro';
+import TrauungFaq from '../../components/TrauungFaq.astro';
+import TrauungKontakt from '../../components/TrauungKontakt.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/segen-sakramente/trauung/');
+---
+<Base seo={seo} title="Kirchliche Trauung Frankfurt – heiraten bei St. Bonifatius">
+  <TrauungHero />
+  <TrauungStrip />
+  <TrauungInfo />
+  <TrauungOrte />
+  <TrauungFeier />
+  <TrauungSteps />
+  <TrauungFaq />
+  <TrauungKontakt />
+</Base>
