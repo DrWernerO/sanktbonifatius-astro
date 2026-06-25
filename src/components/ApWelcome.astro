@@ -1,0 +1,55 @@
+---
+---
+<div class="astro-ap-root astro-ap-sec" id="willkommen">
+  <div class="astro-ap-in">
+    <span class="astro-ap-eyebrow">Herzlich willkommen</span>
+    <h2>St. Aposteln – Kirche für alle Menschen</h2>
+    <p class="astro-ap-lead">St. Aposteln ist ein lebendiger Kirchort mitten in Frankfurt-Sachsenhausen. Geprägt von den Steyler Missionarinnen, von offenen Türen und einer Sozialpastoral, die wirklich anpackt. Wer kommt, findet Begegnung, Unterstützung und Stille — ganz ohne Schwelle.</p>
+  </div>
+</div>
+
+<style is:global>
+.astro-ap-sec {
+  padding: 80px 0;
+  background: #fff;
+}
+.astro-ap-sec.alt {
+  background: var(--ap-cream);
+}
+.astro-ap-in {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-ap-eyebrow {
+  display: block;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ap-g);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.astro-ap-sec h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 38px;
+  color: var(--ap-g);
+  text-align: center;
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+.astro-ap-lead {
+  text-align: center;
+  color: var(--ap-mute);
+  max-width: 680px;
+  margin: 0 auto 48px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+@media (max-width: 600px) {
+  .astro-ap-in { padding-left: 16px !important; padding-right: 16px !important; }
+  .astro-ap-sec h2 { font-size: 28px; }
+}
+</style>

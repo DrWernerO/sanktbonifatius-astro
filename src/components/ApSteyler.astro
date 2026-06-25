@@ -1,0 +1,111 @@
+---
+---
+<div class="astro-ap-root astro-ap-sec alt" id="weitere-angebote">
+  <div class="astro-ap-in">
+    <span class="astro-ap-eyebrow">Ordensgemeinschaft &amp; Programm</span>
+    <h2>Steyler Missionarinnen &amp; Monatsprogramm</h2>
+    <p class="astro-ap-lead">St. Aposteln wird entscheidend von den Steyler Schwestern geprägt — ihre Präsenz macht diesen Kirchort besonders.</p>
+    <div class="astro-ap-grid two">
+
+      <a href="https://www.steyler-missionsschwestern.de/" target="_blank" rel="noopener" class="astro-sw-karte">
+        <div class="astro-sw-karte__kopf" style="background:linear-gradient(135deg,#013903 0%,#016006 100%)">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <div>
+            <div class="astro-sw-karte__titel">Steyler Missionarinnen</div>
+            <div class="astro-sw-karte__sub">Ordensgemeinschaft · SSpS</div>
+          </div>
+        </div>
+        <div class="astro-sw-karte__body">
+          <p class="astro-sw-karte__text">Die Schwestern gestalten Begegnung, Sozialpastoral und das Leben unserer Kirche entscheidend mit. Seit Jahrzehnten sind sie das Herz von St. Aposteln.</p>
+          <span class="astro-sw-karte__more">Mehr über die Schwestern →</span>
+        </div>
+      </a>
+
+      <a href="/uploads/2026/06/monatsprogramm-st-aposteln-juni-2026.pdf" target="_blank" rel="noopener" class="astro-sw-karte">
+        <div class="astro-sw-karte__kopf" style="background:linear-gradient(135deg,#2a5c2a 0%,#3d7a3d 100%)">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <div>
+            <div class="astro-sw-karte__titel">Monatsprogramm</div>
+            <div class="astro-sw-karte__sub">Aktuell · Ausgabe Juni 2026</div>
+          </div>
+        </div>
+        <div class="astro-sw-karte__body">
+          <p class="astro-sw-karte__text">Alle aktuellen Veranstaltungen und Termine am Kirchort St. Aposteln auf einen Blick — jeden Monat neu zusammengestellt. Auch in der Kirche ausliegend.</p>
+          <span class="astro-sw-karte__more">Programm herunterladen →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<style is:global>
+.astro-ap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.astro-ap-grid.two {
+  grid-template-columns: repeat(2, 1fr);
+}
+.astro-sw-karte {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--ap-shd);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .25s, box-shadow .25s;
+}
+.astro-sw-karte:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(30,21,18,.18);
+}
+.astro-sw-karte__kopf {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+}
+.astro-sw-karte__titel {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+.astro-sw-karte__sub {
+  font-size: 12px;
+  color: rgba(255,255,255,.75);
+  margin-top: 3px;
+  letter-spacing: .04em;
+}
+.astro-sw-karte__body {
+  padding: 20px 24px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.astro-sw-karte__text {
+  font-size: 15px;
+  color: var(--ap-mute);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+.astro-sw-karte__more {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ap-g);
+}
+@media (max-width: 860px) {
+  .astro-ap-grid.two { grid-template-columns: 1fr; }
+  .astro-ap-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .astro-ap-grid { grid-template-columns: 1fr; }
+}
+</style>

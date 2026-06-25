@@ -5,15 +5,15 @@
 - **Admin:** https://www.sanktbonifatius.de/wp-admin/
   - Seit dem Go-Live (19.06.2026) gibt es **nur noch den Live-Server www**; es wird direkt auf www gearbeitet. Der frühere Dev-Server (`dev.sanktbonifatius.de`) ist stillgelegt und ohne Funktion.
   - Der Go-Live war ein vollständiger **UpdraftPlus-Klon dev→www** (Datenbank + Uploads + Theme-Dateien). Daher sind Post-IDs und Benutzerkonten identisch geblieben.
-- **Benutzer:** Werner (eingeschränkte Rechte — **kein Super-Admin**)
+- **Benutzer:** Frank Hoffmann (`f.hoffmann@sanktbonifatius.de`, WP-Slug `frankh`)
 - **Anwendungspasswort (WordPress Application Password):**
-  - Benutzer: `Werner`
+  - Benutzer-Login: `f.hoffmann@sanktbonifatius.de` (E-Mail-Adresse, nicht Slug!)
   - **Das Passwort steht NICHT im Handbuch.** Es liegt lokal in der Datei
     `~/.config/sb-wp/wp_pass` — bewusst **außerhalb** des iCloud-synchronisierten
     `Documents`-Ordners, mit Rechten `chmod 600` (nur der eigene Nutzer kann lesen).
   - Vor REST-/curl-Arbeit einmal pro Terminal-Sitzung laden (gibt das Passwort **nicht** aus):
     ```bash
-    export WP_USER="Werner"
+    export WP_USER="f.hoffmann@sanktbonifatius.de"
     export WP_PASS="$(cat ~/.config/sb-wp/wp_pass)"
     ```
   - Verwendung: HTTP Basic Auth — **immer nur die Variablen** verwenden, das Passwort
@@ -22,6 +22,7 @@
     ```bash
     curl -u "$WP_USER:$WP_PASS" \
       "https://www.sanktbonifatius.de/wp-json/wp/v2/pages/POST_ID?context=edit&_fields=content"
+    # Hinweis: Auch Draft-Seiten sind mit diesem Account lesbar (context=edit)
     ```
   - Passwort ändern / Datei neu anlegen:
     ```bash

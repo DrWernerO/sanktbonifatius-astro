@@ -1,0 +1,67 @@
+---
+const images = [
+  '/uploads/2023/04/leben-staposteln-frankfurt-1.jpg',
+  '/uploads/2023/04/leben-staposteln-frankfurt-3.jpg',
+  '/uploads/2023/04/leben-staposteln-frankfurt-5.jpg',
+  '/uploads/2023/04/leben-staposteln-frankfurt-7.jpg',
+  '/uploads/2023/04/leben-staposteln-frankfurt-9-scaled.jpg',
+  '/uploads/2023/04/leben-staposteln-frankfurt-11.jpg',
+  '/uploads/2023/04/leben-staposteln-frankfurt-13.jpg',
+  '/uploads/2023/04/leben-staposteln-frankfurt-15-scaled.jpg',
+  '/uploads/2023/04/leben-staposteln-frankfurt-17-scaled.jpg',
+  '/uploads/2023/04/leben-staposteln-frankfurt-19.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt1.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt3.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt5.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt7.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt9.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt11.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt13.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt15-scaled.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt18.jpg',
+  '/uploads/2022/04/leben-st-aposteln-frankfurt20-scaled.jpg',
+  '/uploads/2022/10/pommesbude-staposteln-frankfurt.jpg',
+  '/uploads/2022/10/Kleidercafe-staposteln-frankfurt.jpg',
+  '/uploads/2026/05/10-jahre-steyler-missionsschwestern-st-aposteln.jpg',
+];
+---
+<div class="astro-apos-marquee" id="galerie">
+  <div class="astro-apos-marquee-track">
+    {images.map(src => <img src={src} alt="Leben in St. Aposteln" loading="lazy" />)}
+    {images.map(src => <img src={src} alt="" loading="lazy" aria-hidden="true" />)}
+  </div>
+</div>
+
+<style is:global>
+.astro-apos-marquee {
+  overflow: hidden;
+  background: #1e1512;
+  padding: 6px 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+.astro-apos-marquee-track {
+  display: flex;
+  gap: 8px;
+  width: max-content;
+  animation: astroAposMarquee 70s linear infinite;
+}
+.astro-apos-marquee-track:hover { animation-play-state: paused; }
+.astro-apos-marquee-track img {
+  height: 240px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  flex-shrink: 0;
+}
+@keyframes astroAposMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (max-width: 600px) {
+  .astro-apos-marquee-track img { height: 160px; }
+}
+</style>

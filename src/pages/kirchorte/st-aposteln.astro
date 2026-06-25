@@ -1,0 +1,31 @@
+---
+// Kirchort „St. Aposteln" — WP-Seite 45941 (/ueberuns/kirchorte/st-aposteln/), Astro-Pfad
+// /kirchorte/st-aposteln/ — vollständig aus eigenen astro-ap…-Komponenten (kein set:html mit WP-Markup).
+// Nav + Footer kommen global aus Base.astro. Primärfarbe: #016006 (Grün).
+import Base from '../../layouts/Base.astro';
+import ApHero from '../../components/ApHero.astro';
+import ApQuick from '../../components/ApQuick.astro';
+import ApWelcome from '../../components/ApWelcome.astro';
+import ApGottesdienste from '../../components/ApGottesdienste.astro';
+import ApSteyler from '../../components/ApSteyler.astro';
+import ApCards from '../../components/ApCards.astro';
+import ApTeam from '../../components/ApTeam.astro';
+import ApMarquee from '../../components/ApMarquee.astro';
+import ApFaq from '../../components/ApFaq.astro';
+import ApCta from '../../components/ApCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/');
+---
+<Base seo={seo} title="Kirchort St. Aposteln Frankfurt-Sachsenhausen · Pfarrei Sankt Bonifatius">
+  <ApHero />
+  <ApQuick />
+  <ApWelcome />
+  <ApGottesdienste />
+  <ApSteyler />
+  <ApCards />
+  <ApTeam />
+  <ApMarquee />
+  <ApFaq />
+  <ApCta />
+</Base>

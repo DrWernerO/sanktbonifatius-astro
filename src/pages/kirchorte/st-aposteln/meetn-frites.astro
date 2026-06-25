@@ -1,0 +1,453 @@
+---
+// Meet'n Frites St. Aposteln — WP-Seite 49516
+// (/ueberuns/kirchorte/st-aposteln/meetn-frites/, Unterseite von 45941)
+// Vollständig aus eigenen astro-mf-* Klassen (WP-Klon-Muster). Nav + Footer aus Base.astro.
+import Base from '../../../layouts/Base.astro';
+import { getSeoHead } from '../../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/meetn-frites/');
+---
+<Base seo={seo} title="Meet'n Frites – Schwestern-Pommes Frankfurt · Kirche St. Aposteln · Pfarrei Sankt Bonifatius">
+
+  <!-- HERO -->
+  <section class="astro-mf-hero">
+    <div class="astro-mf-hero__img"></div>
+    <div class="astro-mf-hero__ov"></div>
+    <div class="astro-mf-hero__content">
+      <p class="astro-mf-hero__eyebrow">Steyler Missionarinnen · Kirche St. Aposteln · Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-mf-hero__title">Meet'n Frites</h1>
+      <p class="astro-mf-hero__kicker">Schwestern-Pommes</p>
+      <p class="astro-mf-hero__sub">Leckere Fritten, selbstgemachte Saucen — und echte Begegnung zwischen Menschen.</p>
+      <div class="astro-mf-hero__btns">
+        <a href="#termine" class="astro-mf-btn-prim">Nächste Termine</a>
+        <a href="#mitmachen" class="astro-mf-btn-sec">Mitmachen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK STRIP -->
+  <section class="astro-mf-strip">
+    <div class="astro-mf-strip__grid">
+      <div class="astro-mf-strip__item">
+        <div class="astro-mf-strip__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="astro-mf-strip__label">Alle 14 Tage · Do 17–19 Uhr</div>
+          <div class="astro-mf-strip__desc">immer donnerstags</div>
+        </div>
+      </div>
+      <div class="astro-mf-strip__item">
+        <div class="astro-mf-strip__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="astro-mf-strip__label">Für alle offen</div>
+          <div class="astro-mf-strip__desc">kostenlos · keine Anmeldung</div>
+        </div>
+      </div>
+      <div class="astro-mf-strip__item">
+        <div class="astro-mf-strip__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="astro-mf-strip__label">Kirchplatz St. Aposteln</div>
+          <div class="astro-mf-strip__desc">Ziegelhüttenweg 149 · Sachsenhausen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POMMES ALS EINLADUNG -->
+  <section class="astro-mf-sec">
+    <div class="astro-mf-sec__inner">
+      <span class="astro-mf-sec__tag">Die Idee</span>
+      <h2 class="astro-mf-sec__h2">Pommes als Einladung</h2>
+      <div class="astro-mf-split">
+        <div class="astro-mf-split__img">
+          <img src="/uploads/2022/10/pommesbude-staposteln-frankfurt.jpg" alt="Meet'n Frites Pommesbude auf dem Kirchplatz St. Aposteln Frankfurt" loading="lazy">
+        </div>
+        <div>
+          <p class="astro-mf-split__p">Meet'n Frites ist eine Begegnungsinitiative der Steyler Missionarinnen in Frankfurt-Sachsenhausen. Alle 14 Tage stellen die Schwestern auf dem Kirchplatz von St. Aposteln eine Pommesbude auf — und laden Menschen aus der Nachbarschaft ein, vorbeizukommen.</p>
+          <p class="astro-mf-split__p">Die Fritten sind lecker, die Saucen selbstgemacht — und das Eigentliche ist die Begegnung. Zwischen Menschen, die sich vielleicht noch nie gesehen haben. Zwischen Alt und Jung, zwischen Einheimischen und Zugezogenen. Ein einfaches Format, das wirklich verbindet.</p>
+          <p class="astro-mf-split__p">Das Projekt ist Teil der Sozialpastoral der Pfarrei Sankt Bonifatius und läuft seit mehreren Jahren. Es zeigt: Kirche kann auf dem Kirchplatz stattfinden — ganz ohne Schwelle, ganz ohne Bedingungen.</p>
+          <a href="https://www.steyler-missionsschwestern.de/standorte/frankfurt-am/schwestern-pommes" target="_blank" rel="noopener" class="astro-mf-btn-prim" style="display:inline-block;margin-top:8px">Mehr auf der Steyler-Seite →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINE -->
+  <section class="astro-mf-sec astro-mf-sec--alt" id="termine">
+    <div class="astro-mf-sec__inner">
+      <h2 class="astro-mf-sec__h2">Donnerstag ist Pommestag</h2>
+      <p class="astro-mf-sec__lead">Meet'n Frites findet in der Regel alle 14 Tage statt — immer donnerstags von 17 bis 19 Uhr auf dem Kirchplatz von St. Aposteln.</p>
+      <div class="astro-mf-termin">
+        <div>
+          <h3 class="astro-mf-termin__h3">Nächste Termine</h3>
+          <p class="astro-mf-termin__p">Aktuelle Termine findest du auch auf Instagram: <a href="https://www.instagram.com/meetnfrites" target="_blank" rel="noopener" class="astro-mf-termin__link">@meetnfrites</a></p>
+          <p class="astro-mf-termin__p">Ansprechpartnerin: <strong>Sr. Bettina Rupp SSpS</strong><br>
+          <a href="mailto:meetn.frites@ssps.de" class="astro-mf-termin__link">meetn.frites@ssps.de</a><br>
+          <a href="tel:+496969714900" class="astro-mf-termin__link">069 697 14 900</a></p>
+        </div>
+        <div class="astro-mf-dates">
+          <div class="astro-mf-dates__row"><span class="astro-mf-dates__day">11. Juni 2026</span><span>17 – 19 Uhr</span></div>
+          <div class="astro-mf-dates__row"><span class="astro-mf-dates__day">25. Juni 2026</span><span>17 – 19 Uhr</span></div>
+          <div class="astro-mf-dates__row astro-mf-dates__row--note"><span class="astro-mf-dates__day">Alle 14 Tage</span><span>donnerstags</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MITMACHEN -->
+  <section class="astro-mf-sec" id="mitmachen">
+    <div class="astro-mf-sec__inner">
+      <span class="astro-mf-sec__tag" style="display:block;text-align:center">Mitmachen</span>
+      <h2 class="astro-mf-sec__h2">Wie kann ich dabei sein?</h2>
+      <p class="astro-mf-sec__lead" style="text-align:center;margin:0 auto 40px">Meet'n Frites lebt von Menschen, die mitmachen — als Besucher, als Helfer oder einfach als neugieriger Mensch.</p>
+      <div class="astro-mf-mitmachen">
+        <div class="astro-mf-mitmachen__item">Einfach vorbeikommen und Pommes essen</div>
+        <div class="astro-mf-mitmachen__item">Gespräche führen und neue Menschen kennenlernen</div>
+        <div class="astro-mf-mitmachen__item">Im Fritten-Team mitarbeiten</div>
+        <div class="astro-mf-mitmachen__item">Das Projekt durch eine Spende unterstützen</div>
+        <div class="astro-mf-mitmachen__item">Auf Instagram folgen und teilen</div>
+        <div class="astro-mf-mitmachen__item">Eigene Ideen und Fähigkeiten einbringen</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="astro-mf-cta">
+    <div class="astro-mf-cta__inner">
+      <h2 class="astro-mf-cta__h2">Einfach vorbeikommen</h2>
+      <p class="astro-mf-cta__p">Keine Anmeldung, keine Kosten — nur Pommes, gute Laune und echte Begegnung. Alle 14 Tage donnerstags auf dem Kirchplatz von St. Aposteln.</p>
+      <div class="astro-mf-cta__btns">
+        <a href="https://www.instagram.com/meetnfrites" target="_blank" rel="noopener" class="astro-mf-cta__btn-prim">Instagram @meetnfrites</a>
+        <a href="/kirchorte/st-aposteln/" class="astro-mf-cta__btn-sec">Zurück zu St. Aposteln</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZURÜCK -->
+  <div class="astro-mf-back">
+    <a href="/kirchorte/st-aposteln/">← Zurück zu St. Aposteln</a>
+  </div>
+
+</Base>
+
+<style is:global>
+/* ─── Design Tokens ─── */
+:root {
+  --mf-g: #016006;
+  --mf-dk: #013903;
+  --mf-gs: #e6f4e8;
+  --mf-cream: #f7f3ef;
+  --mf-ink: #1e1512;
+  --mf-mute: #6b5c52;
+  --mf-shd: 0 2px 16px rgba(1,96,6,.10);
+}
+
+/* ─── Hero ─── */
+.astro-mf-hero {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.astro-mf-hero__img {
+  position: absolute;
+  inset: 0;
+  background: url('/uploads/2022/10/pommesbude-staposteln-frankfurt.jpg') center/cover no-repeat;
+}
+.astro-mf-hero__ov {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(1,57,3,.80) 0%, rgba(1,96,6,.50) 100%);
+}
+.astro-mf-hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
+  text-align: center;
+}
+.astro-mf-hero__eyebrow {
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.75);
+  margin: 0 0 14px;
+}
+.astro-mf-hero__title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(36px, 6vw, 62px);
+  color: #fff;
+  margin: 0 0 8px;
+  line-height: 1.1;
+}
+.astro-mf-hero__kicker {
+  font-size: 15px;
+  color: rgba(255,255,255,.7);
+  font-style: italic;
+  margin: 0 0 16px;
+}
+.astro-mf-hero__sub {
+  font-size: clamp(16px, 2vw, 19px);
+  color: rgba(255,255,255,.88);
+  margin: 0 0 36px;
+  line-height: 1.6;
+}
+.astro-mf-hero__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.astro-mf-btn-prim {
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--mf-dk);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s;
+}
+.astro-mf-btn-prim:hover { background: #e6f4e8; }
+.astro-mf-btn-sec {
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,.6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.astro-mf-btn-sec:hover { border-color: #fff; }
+
+/* ─── Strip ─── */
+.astro-mf-strip {
+  background: var(--mf-dk);
+  padding: 22px 32px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+.astro-mf-strip__grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.astro-mf-strip__item { display: flex; align-items: center; gap: 12px; }
+.astro-mf-strip__icon { color: rgba(255,255,255,.7); flex-shrink: 0; }
+.astro-mf-strip__label { font-size: 14px; font-weight: 700; color: #fff; }
+.astro-mf-strip__desc { font-size: 12px; color: rgba(255,255,255,.65); }
+
+/* ─── Section ─── */
+.astro-mf-sec {
+  padding: 80px 0;
+}
+.astro-mf-sec--alt {
+  background: var(--mf-gs);
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+.astro-mf-sec__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-mf-sec__tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mf-g);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.astro-mf-sec__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(24px, 3vw, 36px);
+  color: var(--mf-ink);
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+.astro-mf-sec__lead {
+  font-size: 17px;
+  color: var(--mf-mute);
+  line-height: 1.7;
+  margin: 0 0 40px;
+  max-width: 680px;
+}
+
+/* ─── Split ─── */
+.astro-mf-split {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 16px;
+}
+.astro-mf-split__img img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  box-shadow: var(--mf-shd);
+}
+.astro-mf-split__p {
+  font-size: 16px;
+  color: var(--mf-mute);
+  line-height: 1.7;
+  margin: 0 0 12px;
+}
+
+/* ─── Termine ─── */
+.astro-mf-termin {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+  background: #fff;
+  border-radius: 12px;
+  padding: 36px;
+  box-shadow: var(--mf-shd);
+}
+.astro-mf-termin__h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  color: var(--mf-ink);
+  margin: 0 0 12px;
+}
+.astro-mf-termin__p {
+  font-size: 15px;
+  color: var(--mf-mute);
+  line-height: 1.7;
+  margin: 0 0 10px;
+}
+.astro-mf-termin__link { color: var(--mf-g); font-weight: 600; text-decoration: none; }
+.astro-mf-termin__link:hover { text-decoration: underline; }
+.astro-mf-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+.astro-mf-dates__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--mf-gs);
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--mf-ink);
+}
+.astro-mf-dates__row--note {
+  background: var(--mf-cream);
+  font-size: 13px;
+  color: var(--mf-mute);
+}
+.astro-mf-dates__day { font-weight: 700; }
+
+/* ─── Mitmachen ─── */
+.astro-mf-mitmachen {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.astro-mf-mitmachen__item {
+  background: var(--mf-gs);
+  border-radius: 8px;
+  padding: 20px 18px;
+  font-size: 15px;
+  color: var(--mf-ink);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.astro-mf-mitmachen__item::before {
+  content: '→';
+  color: var(--mf-g);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ─── CTA ─── */
+.astro-mf-cta {
+  background: linear-gradient(135deg, var(--mf-dk) 0%, var(--mf-g) 100%);
+  padding: 80px 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  text-align: center;
+}
+.astro-mf-cta__inner {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-mf-cta__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(24px, 3.5vw, 36px);
+  color: #fff;
+  margin: 0 0 14px;
+}
+.astro-mf-cta__p {
+  font-size: 16px;
+  color: rgba(255,255,255,.85);
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+.astro-mf-cta__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.astro-mf-cta__btn-prim {
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--mf-dk);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.astro-mf-cta__btn-prim:hover { background: #e6f4e8; }
+.astro-mf-cta__btn-sec {
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,.6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.astro-mf-cta__btn-sec:hover { border-color: #fff; }
+
+/* ─── Zurück ─── */
+.astro-mf-back {
+  padding: 28px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.astro-mf-back a {
+  font-size: 14px;
+  color: var(--mf-g);
+  text-decoration: none;
+  font-weight: 600;
+}
+.astro-mf-back a:hover { text-decoration: underline; }
+
+/* ─── Responsive ─── */
+@media (max-width: 860px) {
+  .astro-mf-split { grid-template-columns: 1fr; }
+  .astro-mf-termin { grid-template-columns: 1fr; }
+  .astro-mf-mitmachen { grid-template-columns: 1fr; }
+  .astro-mf-strip__grid { flex-direction: column; gap: 18px; }
+}
+</style>

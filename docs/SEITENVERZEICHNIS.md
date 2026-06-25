@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **81 Live-Seiten erfasst · 35 bereits in Astro übernommen bzw. per Direktlink erledigt · 46 offen.** Stand: 25.06.2026.
+> **81 Live-Seiten erfasst · 39 bereits in Astro übernommen bzw. per Direktlink erledigt · 42 offen.** Stand: 25.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -63,7 +63,10 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/) | `src/pages/kirchorte/herz-jesu.astro` | Frank | ✅ erledigt | Page-ID 47906, Astro-Pfad `/kirchorte/herz-jesu/`; eigene Hj*-Komponenten (Präfix `astro-hj`); Foto-Hero (Kirchturm), Quicklinks, Willkommen, Gottesdienste (So/Fr), 4 Angebots-Karten, Team (Doly Kadavil, Bernhard Flack, Johanna Zerlik), scrollende Galerie (26 Fotos), FAQ, CTA |
 | Gruppen & Gemeinschaft Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/herz-jesu-gruppen/) | `src/pages/kirchorte/herz-jesu/gruppen-gemeinschaft.astro` | Frank | ✅ erledigt | Page-ID 49378, eigene Hjg*-Komponenten (Präfix `astro-hjg`); 9 Gruppen-Karten, Intro, CTA |
 | Kirchortrat Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/herz-jesu-kirchortrat/) | `src/pages/kirchorte/herz-jesu/kirchortrat.astro` | Frank | ✅ erledigt | Page-ID 49383, eigene Hjk*-Komponenten (Präfix `astro-hjk`); Vorsitz (3 Karten), 15 Mitglieder-Grid, CTA |
-| St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/) | — | — | offen |  |
+| St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/) | `src/pages/kirchorte/st-aposteln.astro` | Frank | ✅ erledigt | Page-ID 45941, Astro-Pfad `/kirchorte/st-aposteln/`; eigene Ap*-Komponenten (Präfix `astro-ap`); Primärfarbe Grün #016006; Hero, Quicklinks, Willkommen, Gottesdienste, Steyler Schwestern, 4 Angebots-Karten, Team (Sr. Bettina, Lilian Wykipil), Marquee-Galerie (23 Fotos), FAQ, CTA |
+| Offener Kühlschrank St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/offener-kuehlschrank/) | `src/pages/kirchorte/st-aposteln/offener-kuehlschrank.astro` | Frank | ✅ erledigt | Page-ID 49509, Astro-Pfad `/kirchorte/st-aposteln/offener-kuehlschrank/`; eigene `astro-ok-*` Klassen; Hero, Strip, Lead, Intro, Karten (Geben/Nehmen), Warum-Abschnitt, Standort-Grid, FAQ, CTA |
+| Kleider-Café (KleiCa) St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/kleider-cafe/) | `src/pages/kirchorte/st-aposteln/kleider-cafe.astro` | Frank | ✅ erledigt | Page-ID 49512, Astro-Pfad `/kirchorte/st-aposteln/kleider-cafe/`; eigene `astro-kc-*` Klassen; Hero, Strip, Öffnungszeiten-Karten (Mi/Do/Fr), Split-Bild, Mitmachen-Grid, CTA |
+| Meet'n Frites St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/meetn-frites/) | `src/pages/kirchorte/st-aposteln/meetn-frites.astro` | Frank | ✅ erledigt | Page-ID 49516, Astro-Pfad `/kirchorte/st-aposteln/meetn-frites/`; eigene `astro-mf-*` Klassen; Hero mit Kicker "Schwestern-Pommes", Strip, Split-Bild, Termine-Grid, Mitmachen-Grid, CTA |
 | St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/) | `src/pages/kirchorte/st-bonifatius.astro` | Werner | ✅ erledigt | Astro-Pfad jetzt `/kirchorte/st-bonifatius/` |
 | Bücherei St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/) | — | — | offen |  |
 | Gruppen St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/gruppen-st-bonifatius/) | — | — | offen |  |

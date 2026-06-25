@@ -1,0 +1,135 @@
+---
+---
+<div class="astro-ap-root astro-ap-sec" id="angebote">
+  <div class="astro-ap-in">
+    <span class="astro-ap-eyebrow">Am Kirchort</span>
+    <h2>Unsere Angebote</h2>
+    <p class="astro-ap-lead">Begegnung, Hilfe, Spiritualität — Räume, in denen Menschen zusammenkommen.</p>
+    <div class="astro-ap-grid">
+
+      <a href="/kirchorte/st-aposteln/meetn-frites/" class="astro-ap-card">
+        <div class="astro-ap-card__img" style="background-image:url('/uploads/2022/10/pommesbude-staposteln-frankfurt.jpg')"></div>
+        <div class="astro-ap-card__body">
+          <div class="astro-ap-card__title">Meet'n Frites — Schwestern-Pommes</div>
+          <p class="astro-ap-card__text">Die Steyler Missionarinnen möchten Menschen zusammenbringen. Bei leckeren Pommes in entspannter Umgebung kommt man am leichtesten ins Gespräch.</p>
+          <div class="astro-ap-card__info">Donnerstags alle 14 Tage · 17 – 19 Uhr</div>
+          <span class="astro-ap-card__more">Mehr erfahren →</span>
+        </div>
+      </a>
+
+      <a href="/kirchorte/st-aposteln/offener-kuehlschrank/" class="astro-ap-card">
+        <div class="astro-ap-card__img" style="background-image:url('/uploads/2021/10/Offener-Kuehlschrank-1-1024x726.jpg')"></div>
+        <div class="astro-ap-card__body">
+          <div class="astro-ap-card__title">Offener Kühlschrank</div>
+          <p class="astro-ap-card__text">Lebensmittel kostenlos teilen — alle bringen, was sie übrig haben, alle nehmen, was sie brauchen. Sozialpastoral in Kooperation mit foodsharing.</p>
+          <span class="astro-ap-card__more">Weitere Informationen →</span>
+        </div>
+      </a>
+
+      <a href="/kirchorte/st-aposteln/kleider-cafe/" class="astro-ap-card">
+        <div class="astro-ap-card__img" style="background-image:url('/uploads/2021/10/StAposteln_KleiCa.jpg')"></div>
+        <div class="astro-ap-card__body">
+          <div class="astro-ap-card__title">Kleider-Café</div>
+          <p class="astro-ap-card__text">Secondhand-Boutique auf der Orgelempore. Erst Kaffee und Kuchen, dann shoppen gehen.</p>
+          <div class="astro-ap-card__info astro-ap-card__info--table">
+            <table>
+              <tr><td class="astro-ap-card__day">Mi</td><td>14 – 16 Uhr</td></tr>
+              <tr><td class="astro-ap-card__day">Do</td><td>18 – 19 Uhr</td></tr>
+              <tr><td class="astro-ap-card__day">Fr</td><td>15 – 17:30 Uhr <span class="astro-ap-card__note">· mit Café</span></td></tr>
+            </table>
+          </div>
+          <span class="astro-ap-card__more">Zum Kleider-Café →</span>
+        </div>
+      </a>
+
+      <div class="astro-ap-card" style="cursor:default">
+        <div class="astro-ap-card__img" style="background-image:url('/uploads/2023/04/leben-staposteln-frankfurt-1-1024x683.jpg')"></div>
+        <div class="astro-ap-card__body">
+          <div class="astro-ap-card__title">Bücherlounge &amp; Geschenk-Box</div>
+          <p class="astro-ap-card__text">Am Eingang und am Taufbecken finden Sie Bücher zum Mitnehmen. Spirituelle Bücher, Geschenke und Haushaltsartikel (bis 3 Stück) stehen im Bücher- und Geschenkeschrank der Seitenkapelle — einfach mitbringen oder mitnehmen.</p>
+          <div class="astro-ap-card__info astro-ap-card__info--table">
+            <table>
+              <tr><td class="astro-ap-card__day">Mo–Fr</td><td>10 – 18 Uhr</td></tr>
+              <tr><td class="astro-ap-card__day">Sa–So</td><td>nach Gottesdienst</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style is:global>
+.astro-ap-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--ap-shd);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s, box-shadow .25s;
+  text-decoration: none;
+  color: inherit;
+}
+.astro-ap-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(30,21,18,.18);
+}
+.astro-ap-card__img {
+  aspect-ratio: 16/10;
+  background-size: cover;
+  background-position: center;
+}
+.astro-ap-card__body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.astro-ap-card__title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ap-ink);
+  line-height: 1.25;
+}
+.astro-ap-card__text {
+  font-size: 14px;
+  color: var(--ap-mute);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+.astro-ap-card__info {
+  font-size: 13px;
+  color: var(--ap-g);
+  font-weight: 600;
+  padding: 8px 12px;
+  background: var(--ap-gs);
+  border-radius: 6px;
+}
+.astro-ap-card__info--table {
+  padding: 0;
+  background: none;
+}
+.astro-ap-card__info--table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.astro-ap-card__info--table tr {
+  border-bottom: 1px solid rgba(1,96,6,.12);
+}
+.astro-ap-card__info--table tr:last-child { border-bottom: none; }
+.astro-ap-card__info--table td { padding: 5px 0; color: #2c2420; }
+.astro-ap-card__day { font-weight: 700; color: var(--ap-g); width: 40px; }
+.astro-ap-card__note { font-size: 11px; color: #7a6555; }
+.astro-ap-card__more {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ap-g);
+  margin-top: 4px;
+}
+</style>

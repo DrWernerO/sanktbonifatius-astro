@@ -1,0 +1,112 @@
+---
+---
+<div class="astro-ap-root astro-ap-hero">
+  <div class="astro-ap-hero__in">
+    <div class="astro-ap-hero__badge">Kirchort · Frankfurt-Sachsenhausen</div>
+    <h1>St. Aposteln</h1>
+    <p class="astro-ap-hero__sub">Offen für alle — Begegnung, Sozialpastoral und Spiritualität im Herzen von Sachsenhausen</p>
+    <div class="astro-ap-hero__btns">
+      <a href="#angebote" class="astro-ap-btnp">Unsere Angebote</a>
+      <a href="#kontakt" class="astro-ap-btns">Kontakt</a>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+:root {
+  --ap-g: #016006;
+  --ap-gd: #013903;
+  --ap-gs: #e6f4e8;
+  --ap-cream: #f7f3ef;
+  --ap-ink: #1e1512;
+  --ap-mute: #6b5c52;
+  --ap-shd: 0 2px 16px rgba(30,21,18,.12);
+}
+.astro-ap-root {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.astro-ap-hero {
+  height: min(72vh, 600px);
+  display: flex;
+  align-items: flex-end;
+  background: url('/uploads/2021/10/StAposteln_Teaser.jpg') center/cover no-repeat;
+  overflow: hidden;
+  position: relative;
+}
+.astro-ap-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(30,21,18,.05) 0%, rgba(30,21,18,.55) 60%, rgba(30,21,18,.88) 100%);
+}
+.astro-ap-hero__in {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px 56px;
+}
+.astro-ap-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 30px;
+  padding: 6px 16px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.astro-ap-hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(36px, 5vw, 72px);
+  color: #fff;
+  margin: 0 0 14px;
+  line-height: 1.08;
+  font-weight: 700;
+}
+.astro-ap-hero__sub {
+  color: rgba(255,255,255,.88);
+  font-size: clamp(16px, 2vw, 22px);
+  margin: 0 0 28px;
+  max-width: 600px;
+  line-height: 1.45;
+}
+.astro-ap-hero__btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.astro-ap-hero__btns a {
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .2s;
+}
+.astro-ap-btnp {
+  background: #fff;
+  color: var(--ap-g);
+}
+.astro-ap-btnp:hover { background: #f0ebe0; }
+.astro-ap-btns {
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.5);
+  color: #fff;
+}
+.astro-ap-btns:hover { background: rgba(255,255,255,.25); }
+@media (max-width: 600px) {
+  .astro-ap-hero__in { padding-left: 16px !important; padding-right: 16px !important; }
+}
+</style>

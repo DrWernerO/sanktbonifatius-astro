@@ -1,0 +1,87 @@
+---
+---
+<div class="astro-ap-root astro-ap-sec alt" id="kontakt" style="scroll-margin-top:100px">
+  <div class="astro-ap-in">
+    <span class="astro-ap-eyebrow">Ansprechpersonen</span>
+    <h2>Team St. Aposteln</h2>
+    <div class="astro-ap-team">
+
+      <div class="astro-ap-person">
+        <div class="astro-ap-person__photo" style="background-image:url('/uploads/2025/06/DSC00931.jpg')"></div>
+        <h3>Sr. Bettina Rupp SSpS</h3>
+        <p class="astro-ap-person__role">Sozialarbeiterin</p>
+        <a href="mailto:bettina.rupp@ssps.de">bettina.rupp@ssps.de</a>
+        <a href="tel:+491726373300">0172 637 33 00</a>
+      </div>
+
+      <div class="astro-ap-person">
+        <div class="astro-ap-person__photo" style="background-image:url('/uploads/2023/09/lilian-wykipil.jpeg')"></div>
+        <h3>Lilian Wykipil</h3>
+        <p class="astro-ap-person__role">Pastoralreferentin</p>
+        <a href="mailto:l.wykipil@sanktbonifatius.de">l.wykipil@sanktbonifatius.de</a>
+        <a href="tel:+4969695975856">069 695 97 58 56</a>
+      </div>
+
+      <div class="astro-ap-person">
+        <div class="astro-ap-person__photo" style="background-image:url('/uploads/2021/10/StAposteln_Teaser.jpg')"></div>
+        <h3>St. Aposteln</h3>
+        <p class="astro-ap-person__role">Kirchort · Adresse</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Ziegelh%C3%BCttenweg+149%2C+60598+Frankfurt" target="_blank" rel="noopener">
+          Ziegelhüttenweg 149<br>60598 Frankfurt am Main
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style is:global>
+.astro-ap-team {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+.astro-ap-person {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--ap-shd);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
+}
+.astro-ap-person__photo {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-size: cover;
+  background-position: center top;
+}
+.astro-ap-person h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--ap-ink);
+  margin: 18px 20px 4px;
+  line-height: 1.2;
+}
+.astro-ap-person__role {
+  font-size: 13px;
+  color: var(--ap-g);
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin: 0 20px 12px;
+}
+.astro-ap-person a {
+  display: block;
+  font-size: 14px;
+  color: var(--ap-mute);
+  text-decoration: none;
+  padding: 3px 20px;
+  transition: color .2s;
+}
+.astro-ap-person a:hover { color: var(--ap-g); }
+@media (max-width: 860px) {
+  .astro-ap-team { grid-template-columns: 1fr; }
+}
+</style>

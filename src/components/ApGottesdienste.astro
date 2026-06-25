@@ -1,0 +1,93 @@
+---
+---
+<div class="astro-ap-root astro-ap-godi-wrap" id="gottesdienste" style="scroll-margin-top:100px">
+  <div class="astro-ap-in">
+    <div class="astro-ap-prayer">
+      <div>
+        <h2>Gottesdienste in St. Aposteln</h2>
+        <p>Unsere Kirche ist jeden Tag von 10 – 18 Uhr zum Gebet geöffnet. Treten Sie ein, verweilen Sie, finden Sie Stille.</p>
+        <p style="margin-top:20px">
+          <a class="astro-ap-btn-light" href="/gottesdienst-glaube/gottesdienstordnung/">Aktuelle Gottesdienstordnung →</a>
+        </p>
+      </div>
+      <div class="astro-ap-times">
+        <div class="astro-ap-row"><span class="astro-ap-day">Täglich</span><span>10 – 18 Uhr · Kirche offen</span></div>
+        <div class="astro-ap-row"><span class="astro-ap-day">Dienstag</span><span>18 Uhr · Eucharistiefeier</span></div>
+        <div class="astro-ap-row"><span class="astro-ap-day">Sonntag</span><span>9:30 Uhr · Eucharistiefeier</span></div>
+        <div class="astro-ap-row"><span class="astro-ap-day">Freitag</span><span>ca. 17:30 Uhr · Abendgebet</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+.astro-ap-godi-wrap {
+  background: var(--ap-gs);
+  padding: 0;
+}
+.astro-ap-prayer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 56px 0;
+}
+.astro-ap-prayer h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  color: var(--ap-g);
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+.astro-ap-prayer p {
+  color: var(--ap-mute);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+.astro-ap-btn-light {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ap-g);
+  color: var(--ap-g);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+.astro-ap-btn-light:hover {
+  background: var(--ap-g);
+  color: #fff;
+}
+.astro-ap-times {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--ap-shd);
+}
+.astro-ap-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(1,96,6,.08);
+  font-size: 15px;
+  color: var(--ap-ink);
+}
+.astro-ap-row:last-child { border-bottom: none; }
+.astro-ap-day {
+  font-weight: 700;
+  color: var(--ap-g);
+  min-width: 80px;
+}
+@media (max-width: 860px) {
+  .astro-ap-prayer { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 600px) {
+  .astro-ap-prayer { padding-left: 16px !important; padding-right: 16px !important; }
+}
+</style>

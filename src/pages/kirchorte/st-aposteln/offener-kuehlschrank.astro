@@ -1,0 +1,696 @@
+---
+// Offener Kühlschrank St. Aposteln — WP-Seite 49509
+// (/ueberuns/kirchorte/st-aposteln/offener-kuehlschrank/, Unterseite von 45941)
+// Vollständig aus eigenen astro-ok-* Klassen (WP-Klon-Muster). Nav + Footer aus Base.astro.
+import Base from '../../../layouts/Base.astro';
+import { getSeoHead } from '../../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/offener-kuehlschrank/');
+---
+<Base seo={seo} title="Offener Kühlschrank Frankfurt-Sachsenhausen · Kirche St. Aposteln · Pfarrei Sankt Bonifatius">
+
+  <!-- HERO -->
+  <section class="astro-ok-hero">
+    <div class="astro-ok-hero__img"></div>
+    <div class="astro-ok-hero__ov"></div>
+    <div class="astro-ok-hero__content">
+      <p class="astro-ok-hero__eyebrow">Sozialpastoral · Kirche St. Aposteln · Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-ok-hero__title">Offener Kühlschrank</h1>
+      <p class="astro-ok-hero__sub">Lebensmittel teilen in Frankfurt – kostenlos abgeben und mitnehmen. Für alle, ohne Bedingungen.</p>
+      <div class="astro-ok-hero__btns">
+        <a href="#standort" class="astro-ok-btn-prim">Zum Standort</a>
+        <a href="#mitmachen" class="astro-ok-btn-sec">Wie es funktioniert</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK STRIP -->
+  <section class="astro-ok-strip">
+    <div class="astro-ok-strip__grid">
+      <div class="astro-ok-strip__item">
+        <div class="astro-ok-strip__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="astro-ok-strip__label">Tägl. 10–18 Uhr</div>
+          <div class="astro-ok-strip__desc">Fr. nur 10–14 Uhr (KleiderCafé)</div>
+        </div>
+      </div>
+      <div class="astro-ok-strip__item">
+        <div class="astro-ok-strip__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div>
+          <div class="astro-ok-strip__label">Kostenlos &amp; für alle</div>
+          <div class="astro-ok-strip__desc">keine Bedingungen, kein Nachweis</div>
+        </div>
+      </div>
+      <div class="astro-ok-strip__item">
+        <div class="astro-ok-strip__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="astro-ok-strip__label">Kirche St. Aposteln</div>
+          <div class="astro-ok-strip__desc">Ziegelhüttenweg 149 · Sachsenhausen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIREKTANTWORT -->
+  <section class="astro-ok-lead">
+    <div class="astro-ok-lead__inner">
+      <p class="astro-ok-lead__p">Der Offene Kühlschrank Frankfurt-Sachsenhausen ist ein kostenloser Lebensmitteltauschpunkt in der Kirche St. Aposteln, Ziegelhüttenweg 149, 60598 Frankfurt am Main. Jeder darf haltbare, abgepackte Lebensmittel einbringen oder mitnehmen – ohne Registrierung, ohne Kosten, ohne Bedingungen. Das Projekt entstand in Kooperation mit <a href="https://www.foodsharing.de/" rel="noopener noreferrer">foodsharing.de</a>, einer seit 2012 aktiven Initiative gegen Lebensmittelverschwendung. Zugänglich täglich von 10 bis 18 Uhr (freitags 10–14 Uhr). Nur fabrikverpackte, haltbare Produkte dürfen eingestellt werden – keine selbstgekochten Speisen, kein rohes Fleisch, kein Alkohol.</p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="astro-ok-intro" id="mitmachen">
+    <div class="astro-ok-intro__inner">
+      <span class="astro-ok-intro__tag">Fairteilen statt Verschwenden</span>
+      <h2 class="astro-ok-intro__h2">Ein Ort für gelebte Solidarität in Frankfurt-Sachsenhausen</h2>
+      <p class="astro-ok-intro__p">Der Offene Kühlschrank Frankfurt steht in der Kirche St. Aposteln (Ziegelhüttenweg 149) und ist ein kostenloser Ort zum Lebensmittel teilen – offen für alle Menschen in Frankfurt-Sachsenhausen, Niederrad und darüber hinaus. Wer Lebensmittel übrig hat, kann sie hier abgeben. Wer etwas braucht, nimmt einfach mit. Keine Begründung. Keine Bedingungen.</p>
+      <p class="astro-ok-intro__p">Das Projekt der Sozialpastoral der Pfarrei Sankt Bonifatius ist Teil des bundesweiten foodsharing-Netzwerks. Aus einem einfachen Kühlschrank ist ein Zeichen gelebter Nächstenliebe geworden – und ein konkreter Beitrag gegen Lebensmittelverschwendung in Frankfurt.</p>
+    </div>
+  </section>
+
+  <!-- KARTEN: GEBEN & NEHMEN -->
+  <section class="astro-ok-cards">
+    <div class="astro-ok-cards__inner">
+      <h2 class="astro-ok-cards__h2">Wie funktioniert das Lebensmittel-Teilen?</h2>
+      <div class="astro-ok-cards__grid">
+        <div class="astro-ok-card">
+          <div class="astro-ok-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+          </div>
+          <h3 class="astro-ok-card__h3">Lebensmittel spenden</h3>
+          <p class="astro-ok-card__p">Sie haben mehr, als Sie brauchen? Bringen Sie haltbare und abgepackte Lebensmittel einfach vorbei – andere in Frankfurt-Sachsenhausen freuen sich!</p>
+          <ul class="astro-ok-card__ul">
+            <li>Abgepackte, haltbare Lebensmittel</li>
+            <li>Ungeöffnete Originalverpackungen</li>
+            <li>Frisches Obst &amp; Gemüse willkommen</li>
+            <li>Konserven, Nudeln, Reis, Milchprodukte</li>
+          </ul>
+        </div>
+        <div class="astro-ok-card">
+          <div class="astro-ok-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 8 12 12 16 8"/><line x1="12" y1="3" x2="12" y2="12"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+          </div>
+          <h3 class="astro-ok-card__h3">Lebensmittel mitnehmen</h3>
+          <p class="astro-ok-card__p">Kein Nachweis, keine Fragen, keine Bedingungen: Schauen Sie einfach vorbei und nehmen Sie mit, was Sie brauchen. Das Angebot ist vollständig kostenlos.</p>
+          <ul class="astro-ok-card__ul">
+            <li>Kostenlos für alle Menschen</li>
+            <li>Täglich zugänglich (Fr. 10–14 Uhr)</li>
+            <li>Kühlschrank &amp; Trockenregale</li>
+            <li>Regelmäßig aufgefüllt durch foodsharing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WARUM -->
+  <section class="astro-ok-bg">
+    <div class="astro-ok-bg__inner">
+      <div class="astro-ok-bg__img">
+        <img src="/uploads/2021/10/Offener-Kuehlschrank-1-1024x726.jpg" alt="Offener Kühlschrank in der Kirche St. Aposteln, Ziegelhüttenweg 149, Frankfurt-Sachsenhausen" loading="lazy">
+      </div>
+      <div>
+        <h2 class="astro-ok-bg__h2">Warum gibt es einen Offenen Kühlschrank in Frankfurt?</h2>
+        <p class="astro-ok-bg__p">Laut BMEL werden in Deutschland jährlich rund 11 Millionen Tonnen Lebensmittel verschwendet – das entspricht etwa einem Drittel aller produzierten Lebensmittel. Der Offene Kühlschrank setzt ein klares Zeichen dagegen und verbindet christliche Nächstenliebe mit konkretem Umweltschutz.</p>
+        <p class="astro-ok-bg__p">Die Pfarrei Sankt Bonifatius kooperiert mit <strong>foodsharing</strong>, einer 2012 gegründeten Initiative, die bundesweit gegen Lebensmittelverschwendung aktiv ist. Über das foodsharing-Netzwerk erhalten wir regelmäßig Lebensmittel von Unternehmen, die diese sonst entsorgen müssten.</p>
+        <p class="astro-ok-bg__p">Kooperationspartner: <a href="https://www.foodsharing.de/" class="astro-ok-bg__link" target="_blank" rel="noopener noreferrer">foodsharing.de</a> · <a href="/engagiert-leben/" class="astro-ok-bg__link">Engagiert leben – mehr Angebote</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDORT -->
+  <section class="astro-ok-standort" id="standort">
+    <div class="astro-ok-standort__inner">
+      <h2 class="astro-ok-standort__h2">Wo finde ich den Offenen Kühlschrank in Frankfurt?</h2>
+      <div class="astro-ok-standort__grid">
+        <div class="astro-ok-info-box">
+          <h3 class="astro-ok-info-box__h3">Adresse</h3>
+          <p>Kirche St. Aposteln<br>Ziegelhüttenweg 149<br>60598 Frankfurt am Main<br>(Stadtteil Sachsenhausen)</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Ziegelh%C3%BCttenweg+149%2C+60598+Frankfurt" target="_blank" rel="noopener" class="astro-ok-info-box__link">Auf Google Maps öffnen →</a>
+        </div>
+        <div class="astro-ok-info-box">
+          <h3 class="astro-ok-info-box__h3">Öffnungszeiten</h3>
+          <table class="astro-ok-times">
+            <tr><td>Montag – Donnerstag</td><td>10 – 18 Uhr</td></tr>
+            <tr><td>Freitag</td><td>10 – 14 Uhr</td></tr>
+            <tr><td>Samstag</td><td>10 – 18 Uhr</td></tr>
+            <tr><td>Sonntag</td><td>10 – 18 Uhr</td></tr>
+          </table>
+          <p class="astro-ok-info-box__note">Während Gottesdiensten kann der Zugang kurzzeitig eingeschränkt sein.</p>
+        </div>
+        <div class="astro-ok-info-box">
+          <h3 class="astro-ok-info-box__h3">Kontakt &amp; Fragen</h3>
+          <p>Pfarrbüro Sankt Bonifatius<br>Holbeinstraße 70<br>60596 Frankfurt am Main</p>
+          <a href="tel:+4969695975850" class="astro-ok-info-box__link">069 695 97 58 50</a><br>
+          <a href="mailto:info@sanktbonifatius.de" class="astro-ok-info-box__link">info@sanktbonifatius.de</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="astro-ok-faq">
+    <div class="astro-ok-faq__inner">
+      <span class="astro-ok-faq__tag">Häufige Fragen</span>
+      <h2 class="astro-ok-faq__h2">Alles Wichtige auf einen Blick</h2>
+      <div class="astro-ok-faq__list">
+
+        <details>
+          <summary>Was darf ich in den Offenen Kühlschrank stellen?</summary>
+          <p>Es dürfen nur fabrikverpackte, haltbare Lebensmittel in ungeöffneten Originalverpackungen eingestellt werden. Frisches Obst und Gemüse ist ebenfalls willkommen. Nicht erlaubt sind selbstgekochte Speisen, rohe Tierprodukte (Fleisch, Fisch), Alkohol sowie angebrochene Produkte oder abgelaufene Waren. Bitte beachten Sie die Hinweisschilder vor Ort in der Kirche St. Aposteln.</p>
+        </details>
+
+        <details>
+          <summary>Ist das Angebot wirklich kostenlos – auch ohne Bedürftigkeitsnachweis?</summary>
+          <p>Ja, vollständig kostenlos und ohne jede Bedingung. Sie müssen keine Bedürftigkeit nachweisen und brauchen sich nicht anzumelden. Jeder Mensch darf täglich zwischen 10 und 18 Uhr (freitags 10–14 Uhr) in die Kirche St. Aposteln, Ziegelhüttenweg 149, Frankfurt-Sachsenhausen kommen und Lebensmittel mitnehmen oder abgeben – anonym und ohne Begründung.</p>
+        </details>
+
+        <details>
+          <summary>Wann ist der Offene Kühlschrank in Frankfurt-Sachsenhausen geöffnet?</summary>
+          <p>Der Kühlschrank ist täglich von 10 bis 18 Uhr zugänglich. Eine Ausnahme gilt freitags: Dann schließt er um 14 Uhr, weil in der Kirche St. Aposteln das KleiderCafé stattfindet (14–18 Uhr). Während Gottesdiensten kann der Zugang kurzzeitig eingeschränkt sein. Aktuelle Hinweise finden Sie am Eingang der Kirche.</p>
+        </details>
+
+        <details>
+          <summary>Was ist das foodsharing-Netzwerk und welche Rolle spielt es hier?</summary>
+          <p>foodsharing ist eine 2012 gegründete Initiative gegen Lebensmittelverschwendung, die bundesweit aktiv ist. Über das foodsharing-Netzwerk erhält der Offene Kühlschrank bei Sankt Bonifatius regelmäßig Lebensmittel von Unternehmen, die diese Ware sonst entsorgen würden. Anstatt im Müll zu landen, kommen die Lebensmittel so den Menschen in Frankfurt-Sachsenhausen zugute. Mehr Informationen unter <a href="https://www.foodsharing.de/" target="_blank" rel="noopener noreferrer">foodsharing.de</a>.</p>
+        </details>
+
+        <details>
+          <summary>Wie wird der Kühlschrank hygienisch gewartet?</summary>
+          <p>Die Verteilerstelle wird regelmäßig von Ehrenamtlichen der Pfarrei Sankt Bonifatius nach einem festen Hygieneplan kontrolliert und gereinigt. Alle Hinweise und Regeln sind gut sichtbar in der Seitenkapelle der Kirche St. Aposteln ausgehängt. Bei Fragen wenden Sie sich an das Pfarrbüro: <a href="tel:+4969695975850">069 695 97 58 50</a>.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="astro-ok-cta">
+    <div class="astro-ok-cta__inner">
+      <h2 class="astro-ok-cta__h2">Kommen Sie vorbei – wir freuen uns auf Sie</h2>
+      <p class="astro-ok-cta__p">Der Offene Kühlschrank Frankfurt-Sachsenhausen freut sich über jeden Besuch – ob Sie etwas mitbringen oder mitnehmen möchten.</p>
+      <p class="astro-ok-cta__addr">Kirche St. Aposteln · Ziegelhüttenweg 149 · 60598 Frankfurt am Main · tägl. 10–18 Uhr (Fr. 10–14 Uhr)</p>
+      <div class="astro-ok-cta__btns">
+        <a href="/kontakt/engagement/" class="astro-ok-cta__btn-prim">Mehr Engagement entdecken</a>
+        <a href="/kontakt/" class="astro-ok-cta__btn-sec">Kontakt aufnehmen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZURÜCK -->
+  <div class="astro-ok-back">
+    <a href="/kirchorte/st-aposteln/">← Zurück zu St. Aposteln</a>
+  </div>
+
+</Base>
+
+<style is:global>
+/* ─── Design Tokens ─── */
+:root {
+  --ok-g: #016006;
+  --ok-dk: #013903;
+  --ok-gs: #e6f4e8;
+  --ok-cream: #f7f3ef;
+  --ok-ink: #1e1512;
+  --ok-mute: #6b5c52;
+  --ok-shd: 0 2px 16px rgba(1,96,6,.10);
+}
+
+/* ─── Hero ─── */
+.astro-ok-hero {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.astro-ok-hero__img {
+  position: absolute;
+  inset: 0;
+  background: url('/uploads/2023/07/foodworkshop-2.jpg') center/cover no-repeat;
+}
+.astro-ok-hero__ov {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(1,57,3,.82) 0%, rgba(1,96,6,.55) 100%);
+}
+.astro-ok-hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
+  text-align: center;
+}
+.astro-ok-hero__eyebrow {
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.75);
+  margin: 0 0 14px;
+}
+.astro-ok-hero__title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(36px, 6vw, 62px);
+  color: #fff;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+.astro-ok-hero__sub {
+  font-size: clamp(16px, 2vw, 19px);
+  color: rgba(255,255,255,.88);
+  margin: 0 0 36px;
+  line-height: 1.6;
+}
+.astro-ok-hero__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.astro-ok-btn-prim {
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ok-dk);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s;
+}
+.astro-ok-btn-prim:hover { background: #e6f4e8; }
+.astro-ok-btn-sec {
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,.6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color .2s;
+}
+.astro-ok-btn-sec:hover { border-color: #fff; }
+
+/* ─── Strip ─── */
+.astro-ok-strip {
+  background: var(--ok-dk);
+  padding: 22px 32px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+.astro-ok-strip__grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.astro-ok-strip__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,.9);
+}
+.astro-ok-strip__icon {
+  color: rgba(255,255,255,.7);
+  flex-shrink: 0;
+}
+.astro-ok-strip__label { font-size: 14px; font-weight: 700; color: #fff; }
+.astro-ok-strip__desc { font-size: 12px; color: rgba(255,255,255,.65); }
+
+/* ─── Lead ─── */
+.astro-ok-lead {
+  background: var(--ok-gs);
+  padding: 32px 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+.astro-ok-lead__inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-ok-lead__p {
+  font-size: 14px;
+  color: var(--ok-mute);
+  line-height: 1.7;
+  margin: 0;
+}
+.astro-ok-lead__p a { color: var(--ok-dk); }
+
+/* ─── Intro ─── */
+.astro-ok-intro {
+  padding: 80px 32px;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+.astro-ok-intro__tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ok-g);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.astro-ok-intro__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(26px, 3.5vw, 36px);
+  color: var(--ok-ink);
+  margin: 0 0 20px;
+  line-height: 1.2;
+}
+.astro-ok-intro__p {
+  font-size: 17px;
+  color: var(--ok-mute);
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+
+/* ─── Karten ─── */
+.astro-ok-cards {
+  background: var(--ok-gs);
+  padding: 80px 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+.astro-ok-cards__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-ok-cards__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(24px, 3vw, 34px);
+  color: var(--ok-ink);
+  text-align: center;
+  margin: 0 0 48px;
+}
+.astro-ok-cards__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.astro-ok-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 36px;
+  box-shadow: var(--ok-shd);
+}
+.astro-ok-card__icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--ok-gs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--ok-g);
+}
+.astro-ok-card__h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  color: var(--ok-ink);
+  margin: 0 0 10px;
+}
+.astro-ok-card__p {
+  font-size: 15px;
+  color: var(--ok-mute);
+  line-height: 1.65;
+  margin: 0 0 18px;
+}
+.astro-ok-card__ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.astro-ok-card__ul li {
+  font-size: 14px;
+  color: var(--ok-mute);
+  padding-left: 18px;
+  position: relative;
+}
+.astro-ok-card__ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--ok-g);
+  font-weight: 700;
+}
+
+/* ─── Warum (bg) ─── */
+.astro-ok-bg {
+  padding: 80px 0;
+}
+.astro-ok-bg__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 60px;
+  align-items: center;
+}
+.astro-ok-bg__img img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  box-shadow: var(--ok-shd);
+}
+.astro-ok-bg__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(22px, 2.8vw, 32px);
+  color: var(--ok-ink);
+  margin: 0 0 18px;
+  line-height: 1.2;
+}
+.astro-ok-bg__p {
+  font-size: 16px;
+  color: var(--ok-mute);
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+.astro-ok-bg__link { color: var(--ok-g); font-weight: 600; text-decoration: none; }
+.astro-ok-bg__link:hover { text-decoration: underline; }
+
+/* ─── Standort ─── */
+.astro-ok-standort {
+  background: var(--ok-cream);
+  padding: 80px 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+.astro-ok-standort__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-ok-standort__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(22px, 3vw, 34px);
+  color: var(--ok-ink);
+  text-align: center;
+  margin: 0 0 48px;
+}
+.astro-ok-standort__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.astro-ok-info-box {
+  background: #fff;
+  border-radius: 10px;
+  padding: 28px;
+  box-shadow: var(--ok-shd);
+}
+.astro-ok-info-box__h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ok-g);
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+.astro-ok-info-box p {
+  font-size: 14px;
+  color: var(--ok-mute);
+  line-height: 1.7;
+  margin: 0 0 10px;
+}
+.astro-ok-info-box__link {
+  font-size: 14px;
+  color: var(--ok-g);
+  font-weight: 600;
+  text-decoration: none;
+}
+.astro-ok-info-box__link:hover { text-decoration: underline; }
+.astro-ok-info-box__note {
+  font-size: 12px;
+  color: var(--ok-mute);
+  opacity: .8;
+  margin: 8px 0 0 !important;
+}
+.astro-ok-times { border-collapse: collapse; width: 100%; }
+.astro-ok-times td {
+  font-size: 13px;
+  color: var(--ok-mute);
+  padding: 4px 0;
+}
+.astro-ok-times td:last-child { text-align: right; font-weight: 600; color: var(--ok-ink); }
+
+/* ─── FAQ ─── */
+.astro-ok-faq {
+  padding: 80px 0;
+}
+.astro-ok-faq__inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-ok-faq__tag {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ok-g);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.astro-ok-faq__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(24px, 3vw, 34px);
+  color: var(--ok-ink);
+  text-align: center;
+  margin: 0 0 48px;
+}
+.astro-ok-faq__list details {
+  border-bottom: 1px solid rgba(1,96,6,.12);
+}
+.astro-ok-faq__list details:first-child { border-top: 1px solid rgba(1,96,6,.12); }
+.astro-ok-faq__list summary {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ok-ink);
+  padding: 18px 4px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.astro-ok-faq__list summary::-webkit-details-marker { display: none; }
+.astro-ok-faq__list summary::after {
+  content: '+';
+  font-size: 20px;
+  color: var(--ok-g);
+  flex-shrink: 0;
+  font-weight: 300;
+  transition: transform .2s;
+}
+.astro-ok-faq__list details[open] summary::after { transform: rotate(45deg); }
+.astro-ok-faq__list summary:hover { color: var(--ok-g); }
+.astro-ok-faq__list details p {
+  font-size: 15px;
+  color: var(--ok-mute);
+  line-height: 1.7;
+  padding: 0 4px 20px;
+  margin: 0;
+}
+.astro-ok-faq__list details p a { color: var(--ok-g); }
+
+/* ─── CTA ─── */
+.astro-ok-cta {
+  background: linear-gradient(135deg, var(--ok-dk) 0%, var(--ok-g) 100%);
+  padding: 80px 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  text-align: center;
+}
+.astro-ok-cta__inner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-ok-cta__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(24px, 3.5vw, 36px);
+  color: #fff;
+  margin: 0 0 14px;
+}
+.astro-ok-cta__p {
+  font-size: 16px;
+  color: rgba(255,255,255,.85);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+.astro-ok-cta__addr {
+  font-size: 13px;
+  color: rgba(255,255,255,.65);
+  margin: 0 0 32px;
+}
+.astro-ok-cta__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.astro-ok-cta__btn-prim {
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ok-dk);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.astro-ok-cta__btn-prim:hover { background: #e6f4e8; }
+.astro-ok-cta__btn-sec {
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,.6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.astro-ok-cta__btn-sec:hover { border-color: #fff; }
+
+/* ─── Zurück ─── */
+.astro-ok-back {
+  padding: 28px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.astro-ok-back a {
+  font-size: 14px;
+  color: var(--ok-g);
+  text-decoration: none;
+  font-weight: 600;
+}
+.astro-ok-back a:hover { text-decoration: underline; }
+
+/* ─── Responsive ─── */
+@media (max-width: 860px) {
+  .astro-ok-cards__grid { grid-template-columns: 1fr; }
+  .astro-ok-bg__inner { grid-template-columns: 1fr; }
+  .astro-ok-standort__grid { grid-template-columns: 1fr; }
+  .astro-ok-strip__grid { flex-direction: column; gap: 18px; }
+}
+</style>

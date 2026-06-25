@@ -1,0 +1,82 @@
+---
+---
+<div class="astro-ap-root astro-ap-sec" id="faq" style="scroll-margin-top:100px">
+  <div class="astro-ap-in">
+    <span class="astro-ap-eyebrow">Häufige Fragen</span>
+    <h2>Das fragen Menschen oft</h2>
+    <div class="astro-ap-faq">
+
+      <details>
+        <summary>Wann ist die Kirche geöffnet?</summary>
+        <div class="astro-ap-faq-a">St. Aposteln ist täglich von 10 bis 18 Uhr geöffnet — zum Gebet, zur Stille oder einfach zum Verweilen. Sie brauchen keinen Grund und keinen Termin.</div>
+      </details>
+
+      <details>
+        <summary>Wann finden Gottesdienste statt?</summary>
+        <div class="astro-ap-faq-a">Die regulären Gottesdienste sind: Dienstags um 18 Uhr (Eucharistiefeier), freitags ca. 17:30 Uhr (Abendgebet) und sonntags um 9:30 Uhr (Eucharistiefeier). Aktuelle Termine finden Sie in der Gottesdienstordnung auf unserer Website.</div>
+      </details>
+
+      <details>
+        <summary>Wer sind die Steyler Missionarinnen?</summary>
+        <div class="astro-ap-faq-a">Die Steyler Schwestern (Societas Divini Verbi) sind eine Ordensgemeinschaft, die St. Aposteln seit inzwischen einem Jahrzehnt prägt. Sie betreiben den Offenen Kühlschrank, das Kleider-Café und die Meet'n-Frites-Begegnungen — und stehen für eine Kirche, die mitten im Alltag der Menschen ist.</div>
+      </details>
+
+      <details>
+        <summary>Wie kann ich Kontakt aufnehmen?</summary>
+        <div class="astro-ap-faq-a">Am einfachsten per E-Mail an <a href="mailto:l.wykipil@sanktbonifatius.de">l.wykipil@sanktbonifatius.de</a> (Lilian Wykipil, Pastoralreferentin) oder an <a href="mailto:bettina.rupp@ssps.de">bettina.rupp@ssps.de</a> (Sr. Bettina Rupp, Sozialberatung). Sie erreichen das zentrale Pfarrbüro auch unter 069 695 97 58 50.</div>
+      </details>
+
+      <details>
+        <summary>Wo finde ich aktuelle Termine und Veranstaltungen?</summary>
+        <div class="astro-ap-faq-a">Das Monatsprogramm von St. Aposteln gibt es zum Download auf dieser Seite und liegt in der Kirche aus. Alle Termine der Pfarrei finden Sie auch im Veranstaltungskalender auf unserer Startseite.</div>
+      </details>
+
+    </div>
+  </div>
+</div>
+
+<style is:global>
+.astro-ap-faq {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.astro-ap-faq details {
+  border-bottom: 1px solid rgba(1,96,6,.12);
+}
+.astro-ap-faq details:first-child { border-top: 1px solid rgba(1,96,6,.12); }
+.astro-ap-faq summary {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ap-ink);
+  padding: 18px 4px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.astro-ap-faq summary::-webkit-details-marker { display: none; }
+.astro-ap-faq summary::after {
+  content: '+';
+  font-size: 20px;
+  color: var(--ap-g);
+  flex-shrink: 0;
+  font-weight: 300;
+  transition: transform .2s;
+}
+.astro-ap-faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+.astro-ap-faq summary:hover { color: var(--ap-g); }
+.astro-ap-faq-a {
+  font-size: 15px;
+  color: var(--ap-mute);
+  line-height: 1.7;
+  padding: 0 4px 20px;
+}
+.astro-ap-faq-a a { color: var(--ap-g); }
+</style>

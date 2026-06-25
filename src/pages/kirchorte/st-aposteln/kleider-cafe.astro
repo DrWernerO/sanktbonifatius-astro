@@ -1,0 +1,443 @@
+---
+// Kleider-Café (KleiCa) St. Aposteln — WP-Seite 49512
+// (/ueberuns/kirchorte/st-aposteln/kleider-cafe/, Unterseite von 45941)
+// Vollständig aus eigenen astro-kc-* Klassen (WP-Klon-Muster). Nav + Footer aus Base.astro.
+import Base from '../../../layouts/Base.astro';
+import { getSeoHead } from '../../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/kleider-cafe/');
+---
+<Base seo={seo} title="Kleider-Café KleiCa Frankfurt · Secondhand & Kaffee · Kirche St. Aposteln">
+
+  <!-- HERO -->
+  <section class="astro-kc-hero">
+    <div class="astro-kc-hero__img"></div>
+    <div class="astro-kc-hero__ov"></div>
+    <div class="astro-kc-hero__content">
+      <p class="astro-kc-hero__eyebrow">Steyler Missionarinnen · Kirche St. Aposteln · Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-kc-hero__title">Kleider-Café</h1>
+      <p class="astro-kc-hero__sub">Shoppen · Kaffee trinken · Plaudern · und die Welt neu entwerfen</p>
+      <div class="astro-kc-hero__btns">
+        <a href="#zeiten" class="astro-kc-btn-prim">Öffnungszeiten</a>
+        <a href="#mitmachen" class="astro-kc-btn-sec">Mitmachen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK STRIP -->
+  <section class="astro-kc-strip">
+    <div class="astro-kc-strip__grid">
+      <div class="astro-kc-strip__item">
+        <div class="astro-kc-strip__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="astro-kc-strip__label">Mi, Do &amp; Fr geöffnet</div>
+          <div class="astro-kc-strip__desc">Mi 14–16 · Do 18–19 · Fr 15–17:30 Uhr</div>
+        </div>
+      </div>
+      <div class="astro-kc-strip__item">
+        <div class="astro-kc-strip__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44z"/><path d="M10.59 4.59L12 3l1.41 1.59A2 2 0 0 1 12 8a2 2 0 0 1-1.41-3.41z"/></svg>
+        </div>
+        <div>
+          <div class="astro-kc-strip__label">Secondhand &amp; Kaffee</div>
+          <div class="astro-kc-strip__desc">Orgelempore + Kaffeebar am Eingang</div>
+        </div>
+      </div>
+      <div class="astro-kc-strip__item">
+        <div class="astro-kc-strip__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="astro-kc-strip__label">Kirche St. Aposteln</div>
+          <div class="astro-kc-strip__desc">Ziegelhüttenweg 149 · Sachsenhausen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÖFFNUNGSZEITEN -->
+  <section class="astro-kc-sec" id="zeiten">
+    <div class="astro-kc-sec__inner">
+      <span class="astro-kc-sec__tag">Öffnungszeiten</span>
+      <h2 class="astro-kc-sec__h2">Wann ist das Kleider-Café geöffnet?</h2>
+      <p class="astro-kc-sec__lead">Das KleiCa öffnet dreimal pro Woche – immer in der Kirche St. Aposteln, Ziegelhüttenweg 149, Frankfurt am Main.</p>
+      <div class="astro-kc-times-grid">
+        <div class="astro-kc-time-card">
+          <div class="astro-kc-time-card__day">Mittwoch</div>
+          <div class="astro-kc-time-card__time">14 – 16 Uhr</div>
+          <div class="astro-kc-time-card__note">Boutique &amp; Stöbern</div>
+        </div>
+        <div class="astro-kc-time-card">
+          <div class="astro-kc-time-card__day">Donnerstag</div>
+          <div class="astro-kc-time-card__time">18 – 19 Uhr</div>
+          <div class="astro-kc-time-card__note">Abendöffnung</div>
+        </div>
+        <div class="astro-kc-time-card astro-kc-time-card--highlight">
+          <div class="astro-kc-time-card__day">Freitag</div>
+          <div class="astro-kc-time-card__time">15 – 17:30 Uhr</div>
+          <div class="astro-kc-time-card__note">mit Kaffeebar</div>
+          <small>15–17:30 Uhr</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAS IST DAS KLEICA -->
+  <section class="astro-kc-sec astro-kc-sec--alt">
+    <div class="astro-kc-sec__inner">
+      <span class="astro-kc-sec__tag" style="display:block;text-align:center">Was ist das KleiCa?</span>
+      <h2 class="astro-kc-sec__h2">Nachhaltig shoppen mit Gemeinschaft</h2>
+      <div class="astro-kc-split">
+        <div class="astro-kc-split__img">
+          <img src="/uploads/2021/10/StAposteln_KleiCa.jpg" alt="Kleider-Café St. Aposteln Frankfurt" loading="lazy">
+        </div>
+        <div>
+          <h3 class="astro-kc-split__h3">Secondhand-Boutique auf der Orgelempore</h3>
+          <p class="astro-kc-split__p">Das KleiCa ist eine Initiative der Steyler Missionarinnen in der Kirche St. Aposteln. Auf der Orgelempore findet sich gut erhaltene Secondhand-Mode — bunt, stilvoll und zu fairen Preisen.</p>
+          <p class="astro-kc-split__p">Am Kircheneingang gibt es eine Kaffeebar zum Verweilen, Plaudern und Kennenlernen. Das KleiCa verbindet Nachhaltigkeit mit echter Begegnung — ganz im Geist der Sozialpastoral der Steyler Schwestern.</p>
+          <p class="astro-kc-split__p">Die Boutique befindet sich auf der <strong>Orgelempore</strong>, die Kaffeebar am <strong>Kircheneingang</strong> von St. Aposteln, Ziegelhüttenweg 149, Frankfurt am Main.</p>
+          <a href="https://www.steyler-missionsschwestern.de/standorte/frankfurt-am/kleica" target="_blank" rel="noopener" class="astro-kc-btn-prim" style="display:inline-block;margin-top:8px">Zur Steyler-Seite →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MITMACHEN -->
+  <section class="astro-kc-sec" id="mitmachen">
+    <div class="astro-kc-sec__inner">
+      <span class="astro-kc-sec__tag" style="display:block;text-align:center">Mitmachen</span>
+      <h2 class="astro-kc-sec__h2">Wie kann ich das KleiCa unterstützen?</h2>
+      <p class="astro-kc-sec__lead">Das KleiCa lebt von Menschen, die mitmachen — auf ganz verschiedene Weisen.</p>
+      <div class="astro-kc-mitmachen">
+        <div class="astro-kc-mitmachen__item">Vorbeikommen und einkaufen</div>
+        <div class="astro-kc-mitmachen__item">Gespräche führen und Gemeinschaft leben</div>
+        <div class="astro-kc-mitmachen__item">Gut erhaltene Kleidung spenden</div>
+        <div class="astro-kc-mitmachen__item">Kuchen backen und mitbringen</div>
+        <div class="astro-kc-mitmachen__item">Ehrenamtlich beim Kaffeeausschank helfen</div>
+        <div class="astro-kc-mitmachen__item">Das KleiCa finanziell unterstützen</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="astro-kc-cta">
+    <div class="astro-kc-cta__inner">
+      <h2 class="astro-kc-cta__h2">Einfach vorbeikommen</h2>
+      <p class="astro-kc-cta__p">Das KleiCa freut sich über jeden Besuch — ob zum Stöbern, für einen Kaffee oder einfach zum Plaudern. Keine Anmeldung nötig.</p>
+      <p class="astro-kc-cta__p" style="font-size:.9rem;opacity:.85">Kirche St. Aposteln · Ziegelhüttenweg 149 · 60598 Frankfurt am Main</p>
+      <a href="/kirchorte/st-aposteln/" class="astro-kc-cta__btn">Mehr über St. Aposteln →</a>
+    </div>
+  </section>
+
+  <!-- ZURÜCK -->
+  <div class="astro-kc-back">
+    <a href="/kirchorte/st-aposteln/">← Zurück zu St. Aposteln</a>
+  </div>
+
+</Base>
+
+<style is:global>
+/* ─── Design Tokens (geerbt von ap, local kc override) ─── */
+:root {
+  --kc-g: #016006;
+  --kc-dk: #013903;
+  --kc-gs: #e6f4e8;
+  --kc-cream: #f7f3ef;
+  --kc-ink: #1e1512;
+  --kc-mute: #6b5c52;
+  --kc-shd: 0 2px 16px rgba(1,96,6,.10);
+}
+
+/* ─── Hero ─── */
+.astro-kc-hero {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.astro-kc-hero__img {
+  position: absolute;
+  inset: 0;
+  background: url('/uploads/2021/10/StAposteln_KleiCa.jpg') center/cover no-repeat;
+}
+.astro-kc-hero__ov {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(1,57,3,.80) 0%, rgba(1,96,6,.50) 100%);
+}
+.astro-kc-hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
+  text-align: center;
+}
+.astro-kc-hero__eyebrow {
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.75);
+  margin: 0 0 14px;
+}
+.astro-kc-hero__title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(36px, 6vw, 62px);
+  color: #fff;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+.astro-kc-hero__sub {
+  font-size: clamp(16px, 2vw, 19px);
+  color: rgba(255,255,255,.88);
+  margin: 0 0 36px;
+  line-height: 1.6;
+}
+.astro-kc-hero__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.astro-kc-btn-prim {
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--kc-dk);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s;
+}
+.astro-kc-btn-prim:hover { background: #e6f4e8; }
+.astro-kc-btn-sec {
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,.6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color .2s;
+}
+.astro-kc-btn-sec:hover { border-color: #fff; }
+
+/* ─── Strip ─── */
+.astro-kc-strip {
+  background: var(--kc-dk);
+  padding: 22px 32px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+.astro-kc-strip__grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.astro-kc-strip__item { display: flex; align-items: center; gap: 12px; }
+.astro-kc-strip__icon { color: rgba(255,255,255,.7); flex-shrink: 0; }
+.astro-kc-strip__label { font-size: 14px; font-weight: 700; color: #fff; }
+.astro-kc-strip__desc { font-size: 12px; color: rgba(255,255,255,.65); }
+
+/* ─── Section ─── */
+.astro-kc-sec {
+  padding: 80px 0;
+}
+.astro-kc-sec--alt {
+  background: var(--kc-cream);
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+.astro-kc-sec__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-kc-sec__tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--kc-g);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.astro-kc-sec__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(24px, 3vw, 36px);
+  color: var(--kc-ink);
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+.astro-kc-sec__lead {
+  font-size: 17px;
+  color: var(--kc-mute);
+  line-height: 1.7;
+  margin: 0 0 40px;
+  max-width: 680px;
+}
+
+/* ─── Öffnungszeiten-Karten ─── */
+.astro-kc-times-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 780px;
+}
+.astro-kc-time-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 28px 24px;
+  box-shadow: var(--kc-shd);
+  border-top: 4px solid var(--kc-gs);
+  text-align: center;
+}
+.astro-kc-time-card--highlight {
+  border-top-color: var(--kc-g);
+}
+.astro-kc-time-card__day {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--kc-g);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.astro-kc-time-card__time {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  color: var(--kc-ink);
+  margin-bottom: 6px;
+}
+.astro-kc-time-card__note {
+  font-size: 13px;
+  color: var(--kc-mute);
+}
+.astro-kc-time-card small {
+  display: block;
+  font-size: 11px;
+  color: var(--kc-mute);
+  margin-top: 4px;
+}
+
+/* ─── Split ─── */
+.astro-kc-split {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 16px;
+}
+.astro-kc-split__img img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  box-shadow: var(--kc-shd);
+}
+.astro-kc-split__h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  color: var(--kc-ink);
+  margin: 0 0 14px;
+}
+.astro-kc-split__p {
+  font-size: 16px;
+  color: var(--kc-mute);
+  line-height: 1.7;
+  margin: 0 0 12px;
+}
+
+/* ─── Mitmachen ─── */
+.astro-kc-mitmachen {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.astro-kc-mitmachen__item {
+  background: var(--kc-gs);
+  border-radius: 8px;
+  padding: 20px 18px;
+  font-size: 15px;
+  color: var(--kc-ink);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.astro-kc-mitmachen__item::before {
+  content: '→';
+  color: var(--kc-g);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ─── CTA ─── */
+.astro-kc-cta {
+  background: linear-gradient(135deg, var(--kc-dk) 0%, var(--kc-g) 100%);
+  padding: 80px 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  text-align: center;
+}
+.astro-kc-cta__inner {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.astro-kc-cta__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(24px, 3.5vw, 36px);
+  color: #fff;
+  margin: 0 0 14px;
+}
+.astro-kc-cta__p {
+  font-size: 16px;
+  color: rgba(255,255,255,.85);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+.astro-kc-cta__btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--kc-dk);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 22px;
+}
+.astro-kc-cta__btn:hover { background: #e6f4e8; }
+
+/* ─── Zurück ─── */
+.astro-kc-back {
+  padding: 28px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.astro-kc-back a {
+  font-size: 14px;
+  color: var(--kc-g);
+  text-decoration: none;
+  font-weight: 600;
+}
+.astro-kc-back a:hover { text-decoration: underline; }
+
+/* ─── Responsive ─── */
+@media (max-width: 860px) {
+  .astro-kc-times-grid { grid-template-columns: 1fr; }
+  .astro-kc-split { grid-template-columns: 1fr; }
+  .astro-kc-mitmachen { grid-template-columns: 1fr; }
+  .astro-kc-strip__grid { flex-direction: column; gap: 18px; }
+}
+</style>
