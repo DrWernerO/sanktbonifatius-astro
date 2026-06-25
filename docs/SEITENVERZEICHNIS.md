@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 45 bereits in Astro übernommen bzw. per Direktlink erledigt · 35 offen.** Stand: 25.06.2026.
+> **80 Live-Seiten erfasst · 46 bereits in Astro übernommen bzw. per Direktlink erledigt · 34 offen.** Stand: 25.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -51,7 +51,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Krankensalbung | [Link](https://www.sanktbonifatius.de/segen-sakramente/krankensalbung/) | `src/pages/segen-sakramente/krankensalbung.astro` | Werner | ✅ erledigt | Page-ID 47431, eigene Ks*-Komponenten (Präfix `astro-ks`); Foto-Hero, Bordeaux-Strip (3 Fakten), Info mit Bibelzitat (Jak 5,14), 4 Empfänger-Karten, 3-Schritte-Ablauf, Kontakt (P. Gaby Geagea, Pfarrbüro) + Notfall-Box, 6 FAQ, CTA |
 | Taufe | [Link](https://www.sanktbonifatius.de/segen-sakramente/taufe/) | `src/pages/segen-sakramente/taufe.astro` | Werner | ✅ erledigt | Page-ID 46566; Anmeldeformular postet an eigene Route `/api/taufe-anmeldung` → erzeugt ausgefülltes amtliches PDF + Mailversand ans Pfarrbüro (Handbuch 13b). Offen erst beim Netlify-Go-Live: SMTP-Daten + Adapter |
 | Tauftermine | [Link](https://www.sanktbonifatius.de/segen-sakramente/taufe/tauftermine/) | — | Werner | ✅ erledigt | WP-Datenquelle (Page 50101) für den Tauftermine-Block; keine eigene Astro-Seite |
-| Trauung | [Link](https://www.sanktbonifatius.de/segen-sakramente/trauung/) | — | — | offen |  |
+| Trauung | [Link](https://www.sanktbonifatius.de/segen-sakramente/trauung/) | `src/pages/segen-sakramente/trauung.astro` | Werner | ✅ erledigt | Page-ID 47394, eigene Trauung*-Komponenten (Präfix `astro-tr`); Foto-Hero mit Anker-Buttons (#tr-kontakt, #tr-anmeldung), Bordeaux-Strip (3 Fakten), Info mit Ehe-Zitat + Vorzüge-Liste, 3 Kirchort-Karten (St. Bonifatius, St. Wendel, Herz Jesu), 4-Phasen-Ablauf der Feier, 4-Schritte-Anmeldung + Hinweis-Box (Heirat auswärts), 7 FAQ, Kontakt-CTA. St-Wendel-Link noch tot (Kirchortseite ungebaut, §12) |
 
 ## 5 · Kirchorte (mit Unterseiten)
 
