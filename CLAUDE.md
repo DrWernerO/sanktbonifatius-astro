@@ -4,6 +4,11 @@
 > Dort steht alles zu Architektur, Nav-Aufbau, Beitrags-/Termin-Kacheln und den
 > wiederkehrenden Fallstricken.
 >
+> **Für Kirchort-Seiten und deren Unterseiten** gilt zusätzlich die verbindliche
+> **[`docs/kirchort-routine.md`](docs/kirchort-routine.md)** — 4-Phasen-Routine:
+> WP-CSS extrahieren → Checkliste beim Bauen → CSS-Verifikation → Doku.
+> Diese Routine MUSS vor dem ersten Code einer neuen Kirchortseite gelesen werden.
+>
 > **Ergänzend** liegt das **Team-Handbuch** unter [`docs/team-handbuch/`](docs/team-handbuch/):
 > WordPress-Seiten-IDs ([`07-seiten-inventar.md`](docs/team-handbuch/07-seiten-inventar.md)),
 > Design-System/Farben/Fonts ([`04-design-system.md`](docs/team-handbuch/04-design-system.md)),

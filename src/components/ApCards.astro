@@ -56,11 +56,34 @@
         </div>
       </div>
 
+      <div class="astro-ap-card" style="cursor:default">
+        <div class="astro-ap-card__img" style="background-image:url('/uploads/2026/02/ewig-im-licht-st-aposteln-1024x1365.jpg')"></div>
+        <div class="astro-ap-card__body">
+          <div class="astro-ap-card__title">Gedenkstele „Ewig im Licht"</div>
+          <p class="astro-ap-card__text">In St. Aposteln gibt es eine Gedenkstele für Verstorbene aus der Gemeinde und alle, die hier einen Ort für sich gefunden haben. Stephan Riechert hat eine Kirchenkniebank mit Blattgold überzogen, die Steinbildhauerin Emma Riechert hat die Reliefschrift „Ewig im Licht" geschaffen.</p>
+          <p class="astro-ap-card__subtext">Wer das Gedenken an eine liebe Person in dieser Form erhalten möchte, wendet sich bitte mit einem Foto an den Kirchortrat oder an <a href="mailto:bettina.rupp@ssps.de" style="color:var(--ap-g)">Schwester Bettina</a>.</p>
+        </div>
+      </div>
+
+      <a href="#kontakt" class="astro-ap-card">
+        <div class="astro-ap-card__img" style="background-image:url('/uploads/2021/10/StAposteln_Teaser.jpg')"></div>
+        <div class="astro-ap-card__body">
+          <div class="astro-ap-card__title">Gesprächsoase</div>
+          <p class="astro-ap-card__text">Wer Gespräch oder Beratung sucht, ist herzlich willkommen — bei uns und bei unserer Sozialarbeiterin Sr. Bettina.</p>
+          <span class="astro-ap-card__more">Kontakt aufnehmen →</span>
+        </div>
+      </a>
+
     </div>
   </div>
 </div>
 
 <style is:global>
+.astro-ap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
 .astro-ap-card {
   background: #fff;
   border-radius: 12px;
@@ -126,6 +149,12 @@
 .astro-ap-card__info--table td { padding: 5px 0; color: #2c2420; }
 .astro-ap-card__day { font-weight: 700; color: var(--ap-g); width: 40px; }
 .astro-ap-card__note { font-size: 11px; color: #7a6555; }
+.astro-ap-card__subtext {
+  font-size: 13px;
+  color: #5a4535;
+  line-height: 1.5;
+  margin: 4px 0 0;
+}
 .astro-ap-card__more {
   font-size: 14px;
   font-weight: 600;

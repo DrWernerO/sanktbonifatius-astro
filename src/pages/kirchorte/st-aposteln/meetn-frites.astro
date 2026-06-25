@@ -11,8 +11,6 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/meetn-frites/');
 
   <!-- HERO -->
   <section class="astro-mf-hero">
-    <div class="astro-mf-hero__img"></div>
-    <div class="astro-mf-hero__ov"></div>
     <div class="astro-mf-hero__content">
       <p class="astro-mf-hero__eyebrow">Steyler Missionsschwestern · Kirche St. Aposteln · Frankfurt-Sachsenhausen</p>
       <h1 class="astro-mf-hero__title">Meet'n Frites</h1>
@@ -61,17 +59,17 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/meetn-frites/');
   <!-- POMMES ALS EINLADUNG -->
   <section class="astro-mf-sec">
     <div class="astro-mf-sec__inner">
-      <span class="astro-mf-sec__tag">Die Idee</span>
-      <h2 class="astro-mf-sec__h2">Pommes als Einladung</h2>
       <div class="astro-mf-split">
         <div class="astro-mf-split__img">
           <img src="/uploads/2022/10/pommesbude-staposteln-frankfurt.jpg" alt="Meet'n Frites Pommesbude auf dem Kirchplatz St. Aposteln Frankfurt" loading="lazy">
         </div>
         <div>
+          <span class="astro-mf-sec__tag">Die Idee</span>
+          <h2 class="astro-mf-sec__h2">Pommes als Einladung</h2>
           <p class="astro-mf-split__p">Meet'n Frites ist eine Begegnungsinitiative der Steyler Missionsschwestern in Frankfurt-Sachsenhausen. Alle 14 Tage stellen die Schwestern auf dem Kirchplatz von St. Aposteln eine Pommesbude auf — und laden Menschen aus der Nachbarschaft ein, vorbeizukommen.</p>
           <p class="astro-mf-split__p">Die Fritten sind lecker, die Saucen selbstgemacht — und das Eigentliche ist die Begegnung. Zwischen Menschen, die sich vielleicht noch nie gesehen haben. Zwischen Alt und Jung, zwischen Einheimischen und Zugezogenen. Ein einfaches Format, das wirklich verbindet.</p>
           <p class="astro-mf-split__p">Das Projekt ist Teil der Sozialpastoral der Pfarrei Sankt Bonifatius und läuft seit mehreren Jahren. Es zeigt: Kirche kann auf dem Kirchplatz stattfinden — ganz ohne Schwelle, ganz ohne Bedingungen.</p>
-          <a href="https://www.steyler-missionsschwestern.de/standorte/frankfurt-am/schwestern-pommes" target="_blank" rel="noopener" class="astro-mf-btn-prim" style="display:inline-block;margin-top:8px">Mehr auf der Steyler-Seite →</a>
+          <a href="https://www.steyler-missionsschwestern.de/standorte/frankfurt-am/schwestern-pommes" target="_blank" rel="noopener" class="astro-mf-btn-grn">Mehr auf der Steyler-Seite →</a>
         </div>
       </div>
     </div>
@@ -157,16 +155,7 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/meetn-frites/');
   display: flex;
   align-items: center;
   overflow: hidden;
-}
-.astro-mf-hero__img {
-  position: absolute;
-  inset: 0;
-  background: url('/uploads/2022/10/pommesbude-staposteln-frankfurt.jpg') center/cover no-repeat;
-}
-.astro-mf-hero__ov {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(1,57,3,.80) 0%, rgba(1,96,6,.50) 100%);
+  background: linear-gradient(135deg, #012802 0%, #013903 35%, #016006 70%, #024f03 100%);
 }
 .astro-mf-hero__content {
   position: relative;
@@ -214,6 +203,22 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/meetn-frites/');
   transition: background .2s;
 }
 .astro-mf-btn-prim:hover { background: #e6f4e8; }
+.astro-mf-btn-grn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 13px 28px;
+  border-radius: 999px;
+  background: var(--mf-g);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+}
+.astro-mf-btn-grn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(1,96,6,.3);
+}
 .astro-mf-btn-sec {
   padding: 14px 32px;
   border-radius: 999px;

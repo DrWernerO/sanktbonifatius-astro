@@ -11,8 +11,6 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/offener-kuehlschra
 
   <!-- HERO -->
   <section class="astro-ok-hero">
-    <div class="astro-ok-hero__img"></div>
-    <div class="astro-ok-hero__ov"></div>
     <div class="astro-ok-hero__content">
       <p class="astro-ok-hero__eyebrow">Sozialpastoral · Kirche St. Aposteln · Frankfurt-Sachsenhausen</p>
       <h1 class="astro-ok-hero__title">Offener Kühlschrank</h1>
@@ -60,7 +58,13 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/offener-kuehlschra
   <!-- DIREKTANTWORT -->
   <section class="astro-ok-lead">
     <div class="astro-ok-lead__inner">
-      <p class="astro-ok-lead__p">Der Offene Kühlschrank Frankfurt-Sachsenhausen ist ein kostenloser Lebensmitteltauschpunkt in der Kirche St. Aposteln, Ziegelhüttenweg 149, 60598 Frankfurt am Main. Jeder darf haltbare, abgepackte Lebensmittel einbringen oder mitnehmen – ohne Registrierung, ohne Kosten, ohne Bedingungen. Das Projekt entstand in Kooperation mit <a href="https://www.foodsharing.de/" rel="noopener noreferrer">foodsharing.de</a>, einer seit 2012 aktiven Initiative gegen Lebensmittelverschwendung. Zugänglich täglich von 10 bis 18 Uhr (freitags 10–14 Uhr). Nur fabrikverpackte, haltbare Produkte dürfen eingestellt werden – keine selbstgekochten Speisen, kein rohes Fleisch, kein Alkohol.</p>
+      <p class="astro-ok-lead__sentence">Ein kostenloser Tauschpunkt für Lebensmittel in Frankfurt-Sachsenhausen — offen für alle, täglich von 10 bis 18 Uhr, ohne Registrierung, ohne Bedingungen.</p>
+      <div class="astro-ok-lead__chips">
+        <span class="astro-ok-lead__chip">Nur fabrikverpackt &amp; haltbar</span>
+        <span class="astro-ok-lead__chip">Kein Alkohol · kein rohes Fleisch</span>
+        <span class="astro-ok-lead__chip">Keine selbstgekochten Speisen</span>
+      </div>
+      <p class="astro-ok-lead__note">In Kooperation mit <a href="https://www.foodsharing.de/" rel="noopener noreferrer">foodsharing.de</a> — einer seit 2012 aktiven Initiative gegen Lebensmittelverschwendung.</p>
     </div>
   </section>
 
@@ -146,9 +150,8 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/offener-kuehlschra
         </div>
         <div class="astro-ok-info-box">
           <h3 class="astro-ok-info-box__h3">Kontakt &amp; Fragen</h3>
-          <p>Pfarrbüro Sankt Bonifatius<br>Holbeinstraße 70<br>60596 Frankfurt am Main</p>
-          <a href="tel:+4969695975850" class="astro-ok-info-box__link">069 695 97 58 50</a><br>
-          <a href="mailto:info@sanktbonifatius.de" class="astro-ok-info-box__link">info@sanktbonifatius.de</a>
+          <p>Sozialpastoral</p>
+          <a href="tel:+4915158045646" class="astro-ok-info-box__link">0151 580 45 646</a>
         </div>
       </div>
     </div>
@@ -232,16 +235,7 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/offener-kuehlschra
   display: flex;
   align-items: center;
   overflow: hidden;
-}
-.astro-ok-hero__img {
-  position: absolute;
-  inset: 0;
-  background: url('/uploads/2023/07/foodworkshop-2.jpg') center/cover no-repeat;
-}
-.astro-ok-hero__ov {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(1,57,3,.82) 0%, rgba(1,96,6,.55) 100%);
+  background: linear-gradient(135deg, #012802 0%, #013903 35%, #016006 70%, #024f03 100%);
 }
 .astro-ok-hero__content {
   position: relative;
@@ -339,13 +333,39 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/offener-kuehlschra
   margin: 0 auto;
   padding: 0 32px;
 }
-.astro-ok-lead__p {
+.astro-ok-lead__sentence {
+  font-size: 18px;
+  color: var(--ok-dk);
+  line-height: 1.65;
+  margin: 0 0 20px;
+  font-weight: 500;
+  text-align: center;
+}
+.astro-ok-lead__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.astro-ok-lead__chip {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ok-g);
+  color: var(--ok-dk);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.astro-ok-lead__note {
   font-size: 14px;
   color: var(--ok-mute);
-  line-height: 1.7;
+  text-align: center;
   margin: 0;
+  line-height: 1.6;
 }
-.astro-ok-lead__p a { color: var(--ok-dk); }
+.astro-ok-lead__note a { color: var(--ok-dk); text-decoration: underline; }
 
 /* ─── Intro ─── */
 .astro-ok-intro {
