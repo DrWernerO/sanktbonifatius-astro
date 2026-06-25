@@ -4,6 +4,7 @@
   <div class="astro-ap-in">
     <span class="astro-ap-eyebrow">Ansprechpersonen</span>
     <h2>Team St. Aposteln</h2>
+    <p class="astro-ap-lead">Wir freuen uns auf Ihre Fragen, Anregungen und Begegnungen.</p>
     <div class="astro-ap-team">
 
       <div class="astro-ap-person">
@@ -36,52 +37,13 @@
 </div>
 
 <style is:global>
-.astro-ap-team {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-top: 48px;
-}
-.astro-ap-person {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--ap-shd);
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 24px;
-}
-.astro-ap-person__photo {
-  width: 100%;
-  aspect-ratio: 1/1;
-  background-size: cover;
-  background-position: center top;
-}
-.astro-ap-person h3 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 18px;
-  color: var(--ap-ink);
-  margin: 18px 20px 4px;
-  line-height: 1.2;
-}
-.astro-ap-person__role {
-  font-size: 13px;
-  color: var(--ap-g);
-  font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  margin: 0 20px 12px;
-}
-.astro-ap-person a {
-  display: block;
-  font-size: 14px;
-  color: var(--ap-mute);
-  text-decoration: none;
-  padding: 3px 20px;
-  transition: color .2s;
-}
+.astro-ap-team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 32px; }
+.astro-ap-person { background: #fff; border-radius: 12px; padding: 32px 28px; box-shadow: var(--ap-shd); display: grid; grid-template-columns: 120px 1fr; column-gap: 24px; align-items: center; }
+.astro-ap-person__photo { grid-row: 1 / span 99; width: 120px; height: 120px; border-radius: 50%; background-size: cover; background-position: center top; border: 3px solid #fff; box-shadow: 0 4px 14px rgba(0,0,0,.15); }
+.astro-ap-person h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: var(--ap-g); margin: 0 0 4px; font-weight: 700; line-height: 1.2; }
+.astro-ap-person__role { color: var(--ap-mute); font-size: 12px; margin: 0 0 12px; letter-spacing: .08em; text-transform: uppercase; }
+.astro-ap-person a { color: var(--ap-ink); text-decoration: none; display: block; font-size: 14px; margin: 3px 0; transition: color .2s; word-break: break-word; }
 .astro-ap-person a:hover { color: var(--ap-g); }
-@media (max-width: 860px) {
-  .astro-ap-team { grid-template-columns: 1fr; }
-}
+@media (max-width: 960px) { .astro-ap-team { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .astro-ap-person { grid-template-columns: 88px 1fr; column-gap: 16px; padding: 20px 18px; } .astro-ap-person__photo { width: 88px; height: 88px; } }
 </style>
