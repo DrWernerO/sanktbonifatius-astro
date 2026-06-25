@@ -318,7 +318,10 @@ function extractSeoTags(html) {
   push(/<link\s+rel=["']canonical["'][^>]*>/i);
   for (const m of head.matchAll(/<meta\s+property=["'](?:og|article):[^"']*["'][^>]*>/gi)) tags.push(m[0]);
   for (const m of head.matchAll(/<meta\s+name=["']twitter:[^"']*["'][^>]*>/gi)) tags.push(m[0]);
-  for (const m of head.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi)) tags.push(m[0]);
+  // JSON-LD im GANZEN Dokument suchen: SEOPress gibt die ld+json-Blöcke im <body> aus
+  // (nach </head>), nicht im Head — daher hier `html` statt `head` (sonst geht das
+  // strukturierte Daten-Markup auf allen Astro-Seiten verloren).
+  for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi)) tags.push(m[0]);
   return tags.join('\n').replace(
     /https:\/\/(?:dev|www)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?(?!\/wp-content)/g,
     PUBLIC_SITE,
