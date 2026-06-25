@@ -1,0 +1,49 @@
+---
+// Übersichtsseite „Engagiert Leben" — WP-Seite 46769 (/engagiert-leben/), vollständig aus eigenen
+// Astro-Komponenten (kein set:html mit WP-Markup). Nav + Footer global aus Base.astro (Handbuch 4b).
+// SEO live aus WP (SEOPress) via getSeoHead('/engagiert-leben/'). Termine live via EventCalendar
+// (Kategorie 2590). Hausfarben (Bordeaux/Gold/Creme) statt WP-Lila — bewusste Umstellung.
+import Base from '../../layouts/Base.astro';            // ACHTUNG: zwei Ebenen hoch
+import { getSeoHead } from '../../lib/wordpress.js';
+import EventCalendar from '../../components/EventCalendar.astro';
+import ElHero from '../../components/ElHero.astro';
+import ElIntro from '../../components/ElIntro.astro';
+import ElTiles from '../../components/ElTiles.astro';
+import ElFaq from '../../components/ElFaq.astro';
+import ElCta from '../../components/ElCta.astro';
+
+const seo = await getSeoHead('/engagiert-leben/');
+---
+<Base seo={seo} title="Engagiert Leben – Ehrenamt & soziales Engagement · St. Bonifatius Frankfurt">
+  <ElHero />
+  <ElIntro />
+  <ElTiles />
+  <div id="el-termine" class="astro-el-anchor">
+    <EventCalendar
+      heading="Unsere nächsten Veranstaltungen"
+      moreHref="/terminkalender/"
+      category={2590}
+      categoryLabel="Engagiert Leben"
+    />
+  </div>
+  <ElFaq />
+  <ElCta />
+</Base>
+
+<style is:global>
+/* Anker-Versatz: fixierte Nav (80px) verdeckt sonst den Sprung-Anker */
+.astro-el-anchor,
+#el-bereiche,
+#el-mitmachen,
+#el-hilfenetz,
+#el-kleica,
+#el-kuehlschrank,
+#el-beratung { scroll-margin-top: 96px; }
+
+/* Termin-Überschriften in Bordeaux + weiße Karten — nur auf dieser Seite (Muster bonfamily) */
+#el-termine .astro-ev__hl,
+#el-termine .astro-ev-card__title,
+#el-termine .astro-ev-list__hl,
+#el-termine .astro-ev-list__title { color: #9a2d2d; }
+#el-termine .astro-ev-card { background: #fff; }
+</style>

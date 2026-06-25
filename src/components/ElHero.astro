@@ -1,0 +1,54 @@
+---
+// Hero der Übersichtsseite „Engagiert Leben" — WP-Seite 46769 (/engagiert-leben/).
+// Eigene Klassen `astro-elhero` (goldene Regel, Handbuch Abschnitt 3 — niemals WP-Klassen `el-…`).
+// Full-Bleed-Foto + Verlauf-Overlay + Text + Anker-Pills. Bild lokal unter public/uploads/.
+// Hausfarben (Bordeaux/Gold), NICHT die WP-Lila-Farben (vgl. Engagement-Seite). Inhalte fest gepflegt.
+const bg = '/uploads/2023/08/sankt-bonifatius-thema-engagiert-leben.jpg';
+const PILLS = [
+  { label: 'Hilfenetz',     href: '#el-hilfenetz' },
+  { label: 'Kleider Caf&eacute;', href: '#el-kleica' },
+  { label: 'K&uuml;hlschrank', href: '#el-kuehlschrank' },
+  { label: 'Sozialberatung', href: '#el-beratung' },
+];
+---
+<section class="astro-elhero">
+  <div class="astro-elhero__bg" role="img"
+       aria-label="Ehrenamtliche der Pfarrei Sankt Bonifatius Frankfurt im Einsatz"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-elhero__overlay"></div>
+  <div class="astro-elhero__inner">
+    <p class="astro-elhero__eyebrow">Sankt Bonifatius &middot; Frankfurt am Main</p>
+    <h1 class="astro-elhero__title">Engagiert Leben</h1>
+    <p class="astro-elhero__sub">
+      Solidarisch, inklusiv, mitgestaltend &#8211; f&uuml;r die Menschen in unserer Stadt &#8211; und weit dar&uuml;ber hinaus.
+    </p>
+    <div class="astro-elhero__btns">
+      <a class="astro-elhero__btn" href="#el-bereiche">Zu den Angeboten</a>
+      <a class="astro-elhero__btn astro-elhero__btn--ghost" href="#el-mitmachen">Mitmachen</a>
+    </div>
+    <div class="astro-elhero__pills">
+      {PILLS.map((p) => (
+        <a class="astro-elhero__pill" href={p.href} set:html={p.label} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-elhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:min(72vh,580px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-elhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
+.astro-elhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.10) 0%,rgba(30,21,18,.45) 55%,rgba(30,21,18,.85) 100%)}
+.astro-elhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;color:#f0e8d8}
+.astro-elhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-elhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,68px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700}
+.astro-elhero__sub{color:rgba(255,255,255,.9);font-size:clamp(16px,2vw,21px);margin:0 0 28px;max-width:640px;line-height:1.5}
+.astro-elhero__btns{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 26px}
+.astro-elhero__btn{display:inline-flex;align-items:center;padding:14px 30px;border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;background:#9a2d2d;color:#fff;transition:background .2s,color .2s}
+.astro-elhero__btn:hover{background:#7e2424;color:#fff}
+.astro-elhero__btn--ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+.astro-elhero__btn--ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+.astro-elhero__pills{display:flex;flex-wrap:wrap;gap:10px}
+.astro-elhero__pill{display:inline-flex;align-items:center;padding:7px 16px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;color:#f0e8d8;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.25);transition:background .2s,color .2s,border-color .2s}
+.astro-elhero__pill:hover{background:#c5a55a;color:#2c2420;border-color:#c5a55a}
+@media(max-width:600px){.astro-elhero{min-height:min(70vh,500px)}.astro-elhero__inner{padding:0 20px 40px}}
+</style>

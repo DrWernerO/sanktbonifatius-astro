@@ -1,0 +1,23 @@
+---
+// Intro-Block der Übersichtsseite „Engagiert Leben" (Page 46769). Eigene Klassen `astro-elintro`.
+// Muster wie SegenIntro. Feste Inhalte, Hausfarben.
+---
+<section class="astro-elintro">
+  <div class="astro-elintro__inner">
+    <h2 class="astro-elintro__hl">Engagiert Leben &#8211; aus dem Glauben heraus handeln</h2>
+    <p class="astro-elintro__lead">
+      Seit &uuml;ber 20 Jahren engagieren sich Ehrenamtliche in der Pfarrei Sankt Bonifatius
+      Frankfurt f&uuml;reinander &#8211; f&uuml;r Solidarit&auml;t, Teilhabe und mehr Gerechtigkeit
+      in unserer Stadt. Mehr als 80 Freiwillige sind aktiv in f&uuml;nf sozialen Handlungsfeldern.
+      Entdecken Sie unsere Angebote in Frankfurt &#8211; und machen Sie mit.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-elintro{background:#f7f3ef;padding:80px 0}
+.astro-elintro__inner{max-width:820px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-elintro__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.8vw,44px);font-weight:700;color:#2c2420;margin:0 0 22px;line-height:1.15}
+.astro-elintro__lead{font-size:clamp(16px,1.9vw,20px);color:#6b5c52;line-height:1.65;margin:0 auto;max-width:700px}
+@media(max-width:600px){.astro-elintro{padding:56px 0}.astro-elintro__inner{padding:0 20px}}
+</style>

@@ -1,0 +1,43 @@
+---
+// „Antworten auf Ihre Fragen" der Unterseite „Offener Kühlschrank" (WP-Seite 49123).
+// Eigene Klassen `astro-okfaq`. Natives <details> (kein JS, Muster SegenFaq). Feste Inhalte.
+const FAQ = [
+  { q: 'Was darf ich in den Offenen K&uuml;hlschrank in Frankfurt einlegen?',
+    a: 'Eingelegt werden d&uuml;rfen verpackte, haltbare Lebensmittel mit intaktem Mindesthaltbarkeitsdatum &#8211; zum Beispiel Nudeln, Reis, Konserven, Cerealien, Joghurt oder K&auml;se in unge&ouml;ffneter Originalverpackung sowie frisches Obst und Gem&uuml;se. Nicht erlaubt sind selbst zubereitete Speisen, rohes Fleisch oder Fisch, Hackfleisch, Alkohol, Energydrinks, selbst gesammelte Pilze sowie stark verderbliche Waren ohne ausreichende K&uuml;hlung. Diese Regeln gelten zum Schutz aller Nutzerinnen und Nutzer und entsprechen den Hygienerichtlinien des foodsharing-Netzwerks.' },
+  { q: 'Ist das Angebot wirklich kostenlos &#8211; auch ohne Bed&uuml;rftigkeitsnachweis?',
+    a: 'Ja, vollst&auml;ndig kostenlos und ohne jede Bedingung. Sie m&uuml;ssen keine Bed&uuml;rftigkeit nachweisen und brauchen sich nicht anzumelden. Jeder Mensch darf t&auml;glich zwischen 10 und 18 Uhr (freitags 10&#8211;14 Uhr) in die Kirche St. Aposteln, Ziegelh&uuml;ttenweg 149, Frankfurt-Sachsenhausen kommen und Lebensmittel mitnehmen oder abgeben &#8211; anonym und ohne Begr&uuml;ndung.' },
+  { q: 'Wann ist der Offene K&uuml;hlschrank in Frankfurt-Sachsenhausen ge&ouml;ffnet?',
+    a: 'Der K&uuml;hlschrank ist t&auml;glich von 10 bis 18 Uhr zug&auml;nglich. Eine Ausnahme gilt freitags: Dann schlie&szlig;t er um 14 Uhr, weil in der Kirche St. Aposteln das KleiderCaf&eacute; stattfindet (14&#8211;18 Uhr). W&auml;hrend Gottesdiensten kann der Zugang kurzzeitig eingeschr&auml;nkt sein. Aktuelle Hinweise finden Sie am Eingang der Kirche.' },
+  { q: 'Was ist das foodsharing-Netzwerk und welche Rolle spielt es hier?',
+    a: 'foodsharing ist eine 2012 gegr&uuml;ndete Initiative gegen Lebensmittelverschwendung, die bundesweit aktiv ist. &Uuml;ber das foodsharing-Netzwerk erh&auml;lt der Offene K&uuml;hlschrank bei Sankt Bonifatius regelm&auml;&szlig;ig Lebensmittel von Unternehmen, die diese Ware sonst entsorgen w&uuml;rden. Anstatt im M&uuml;ll zu landen, kommen die Lebensmittel so den Menschen in Frankfurt-Sachsenhausen zugute.' },
+];
+---
+<section class="astro-okfaq">
+  <div class="astro-okfaq__inner">
+    <p class="astro-okfaq__eyebrow">H&auml;ufige Fragen</p>
+    <h2 class="astro-okfaq__hl">Antworten auf Ihre Fragen</h2>
+    <div class="astro-okfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-okfaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-okfaq{background:#fff;padding:80px 0}
+.astro-okfaq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-okfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-okfaq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-okfaq__list{max-width:840px;margin:0 auto}
+.astro-okfaq details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-okfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-okfaq summary::-webkit-details-marker{display:none}
+.astro-okfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-okfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-okfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+@media(max-width:600px){.astro-okfaq{padding:56px 0}.astro-okfaq__inner{padding:0 20px}}
+</style>

@@ -1,0 +1,35 @@
+---
+// Seite „Nachbarschaftliches Hilfenetz" — WP-Seite 49124
+// (/engagiert-leben/nachbarschaftliches-hilfenetz/), vollständig aus eigenen Astro-Komponenten
+// (kein set:html mit WP-Markup, vgl. Handbuch 9b). Nav + Footer global aus Base.astro (Handbuch 4b).
+// SEO live aus WP (SEOPress) via getSeoHead(); alle Inhalte fest gepflegt.
+// Hausfarben (Bordeaux/Gold) bewusst statt WP-Grün (Präfix astro-nh…, WP nutzt nh- → tabu).
+import Base from '../../layouts/Base.astro';
+import NhHero from '../../components/NhHero.astro';
+import NhIntro from '../../components/NhIntro.astro';
+import NhTestimonials from '../../components/NhTestimonials.astro';
+import NhAreas from '../../components/NhAreas.astro';
+import NhCosts from '../../components/NhCosts.astro';
+import NhContact from '../../components/NhContact.astro';
+import NhFaq from '../../components/NhFaq.astro';
+import NhCta from '../../components/NhCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/engagiert-leben/nachbarschaftliches-hilfenetz/');
+---
+<Base seo={seo} title="Nachbarschaftliches Hilfenetz – Alltagshilfe für Senioren · St. Bonifatius Frankfurt-Sachsenhausen">
+  <NhHero />
+  <NhIntro />
+  <NhTestimonials />
+  <NhAreas />
+  <NhCosts />
+  <NhContact />
+  <NhFaq />
+  <NhCta />
+</Base>
+
+<style is:global>
+/* Anker-Versatz: fixierte Nav (80px) verdeckt sonst den Sprung-Anker */
+#was,
+#kontakt { scroll-margin-top: 96px; }
+</style>

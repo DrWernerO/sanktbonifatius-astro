@@ -1,0 +1,108 @@
+---
+// „Wo finde ich den Offenen Kühlschrank in Frankfurt?" — Standort + Regeln (WP-Seite 49123).
+// Eigene Klassen `astro-okstandort`. Adresse + Google-Maps-LINK (kein iframe, Muster GdbMaps/KontaktAddress).
+// id="standort" für Sprung-Anker. SVG-Häkchen (grün) / -Kreuze (rot). Feste Inhalte.
+const MAPS = 'https://maps.google.com/?q=Ziegelh%C3%BCttenweg+149,+60598+Frankfurt+am+Main';
+const erlaubt = [
+  'Abgepackte, haltbare Lebensmittel',
+  'Frisches Obst &amp; Gem&uuml;se',
+  'Konserven, Milchprodukte, Geb&auml;ck',
+  'Unge&ouml;ffnete Originalverpackungen',
+];
+const verboten = [
+  'Selbst zubereitete Speisen',
+  'Hackfleisch &amp; roher Fisch',
+  'Alkohol &amp; Energydrinks',
+  'Selbst gesammelte Pilze',
+  'Leicht verderbliche Produkte',
+];
+---
+<section class="astro-okstandort" id="standort">
+  <div class="astro-okstandort__inner">
+    <h2 class="astro-okstandort__hl">Wo finde ich den Offenen K&uuml;hlschrank in Frankfurt?</h2>
+    <div class="astro-okstandort__grid">
+      <div class="astro-okstandort-card">
+        <h3 class="astro-okstandort-card__title">Standort &amp; Anfahrt</h3>
+        <p class="astro-okstandort-card__row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Kirche St. Aposteln, Ziegelh&uuml;ttenweg 149, 60598 Frankfurt am Main (Sachsenhausen / Niederrad)</span>
+        </p>
+        <p class="astro-okstandort-card__hint">
+          Der K&uuml;hlschrank steht in der Seitenkapelle &#8211; neben Regalen f&uuml;r Trockenware.
+          Alle Hinweise sind gut sichtbar ausgeh&auml;ngt.
+        </p>
+        <p class="astro-okstandort-card__row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M8 3v4M16 3v4"/><circle cx="8" cy="19" r="1.6"/><circle cx="16" cy="19" r="1.6"/></svg>
+          <span>&Ouml;PNV: Stra&szlig;enbahn Lokalbahnhof / Schweizer Platz (Linie 15/16), ca. 8 Min. Fu&szlig;weg</span>
+        </p>
+        <p class="astro-okstandort-card__row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.17 6.17l1.17-1.17a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Kontakt Pfarrb&uuml;ro: <a href="tel:+4969695975850">069 695 97 58 50</a></span>
+        </p>
+        <a class="astro-okstandort-card__btn" href={MAPS} target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Route planen (Google Maps)
+        </a>
+      </div>
+      <div class="astro-okstandort-card">
+        <h3 class="astro-okstandort-card__title">&Ouml;ffnungszeiten &amp; Regeln</h3>
+        <p class="astro-okstandort-card__hours">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          t&auml;glich 10&#8211;18 Uhr (Fr. 10&#8211;14 Uhr)
+        </p>
+        <div class="astro-okstandort-rules">
+          <p class="astro-okstandort-rules__head astro-okstandort-rules__head--ok">Erlaubt</p>
+          <ul class="astro-okstandort-rules__list">
+            {erlaubt.map((it) => (
+              <li class="astro-okstandort-rules__li">
+                <svg class="astro-okstandort-rules__ico astro-okstandort-rules__ico--ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span set:html={it} />
+              </li>
+            ))}
+          </ul>
+          <p class="astro-okstandort-rules__head astro-okstandort-rules__head--no">Nicht erlaubt</p>
+          <ul class="astro-okstandort-rules__list">
+            {verboten.map((it) => (
+              <li class="astro-okstandort-rules__li">
+                <svg class="astro-okstandort-rules__ico astro-okstandort-rules__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span set:html={it} />
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p class="astro-okstandort-card__hint">
+          Die Verteilerstelle wird regelm&auml;&szlig;ig nach einem Hygieneplan kontrolliert und gereinigt.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-okstandort{background:#f7f3ef;padding:80px 0}
+.astro-okstandort__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-okstandort__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 40px;text-align:center}
+.astro-okstandort__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start}
+.astro-okstandort-card{background:#fff;border-radius:14px;padding:34px 30px;box-shadow:0 2px 14px rgba(30,21,18,.05)}
+.astro-okstandort-card__title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#2c2420;margin:0 0 20px}
+.astro-okstandort-card__row{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#3d3530;line-height:1.55;margin:0 0 16px}
+.astro-okstandort-card__row svg{width:20px;height:20px;color:#9a2d2d;flex-shrink:0;margin-top:2px}
+.astro-okstandort-card__row a{color:#9a2d2d;font-weight:600;text-decoration:none}
+.astro-okstandort-card__row a:hover{text-decoration:underline}
+.astro-okstandort-card__hint{font-size:14px;color:#6b5c52;line-height:1.6;margin:0 0 16px;background:#f7f3ef;border-radius:10px;padding:14px 16px}
+.astro-okstandort-card__btn{display:inline-flex;align-items:center;gap:9px;margin-top:6px;padding:13px 26px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s}
+.astro-okstandort-card__btn:hover{background:#7e2424}
+.astro-okstandort-card__btn svg{width:17px;height:17px}
+.astro-okstandort-card__hours{display:flex;align-items:center;gap:11px;font-family:'Playfair Display',serif;font-size:clamp(19px,2.2vw,24px);font-weight:700;color:#9a2d2d;margin:0 0 22px;line-height:1.2}
+.astro-okstandort-card__hours svg{width:24px;height:24px;flex-shrink:0}
+.astro-okstandort-rules__head{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px}
+.astro-okstandort-rules__head--ok{color:#2f7d4f}
+.astro-okstandort-rules__head--no{color:#9a2d2d;margin-top:22px}
+.astro-okstandort-rules__list{list-style:none;margin:0;padding:0}
+.astro-okstandort-rules__li{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:#3d3530;line-height:1.5;padding:6px 0}
+.astro-okstandort-rules__ico{width:17px;height:17px;flex-shrink:0;margin-top:2px}
+.astro-okstandort-rules__ico--ok{color:#2f7d4f}
+.astro-okstandort-rules__ico--no{color:#c0392b}
+@media(max-width:760px){.astro-okstandort__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-okstandort{padding:56px 0}.astro-okstandort__inner{padding:0 20px}.astro-okstandort-card{padding:28px 22px}}
+</style>

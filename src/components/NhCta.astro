@@ -1,0 +1,34 @@
+---
+// Abschluss-CTA „Nachbarschaftliches Hilfenetz" (WP-Markup `nh-cta`).
+// Eigene Klassen `astro-nhcta` (Muster EngagementCta, full-bleed Bordeaux). Feste Inhalte.
+const mailto = 'mailto:hilfenetz.sachsenhausen@caritas-frankfurt.de?subject=Mitmachen%20im%20Nachbarschaftlichen%20Hilfenetz';
+---
+<section class="astro-nhcta">
+  <div class="astro-nhcta__inner">
+    <p class="astro-nhcta__eyebrow">Mitmachen</p>
+    <h2 class="astro-nhcta__hl">Das Hilfenetz lebt von Ihrer Unterst&uuml;tzung</h2>
+    <p class="astro-nhcta__sub">
+      Ob als Helferin, Helfer oder durch eine Spende &#8211; jeder Beitrag erm&ouml;glicht, dass
+      Menschen in unserer Pfarrei l&auml;nger selbst&auml;ndig zu Hause leben k&ouml;nnen.
+    </p>
+    <div class="astro-nhcta__btns">
+      <a class="astro-nhcta__btn" href={mailto}>Als Helfer mitmachen &#8594;</a>
+      <a class="astro-nhcta__btn astro-nhcta__btn--outline" href="/spenden/">Jetzt online spenden</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-nhcta{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%);color:#fff;padding:76px 0;overflow:hidden}
+.astro-nhcta::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 10%,rgba(255,255,255,.10),transparent 55%)}
+.astro-nhcta__inner{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-nhcta__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#f0d9a0;margin:0 0 14px;font-weight:600}
+.astro-nhcta__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:#fff;margin:0 0 14px}
+.astro-nhcta__sub{font-size:clamp(15px,1.8vw,19px);color:#f2dede;line-height:1.6;margin:0 0 32px}
+.astro-nhcta__btns{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px}
+.astro-nhcta__btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;background:#fff;color:#9a2d2d;transition:background .2s,color .2s}
+.astro-nhcta__btn:hover{background:#f3e7d4;color:#7e2424}
+.astro-nhcta__btn--outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.6)}
+.astro-nhcta__btn--outline:hover{background:rgba(255,255,255,.12);color:#fff;border-color:#fff}
+@media(max-width:600px){.astro-nhcta{padding:56px 0}.astro-nhcta__inner{padding:0 20px}}
+</style>

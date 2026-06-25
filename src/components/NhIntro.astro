@@ -1,0 +1,52 @@
+---
+// Intro der Seite „Nachbarschaftliches Hilfenetz" (WP-Markup `nh-intro`).
+// Eigene Klassen `astro-nhintro`. Feste Inhalte. Anker #was (Hero-Button).
+---
+<section id="was" class="astro-nhintro">
+  <div class="astro-nhintro__inner">
+    <p class="astro-nhintro__eyebrow">Was ist das Hilfenetz?</p>
+    <h2 class="astro-nhintro__hl">Vertraute Hilfe, die den Alltag erm&ouml;glicht</h2>
+    <p class="astro-nhintro__p">
+      Das Nachbarschaftliche Hilfenetz der Pfarrei Sankt Bonifatius ist in
+      Frankfurt-Sachsenhausen aktiv und unterst&uuml;tzt Seniorinnen und Senioren, behinderte
+      und kranke Menschen dabei, das allt&auml;gliche Leben zu Hause besser zu bew&auml;ltigen.
+      Das Projekt vermittelt Alltags- und Haushaltshilfen, unterst&uuml;tzt bei der t&auml;glichen
+      Lebensf&uuml;hrung und erm&ouml;glicht so eine lange Selbst&auml;ndigkeit im eigenen Zuhause.
+    </p>
+    <p class="astro-nhintro__p">
+      Bei unseren Hilfenetzen werden aus Fremden schnell Vertraute, die sich um den Einkauf, den
+      Haushalt oder Garten k&uuml;mmern. Damit dieses Vertrauen entstehen kann, kommt in der Regel
+      immer die gleiche Helferin / der gleiche Helfer zu Ihnen nach Hause.
+    </p>
+    <p class="astro-nhintro__p">
+      Unsere Helferinnen und Helfer sind Menschen aller Altersgruppen aus Ihrer Nachbarschaft und
+      Ihrem Stadtteil. Sie werden sorgf&auml;ltig ausgew&auml;hlt, angeleitet und beim
+      Caritasverband Frankfurt angestellt &#8211; versichert und f&uuml;r ihre T&auml;tigkeiten
+      geschult.
+    </p>
+    <div class="astro-nhintro__callout">
+      <svg class="astro-nhintro__callicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div>
+        <h3 class="astro-nhintro__calltitle">Kooperationsprojekt</h3>
+        <p class="astro-nhintro__calltext">
+          Das nachbarschaftliche Hilfenetz ist ein gemeinsames Projekt der Pfarrei Sankt
+          Bonifatius und des Caritasverbands Frankfurt. Beide Partner stehen f&uuml;r Qualit&auml;t,
+          Verl&auml;sslichkeit und christliche N&auml;chstenliebe.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-nhintro{background:#f7f3ef;padding:80px 0}
+.astro-nhintro__inner{max-width:820px;margin:0 auto;padding:0 40px}
+.astro-nhintro__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 16px;font-weight:600;text-align:center}
+.astro-nhintro__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.8vw,44px);font-weight:700;color:#2c2420;margin:0 0 28px;line-height:1.15;text-align:center}
+.astro-nhintro__p{font-size:clamp(16px,1.9vw,19px);color:#6b5c52;line-height:1.7;margin:0 0 20px}
+.astro-nhintro__callout{display:flex;gap:20px;align-items:flex-start;margin-top:36px;padding:28px 32px;background:#fff;border-left:4px solid #c5a55a;border-radius:0 10px 10px 0;box-shadow:0 2px 14px rgba(30,21,18,.05)}
+.astro-nhintro__callicon{width:34px;height:34px;flex-shrink:0;color:#9a2d2d;margin-top:2px}
+.astro-nhintro__calltitle{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 8px}
+.astro-nhintro__calltext{font-size:16px;color:#6b5c52;line-height:1.6;margin:0}
+@media(max-width:600px){.astro-nhintro{padding:56px 0}.astro-nhintro__inner{padding:0 20px}.astro-nhintro__callout{flex-direction:column;gap:14px;padding:22px 24px}}
+</style>

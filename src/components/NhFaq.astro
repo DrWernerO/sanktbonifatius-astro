@@ -1,0 +1,47 @@
+---
+// „Antworten auf Ihre Fragen" zum Hilfenetz (WP-Markup `nh-faq`). Eigene Klassen `astro-nhfaq`.
+// Natives <details> (kein JS, Muster SegenFaq). Feste Inhalte.
+const FAQ = [
+  { q: 'Wer kann das Hilfenetz in Anspruch nehmen?',
+    a: 'Das Angebot richtet sich an Seniorinnen und Senioren, Menschen mit Behinderungen sowie kranke Menschen, die Unterst&uuml;tzung im Alltag ben&ouml;tigen. Sie m&uuml;ssen im Einzugsgebiet der Pfarrei Sankt Bonifatius (Frankfurt-Sachsenhausen, Oberrad) wohnen.' },
+  { q: 'Wie finde ich eine geeignete Helferin oder einen Helfer?',
+    a: 'Kontaktieren Sie Helga Jantschek telefonisch oder per E-Mail. Sie kl&auml;rt Ihren Bedarf und vermittelt eine passende Person aus Ihrer Nachbarschaft. In der Regel kommt immer dieselbe Helferin oder derselbe Helfer zu Ihnen &#8211; damit Vertrauen entstehen kann.' },
+  { q: 'Was kostet der Einsatz und wie wird abgerechnet?',
+    a: 'Der Stundensatz betr&auml;gt 21,50 Euro. Die Abrechnung erfolgt monatlich &uuml;ber den Caritasverband Frankfurt. Falls Sie die Kosten nicht tragen k&ouml;nnen, wenden Sie sich an Ihr zust&auml;ndiges Sozialrathaus &#8211; in manchen F&auml;llen &uuml;bernimmt dieses die Kosten.' },
+  { q: 'Sind die Helferinnen und Helfer versichert?',
+    a: 'Ja. Alle Helferinnen und Helfer sind beim Caritasverband Frankfurt angestellt und damit w&auml;hrend ihres Einsatzes vollumf&auml;nglich versichert. Sie werden sorgf&auml;ltig ausgew&auml;hlt und f&uuml;r ihre T&auml;tigkeiten geschult.' },
+  { q: 'Kann ich auch als Helferin oder Helfer mitmachen?',
+    a: 'Ja, sehr gerne! Das Hilfenetz lebt vom Engagement freiwilliger Helferinnen und Helfer aus der Nachbarschaft. Wenn Sie Menschen in Ihrem Stadtteil unterst&uuml;tzen m&ouml;chten, melden Sie sich bei Helga Jantschek oder direkt beim Caritasverband Frankfurt.' },
+  { q: 'In welchen Stadtteilen ist das Hilfenetz aktiv?',
+    a: 'Das Angebot ist im Einzugsbereich der Pfarrei Sankt Bonifatius aktiv, insbesondere in Frankfurt-Sachsenhausen. Bei Unsicherheit, ob Ihr Wohnort eingeschlossen ist, fragen Sie einfach bei Helga Jantschek nach.' },
+];
+---
+<section class="astro-nhfaq">
+  <div class="astro-nhfaq__inner">
+    <p class="astro-nhfaq__eyebrow">H&auml;ufige Fragen</p>
+    <h2 class="astro-nhfaq__hl">Antworten auf Ihre Fragen</h2>
+    <div class="astro-nhfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-nhfaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-nhfaq{background:#f7f3ef;padding:80px 0}
+.astro-nhfaq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-nhfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-nhfaq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-nhfaq__list{max-width:840px;margin:0 auto}
+.astro-nhfaq details{background:#fff;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-nhfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-nhfaq summary::-webkit-details-marker{display:none}
+.astro-nhfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-nhfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-nhfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+@media(max-width:600px){.astro-nhfaq{padding:56px 0}.astro-nhfaq__inner{padding:0 20px}}
+</style>

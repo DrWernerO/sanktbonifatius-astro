@@ -1,0 +1,43 @@
+---
+// Hero der Seite „Nachbarschaftliches Hilfenetz" — WP-Seite 49124
+// (/engagiert-leben/nachbarschaftliches-hilfenetz/), ersetzt WP-Markup `nh-…`.
+// Eigene Klassen `astro-nhhero` (goldene Regel, Handbuch Abschnitt 3 — niemals WP-Klassen `nh-…`).
+// Full-Bleed-Bild + Verlauf-Overlay + Text (Muster SegenHero). Inhalte fest gepflegt.
+// Hausfarben (Bordeaux/Gold) bewusst statt WP-Grün (vgl. Engagement).
+const bg = '/uploads/2021/10/Nachbarschaftliches_Hilfenetz.jpg';
+---
+<section class="astro-nhhero">
+  <div class="astro-nhhero__bg" role="img"
+       aria-label="&Auml;ltere Menschen erhalten nachbarschaftliche Alltagshilfe in Frankfurt-Sachsenhausen"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-nhhero__overlay"></div>
+  <div class="astro-nhhero__inner">
+    <p class="astro-nhhero__eyebrow">Engagiert Leben &middot; Sankt Bonifatius Frankfurt</p>
+    <h1 class="astro-nhhero__title">
+      Nachbarschaftliches Hilfenetz
+      <span class="astro-nhhero__zusatz">Frankfurt-Sachsenhausen</span>
+    </h1>
+    <p class="astro-nhhero__sub">
+      Wir vermitteln verl&auml;ssliche Alltagshelfer f&uuml;r &auml;ltere und pflegebed&uuml;rftige
+      Menschen &#8211; f&uuml;r mehr Selbst&auml;ndigkeit im eigenen Zuhause.
+    </p>
+    <div class="astro-nhhero__btns">
+      <a class="astro-nhhero__btn" href="#was">Was ist das Hilfenetz? &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-nhhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(70vh,560px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-nhhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
+.astro-nhhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.10) 0%,rgba(30,21,18,.45) 60%,rgba(30,21,18,.82) 100%)}
+.astro-nhhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;color:#f0e8d8}
+.astro-nhhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-nhhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,68px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700}
+.astro-nhhero__zusatz{display:block;font-size:clamp(15px,1.8vw,22px);font-weight:400;color:#c5a55a;letter-spacing:.04em;margin-top:6px;font-family:'Source Sans 3',system-ui,sans-serif}
+.astro-nhhero__sub{color:rgba(255,255,255,.9);font-size:clamp(16px,2vw,21px);margin:0 0 26px;max-width:600px;line-height:1.5}
+.astro-nhhero__btns{display:flex;flex-wrap:wrap;gap:14px}
+.astro-nhhero__btn{display:inline-flex;align-items:center;gap:9px;padding:14px 30px;border-radius:50px;font-size:15px;font-weight:700;text-decoration:none;background:#9a2d2d;color:#fff;transition:background .2s}
+.astro-nhhero__btn:hover{background:#7e2424}
+@media(max-width:600px){.astro-nhhero{height:min(64vh,460px)}.astro-nhhero__inner{padding:0 20px 40px}}
+</style>

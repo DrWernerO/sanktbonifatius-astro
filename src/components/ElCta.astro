@@ -1,0 +1,35 @@
+---
+// Abschluss-CTA „Engagieren Sie sich mit uns" der Übersichtsseite „Engagiert Leben" (Page 46769).
+// Eigene Klassen `astro-elcta`. Full-Bleed Bordeaux, Muster wie EngagementCta. Feste Inhalte.
+// Trägt die Anker-id #el-mitmachen (Sprungziel aus dem Hero).
+---
+<section class="astro-elcta" id="el-mitmachen">
+  <div class="astro-elcta__inner">
+    <p class="astro-elcta__eyebrow">Gemeinsam bewegen</p>
+    <h2 class="astro-elcta__hl">Engagieren Sie sich mit uns</h2>
+    <p class="astro-elcta__sub">
+      M&ouml;chten auch Sie einen Beitrag leisten? Ob durch ehrenamtliche Mitarbeit, Spenden oder
+      Teilnahme an unseren Veranstaltungen &#8211; jede Unterst&uuml;tzung ist herzlich willkommen.
+      Gemeinsam k&ouml;nnen wir viel bewegen.
+    </p>
+    <div class="astro-elcta__btns">
+      <a class="astro-elcta__btn" href="/kontakt/engagement/">Jetzt mitmachen &#8594;</a>
+      <a class="astro-elcta__btn astro-elcta__btn--ghost" href="/spenden/">Spenden</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-elcta{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%);color:#fff;padding:76px 0;overflow:hidden}
+.astro-elcta::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 10%,rgba(255,255,255,.10),transparent 55%)}
+.astro-elcta__inner{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-elcta__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#f0d9a0;margin:0 0 14px;font-weight:600}
+.astro-elcta__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:#fff;margin:0 0 14px}
+.astro-elcta__sub{font-size:clamp(15px,1.8vw,19px);color:#f2dede;line-height:1.6;margin:0 0 32px}
+.astro-elcta__btns{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px}
+.astro-elcta__btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;background:#fff;color:#9a2d2d;transition:background .2s,color .2s}
+.astro-elcta__btn:hover{background:#f3e7d4;color:#7e2424}
+.astro-elcta__btn--ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+.astro-elcta__btn--ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+@media(max-width:600px){.astro-elcta{padding:56px 0}.astro-elcta__inner{padding:0 20px}}
+</style>

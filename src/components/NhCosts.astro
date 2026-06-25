@@ -1,0 +1,55 @@
+---
+// Kosten & Abrechnung „Nachbarschaftliches Hilfenetz" (WP-Markup `nh-costs`).
+// Eigene Klassen `astro-nhcost`. Feste Inhalte. Hausfarben.
+---
+<section class="astro-nhcost">
+  <div class="astro-nhcost__inner">
+    <p class="astro-nhcost__eyebrow">Kosten &amp; Abrechnung</p>
+    <h2 class="astro-nhcost__hl">Transparent und fair</h2>
+    <div class="astro-nhcost__grid">
+      <div class="astro-nhcost__card astro-nhcost__card--rate">
+        <h3 class="astro-nhcost__cardtitle">Stundensatz</h3>
+        <p class="astro-nhcost__big">21,50&nbsp;&euro;</p>
+        <p class="astro-nhcost__unit">pro Stunde</p>
+        <p class="astro-nhcost__text">
+          Davon werden die Helferinnen und Helfer fair bezahlt. Die Abrechnung erfolgt monatlich
+          &uuml;ber den Caritasverband Frankfurt.
+        </p>
+      </div>
+      <div class="astro-nhcost__card">
+        <h3 class="astro-nhcost__cardtitle">Finanzielle Unterst&uuml;tzung</h3>
+        <p class="astro-nhcost__text">
+          Sie m&ouml;chten die Hilfen in Anspruch nehmen, k&ouml;nnen es sich jedoch finanziell
+          nicht leisten? Fragen Sie bei Ihrem zust&auml;ndigen Sozialrathaus nach &#8211; in einigen
+          F&auml;llen &uuml;bernehmen die Sozialrath&auml;user die Kosten.
+        </p>
+        <p class="astro-nhcost__text astro-nhcost__text--note">
+          <strong>Pflegegeld / Pflegegrad:</strong> In manchen F&auml;llen k&ouml;nnen Teile der
+          Kosten &uuml;ber Pflegegrad 1&#8211;2 anteilig abgedeckt werden. Sprechen Sie uns an
+          &#8211; wir beraten Sie gerne.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-nhcost{background:#fff;padding:80px 0}
+.astro-nhcost__inner{max-width:1000px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-nhcost__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600}
+.astro-nhcost__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 40px}
+.astro-nhcost__grid{display:grid;grid-template-columns:1fr 1.4fr;gap:24px;text-align:left}
+.astro-nhcost__card{background:#f7f3ef;border:1px solid #ece3d8;border-radius:16px;padding:36px 34px;box-shadow:0 2px 14px rgba(30,21,18,.05)}
+.astro-nhcost__card--rate{background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%);border:none;color:#fff;display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center}
+.astro-nhcost__cardtitle{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;margin:0 0 14px;color:#2c2420}
+.astro-nhcost__card--rate .astro-nhcost__cardtitle{color:#f0d9a0;font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-family:'Source Sans 3',system-ui,sans-serif}
+.astro-nhcost__big{font-family:'Playfair Display',serif;font-size:clamp(44px,6vw,64px);font-weight:700;color:#fff;margin:0;line-height:1}
+.astro-nhcost__unit{font-size:15px;color:#f2dede;margin:4px 0 18px}
+.astro-nhcost__text{font-size:16px;color:#6b5c52;line-height:1.65;margin:0 0 16px}
+.astro-nhcost__text:last-child{margin-bottom:0}
+.astro-nhcost__card--rate .astro-nhcost__text{color:#f2dede;font-size:15px}
+.astro-nhcost__text--note{padding-top:14px;border-top:1px solid #e0d8cf}
+.astro-nhcost__text--note strong{color:#9a2d2d}
+@media(max-width:760px){.astro-nhcost__grid{grid-template-columns:1fr}.astro-nhcost__card--rate{padding:40px 34px}}
+@media(max-width:600px){.astro-nhcost{padding:56px 0}.astro-nhcost__inner{padding:0 20px}}
+</style>

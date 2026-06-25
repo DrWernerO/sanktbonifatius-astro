@@ -1,0 +1,43 @@
+---
+// „Fragen zum Ehrenamt in Frankfurt" der Übersichtsseite „Engagiert Leben" (Page 46769).
+// Eigene Klassen `astro-elfaq`. Natives <details> (kein JS, Muster wie SegenFaq). Feste Inhalte.
+const FAQ = [
+  { q: 'Wie kann ich mich bei Sankt Bonifatius Frankfurt ehrenamtlich engagieren?',
+    a: 'Der einfachste Weg ist eine kurze Nachricht an info@sanktbonifatius.de oder ein Anruf unter 069 695 97 58 50. Wir besprechen gemeinsam, welches unserer f&uuml;nf Angebote &#8211; von Inklusion &uuml;ber das Kleider Caf&eacute; bis zur Sozialberatung &#8211; am besten zu Ihnen passt. Ein erstes Kennenlerntreffen ist unverbindlich und jederzeit m&ouml;glich.' },
+  { q: 'Was ist der Offene K&uuml;hlschrank bei Sankt Bonifatius?',
+    a: 'Der Offene K&uuml;hlschrank ist ein Lebensmittel-Teil-Projekt der Pfarrei in Kooperation mit foodsharing Frankfurt. Jede und jeder kann Lebensmittel bringen oder kostenlos mitnehmen &#8211; keine Anmeldung n&ouml;tig. Das Projekt leistet einen konkreten Beitrag gegen Lebensmittelverschwendung in unserer Stadt.' },
+  { q: 'Was leistet das Nachbarschaftliche Hilfenetz in Frankfurt?',
+    a: 'Das Hilfenetz vermittelt Alltagshilfe f&uuml;r &auml;ltere, behinderte und kranke Menschen &#8211; damit sie so lange wie m&ouml;glich selbstst&auml;ndig zu Hause leben k&ouml;nnen. Ehrenamtliche helfen bei Haushaltsaufgaben, Eink&auml;ufen und Begleitdiensten. Sowohl Hilfesuchende als auch freiwillige Helfer:innen k&ouml;nnen sich direkt an uns wenden.' },
+  { q: 'Was bietet die Allgemeine Sozialberatung &#8211; und kostet sie etwas?',
+    a: 'Die Sozialberatung &#8222;Im Dialog&#8220; ist kostenlos und vertraulich. Ausgebildete Ehrenamtliche helfen bei Lebenskrisen, beim Ausf&uuml;llen von Antr&auml;gen und vermitteln an Fachstellen weiter. Die Sprechstunden finden mittwochs von 15&#8211;17 Uhr statt, Unter den Kastanien 14, Frankfurt am Main &#8211; keine Anmeldung erforderlich.' },
+];
+---
+<section class="astro-elfaq">
+  <div class="astro-elfaq__inner">
+    <p class="astro-elfaq__eyebrow">H&auml;ufige Fragen</p>
+    <h2 class="astro-elfaq__hl">Fragen zum Ehrenamt in Frankfurt</h2>
+    <div class="astro-elfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-elfaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-elfaq{background:#f7f3ef;padding:80px 0}
+.astro-elfaq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-elfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-elfaq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center}
+.astro-elfaq__list{max-width:840px;margin:0 auto}
+.astro-elfaq details{background:#fff;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-elfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-elfaq summary::-webkit-details-marker{display:none}
+.astro-elfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-elfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-elfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+@media(max-width:600px){.astro-elfaq{padding:56px 0}.astro-elfaq__inner{padding:0 20px}}
+</style>

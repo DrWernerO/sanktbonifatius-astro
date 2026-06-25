@@ -1,0 +1,44 @@
+---
+// Erfahrungsberichte „Nachbarschaftliches Hilfenetz". Eigene Klassen `astro-nhtest`.
+// Feste Inhalte. Hausfarben.
+const ZITATE = [
+  { text: 'Ich bin froh, dass ich regelm&auml;&szlig;ig zuverl&auml;ssige Hilfe beim Einkaufen bekomme. Die Helferin kommt immer p&uuml;nktlich und ist mit der Zeit wie eine gute Bekannte geworden.',
+    name: 'E.&nbsp;M.', ort: 'Frankfurt-Sachsenhausen' },
+  { text: 'Als meine Mutter nach dem Krankenhausaufenthalt nicht mehr alleine einkaufen konnte, hat das Hilfenetz sofort geholfen. Die Vermittlung war unkompliziert und schnell.',
+    name: 'K.&nbsp;B.', ort: 'Tochter einer Nutzerin' },
+];
+---
+<section class="astro-nhtest">
+  <div class="astro-nhtest__inner">
+    <p class="astro-nhtest__eyebrow">Erfahrungen</p>
+    <h2 class="astro-nhtest__hl">Was Menschen &uuml;ber das Hilfenetz sagen</h2>
+    <div class="astro-nhtest__grid">
+      {ZITATE.map((z) => (
+        <figure class="astro-nhtest__card">
+          <svg class="astro-nhtest__quote" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.5 5C6.5 5 4 7.5 4 10.5V19h7v-7H7c0-2 1.5-3.5 3.5-3.5V5zm9 0C15.5 5 13 7.5 13 10.5V19h7v-7h-4c0-2 1.5-3.5 3.5-3.5V5z"/></svg>
+          <blockquote class="astro-nhtest__text" set:html={z.text} />
+          <figcaption class="astro-nhtest__cite">
+            <span class="astro-nhtest__name" set:html={z.name} />
+            <span class="astro-nhtest__ort" set:html={z.ort} />
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-nhtest{background:#fff;padding:80px 0}
+.astro-nhtest__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-nhtest__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-nhtest__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 40px;text-align:center}
+.astro-nhtest__grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto}
+.astro-nhtest__card{position:relative;background:#f7f3ef;border-radius:16px;padding:36px 34px;margin:0;border:1px solid #ece3d8;box-shadow:0 2px 14px rgba(30,21,18,.05)}
+.astro-nhtest__quote{width:40px;height:40px;color:#c5a55a;margin-bottom:12px}
+.astro-nhtest__text{font-family:'Playfair Display',serif;font-size:clamp(17px,1.9vw,20px);font-style:italic;color:#3d3530;line-height:1.6;margin:0 0 20px}
+.astro-nhtest__cite{display:flex;flex-direction:column;gap:2px}
+.astro-nhtest__name{font-weight:700;color:#9a2d2d;font-size:15px}
+.astro-nhtest__ort{font-size:14px;color:#928269;font-style:italic}
+@media(max-width:760px){.astro-nhtest__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-nhtest{padding:56px 0}.astro-nhtest__inner{padding:0 20px}.astro-nhtest__card{padding:28px 26px}}
+</style>

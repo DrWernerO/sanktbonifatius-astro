@@ -1,0 +1,76 @@
+---
+// Kachel-Grid „Unsere Angebote" der Übersichtsseite „Engagiert Leben" (Page 46769).
+// Eigene Klassen `astro-eltiles`. Muster wie EngagementTiles, aber mit FOTO oben je Karte.
+// 5 Karten (Foto-Cover ~200px → Titel → Text → Link). Jede Karte trägt ihre Anker-id.
+// Feste Inhalte, Hausfarben (Bordeaux/Gold/Creme).
+const CARDS = [
+  { id: 'el-hilfenetz',
+    img: '/uploads/2022/10/hilfenetz-sanktbonifatius.jpg',
+    alt: 'Ehrenamtliche des Nachbarschaftlichen Hilfenetzes',
+    title: 'Nachbarschaftliches Hilfenetz',
+    text: 'Alltagshilfe f&uuml;r &auml;ltere, behinderte und kranke Menschen: Das Hilfenetz vermittelt Haushalts- und Begleitdienste f&uuml;r ein selbstst&auml;ndiges Leben zu Hause.',
+    href: '/engagiert-leben/nachbarschaftliches-hilfenetz/',
+    linkText: 'Zum Hilfenetz &#8594;' },
+  { id: 'el-kleica',
+    img: '/uploads/2021/10/Kleica_StAposteln-1024x683.jpg',
+    alt: 'Kleider Caf&eacute; auf der Orgelempore in St. Aposteln',
+    title: 'Kleider Caf&eacute;',
+    text: 'Secondhand-Boutique auf der Orgelempore in St. Aposteln. Erst Kaffee und Kuchen, dann shoppen gehen.',
+    href: '/engagiert-leben/',
+    linkText: 'Zum Kleider Caf&eacute; &#8594;' },
+  { id: 'el-kuehlschrank',
+    img: '/uploads/2021/10/Offener-Kuehlschrank-1-1024x726.jpg',
+    alt: 'Offener K&uuml;hlschrank zum Teilen von Lebensmitteln',
+    title: 'Offener K&uuml;hlschrank',
+    text: 'Lebensmittel kostenlos teilen: Ein Projekt der Sozialpastoral in Kooperation mit foodsharing. Bringen und mitnehmen &#8211; f&uuml;r alle.',
+    href: '/engagiert-leben/offener-kuehlschrank/',
+    linkText: 'Zum K&uuml;hlschrank &#8594;' },
+  { id: 'el-beratung',
+    img: '/uploads/2020/08/Sozialberatung-1024x671.jpg',
+    alt: 'Allgemeine Sozialberatung im Beratungsb&uuml;ro Im Dialog',
+    title: 'Allgemeine Sozialberatung',
+    text: 'Im Beratungsb&uuml;ro &#8222;Im Dialog&#8220; helfen ausgebildete Ehrenamtliche bei Lebenskrisen, Antr&auml;gen und der Vermittlung an Fachstellen.',
+    href: 'mailto:l.wykipil@sanktbonifatius.de',
+    linkText: 'Zur Beratung &#8594;' },
+];
+---
+<section class="astro-eltiles" id="el-bereiche">
+  <div class="astro-eltiles__inner">
+    <div class="astro-eltiles__head">
+      <h2 class="astro-eltiles__hl">Unsere Angebote &#8211; wahrnehmen und mitmachen</h2>
+      <p class="astro-eltiles__sub">Entdecken Sie die Handlungsfelder unserer Pfarrei &#8211; und werden Sie aktiv</p>
+    </div>
+    <div class="astro-eltiles__grid">
+      {CARDS.map((c) => (
+        <article class="astro-elcard" id={c.id}>
+          <div class="astro-elcard__media" role="img" aria-label={c.alt}
+               style={`background-image:url('${c.img}')`}></div>
+          <div class="astro-elcard__body">
+            <h3 class="astro-elcard__title" set:html={c.title} />
+            <p class="astro-elcard__text" set:html={c.text} />
+            <a class="astro-elcard__link" href={c.href} set:html={c.linkText} />
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-eltiles{background:#fff;padding:80px 0}
+.astro-eltiles__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-eltiles__head{text-align:center;margin:0 0 48px}
+.astro-eltiles__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,42px);font-weight:700;color:#2c2420;margin:0 0 12px;line-height:1.15}
+.astro-eltiles__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0}
+.astro-eltiles__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;align-items:stretch;max-width:920px;margin:0 auto}
+.astro-elcard{display:flex;flex-direction:column;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 14px rgba(30,21,18,.07);border-top:4px solid #9a2d2d;transition:transform .15s,box-shadow .2s}
+.astro-elcard:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(30,21,18,.12)}
+.astro-elcard__media{height:200px;background-size:cover;background-position:center;flex-shrink:0}
+.astro-elcard__body{display:flex;flex-direction:column;flex:1;padding:28px 28px 30px}
+.astro-elcard__title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#2c2420;margin:0 0 12px;line-height:1.2}
+.astro-elcard__text{font-size:15px;color:#6b5c52;line-height:1.65;margin:0 0 22px}
+.astro-elcard__link{font-size:14px;font-weight:600;color:#9a2d2d;text-decoration:none;align-self:flex-start;margin-top:auto;border-bottom:1px solid rgba(154,45,45,.35);padding-bottom:2px;transition:border-color .2s}
+.astro-elcard__link:hover{border-color:#9a2d2d}
+@media(max-width:860px){.astro-eltiles__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.astro-eltiles{padding:56px 0}.astro-eltiles__inner{padding:0 20px}.astro-eltiles__grid{grid-template-columns:1fr}.astro-elcard__body{padding:24px 22px 26px}}
+</style>
