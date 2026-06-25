@@ -37,12 +37,10 @@ const TEAM = [
         <div class="astro-hjteam__person">
           <div class="astro-hjteam__photo" role="img" aria-label={`Foto von ${p.name}`}
                style={`background-image:url('${p.photo}')`}></div>
-          <div class="astro-hjteam__info">
-            <h3 class="astro-hjteam__name">{p.name}</h3>
-            <p class="astro-hjteam__role">{p.role}</p>
-            {p.tel && <a href={`tel:${p.tel}`}>{p.telText}</a>}
-            {p.mail && <a href={`mailto:${p.mail}`}>{p.mail}</a>}
-          </div>
+          <h3 class="astro-hjteam__name">{p.name}</h3>
+          <p class="astro-hjteam__role">{p.role}</p>
+          {p.tel && <a href={`tel:${p.tel}`}>{p.telText}</a>}
+          {p.mail && <a href={`mailto:${p.mail}`}>{p.mail}</a>}
         </div>
       ))}
     </div>
@@ -50,13 +48,14 @@ const TEAM = [
 </section>
 
 <style is:global>
-.astro-hjteam{display:flex;flex-direction:column;gap:16px;margin-top:32px;max-width:860px;margin-left:auto;margin-right:auto}
-.astro-hjteam__person{background:#fff;border-radius:12px;padding:24px 28px;display:flex;align-items:center;gap:28px;box-shadow:0 2px 16px rgba(30,21,18,.12)}
-.astro-hjteam__photo{width:100px;height:100px;border-radius:50%;background-size:cover;background-position:center top;flex-shrink:0;box-shadow:0 4px 14px rgba(0,0,0,.15);border:3px solid #fff}
-.astro-hjteam__info{display:flex;flex-direction:column;gap:2px}
-.astro-hjteam__name{font-family:'Playfair Display',Georgia,serif;font-size:21px;color:#9a2d2d;margin:0 0 2px;font-weight:700}
-.astro-hjteam__role{color:#6b5c52;font-size:12px;margin:0 0 10px;letter-spacing:.08em;text-transform:uppercase}
-.astro-hjteam__person a{color:#1e1512;text-decoration:none;font-size:15px;margin:2px 0;transition:color .2s;word-break:break-word}
+/* 3-Spalten-Grid; jede Karte: Foto links (120px), Info rechts — Foto überspannt alle Zeilen */
+.astro-hjteam{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:32px}
+.astro-hjteam__person{background:#fff;border-radius:12px;padding:32px 28px;box-shadow:0 2px 16px rgba(30,21,18,.12);display:grid;grid-template-columns:120px 1fr;column-gap:24px;align-items:center}
+.astro-hjteam__photo{grid-row:1/span 99;width:120px;height:120px;border-radius:50%;background-size:cover;background-position:center top;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.astro-hjteam__name{font-family:'Playfair Display',Georgia,serif;font-size:20px;color:#9a2d2d;margin:0 0 4px;font-weight:700;line-height:1.2}
+.astro-hjteam__role{color:#6b5c52;font-size:12px;margin:0 0 12px;letter-spacing:.08em;text-transform:uppercase}
+.astro-hjteam__person a{color:#1e1512;text-decoration:none;display:block;font-size:14px;margin:3px 0;transition:color .2s;word-break:break-word}
 .astro-hjteam__person a:hover{color:#9a2d2d}
-@media(max-width:600px){.astro-hjteam__person{flex-direction:column;text-align:center;align-items:center}}
+@media(max-width:960px){.astro-hjteam{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-hjteam__person{grid-template-columns:88px 1fr;column-gap:16px;padding:20px 18px}.astro-hjteam__photo{width:88px;height:88px}}
 </style>
