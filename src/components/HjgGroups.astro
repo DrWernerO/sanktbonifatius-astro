@@ -1,0 +1,112 @@
+---
+// Gruppenübersicht Herz Jesu — 9 Gruppen (WP-Seite 49378).
+// Eigene Klassen astro-hjg. id="gruppen" für Scroll-Anker vom Hero.
+const GROUPS = [
+  {
+    name: 'Kreativ-Werkstatt',
+    time: 'Jeden Mittwoch · 18:30–21:00 Uhr',
+    text: 'In der Kreativ-Werkstatt sind alle willkommen, die Freude daran haben, in der Gruppe kreativ zu sein. Ob häkeln, stricken, nähen oder basteln – gemeinsam und bei einem kleinen Plausch macht es viel mehr Spaß. Auch Anfänger sind herzlich willkommen.',
+    contact: 'Ines Walter',
+    mail: 'kreativ_Herz-Jesu@web.de',
+  },
+  {
+    name: 'Projektchor',
+    time: 'Proben nach Ankündigung',
+    text: 'Der Projektchor findet sich zusammen, um mehrstimmige traditionelle und neue Chormusik zu proben und im Gottesdienst zu singen. Er ist maßgeblich beteiligt beim jährlichen Adventskonzert der Reihe „Hörbar Herz Jesu". Sängerinnen und Sänger sind herzlich willkommen.',
+    contact: 'Johanna Zerlik',
+    mail: 'jzerlik@hotmail.com',
+  },
+  {
+    name: 'Oberräder Pfadfinder DPSG',
+    time: 'Jeden Freitag · 17:30–19:00 Uhr',
+    text: 'Seit mehr als 50 Jahren sind die Oberräder Pfadfinder ein fester Teil von Oberrad. Junge Menschen erleben Abenteuer, Gemeinschaft und lernen Verantwortung für sich, ihre Mitmenschen und die Umwelt zu übernehmen.',
+    note: 'Pfarrgarten & Kellerräume · Mathildenstr. 30a',
+  },
+  {
+    name: 'Biotop Herz Jesu',
+    time: 'Treffs & Aktionen nach Ankündigung',
+    text: 'Was blüht, krabbelt und fliegt rund um unseren Kirchturm? Turmfalken, Fledermäuse, Bienen? Wer Lust hat, sich aktiv oder spirituell im Sinne von „Laudato Si" zu engagieren, ist bei unseren Treffs herzlich willkommen.',
+    contact: 'Gabi Huckelmann',
+    mail: 'biotop-herzjesu@outlook.de',
+  },
+  {
+    name: 'Kirchcafé-Team',
+    time: 'Sonntags nach dem Gottesdienst',
+    text: 'Nach dem 9:30-Uhr-Gottesdienst findet unser Kirchcafé statt – im Sommer im Kirchgarten, ansonsten hinten in der Kirche. Das Team sorgt für eine herzliche Atmosphäre zum zwanglosen Miteinander. Einfach vorbeikommen!',
+    contact: 'Marie Gathof',
+  },
+  {
+    name: 'Gemeindeentwicklung',
+    time: 'Treffen nach Vereinbarung',
+    text: 'Wer sind wir? Wie schauen wir in die Zukunft? Die Gruppe trifft sich regelmäßig zum Austausch über gesellschaftliche und kirchenstrukturelle Veränderungen – und um gemeinsam die Zukunft von Herz Jesu zu gestalten. Mitmachen ist ausdrücklich erwünscht.',
+    contact: 'Annette Albert-Zerlik',
+    mail: 'azerlik@web.de',
+  },
+  {
+    name: 'Messdienergruppe',
+    time: 'Sonntagsgottesdienst · 9:30 Uhr',
+    text: 'Unsere Messdienerinnen und Messdiener gestalten die Gottesdienste aktiv mit und übernehmen dabei wichtige Aufgaben am Altar. Kinder und Jugendliche, die mitmachen möchten, sind herzlich eingeladen.',
+  },
+  {
+    name: 'Ökumeneausschuss',
+    time: 'Gemeinsame Aktionen im Jahr',
+    text: 'Herz Jesu und die Erlösergemeinde in Oberrad sind eng ökumenisch verbunden. „Auf Geht\'s" – in Kleingruppen auf den Weg zum besseren Kennenlernen von Glauben und Konfessionen. Vier Mal im Jahr werden gegenseitig Gottesdienste besucht.',
+  },
+  {
+    name: 'Partnerschaft Tabenken',
+    time: 'Weltkirche & Solidarität',
+    text: 'Herz Jesu pflegt eine besondere Partnerschaft mit der Gemeinde in Tabenken. Diese Verbindung lebt durch gegenseitigen Austausch, Solidarität und gelebte Weltkirche.',
+  },
+];
+---
+<section class="astro-hjg" id="gruppen">
+  <div class="astro-hjg__in">
+    <div class="astro-hjg__intro">
+      <span class="astro-hjg__eyebrow">Mitmachen &ndash; immer willkommen</span>
+      <p class="astro-hjg__lead">Von Kreativem über Naturschutz bis zu Pfadfindern: In Herz&nbsp;Jesu gibt es lebendige Gruppen für alle. Schauen Sie einfach vorbei &ndash; ein erstes Kennenlernen ist völlig unverbindlich.</p>
+    </div>
+    <h2 class="astro-hjg__h2">Die Gruppen in Herz&nbsp;Jesu</h2>
+    <p class="astro-hjg__sub">Neun Gruppen, ein Ort, viele Möglichkeiten.</p>
+    <div class="astro-hjg__grid">
+      {GROUPS.map((g) => (
+        <article class="astro-hjg__card">
+          <div class="astro-hjg__card-head">
+            <h3 class="astro-hjg__card-name">{g.name}</h3>
+            <span class="astro-hjg__card-time">{g.time}</span>
+          </div>
+          <p class="astro-hjg__card-text">{g.text}</p>
+          {(g.contact || g.note) && (
+            <div class="astro-hjg__card-contact">
+              {g.contact && <span class="astro-hjg__card-person">{g.contact}</span>}
+              {g.mail && <a href={`mailto:${g.mail}`}>{g.mail}</a>}
+              {g.note && <span class="astro-hjg__card-note">{g.note}</span>}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-hjg{padding:56px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-hjg__in{max-width:1280px;margin:0 auto;padding:0 32px}
+.astro-hjg__intro{background:#fff;border-radius:12px;padding:36px 40px;margin-bottom:48px;border-left:4px solid #9a2d2d}
+.astro-hjg__eyebrow{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;color:#9a2d2d;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.astro-hjg__lead{color:#6b5c52;font-size:17px;line-height:1.6;margin:0}
+.astro-hjg__h2{font-family:'Playfair Display',Georgia,serif;font-size:36px;color:#2c2420;margin:0 0 8px;line-height:1.15}
+.astro-hjg__sub{color:#928269;font-size:15px;margin:0 0 32px}
+.astro-hjg__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.astro-hjg__card{background:#fff;border-radius:12px;padding:28px;box-shadow:0 2px 12px rgba(30,21,18,.08);display:flex;flex-direction:column;gap:12px}
+.astro-hjg__card-head{display:flex;flex-direction:column;gap:6px}
+.astro-hjg__card-name{font-family:'Playfair Display',Georgia,serif;font-size:20px;color:#9a2d2d;margin:0;font-weight:700;line-height:1.2}
+.astro-hjg__card-time{display:inline-block;background:#f7f3ef;color:#6b5c52;font-size:12px;font-weight:600;letter-spacing:.05em;padding:4px 10px;border-radius:20px;width:fit-content}
+.astro-hjg__card-text{color:#3d3530;font-size:14px;line-height:1.6;margin:0;flex:1}
+.astro-hjg__card-contact{display:flex;flex-direction:column;gap:4px;padding-top:10px;border-top:1px solid #e8e0d5}
+.astro-hjg__card-person{font-weight:600;color:#2c2420;font-size:13px}
+.astro-hjg__card-contact a{color:#9a2d2d;text-decoration:none;font-size:13px;transition:color .2s;word-break:break-word}
+.astro-hjg__card-contact a:hover{color:#7e2424}
+.astro-hjg__card-note{color:#928269;font-size:12px}
+@media(max-width:760px){.astro-hjg__grid{grid-template-columns:1fr}.astro-hjg__intro{padding:24px 20px}}
+@media(max-width:600px){.astro-hjg__in{padding:0 16px}.astro-hjg{padding:44px 0}}
+</style>

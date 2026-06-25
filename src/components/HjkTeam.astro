@@ -1,0 +1,95 @@
+---
+// Kirchortrat Herz Jesu — Intro, Vorsitz (3 Karten) und Mitglieder-Grid (15).
+// Eigene Klassen astro-hjk (goldene Regel, Handbuch Abschnitt 3).
+// Daten aus WP-Seite 49383.
+const VORSITZ = [
+  { name: 'Annette Albert-Zerlik', role: 'Vorsitzende',    area: 'Öffentlichkeitsarbeit', mail: 'azerlik@web.de' },
+  { name: 'Martin Walter',         role: 'Stellvertretung', area: 'Treffpunkte' },
+  { name: 'Felician Gilgenbach',   role: 'Stellvertretung', area: 'Biotop Herz Jesu' },
+];
+
+const MITGLIEDER = [
+  { name: 'Carolin Becklas',   area: 'Stadtteilarbeit' },
+  { name: 'Barbara Brüning',   area: 'Messdienergruppe' },
+  { name: 'Andrea Donner',     area: 'Bücherei' },
+  { name: 'Eckhard Gathof',    area: 'Bau-AG' },
+  { name: 'Marie Gathof',      area: 'Kirchcafé-Team' },
+  { name: 'Alexander Happ',    area: 'Dänemarkfreizeit / Band' },
+  { name: 'Gabi Huckelmann',   area: 'Ökumeneausschuss' },
+  { name: 'Corinna Igel',      area: 'Gemeindeentwicklung' },
+  { name: 'Ursula Kapp',       area: 'Senioren / Spielegruppe' },
+  { name: 'Ute Lendle',        area: 'Inklusion / Teilhabe' },
+  { name: 'Esther Niesten',    area: 'Pfadfinder' },
+  { name: 'Christian Rudolf',  area: 'Lektoren & Kommunionhelfer' },
+  { name: 'Ines Walter',       area: 'Kreativ-Werkstatt' },
+  { name: 'Mareike Wink',      area: 'Liturgie' },
+  { name: 'Doly Kadavil',      area: 'Pastoralteam' },
+];
+---
+<section class="astro-hjk" id="mitglieder">
+  <div class="astro-hjk__in">
+
+    <div class="astro-hjk__intro">
+      <p class="astro-hjk__intro-text">Der Kirchortrat vertritt die Anliegen der Gemeindemitglieder, begleitet das Gemeindeleben und sorgt dafür, dass Herz&nbsp;Jesu ein lebendiger Ort des Glaubens und der Begegnung bleibt.</p>
+    </div>
+
+    <h2 class="astro-hjk__h2">Kirchortrat Herz&nbsp;Jesu</h2>
+    <p class="astro-hjk__sub">Der Kirchortrat setzt sich aus Vertreterinnen und Vertretern aller wichtigen Bereiche des Gemeindelebens zusammen.</p>
+
+    <h3 class="astro-hjk__h3">Vorsitz</h3>
+    <div class="astro-hjk__vorsitz">
+      {VORSITZ.map((p) => (
+        <div class="astro-hjk__vcard">
+          <div class="astro-hjk__vcard-initial" aria-hidden="true">{p.name.charAt(0)}</div>
+          <h4 class="astro-hjk__vcard-name">{p.name}</h4>
+          <span class="astro-hjk__vcard-role">{p.role}</span>
+          <p class="astro-hjk__vcard-area">{p.area}</p>
+          {p.mail && <a class="astro-hjk__vcard-mail" href={`mailto:${p.mail}`}>{p.mail}</a>}
+        </div>
+      ))}
+    </div>
+
+    <h3 class="astro-hjk__h3">Weitere Mitglieder</h3>
+    <p class="astro-hjk__sub">15&nbsp;Personen &middot; alle Bereiche</p>
+    <div class="astro-hjk__mgrid">
+      {MITGLIEDER.map((m) => (
+        <div class="astro-hjk__mcard">
+          <div class="astro-hjk__mcard-initial" aria-hidden="true">{m.name.charAt(0)}</div>
+          <div class="astro-hjk__mcard-info">
+            <span class="astro-hjk__mcard-name">{m.name}</span>
+            <span class="astro-hjk__mcard-area">{m.area}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style is:global>
+.astro-hjk{padding:56px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-hjk__in{max-width:1280px;margin:0 auto;padding:0 32px}
+.astro-hjk__intro{background:#fff;border-radius:12px;padding:32px 40px;margin-bottom:48px;border-left:4px solid #9a2d2d}
+.astro-hjk__intro-text{color:#6b5c52;font-size:17px;line-height:1.65;margin:0}
+.astro-hjk__h2{font-family:'Playfair Display',Georgia,serif;font-size:36px;color:#2c2420;margin:0 0 8px;line-height:1.15}
+.astro-hjk__sub{color:#928269;font-size:15px;margin:0 0 28px}
+.astro-hjk__h3{font-family:'Playfair Display',Georgia,serif;font-size:22px;color:#9a2d2d;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid #e8e0d5}
+/* Vorsitz */
+.astro-hjk__vorsitz{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:16px}
+.astro-hjk__vcard{background:#fff;border-radius:12px;padding:28px 24px;box-shadow:0 2px 12px rgba(30,21,18,.08);display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
+.astro-hjk__vcard-initial{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#9a2d2d,#7e2424);color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:4px;flex-shrink:0}
+.astro-hjk__vcard-name{font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#2c2420;margin:0;font-weight:700;line-height:1.2}
+.astro-hjk__vcard-role{background:#9a2d2d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px}
+.astro-hjk__vcard-area{color:#6b5c52;font-size:13px;margin:0}
+.astro-hjk__vcard-mail{color:#9a2d2d;text-decoration:none;font-size:13px;transition:color .2s;word-break:break-all}
+.astro-hjk__vcard-mail:hover{color:#7e2424}
+/* Mitglieder */
+.astro-hjk__mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.astro-hjk__mcard{background:#fff;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 6px rgba(30,21,18,.07)}
+.astro-hjk__mcard-initial{width:40px;height:40px;border-radius:50%;background:#f7f3ef;color:#9a2d2d;font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid #e8e0d5}
+.astro-hjk__mcard-info{display:flex;flex-direction:column;min-width:0}
+.astro-hjk__mcard-name{font-size:14px;font-weight:600;color:#2c2420;line-height:1.3}
+.astro-hjk__mcard-area{font-size:12px;color:#928269;line-height:1.3}
+@media(max-width:860px){.astro-hjk__vorsitz{grid-template-columns:1fr}.astro-hjk__mgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.astro-hjk__in{padding:0 16px}.astro-hjk{padding:44px 0}.astro-hjk__mgrid{grid-template-columns:1fr}.astro-hjk__intro{padding:20px 18px}}
+</style>

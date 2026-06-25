@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **79 Live-Seiten erfasst · 33 bereits in Astro übernommen bzw. per Direktlink erledigt · 46 offen.** Stand: 25.06.2026.
+> **81 Live-Seiten erfasst · 35 bereits in Astro übernommen bzw. per Direktlink erledigt · 46 offen.** Stand: 25.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -61,6 +61,8 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 |---|---|---|---|---|---|
 | Kirchorte (Übersicht) | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/) | — | — | offen |  |
 | Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/) | `src/pages/kirchorte/herz-jesu.astro` | Frank | ✅ erledigt | Page-ID 47906, Astro-Pfad `/kirchorte/herz-jesu/`; eigene Hj*-Komponenten (Präfix `astro-hj`); Foto-Hero (Kirchturm), Quicklinks, Willkommen, Gottesdienste (So/Fr), 4 Angebots-Karten, Team (Doly Kadavil, Bernhard Flack, Johanna Zerlik), scrollende Galerie (26 Fotos), FAQ, CTA |
+| Gruppen & Gemeinschaft Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/herz-jesu-gruppen/) | `src/pages/kirchorte/herz-jesu/gruppen-gemeinschaft.astro` | Frank | ✅ erledigt | Page-ID 49378, eigene Hjg*-Komponenten (Präfix `astro-hjg`); 9 Gruppen-Karten, Intro, CTA |
+| Kirchortrat Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/herz-jesu-kirchortrat/) | `src/pages/kirchorte/herz-jesu/kirchortrat.astro` | Frank | ✅ erledigt | Page-ID 49383, eigene Hjk*-Komponenten (Präfix `astro-hjk`); Vorsitz (3 Karten), 15 Mitglieder-Grid, CTA |
 | St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/) | — | — | offen |  |
 | St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/) | `src/pages/kirchorte/st-bonifatius.astro` | Werner | ✅ erledigt | Astro-Pfad jetzt `/kirchorte/st-bonifatius/` |
 | Bücherei St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/) | — | — | offen |  |

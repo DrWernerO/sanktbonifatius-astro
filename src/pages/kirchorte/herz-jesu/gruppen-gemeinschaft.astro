@@ -1,0 +1,18 @@
+---
+// Gruppen & Gemeinschaft bei Herz Jesu — WP-Seite 49378
+// (/ueberuns/kirchorte/herz-jesu/herz-jesu-gruppen/, Unterseite von 47906).
+// Vollständig aus eigenen Komponenten (kein set:html mit WP-Markup).
+// Nav + Footer global aus Base.astro. SEO-Head live aus WordPress.
+import Base from '../../../layouts/Base.astro';
+import HjgHero from '../../../components/HjgHero.astro';
+import HjgGroups from '../../../components/HjgGroups.astro';
+import HjgCta from '../../../components/HjgCta.astro';
+import { getSeoHead } from '../../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/herz-jesu/herz-jesu-gruppen/');
+---
+<Base seo={seo} title="Gruppen & Gemeinschaft · Herz Jesu Frankfurt-Oberrad · Pfarrei Sankt Bonifatius">
+  <HjgHero />
+  <HjgGroups />
+  <HjgCta />
+</Base>

@@ -1,0 +1,18 @@
+---
+// Kirchortrat Herz Jesu — WP-Seite 49383
+// (/ueberuns/kirchorte/herz-jesu/herz-jesu-kirchortrat/, Unterseite von 47906).
+// Vollständig aus eigenen Komponenten (kein set:html mit WP-Markup).
+// Nav + Footer global aus Base.astro. SEO-Head live aus WordPress.
+import Base from '../../../layouts/Base.astro';
+import HjkHero from '../../../components/HjkHero.astro';
+import HjkTeam from '../../../components/HjkTeam.astro';
+import HjkCta from '../../../components/HjkCta.astro';
+import { getSeoHead } from '../../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/herz-jesu/herz-jesu-kirchortrat/');
+---
+<Base seo={seo} title="Kirchortrat Herz Jesu Frankfurt-Oberrad · Pfarrei Sankt Bonifatius">
+  <HjkHero />
+  <HjkTeam />
+  <HjkCta />
+</Base>

@@ -1,0 +1,34 @@
+---
+// Hero der Gruppen-Seite „Herz Jesu" (/kirchorte/herz-jesu/gruppen-gemeinschaft/).
+// Eigene Klassen astro-hjghero (goldene Regel, Handbuch Abschnitt 3).
+// Bild lokal: kirche-herz-jesu-frankfurt2.jpg (entspricht WP-Hero der Seite 49378).
+const bg = '/uploads/2022/04/kirche-herz-jesu-frankfurt2.jpg';
+---
+<section class="astro-hjghero">
+  <div class="astro-hjghero__bg" role="img"
+       aria-label="Kirche Herz Jesu Frankfurt-Oberrad"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-hjghero__overlay"></div>
+  <div class="astro-hjghero__inner">
+    <a class="astro-hjghero__back" href="/kirchorte/herz-jesu/">&#8592; Zur&uuml;ck zu Herz&nbsp;Jesu</a>
+    <span class="astro-hjghero__badge">Herz Jesu &middot; Frankfurt-Oberrad</span>
+    <h1 class="astro-hjghero__title">Unsere Gruppen</h1>
+    <p class="astro-hjghero__sub">Gemeinschaft erleben, Talente einbringen, neue Menschen kennenlernen &ndash; in Herz&nbsp;Jesu ist f&uuml;r jede Lebensphase etwas dabei.</p>
+    <a class="astro-hjghero__btn" href="#gruppen">Alle Gruppen entdecken</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-hjghero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(68vh,560px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-hjghero__bg{position:absolute;inset:0;background-size:cover;background-position:center 50%}
+.astro-hjghero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.1) 0%,rgba(30,21,18,.6) 55%,rgba(30,21,18,.9) 100%)}
+.astro-hjghero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;display:flex;flex-direction:column;align-items:flex-start}
+.astro-hjghero__back{color:rgba(255,255,255,.75);font-size:13px;text-decoration:none;margin-bottom:16px;transition:color .2s}
+.astro-hjghero__back:hover{color:#fff}
+.astro-hjghero__badge{display:inline-flex;align-items:center;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:6px 16px;margin-bottom:20px;color:#fff;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.astro-hjghero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,5vw,68px);color:#fff;margin:0 0 14px;line-height:1.08;font-weight:700}
+.astro-hjghero__sub{color:rgba(255,255,255,.88);font-size:clamp(15px,2vw,20px);margin:0 0 28px;max-width:580px;line-height:1.45}
+.astro-hjghero__btn{display:inline-block;background:#fff;color:#9a2d2d;padding:13px 26px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s}
+.astro-hjghero__btn:hover{background:#f0ebe0}
+@media(max-width:600px){.astro-hjghero__inner{padding:0 16px 44px}}
+</style>
