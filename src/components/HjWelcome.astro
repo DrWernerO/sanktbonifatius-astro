@@ -1,0 +1,25 @@
+---
+// Willkommens-Sektion und gemeinsame Sektionsbasis für den Kirchort Herz Jesu
+// (WP-Block `stb2-sec`, „Herzlich willkommen"). Eigene Klassen `astro-hjsec`
+// (auch von HjGottesdienste/HjCards/HjTeam/HjFaq genutzt). Inhalt fest gepflegt.
+---
+<section class="astro-hjsec">
+  <div class="astro-hjsec__in">
+    <span class="astro-hjsec__eyebrow">Herzlich willkommen</span>
+    <h2 class="astro-hjsec__h2">Herz Jesu &ndash; Ein Ort für Glaube und Gemeinschaft</h2>
+    <p class="astro-hjsec__lead">In Oberrad sind wir eine lebendige Gemeinde mit einer reichen Geschichte. Unsere Kirche Herz Jesu steht allen offen &ndash; ob Sie Gottesdienste, Musik, Gemeinschaft oder stille Einkehr suchen. Wir freuen uns auf Sie!</p>
+  </div>
+</section>
+
+<style is:global>
+/* Gemeinsame Sektions-Basis für den Kirchort Herz Jesu (Präfix astro-hjsec) */
+.astro-hjsec{padding:56px 0;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:90px}
+.astro-hjsec.is-alt{background:#f7f3ef}
+.astro-hjsec__in{max-width:1280px;margin:0 auto;padding:0 32px}
+.astro-hjsec__eyebrow{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;color:#9a2d2d;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.astro-hjsec__h2{font-family:'Playfair Display',Georgia,serif;font-size:38px;color:#9a2d2d;text-align:center;margin:0 0 16px;line-height:1.15}
+.astro-hjsec__lead{text-align:center;color:#6b5c52;max-width:680px;margin:0 auto 36px;font-size:17px;line-height:1.6}
+.astro-hjsec__in > .astro-hjsec__lead:last-child{margin-bottom:0}
+@media(max-width:760px){.astro-hjsec{padding:44px 0}.astro-hjsec__h2{font-size:28px}}
+@media(max-width:600px){.astro-hjsec__in{padding:0 16px}}
+</style>

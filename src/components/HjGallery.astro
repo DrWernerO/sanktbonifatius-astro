@@ -1,0 +1,28 @@
+---
+// Foto-Galerie des Kirchorts Herz Jesu (WP-Block `hj-marquee`) als endlos scrollende
+// Banderole. Eigene Klassen `astro-hjgal`. 26 Fotos lokal unter public/uploads/2022/04/.
+const IMG = '/uploads/2022/04';
+const PHOTOS = Array.from({ length: 26 }, (_, i) => `kirche-herz-jesu-frankfurt${i + 1}.jpg`);
+// Liste verdoppeln → nahtlose Schleife (translateX -50%)
+const LOOP = [...PHOTOS, ...PHOTOS];
+---
+<section class="astro-hjgal" id="galerie" aria-label="Fotogalerie Herz Jesu Frankfurt-Oberrad">
+  <p class="astro-hjgal__title">Fotogalerie &middot; Herz Jesu Frankfurt-Oberrad</p>
+  <div class="astro-hjgal__track">
+    {LOOP.map((p, i) => (
+      <img src={`${IMG}/${p}`} alt="Impression aus der Kirche Herz Jesu Frankfurt"
+           decoding="async" aria-hidden={i >= PHOTOS.length ? 'true' : null} />
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-hjgal{overflow:hidden;background:#1e1512;padding:0 0 6px;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-hjgal__title{text-align:center;color:rgba(255,255,255,.6);font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:14px 0;margin:0}
+.astro-hjgal__track{display:flex;gap:8px;width:max-content;animation:astro-hjgal-scroll 120s linear infinite}
+.astro-hjgal__track:hover{animation-play-state:paused}
+.astro-hjgal__track img{height:240px;width:auto;object-fit:cover;border-radius:4px;display:block;flex-shrink:0}
+@keyframes astro-hjgal-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@media(max-width:600px){.astro-hjgal__track img{height:160px}}
+@media(prefers-reduced-motion:reduce){.astro-hjgal__track{animation:none}}
+</style>

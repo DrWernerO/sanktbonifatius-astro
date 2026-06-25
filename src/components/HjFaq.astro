@@ -1,0 +1,51 @@
+---
+// FAQ-Sektion des Kirchorts Herz Jesu (WP-Block `stb2-faq`). Eigene Klassen
+// `astro-hjfaq`; Sektions-Rahmen aus `astro-hjsec` (HjWelcome.astro).
+// Natives <details> (kein JS nötig). id="faq" für die Quicklink-Sprungmarke.
+const FAQ = [
+  {
+    q: 'Wann finden die Gottesdienste statt?',
+    a: 'Sonntagsgottesdienst: 9:30 Uhr in der Kirche Herz Jesu, Mathildenstraße 30, 60599 Frankfurt. Weitere Gottesdienste finden Sie im Veranstaltungskalender der Pfarrei.',
+  },
+  {
+    q: 'Was sind die Frühschichten?',
+    a: 'Jeden ersten Dienstag im Monat kommen wir um 7:00 Uhr im Gemeindehaus zusammen für Andacht, Gebet und Gesang – anschließend gibt es ein kleines Frühstück.',
+  },
+  {
+    q: 'Wie kann ich mich in Herz Jesu engagieren?',
+    a: 'Wir freuen uns über jede Form von Engagement! Sprechen Sie Doly Kadavil an (d.kadavil@sanktbonifatius.de) oder kommen Sie einfach nach einem Gottesdienst zum Kirchcafé.',
+  },
+  {
+    q: 'Wo finde ich aktuelle Informationen?',
+    a: 'Abonnieren Sie unseren Newsletter oder folgen Sie den Kanälen der Pfarrei Sankt Bonifatius. Den Newsletter können Sie unter /kontakt/newsletter/ abonnieren.',
+  },
+  {
+    q: 'Wie erreiche ich das Kirchort-Team?',
+    a: 'Per E-Mail an d.kadavil@sanktbonifatius.de oder telefonisch unter 069 695 97 58 50 (Pfarrbüro). Adresse: Mathildenstraße 30, 60599 Frankfurt am Main.',
+  },
+];
+---
+<section class="astro-hjsec" id="faq">
+  <div class="astro-hjsec__in">
+    <span class="astro-hjsec__eyebrow">Fragen &amp; Antworten</span>
+    <h2 class="astro-hjsec__h2">Häufige Fragen</h2>
+    <div class="astro-hjfaq">
+      {FAQ.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <div class="astro-hjfaq__a">{f.a}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-hjfaq{max-width:840px;margin:0 auto}
+.astro-hjfaq details{background:#fff;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 16px rgba(30,21,18,.12);overflow:hidden}
+.astro-hjfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:16px;color:#1e1512}
+.astro-hjfaq summary::-webkit-details-marker{display:none}
+.astro-hjfaq summary::after{content:"+";font-size:22px;color:#9a2d2d;transition:transform .2s;flex-shrink:0;margin-left:12px}
+.astro-hjfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-hjfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+</style>

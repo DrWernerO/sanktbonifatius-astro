@@ -1,0 +1,38 @@
+---
+// Hero des Kirchorts „Herz Jesu" (WP-Seite 47906, /kirchorte/herz-jesu/).
+// Eigene Klassen `astro-hjhero` (goldene Regel, Handbuch Abschnitt 3). Full-Bleed-Bild
+// + Verlauf-Overlay + Text. Bild lokal unter public/uploads/ (Handbuch 1b).
+const bg = '/uploads/2026/06/Bonifatius_HerzJesu_Kirchturm-0829.jpg';
+---
+<section class="astro-hjhero">
+  <div class="astro-hjhero__bg" role="img"
+       aria-label="Kirchturm Herz Jesu in Frankfurt-Oberrad"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-hjhero__overlay"></div>
+  <div class="astro-hjhero__inner">
+    <span class="astro-hjhero__badge">Kirchort &middot; Frankfurt-Oberrad</span>
+    <h1 class="astro-hjhero__title">Herz Jesu</h1>
+    <p class="astro-hjhero__sub">Glaube, Gemeinschaft und Musik in Oberrad</p>
+    <div class="astro-hjhero__btns">
+      <a class="astro-hjhero__btn astro-hjhero__btn--primary" href="#angebote">Unsere Angebote</a>
+      <a class="astro-hjhero__btn astro-hjhero__btn--ghost" href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-hjhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(72vh,600px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-hjhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
+.astro-hjhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.05) 0%,rgba(30,21,18,.55) 60%,rgba(30,21,18,.88) 100%)}
+.astro-hjhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px}
+.astro-hjhero__badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:6px 16px;margin-bottom:20px;color:#fff;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.astro-hjhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,72px);color:#fff;margin:0 0 14px;line-height:1.08;font-weight:700}
+.astro-hjhero__sub{color:rgba(255,255,255,.88);font-size:clamp(16px,2vw,22px);margin:0 0 28px;max-width:600px;line-height:1.45}
+.astro-hjhero__btns{display:flex;gap:12px;flex-wrap:wrap}
+.astro-hjhero__btn{padding:13px 26px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;transition:all .2s}
+.astro-hjhero__btn--primary{background:#fff;color:#9a2d2d}
+.astro-hjhero__btn--primary:hover{background:#f0ebe0}
+.astro-hjhero__btn--ghost{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.5);color:#fff}
+.astro-hjhero__btn--ghost:hover{background:rgba(255,255,255,.25)}
+@media(max-width:600px){.astro-hjhero__inner{padding:0 16px 44px}}
+</style>

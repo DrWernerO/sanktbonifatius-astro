@@ -1,0 +1,46 @@
+---
+// Gottesdienste-Sektion des Kirchorts Herz Jesu (WP-Block `stb2-prayer`).
+// Eigene Klassen `astro-hjgodi`; Sektions-Rahmen aus `astro-hjsec` (HjWelcome.astro).
+// id="gottesdienste" für die Quicklink-Sprungmarke.
+const ZEITEN = [
+  { day: 'Sonntag',  text: '09:30 Uhr · Eucharistiefeier' },
+  { day: 'Freitag',  text: '09:00 Uhr · Eucharistiefeier' },
+];
+---
+<section class="astro-hjsec is-alt" id="gottesdienste">
+  <div class="astro-hjsec__in">
+    <span class="astro-hjsec__eyebrow">Gottesdienste</span>
+    <h2 class="astro-hjsec__h2">Gottesdienste in Herz Jesu</h2>
+    <p class="astro-hjsec__lead">Wir laden Sie herzlich ein, mit uns Gottesdienst zu feiern.</p>
+    <div class="astro-hjgodi">
+      <div class="astro-hjgodi__intro">
+        <h3 class="astro-hjgodi__h">Regelmäßige Gottesdienste</h3>
+        <p class="astro-hjgodi__p">In Herz Jesu feiern wir gemeinsam Eucharistie in einer herzlichen Atmosphäre. Alle sind willkommen &ndash; ob alteingesessen oder neu in der Gemeinde.</p>
+        <a class="astro-hjgodi__btn" href="/gottesdienst-glaube/gottesdienstordnung/">Aktuelle Gottesdienstordnung</a>
+      </div>
+      <div class="astro-hjgodi__times">
+        {ZEITEN.map((z) => (
+          <div class="astro-hjgodi__row">
+            <span class="astro-hjgodi__day">{z.day}</span>
+            <span class="astro-hjgodi__val">{z.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-hjgodi{background:#9a2d2d;color:#fff;border-radius:14px;padding:54px 48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.astro-hjgodi__h{font-family:'Playfair Display',Georgia,serif;font-size:32px;color:#fff;margin:0 0 14px}
+.astro-hjgodi__p{font-size:16px;opacity:.95;margin:0 0 8px;line-height:1.6}
+.astro-hjgodi__btn{display:inline-flex;align-items:center;padding:14px 28px;border-radius:999px;background:#fff;color:#9a2d2d;text-decoration:none;font-weight:600;font-size:15px;transition:all .2s;margin-top:20px}
+.astro-hjgodi__btn:hover{background:#f0ebe0}
+.astro-hjgodi__times{background:rgba(255,255,255,.12);border-radius:10px;padding:24px}
+.astro-hjgodi__row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.18);font-size:15px;color:#fff}
+.astro-hjgodi__row:last-child{border-bottom:none}
+.astro-hjgodi__day{font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:13px;opacity:.85;flex-shrink:0}
+.astro-hjgodi__val{text-align:right}
+@media(max-width:1024px){.astro-hjgodi{grid-template-columns:1fr;padding:40px 32px;gap:24px}}
+@media(max-width:760px){.astro-hjgodi{padding:32px 20px}.astro-hjgodi__h{font-size:22px}.astro-hjgodi__row{flex-wrap:wrap;gap:4px}.astro-hjgodi__val{text-align:left}}
+</style>

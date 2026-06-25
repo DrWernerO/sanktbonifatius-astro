@@ -1,0 +1,73 @@
+---
+// Angebote-Karten des Kirchorts Herz Jesu (WP-Block `stb2-grid`).
+// Eigene Klassen `astro-hjcard`; Sektions-Rahmen aus `astro-hjsec` (HjWelcome.astro).
+// id="angebote" für Hero- und Quicklink-Sprungmarke.
+const IMG = '/uploads';
+const CARDS = [
+  {
+    title: 'Gruppen &amp; Gemeinschaft',
+    href: '#kontakt',
+    img: `${IMG}/2024/04/oberraeder-pfadfinder.jpg`,
+    alt: 'Oberräder Pfadfinder bei Herz Jesu',
+    text: 'Von Kreativ-Werkstatt über Pfadfinder bis Projektchor – entdecken Sie alle Gruppen in Herz Jesu.',
+    more: 'Alle Gruppen →',
+  },
+  {
+    title: 'Frühschichten',
+    href: '#kontakt',
+    img: `${IMG}/2024/04/fruehschicht-herz-jesu-e1713251125711-1024x689.jpg`,
+    alt: 'Frühschicht in Herz Jesu Frankfurt-Oberrad',
+    text: 'Jeden ersten Dienstag im Monat: Andacht, Gebet und Gesang in den frühen Morgenstunden – anschließend kleines Frühstück. Start: 07:00 Uhr im Gemeindehaus.',
+    more: 'Mehr erfahren →',
+  },
+  {
+    title: 'Kirchortrat',
+    href: '#kontakt',
+    img: `${IMG}/2024/04/Bonifatius_HerzJesu_s-5775-1024x683.jpg`,
+    alt: 'Kirche Herz Jesu Frankfurt-Oberrad',
+    text: 'Ehrenamtlich für Herz Jesu – Vorsitz, Mitglieder und Zuständigkeiten des Kirchortrats.',
+    more: 'Zum Kirchortrat →',
+  },
+  {
+    title: 'Newsletter abonnieren',
+    href: '/kontakt/newsletter/',
+    img: `${IMG}/2026/06/Bonifatius_HerzJesu_Kirchturm-0829.jpg`,
+    alt: 'Kirchturm Herz Jesu Frankfurt-Oberrad',
+    text: 'Aktuelle Termine, Neuigkeiten und Einladungen aus Herz Jesu – bequem per E-Mail. Kostenlos, jederzeit kündbar.',
+    more: 'Newsletter abonnieren →',
+  },
+];
+---
+<section class="astro-hjsec" id="angebote">
+  <div class="astro-hjsec__in">
+    <span class="astro-hjsec__eyebrow">Was Sie bei uns finden</span>
+    <h2 class="astro-hjsec__h2">Unsere Angebote</h2>
+    <p class="astro-hjsec__lead">Gottesdienste, Andachten, Gemeinschaft und Musik &ndash; in Herz Jesu ist für jeden etwas dabei.</p>
+    <div class="astro-hjcard__grid">
+      {CARDS.map((c) => (
+        <a class="astro-hjcard" href={c.href}>
+          <div class="astro-hjcard__img" role="img" aria-label={c.alt}
+               style={`background-image:url('${c.img}')`}></div>
+          <div class="astro-hjcard__body">
+            <div class="astro-hjcard__title" set:html={c.title}></div>
+            <p class="astro-hjcard__text">{c.text}</p>
+            <span class="astro-hjcard__more">{c.more}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-hjcard__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.astro-hjcard{background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(30,21,18,.12);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;text-decoration:none;color:inherit}
+.astro-hjcard:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(30,21,18,.18)}
+.astro-hjcard__img{aspect-ratio:16/10;background-size:cover;background-position:center;background-color:#eee}
+.astro-hjcard__body{padding:22px 20px 24px;display:flex;flex-direction:column;flex:1}
+.astro-hjcard__title{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:#9a2d2d;margin:0 0 10px;line-height:1.2}
+.astro-hjcard__text{font-size:14px;line-height:1.55;color:#3d3530;margin:0 0 14px;flex:1}
+.astro-hjcard__more{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#9a2d2d;display:inline-flex;align-items:center;gap:6px;margin-top:auto}
+@media(max-width:1100px){.astro-hjcard__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.astro-hjcard__grid{grid-template-columns:1fr}}
+</style>

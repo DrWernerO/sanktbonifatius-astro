@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **79 Live-Seiten erfasst · 32 bereits in Astro übernommen bzw. per Direktlink erledigt · 47 offen.** Stand: 24.06.2026.
+> **79 Live-Seiten erfasst · 33 bereits in Astro übernommen bzw. per Direktlink erledigt · 46 offen.** Stand: 25.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -60,7 +60,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
 | Kirchorte (Übersicht) | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/) | — | — | offen |  |
-| Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/) | — | — | offen |  |
+| Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/) | `src/pages/kirchorte/herz-jesu.astro` | Frank | ✅ erledigt | Page-ID 47906, Astro-Pfad `/kirchorte/herz-jesu/`; eigene Hj*-Komponenten (Präfix `astro-hj`); Foto-Hero (Kirchturm), Quicklinks, Willkommen, Gottesdienste (So/Fr), 4 Angebots-Karten, Team (Doly Kadavil, Bernhard Flack, Johanna Zerlik), scrollende Galerie (26 Fotos), FAQ, CTA |
 | St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/) | — | — | offen |  |
 | St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/) | `src/pages/kirchorte/st-bonifatius.astro` | Werner | ✅ erledigt | Astro-Pfad jetzt `/kirchorte/st-bonifatius/` |
 | Bücherei St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/) | — | — | offen |  |

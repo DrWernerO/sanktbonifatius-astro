@@ -1,0 +1,59 @@
+---
+// Team-Sektion „Ihr Team in Herz Jesu" (WP-Block `stb2-team`).
+// Eigene Klassen `astro-hjteam`; Sektions-Rahmen aus `astro-hjsec` (HjWelcome.astro).
+// id="kontakt" für Hero- und Quicklink-Sprungmarke. Fotos lokal in public/uploads/.
+const IMG = '/uploads';
+const TEAM = [
+  {
+    name: 'Doly Kadavil',
+    role: 'Pastoralreferentin',
+    photo: `${IMG}/2023/05/Bonifatius_Pastoralteam_Einzel_auswahl4616-e1659516081605-edited-1024x1023.jpg`,
+    tel: '+4969695975850', telText: '069 695 97 58 50',
+    mail: 'd.kadavil@sanktbonifatius.de',
+  },
+  {
+    name: 'Bernhard Flack',
+    role: 'Küster',
+    photo: `${IMG}/2018/01/herz-jesu-bernhard-flack.jpg`,
+    tel: null, telText: null,
+    mail: null,
+  },
+  {
+    name: 'Johanna Zerlik',
+    role: 'Projektchor',
+    photo: `${IMG}/2023/06/johanna-zerlik-edited-300x300.jpg`,
+    tel: null, telText: null,
+    mail: 'jzerlik@hotmail.com',
+  },
+];
+---
+<section class="astro-hjsec is-alt" id="kontakt">
+  <div class="astro-hjsec__in">
+    <span class="astro-hjsec__eyebrow">Wir sind für Sie da</span>
+    <h2 class="astro-hjsec__h2">Ihr Team in Herz Jesu</h2>
+    <p class="astro-hjsec__lead">Fragen, Anliegen oder ein persönliches Gespräch? Wir sind gerne für Sie da.</p>
+    <div class="astro-hjteam">
+      {TEAM.map((p) => (
+        <div class="astro-hjteam__person">
+          <div class="astro-hjteam__photo" role="img" aria-label={`Foto von ${p.name}`}
+               style={`background-image:url('${p.photo}')`}></div>
+          <h3 class="astro-hjteam__name">{p.name}</h3>
+          <p class="astro-hjteam__role">{p.role}</p>
+          {p.tel && <a href={`tel:${p.tel}`}>{p.telText}</a>}
+          {p.mail && <a href={`mailto:${p.mail}`}>{p.mail}</a>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-hjteam{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
+.astro-hjteam__person{background:#fff;border-radius:12px;padding:32px 24px;text-align:center;box-shadow:0 2px 16px rgba(30,21,18,.12)}
+.astro-hjteam__photo{width:120px;height:120px;border-radius:50%;background-size:cover;background-position:center top;margin:0 auto 20px;box-shadow:0 4px 14px rgba(0,0,0,.15);border:4px solid #fff}
+.astro-hjteam__name{font-family:'Playfair Display',Georgia,serif;font-size:21px;color:#9a2d2d;margin:0 0 4px;font-weight:700}
+.astro-hjteam__role{color:#6b5c52;font-size:13px;margin:0 0 18px;letter-spacing:.08em;text-transform:uppercase}
+.astro-hjteam__person a{color:#1e1512;text-decoration:none;display:block;font-size:15px;margin:4px 0;transition:color .2s;word-break:break-word}
+.astro-hjteam__person a:hover{color:#9a2d2d}
+@media(max-width:640px){.astro-hjteam{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,22 @@
+---
+// Abschluss-CTA „Kommen Sie vorbei!" des Kirchorts Herz Jesu (WP-Block `stb2-cta`).
+// Eigene Klassen `astro-hjcta`. Inhalt fest gepflegt.
+---
+<section class="astro-hjcta">
+  <div class="astro-hjcta__in">
+    <h2 class="astro-hjcta__h">Kommen Sie vorbei!</h2>
+    <p class="astro-hjcta__p">Kirche Herz Jesu &middot; Mathildenstraße 30 &middot; 60599 Frankfurt am Main</p>
+    <a class="astro-hjcta__btn" href="mailto:info@sanktbonifatius.de">Kontakt aufnehmen</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-hjcta{background:linear-gradient(135deg,#4a2e1a,#3a2315);padding:56px 0;text-align:center;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-hjcta__in{max-width:1280px;margin:0 auto;padding:0 32px}
+.astro-hjcta__h{color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:36px;margin:0 0 18px}
+.astro-hjcta__p{max-width:640px;margin:0 auto 28px;color:rgba(255,255,255,.82);font-size:17px;line-height:1.6}
+.astro-hjcta__btn{display:inline-flex;align-items:center;padding:14px 28px;border-radius:999px;background:#fff;color:#9a2d2d;text-decoration:none;font-weight:600;font-size:15px;transition:all .2s}
+.astro-hjcta__btn:hover{background:#f0ebe0}
+@media(max-width:760px){.astro-hjcta__h{font-size:28px}}
+@media(max-width:600px){.astro-hjcta__in{padding:0 16px}}
+</style>
