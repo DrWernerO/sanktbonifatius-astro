@@ -1,0 +1,35 @@
+---
+// Info-Band „Erstkommunion in unserer Pfarrei" (WP-Block `ek-intro`). Klassen `astro-ek-intro`.
+// Einführungstext + Bibelzitat Joh 6,51 — 1:1 aus WP-Seite 47424.
+---
+<section class="astro-ek-intro">
+  <div class="astro-ek-intro__inner">
+    <p class="astro-ek-intro__eyebrow">Das Sakrament der Eucharistie &#8212; zum ersten Mal empfangen</p>
+    <h2>Erstkommunion in unserer Pfarrei</h2>
+    <p>
+      Die Erstkommunion ist ein besonderer Moment f&uuml;r Ihr Kind und Ihre Familie &#8212; zum
+      ersten Mal darf es das Brot des Lebens empfangen: Jesus Christus, der uns in der Eucharistie
+      nahekommt.
+    </p>
+    <p>
+      In unserer Pfarrei bereiten engagierte Katechetinnen und Katecheten Kinder im 3. Schuljahr
+      in zwei Kursen auf diesen Tag vor. Alle Kinder sind herzlich willkommen.
+    </p>
+    <blockquote class="astro-ek-intro__quote">
+      &#8222;Ich bin das lebendige Brot, das vom Himmel herabgekommen ist. Wer von diesem Brot isst,
+      wird in Ewigkeit leben.&#8220;
+      <cite>Joh 6,51</cite>
+    </blockquote>
+  </div>
+</section>
+
+<style is:global>
+.astro-ek-intro{background:#fff;padding:72px 0}
+.astro-ek-intro__inner{max-width:760px;margin:0 auto;padding:0 48px;text-align:center}
+.astro-ek-intro__eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px}
+.astro-ek-intro h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,38px);color:#1e1512;font-weight:700;margin:0 0 22px}
+.astro-ek-intro p:not(.astro-ek-intro__eyebrow){color:#5a4a3a;font-size:1.02rem;line-height:1.8;margin:0 auto 16px;max-width:680px;text-align:left}
+.astro-ek-intro__quote{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(1.15rem,2.1vw,1.45rem);color:#3a2e28;line-height:1.5;max-width:640px;margin:32px auto 0;padding:24px 28px;background:#f7f3ef;border-left:4px solid #b88a3a;border-radius:0 10px 10px 0;text-align:left}
+.astro-ek-intro__quote cite{display:block;margin-top:12px;font-style:normal;font-size:.8rem;font-weight:600;color:#9a2d2d;letter-spacing:.02em}
+@media(max-width:600px){.astro-ek-intro{padding:56px 0}.astro-ek-intro__inner{padding:0 20px}}
+</style>

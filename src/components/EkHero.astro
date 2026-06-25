@@ -1,0 +1,36 @@
+---
+// Hero der Seite „Erstkommunion" — WP-Seite 47424 (/segen-sakramente/erstkommunion/, WP-Block `ek-hero`).
+// Eigene Klassen `astro-ek-hero` (goldene Regel, Handbuch Abschnitt 3 — niemals WP-Klassen `ek-…`).
+// Die WP-Vorlage nutzt ein Hero-Foto (erstkommunion2024-stbonifatius.jpeg); zur Sicherheit hier
+// ein warmer Verlauf-Hero wie bei Kw/Seelsorge (Handbuch Checkliste 7). Einzige sichtbare <h1>.
+---
+<section class="astro-ek-hero">
+  <div class="astro-ek-hero__inner">
+    <span class="astro-ek-hero__eyebrow">Sakrament der Eucharistie</span>
+    <h1 class="astro-ek-hero__title">Erstkommunion in der Pfarrei Sankt Bonifatius Frankfurt</h1>
+    <p class="astro-ek-hero__sub">
+      Das erste Mal das Brot des Lebens empfangen &#8212; ein unvergesslicher Moment f&uuml;r Ihr
+      Kind und Ihre Familie. Wir begleiten Sie herzlich auf diesem Weg.
+    </p>
+    <div class="astro-ek-hero__btns">
+      <a class="astro-ek-hero__btn" href="#anmeldung">Zur Anmeldung</a>
+      <a class="astro-ek-hero__btn astro-ek-hero__btn--ghost" href="#vorbereitung">Vorbereitung &amp; Ablauf &#8595;</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ek-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#4a2e1a 0%,#7e2424 58%,#3a2315 100%);display:flex;align-items:flex-end;min-height:min(58vh,480px);overflow:hidden}
+.astro-ek-hero::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#b88a3a 0%,#d4aa5a 50%,#b88a3a 100%)}
+.astro-ek-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 22% 12%,rgba(255,255,255,.08),transparent 55%)}
+.astro-ek-hero__inner{position:relative;z-index:1;width:100%;max-width:1200px;margin:0 auto;padding:0 48px 60px;color:#f0e8d8}
+.astro-ek-hero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#c8a96e;display:block;margin:0 0 14px}
+.astro-ek-hero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,5vw,60px);color:#fff;margin:0 0 16px;line-height:1.1;font-weight:700;letter-spacing:-.01em;max-width:840px}
+.astro-ek-hero__sub{color:rgba(255,255,255,.9);font-size:clamp(16px,2vw,21px);margin:0 0 28px;max-width:620px;line-height:1.55}
+.astro-ek-hero__btns{display:flex;flex-wrap:wrap;gap:14px}
+.astro-ek-hero__btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:50px;font-size:15px;font-weight:700;text-decoration:none;background:#fff;color:#9a2d2d;transition:background .2s,color .2s}
+.astro-ek-hero__btn:hover{background:#f3e7d4;color:#7e2424}
+.astro-ek-hero__btn--ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+.astro-ek-hero__btn--ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+@media(max-width:600px){.astro-ek-hero{min-height:min(54vh,420px)}.astro-ek-hero__inner{padding:0 20px 40px}}
+</style>

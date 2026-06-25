@@ -1,0 +1,65 @@
+---
+// Kontakt-Band „Termin vereinbaren" (WP-Block `bc-contact`). Eigene Klassen `astro-bc-contact`.
+// Priester-Kontakte, Pfarrbüro-Hinweis und Kapuziner-Tipp 1:1 aus WP-Seite 47511.
+const PRIESTS = [
+  { name: 'Pfr. Dr. Werner Otto', tel: '069 · 695975 8-60', mail: 'w.otto@sanktbonifatius.de' },
+  { name: 'Pfr. Uwe Michler', tel: '069 · 695975 85-0', mail: 'u.michler@sanktbonifatius.de' },
+  { name: 'P. Gaby Geagea C.M.L.', tel: '0173 · 742 65 39', mail: 'g.geagea@sanktbonifatius.de' },
+];
+// tel:-Href aus der angezeigten Nummer ableiten (nur Ziffern behalten).
+const telHref = (s) => `tel:${s.replace(/\D/g, '')}`;
+---
+<section class="astro-bc-contact">
+  <div class="astro-bc-contact__inner">
+    <h2>Termin vereinbaren</h2>
+    <p class="astro-bc-contact__intro">
+      In St. Bonifatius Frankfurt gibt es keine festen Beichtzeiten. Stattdessen vereinbaren Sie
+      einen Termin direkt mit einem unserer Priester &#8212; pers&ouml;nlich, diskret und ganz
+      nach Ihrem Zeitplan.
+    </p>
+    <div class="astro-bc-contact__grid">
+      {PRIESTS.map((p) => (
+        <div class="astro-bc-priest">
+          <p class="astro-bc-priest__name">{p.name}</p>
+          <p class="astro-bc-priest__info">
+            <a href={telHref(p.tel)}>{p.tel}</a><br />
+            <a href={`mailto:${p.mail}`}>{p.mail}</a>
+          </p>
+        </div>
+      ))}
+    </div>
+    <div class="astro-bc-extern">
+      <h3>Oder &uuml;ber das Pfarrb&uuml;ro</h3>
+      <p>
+        Sie k&ouml;nnen sich auch beim Pfarrb&uuml;ro melden &#8212; wir vermitteln gerne einen
+        Termin, auch wenn Sie einen externen Priester w&uuml;nschen.
+      </p>
+    </div>
+    <div class="astro-bc-extern astro-bc-extern--tip">
+      <p>
+        <strong>Tipp:</strong> Die Kapuziner bieten an der Innenstadtkirche
+        <strong> Liebfrauen</strong>, Sch&auml;rfeng&auml;sschen 3, t&auml;glich Beichtgelegenheit
+        an (Mo&#8211;Fr ab 8:30 Uhr).
+      </p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bc-contact{background:#ede4d5;padding:78px 0}
+.astro-bc-contact__inner{max-width:960px;margin:0 auto;padding:0 48px}
+.astro-bc-contact h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 12px}
+.astro-bc-contact__intro{text-align:center;color:#5a4a3a;max-width:680px;margin:0 auto 40px;font-size:1rem;line-height:1.7}
+.astro-bc-contact__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.astro-bc-priest{background:#fff;border-radius:14px;padding:30px 26px;border:1px solid #e7ddd0;text-align:center;box-shadow:0 6px 22px rgba(30,21,18,.06);transition:transform .25s ease,box-shadow .25s ease}
+.astro-bc-priest:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(30,21,18,.10)}
+.astro-bc-priest__name{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.05rem;color:#1e1512;margin:0 0 10px}
+.astro-bc-priest__info{font-size:.92rem;color:#5f5048;line-height:1.9;margin:0;overflow-wrap:anywhere}
+.astro-bc-priest__info a{color:#9a2d2d;text-decoration:none}
+.astro-bc-priest__info a:hover{text-decoration:underline}
+.astro-bc-extern{background:#fff;border:1px solid #e7ddd0;border-radius:14px;padding:22px 28px;margin:24px auto 0;max-width:960px}
+.astro-bc-extern--tip{background:#fff8e8;border-color:#e8d5a0}
+.astro-bc-extern h3{font-family:'Playfair Display',Georgia,serif;font-size:1rem;color:#1e1512;margin:0 0 8px;font-weight:700}
+.astro-bc-extern p{font-size:.92rem;color:#5a4a3a;margin:0;line-height:1.65}
+@media(max-width:760px){.astro-bc-contact__inner{padding:0 20px}}
+</style>

@@ -1,0 +1,58 @@
+---
+// Band „Anmeldung zur Erstkommunion" (WP-Block `ek-anmeldung`). Klassen `astro-ek-anm`.
+// Drei Schritte + aktueller Stand 1:1 aus WP-Seite 47424. Anker #anmeldung (Hero-Button).
+const SCHRITTE = [
+  { title: 'Einladungsschreiben abwarten',
+    text: 'In der Regel werden alle Kinder im 3. Schuljahr durch die Pfarrei angeschrieben. Das Einladungsschreiben geht im August an die Familien. Falls Sie kein Anschreiben erhalten haben, melden Sie sich direkt bei uns &#8212; jedes Kind ist herzlich willkommen.' },
+  { title: 'Online anmelden &amp; Unkostenbeitrag bezahlen',
+    text: 'Folgen Sie dem Link im Anschreiben zur Online-Anmeldung und bezahlen Sie den Unkostenbeitrag von 50 Euro direkt digital. Die Anmeldung erfolgt &uuml;ber unser Pfarrb&uuml;ro.' },
+  { title: 'Kurs startet im Herbst',
+    text: 'Der Erstkommunionkurs beginnt im Herbst. Sie erhalten alle weiteren Informationen zu Terminen, Katechetinnen und Ablauf direkt nach der Anmeldung.' },
+];
+---
+<section class="astro-ek-anm" id="anmeldung">
+  <div class="astro-ek-anm__inner">
+    <p class="astro-ek-anm__eyebrow">In drei einfachen Schritten zur Anmeldung</p>
+    <h2>Anmeldung zur Erstkommunion in Sankt Bonifatius Frankfurt</h2>
+    <div class="astro-ek-anm__steps">
+      {SCHRITTE.map((s, i) => (
+        <div class="astro-ek-anm__step">
+          <div class="astro-ek-anm__num">{i + 1}</div>
+          <div class="astro-ek-anm__body">
+            <h3 set:html={s.title} />
+            <p set:html={s.text} />
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="astro-ek-anm__status">
+      <h3>Aktueller Stand: Kurs 2026 / Anmeldung 2027</h3>
+      <p>
+        Der Erstkommunionkurs 2026 l&auml;uft bereits. Die Termine der Erstkommunionfeiern 2027
+        werden im August 2026 bekanntgegeben.
+      </p>
+      <p>
+        <strong>Bei Interesse f&uuml;r 2027:</strong> Melden Sie sich ab August 2026 im Zentralen
+        Pfarrb&uuml;ro oder warten Sie auf das Einladungsschreiben.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ek-anm{background:#ede4d5;padding:72px 0}
+.astro-ek-anm__inner{max-width:820px;margin:0 auto;padding:0 48px;text-align:center}
+.astro-ek-anm__eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px}
+.astro-ek-anm h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(23px,3.3vw,34px);color:#1e1512;font-weight:700;margin:0 0 40px}
+.astro-ek-anm__steps{display:flex;flex-direction:column;gap:0;text-align:left}
+.astro-ek-anm__step{display:grid;grid-template-columns:56px 1fr;gap:22px;padding:24px 0;border-bottom:1px solid #ddd0bf}
+.astro-ek-anm__step:last-child{border-bottom:none}
+.astro-ek-anm__num{width:46px;height:46px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.astro-ek-anm__body h3{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;color:#1e1512;font-weight:700;margin:6px 0 8px}
+.astro-ek-anm__body p{color:#5a4a3a;font-size:.95rem;line-height:1.65;margin:0}
+.astro-ek-anm__status{margin-top:32px;background:#fff8e8;border:1px solid #e8d5a0;border-radius:14px;padding:28px 30px;text-align:left}
+.astro-ek-anm__status h3{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;color:#1e1512;font-weight:700;margin:0 0 12px}
+.astro-ek-anm__status p{color:#5a4a3a;font-size:.95rem;line-height:1.7;margin:0 0 10px}
+.astro-ek-anm__status p:last-child{margin-bottom:0}
+@media(max-width:600px){.astro-ek-anm{padding:56px 0}.astro-ek-anm__inner{padding:0 20px}.astro-ek-anm__step{grid-template-columns:44px 1fr;gap:16px}}
+</style>

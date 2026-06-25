@@ -1,0 +1,36 @@
+---
+// Ablauf-Band „Wie läuft das Gespräch ab?" (WP-Block `bc-process`). Eigene Klassen `astro-bc-process`.
+// Drei Schritte 1:1 aus WP-Seite 47511.
+const STEPS = [
+  { num: '1', title: 'Termin vereinbaren',
+    text: 'Rufen Sie einen unserer Priester direkt an oder melden Sie sich beim Pfarrb&uuml;ro. Wir finden gemeinsam einen passenden Zeitpunkt.' },
+  { num: '2', title: 'Pers&ouml;nliches Gespr&auml;ch',
+    text: 'Das Gespr&auml;ch findet in der Kirche oder im Pfarrhaus statt &#8212; ganz nach Ihrem Wunsch. Es gibt keine Pflichtform: Erz&auml;hlen Sie offen, was Sie besch&auml;ftigt.' },
+  { num: '3', title: 'Lossprechung',
+    text: 'Der Priester spricht die Lossprechung &#8212; und Gott schenkt Vergebung. Gehen Sie ruhig und befreit nach Hause.' },
+];
+---
+<section class="astro-bc-process">
+  <h2>Wie l&auml;uft das Gespr&auml;ch ab?</h2>
+  <div class="astro-bc-process__steps">
+    {STEPS.map((s) => (
+      <div class="astro-bc-step">
+        <div class="astro-bc-step__num">{s.num}</div>
+        <p class="astro-bc-step__title" set:html={s.title} />
+        <p class="astro-bc-step__text" set:html={s.text} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-bc-process{background:#fff;padding:64px 0}
+.astro-bc-process h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 48px}
+.astro-bc-process__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:960px;margin:0 auto;padding:0 48px}
+.astro-bc-step{text-align:center;padding:30px 22px;background:#faf6f0;border-radius:14px;border:1px solid #e7ddd0;box-shadow:0 6px 22px rgba(30,21,18,.05);transition:transform .25s ease,box-shadow .25s ease}
+.astro-bc-step:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(30,21,18,.09)}
+.astro-bc-step__num{width:44px;height:44px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.astro-bc-step__title{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;color:#1e1512;font-weight:700;margin:0 0 8px}
+.astro-bc-step__text{font-size:.92rem;color:#6b5c52;line-height:1.6;margin:0}
+@media(max-width:720px){.astro-bc-process__steps{grid-template-columns:1fr;padding:0 20px}}
+</style>

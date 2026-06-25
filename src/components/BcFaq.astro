@@ -1,0 +1,44 @@
+---
+// „Häufige Fragen zur Beichte" (WP-Block `bc-faq`). Eigene Klassen `astro-bc-faq`.
+// Natives <details> (kein JS, Muster wie KwFaq/TaufeFaq). Inhalt 1:1 aus FAQPage-Schema der WP-Seite 47511.
+const FAQ = [
+  { q: 'Muss ich genau wissen, was ich sagen soll?',
+    a: 'Nein. Sie m&uuml;ssen keine bestimmte Form kennen. Es gen&uuml;gt, wenn Sie offen erz&auml;hlen, was Sie besch&auml;ftigt. Der Priester begleitet Sie im Gespr&auml;ch.' },
+  { q: 'Kann ich kommen, wenn ich lange nicht mehr da war?',
+    a: 'Ja, auf jeden Fall. Es gibt keine Wartezeit, keine Mindestanforderung. Viele Menschen kommen nach langer Pause &#8212; und werden offen empfangen.' },
+  { q: 'Gilt das Beichtgeheimnis wirklich absolut?',
+    a: 'Ja &#8212; ausnahmslos. Der Priester darf das, was Sie ihm mitteilen, unter keinen Umst&auml;nden weitergeben. Das ist absolutes kirchliches Recht.' },
+  { q: 'Kann ich anonym bleiben?',
+    a: 'Ja. Sie m&uuml;ssen Ihren Namen nicht nennen.' },
+  { q: 'Wie lange dauert das Gespr&auml;ch?',
+    a: 'Das h&auml;ngt ganz von Ihnen ab. Ein kurzes Gespr&auml;ch kann wenige Minuten dauern; wenn Sie ausf&uuml;hrlicher sprechen m&ouml;chten, nehmen wir uns die Zeit.' },
+  { q: 'Muss ich katholisch getauft sein?',
+    a: 'Das Sakrament der Vers&ouml;hnung ist grunds&auml;tzlich f&uuml;r getaufte Katholikinnen und Katholiken. Bei Fragen zu Ihrer Situation sprechen Sie uns einfach an.' },
+];
+---
+<section class="astro-bc-faq">
+  <div class="astro-bc-faq__inner">
+    <h2>H&auml;ufige Fragen zur Beichte</h2>
+    <div class="astro-bc-faq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-bc-faq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bc-faq{background:#fff;padding:64px 0}
+.astro-bc-faq__inner{max-width:760px;margin:0 auto;padding:0 48px}
+.astro-bc-faq h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 40px}
+.astro-bc-faq details{border-bottom:1px solid #e0d8cf;overflow:hidden}
+.astro-bc-faq summary{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;list-style:none;font-weight:600;color:#1e1512;font-size:1rem;gap:16px}
+.astro-bc-faq summary::-webkit-details-marker{display:none}
+.astro-bc-faq summary::after{content:"+";font-size:1.4rem;color:#9a2d2d;flex-shrink:0;transition:transform .2s;font-weight:700;line-height:1}
+.astro-bc-faq details[open] summary::after{transform:rotate(45deg)}
+.astro-bc-faq__a{padding:0 0 18px;color:#5a4a3a;font-size:.95rem;line-height:1.7}
+@media(max-width:600px){.astro-bc-faq{padding:56px 0}.astro-bc-faq__inner{padding:0 20px}}
+</style>

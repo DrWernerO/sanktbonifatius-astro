@@ -1,0 +1,38 @@
+---
+// Band „Weitere Sakramente der Pfarrei" (WP-Block `bc-related`). Eigene Klassen `astro-bc-related`.
+// Inhalt 1:1 aus WP-Seite 47511. Interne Links auf die übrigen Sakrament-/Kasualien-Seiten
+// (Pfade gemäß Redirect-Map, Handbuch 06 § Ziele).
+const CARDS = [
+  { title: 'Taufe', text: 'Aufnahme in die Gemeinschaft der Kirche', href: '/segen-sakramente/taufe/' },
+  { title: 'Kirchliche Trauung', text: 'Sakrament der Ehe vor Gott und der Gemeinde', href: '/segen-sakramente/trauung/' },
+  { title: 'Krankensalbung', text: 'St&auml;rkung in Krankheit und schwieriger Lage', href: '/segen-sakramente/krankensalbung/' },
+  { title: 'Trauerfall', text: 'Seelsorge und christliche Begr&auml;bnisfeier', href: '/kontakt/trauerfall/' },
+];
+---
+<section class="astro-bc-related">
+  <h2>Weitere Sakramente der Pfarrei</h2>
+  <p class="astro-bc-related__intro">
+    Die Pfarrei Sankt Bonifatius begleitet Menschen in allen Lebensphasen &#8212; von der Taufe
+    bis zur Krankensalbung.
+  </p>
+  <div class="astro-bc-related__grid">
+    {CARDS.map((c) => (
+      <a class="astro-bc-rel-card" href={c.href}>
+        <p class="astro-bc-rel-card__title">{c.title}</p>
+        <p class="astro-bc-rel-card__text" set:html={c.text} />
+      </a>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-bc-related{background:#ede4d5;padding:70px 0}
+.astro-bc-related h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,2.5vw,28px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 10px}
+.astro-bc-related__intro{text-align:center;color:#5a4a3a;font-size:.95rem;margin:0 auto 32px;max-width:640px;padding:0 24px;line-height:1.7}
+.astro-bc-related__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;max-width:900px;margin:0 auto;padding:0 48px}
+.astro-bc-rel-card{background:#fff;border-radius:14px;padding:20px 24px;text-decoration:none;border:1px solid #e7ddd0;display:block;box-shadow:0 4px 16px rgba(30,21,18,.05);transition:transform .2s ease,box-shadow .2s ease}
+.astro-bc-rel-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(30,21,18,.12)}
+.astro-bc-rel-card__title{font-family:'Playfair Display',Georgia,serif;font-size:.98rem;color:#1e1512;font-weight:700;margin:0 0 5px}
+.astro-bc-rel-card__text{color:#5f5048;font-size:.88rem;line-height:1.55;margin:0}
+@media(max-width:760px){.astro-bc-related__grid{padding:0 20px}}
+</style>

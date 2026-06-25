@@ -1,0 +1,34 @@
+---
+// Quick-Strip der Seite „Beichte" (WP-Block `bc-strip`). Eigene Klassen `astro-bc-strip`.
+// Drei Kernaussagen 1:1 aus WP-Seite 47511.
+const ITEMS = [
+  { label: 'Termin nach Absprache',
+    text: 'Keine festen Beichtzeiten &#8212; individuell mit einem Priester vereinbaren.' },
+  { label: 'Absolutes Beichtgeheimnis',
+    text: 'Was Sie sagen, bleibt zwischen Ihnen, dem Priester und Gott &#8212; ausnahmslos.' },
+  { label: 'Erstes Mal? Kein Problem',
+    text: 'Wir begleiten Sie &#8212; ganz ohne Vorkenntnisse oder besondere Vorbereitung.' },
+];
+---
+<section class="astro-bc-strip">
+  <div class="astro-bc-strip__inner">
+    {ITEMS.map((it) => (
+      <div class="astro-bc-strip__item">
+        <div class="astro-bc-strip__body">
+          <p class="astro-bc-strip__label">{it.label}</p>
+          <p class="astro-bc-strip__text" set:html={it.text} />
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-bc-strip{background:#fff;padding:60px 0 64px}
+.astro-bc-strip__inner{max-width:1140px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.astro-bc-strip__item{padding:24px;background:#fff;border-radius:14px;border:1px solid #e7ddd0;box-shadow:0 10px 30px rgba(30,21,18,.10);transition:transform .25s ease,box-shadow .25s ease}
+.astro-bc-strip__item:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(30,21,18,.16)}
+.astro-bc-strip__label{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.02rem;color:#1e1512;margin:0 0 6px}
+.astro-bc-strip__text{font-size:.92rem;color:#5f5048;margin:0;line-height:1.55}
+@media(max-width:720px){.astro-bc-strip__inner{grid-template-columns:1fr;padding:0 20px}}
+</style>

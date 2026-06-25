@@ -1,0 +1,43 @@
+---
+// Band „Die zwei Erstkommunion-Kurse" (WP-Block `ek-kurse`). Klassen `astro-ek-kurse`.
+// Zwei Kurse 1:1 aus WP-Seite 47424.
+const KURSE = [
+  { name: 'Kurs St. Bonifatius', orte: 'Kirchorte: St. Bonifatius &amp; St. Aposteln',
+    text: 'Der Kurs St. Bonifatius bereitet Kinder aus den Kirchorten St. Bonifatius und St. Aposteln vor. Die Katechese-Stunden finden in Sachsenhausen statt.' },
+  { name: 'Kurs St. Wendel', orte: 'Kirchorte: Herz Jesu &amp; St. Wendel',
+    text: 'Der Kurs St. Wendel bereitet Kinder aus den Kirchorten Herz Jesu und St. Wendel vor. Die Gruppen treffen sich ebenfalls regelm&auml;&szlig;ig in Sachsenhausen.' },
+];
+---
+<section class="astro-ek-kurse">
+  <div class="astro-ek-kurse__inner">
+    <p class="astro-ek-kurse__eyebrow">Je nach Kirchort in den passenden Kurs</p>
+    <h2>Die zwei Erstkommunion-Kurse</h2>
+    <div class="astro-ek-kurse__grid">
+      {KURSE.map((k) => (
+        <div class="astro-ek-kurse__card">
+          <h3>{k.name}</h3>
+          <p class="astro-ek-kurse__orte" set:html={k.orte} />
+          <p class="astro-ek-kurse__text" set:html={k.text} />
+        </div>
+      ))}
+    </div>
+    <p class="astro-ek-kurse__note">
+      Sie sind unsicher, welcher Kurs zu Ihnen passt? Das Zentrale Pfarrb&uuml;ro hilft Ihnen
+      gerne weiter.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-ek-kurse{background:#fff;padding:72px 0}
+.astro-ek-kurse__inner{max-width:960px;margin:0 auto;padding:0 48px;text-align:center}
+.astro-ek-kurse__eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px}
+.astro-ek-kurse h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,36px);color:#1e1512;font-weight:700;margin:0 0 40px}
+.astro-ek-kurse__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;text-align:left}
+.astro-ek-kurse__card{background:#faf6f0;border-radius:14px;padding:30px 28px;border:1px solid #e7ddd0;box-shadow:0 6px 22px rgba(30,21,18,.05)}
+.astro-ek-kurse__card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;color:#1e1512;font-weight:700;margin:0 0 6px}
+.astro-ek-kurse__orte{font-size:.85rem;color:#9a2d2d;font-weight:600;margin:0 0 12px;letter-spacing:.01em}
+.astro-ek-kurse__text{color:#5f5048;font-size:.95rem;line-height:1.65;margin:0}
+.astro-ek-kurse__note{color:#6b5c52;font-size:.95rem;line-height:1.7;margin:28px auto 0;max-width:600px}
+@media(max-width:720px){.astro-ek-kurse__grid{grid-template-columns:1fr}.astro-ek-kurse__inner{padding:0 20px}.astro-ek-kurse{padding:56px 0}}
+</style>

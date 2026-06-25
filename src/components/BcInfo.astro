@@ -1,0 +1,36 @@
+---
+// Info-Band „Das Sakrament der Versöhnung" (WP-Block `bc-info`). Eigene Klassen `astro-bc-info`.
+// Bibelzitat + erklärender Text 1:1 aus WP-Seite 47511.
+---
+<section class="astro-bc-info">
+  <div class="astro-bc-info__inner">
+    <h2>Das Sakrament der Vers&ouml;hnung</h2>
+    <p class="astro-bc-info__quote">
+      &#8222;Gott war es, der in Christus die Welt mit sich vers&ouml;hnt hat.&#8220;
+      <span class="astro-bc-info__ref">2 Kor 5,19</span>
+    </p>
+    <p>
+      Manchmal lastet etwas auf uns: eine falsche Entscheidung, ein Streit, ein Unrecht
+      gegen&uuml;ber anderen. Im Sakrament der Vers&ouml;hnung gew&auml;hrt Gott dem Menschen
+      die umfassende Vergebung aller Schuld. Der Gl&auml;ubige spricht aus, was ihn belastet
+      &#8212; so kurz oder so ausf&uuml;hrlich, wie er es braucht.
+    </p>
+    <p>
+      Wenn der Priester ihm die Lossprechungsformel zuspricht, schenkt Gott den Geist der
+      Vers&ouml;hnung. Dieser Geist macht das Herz frei und hilft dem Gl&auml;ubigen, sich mit
+      sich selbst und mit seinen Mitmenschen zu vers&ouml;hnen, und erm&ouml;glicht so einen
+      neuen Anfang. Entscheidend ist nicht das Bekenntnis &#8212; sondern was Gott zusagt: seine
+      bedingungslose Liebe. Ein einzigartiges Geschenk.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-bc-info{background:#ede4d5;padding:78px 0;text-align:center}
+.astro-bc-info__inner{max-width:760px;margin:0 auto;padding:0 48px}
+.astro-bc-info h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,36px);color:#1e1512;font-weight:700;margin:0 0 18px}
+.astro-bc-info__quote{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(1.15rem,2.1vw,1.45rem);color:#3a2e28;max-width:900px;margin:0 auto 34px;line-height:1.5}
+.astro-bc-info__ref{font-size:.8rem;color:#9a2d2d;font-weight:600;display:inline-block;margin-left:14px;vertical-align:baseline;font-style:normal;letter-spacing:.02em}
+.astro-bc-info p:not(.astro-bc-info__quote){color:#5a4a3a;font-size:1rem;line-height:1.8;max-width:680px;margin:0 auto 18px;text-align:left}
+@media(max-width:600px){.astro-bc-info{padding:56px 0}.astro-bc-info__inner{padding:0 20px}}
+</style>

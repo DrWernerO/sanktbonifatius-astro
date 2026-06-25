@@ -1,0 +1,34 @@
+---
+// Seite „Beichte" — WP-Seite 47511 (/segen-sakramente/beichte/), vollständig aus eigenen
+// astro-Komponenten (kein set:html mit WP-Markup, vgl. Handbuch 14). Nav + Footer kommen global
+// aus Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden. SEO live aus WP (SEOPress).
+//
+// Liegt in src/pages/segen-sakramente/ neben taufe.astro. Relative Import-Pfade ../../ wegen
+// Unterordner. Prefix `astro-bc-` (WP-Klassen `bc-…` tabu, Regel 3).
+import Base from '../../layouts/Base.astro';
+import BcHero from '../../components/BcHero.astro';
+import BcStrip from '../../components/BcStrip.astro';
+import BcInfo from '../../components/BcInfo.astro';
+import BcProcess from '../../components/BcProcess.astro';
+import BcContact from '../../components/BcContact.astro';
+import BcPrep from '../../components/BcPrep.astro';
+import BcChildren from '../../components/BcChildren.astro';
+import BcFaq from '../../components/BcFaq.astro';
+import BcRelated from '../../components/BcRelated.astro';
+import BcCta from '../../components/BcCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/segen-sakramente/beichte/');
+---
+<Base seo={seo} title="Beichte in Frankfurt – Sakrament der Versöhnung | St. Bonifatius">
+  <BcHero />
+  <BcStrip />
+  <BcInfo />
+  <BcProcess />
+  <BcContact />
+  <BcPrep />
+  <BcChildren />
+  <BcFaq />
+  <BcRelated />
+  <BcCta />
+</Base>

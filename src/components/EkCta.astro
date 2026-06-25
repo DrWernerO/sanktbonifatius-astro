@@ -1,0 +1,39 @@
+---
+// Abschluss-CTA „Jetzt Kontakt aufnehmen" (WP-Block `ek-cta`). Eigene Klassen `astro-ek-cta`.
+// Inhalt 1:1 aus WP-Seite 47424. Links zum Pfarrbüro + E-Mail.
+---
+<section class="astro-ek-cta">
+  <div class="astro-ek-cta__inner">
+    <p class="astro-ek-cta__eyebrow">Wir freuen uns auf Sie</p>
+    <h2>Jetzt Kontakt aufnehmen</h2>
+    <p class="astro-ek-cta__sub">
+      Sie haben Fragen zur Erstkommunionvorbereitung oder m&ouml;chten Ihr Kind anmelden? Das
+      Zentrale Pfarrb&uuml;ro steht Ihnen gerne zur Verf&uuml;gung.
+    </p>
+    <div class="astro-ek-cta__btns">
+      <a class="astro-ek-cta__btn" href="/kontakt/pfarrbuero/">Zum Pfarrb&uuml;ro &#8594;</a>
+      <a class="astro-ek-cta__btn astro-ek-cta__btn--ghost" href="mailto:pfarrbuero@sanktbonifatius.de">Per E-Mail schreiben</a>
+    </div>
+    <p class="astro-ek-cta__note">
+      Weitere <a href="/gottesdienst-glaube/">Gottesdienste &amp; Kasualien</a>, <a href="/segen-sakramente/trauung/">Trauung</a>
+      und weitere Sakramente in unserer Pfarrei finden Sie auf unserer Website.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-ek-cta{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#4a2e1a,#3a2315);color:#fff;padding:72px 0;overflow:hidden}
+.astro-ek-cta::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 10%,rgba(255,255,255,.08),transparent 55%)}
+.astro-ek-cta__inner{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-ek-cta__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#c8a96e;margin:0 0 16px}
+.astro-ek-cta h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.8vw,42px);color:#fff;margin:0 0 16px;font-weight:700}
+.astro-ek-cta__sub{font-size:clamp(15px,1.8vw,19px);color:rgba(255,255,255,.82);line-height:1.65;margin:0 0 32px}
+.astro-ek-cta__btns{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;margin-bottom:24px}
+.astro-ek-cta__btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;background:#fff;color:#9a2d2d;transition:background .2s,color .2s}
+.astro-ek-cta__btn:hover{background:#f3e7d4;color:#7e2424}
+.astro-ek-cta__btn--ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+.astro-ek-cta__btn--ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+.astro-ek-cta__note{font-size:14px;color:rgba(255,255,255,.7);margin:0;line-height:1.6}
+.astro-ek-cta__note a{color:#e8d5a0;text-decoration:underline}
+@media(max-width:600px){.astro-ek-cta{padding:56px 0}.astro-ek-cta__inner{padding:0 20px}}
+</style>

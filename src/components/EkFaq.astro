@@ -1,0 +1,48 @@
+---
+// „Häufige Fragen zur Erstkommunion" (WP-Block `ek-faq`). Eigene Klassen `astro-ek-faq`.
+// Natives <details> (kein JS, Muster wie KwFaq/BcFaq). Inhalt 1:1 aus dem Seitentext der WP-Seite 47424.
+const FAQ = [
+  { q: 'Wann findet die n&auml;chste Erstkommunion statt?',
+    a: 'Der Erstkommunionkurs 2026 l&auml;uft bereits. Die Termine der Erstkommunionfeiern 2027 werden im August 2026 bekanntgegeben. Bei Interesse melden Sie sich ab August 2026 im Zentralen Pfarrb&uuml;ro.' },
+  { q: 'Muss mein Kind f&uuml;r die Erstkommunion getauft sein?',
+    a: 'Ja, die Taufe ist Voraussetzung f&uuml;r den Empfang der Erstkommunion. Falls Ihr Kind noch nicht getauft ist, sprechen Sie uns gerne an. Die Taufe kann auch w&auml;hrend des Erstkommunionkurses stattfinden. <a href="/segen-sakramente/taufe/">Mehr Informationen zur Taufe &#8594;</a>' },
+  { q: 'In welchem Alter empfangen Kinder die Erstkommunion in St. Bonifatius Frankfurt?',
+    a: 'In der Pfarrei St. Bonifatius Frankfurt empfangen in der Regel Kinder im 3. Schuljahr (8&#8211;9 Jahre) zum ersten Mal die Heilige Kommunion. Auf Wunsch ist die Erstkommunion auch sp&auml;ter m&ouml;glich &#8212; sprechen Sie uns an.' },
+  { q: 'Wie lange dauert die Erstkommunionvorbereitung?',
+    a: 'Die Vorbereitung dauert mehrere Monate und beginnt im Herbst. Sie umfasst Katechese-Stunden, Gottesdienste sowie Familienabende in zwei Kursen (Kurs St. Bonifatius und Kurs St. Wendel).' },
+  { q: 'Was passiert, wenn wir kein Einladungsschreiben erhalten haben?',
+    a: 'Kein Problem! Melden Sie sich einfach im Zentralen Pfarrb&uuml;ro von St. Bonifatius Frankfurt. Wir pr&uuml;fen die M&ouml;glichkeit der Teilnahme unkompliziert und pers&ouml;nlich &#8212; jedes Kind ist willkommen.' },
+  { q: 'K&ouml;nnen wir die Erstkommunion bei Ihnen feiern, wenn wir in einer anderen Pfarrei wohnen?',
+    a: 'Grunds&auml;tzlich bereitet jede Pfarrei ihre eigenen Kinder vor. Wenn Sie jedoch in unserer Pfarrei Ihre Erstkommunion feiern m&ouml;chten, sprechen Sie uns an &#8212; wir finden gemeinsam eine L&ouml;sung.' },
+];
+---
+<section class="astro-ek-faq">
+  <div class="astro-ek-faq__inner">
+    <p class="astro-ek-faq__eyebrow">Antworten auf die wichtigsten Fragen rund um die Erstkommunionvorbereitung in Frankfurt</p>
+    <h2>H&auml;ufige Fragen zur Erstkommunion</h2>
+    <div class="astro-ek-faq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-ek-faq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ek-faq{background:#fff;padding:72px 0}
+.astro-ek-faq__inner{max-width:840px;margin:0 auto;padding:0 48px;text-align:center}
+.astro-ek-faq__eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px}
+.astro-ek-faq h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.4vw,38px);color:#1e1512;font-weight:700;margin:0 0 36px}
+.astro-ek-faq__list{text-align:left}
+.astro-ek-faq details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-ek-faq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:17px;color:#1e1512}
+.astro-ek-faq summary::-webkit-details-marker{display:none}
+.astro-ek-faq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-ek-faq details[open] summary::after{transform:rotate(45deg)}
+.astro-ek-faq__a{padding:0 24px 20px;font-size:15px;color:#3a2e28;line-height:1.75}
+.astro-ek-faq__a a{color:#9a2d2d;font-weight:600}
+@media(max-width:600px){.astro-ek-faq{padding:56px 0}.astro-ek-faq__inner{padding:0 20px}}
+</style>

@@ -1,0 +1,28 @@
+---
+// Hero der Seite „Beichte" — WP-Seite 47511 (/segen-sakramente/beichte/, WP-Block `bc-hero`).
+// Eigene Klassen `astro-bc-hero` (goldene Regel, Handbuch Abschnitt 3 — niemals WP-Klassen `bc-…`).
+// Foto liegt live in der Mediathek (HTTP 200), daher Bild + dunkler Gradient (apos-Muster, Handbuch § 4).
+// Einzige sichtbare <h1> der Seite.
+---
+<section class="astro-bc-hero">
+  <div class="astro-bc-hero__inner">
+    <span class="astro-bc-hero__eyebrow">Sakrament der Vers&ouml;hnung</span>
+    <h1 class="astro-bc-hero__title">Beichte in Frankfurt</h1>
+    <p class="astro-bc-hero__sub">
+      Ein gesch&uuml;tzter Raum f&uuml;r ehrliche Aussprache, Gottes Vergebung und einen
+      Neuanfang &#8212; pers&ouml;nlich, vertraulich, ohne Vorbedingung.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-bc-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:520px;display:flex;align-items:flex-end;overflow:hidden}
+@media(min-width:768px){.astro-bc-hero{min-height:600px}}
+.astro-bc-hero::before{content:"";position:absolute;inset:0;background-image:url('https://www.sanktbonifatius.de/wp-content/uploads/2023/07/sakramente-beichte-stbonifatius.jpg');background-size:cover;background-position:center 40%;z-index:0}
+.astro-bc-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,10,2,.15) 0%,rgba(20,10,2,.5) 55%,rgba(20,10,2,.88) 100%);z-index:1}
+.astro-bc-hero__inner{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:48px 48px 60px;color:#fff}
+.astro-bc-hero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.95rem;color:#c8a96e;letter-spacing:.06em;display:block;margin-bottom:12px}
+.astro-bc-hero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,5vw,66px);font-weight:700;color:#fff;margin:0 0 16px;line-height:1.1}
+.astro-bc-hero__sub{font-size:clamp(16px,2vw,21px);color:rgba(255,255,255,.85);max-width:560px;line-height:1.65;margin:0}
+@media(max-width:600px){.astro-bc-hero{min-height:440px}.astro-bc-hero__inner{padding:0 20px 40px}}
+</style>

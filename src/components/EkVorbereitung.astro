@@ -1,0 +1,42 @@
+---
+// Band „So läuft die Vorbereitung ab" (WP-Block `ek-vorbereitung`). Klassen `astro-ek-vorb`.
+// Vier Bausteine der Vorbereitung 1:1 aus WP-Seite 47424. Anker #vorbereitung (Hero-Button).
+const BAUSTEINE = [
+  { title: 'Katechese-Stunden',
+    text: 'In kleinen Gruppen lernen die Kinder Jesu Botschaft und die Bedeutung der Eucharistie kennen. Spielerisch, altersgerecht und mit viel Raum f&uuml;r Fragen.' },
+  { title: 'Gottesdienstteilnahme',
+    text: 'Die Kinder nehmen gemeinsam an Gottesdiensten teil und wachsen so in die Pfarreifamilie hinein. Dabei erleben sie die Eucharistie als Mitte des christlichen Lebens.' },
+  { title: 'Familienabende &amp; Familientage',
+    text: 'Eltern und Kinder kommen gemeinsam zusammen &#8212; der Glaube lebt in der Familie. Diese Abende st&auml;rken das Miteinander und vertiefen die Vorbereitung.' },
+  { title: 'Proben &amp; Vorbereitungsgottesdienste',
+    text: 'Kurz vor der Erstkommunion &uuml;ben die Kinder gemeinsam den Ablauf der Feier &#8212; damit der gro&szlig;e Tag f&uuml;r alle unvergesslich und w&uuml;rdevoll wird.' },
+];
+---
+<section class="astro-ek-vorb" id="vorbereitung">
+  <div class="astro-ek-vorb__inner">
+    <p class="astro-ek-vorb__eyebrow">Eine gemeinsame Reise f&uuml;r Kinder und Familien</p>
+    <h2>So l&auml;uft die Vorbereitung ab</h2>
+    <div class="astro-ek-vorb__grid">
+      {BAUSTEINE.map((b, i) => (
+        <div class="astro-ek-vorb__card">
+          <div class="astro-ek-vorb__num">{i + 1}</div>
+          <h3 set:html={b.title} />
+          <p set:html={b.text} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ek-vorb{background:#ede4d5;padding:72px 0}
+.astro-ek-vorb__inner{max-width:1080px;margin:0 auto;padding:0 48px;text-align:center}
+.astro-ek-vorb__eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 12px}
+.astro-ek-vorb h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,36px);color:#1e1512;font-weight:700;margin:0 0 40px}
+.astro-ek-vorb__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;text-align:left}
+.astro-ek-vorb__card{background:#fff;border-radius:14px;padding:28px 26px;border:1px solid #e7ddd0;box-shadow:0 6px 22px rgba(30,21,18,.05)}
+.astro-ek-vorb__num{width:40px;height:40px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.05rem;display:flex;align-items:center;justify-content:center;margin:0 0 16px}
+.astro-ek-vorb__card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;color:#1e1512;font-weight:700;margin:0 0 8px}
+.astro-ek-vorb__card p{color:#5f5048;font-size:.94rem;line-height:1.65;margin:0}
+@media(max-width:720px){.astro-ek-vorb__grid{grid-template-columns:1fr}.astro-ek-vorb__inner{padding:0 20px}.astro-ek-vorb{padding:56px 0}}
+</style>

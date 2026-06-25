@@ -1,0 +1,40 @@
+---
+// Band „Wie bereite ich mich vor?" (WP-Block `bc-prep`). Eigene Klassen `astro-bc-prep`.
+// Impuls-Liste 1:1 aus WP-Seite 47511.
+const IMPULSE = [
+  'Was liegt mir auf dem Herzen? Wof&uuml;r w&uuml;nsche ich mir Gottes Vergebung?',
+  'Welche Entscheidungen oder Taten bereue ich?',
+  'Mit wem oder mit was bin ich zurzeit unvers&ouml;hnt?',
+  'Wo habe ich anderen oder mir selbst geschadet?',
+  'Was m&ouml;chte ich ver&auml;ndern?',
+];
+---
+<section class="astro-bc-prep">
+  <h2>Wie bereite ich mich vor?</h2>
+  <div class="astro-bc-prep__card">
+    <p class="astro-bc-prep__intro">
+      Es gibt keine Pflichtform f&uuml;r das Gespr&auml;ch &#8212; erz&auml;hlen Sie einfach, was
+      Sie besch&auml;ftigt. Impulse, die helfen k&ouml;nnen:
+    </p>
+    <ul class="astro-bc-prep__list">
+      {IMPULSE.map((i) => <li set:html={i} />)}
+    </ul>
+    <p class="astro-bc-prep__note">
+      Wenn Sie unsicher sind oder zum ersten Mal kommen: Sprechen Sie uns einfach vorher an.
+      Wir helfen Ihnen gerne und begleiten Sie durch das Gespr&auml;ch.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-bc-prep{background:#fff;padding:64px 0}
+.astro-bc-prep h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 32px}
+.astro-bc-prep__card{max-width:700px;margin:0 auto;background:#faf7f3;border:1px solid #e2d8cc;border-radius:16px;padding:36px 40px 32px}
+.astro-bc-prep__intro{color:#3a2e28;font-size:.97rem;line-height:1.65;margin:0 0 20px}
+.astro-bc-prep__list{list-style:none;margin:0 0 20px;padding:0}
+.astro-bc-prep__list li{padding:7px 0 7px 28px;color:#3a2e28;font-size:.97rem;line-height:1.55;position:relative;border-bottom:1px solid #ede5d8}
+.astro-bc-prep__list li:last-child{border-bottom:none}
+.astro-bc-prep__list li::before{content:"\203A";position:absolute;left:4px;color:#9a2d2d;font-size:1.2rem;font-weight:700;top:7px}
+.astro-bc-prep__note{margin:0;padding-top:16px;border-top:1px solid #e2d8cc;color:#6b5c52;font-size:.88rem;line-height:1.6;font-style:italic}
+@media(max-width:600px){.astro-bc-prep{padding:56px 0}.astro-bc-prep__card{padding:28px 24px}}
+</style>
