@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 41 bereits in Astro übernommen bzw. per Direktlink erledigt · 39 offen.** Stand: 25.06.2026.
+> **80 Live-Seiten erfasst · 43 bereits in Astro übernommen bzw. per Direktlink erledigt · 37 offen.** Stand: 25.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -45,8 +45,8 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
 | Segen und Sakramente | [Link](https://www.sanktbonifatius.de/segen-sakramente/) | `src/pages/segen-sakramente/index.astro` | Werner | ✅ erledigt | Page-ID 48265, Übersichtsseite |
-| Beichte | [Link](https://www.sanktbonifatius.de/segen-sakramente/beichte/) | — | — | offen |  |
-| Erstkommunion | [Link](https://www.sanktbonifatius.de/segen-sakramente/erstkommunion/) | — | — | offen |  |
+| Beichte | [Link](https://www.sanktbonifatius.de/segen-sakramente/beichte/) | `src/pages/segen-sakramente/beichte.astro` | Werner | ✅ erledigt | Page-ID 47511, eigene Bc*-Komponenten (Präfix `astro-bc`); Foto-Hero, Quick-Strip, Info mit Bibelzitat (2 Kor 5,19), 3-Schritte-Ablauf, Priester-Kontakte + Kapuziner-Tipp, Vorbereitungs-Impulse, Kinder-Block (Link → Erstkommunion), 6 FAQ, weitere Sakramente, CTA |
+| Erstkommunion | [Link](https://www.sanktbonifatius.de/segen-sakramente/erstkommunion/) | `src/pages/segen-sakramente/erstkommunion.astro` | Werner | ✅ erledigt | Page-ID 47424, eigene Ek*-Komponenten (Präfix `astro-ek`); Verlauf-Hero mit Anker-Buttons, Intro mit Bibelzitat (Joh 6,51), 4 Vorbereitungs-Bausteine, 2 Kurse (St. Bonifatius / St. Wendel), 3 Anmeldeschritte + Status-Box (Kurs 2026 / Anmeldung 2027), 6 FAQ, CTA |
 | Firmung | [Link](https://www.sanktbonifatius.de/segen-sakramente/firmung/) | — | — | offen |  |
 | Krankensalbung | [Link](https://www.sanktbonifatius.de/segen-sakramente/krankensalbung/) | — | — | offen |  |
 | Taufe | [Link](https://www.sanktbonifatius.de/segen-sakramente/taufe/) | `src/pages/segen-sakramente/taufe.astro` | Werner | ✅ erledigt | Page-ID 46566; Anmeldeformular postet an eigene Route `/api/taufe-anmeldung` → erzeugt ausgefülltes amtliches PDF + Mailversand ans Pfarrbüro (Handbuch 13b). Offen erst beim Netlify-Go-Live: SMTP-Daten + Adapter |
@@ -92,7 +92,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Gottesdienst & Glaube | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/) | `src/pages/gottesdienst-glaube.astro` | Werner | ✅ erledigt | Page-ID 45667 |
 | Gottesdienste, die berühren | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/gottesdienste-die-beruehren/) | `src/pages/gottesdienst-glaube/gottesdienste-die-beruehren.astro` | Werner | ✅ erledigt | Page-ID 47578, eigene Gdb*-Komponenten (Präfix `astro-gdb`); Foto-Hero, Intro, 3 Format-Karten (Fiat Lux/Taizé/BonEsprit mit Terminen), CTA, „Wo wir feiern" (Maps-Link) |
 | Gottesdienstordnung | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/gottesdienstordnung/) | `src/pages/gottesdienst-glaube/gottesdienstordnung.astro` | Werner | ✅ erledigt |  |
-| Taufanmeldung | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/taufanmeldung/) | `src/pages/gottesdienst-glaube/taufanmeldung.astro` | Werner | ✅ erledigt | Page-ID 48011, eigene Tan*-Komponenten (Präfix `astro-tan`): Verlauf-Hero + Hinweise (Patenamt/Trauung/Vollständigkeit) + CTA. Anmeldeformular = wiederverwendete `TaufeForm` (gleicher PDF-/Mail-Vertrag wie Taufe-Seite, Handbuch 13b), auf dieser Seite per Script aufgeklappt |
+| Taufanmeldung | [Link](https://www.sanktbonifatius.de/gottesdienst-glaube/taufanmeldung/) | — (keine eigene Seite) | Werner | ✅ erledigt | Page-ID 48011. Bewusst **keine eigene Astro-Seite** — das Anmeldeformular liegt bereits auf der Taufe-Seite (`/segen-sakramente/taufe/#anmeldung`). Eine separate Seite wäre Doppel-Inhalt (Keyword-Kannibalisierung) und wurde am 25.06.2026 wieder entfernt |
 
 ## 7 · BonFamily (mit Unterseiten)
 
