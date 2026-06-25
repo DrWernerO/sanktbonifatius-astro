@@ -1,11 +1,10 @@
 ---
-// Kirchortrat Herz Jesu — Intro, Vorsitz (3 Karten) und Mitglieder-Grid (15).
-// Eigene Klassen astro-hjk (goldene Regel, Handbuch Abschnitt 3).
-// Daten aus WP-Seite 49383.
+// Kirchortrat Herz Jesu — Vorsitz + Mitglieder, WP-Design-Klon (sw-karte-Muster).
+// Eigene Klassen astro-hjk. Vorsitz als sw-vorsitz-Boxen, Mitglieder als Tabelle.
 const VORSITZ = [
   { name: 'Annette Albert-Zerlik', role: 'Vorsitzende',    area: 'Öffentlichkeitsarbeit', mail: 'azerlik@web.de' },
   { name: 'Martin Walter',         role: 'Stellvertretung', area: 'Treffpunkte' },
-  { name: 'Felician Gilgenbach',   role: 'Stellvertretung', area: 'Biotop Herz Jesu' },
+  { name: 'Felician Gilgenbach',   role: 'Stellvertretung', area: 'Biotop Herz Jesu' },
 ];
 
 const MITGLIEDER = [
@@ -26,70 +25,100 @@ const MITGLIEDER = [
   { name: 'Doly Kadavil',      area: 'Pastoralteam' },
 ];
 ---
-<section class="astro-hjk" id="mitglieder">
-  <div class="astro-hjk__in">
+<section class="astro-hjk" id="kirchortrat">
+  <div class="astro-hjk__inner">
 
-    <div class="astro-hjk__intro">
-      <p class="astro-hjk__intro-text">Der Kirchortrat vertritt die Anliegen der Gemeindemitglieder, begleitet das Gemeindeleben und sorgt dafür, dass Herz&nbsp;Jesu ein lebendiger Ort des Glaubens und der Begegnung bleibt.</p>
+    <div class="astro-hjk__head">
+      <h2 id="kirchortrat-herz-jesu">Kirchortrat Herz&nbsp;Jesu</h2>
+      <p>Der Kirchortrat setzt sich aus Vertreterinnen und Vertretern aller wichtigen Bereiche des Gemeindelebens zusammen.</p>
     </div>
 
-    <h2 class="astro-hjk__h2">Kirchortrat Herz&nbsp;Jesu</h2>
-    <p class="astro-hjk__sub">Der Kirchortrat setzt sich aus Vertreterinnen und Vertretern aller wichtigen Bereiche des Gemeindelebens zusammen.</p>
+    <div class="astro-hjk__karten">
 
-    <h3 class="astro-hjk__h3">Vorsitz</h3>
-    <div class="astro-hjk__vorsitz">
-      {VORSITZ.map((p) => (
-        <div class="astro-hjk__vcard">
-          <div class="astro-hjk__vcard-initial" aria-hidden="true">{p.name.charAt(0)}</div>
-          <h4 class="astro-hjk__vcard-name">{p.name}</h4>
-          <span class="astro-hjk__vcard-role">{p.role}</span>
-          <p class="astro-hjk__vcard-area">{p.area}</p>
-          {p.mail && <a class="astro-hjk__vcard-mail" href={`mailto:${p.mail}`}>{p.mail}</a>}
-        </div>
-      ))}
-    </div>
-
-    <h3 class="astro-hjk__h3">Weitere Mitglieder</h3>
-    <p class="astro-hjk__sub">15&nbsp;Personen &middot; alle Bereiche</p>
-    <div class="astro-hjk__mgrid">
-      {MITGLIEDER.map((m) => (
-        <div class="astro-hjk__mcard">
-          <div class="astro-hjk__mcard-initial" aria-hidden="true">{m.name.charAt(0)}</div>
-          <div class="astro-hjk__mcard-info">
-            <span class="astro-hjk__mcard-name">{m.name}</span>
-            <span class="astro-hjk__mcard-area">{m.area}</span>
+      <!-- Karte Vorsitz -->
+      <div class="astro-hjk__karte">
+        <div class="astro-hjk__kopf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+          <div>
+            <div class="astro-hjk__kartitel">Vorsitz</div>
+            <div class="astro-hjk__karsub">3 Personen</div>
           </div>
         </div>
-      ))}
-    </div>
+        <div class="astro-hjk__body">
+          {VORSITZ.map((p) => (
+            <div class="astro-hjk__vbox">
+              <div class="astro-hjk__vlabel">{p.role}</div>
+              <div class="astro-hjk__vname">
+                {p.name}<br/>
+                <span class="astro-hjk__vrolle">{p.area}</span>
+                {p.mail && <Fragment><br/><a href={`mailto:${p.mail}`}>{p.mail}</a></Fragment>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <!-- Karte Weitere Mitglieder -->
+      <div class="astro-hjk__karte">
+        <div class="astro-hjk__kopf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <div>
+            <div class="astro-hjk__kartitel">Weitere Mitglieder</div>
+            <div class="astro-hjk__karsub">15 Personen &middot; alle Bereiche</div>
+          </div>
+        </div>
+        <div class="astro-hjk__body">
+          <table class="astro-hjk__tabelle">
+            {MITGLIEDER.map((m) => (
+              <tr>
+                <td class="astro-hjk__tabname">{m.name}</td>
+                <td>{m.area}</td>
+              </tr>
+            ))}
+          </table>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
 <style is:global>
-.astro-hjk{padding:56px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
-.astro-hjk__in{max-width:1280px;margin:0 auto;padding:0 32px}
-.astro-hjk__intro{background:#fff;border-radius:12px;padding:32px 40px;margin-bottom:48px;border-left:4px solid #9a2d2d}
-.astro-hjk__intro-text{color:#6b5c52;font-size:17px;line-height:1.65;margin:0}
-.astro-hjk__h2{font-family:'Playfair Display',Georgia,serif;font-size:36px;color:#2c2420;margin:0 0 8px;line-height:1.15}
-.astro-hjk__sub{color:#928269;font-size:15px;margin:0 0 28px}
-.astro-hjk__h3{font-family:'Playfair Display',Georgia,serif;font-size:22px;color:#9a2d2d;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid #e8e0d5}
-/* Vorsitz */
-.astro-hjk__vorsitz{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:16px}
-.astro-hjk__vcard{background:#fff;border-radius:12px;padding:28px 24px;box-shadow:0 2px 12px rgba(30,21,18,.08);display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
-.astro-hjk__vcard-initial{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#9a2d2d,#7e2424);color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:4px;flex-shrink:0}
-.astro-hjk__vcard-name{font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#2c2420;margin:0;font-weight:700;line-height:1.2}
-.astro-hjk__vcard-role{background:#9a2d2d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px}
-.astro-hjk__vcard-area{color:#6b5c52;font-size:13px;margin:0}
-.astro-hjk__vcard-mail{color:#9a2d2d;text-decoration:none;font-size:13px;transition:color .2s;word-break:break-all}
-.astro-hjk__vcard-mail:hover{color:#7e2424}
-/* Mitglieder */
-.astro-hjk__mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.astro-hjk__mcard{background:#fff;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 6px rgba(30,21,18,.07)}
-.astro-hjk__mcard-initial{width:40px;height:40px;border-radius:50%;background:#f7f3ef;color:#9a2d2d;font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid #e8e0d5}
-.astro-hjk__mcard-info{display:flex;flex-direction:column;min-width:0}
-.astro-hjk__mcard-name{font-size:14px;font-weight:600;color:#2c2420;line-height:1.3}
-.astro-hjk__mcard-area{font-size:12px;color:#928269;line-height:1.3}
-@media(max-width:860px){.astro-hjk__vorsitz{grid-template-columns:1fr}.astro-hjk__mgrid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.astro-hjk__in{padding:0 16px}.astro-hjk{padding:44px 0}.astro-hjk__mgrid{grid-template-columns:1fr}.astro-hjk__intro{padding:20px 18px}}
+.astro-hjk{background:#fff;padding:56px 24px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);box-sizing:border-box}
+.astro-hjk__inner{max-width:1200px;margin:0 auto}
+.astro-hjk__head{text-align:center;max-width:720px;margin:0 auto 32px}
+.astro-hjk__head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,4vw,40px);font-weight:700;color:#2c2420;margin:0 0 12px;line-height:1.15}
+.astro-hjk__head p{font-size:17px;color:#5a4430;margin:0}
+/* Karten-Grid */
+.astro-hjk__karten{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+/* Einzelne Karte */
+.astro-hjk__karte{background:#fff;border-radius:14px;box-shadow:0 2px 16px rgba(145,0,3,.09);overflow:hidden;display:flex;flex-direction:column}
+/* Roter Kopf */
+.astro-hjk__kopf{background:linear-gradient(135deg,#910003 0%,#6e0002 100%);padding:24px 24px 18px;display:flex;align-items:flex-start;gap:14px;min-height:100px}
+.astro-hjk__kopf svg{width:34px;height:34px;flex-shrink:0;opacity:.9;margin-top:2px}
+.astro-hjk__kartitel{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:700;color:#fff;line-height:1.25}
+.astro-hjk__karsub{font-size:.75rem;color:#f0c0c0;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+/* Karten-Body */
+.astro-hjk__body{padding:20px 24px 24px;flex:1;display:flex;flex-direction:column;gap:10px}
+/* Vorsitz-Boxen */
+.astro-hjk__vbox{background:#fdf0f0;border-radius:10px;padding:18px 20px;margin-bottom:0}
+.astro-hjk__vlabel{font-size:.72rem;font-weight:700;color:#910003;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:block}
+.astro-hjk__vname{font-size:.95rem;color:#1e1512;font-weight:600;line-height:1.5}
+.astro-hjk__vrolle{font-size:.82rem;color:#555;font-weight:400}
+.astro-hjk__vname a{color:#910003;text-decoration:none;font-size:.82rem;font-weight:400}
+.astro-hjk__vname a:hover{text-decoration:underline}
+/* Mitglieder-Tabelle */
+.astro-hjk__tabelle{width:100%;border-collapse:collapse;font-size:.88rem;color:#3d3530}
+.astro-hjk__tabelle tr{border-bottom:1px solid #f0e0e0}
+.astro-hjk__tabelle tr:last-child{border-bottom:none}
+.astro-hjk__tabelle td{padding:8px 6px;vertical-align:top;line-height:1.5}
+.astro-hjk__tabname{font-weight:600;white-space:nowrap;padding-right:16px;color:#910003;min-width:160px}
+@media(max-width:600px){.astro-hjk{padding:40px 20px}.astro-hjk__tabname{min-width:120px}}
 </style>

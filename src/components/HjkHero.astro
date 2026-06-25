@@ -1,31 +1,24 @@
 ---
-// Hero der Kirchortrat-Seite Herz Jesu (/kirchorte/herz-jesu/kirchortrat/).
-// Eigene Klassen astro-hjkhero (goldene Regel, Handbuch Abschnitt 3).
-// Bild lokal: Bonifatius_HerzJesu_s-5775 (bereits für HjCards-Karte verwendet).
-const bg = '/uploads/2024/04/Bonifatius_HerzJesu_s-5775-1024x683.jpg';
+// Kirchortrat Herz Jesu — Willkommen-Intro (KEIN Foto-Hero; entspricht WP-Seite 49383).
+// In WP startet diese Seite direkt mit einer welcome-Sektion (pt:120px für fixe Nav).
+// Eigene Klassen astro-hjkwelcome.
 ---
-<section class="astro-hjkhero">
-  <div class="astro-hjkhero__bg" role="img"
-       aria-label="Kirche Herz Jesu Frankfurt-Oberrad"
-       style={`background-image:url('${bg}')`}></div>
-  <div class="astro-hjkhero__overlay"></div>
-  <div class="astro-hjkhero__inner">
-    <a class="astro-hjkhero__back" href="/kirchorte/herz-jesu/">&#8592; Zur&uuml;ck zu Herz&nbsp;Jesu</a>
-    <span class="astro-hjkhero__badge">Kirchort Herz Jesu &middot; Frankfurt-Oberrad</span>
-    <h1 class="astro-hjkhero__title">Kirchortrat</h1>
-    <p class="astro-hjkhero__sub">Ehrenamtlich f&uuml;r die Gemeinde</p>
+<section class="astro-hjkwelcome">
+  <div class="astro-hjkwelcome__inner">
+    <div class="astro-hjkwelcome__head">
+      <p class="astro-hjkwelcome__eyebrow">Kirchort Herz Jesu &middot; Frankfurt-Oberrad</p>
+      <h2 id="ehrenamtlich-fuer-die-gemeinde">Ehrenamtlich f&uuml;r die Gemeinde</h2>
+      <p>Der Kirchortrat vertritt die Anliegen der Gemeindemitglieder, begleitet das Gemeindeleben und sorgt daf&uuml;r, dass Herz&nbsp;Jesu ein lebendiger Ort des Glaubens und der Begegnung bleibt.</p>
+    </div>
   </div>
 </section>
 
 <style is:global>
-.astro-hjkhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(58vh,480px);display:flex;align-items:flex-end;overflow:hidden}
-.astro-hjkhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 50%}
-.astro-hjkhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.1) 0%,rgba(30,21,18,.6) 55%,rgba(30,21,18,.9) 100%)}
-.astro-hjkhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;display:flex;flex-direction:column;align-items:flex-start}
-.astro-hjkhero__back{color:rgba(255,255,255,.75);font-size:13px;text-decoration:none;margin-bottom:16px;transition:color .2s}
-.astro-hjkhero__back:hover{color:#fff}
-.astro-hjkhero__badge{display:inline-flex;align-items:center;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:6px 16px;margin-bottom:20px;color:#fff;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.astro-hjkhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,5vw,68px);color:#fff;margin:0 0 14px;line-height:1.08;font-weight:700}
-.astro-hjkhero__sub{color:rgba(255,255,255,.88);font-size:clamp(15px,2vw,20px);margin:0;max-width:580px;line-height:1.45}
-@media(max-width:600px){.astro-hjkhero__inner{padding:0 16px 44px}}
+.astro-hjkwelcome{background:#fdf0f0;text-align:center;padding:120px 24px 56px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);box-sizing:border-box}
+.astro-hjkwelcome__inner{max-width:1200px;margin:0 auto}
+.astro-hjkwelcome__head{max-width:720px;margin:0 auto}
+.astro-hjkwelcome__eyebrow{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#910003;font-weight:700;margin:0 0 12px;display:block}
+.astro-hjkwelcome h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,4vw,40px);font-weight:700;color:#2c2420;margin:0 0 16px;line-height:1.15}
+.astro-hjkwelcome p{font-size:17px;color:#5a4430;max-width:720px;margin:0 auto;line-height:1.65}
+@media(max-width:600px){.astro-hjkwelcome{padding:100px 20px 40px}}
 </style>

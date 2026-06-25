@@ -1,13 +1,18 @@
 ---
-// Abschluss-CTA der Gruppen-Seite Herz Jesu. Eigene Klassen astro-hjgcta.
+// Abschluss-CTA Gruppen & Gemeinschaft Herz Jesu — roter Gradient, WP-Design-Klon.
+// Eigene Klassen astro-hjgcta.
 ---
 <section class="astro-hjgcta">
-  <div class="astro-hjgcta__in">
-    <p class="astro-hjgcta__headline">Interesse? Einfach vorbeikommen.</p>
-    <p class="astro-hjgcta__lead">Alle Gruppen freuen sich über neue Mitglieder. Ein erster Besuch ist immer unverbindlich.</p>
-    <a class="astro-hjgcta__back" href="/kirchorte/herz-jesu/">&#8592; Zur&uuml;ck zu Herz&nbsp;Jesu</a>
+  <div class="astro-hjgcta__inner">
+    <div class="astro-hjgcta__head">
+      <h2 id="interesse-einfach-vorbeikommen">Interesse? Einfach vorbeikommen.</h2>
+      <p>Alle Gruppen freuen sich über neue Mitglieder. Ein erster Besuch ist immer unverbindlich.</p>
+    </div>
+    <div class="astro-hjgcta__btns">
+      <a href="/kirchorte/herz-jesu/" class="astro-hjgcta__btn astro-hjgcta__btn--out">&larr; Zur&uuml;ck zu Herz&nbsp;Jesu</a>
+      <a href="/kontakt/pfarrbuero/" class="astro-hjgcta__btn astro-hjgcta__btn--wht">Pfarrb&uuml;ro kontaktieren</a>
+    </div>
     <div class="astro-hjgcta__address">
-      <strong>Pfarrbüro kontaktieren</strong>
       <span>Herz Jesu &middot; Mathildestra&szlig;e 30 &middot; 60599 Frankfurt</span>
       <a href="tel:+4969695975850">069 695 97 58 50</a>
       <a href="mailto:d.kadavil@sanktbonifatius.de">d.kadavil@sanktbonifatius.de</a>
@@ -16,15 +21,19 @@
 </section>
 
 <style is:global>
-.astro-hjgcta{padding:56px 0;background:#2c2420;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
-.astro-hjgcta__in{max-width:1280px;margin:0 auto;padding:0 32px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
-.astro-hjgcta__headline{font-family:'Playfair Display',Georgia,serif;font-size:28px;color:#fff;margin:0;line-height:1.2}
-.astro-hjgcta__lead{color:rgba(255,255,255,.72);font-size:16px;max-width:520px;margin:0}
-.astro-hjgcta__back{color:#c5a55a;font-size:14px;text-decoration:none;transition:color .2s;margin:4px 0}
-.astro-hjgcta__back:hover{color:#fff}
-.astro-hjgcta__address{display:flex;flex-direction:column;align-items:center;gap:4px;color:rgba(255,255,255,.5);font-size:14px;margin-top:8px}
-.astro-hjgcta__address strong{color:#fff;font-size:15px}
-.astro-hjgcta__address a{color:#c5a55a;text-decoration:none;transition:color .2s}
+.astro-hjgcta{background:linear-gradient(135deg,#910003 0%,#6e0002 100%);text-align:center;padding:56px 24px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);box-sizing:border-box}
+.astro-hjgcta__inner{max-width:1200px;margin:0 auto}
+.astro-hjgcta__head{max-width:720px;margin:0 auto 24px}
+.astro-hjgcta__head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,4vw,36px);font-weight:700;color:#fff;margin:0 0 12px;line-height:1.15}
+.astro-hjgcta__head p{font-size:16px;color:rgba(255,255,255,.8);margin:0}
+.astro-hjgcta__btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.astro-hjgcta__btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:28px;font-size:15.5px;font-weight:600;text-decoration:none;transition:all .2s;border:2px solid transparent}
+.astro-hjgcta__btn--out{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.8)}
+.astro-hjgcta__btn--out:hover{background:#fff;color:#2c2420;border-color:#fff}
+.astro-hjgcta__btn--wht{background:#fff;color:#910003;border-color:#fff}
+.astro-hjgcta__btn--wht:hover{background:rgba(255,255,255,.9)}
+.astro-hjgcta__address{font-size:14.5px;color:rgba(255,255,255,.7);display:flex;gap:24px;justify-content:center;flex-wrap:wrap;align-items:center}
+.astro-hjgcta__address a{color:#f0c0c0;text-decoration:none;font-weight:600}
 .astro-hjgcta__address a:hover{color:#fff}
-@media(max-width:600px){.astro-hjgcta__in{padding:0 16px}}
+@media(max-width:600px){.astro-hjgcta{padding:40px 20px}.astro-hjgcta__address{flex-direction:column;gap:8px}}
 </style>
