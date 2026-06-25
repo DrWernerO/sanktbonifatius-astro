@@ -1,0 +1,62 @@
+---
+// Kontakt-Band „Krankensalbung anfragen" (WP-Block `ks-contact-section`). Eigene Klassen
+// `astro-ks-contact`. Ansprechpartner + Notfall-Box 1:1 aus WP-Seite 47431.
+// id="ks-contact" als Sprungziel aus Hero-/CTA-Buttons.
+---
+<section class="astro-ks-contact" id="ks-contact">
+  <div class="astro-ks-contact__inner">
+    <h2>Krankensalbung anfragen</h2>
+    <div class="astro-ks-contact__grid">
+      <div class="astro-ks-card">
+        <h3>P. Gaby Geagea c.m.l</h3>
+        <p class="astro-ks-card__info">
+          <a href="mailto:g.geagea@sanktbonifatius.de">g.geagea@sanktbonifatius.de</a><br />
+          <a href="tel:+491737426539">0173 742 65 39</a>
+        </p>
+        <p class="astro-ks-card__note">
+          Wir kommen zu Ihnen &#8211; nach Hause, ins Krankenhaus oder ins Pflegeheim in Frankfurt.
+        </p>
+      </div>
+      <div class="astro-ks-card">
+        <h3>Zentrales Pfarrb&uuml;ro</h3>
+        <p class="astro-ks-card__sub">Pfarrei St. Bonifatius Frankfurt</p>
+        <p class="astro-ks-card__info">
+          <a href="tel:+496969597585">069 695 975 850</a><br />
+          <a href="mailto:info@sanktbonifatius.de">info@sanktbonifatius.de</a>
+        </p>
+        <p class="astro-ks-card__note"><a href="/kontakt/">Kontakt aufnehmen &#8594;</a></p>
+      </div>
+    </div>
+    <div class="astro-ks-emergency">
+      <p class="astro-ks-emergency__title">In dringenden F&auml;llen &#8211; sofort anrufen:</p>
+      <p class="astro-ks-emergency__nums">
+        P. Gaby Geagea: <a href="tel:+491737426539">0173 742 65 39</a>
+        <span class="astro-ks-emergency__sep">|</span>
+        Zentrales Pfarrb&uuml;ro: <a href="tel:+496969597585">069 695 975 850</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ks-contact{background:#fff;padding:78px 0}
+.astro-ks-contact__inner{max-width:920px;margin:0 auto;padding:0 48px;scroll-margin-top:96px}
+.astro-ks-contact h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 40px}
+.astro-ks-contact__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.astro-ks-card{background:#faf6f0;border-radius:14px;padding:30px 28px;border:1px solid #e7ddd0;box-shadow:0 6px 22px rgba(30,21,18,.06)}
+.astro-ks-card h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.1rem;color:#1e1512;margin:0 0 8px}
+.astro-ks-card__sub{font-size:.9rem;color:#6b5c52;margin:0 0 8px}
+.astro-ks-card__info{font-size:.95rem;color:#5f5048;line-height:1.9;margin:0 0 14px;overflow-wrap:anywhere}
+.astro-ks-card__info a{color:#9a2d2d;text-decoration:none}
+.astro-ks-card__info a:hover{text-decoration:underline}
+.astro-ks-card__note{font-size:.88rem;color:#6b5c52;margin:0;line-height:1.6}
+.astro-ks-card__note a{color:#9a2d2d;text-decoration:none;font-weight:600}
+.astro-ks-card__note a:hover{text-decoration:underline}
+.astro-ks-emergency{margin-top:24px;background:#fff8e8;border:1px solid #e8d5a0;border-radius:14px;padding:22px 28px;text-align:center}
+.astro-ks-emergency__title{font-weight:700;color:#1e1512;margin:0 0 6px;font-size:.95rem}
+.astro-ks-emergency__nums{margin:0;font-size:.95rem;color:#5a4a3a;line-height:1.7}
+.astro-ks-emergency__nums a{color:#9a2d2d;text-decoration:none;font-weight:700}
+.astro-ks-emergency__nums a:hover{text-decoration:underline}
+.astro-ks-emergency__sep{margin:0 10px;color:#c9b78c}
+@media(max-width:720px){.astro-ks-contact__inner{padding:0 20px}.astro-ks-contact__grid{grid-template-columns:1fr}.astro-ks-emergency__sep{display:block;height:4px;margin:4px 0;overflow:hidden;color:transparent}}
+</style>

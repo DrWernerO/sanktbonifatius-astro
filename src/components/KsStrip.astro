@@ -1,0 +1,32 @@
+---
+// Quick-Strip der Seite „Krankensalbung" (WP-Block `ks-strip`). Eigene Klassen `astro-ks-strip`.
+// Drei Kernaussagen 1:1 aus WP-Seite 47431.
+const ITEMS = [
+  { label: 'F&uuml;r alle Erkrankten',
+    text: 'Jeder getaufte Christ kann dieses Sakrament empfangen.' },
+  { label: 'Wir kommen zu Ihnen',
+    text: 'Nach Hause, ins Krankenhaus oder Pflegeheim in Frankfurt.' },
+  { label: 'Mehrfach empfangbar',
+    text: 'Kein Sakrament nur f&uuml;r Sterbende &#8211; St&auml;rkung in jeder schweren Lage.' },
+];
+---
+<section class="astro-ks-strip">
+  <div class="astro-ks-strip__inner">
+    {ITEMS.map((it) => (
+      <div class="astro-ks-strip__item">
+        <p class="astro-ks-strip__label">{it.label}</p>
+        <p class="astro-ks-strip__text" set:html={it.text} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-ks-strip{background:#9a2d2d;padding:42px 0}
+.astro-ks-strip__inner{max-width:1140px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.astro-ks-strip__item{text-align:center;padding:0 12px}
+.astro-ks-strip__item + .astro-ks-strip__item{border-left:1px solid rgba(255,255,255,.22)}
+.astro-ks-strip__label{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.15rem;color:#fff;margin:0 0 6px}
+.astro-ks-strip__text{font-size:.92rem;color:rgba(255,255,255,.82);margin:0;line-height:1.55}
+@media(max-width:720px){.astro-ks-strip__inner{grid-template-columns:1fr;gap:24px;padding:0 20px}.astro-ks-strip__item + .astro-ks-strip__item{border-left:none;border-top:1px solid rgba(255,255,255,.22);padding-top:24px}}
+</style>

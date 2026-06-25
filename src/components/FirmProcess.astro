@@ -1,0 +1,45 @@
+---
+// Ablauf-Band „So begleiten wir euch" (WP-Block `ta-prozess`). Eigene Klassen `astro-firm-process`.
+// Vier Schritte 1:1 aus WP-Seite 46778. id="firm-kurs" als Sprungziel aus dem Hero-Button.
+const STEPS = [
+  { num: '1', title: 'Anmeldung',
+    text: 'Alle Jugendlichen im entsprechenden Alter schreiben wir nach den Sommerferien an. Bitte meldet euch, wenn ihr am 01.10. noch keine Nachricht von uns erhalten habt &#8211; schreibt dann einfach <a href="mailto:l.wykipil@sanktbonifatius.de">Lilian Wykipil</a> eine E-Mail.' },
+  { num: '2', title: 'Firmkurs',
+    text: 'Regelm&auml;&szlig;ige Treffen mit anderen Jugendlichen und erfahrenen Begleiterinnen &#8211; kein trockener Unterricht, sondern echte Begegnung und gemeinsames Fragen.' },
+  { num: '3', title: 'Ausfl&uuml;ge und Aktionen',
+    text: 'Gemeinsame Erlebnisse als fester Bestandteil der Vorbereitung &#8211; Gemeinschaft w&auml;chst durch gelebte Zeit miteinander.' },
+  { num: '4', title: 'Festliche Firmfeier',
+    text: 'Die Firmung findet rund um Pfingsten statt und wird vom Bischof des Bistums Limburg oder einem Beauftragten gespendet.' },
+];
+---
+<section class="astro-firm-process" id="firm-kurs">
+  <h2>So begleiten wir euch</h2>
+  <p class="astro-firm-process__intro">
+    Unser Firmkurs startet jeweils im Herbst und dauert rund ein halbes Jahr.
+  </p>
+  <div class="astro-firm-process__steps">
+    {STEPS.map((s) => (
+      <div class="astro-firm-step">
+        <div class="astro-firm-step__num">{s.num}</div>
+        <p class="astro-firm-step__title" set:html={s.title} />
+        <p class="astro-firm-step__text" set:html={s.text} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-firm-process{background:#fff;padding:64px 0;scroll-margin-top:96px}
+.astro-firm-process h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 10px}
+.astro-firm-process__intro{text-align:center;color:#6b5c52;max-width:560px;margin:0 auto 48px;font-size:1rem;line-height:1.6}
+.astro-firm-process__steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1080px;margin:0 auto;padding:0 48px}
+.astro-firm-step{text-align:center;padding:30px 20px;background:#faf6f0;border-radius:14px;border:1px solid #e7ddd0;box-shadow:0 6px 22px rgba(30,21,18,.05);transition:transform .25s ease,box-shadow .25s ease}
+.astro-firm-step:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(30,21,18,.09)}
+.astro-firm-step__num{width:44px;height:44px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.astro-firm-step__title{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;color:#1e1512;font-weight:700;margin:0 0 8px}
+.astro-firm-step__text{font-size:.9rem;color:#6b5c52;line-height:1.6;margin:0}
+.astro-firm-step__text a{color:#9a2d2d;text-decoration:none;font-weight:600}
+.astro-firm-step__text a:hover{text-decoration:underline}
+@media(max-width:900px){.astro-firm-process__steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-firm-process__steps{grid-template-columns:1fr;padding:0 20px}}
+</style>

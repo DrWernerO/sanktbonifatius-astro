@@ -1,0 +1,31 @@
+---
+// Abschluss-CTA „Bereit für den nächsten Schritt?" (WP-Block `ta-endcta`). Eigene Klassen
+// `astro-firm-cta`. Inhalt 1:1 aus WP-Seite 46778.
+---
+<section class="astro-firm-cta">
+  <div class="astro-firm-cta__inner">
+    <p class="astro-firm-cta__eyebrow">Sakrament der Firmung</p>
+    <h2>Bereit f&uuml;r den n&auml;chsten Schritt?</h2>
+    <p class="astro-firm-cta__sub">
+      Meldet euch jetzt bei Lilian Wykipil &#8211; und wir begleiten euch auf dem Weg zur Firmung.
+    </p>
+    <div class="astro-firm-cta__btns">
+      <a class="astro-firm-cta__btn" href="mailto:l.wykipil@sanktbonifatius.de">Jetzt melden</a>
+      <a class="astro-firm-cta__btn astro-firm-cta__btn--ghost" href="/kontakt/">Kontakt aufnehmen</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-firm-cta{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#4a2e1a,#3a2315);padding:72px 0;text-align:center;overflow:hidden}
+.astro-firm-cta__inner{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:0 40px}
+.astro-firm-cta__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;color:rgba(255,255,255,.65);font-size:.95rem;margin:0 0 12px;letter-spacing:.04em}
+.astro-firm-cta h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,4vw,44px);color:#fff;margin:0 0 20px;font-weight:700}
+.astro-firm-cta__sub{color:rgba(255,255,255,.82);font-size:1.05rem;max-width:560px;margin:0 auto 36px;line-height:1.7}
+.astro-firm-cta__btns{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap}
+.astro-firm-cta__btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;background:#fff;color:#9a2d2d;transition:background .2s,color .2s}
+.astro-firm-cta__btn:hover{background:#f3e7d4;color:#7e2424}
+.astro-firm-cta__btn--ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+.astro-firm-cta__btn--ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+@media(max-width:600px){.astro-firm-cta{padding:56px 0}.astro-firm-cta__inner{padding:0 20px}}
+</style>

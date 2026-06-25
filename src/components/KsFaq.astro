@@ -1,0 +1,46 @@
+---
+// „Häufige Fragen zur Krankensalbung" (WP-Block `ks-faq`). Eigene Klassen `astro-ks-faq`.
+// Natives <details> (kein JS, Muster wie BcFaq). Inhalt 1:1 aus FAQPage-Schema der WP-Seite 47431.
+const FAQ = [
+  { q: 'Ist die Krankensalbung dasselbe wie die &#8222;Letzte &Ouml;lung&#8220;?',
+    a: 'Nein. Die Bezeichnung &#8222;Letzte &Ouml;lung&#8220; ist veraltet. Die Krankensalbung kann mehrfach empfangen werden &#8211; immer wenn eine schwere Erkrankung vorliegt. Sie ist ein Sakrament der St&auml;rkung und Hoffnung, nicht des Abschieds.' },
+  { q: 'Kann ich die Krankensalbung auch im Krankenhaus oder Pflegeheim empfangen?',
+    a: 'Ja. P. Gaby Geagea und das Seelsorge-Team kommen zu Ihnen &#8211; ob nach Hause, ins Krankenhaus oder ins Pflegeheim in Frankfurt und Sachsenhausen. Bitte melden Sie sich telefonisch oder per E-Mail.' },
+  { q: 'Was geschieht bei der Krankensalbung?',
+    a: 'Der Priester spricht ein Gebet, legt die H&auml;nde auf, salbt die kranke Person mit geweihtem &Ouml;l an Stirn und H&auml;nden und bittet Gott um Heilung, St&auml;rkung und Vergebung. Die Feier dauert ca. 20&#8211;30 Minuten.' },
+  { q: 'Muss ich katholisch getauft sein?',
+    a: 'Ja, die Krankensalbung setzt die <a href="/segen-sakramente/taufe/">Taufe</a> voraus. Wenn Sie unsicher sind, sprechen Sie uns gerne an &#8211; wir beraten Sie pers&ouml;nlich.' },
+  { q: 'Was tun, wenn jemand pl&ouml;tzlich im Sterben liegt?',
+    a: 'Bitte sofort anrufen: P. Gaby Geagea <a href="tel:+491737426539">0173 742 65 39</a> oder Pfarrb&uuml;ro <a href="tel:+496969597585">069 695 975 850</a>. Wir kommen schnellstm&ouml;glich.' },
+  { q: 'Welche anderen Sakramente begleiten Kranke und Sterbende?',
+    a: 'Bei der Krankensalbung k&ouml;nnen Sie auch die Hl. Kommunion empfangen. Nat&uuml;rlich bieten wir Ihnen in unserer Pfarrei auch weitere Sakramente und pers&ouml;nlichen Segen an. <a href="/segen-sakramente/">Mehr Informationen &#8594; Segen und Sakramente</a>' },
+];
+---
+<section class="astro-ks-faq">
+  <div class="astro-ks-faq__inner">
+    <h2>H&auml;ufige Fragen zur Krankensalbung</h2>
+    <div class="astro-ks-faq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-ks-faq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ks-faq{background:#fff;padding:64px 0}
+.astro-ks-faq__inner{max-width:760px;margin:0 auto;padding:0 48px}
+.astro-ks-faq h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 40px}
+.astro-ks-faq details{border-bottom:1px solid #e0d8cf;overflow:hidden}
+.astro-ks-faq summary{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;list-style:none;font-weight:600;color:#1e1512;font-size:1rem;gap:16px}
+.astro-ks-faq summary::-webkit-details-marker{display:none}
+.astro-ks-faq summary::after{content:"+";font-size:1.4rem;color:#9a2d2d;flex-shrink:0;transition:transform .2s;font-weight:700;line-height:1}
+.astro-ks-faq details[open] summary::after{transform:rotate(45deg)}
+.astro-ks-faq__a{padding:0 0 18px;color:#5a4a3a;font-size:.95rem;line-height:1.7}
+.astro-ks-faq__a a{color:#9a2d2d;text-decoration:none;font-weight:600}
+.astro-ks-faq__a a:hover{text-decoration:underline}
+@media(max-width:600px){.astro-ks-faq{padding:56px 0}.astro-ks-faq__inner{padding:0 20px}}
+</style>

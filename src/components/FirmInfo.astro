@@ -1,0 +1,26 @@
+---
+// Info-Band „Firmung ist eine echte Entscheidung" (WP-Block `ta-full`). Eigene Klassen `astro-firm-info`.
+// Bibelzitat + erklärender Text 1:1 aus WP-Seite 46778.
+---
+<section class="astro-firm-info">
+  <div class="astro-firm-info__inner">
+    <h2>Firmung ist eine echte Entscheidung</h2>
+    <p class="astro-firm-info__quote">
+      &#8222;Sei besiegelt durch die Gabe Gottes: den Heiligen Geist.&#8220;
+    </p>
+    <p>
+      Kein Pflichtprogramm &#8211; sondern eine freie Entscheidung f&uuml;r den Glauben, f&uuml;r
+      die Gemeinschaft und f&uuml;r sich selbst. Wir begleiten euch dabei pers&ouml;nlich und auf
+      Augenh&ouml;he.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-firm-info{background:#ede4d5;padding:78px 0;text-align:center}
+.astro-firm-info__inner{max-width:760px;margin:0 auto;padding:0 48px}
+.astro-firm-info h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,36px);color:#1e1512;font-weight:700;margin:0 0 18px}
+.astro-firm-info__quote{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(1.15rem,2.1vw,1.45rem);color:#3a2e28;max-width:900px;margin:0 auto 28px;line-height:1.5}
+.astro-firm-info p:not(.astro-firm-info__quote){color:#5a4a3a;font-size:1rem;line-height:1.8;max-width:680px;margin:0 auto}
+@media(max-width:600px){.astro-firm-info{padding:56px 0}.astro-firm-info__inner{padding:0 20px}}
+</style>

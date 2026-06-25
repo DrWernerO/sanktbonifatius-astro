@@ -1,0 +1,37 @@
+---
+// Band „Wer kann die Krankensalbung empfangen?" (WP-Block `ks-who`). Eigene Klassen `astro-ks-who`.
+// Vier Fälle 1:1 aus WP-Seite 47431.
+const CASES = [
+  { title: 'Schwere Erkrankung',
+    text: 'Bei ernsthafter oder chronischer Erkrankung &#8211; auch bei Pflegebed&uuml;rftigkeit oder langer Krankheit.' },
+  { title: 'Vor einer Operation',
+    text: 'Wer sich einem gr&ouml;&szlig;eren chirurgischen Eingriff unterzieht, kann das Sakrament der St&auml;rkung empfangen.' },
+  { title: 'Hohes Alter',
+    text: 'Menschen, die durch hohes Alter geschw&auml;cht sind, d&uuml;rfen die Krankensalbung als St&auml;rkung empfangen.' },
+  { title: 'Lebensbedrohliche Situation',
+    text: 'In akuten Krisensituationen &#8211; auch kurz vor dem Tod &#8211; spenden wir das Sakrament mit gr&ouml;&szlig;ter Sorgfalt.' },
+];
+---
+<section class="astro-ks-who">
+  <h2>Wer kann die Krankensalbung empfangen?</h2>
+  <div class="astro-ks-who__grid">
+    {CASES.map((c) => (
+      <div class="astro-ks-who__card">
+        <h3 set:html={c.title} />
+        <p set:html={c.text} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-ks-who{background:#fff;padding:64px 0}
+.astro-ks-who h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 44px}
+.astro-ks-who__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1080px;margin:0 auto;padding:0 48px}
+.astro-ks-who__card{padding:28px 24px;background:#faf6f0;border-radius:14px;border:1px solid #e7ddd0;border-top:3px solid #9a2d2d;box-shadow:0 6px 22px rgba(30,21,18,.05);transition:transform .25s ease,box-shadow .25s ease}
+.astro-ks-who__card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(30,21,18,.09)}
+.astro-ks-who__card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.08rem;color:#1e1512;font-weight:700;margin:0 0 10px}
+.astro-ks-who__card p{font-size:.92rem;color:#6b5c52;line-height:1.6;margin:0}
+@media(max-width:900px){.astro-ks-who__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-ks-who__grid{grid-template-columns:1fr;padding:0 20px}}
+</style>

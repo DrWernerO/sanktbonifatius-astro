@@ -1,0 +1,48 @@
+---
+// „Häufige Fragen zur Firmung" (WP-Block `ta-full`). Eigene Klassen `astro-firm-faq`.
+// Natives <details> (kein JS, Muster wie BcFaq). Inhalt 1:1 aus FAQPage-Schema der WP-Seite 46778.
+const FAQ = [
+  { q: 'Wie alt muss ich f&uuml;r die Firmung sein?',
+    a: 'Du musst bis Ende Juni des Firmjahres mindestens 16 Jahre alt sein. Au&szlig;erdem solltest du katholisch getauft sein und die Erstkommunion empfangen haben.' },
+  { q: 'Wann beginnt der Firmkurs?',
+    a: 'Der Kurs startet jeweils im Herbst und dauert rund ein halbes Jahr. Die Firmung findet nach Ostern &#8211; &uuml;blicherweise zu Pfingsten &#8211; statt.' },
+  { q: 'Kann ich auch aus einer anderen Pfarrei kommen?',
+    a: 'Ja. Auch wenn du nicht in der Pfarrei Sankt Bonifatius gemeldet bist, kannst du dich bei uns firmen lassen. Melde dich bei Lilian Wykipil &#8211; wir finden gemeinsam eine L&ouml;sung.' },
+  { q: 'Was ist ein Firmpate und muss ich einen haben?',
+    a: 'Ja, ein Firmpate oder eine Firmpatin geh&ouml;rt zur Firmung. Er oder sie muss selbst katholisch getauft und gefirmt sein, mindestens 16 Jahre alt und aktives Mitglied der Kirche (kein Kirchenaustritt). Der Pate darf nicht Vater oder Mutter des Firmlings sein.' },
+  { q: 'Was kostet die Firmung?',
+    a: 'Die Firmung ist kostenlos. Kurs, Treffen und alle Veranstaltungen im Rahmen der Firmvorbereitung sind f&uuml;r alle Teilnehmenden kostenfrei.' },
+  { q: 'Wie melde ich mich zur Firmung an?',
+    a: 'Alle Jugendlichen im entsprechenden Alter werden nach den Sommerferien angeschrieben. Falls du bis zum 1. Oktober noch keine Nachricht erhalten hast, schreibe einfach eine E-Mail an <a href="mailto:l.wykipil@sanktbonifatius.de">Lilian Wykipil</a>.' },
+];
+---
+<section class="astro-firm-faq">
+  <div class="astro-firm-faq__inner">
+    <h2>H&auml;ufige Fragen zur Firmung</h2>
+    <p class="astro-firm-faq__intro">Alles, was ihr wissen m&uuml;sst &#8211; kurz und klar.</p>
+    <div class="astro-firm-faq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-firm-faq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-firm-faq{background:#fff;padding:64px 0}
+.astro-firm-faq__inner{max-width:760px;margin:0 auto;padding:0 48px}
+.astro-firm-faq h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 8px}
+.astro-firm-faq__intro{text-align:center;color:#6b5c52;margin:0 0 40px;font-size:1rem}
+.astro-firm-faq details{border-bottom:1px solid #e0d8cf;overflow:hidden}
+.astro-firm-faq summary{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;list-style:none;font-weight:600;color:#1e1512;font-size:1rem;gap:16px}
+.astro-firm-faq summary::-webkit-details-marker{display:none}
+.astro-firm-faq summary::after{content:"+";font-size:1.4rem;color:#9a2d2d;flex-shrink:0;transition:transform .2s;font-weight:700;line-height:1}
+.astro-firm-faq details[open] summary::after{transform:rotate(45deg)}
+.astro-firm-faq__a{padding:0 0 18px;color:#5a4a3a;font-size:.95rem;line-height:1.7}
+.astro-firm-faq__a a{color:#9a2d2d;text-decoration:none;font-weight:600}
+.astro-firm-faq__a a:hover{text-decoration:underline}
+@media(max-width:600px){.astro-firm-faq{padding:56px 0}.astro-firm-faq__inner{padding:0 20px}}
+</style>

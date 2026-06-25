@@ -1,0 +1,30 @@
+---
+// Seite „Firmung" — WP-Seite 46778 (/segen-sakramente/firmung/), vollständig aus eigenen
+// astro-Komponenten (kein set:html mit WP-Markup, vgl. Handbuch 14). Nav + Footer kommen global
+// aus Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden. SEO live aus WP (SEOPress).
+//
+// Liegt in src/pages/segen-sakramente/ neben taufe.astro / beichte.astro. Relative Import-Pfade ../../
+// wegen Unterordner. Prefix `astro-firm-` (WP-Klassen `ta-…` tabu, Regel 3; `astro-fin-` = Finanzen).
+import Base from '../../layouts/Base.astro';
+import FirmHero from '../../components/FirmHero.astro';
+import FirmStrip from '../../components/FirmStrip.astro';
+import FirmInfo from '../../components/FirmInfo.astro';
+import FirmProcess from '../../components/FirmProcess.astro';
+import FirmVoraussetzungen from '../../components/FirmVoraussetzungen.astro';
+import FirmFaq from '../../components/FirmFaq.astro';
+import FirmContact from '../../components/FirmContact.astro';
+import FirmCta from '../../components/FirmCta.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/segen-sakramente/firmung/');
+---
+<Base seo={seo} title="Firmung Frankfurt – Dein Ja zu Gott | St. Bonifatius">
+  <FirmHero />
+  <FirmStrip />
+  <FirmInfo />
+  <FirmProcess />
+  <FirmVoraussetzungen />
+  <FirmFaq />
+  <FirmContact />
+  <FirmCta />
+</Base>

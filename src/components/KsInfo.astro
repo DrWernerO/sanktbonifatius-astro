@@ -1,0 +1,38 @@
+---
+// Info-Band „Das Sakrament der Stärkung und Hoffnung" (WP-Block `ks-info`). Eigene Klassen
+// `astro-ks-info`. Erklärender Text + Bibelzitat 1:1 aus WP-Seite 47431.
+---
+<section class="astro-ks-info">
+  <div class="astro-ks-info__inner">
+    <h2>Das Sakrament der St&auml;rkung und Hoffnung</h2>
+    <p>
+      Die Krankensalbung ist ein Zeichen der N&auml;he Gottes in einer der schwierigsten
+      Lebenssituationen. Sie st&auml;rkt Menschen, die schwer krank sind, sich einer Operation
+      unterziehen oder in einer lebensbedrohlichen Lage sind &#8211; k&ouml;rperlich wie seelisch.
+    </p>
+    <p>
+      Der Priester salbt die kranke Person mit geweihtem &Ouml;l an Stirn und H&auml;nden und betet
+      f&uuml;r sie. Das Sakrament schenkt Vertrauen in Gottes Beistand, Vers&ouml;hnung mit der
+      eigenen Situation und tiefen inneren Frieden.
+    </p>
+    <p>
+      In der Pfarrei St. Bonifatius Frankfurt feiern wir dieses Sakrament der Hoffnung &#8211; zu
+      Hause, im Krankenhaus oder im Pflegeheim. Bitte rufen Sie uns fr&uuml;hzeitig an.
+    </p>
+    <p class="astro-ks-info__quote">
+      &#8222;Ist jemand unter euch krank, dann rufe er die &Auml;ltesten der Gemeinde zu sich; sie
+      sollen Gebet &uuml;ber ihn sprechen und ihn im Namen des Herrn mit &Ouml;l salben.&#8220;
+      <span class="astro-ks-info__ref">Jak 5,14</span>
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-ks-info{background:#ede4d5;padding:78px 0;text-align:center}
+.astro-ks-info__inner{max-width:760px;margin:0 auto;padding:0 48px}
+.astro-ks-info h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,36px);color:#1e1512;font-weight:700;margin:0 0 24px}
+.astro-ks-info p:not(.astro-ks-info__quote){color:#5a4a3a;font-size:1rem;line-height:1.8;max-width:680px;margin:0 auto 18px;text-align:left}
+.astro-ks-info__quote{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(1.1rem,2vw,1.35rem);color:#3a2e28;max-width:680px;margin:34px auto 0;line-height:1.55;padding-top:28px;border-top:1px solid #d8ccbb}
+.astro-ks-info__ref{font-size:.8rem;color:#9a2d2d;font-weight:600;display:block;margin-top:10px;font-style:normal;letter-spacing:.02em}
+@media(max-width:600px){.astro-ks-info{padding:56px 0}.astro-ks-info__inner{padding:0 20px}}
+</style>

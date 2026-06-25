@@ -1,0 +1,56 @@
+---
+// Band „Voraussetzungen für die Firmung" + „Firmpaten" (WP-Block `ta-full`). Eigene Klassen
+// `astro-firm-vor`. Zwei Infokarten mit Checklisten 1:1 aus WP-Seite 46778 (Muster BcPrep).
+const CARDS = [
+  {
+    title: 'Voraussetzungen f&uuml;r die Firmung',
+    intro: 'Zur Firmung bei Sankt Bonifatius kannst du dich anmelden, wenn du:',
+    items: [
+      'Katholisch getauft bist',
+      'Die Erstkommunion empfangen hast',
+      'Bis Ende Juni des Firmjahres mindestens 16 Jahre alt bist',
+      'Bereit bist, am gesamten Firmkurs teilzunehmen',
+    ],
+    note: 'Aus einer anderen Pfarrei? Einfach bei uns melden &#8211; wir finden eine L&ouml;sung.',
+  },
+  {
+    title: 'Firmpaten &#8211; Begleitung auf dem Glaubensweg',
+    intro: 'Zur Firmung geh&ouml;rt ein Firmpate oder eine Firmpatin. W&auml;hlt jemanden, dem ihr vertraut &#8211; und der selbst im Glauben verwurzelt ist.',
+    items: [
+      'Getauft und gefirmt in der katholischen Kirche',
+      'Mindestens 16 Jahre alt',
+      'Aktives Mitglied der kath. Kirche (kein Kirchenaustritt)',
+      'Nicht Vater oder Mutter des Firmlings',
+    ],
+    note: 'Unsicher, ob jemand das Patenamt &uuml;bernehmen kann? Einfach ansprechen.',
+  },
+];
+---
+<section class="astro-firm-vor">
+  <div class="astro-firm-vor__grid">
+    {CARDS.map((c) => (
+      <div class="astro-firm-vor__card">
+        <h3 set:html={c.title} />
+        <p class="astro-firm-vor__intro" set:html={c.intro} />
+        <ul class="astro-firm-vor__list">
+          {c.items.map((i) => <li set:html={i} />)}
+        </ul>
+        <p class="astro-firm-vor__note" set:html={c.note} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-firm-vor{background:#ede4d5;padding:72px 0}
+.astro-firm-vor__grid{max-width:1000px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.astro-firm-vor__card{background:#fff;border:1px solid #e2d8cc;border-radius:16px;padding:34px 34px 28px;box-shadow:0 8px 26px rgba(30,21,18,.06)}
+.astro-firm-vor__card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;color:#1e1512;font-weight:700;margin:0 0 12px}
+.astro-firm-vor__intro{color:#5a4a3a;font-size:.95rem;line-height:1.65;margin:0 0 18px}
+.astro-firm-vor__list{list-style:none;margin:0 0 18px;padding:0}
+.astro-firm-vor__list li{padding:8px 0 8px 28px;color:#3a2e28;font-size:.95rem;line-height:1.55;position:relative;border-bottom:1px solid #ede5d8}
+.astro-firm-vor__list li:last-child{border-bottom:none}
+.astro-firm-vor__list li::before{content:"\2713";position:absolute;left:2px;color:#9a2d2d;font-size:1rem;font-weight:700;top:8px}
+.astro-firm-vor__note{margin:0;padding-top:16px;border-top:1px solid #e2d8cc;color:#6b5c52;font-size:.88rem;line-height:1.6;font-style:italic}
+@media(max-width:760px){.astro-firm-vor__grid{grid-template-columns:1fr;padding:0 20px}.astro-firm-vor__card{padding:28px 24px}}
+</style>

@@ -1,0 +1,48 @@
+---
+// Kontakt-Band „Kontakt" (WP-Block `ta-full`). Eigene Klassen `astro-firm-contact`.
+// Ansprechpersonen 1:1 aus WP-Seite 46778. id="firm-kontakt" als Sprungziel aus dem Hero-Button.
+const PEOPLE = [
+  { name: 'Lilian Wykipil', role: 'Pastoralreferentin',
+    tel: '069 6959758-56', mail: 'l.wykipil@sanktbonifatius.de' },
+  { name: 'Pfr. Uwe Michler', role: 'Pfarrer',
+    tel: '', mail: 'u.michler@sanktbonifatius.de' },
+];
+const telHref = (s) => `tel:${s.replace(/\D/g, '')}`;
+---
+<section class="astro-firm-contact" id="firm-kontakt">
+  <div class="astro-firm-contact__inner">
+    <h2>Kontakt</h2>
+    <p class="astro-firm-contact__intro">
+      Ihr m&ouml;chtet die Firmung empfangen oder habt Fragen zur Vorbereitung? Meldet euch direkt
+      bei unseren Ansprechpersonen.
+    </p>
+    <div class="astro-firm-contact__grid">
+      {PEOPLE.map((p) => (
+        <div class="astro-firm-person">
+          <p class="astro-firm-person__name">{p.name}</p>
+          <p class="astro-firm-person__role">{p.role}</p>
+          <p class="astro-firm-person__info">
+            {p.tel && <><a href={telHref(p.tel)}>{p.tel}</a><br /></>}
+            <a href={`mailto:${p.mail}`}>{p.mail}</a>
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-firm-contact{background:#ede4d5;padding:78px 0}
+.astro-firm-contact__inner{max-width:840px;margin:0 auto;padding:0 48px;scroll-margin-top:96px}
+.astro-firm-contact h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 12px}
+.astro-firm-contact__intro{text-align:center;color:#5a4a3a;max-width:620px;margin:0 auto 40px;font-size:1rem;line-height:1.7}
+.astro-firm-contact__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.astro-firm-person{background:#fff;border-radius:14px;padding:30px 26px;border:1px solid #e7ddd0;text-align:center;box-shadow:0 6px 22px rgba(30,21,18,.06);transition:transform .25s ease,box-shadow .25s ease}
+.astro-firm-person:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(30,21,18,.10)}
+.astro-firm-person__name{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.1rem;color:#1e1512;margin:0 0 2px}
+.astro-firm-person__role{font-size:.85rem;color:#9a2d2d;margin:0 0 12px;letter-spacing:.02em}
+.astro-firm-person__info{font-size:.92rem;color:#5f5048;line-height:1.9;margin:0;overflow-wrap:anywhere}
+.astro-firm-person__info a{color:#9a2d2d;text-decoration:none}
+.astro-firm-person__info a:hover{text-decoration:underline}
+@media(max-width:760px){.astro-firm-contact__inner{padding:0 20px}}
+</style>

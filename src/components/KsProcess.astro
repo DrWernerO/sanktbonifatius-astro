@@ -1,0 +1,36 @@
+---
+// Ablauf-Band „Was geschieht bei der Krankensalbung?" (WP-Block `ks-process`). Eigene Klassen
+// `astro-ks-process`. Drei Schritte 1:1 aus WP-Seite 47431.
+const STEPS = [
+  { num: '1', title: 'Gebet und Handauflegung',
+    text: 'Der Priester betet f&uuml;r die kranke Person und legt ihr schweigend die H&auml;nde auf &#8211; ein Zeichen des Segens und des Beistands Gottes.' },
+  { num: '2', title: 'Salbung mit geweihtem &Ouml;l',
+    text: 'Mit geweihtem &Ouml;l werden Stirn und H&auml;nde gesalbt, dazu spricht der Priester: &#8222;Durch diese heilige Salbung helfe dir der Herr in seinem reichen Erbarmen.&#8220;' },
+  { num: '3', title: 'F&uuml;rbitten und Segen',
+    text: 'Das Sakrament endet mit F&uuml;rbitten um Heilung, St&auml;rkung und Frieden &#8211; im Beisein von Angeh&ouml;rigen. Die Feier dauert ca. 20&#8211;30 Minuten.' },
+];
+---
+<section class="astro-ks-process">
+  <h2>Was geschieht bei der Krankensalbung?</h2>
+  <div class="astro-ks-process__steps">
+    {STEPS.map((s) => (
+      <div class="astro-ks-step">
+        <div class="astro-ks-step__num">{s.num}</div>
+        <p class="astro-ks-step__title" set:html={s.title} />
+        <p class="astro-ks-step__text" set:html={s.text} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-ks-process{background:#ede4d5;padding:64px 0}
+.astro-ks-process h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);color:#1e1512;font-weight:700;text-align:center;margin:0 0 48px}
+.astro-ks-process__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:960px;margin:0 auto;padding:0 48px}
+.astro-ks-step{text-align:center;padding:30px 22px;background:#fff;border-radius:14px;border:1px solid #e7ddd0;box-shadow:0 6px 22px rgba(30,21,18,.05);transition:transform .25s ease,box-shadow .25s ease}
+.astro-ks-step:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(30,21,18,.09)}
+.astro-ks-step__num{width:44px;height:44px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.astro-ks-step__title{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;color:#1e1512;font-weight:700;margin:0 0 8px}
+.astro-ks-step__text{font-size:.92rem;color:#6b5c52;line-height:1.6;margin:0}
+@media(max-width:720px){.astro-ks-process__steps{grid-template-columns:1fr;padding:0 20px}}
+</style>
