@@ -18,7 +18,6 @@ const CARDS = [
     img: `${IMG}/2024/04/fruehschicht-herz-jesu-e1713251125711-1024x689.jpg`,
     alt: 'Frühschicht in Herz Jesu Frankfurt-Oberrad',
     text: 'Jeden ersten Dienstag im Monat: Andacht, Gebet und Gesang in den frühen Morgenstunden – anschließend kleines Frühstück. Start: 07:00 Uhr im Gemeindehaus.',
-    more: 'Mehr erfahren →',
   },
   {
     title: 'Kirchortrat',
@@ -43,7 +42,7 @@ const CARDS = [
           <div class="astro-hjcard__body">
             <div class="astro-hjcard__title" set:html={c.title}></div>
             <p class="astro-hjcard__text">{c.text}</p>
-            <span class="astro-hjcard__more">{c.more}</span>
+            {c.more && <span class="astro-hjcard__more">{c.more}</span>}
           </div>
         </a>
       ))}
