@@ -1,4 +1,10 @@
 ---
+// ⚠️ MENÜ-STRUKTUR NUR AUF AUSDRÜCKLICHE ANWEISUNG VON WERNER ÄNDERN.
+// Die Reihenfolge, die Top-Level-Punkte und die Dropdown-Einträge dieser Navigation dürfen
+// NICHT eigenmächtig erweitert oder umsortiert werden — auch nicht "passend" beim Bau neuer
+// Seiten. Neue Seiten werden gebaut, aber NICHT automatisch ins Menü aufgenommen. Wer einen
+// Menüpunkt hinzufügen/entfernen will, holt vorher die ausdrückliche Freigabe von Werner ein.
+//
 // Cache-Buster für Download-PDFs (Pfarrbrief etc.).
 // Workflow: Sekretärin ersetzt die Datei in der Mediathek ("Datei ersetzen") → URL bleibt gleich.
 // Hier wird beim Build das "Zuletzt geändert"-Datum der Datei abgefragt und als ?v=<token>
@@ -60,18 +66,6 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
           <a href="/ueberuns/barrierefreiheit/">Barrierefreiheit</a>
         </div>
       </div>
-      <a href="/kirchorte/" class="bh3a-navlink">Kirchorte</a>
-      <div class="bh3a-dd">
-        <a href="/bonfamily/">BonFamily</a>
-        <div class="bh3a-dd__menu">
-          <a href="/bonfamily/">BonFamily-Übersicht</a>
-          <a href="/bonfamily/familiengottesdienste/">Familiengottesdienste</a>
-          <a href="/bonfamily/familientreffpunkte/">Familientreffpunkte</a>
-          <a href="/segen-sakramente/taufe/">Taufe</a>
-          <a href="/bonfamily/whatsapp-kanal/">WhatsApp-Kanal</a>
-        </div>
-      </div>
-      <a href="/kitas/" class="bh3a-navlink">Kitas</a>
       <div class="bh3a-dd">
         <a href="/kontakt/">Kontakt</a>
         <div class="bh3a-dd__menu">
