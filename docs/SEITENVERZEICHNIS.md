@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 46 bereits in Astro übernommen bzw. per Direktlink erledigt · 34 offen.** Stand: 25.06.2026.
+> **80 Live-Seiten erfasst · 49 bereits in Astro übernommen bzw. per Direktlink erledigt · 31 offen.** Stand: 26.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -108,9 +108,9 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
 | Jugend | [Link](https://www.sanktbonifatius.de/jugend/) | `src/pages/jugend.astro` | Werner | ✅ erledigt | Eigene Jugend*-Komponenten (Page 46717) |
-| Kinder- und Jugendfreizeiten | [Link](https://www.sanktbonifatius.de/jugend/kinder-und-jugendfreizeiten/) | — | — | offen |  |
-| Ministranten St. Bonifatius | [Link](https://www.sanktbonifatius.de/jugend/ministranten-st-bonifatius/) | — | — | offen |  |
-| Reisebedingungen | [Link](https://www.sanktbonifatius.de/jugend/reisebedingungen/) | — | — | offen |  |
+| Kinder- und Jugendfreizeiten | [Link](https://www.sanktbonifatius.de/jugend/kinder-und-jugendfreizeiten/) | `src/pages/jugend/kinder-und-jugendfreizeiten.astro` | Werner | ✅ erledigt | Page-ID 49157, eigene Fz*-Komponenten (Präfix `astro-fz`); Foto-Hero, Intro, Grid mit 6 Freizeit-Karten (Bild + Alters-Badge + Region + Datum/Ort + Anmelde-/Flyer-Links: JONA, ChurchDesk, PDFs, mailto), CTA „Fragen zu Freizeiten?". Bilder lokal in `public/uploads/` |
+| Ministranten St. Bonifatius | [Link](https://www.sanktbonifatius.de/jugend/ministranten-st-bonifatius/) | `src/pages/jugend/ministranten-st-bonifatius.astro` | Werner | ✅ erledigt | Page-ID 49156, eigene Mn*-Komponenten (Präfix `astro-mn`); Foto-Hero, Willkommen, 4 „Specials" (SVG-Icons), Ministrantenplan-Block, Leitungsteam (Foto), 2 Kontakt-Karten (Mini-Team + Seelsorger R. Freitag), CTA. Hinweis: WP-Plan-Bild liefert live 404 → bewusst ohne Foto |
+| Reisebedingungen | [Link](https://www.sanktbonifatius.de/jugend/reisebedingungen/) | `src/pages/jugend/reisebedingungen.astro` | Werner | ✅ erledigt | Page-ID 32113, Rechtstext-Seite; eigener Verlauf-Hero (`astro-rbhero`) + Prosa-Container (`astro-rbprose`), Text LIVE aus WP (`getPageById`, Sekretärinnen-pflegbar). 16 Sektionstitel werden zu echten `<h2>` umgewandelt (robust gegen WP-Auszeichnungsfehler) |
 
 ## 9 · Engagiert leben (mit Unterseiten)
 
