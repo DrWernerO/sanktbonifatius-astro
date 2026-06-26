@@ -157,6 +157,44 @@ export async function getEvents(perPage = 30) {
   return res.json();
 }
 
+// Volltextsuche über den WP-Such-Endpoint (Seiten + Beiträge + Termine).
+// Liefert normalisierte Treffer für die Astro-Suchseite (/suche/).
+// Hinweis: Die Treffer verlinken auf die LIVE-Seite www (dort liegt der vollständige
+// Inhalt); das Astro-Frontend ist nur eine Teilmigration. Beim WP-Umzug (Handbuch 1b)
+// liefert der Endpoint automatisch die neuen URLs.
+const SEARCH_TYPE_LABEL = { page: 'Seite', post: 'Beitrag', event: 'Termin' };
+
+function cleanExcerpt(html) {
+  if (!html) return '';
+  let t = decodeEntities(String(html).replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+  // WP rendert bei Seiten ohne eigenen Auszug den Menütext mit → herausfiltern.
+  if (/^Sankt Bonifatius Frankfurt am Main/i.test(t)) return '';
+  if (t.length > 160) t = t.slice(0, 160).replace(/\s+\S*$/, '') + ' …';
+  return t;
+}
+
+export async function searchSite(query, limit = 30) {
+  const q = (query || '').trim();
+  if (!q) return [];
+  try {
+    const res = await fetch(
+      `${WP_API}/search?search=${encodeURIComponent(q)}&per_page=${limit}&_embed=1`,
+      { headers: { 'User-Agent': 'Mozilla/5.0' }, cache: 'no-store' }
+    );
+    if (!res.ok) return [];
+    const rows = await res.json();
+    return rows.map((r) => ({
+      id: r.id,
+      title: decodeEntities(r.title || ''),
+      url: r.url,
+      typeLabel: SEARCH_TYPE_LABEL[r.subtype] || 'Seite',
+      excerpt: cleanExcerpt(r._embedded?.self?.[0]?.excerpt?.rendered || ''),
+    }));
+  } catch {
+    return []; // WP nicht erreichbar → leere Trefferliste, Seite bricht nie ab
+  }
+}
+
 export async function getMenuItems() {
   // Hauptnavigation via WP-API-Menus (falls Plugin aktiv)
   const res = await fetch(`${WP_API.replace('/wp/v2', '')}/menus/v1/menus`);

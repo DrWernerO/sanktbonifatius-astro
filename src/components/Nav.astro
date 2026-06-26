@@ -88,9 +88,22 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
           <a href={highlightsUrl} target="_blank" rel="noopener">Bonifatius Highlights</a>
         </div>
       </div>
+      <button type="button" class="bh3a-btn-srch" aria-label="Suche öffnen" aria-expanded="false" aria-controls="bh3aSrch">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
       <a href="/spenden/" class="bh3a-btn-spd">Spenden</a>
     </div>
 
+  </div>
+
+  <!-- Such-Overlay (klappt unter der Nav auf, schickt an die Astro-Suchseite) -->
+  <div class="bh3a-srch-ov" id="bh3aSrch">
+    <form action="/suche/" method="get" role="search">
+      <input type="search" name="q" placeholder="Suche auf sanktbonifatius.de …" autocomplete="off" aria-label="Suchbegriff" />
+      <button type="submit">Suchen</button>
+    </form>
   </div>
 </nav>
 
@@ -140,6 +153,32 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
     top: -10px; height: 12px; background: transparent;
   }
   .bh3a-dd > a { padding-bottom: 12px; }
+  /* Lupe-Button (links vom Spenden-Button) */
+  .bh3a-btn-srch {
+    background: none; border: none; cursor: pointer; padding: 8px;
+    color: #c5b9a8; display: inline-flex; align-items: center;
+    transition: color .2s; margin-left: 4px;
+  }
+  .bh3a-btn-srch:hover, .bh3a-btn-srch[aria-expanded="true"] { color: #c5a55a; }
+
+  /* Such-Overlay (klappt unter der Nav auf) */
+  .bh3a-srch-ov {
+    display: none; position: fixed; top: 80px; left: 0; right: 0;
+    background: #1a120e; padding: 18px 32px; z-index: 100001;
+    border-bottom: 2px solid #c5a55a;
+  }
+  .bh3a-srch-ov.open { display: block; }
+  .bh3a-srch-ov form { max-width: 600px; margin: 0 auto; display: flex; gap: 10px; }
+  .bh3a-srch-ov input[type="search"] {
+    flex: 1; background: #2c2420; border: 1px solid #3a2e28; color: #e8dcc8;
+    padding: 11px 16px; border-radius: 6px; font-size: 15px; outline: none;
+  }
+  .bh3a-srch-ov input[type="search"]:focus { border-color: #c5a55a; }
+  .bh3a-srch-ov button[type="submit"] {
+    background: #c5a55a; color: #1a120e; border: none; padding: 11px 22px;
+    border-radius: 6px; font-weight: 700; cursor: pointer;
+  }
+
   .bh3a-btn-spd {
     background: #9a2d2d !important; color: #fff !important;
     font-size: 13px; font-weight: 600;
@@ -267,14 +306,36 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
       hdr.classList.contains('bh3a-open') ? close() : open();
     });
 
+    // Such-Overlay (Lupe) auf-/zuklappen
+    const srchBtn = document.querySelector('.bh3a-btn-srch');
+    const srchOv = document.getElementById('bh3aSrch');
+    function closeSearch() {
+      if (!srchOv) return;
+      srchOv.classList.remove('open');
+      srchBtn && srchBtn.setAttribute('aria-expanded', 'false');
+    }
+    if (srchBtn && srchOv) {
+      srchBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const willOpen = !srchOv.classList.contains('open');
+        srchOv.classList.toggle('open', willOpen);
+        srchBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        if (willOpen) {
+          const input = srchOv.querySelector('input[type="search"]');
+          input && input.focus();
+        }
+      });
+    }
+
     document.addEventListener('click', function (e) {
       if (hdr.contains(e.target)) return;
       if (hdr.classList.contains('bh3a-open')) close();
+      closeSearch();
     });
 
-    // ESC-Taste schließt Menü
+    // ESC-Taste schließt Menü + Suche
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') close();
+      if (e.key === 'Escape') { close(); closeSearch(); }
     });
   })();
 </script>

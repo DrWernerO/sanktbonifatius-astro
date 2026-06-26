@@ -1,0 +1,107 @@
+---
+// Suchseite (/suche/) — durchsucht Seiten, Beiträge und Termine über den WP-Such-Endpoint
+// und zeigt die Treffer im Astro-Design. Eigene astro-Klassen (Präfix astro-suche).
+// Nav + Footer kommen global aus Base.astro (Handbuch 4b) — hier NICHT erneut einbinden.
+// SSR nötig, weil die Suchanfrage (?q=) erst zur Laufzeit bekannt ist.
+export const prerender = false;
+
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { searchSite } from '../lib/wordpress.js';
+
+const q = (Astro.url.searchParams.get('q') || '').trim();
+const results = q ? await searchSite(q) : [];
+---
+<Base title={q ? `Suche: ${q} — Sankt Bonifatius` : 'Suche — Sankt Bonifatius'}>
+  <PageHeader
+    eyebrow="Sankt Bonifatius"
+    title="Suche"
+    sub="Finden Sie Seiten, Beiträge und Termine unserer Pfarrei.">
+    <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </PageHeader>
+
+  <section class="astro-suche">
+    <form class="astro-suche__form" action="/suche/" method="get" role="search">
+      <input type="search" name="q" value={q} autocomplete="off"
+             aria-label="Suchbegriff" placeholder="Suchbegriff eingeben …" autofocus />
+      <button type="submit">Suchen</button>
+    </form>
+
+    {q && (
+      <p class="astro-suche__count">
+        {results.length === 0
+          ? <>Keine Treffer für <strong>„{q}"</strong>.</>
+          : <>{results.length} Treffer für <strong>„{q}"</strong></>}
+      </p>
+    )}
+
+    {results.length > 0 && (
+      <ul class="astro-suche__list">
+        {results.map((r) => (
+          <li class="astro-suche__item">
+            <a href={r.url} class="astro-suche__link">
+              <span class="astro-suche__badge">{r.typeLabel}</span>
+              <span class="astro-suche__title">{r.title}</span>
+              {r.excerpt && <span class="astro-suche__exc">{r.excerpt}</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {q && results.length === 0 && (
+      <p class="astro-suche__hint">
+        Versuchen Sie es mit einem anderen Suchbegriff oder nutzen Sie die Menüpunkte oben.
+      </p>
+    )}
+  </section>
+</Base>
+
+<style is:global>
+  .astro-suche {
+    max-width: 760px; margin: 48px auto 80px; padding: 0 32px;
+  }
+  .astro-suche__form {
+    display: flex; gap: 10px; margin-bottom: 28px;
+  }
+  .astro-suche__form input[type="search"] {
+    flex: 1; background: #fff; border: 1px solid #d8cdbd; color: #2c2420;
+    padding: 13px 18px; border-radius: 8px; font-size: 16px; outline: none;
+  }
+  .astro-suche__form input[type="search"]:focus { border-color: #c5a55a; }
+  .astro-suche__form button {
+    background: #9a2d2d; color: #fff; border: none; padding: 13px 26px;
+    border-radius: 8px; font-weight: 600; font-size: 15px; cursor: pointer;
+    transition: background .2s; white-space: nowrap;
+  }
+  .astro-suche__form button:hover { background: #7e2424; }
+  .astro-suche__count { color: #6b5c52; font-size: 15px; margin: 0 0 20px; }
+  .astro-suche__count strong { color: #2c2420; }
+  .astro-suche__list { list-style: none; margin: 0; padding: 0; }
+  .astro-suche__item { margin-bottom: 12px; }
+  .astro-suche__link {
+    display: block; background: #f7f3ef; border: 1px solid #ece3d8;
+    border-radius: 10px; padding: 16px 20px; text-decoration: none;
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+  }
+  .astro-suche__link:hover {
+    transform: translateY(-2px); border-color: #c5a55a;
+    box-shadow: 0 6px 18px rgba(44,36,32,.08);
+  }
+  .astro-suche__badge {
+    display: inline-block; font-size: 11px; letter-spacing: .08em;
+    text-transform: uppercase; color: #9a2d2d; background: rgba(154,45,45,.08);
+    padding: 3px 9px; border-radius: 50px; margin-bottom: 8px;
+  }
+  .astro-suche__title {
+    display: block; font-family: 'Playfair Display', serif; font-size: 19px;
+    color: #2c2420; line-height: 1.3;
+  }
+  .astro-suche__exc {
+    display: block; color: #6b5c52; font-size: 14px; line-height: 1.5; margin-top: 6px;
+  }
+  .astro-suche__hint { color: #928269; font-size: 14px; margin-top: 18px; }
+</style>
