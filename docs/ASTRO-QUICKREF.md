@@ -56,7 +56,7 @@ CSS/Client-JS lädt per HMR. Hartnäckiger JS-Cache → privates Browser-Fenster
 
 ## Seitenstand (Stand 2026-06-26)
 
-**80 Live-Seiten · 64 erledigt · 16 offen**
+**80 Live-Seiten · 66 erledigt · 14 offen**
 
 ### Fertig (Auswahl — vollständige Liste in `docs/SEITENVERZEICHNIS.md`)
 - Startseite, Über uns + Unterseiten, Kirchorte (St. Bonifatius, St. Aposteln, Herz Jesu, St. Wendel + je Unterseiten)
@@ -70,7 +70,6 @@ CSS/Client-JS lädt per HMR. Hartnäckiger JS-Cache → privates Browser-Fenster
 - Pfarrer Dr. Werner Otto
 - Kitas-Bereich (Übersicht + 5 Kita-Unterseiten + Stellenbörse)
 - Kirchen-Detailseiten St. Bonifatius (Altar, Orgel, Taufstein u.a. — 13 Seiten)
-- Datenschutz, Impressum
 
 ---
 

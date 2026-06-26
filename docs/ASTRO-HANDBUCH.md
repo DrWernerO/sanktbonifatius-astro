@@ -548,7 +548,9 @@ sich automatisch der Zahl sichtbarer Kacheln an. Umgesetzt im Client-Script von 
 ## 9. Fonts (Design-Vorgabe)
 
 - **Body:** „Source Sans 3" (Bunny Fonts: `fonts.bunny.net`)
-- **Überschriften:** „Playfair Display" (Google Fonts)
+- **Überschriften:** „Playfair Display" — **seit 2026-06-26 ebenfalls über Bunny Fonts** (vorher Google
+  Fonts). Bewusst google-frei aus Datenschutzgründen (keine Verbindung zu Google-Servern), siehe
+  Datenschutz-Abschnitt „Schriftarten". Beide Schriften in EINEM `fonts.bunny.net`-Link in `Base.astro`.
 - Geladen in `src/layouts/Base.astro`; dort auch `html, body { overflow-x: hidden }`
   für Full-Bleed-Elemente (`width:100vw; left:50%; margin-left:-50vw`).
 
