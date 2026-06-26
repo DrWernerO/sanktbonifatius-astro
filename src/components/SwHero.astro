@@ -1,0 +1,38 @@
+---
+// Hero des Kirchorts „St. Wendel" (WP-Seite 47880, /kirchorte/st-wendel/).
+// Eigene Klassen `astro-swhero` (goldene Regel, Handbuch Abschnitt 3). Full-Bleed-Bild
+// + Verlauf-Overlay. Primärfarbe Dunkelblau #012C7B. Bild lokal in public/uploads/.
+const bg = '/uploads/2021/10/St_Wendel_Teaser.jpg';
+---
+<section class="astro-swhero">
+  <div class="astro-swhero__bg" role="img"
+       aria-label="Kirche St. Wendel in Frankfurt-Sachsenhausen"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-swhero__overlay"></div>
+  <div class="astro-swhero__inner">
+    <span class="astro-swhero__badge">Kirchort &middot; Frankfurt-Sachsenhausen</span>
+    <h1 class="astro-swhero__title">St. Wendel</h1>
+    <p class="astro-swhero__sub">Musik, Familie und Gemeinschaft in Frankfurt</p>
+    <div class="astro-swhero__btns">
+      <a class="astro-swhero__btn astro-swhero__btn--primary" href="#angebote">Unsere Angebote</a>
+      <a class="astro-swhero__btn astro-swhero__btn--ghost" href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-swhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(72vh,600px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-swhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
+.astro-swhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.05) 0%,rgba(30,21,18,.55) 60%,rgba(30,21,18,.88) 100%)}
+.astro-swhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px}
+.astro-swhero__badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:6px 16px;margin-bottom:20px;color:#fff;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.astro-swhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,72px);color:#fff;margin:0 0 14px;line-height:1.08;font-weight:700}
+.astro-swhero__sub{color:rgba(255,255,255,.88);font-size:clamp(16px,2vw,22px);margin:0 0 28px;max-width:600px;line-height:1.45}
+.astro-swhero__btns{display:flex;gap:12px;flex-wrap:wrap}
+.astro-swhero__btn{padding:13px 26px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;transition:all .2s}
+.astro-swhero__btn--primary{background:#fff;color:#012C7B}
+.astro-swhero__btn--primary:hover{background:#f0ebe0}
+.astro-swhero__btn--ghost{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.5);color:#fff}
+.astro-swhero__btn--ghost:hover{background:rgba(255,255,255,.25)}
+@media(max-width:600px){.astro-swhero__inner{padding:0 16px 44px}}
+</style>

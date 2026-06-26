@@ -1,0 +1,29 @@
+---
+// Kirchort St. Wendel (Page-ID 47880, /kirchorte/st-wendel/).
+// Primärfarbe Dunkelblau #012C7B. Eigene Sw*-Komponenten (Präfix astro-sw).
+// Keine Unterseiten vorhanden. Nav + Footer global aus Base.astro (Handbuch 4b).
+import Base from '../../layouts/Base.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+import SwHero from '../../components/SwHero.astro';
+import SwQuick from '../../components/SwQuick.astro';
+import SwWelcome from '../../components/SwWelcome.astro';
+import SwCards from '../../components/SwCards.astro';
+import SwEngagement from '../../components/SwEngagement.astro';
+import SwTeam from '../../components/SwTeam.astro';
+import SwMarquee from '../../components/SwMarquee.astro';
+import SwFaq from '../../components/SwFaq.astro';
+import SwCta from '../../components/SwCta.astro';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/st-wendel/');
+---
+<Base seo={seo} title="St. Wendel – Kirchort der Pfarrei Sankt Bonifatius Frankfurt">
+  <SwHero />
+  <SwQuick />
+  <SwWelcome />
+  <SwCards />
+  <SwEngagement />
+  <SwTeam />
+  <SwMarquee />
+  <SwFaq />
+  <SwCta />
+</Base>

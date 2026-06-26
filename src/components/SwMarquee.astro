@@ -1,0 +1,45 @@
+---
+// Scrollende Foto-Galerie St. Wendel (WP-Block `sw-marquee`).
+// 21 Fotos aus public/uploads/2022/04/. Eigene Klassen `astro-swmarquee`.
+// Animation pausiert bei Hover und bei prefers-reduced-motion.
+const PHOTOS = [
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt1-scaled.jpg', alt: 'Kirche St. Wendel Frankfurt 1' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt2.jpg', alt: 'Kirche St. Wendel Frankfurt 2' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt3-1024x683.jpg', alt: 'Kirche St. Wendel Frankfurt 3' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt4.jpg', alt: 'Kirche St. Wendel Frankfurt 4' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt5.jpg', alt: 'Kirche St. Wendel Frankfurt 5' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt6.jpg', alt: 'Kirche St. Wendel Frankfurt 6' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt7.jpg', alt: 'Kirche St. Wendel Frankfurt 7' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt8-scaled.jpg', alt: 'Kirche St. Wendel Frankfurt 8' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt9-scaled.jpg', alt: 'Kirche St. Wendel Frankfurt 9' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt10-scaled.jpg', alt: 'Kirche St. Wendel Frankfurt 10' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt11-scaled.jpg', alt: 'Kirche St. Wendel Frankfurt 11' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt12.jpg', alt: 'Kirche St. Wendel Frankfurt 12' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt13-scaled.jpg', alt: 'Kirche St. Wendel Frankfurt 13' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt14.jpg', alt: 'Kirche St. Wendel Frankfurt 14' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt15.jpg', alt: 'Kirche St. Wendel Frankfurt 15' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt16.jpg', alt: 'Kirche St. Wendel Frankfurt 16' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt17.jpg', alt: 'Kirche St. Wendel Frankfurt 17' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt18.jpg', alt: 'Kirche St. Wendel Frankfurt 18' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt19.jpg', alt: 'Kirche St. Wendel Frankfurt 19' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt20.jpg', alt: 'Kirche St. Wendel Frankfurt 20' },
+  { src: '/uploads/2022/04/kirche-st-wendel-frankfurt21-scaled.jpg', alt: 'Kirche St. Wendel Frankfurt 21' },
+];
+---
+<div class="astro-swmarquee" id="galerie" aria-label="Fotogalerie St. Wendel" role="region">
+  <div class="astro-swmarquee__track">
+    {[...PHOTOS, ...PHOTOS].map((p) => (
+      <img src={p.src} alt={p.alt} loading="lazy" />
+    ))}
+  </div>
+</div>
+
+<style is:global>
+.astro-swmarquee{overflow:hidden;background:#1e1512;padding:6px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-swmarquee__track{display:flex;gap:8px;width:max-content;animation:swmarquee 70s linear infinite}
+.astro-swmarquee__track:hover{animation-play-state:paused}
+.astro-swmarquee__track img{height:240px;width:auto;object-fit:cover;border-radius:4px;display:block;flex-shrink:0}
+@keyframes swmarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@media(max-width:600px){.astro-swmarquee__track img{height:160px}}
+@media(prefers-reduced-motion:reduce){.astro-swmarquee__track{animation:none}}
+</style>

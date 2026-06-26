@@ -83,7 +83,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Kirche – Osterkerze | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/osterkerze/) | — | — | offen |  |
 | Kirche – Sakristei | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/sakristei/) | — | — | offen |  |
 | Kirche – Taufstein | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/taufstein/) | — | — | offen |  |
-| St. Wendel | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-wendel/) | — | — | offen |  |
+| St. Wendel | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-wendel/) | `src/pages/kirchorte/st-wendel.astro` | Frank | ✅ erledigt | Page-ID 47880, Astro-Pfad `/kirchorte/st-wendel/`; eigene Sw*-Komponenten (Präfix `astro-sw`); Primärfarbe Dunkelblau `#012C7B`; Foto-Hero (St_Wendel_Teaser.jpg), Quicklinks, Willkommen, Gottesdienste-Box (So 11 Uhr / Mi 18 Uhr), 3 Angebots-Karten (Gruppen/FamiGo/Chöre), 2 Engagement-Karten (Kirchortrat/Förderverein), Team (Martin Kestler, Pater Gaby, Alexandra Gockel-Bok, Adelheid Müller-Horrig), Marquee-Galerie (21 Fotos), FAQ (5), CTA. Keine Unterseiten vorhanden. |
 
 ## 6 · Gottesdienst & Glaube (mit Unterseiten)
 

@@ -1,0 +1,61 @@
+---
+// Willkommens-Sektion + Gottesdienste-Box des Kirchorts St. Wendel
+// (WP-Blöcke `stb2-sec#willkommen` + `stb2-prayer#gottesdienste`).
+// Eigene Klassen `astro-swsec` (Basis für alle sw-Sektionen) + `astro-swgodi`.
+// Primärfarbe Dunkelblau #012C7B.
+---
+<section class="astro-swsec" id="willkommen">
+  <div class="astro-swsec__in">
+    <span class="astro-swsec__eyebrow">Herzlich willkommen</span>
+    <h2 class="astro-swsec__h2">St. Wendel &ndash; Ein Ort für Familien und Musik</h2>
+    <p class="astro-swsec__lead">Bei uns finden Sie himmlische und vielfältige Musik, schöne atmosphärische Gottesdienste, Menschen mit internationalem Hintergrund, sehr viele Kinder und Familien &ndash; und wir feiern gerne.</p>
+
+    <div class="astro-swgodi" id="gottesdienste">
+      <div class="astro-swgodi__info">
+        <h3 class="astro-swgodi__h3">Gottesdienste in St. Wendel</h3>
+        <p class="astro-swgodi__p">Wir laden Sie herzlich ein, mit uns Gottesdienst zu feiern.</p>
+        <a class="astro-swgodi__link" href="/gottesdienst-glaube/gottesdienstordnung/">Aktuelle Gottesdienstordnung &rarr;</a>
+      </div>
+      <div class="astro-swgodi__times">
+        <div class="astro-swgodi__row">
+          <span class="astro-swgodi__day">Sonntag</span>
+          <span class="astro-swgodi__time">11 Uhr &middot; Eucharistiefeier</span>
+        </div>
+        <div class="astro-swgodi__row">
+          <span class="astro-swgodi__day">Mittwoch</span>
+          <span class="astro-swgodi__time">18 Uhr &middot; Eucharistiefeier</span>
+        </div>
+        <div class="astro-swgodi__row">
+          <span class="astro-swgodi__day">Familiengottesdienst</span>
+          <a class="astro-swgodi__link" href="/bonfamily/familiengottesdienste/">Zu den Terminen &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+/* Gemeinsame Sektions-Basis St. Wendel (Präfix astro-swsec) */
+.astro-swsec{padding:80px 0;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:90px}
+.astro-swsec.is-alt{background:#f7f3ef}
+.astro-swsec__in{max-width:1280px;margin:0 auto;padding:0 32px}
+.astro-swsec__eyebrow{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;color:#012C7B;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.astro-swsec__h2{font-family:'Playfair Display',Georgia,serif;font-size:38px;color:#012C7B;text-align:center;margin:0 0 16px;line-height:1.15}
+.astro-swsec__lead{text-align:center;color:#6b5c52;max-width:680px;margin:0 auto 48px;font-size:17px;line-height:1.6}
+@media(max-width:760px){.astro-swsec{padding:56px 0}.astro-swsec__h2{font-size:28px}}
+@media(max-width:600px){.astro-swsec__in{padding:0 16px}}
+
+/* Gottesdienste-Box */
+.astro-swgodi{background:#012C7B;border-radius:14px;padding:48px 40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:8px}
+.astro-swgodi__h3{font-family:'Playfair Display',Georgia,serif;font-size:30px;color:#fff;margin:0 0 12px;line-height:1.2}
+.astro-swgodi__p{font-size:16px;color:rgba(255,255,255,.88);margin:0 0 16px;line-height:1.55}
+.astro-swgodi__link{color:#c5a55a;font-weight:600;text-decoration:none;font-size:15px}
+.astro-swgodi__link:hover{text-decoration:underline}
+.astro-swgodi__times{background:rgba(255,255,255,.1);border-radius:10px;padding:24px 28px;display:flex;flex-direction:column;gap:16px}
+.astro-swgodi__row{display:flex;flex-direction:column;gap:4px}
+.astro-swgodi__day{font-weight:700;color:#fff;font-size:15px}
+.astro-swgodi__time{color:rgba(255,255,255,.8);font-size:14px}
+.astro-swgodi__times .astro-swgodi__link{font-size:14px;margin-top:2px}
+@media(max-width:760px){.astro-swgodi{grid-template-columns:1fr;padding:32px 24px;gap:24px}}
+@media(max-width:600px){.astro-swgodi{padding:24px 16px}}
+</style>

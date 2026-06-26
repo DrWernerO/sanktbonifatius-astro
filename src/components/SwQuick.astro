@@ -1,0 +1,42 @@
+---
+// Schnellzugriff-Leiste St. Wendel (WP-Block `stb2-quick`). Eigene Klassen `astro-swquick`.
+---
+<nav class="astro-swquick" aria-label="Schnellzugriff St. Wendel">
+  <div class="astro-swquick__in">
+    <span class="astro-swquick__lab">Schnell zu:</span>
+    <div class="astro-swquick__row">
+      <a href="#angebote">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Angebote
+      </a>
+      <a href="#gottesdienste">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg>
+        Gottesdienste
+      </a>
+      <a href="#weitere-angebote">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Gruppen
+      </a>
+      <a href="#kontakt">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Kontakt
+      </a>
+      <a href="#faq">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+        Häufige Fragen
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style is:global>
+.astro-swquick{background:#f7f3ef;padding:22px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-swquick__in{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px}
+.astro-swquick__lab{font-size:15px;font-weight:700;color:#1e1512;margin-right:6px}
+.astro-swquick__row{display:flex;flex-wrap:wrap;gap:10px}
+.astro-swquick a{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#fff;color:#1e1512;text-decoration:none;font-size:14px;font-weight:700;border:1px solid rgba(0,0,0,.08);transition:all .2s}
+.astro-swquick a svg{flex-shrink:0;color:#012C7B}
+.astro-swquick a:hover{background:#012C7B;color:#fff;border-color:#012C7B}
+.astro-swquick a:hover svg{color:#fff}
+@media(max-width:600px){.astro-swquick__in{padding:0 16px}}
+</style>

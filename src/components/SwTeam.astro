@@ -1,0 +1,67 @@
+---
+// Team-Sektion „Ihr Team am Kirchort" St. Wendel (WP-Block `stb2-team`).
+// Eigene Klassen `astro-swteam`. id="kontakt" für Sprungmarke.
+// 4 Personen: Martin Kestler, Pater Gaby, Alexandra Gockel-Bok, Adelheid Müller-Horrig.
+const IMG = '/uploads';
+const TEAM = [
+  {
+    name: 'Martin Kestler',
+    role: 'Pastoralreferent',
+    photo: `${IMG}/2022/06/Bonifatius_Pastoralteam_Martin-e1659516162716-1024x966.jpg`,
+    tel: '+4969695975866', telText: '069 695 97 58 66',
+    mail: 'm.kestler@sanktbonifatius.de',
+  },
+  {
+    name: 'Pater Gaby Geagea c.m.l',
+    role: 'Priesterlicher Mitarbeiter',
+    photo: `${IMG}/2023/07/Bonifatius_Pastoralteam_Gaby-e1659515837936-edited-1024x1024.jpg`,
+    tel: '+491727600361', telText: '0172 760 03 61',
+    mail: 'g.geagea@sanktbonifatius.de',
+  },
+  {
+    name: 'Alexandra Gockel-Bok',
+    role: 'Organistin',
+    photo: `${IMG}/2025/09/Alexandra-Gockel-Bok.jpg`,
+    tel: null, telText: null,
+    mail: 'alexandra.bok@web.de',
+  },
+  {
+    name: 'Adelheid Müller-Horrig',
+    role: 'Kirchenmusikdirektorin',
+    photo: `${IMG}/2018/01/KO_Wendel_MuellerHorrig.jpg`,
+    tel: null, telText: null,
+    mail: 'mueller-horrig@web.de',
+  },
+];
+---
+<section class="astro-swsec is-alt" id="kontakt">
+  <div class="astro-swsec__in">
+    <span class="astro-swsec__eyebrow">Wir sind für Sie da</span>
+    <h2 class="astro-swsec__h2">Ihr Team am Kirchort</h2>
+    <p class="astro-swsec__lead">Haben Sie Fragen oder möchten ein Gespräch? Sprechen Sie uns gerne an.</p>
+    <div class="astro-swteam">
+      {TEAM.map((p) => (
+        <div class="astro-swteam__person">
+          <div class="astro-swteam__photo" role="img" aria-label={`Foto von ${p.name}`}
+               style={`background-image:url('${p.photo}')`}></div>
+          <h3 class="astro-swteam__name">{p.name}</h3>
+          <p class="astro-swteam__role">{p.role}</p>
+          {p.tel && <a href={`tel:${p.tel}`}>{p.telText}</a>}
+          {p.mail && <a href={`mailto:${p.mail}`}>{p.mail}</a>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-swteam{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px}
+.astro-swteam__person{background:#fff;border-radius:12px;padding:28px 20px;box-shadow:0 2px 16px rgba(30,21,18,.12);display:grid;grid-template-columns:96px 1fr;column-gap:20px;align-items:center}
+.astro-swteam__photo{grid-row:1/span 99;width:96px;height:96px;border-radius:50%;background-size:cover;background-position:center top;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.astro-swteam__name{font-family:'Playfair Display',Georgia,serif;font-size:17px;color:#012C7B;margin:0 0 4px;font-weight:700;line-height:1.2}
+.astro-swteam__role{color:#6b5c52;font-size:11px;margin:0 0 10px;letter-spacing:.08em;text-transform:uppercase}
+.astro-swteam__person a{color:#1e1512;text-decoration:none;display:block;font-size:13px;margin:3px 0;transition:color .2s;word-break:break-word}
+.astro-swteam__person a:hover{color:#012C7B}
+@media(max-width:1024px){.astro-swteam{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.astro-swteam{grid-template-columns:1fr}.astro-swteam__person{grid-template-columns:80px 1fr;column-gap:16px;padding:20px 16px}.astro-swteam__photo{width:80px;height:80px}}
+</style>

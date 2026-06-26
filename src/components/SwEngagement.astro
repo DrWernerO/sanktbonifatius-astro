@@ -1,0 +1,51 @@
+---
+// Ehrenamt-Sektion St. Wendel — 2-Spalten-Grid (WP-Block `stb2-grid.two`, id="weitere-angebote").
+// Kirchortrat + Förderverein. Eigene Klassen `astro-sweng`. id="weitere-angebote" für Sprungmarke.
+const ITEMS = [
+  {
+    label: 'Gremium · Ehrenamt',
+    title: 'Kirchortrat',
+    href: '#kontakt',
+    text: 'Der Kirchortrat vertritt die Anliegen der Gemeindemitglieder, begleitet das Gemeindeleben und sorgt dafür, dass St. Wendel ein lebendiger Ort des Glaubens und der Begegnung bleibt.',
+    more: 'Mehr erfahren →',
+  },
+  {
+    label: 'Mitglied werden · ab 25 €/Jahr',
+    title: 'Förderverein St. Wendel',
+    href: '#kontakt',
+    text: 'Der Förderverein unterstützt seit 2007 das Gemeindeleben. Werden auch Sie Mitglied – der Jahresbeitrag beträgt mindestens 25 €.',
+    more: 'Mitglied werden →',
+  },
+];
+---
+<section class="astro-swsec" id="weitere-angebote">
+  <div class="astro-swsec__in">
+    <span class="astro-swsec__eyebrow">Ehrenamt &amp; Engagement</span>
+    <h2 class="astro-swsec__h2">Gemeinde mitgestalten</h2>
+    <p class="astro-swsec__lead">Der Kirchortrat und der Förderverein bilden das Rückgrat von St. Wendel. Hier engagieren sich Menschen, die unsere Gemeinde aktiv tragen und gestalten.</p>
+    <div class="astro-sweng__grid">
+      {ITEMS.map((item) => (
+        <a class="astro-sweng__card" href={item.href}>
+          <div class="astro-sweng__head">
+            <span class="astro-sweng__label">{item.label}</span>
+            <h3 class="astro-sweng__title">{item.title}</h3>
+          </div>
+          <p class="astro-sweng__text">{item.text}</p>
+          <span class="astro-sweng__more">{item.more}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-sweng__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.astro-sweng__card{background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(30,21,18,.12);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .25s,box-shadow .25s}
+.astro-sweng__card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(30,21,18,.18)}
+.astro-sweng__head{background:#012C7B;padding:28px 32px}
+.astro-sweng__label{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px}
+.astro-sweng__title{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;color:#fff;margin:0;line-height:1.15}
+.astro-sweng__text{font-size:15px;line-height:1.6;color:#3d3530;margin:0;padding:28px 32px;flex:1}
+.astro-sweng__more{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#012C7B;padding:0 32px 28px}
+@media(max-width:640px){.astro-sweng__grid{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,64 @@
+---
+// Angebots-Karten St. Wendel — 3-Spalten-Grid (WP-Block `stb2-grid`).
+// Eigene Klassen `astro-swcard`. id="angebote" für Sprungmarke.
+const IMG = '/uploads';
+const CARDS = [
+  {
+    title: 'Gruppen &amp; Gemeinschaft',
+    href: '#weitere-angebote',
+    img: `${IMG}/2026/03/3004-uao-gruppenbild-live.jpg`,
+    alt: 'Gemeinschaft in St. Wendel',
+    text: 'Seniorenkreis, Bücherei, Familiengottesdienste, Repair Café und mehr – hier ist Gemeinschaft zu Hause.',
+    more: 'Alle Gruppen entdecken →',
+  },
+  {
+    title: 'Familiengottesdienste',
+    href: '/bonfamily/familiengottesdienste/',
+    img: `${IMG}/2026/03/250316_Wendel_FamiGo_hires-03170-Kopie-1024x659.jpg`,
+    alt: 'Familiengottesdienst in St. Wendel',
+    text: 'Jeden 2. Sonntag im Monat: lebendige Gottesdienste für die ganze Familie mit Musik, Impulsen und echter Begegnung.',
+    more: 'Gottesdienste entdecken →',
+  },
+  {
+    title: 'Chöre in St. Wendel',
+    href: '/kultur-begegnung/choere/',
+    img: `${IMG}/2026/05/familiengottesdienst-stbonifatius-frankfurt.jpg`,
+    alt: 'Kirchenchor und Vokalensemble in St. Wendel',
+    text: 'Musik hat in St. Wendel einen besonderen Platz: Der klassische Kirchenchor (Ltg. Adelheid Müller-Horrig), das Vokalensemble (Ltg. Alexandra Gockel-Bok) und der Kinderprojektchor „Die Wendelinos" für Kinder von 5–12 Jahren – Proben mittwochs 17:30–18:30 Uhr.',
+    more: 'Mehr erfahren →',
+  },
+];
+---
+<section class="astro-swsec is-alt" id="angebote">
+  <div class="astro-swsec__in">
+    <span class="astro-swsec__eyebrow">Was uns ausmacht</span>
+    <h2 class="astro-swsec__h2">Unsere Angebote in St. Wendel</h2>
+    <p class="astro-swsec__lead">Von lebendigen Familiengottesdiensten über den Kinderprojektchor bis zum Repair Caf&eacute; &ndash; in St. Wendel ist für jeden etwas dabei.</p>
+    <div class="astro-swcard__grid">
+      {CARDS.map((c) => (
+        <a class="astro-swcard" href={c.href}>
+          <div class="astro-swcard__img" role="img" aria-label={c.alt}
+               style={`background-image:url('${c.img}')`}></div>
+          <div class="astro-swcard__body">
+            <div class="astro-swcard__title" set:html={c.title}></div>
+            <p class="astro-swcard__text">{c.text}</p>
+            {c.more && <span class="astro-swcard__more">{c.more}</span>}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-swcard__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.astro-swcard{background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(30,21,18,.12);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;text-decoration:none;color:inherit}
+.astro-swcard:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(30,21,18,.18)}
+.astro-swcard__img{aspect-ratio:16/10;background-size:cover;background-position:center;background-color:#eee}
+.astro-swcard__body{padding:26px 28px 28px;display:flex;flex-direction:column;flex:1}
+.astro-swcard__title{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#012C7B;margin:0 0 12px;line-height:1.2}
+.astro-swcard__text{font-size:15px;line-height:1.55;color:#3d3530;margin:0 0 16px;flex:1}
+.astro-swcard__more{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#012C7B;display:inline-flex;align-items:center;gap:6px;margin-top:auto}
+@media(max-width:860px){.astro-swcard__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.astro-swcard__grid{grid-template-columns:1fr}}
+</style>
