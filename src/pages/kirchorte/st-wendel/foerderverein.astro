@@ -4,26 +4,25 @@
 import Base from '../../../layouts/Base.astro';
 
 const seo = {
-  title: 'Förderverein St. Wendel-Gemeinde e.V. – Kirchort der Pfarrei Sankt Bonifatius Frankfurt',
+  title: 'Förderverein St. Wendel-Gemeinde e.V. – Pfarrei Sankt Bonifatius Frankfurt',
   description: 'Seit 2006 unterstützt der Förderverein St. Wendel-Gemeinde e.V. das Gemeindeleben in Frankfurt-Sachsenhausen – mit über 70 Mitgliedern und vielen verwirklichten Projekten.',
 };
 ---
 <Base seo={seo} title={seo.title}>
 
-  <!-- Hero -->
-  <section class="astro-swfv-hero">
-    <div class="astro-swfv-hero__in">
-      <a class="astro-swfv-back" href="/kirchorte/st-wendel/">&larr; St. Wendel</a>
-      <span class="astro-swfv-hero__eyebrow">Kirchort St. Wendel &middot; Frankfurt-Sachsenhausen</span>
-      <h1 class="astro-swfv-hero__h1">Förderverein<br>St. Wendel-Gemeinde e.V.</h1>
-      <p class="astro-swfv-hero__lead">Gegründet am 17. Januar 2006 &ndash; über 70 Mitglieder stärken das Gemeindeleben mit Herz und Engagement.</p>
+  <!-- Intro-Header (kein Foto, pt=80px für fixe Nav) -->
+  <section class="astro-swfv__intro">
+    <div class="astro-swfv__intro-in">
+      <a class="astro-swfv__back" href="/kirchorte/st-wendel/">&larr; St. Wendel</a>
+      <p class="astro-swfv__eyebrow">Kirchort St. Wendel &middot; Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-swfv__h1">Förderverein St. Wendel-Gemeinde e.V.</h1>
+      <p class="astro-swfv__lead">Gegründet am 17. Januar 2006 &ndash; über 70 Mitglieder stärken das Gemeindeleben mit Herz und Engagement.</p>
     </div>
   </section>
 
   <!-- Karten: Geschichte, Vorstand, Projekte -->
-  <section class="astro-swsec" id="foerderverein">
-    <div class="astro-swsec__in">
-
+  <section class="astro-swfv__sec" id="foerderverein">
+    <div class="astro-swfv__sec-in">
       <div class="astro-swfv__grid">
 
         <!-- Geschichte & Zweck -->
@@ -39,7 +38,7 @@ const seo = {
           </div>
           <div class="astro-swfv__card-body">
             <p>Am 17. Januar 2006 gründeten 15 Personen den Verein mit dem Ziel, &bdquo;kirchliche, soziale und religiöse Belange der St. Wendel-Gemeinde zu unterstützen&ldquo; &ndash; als Reaktion auf die Sparmaßnahmen des Bistums Limburg. Heute zählt der Förderverein über 70 Mitglieder. Der Jahresbeitrag beträgt mindestens 25 €.</p>
-            <a class="astro-swfv__btn" href="/wp-content/uploads/2025/05/Beitrittserklaerungaktuell.pdf" target="_blank" rel="noopener">Beitrittserklärung (PDF) &rarr;</a>
+            <a class="astro-swfv__pill-btn" href="/wp-content/uploads/2025/05/Beitrittserklaerungaktuell.pdf" target="_blank" rel="noopener">Beitrittserklärung (PDF) &rarr;</a>
           </div>
         </div>
 
@@ -56,22 +55,10 @@ const seo = {
           </div>
           <div class="astro-swfv__card-body">
             <table class="astro-swfv__table">
-              <tr>
-                <td>Reinhard Bok</td>
-                <td>Vorsitzender &middot; <a href="mailto:Reinhard.Bok@web.de">Reinhard.Bok@web.de</a></td>
-              </tr>
-              <tr>
-                <td>Ann-Kristin Schäfer</td>
-                <td>Stellv. Vorsitzende &middot; <a href="mailto:Ann-Kristin.Schaefer@t-online.de">Ann-Kristin.Schaefer@t-online.de</a></td>
-              </tr>
-              <tr>
-                <td>Monika Laier</td>
-                <td>Schriftführerin</td>
-              </tr>
-              <tr>
-                <td>Andreas Klüber</td>
-                <td>Kassenführer</td>
-              </tr>
+              <tr><td>Reinhard Bok</td><td>Vorsitzender &middot; <a href="mailto:Reinhard.Bok@web.de">Reinhard.Bok@web.de</a></td></tr>
+              <tr><td>Ann-Kristin Schäfer</td><td>Stellv. Vorsitzende &middot; <a href="mailto:Ann-Kristin.Schaefer@t-online.de">Ann-Kristin.Schaefer@t-online.de</a></td></tr>
+              <tr><td>Monika Laier</td><td>Schriftführerin</td></tr>
+              <tr><td>Andreas Klüber</td><td>Kassenführer</td></tr>
             </table>
           </div>
         </div>
@@ -120,18 +107,17 @@ const seo = {
           <div class="astro-swfv__konto-row"><span>Bank</span><span>Frankfurter Sparkasse</span></div>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="astro-swcta">
-    <div class="astro-swcta__in">
-      <h2 class="astro-swcta__h2">Fragen zum Förderverein?</h2>
-      <p class="astro-swcta__p">Sprechen Sie den Vorstand gerne direkt an oder wenden Sie sich ans Pfarrbüro.</p>
+  <section class="astro-swfv__cta">
+    <div class="astro-swfv__cta-in">
+      <h2 class="astro-swfv__cta-h2">Fragen zum Förderverein?</h2>
+      <p class="astro-swfv__cta-p">Sprechen Sie den Vorstand gerne direkt an oder wenden Sie sich ans Pfarrbüro.</p>
       <div class="astro-swfv__cta-btns">
         <a class="astro-swfv__cta-outline" href="/kirchorte/st-wendel/">&larr; Zurück zu St. Wendel</a>
-        <a class="astro-swcta__btn" href="mailto:Reinhard.Bok@web.de">Vorstand schreiben</a>
+        <a class="astro-swfv__cta-btn" href="mailto:Reinhard.Bok@web.de">Vorstand schreiben</a>
       </div>
     </div>
   </section>
@@ -139,27 +125,35 @@ const seo = {
 </Base>
 
 <style is:global>
-/* Hero */
-.astro-swfv-hero{background:linear-gradient(160deg,#011d52 0%,#012C7B 60%,#01408c 100%);width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;padding:64px 0 72px;text-align:center;color:#fff}
-.astro-swfv-hero__in{max-width:800px;margin:0 auto;padding:0 32px}
-.astro-swfv-back{display:inline-block;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:.04em}
-.astro-swfv-back:hover{color:#fff}
-.astro-swfv-hero__eyebrow{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
-.astro-swfv-hero__h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,5vw,52px);line-height:1.1;margin:0 0 20px;color:#fff}
-.astro-swfv-hero__lead{font-size:17px;color:rgba(255,255,255,.85);line-height:1.6;margin:0}
+/* ── Intro-Header ─────────────────────────────────────── */
+.astro-swfv__intro{
+  background:linear-gradient(160deg,#011d52 0%,#012C7B 60%,#01408c 100%);
+  width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;
+  padding:120px 24px 64px;text-align:center;color:#fff;
+}
+.astro-swfv__intro-in{max-width:800px;margin:0 auto}
+.astro-swfv__back{display:inline-block;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;margin-bottom:20px;letter-spacing:.04em}
+.astro-swfv__back:hover{color:#fff}
+.astro-swfv__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
+.astro-swfv__h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,4vw,46px);line-height:1.15;margin:0 0 20px;color:#fff}
+.astro-swfv__lead{font-size:17px;color:rgba(255,255,255,.85);line-height:1.6;margin:0}
 
-/* Karten-Grid */
-.astro-swfv__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:56px}
+/* ── Haupt-Sektion ────────────────────────────────────── */
+.astro-swfv__sec{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-swfv__sec-in{max-width:1280px;margin:0 auto;padding:0 32px}
+
+/* ── Karten-Grid ──────────────────────────────────────── */
+.astro-swfv__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:48px}
 .astro-swfv__card{background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(30,21,18,.1);overflow:hidden;display:flex;flex-direction:column}
 .astro-swfv__card-head{background:#012C7B;padding:22px 24px;display:flex;align-items:center;gap:16px}
 .astro-swfv__card-icon{background:rgba(255,255,255,.15);border-radius:8px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .astro-swfv__card-title{font-family:'Playfair Display',Georgia,serif;font-size:17px;color:#fff;font-weight:700;line-height:1.2;margin-bottom:4px}
 .astro-swfv__card-sub{font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.04em}
 .astro-swfv__card-body{padding:24px;flex:1;font-size:15px;color:#3d3530;line-height:1.6}
-.astro-swfv__btn{display:inline-block;margin-top:16px;padding:10px 20px;border-radius:999px;background:#012C7B;color:#fff;text-decoration:none;font-weight:600;font-size:14px;transition:background .2s}
-.astro-swfv__btn:hover{background:#011d52}
+.astro-swfv__pill-btn{display:inline-block;margin-top:16px;padding:10px 20px;border-radius:999px;background:#012C7B;color:#fff;text-decoration:none;font-weight:600;font-size:14px;transition:background .2s}
+.astro-swfv__pill-btn:hover{background:#011d52}
 
-/* Tabelle Vorstand */
+/* ── Tabelle Vorstand ─────────────────────────────────── */
 .astro-swfv__table{width:100%;border-collapse:collapse;font-size:14px}
 .astro-swfv__table tr{border-bottom:1px solid #f0ebe0}
 .astro-swfv__table tr:last-child{border-bottom:none}
@@ -168,11 +162,11 @@ const seo = {
 .astro-swfv__table a{color:#012C7B;text-decoration:none}
 .astro-swfv__table a:hover{text-decoration:underline}
 
-/* Liste Projekte */
-.astro-swfv__list{margin:0;padding:0 0 0 18px;list-style:disc}
+/* ── Liste Projekte ───────────────────────────────────── */
+.astro-swfv__list{margin:0;padding:0 0 0 18px}
 .astro-swfv__list li{padding:4px 0;font-size:14px;color:#3d3530}
 
-/* Spenden-Box */
+/* ── Spenden-Box ──────────────────────────────────────── */
 .astro-swfv__spenden{background:#012C7B;border-radius:14px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;color:#fff}
 .astro-swfv__spenden-h2{font-family:'Playfair Display',Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;line-height:1.2}
 .astro-swfv__spenden p{color:rgba(255,255,255,.85);font-size:15px;line-height:1.6;margin:0 0 20px}
@@ -185,13 +179,24 @@ const seo = {
 .astro-swfv__konto-row span:first-child{color:rgba(255,255,255,.7);flex-shrink:0}
 .astro-swfv__konto-row span:last-child{text-align:right}
 
-/* CTA-Buttons */
-.astro-swfv__cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+/* ── CTA ──────────────────────────────────────────────── */
+.astro-swfv__cta{background:linear-gradient(135deg,#011d52 0%,#012C7B 100%);width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;padding:72px 0;text-align:center}
+.astro-swfv__cta-in{max-width:760px;margin:0 auto;padding:0 32px}
+.astro-swfv__cta-h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,40px);color:#fff;margin:0 0 16px;line-height:1.15}
+.astro-swfv__cta-p{color:rgba(255,255,255,.82);font-size:17px;margin:0 0 32px;line-height:1.5}
+.astro-swfv__cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.astro-swfv__cta-btn{display:inline-block;background:#fff;color:#012C7B;font-weight:700;font-size:15px;padding:14px 32px;border-radius:999px;text-decoration:none;transition:background .2s}
+.astro-swfv__cta-btn:hover{background:#f0ebe0}
 .astro-swfv__cta-outline{display:inline-block;padding:14px 28px;border-radius:999px;border:2px solid rgba(255,255,255,.5);color:#fff;text-decoration:none;font-weight:600;font-size:15px;transition:all .2s}
 .astro-swfv__cta-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
 
-/* Responsive */
+/* ── Responsive ───────────────────────────────────────── */
 @media(max-width:900px){.astro-swfv__grid{grid-template-columns:1fr 1fr}}
-@media(max-width:700px){.astro-swfv__grid{grid-template-columns:1fr}.astro-swfv__spenden{grid-template-columns:1fr;padding:32px 24px;gap:28px}}
-@media(max-width:480px){.astro-swfv-hero__in{padding:0 16px}.astro-swfv__spenden{padding:24px 16px}}
+@media(max-width:640px){
+  .astro-swfv__grid{grid-template-columns:1fr}
+  .astro-swfv__spenden{grid-template-columns:1fr;padding:32px 24px;gap:28px}
+  .astro-swfv__sec-in{padding:0 16px}
+  .astro-swfv__cta-in{padding:0 16px}
+  .astro-swfv__intro{padding:100px 16px 48px}
+}
 </style>
