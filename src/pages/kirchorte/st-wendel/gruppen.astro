@@ -1,0 +1,155 @@
+---
+// Gruppen & Gemeinschaft St. Wendel (WP-Draft ID 49276, /kirchorte/st-wendel/gruppen/)
+// Primärfarbe Dunkelblau #012C7B. Eigene Klassen astro-swgp*.
+import Base from '../../../layouts/Base.astro';
+
+const seo = {
+  title: 'Gruppen & Gemeinschaft in St. Wendel – Pfarrei Sankt Bonifatius Frankfurt',
+  description: 'Ob Familien, Senioren, Kinder oder Bastler: In St. Wendel gibt es lebendige Gruppen für alle – Familiengottesdienste, Seniorenkreis, Bücherei, Repair Café und mehr.',
+};
+
+const GRUPPEN = [
+  {
+    titel: 'Lebendige Familiengottesdienste',
+    wann: 'Jeden 2. Sonntag im Monat',
+    text: 'Jeweils am 2. Sonntag im Monat ist in St. Wendel Familiengottesdienst. So ein Gottesdienst lebt von kreativen Ideen, toller Musik und spirituellen Impulsen für die ganze Familie. Zur Vorbereitung trifft sich regelmäßig ein Team – neue Gesichter sind herzlich willkommen.',
+    kontakt: { name: 'Stefanie Andrés', mail: 'stefanie.andres@gmx.de' },
+    icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  },
+  {
+    titel: 'Kirche und Kids',
+    wann: 'Für Kinder aller Altersgruppen',
+    text: 'Für die Kleinen in St. Wendel ist ganz schön viel los: Kindergottesdienste, Kinderfreitag, Kleinkinder-Gottesdienst, Sternsinger, Adventsbasteln, Krippenspiel, Erstkommunion, Messdiener, Kinderchor, Kindergarten und Zeltlager. Termine im Pfarrbrief.',
+    kontakt: { name: 'P. Gaby Geagea', mail: 'g.geagea@sanktbonifatius.de' },
+    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  },
+  {
+    titel: 'Seniorenkreis',
+    wann: 'Jeden Donnerstag · 15:00 Uhr',
+    text: 'Jeden Donnerstag um 15 Uhr trifft sich der Seniorenkreis im Gemeindehaus St. Wendel. Gute Gespräche, Spiele, geistliche Impulse – und natürlich guter Kaffee und leckerer Kuchen. Eine herzliche Runde für alle, die ins Gespräch kommen möchten.',
+    kontakt: { name: 'Danielle Wendel-Baumert', mail: 'wendelbaumert@gmail.com' },
+    icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  },
+  {
+    titel: 'Bücherei',
+    wann: 'Mi 15:30–18 Uhr · So 10:30–12:30 Uhr',
+    text: 'Rund 3.500 Medien – Bilderbücher, Kinderbücher, Belletristik und CDs. Highlights: vierteljährliche Neuerscheinungen, der „bibfit"-Führerschein für Vorschulkinder im Frühjahr und die Buchausstellung mit Flohmarkt im November.',
+    kontakt: { name: 'Tel. 069 68 33 70', mail: 'sweidner@gmx.net' },
+    icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+  },
+  {
+    titel: 'Repair Café',
+    wann: 'Jeden 1. Dienstag · 17:30–20:00 Uhr',
+    text: 'Kaputt? Kein Problem! Im Repair Café bekommt man in angenehmer Café-Atmosphäre kostenlose Hilfe bei der Reparatur von Haushaltsgegenständen, Fahrrädern und Kleidung – statt wegwerfen lieber reparieren. Im Pfarrheim St. Wendel.',
+    kontakt: { name: 'Danielle Wendel-Baumert', mail: 'wendelbaumert@gmail.com' },
+    icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  },
+];
+---
+<Base seo={seo} title={seo.title}>
+
+  <!-- Intro-Header -->
+  <section class="astro-swgp__intro">
+    <div class="astro-swgp__intro-in">
+      <a class="astro-swgp__back" href="/kirchorte/st-wendel/">&larr; St. Wendel</a>
+      <p class="astro-swgp__eyebrow">Kirchort St. Wendel &middot; Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-swgp__h1">Gruppen &amp; Gemeinschaft</h1>
+      <p class="astro-swgp__lead">Ob Familien, Senioren, Kinder oder Bastler: In St. Wendel gibt es lebendige Gruppen für alle. Schauen Sie einfach vorbei &ndash; ein erstes Kennenlernen ist völlig unverbindlich.</p>
+    </div>
+  </section>
+
+  <!-- Gruppen-Karten -->
+  <section class="astro-swgp__sec" id="gruppen">
+    <div class="astro-swgp__sec-in">
+      <div class="astro-swgp__head">
+        <h2 class="astro-swgp__sec-h2">Die Gruppen in St. Wendel</h2>
+        <p class="astro-swgp__sec-lead">Fünf Gruppen, ein Ort, viele Möglichkeiten.</p>
+      </div>
+      <div class="astro-swgp__grid">
+        {GRUPPEN.map((g) => (
+          <div class="astro-swgp__card">
+            <div class="astro-swgp__card-head">
+              <div class="astro-swgp__card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" set:html={g.icon}></svg>
+              </div>
+              <div>
+                <div class="astro-swgp__card-title">{g.titel}</div>
+                <div class="astro-swgp__card-wann">{g.wann}</div>
+              </div>
+            </div>
+            <div class="astro-swgp__card-body">
+              <p class="astro-swgp__card-text">{g.text}</p>
+              <div class="astro-swgp__card-kontakt">
+                Kontakt: {g.kontakt.name} &middot; <a href={`mailto:${g.kontakt.mail}`}>{g.kontakt.mail}</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="astro-swgp__cta">
+    <div class="astro-swgp__cta-in">
+      <h2 class="astro-swgp__cta-h2">Interesse? Einfach vorbeikommen.</h2>
+      <p class="astro-swgp__cta-p">Alle Gruppen freuen sich über neue Mitglieder. Ein erster Besuch ist immer unverbindlich.</p>
+      <div class="astro-swgp__cta-btns">
+        <a class="astro-swgp__cta-outline" href="/kirchorte/st-wendel/">&larr; Zurück zu St. Wendel</a>
+        <a class="astro-swgp__cta-btn" href="/kontakt/">Pfarrbüro kontaktieren</a>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style is:global>
+/* ── Intro-Header ─────────────────────────────────────── */
+.astro-swgp__intro{background:linear-gradient(160deg,#011d52 0%,#012C7B 60%,#01408c 100%);width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;padding:120px 24px 64px;text-align:center;color:#fff}
+.astro-swgp__intro-in{max-width:800px;margin:0 auto}
+.astro-swgp__back{display:inline-block;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;margin-bottom:20px;letter-spacing:.04em}
+.astro-swgp__back:hover{color:#fff}
+.astro-swgp__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
+.astro-swgp__h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,4vw,46px);line-height:1.15;margin:0 0 20px;color:#fff}
+.astro-swgp__lead{font-size:17px;color:rgba(255,255,255,.85);line-height:1.6;margin:0}
+
+/* ── Haupt-Sektion ────────────────────────────────────── */
+.astro-swgp__sec{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-swgp__sec-in{max-width:1280px;margin:0 auto;padding:0 32px}
+.astro-swgp__head{text-align:center;margin-bottom:48px}
+.astro-swgp__sec-h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,36px);color:#012C7B;margin:0 0 12px}
+.astro-swgp__sec-lead{font-size:17px;color:#6b5c52;margin:0}
+
+/* ── Karten-Grid (3+2 Spalten) ────────────────────────── */
+.astro-swgp__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.astro-swgp__card{background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(30,21,18,.1);overflow:hidden;display:flex;flex-direction:column}
+.astro-swgp__card-head{background:#012C7B;padding:22px 24px;display:flex;align-items:flex-start;gap:16px}
+.astro-swgp__card-icon{background:rgba(255,255,255,.15);border-radius:8px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.astro-swgp__card-title{font-family:'Playfair Display',Georgia,serif;font-size:17px;color:#fff;font-weight:700;line-height:1.25;margin-bottom:5px}
+.astro-swgp__card-wann{font-size:12px;color:rgba(255,255,255,.75);letter-spacing:.04em}
+.astro-swgp__card-body{padding:24px;flex:1;display:flex;flex-direction:column;gap:12px}
+.astro-swgp__card-text{font-size:15px;color:#3d3530;line-height:1.65;margin:0;flex:1}
+.astro-swgp__card-kontakt{font-size:13px;color:#6b5c52;border-top:1px solid #f0ebe0;padding-top:12px;margin-top:auto}
+.astro-swgp__card-kontakt a{color:#012C7B;text-decoration:none}
+.astro-swgp__card-kontakt a:hover{text-decoration:underline}
+
+/* ── CTA ──────────────────────────────────────────────── */
+.astro-swgp__cta{background:linear-gradient(135deg,#011d52 0%,#012C7B 100%);width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;padding:72px 0;text-align:center}
+.astro-swgp__cta-in{max-width:760px;margin:0 auto;padding:0 32px}
+.astro-swgp__cta-h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,40px);color:#fff;margin:0 0 16px;line-height:1.15}
+.astro-swgp__cta-p{color:rgba(255,255,255,.82);font-size:17px;margin:0 0 32px;line-height:1.5}
+.astro-swgp__cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.astro-swgp__cta-btn{display:inline-block;background:#fff;color:#012C7B;font-weight:700;font-size:15px;padding:14px 32px;border-radius:999px;text-decoration:none;transition:background .2s}
+.astro-swgp__cta-btn:hover{background:#f0ebe0}
+.astro-swgp__cta-outline{display:inline-block;padding:14px 28px;border-radius:999px;border:2px solid rgba(255,255,255,.5);color:#fff;text-decoration:none;font-weight:600;font-size:15px;transition:all .2s}
+.astro-swgp__cta-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media(max-width:900px){.astro-swgp__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .astro-swgp__grid{grid-template-columns:1fr}
+  .astro-swgp__intro{padding:100px 16px 48px}
+  .astro-swgp__sec-in{padding:0 16px}
+  .astro-swgp__cta-in{padding:0 16px}
+}
+</style>
