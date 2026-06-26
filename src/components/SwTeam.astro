@@ -51,17 +51,18 @@ const TEAM = [
         </div>
       ))}
     </div>
+
   </div>
 </section>
 
 <style is:global>
-.astro-swteam{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px}
-.astro-swteam__person{background:#fff;border-radius:12px;padding:28px 20px;box-shadow:0 2px 16px rgba(30,21,18,.12);display:grid;grid-template-columns:96px 1fr;column-gap:20px;align-items:center}
-.astro-swteam__photo{grid-row:1/span 99;width:96px;height:96px;border-radius:50%;background-size:cover;background-position:center top;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.15)}
-.astro-swteam__name{font-family:'Playfair Display',Georgia,serif;font-size:17px;color:#012C7B;margin:0 0 4px;font-weight:700;line-height:1.2}
-.astro-swteam__role{color:#6b5c52;font-size:11px;margin:0 0 10px;letter-spacing:.08em;text-transform:uppercase}
-.astro-swteam__person a{color:#1e1512;text-decoration:none;display:block;font-size:13px;margin:3px 0;transition:color .2s;word-break:break-word}
+.astro-swteam{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
+.astro-swteam__person{background:#fff;border-radius:12px;padding:32px 24px;text-align:center;box-shadow:0 2px 16px rgba(30,21,18,.12)}
+.astro-swteam__photo{width:120px;height:120px;border-radius:50%;background-size:cover;background-position:center top;margin:0 auto 20px;box-shadow:0 4px 14px rgba(0,0,0,.15);border:4px solid #fff}
+.astro-swteam__name{font-family:'Playfair Display',Georgia,serif;font-size:21px;color:#012C7B;margin:0 0 4px;font-weight:700;line-height:1.2}
+.astro-swteam__role{color:#6b5c52;font-size:13px;margin:0 0 18px;letter-spacing:.08em;text-transform:uppercase}
+.astro-swteam__person a{color:#1e1512;text-decoration:none;display:block;font-size:15px;margin:4px 0;transition:color .2s;word-break:break-word}
 .astro-swteam__person a:hover{color:#012C7B}
-@media(max-width:1024px){.astro-swteam{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:580px){.astro-swteam{grid-template-columns:1fr}.astro-swteam__person{grid-template-columns:80px 1fr;column-gap:16px;padding:20px 16px}.astro-swteam__photo{width:80px;height:80px}}
+@media(max-width:900px){.astro-swteam{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.astro-swteam{grid-template-columns:1fr}.astro-swteam__photo{width:100px;height:100px}}
 </style>
