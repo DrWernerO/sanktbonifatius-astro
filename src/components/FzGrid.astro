@@ -1,7 +1,7 @@
 ---
 // Freizeiten-Grid der Unterseite „Kinder- & Jugendfreizeiten" (WP-Block `fz-grid-wrap`).
 // Eigene Klassen `astro-fzgrid` (goldene Regel, Handbuch 3 — niemals WP-Klassen `fz-…`).
-// 6 Karten aus einem Daten-Array. Bilder lokal unter public/uploads/ (Handbuch 1b).
+// 5 Karten aus einem Daten-Array. Bilder lokal unter public/uploads/ (Handbuch 1b).
 // Externe Anmelde-Links (JONA, ChurchDesk) + Flyer-PDFs liegen weiterhin auf www
 // (Download-URLs ziehen erst beim WP-Umzug auf cms., Handbuch 1b). Mailto bleibt mailto.
 //
@@ -48,26 +48,16 @@ const freizeiten = [
     links: [{ label: 'Rückfragen per Mail', href: 'mailto:jugendfahrtenstwendel@gmail.com', primary: true }],
   },
   {
-    img: '/uploads/2026/02/jugendfreizeit-2026-entdecke-den-osten-1024x724.jpg',
-    alt: 'Jugendfreizeit in Ostdeutschland',
-    badge: '14–18 Jahre', region: 'Ostdeutschland',
-    title: 'Jugendfreizeit 2026 – Entdecke den Osten',
-    dates: '04.10.–10.10.2026', place: 'Dresden, Leipzig, Elbsandsteingebirge',
-    text: 'Du hast Lust auf eine Woche voller Action, Gemeinschaft und unvergesslicher Erlebnisse? Dieses Mal heißt es: „Entdecke den Osten!“ Wir erkunden spannende Städte wie Leipzig und Dresden und genießen die beeindruckende Natur des Elbsandsteingebirges.',
-    note: 'Anmeldung bis 12.04.2026',
-    links: [
-      { label: 'Direkt zur Anmeldung', href: 'https://forms.churchdesk.com/f/-tgiaVCknY', primary: true, ext: true },
-      { label: 'Flyer (PDF)', href: 'https://www.sanktbonifatius.de/wp-content/uploads/2026/02/Jugendfreizeit-2026-entdecke-den-Osten.pdf', ext: true },
-    ],
-  },
-  {
     img: '/uploads/2025/12/path-7399332_1280-pixabay-1024x682.jpg',
     alt: 'Bergweg in Tirol',
-    badge: '14–21 Jahre', region: 'Tirol · Save the Date',
+    badge: '14–21 Jahre', region: 'Tirol',
     title: 'Bergabenteuer 2026 in Tirol',
     dates: '05.10.–10.10.2026', place: 'Paznauntal (Tirol)',
     text: 'Lasst uns die Berge erkunden – packt eure Neugier ein! Wir machen uns auf den Weg zu einem kleinen Abenteuer zwischen Bergen, Tannen und gemütlichen Hütten. Keine großen Märsche – eher Entdeckertouren: kurze Wege, gute Gesellschaft, und abends Geschichten, Musik und kleine Momente zum Durchatmen.',
-    links: [{ label: 'Anmeldung per Mail', href: 'mailto:g.geagea@sanktbonifatius.de', primary: true }],
+    links: [
+      { label: 'Direkt zur Anmeldung', href: 'https://forms.churchdesk.com/f/jfrb_JuL0s', primary: true, ext: true },
+      { label: 'Flyer (PDF)', href: 'https://www.sanktbonifatius.de/wp-content/uploads/2026/05/Einladung-Jugendfahrt-2026.pdf', ext: true },
+    ],
   },
 ];
 ---
