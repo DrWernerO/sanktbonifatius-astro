@@ -14,9 +14,9 @@ const KIRCHORTE = [
     img: '/uploads/2020/04/St.-Bonifatius-von-oben.jpg',
     alt: 'Kirche St. Bonifatius Frankfurt-Sachsenhausen von oben',
     color: '#6440a4',
-    stadtteil: 'Frankfurt-Sachsenhausen',
+    schwerpunkt: 'Pfarrkirche',
     adresse: 'Holbeinstraße 70 · 60596 Frankfurt am Main',
-    oeffnung: 'Täglich 9–17 Uhr geöffnet',
+    mapsHref: 'https://www.google.com/maps/search/?api=1&query=Holbeinstra%C3%9Fe+70,+60596+Frankfurt+am+Main',
     desc: 'Als bedeutendster Kirchenbau des 20. Jahrhunderts im Bistum Limburg ist die St.-Bonifatius-Kirche ein Beispiel expressionistischer Baukunst. Erbaut von Martin Weber, 1927 geweiht.',
   },
   {
@@ -25,9 +25,9 @@ const KIRCHORTE = [
     img: '/uploads/2026/06/Bonifatius_HerzJesu_Kirchturm-0829.jpg',
     alt: 'Kirche Herz Jesu Frankfurt-Oberrad',
     color: '#9a2d2d',
-    stadtteil: 'Frankfurt-Oberrad',
+    schwerpunkt: 'Musik & Liturgie',
     adresse: 'Mathildenstraße 30 · 60599 Frankfurt am Main',
-    oeffnung: 'Öffentliche Parkplätze in der Nähe',
+    mapsHref: 'https://www.google.com/maps/search/?api=1&query=Mathildstra%C3%9Fe+30,+60599+Frankfurt+am+Main',
     desc: 'Die spätneugotische Hallenkirche wurde 1895 errichtet, nach dem Krieg 1948 neu geweiht. Herz Jesu legt besonderen Wert auf eine sorgfältig gestaltete Liturgie und ökumenische Zusammenarbeit.',
   },
   {
@@ -36,9 +36,9 @@ const KIRCHORTE = [
     img: '/uploads/2020/05/KircheStAposteln.jpeg',
     alt: 'Kirche St. Aposteln Frankfurt-Sachsenhausen',
     color: '#016006',
-    stadtteil: 'Frankfurt-Sachsenhausen',
+    schwerpunkt: 'Soziales Engagement',
     adresse: 'Ziegelhüttenweg 149 · 60598 Frankfurt am Main',
-    oeffnung: 'Eigene Parkplätze vorhanden',
+    mapsHref: 'https://www.google.com/maps/search/?api=1&query=Ziegelh%C3%BCttenweg+149,+60598+Frankfurt+am+Main',
     desc: 'St. Aposteln, am 29. Mai 1957 geweiht, ist unser Sozialpastorales Zentrum – ein Ort, an dem wir immer neu fragen: Was können wir für die Menschen in dieser Stadt tun?',
   },
   {
@@ -47,9 +47,9 @@ const KIRCHORTE = [
     img: '/uploads/2021/10/St_Wendel_Teaser.jpg',
     alt: 'Kirche St. Wendel Frankfurt-Sachsenhausen',
     color: '#012C7B',
-    stadtteil: 'Frankfurt-Sachsenhausen',
+    schwerpunkt: 'Familie & Gemeinschaft',
     adresse: 'Altes Schützenhüttengässchen 2–6 · 60599 Frankfurt am Main',
-    oeffnung: 'Öffentliche Parkplätze in der Nähe',
+    mapsHref: 'https://www.google.com/maps/search/?api=1&query=Altes+Sch%C3%BCtznh%C3%BCttengässchen+2,+60599+Frankfurt+am+Main',
     desc: 'Die Kirche St. Wendel wurde 1955–1957 nach Plänen von Johannes Krahn erbaut. Am Kirchort St. Wendel gibt es ein breites Angebot für Kinder und Familien sowie Begegnungsmöglichkeiten für alle.',
   },
 ];
@@ -131,21 +131,25 @@ const FAQS = [
       </div>
       <div class="astro-ko-grid">
         {KIRCHORTE.map((k) => (
-          <a href={k.href} class="astro-ko-card" style={`--ko-c:${k.color}`}>
+          <div class="astro-ko-card" style={`--ko-c:${k.color}`}>
+            <a href={k.href} class="astro-ko-card__overlay" aria-label={`Zum Kirchort ${k.name}`}></a>
             <div class="astro-ko-card__img">
               <img src={k.img} alt={k.alt} loading="lazy" />
-              <div class="astro-ko-card__badge">{k.stadtteil}</div>
+              <div class="astro-ko-card__badge">{k.schwerpunkt}</div>
             </div>
             <div class="astro-ko-card__body">
               <div class="astro-ko-card__name">{k.name}</div>
               <p class="astro-ko-card__desc">{k.desc}</p>
-              <div class="astro-ko-card__adr">{k.adresse}</div>
+              <a href={k.mapsHref} target="_blank" rel="noopener" class="astro-ko-card__adr">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                {k.adresse}
+              </a>
               <span class="astro-ko-card__link">
                 Zum Kirchort
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </span>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </div>
@@ -224,8 +228,9 @@ const FAQS = [
 .astro-ko-cards__head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,4vw,38px);font-weight:700;color:#2c2420;margin:0 0 10px}
 .astro-ko-cards__head p{font-size:16px;color:#5a4430;margin:0}
 .astro-ko-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.astro-ko-card{display:flex;flex-direction:column;border-radius:var(--ko-radius);overflow:hidden;text-decoration:none;color:var(--ko-ink);box-shadow:var(--ko-shadow);transition:transform .22s,box-shadow .22s;background:#fff}
+.astro-ko-card{position:relative;display:flex;flex-direction:column;border-radius:var(--ko-radius);overflow:hidden;color:var(--ko-ink);box-shadow:var(--ko-shadow);transition:transform .22s,box-shadow .22s;background:#fff}
 .astro-ko-card:hover{transform:translateY(-5px);box-shadow:var(--ko-shadow-lg)}
+.astro-ko-card__overlay{position:absolute;inset:0;z-index:1}
 .astro-ko-card__img{position:relative;aspect-ratio:3/2;overflow:hidden}
 .astro-ko-card__img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .4s}
 .astro-ko-card:hover .astro-ko-card__img img{transform:scale(1.04)}
@@ -233,8 +238,10 @@ const FAQS = [
 .astro-ko-card__body{padding:24px 22px;display:flex;flex-direction:column;flex:1}
 .astro-ko-card__name{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:var(--ko-c,#2c2420);margin-bottom:10px;line-height:1.2}
 .astro-ko-card__desc{font-size:14px;line-height:1.65;color:#5a4430;margin:0 0 14px;flex:1}
-.astro-ko-card__adr{font-size:13px;color:#8a7060;margin-bottom:16px;line-height:1.5}
-.astro-ko-card__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ko-c,#c5a55a);letter-spacing:.04em;text-transform:uppercase;transition:gap .2s}
+.astro-ko-card__adr{position:relative;z-index:2;display:inline-flex;align-items:flex-start;gap:5px;font-size:13px;color:#8a7060;margin-bottom:16px;line-height:1.5;text-decoration:none;transition:color .2s}
+.astro-ko-card__adr:hover{color:var(--ko-c,#c5a55a)}
+.astro-ko-card__adr svg{flex-shrink:0;margin-top:2px;color:var(--ko-c,#c5a55a)}
+.astro-ko-card__link{position:relative;z-index:2;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ko-c,#c5a55a);letter-spacing:.04em;text-transform:uppercase;transition:gap .2s}
 .astro-ko-card:hover .astro-ko-card__link{gap:10px}
 
 /* ── FAQ ── */
