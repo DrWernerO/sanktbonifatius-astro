@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 63 bereits in Astro übernommen bzw. per Direktlink erledigt · 17 offen.** Stand: 26.06.2026.
+> **80 Live-Seiten erfasst · 64 bereits in Astro übernommen bzw. per Direktlink erledigt · 16 offen.** Stand: 26.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -149,7 +149,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 |---|---|---|---|---|---|
 | BoniBlog | [Link](https://www.sanktbonifatius.de/boniblog/) | `src/pages/boniblog.astro` | Werner | ✅ erledigt | Beiträge dynamisch via src/pages/blog/[slug].astro |
 | Terminkalender | [Link](https://www.sanktbonifatius.de/terminkalender/) | `src/pages/terminkalender.astro` | Werner | ✅ erledigt | Termin-Detailseiten dynamisch via src/pages/termine/[slug].astro |
-| Spenden | [Link](https://www.sanktbonifatius.de/spenden/) | — | — | offen | Spenden-Button in der Nav |
+| Spenden | [Link](https://www.sanktbonifatius.de/spenden/) | `src/pages/spenden.astro` | Werner | ✅ erledigt | Eigene Spn*-Komponenten (Präfix `astro-spn`); Foto-Hero (`Spenden.jpg`) mit Hinweis-Link zur Überweisung, „So spenden Sie" (3 Schritte), 3 ChurchDesk-Donation-Widgets (Orgel St. Aposteln `h_P0X6elQW`, Pastorale Arbeit `dqasDzdNpr`, Sozialprojekte St. Aposteln `JPF890m3wm`; Loader `donate.churchdesk.com/donation-loader.js`), Überweisungs-Block mit Bankverbindung + Kopier-Buttons, FAQ, CTA. Spenden-Button in der Nav |
 | Suche | [Link](https://www.sanktbonifatius.de/suche/) | `src/pages/suche.astro` | Werner | ✅ erledigt | Lupe in der Nav (`bh3a-btn-srch`) öffnet das Suchfeld; SSR-Seite (`searchSite()` über WP-Such-Endpoint), Treffer im Astro-Design. **Ziel der Treffer muss später noch angepasst werden:** Klicks führen aktuell auf die Live-Seite www (altes WP-Design), da Astro erst eine Teilmigration ist — sobald mehr Seiten gebaut sind, intern verlinken |
 | Datenschutz | [Link](https://www.sanktbonifatius.de/datenschutz/) | — | — | offen |  |
 | Impressum | [Link](https://www.sanktbonifatius.de/impressum/) | — | — | offen |  |
