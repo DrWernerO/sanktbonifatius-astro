@@ -1,0 +1,22 @@
+---
+// Kampagnen-Seite „Ich bleibe!" — WP-Seite 48677 (/ich-bleibe/), vollständig aus eigenen
+// Astro-Komponenten (kein set:html mit WP-Markup). Nav + Footer global aus Base.astro (Handbuch 4b).
+// SEO live aus WP (SEOPress, inkl. FAQPage-/Person-/CatholicChurch-JSON-LD) via getSeoHead('/ich-bleibe/').
+// Aufbau: Hero → Intro → 7 Personen-Zeugnisse → FAQ → CTA. Eigenes Präfix `astro-ib` (Handbuch 3).
+import Base from '../layouts/Base.astro';
+import { getSeoHead } from '../lib/wordpress.js';
+import IbHero from '../components/IbHero.astro';
+import IbIntro from '../components/IbIntro.astro';
+import IbStories from '../components/IbStories.astro';
+import IbFaq from '../components/IbFaq.astro';
+import IbCta from '../components/IbCta.astro';
+
+const seo = await getSeoHead('/ich-bleibe/');
+---
+<Base seo={seo} title="Ich bleibe – Warum Menschen in der Kirche bleiben · St. Bonifatius Frankfurt">
+  <IbHero />
+  <IbIntro />
+  <IbStories />
+  <IbFaq />
+  <IbCta />
+</Base>

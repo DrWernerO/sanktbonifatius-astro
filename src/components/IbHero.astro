@@ -1,0 +1,30 @@
+---
+// Foto-Hero der Kampagnen-Seite „Ich bleibe!" — WP-Seite 48677 (/ich-bleibe/).
+// Eigene Klassen `astro-ibhero` (goldene Regel, Handbuch Abschnitt 3 — nie WP-Klassen `ib-…`).
+// Full-Bleed-Foto + Verlauf-Overlay + Text (Muster ElHero/SegenHero). Bild lokal unter public/uploads/.
+const bg = '/uploads/2025/08/header-ichbleibe.png';
+---
+<section class="astro-ibhero">
+  <div class="astro-ibhero__bg" role="img"
+       aria-label="Gemeinschaft der Pfarrei Sankt Bonifatius Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-ibhero__overlay"></div>
+  <div class="astro-ibhero__inner">
+    <p class="astro-ibhero__eyebrow">Pfarrei Sankt Bonifatius &middot; Frankfurt am Main</p>
+    <h1 class="astro-ibhero__title">Ich bleibe!</h1>
+    <p class="astro-ibhero__sub">
+      Mitglieder unserer Pfarrei berichten, warum sie in der Katholischen Kirche sind und bleiben.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-ibhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:min(62vh,560px);display:flex;align-items:flex-end;overflow:hidden}
+.astro-ibhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
+.astro-ibhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.05) 0%,rgba(30,21,18,.48) 55%,rgba(30,21,18,.88) 100%)}
+.astro-ibhero__inner{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:0 40px 60px;color:#fff}
+.astro-ibhero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;color:#c8a96a;letter-spacing:.06em;text-transform:uppercase;margin:0 0 14px}
+.astro-ibhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(44px,6vw,76px);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin:0 0 16px}
+.astro-ibhero__sub{font-size:18px;color:rgba(255,255,255,.88);max-width:580px;line-height:1.6;margin:0}
+@media(max-width:600px){.astro-ibhero{min-height:min(60vh,480px)}.astro-ibhero__inner{padding:0 20px 40px}}
+</style>

@@ -1,0 +1,48 @@
+---
+// FAQ der Kampagnen-Seite „Ich bleibe!" — WP-Seite 48677 (/ich-bleibe/).
+// Eigene Klassen `astro-ibfaq`. Natives <details> (kein JS, Muster ElFaq/SegenFaq). Feste Inhalte.
+// Die Inhalte sind 1:1 die SEOPress-/JSON-LD-FAQ der WP-Seite — wichtig für die FAQPage-Rich-Results.
+const FAQ = [
+  { q: 'Was bedeutet die Kampagne &#8222;Ich bleibe!&#8220; in der Pfarrei Sankt Bonifatius?',
+    a: 'Die Kampagne &#8222;Ich bleibe!&#8220; ist eine Initiative der Pfarrei Sankt Bonifatius Frankfurt, in der Gemeindemitglieder offen erz&auml;hlen, warum sie trotz gesellschaftlicher Ver&auml;nderungen in der Katholischen Kirche bleiben. Die Zeugnisse sollen andere Menschen einladen, &uuml;ber ihre eigene Kirchenzugeh&ouml;rigkeit nachzudenken &#8211; und vielleicht auch zu bleiben.' },
+  { q: 'Warum verlassen Menschen die Kirche &#8211; und warum bleiben andere?',
+    a: 'Viele Menschen treten aus, weil sie sich von Institutionen entt&auml;uscht f&uuml;hlen oder keine pers&ouml;nliche Verbindung mehr erleben. Andere bleiben, weil sie in ihrer Pfarrei konkrete Gemeinschaft finden: in Gottesdiensten, im Ehrenamt, in der Jugendarbeit oder im Gebet. F&uuml;r sie ist der Glaube nicht abstrakt, sondern erlebbar &#8211; in Menschen, Ritualen und gemeinsamen Momenten.' },
+  { q: 'Was bietet die Pfarrei Sankt Bonifatius Frankfurt, das zum Bleiben bewegt?',
+    a: 'Die Pfarrei bietet ein vielf&auml;ltiges Leben: Gottesdienste in vier Kirchorten (St. Bonifatius, St. Wendel, Herz Jesu und St. Aposteln), Jugendarbeit, BonFamily-Gruppen, Fernsehgottesdienste, soziale Projekte und zahlreiche M&ouml;glichkeiten zum Ehrenamt. Wer hier aktiv wird, findet Gemeinschaft, Sinn und Unterst&uuml;tzung &#8211; auch in schwierigen Lebenssituationen.' },
+  { q: 'Wie kann ich mich in der Pfarrei Sankt Bonifatius engagieren?',
+    a: 'Es gibt viele Wege: als Messdiener oder Lektorin, in der Jugendarbeit, im Besuchsdienst, in Chor und Musik, in sozialen Projekten oder im Pfarrgemeinderat. Sprechen Sie das Pfarrb&uuml;ro an oder schauen Sie auf unsere Seite zum Engagement &#8211; wir freuen uns &uuml;ber jedes neue Gesicht.' },
+  { q: 'Gibt es in der Pfarrei besondere Angebote f&uuml;r Jugendliche?',
+    a: 'Ja! Die Pfarrei bietet mit BonFriday, Jugendfahrten, dem Caf&eacute; ORCA und Messdienergruppen ein lebendiges Programm f&uuml;r junge Menschen. Hier entstehen Freundschaften, wird gemeinsam gefeiert und der Glaube auf Augenh&ouml;he gelebt.' },
+  { q: 'Wie kann ich die Kampagne &#8222;Ich bleibe!&#8220; unterst&uuml;tzen?',
+    a: 'Am besten, indem Sie Ihre eigene Geschichte teilen! Sprechen Sie uns an &#8211; vielleicht sind auch Sie jemand, dessen Zeugnis andere Menschen bewegt. Dar&uuml;ber hinaus k&ouml;nnen Sie die Seite teilen, Freunde einladen und einfach bei uns vorbeikommen. Jede Stimme z&auml;hlt.' },
+];
+---
+<section class="astro-ibfaq">
+  <div class="astro-ibfaq__inner">
+    <p class="astro-ibfaq__eyebrow">Antworten rund um die Pfarrei und den Glauben in Frankfurt</p>
+    <h2 class="astro-ibfaq__hl">H&auml;ufige Fragen zur Kampagne &#8222;Ich bleibe!&#8220;</h2>
+    <div class="astro-ibfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-ibfaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ibfaq{background:#f7f3ef;padding:80px 0}
+.astro-ibfaq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-ibfaq__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;letter-spacing:.04em;color:#9a2d2d;margin:0 0 12px;text-align:center}
+.astro-ibfaq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#1e1512;margin:0 0 36px;text-align:center}
+.astro-ibfaq__list{max-width:840px;margin:0 auto}
+.astro-ibfaq details{background:#fff;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-ibfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-ibfaq summary::-webkit-details-marker{display:none}
+.astro-ibfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-ibfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-ibfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+@media(max-width:600px){.astro-ibfaq{padding:56px 0}.astro-ibfaq__inner{padding:0 20px}}
+</style>

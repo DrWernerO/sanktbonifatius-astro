@@ -1,0 +1,86 @@
+---
+// Personen-Zeugnisse der Kampagne „Ich bleibe!" — WP-Seite 48677 (/ich-bleibe/).
+// Eigene Klassen `astro-ibcard` (goldene Regel, nie WP-Klassen `ib-card`). Sieben Karten aus einem
+// Daten-Array; Layout wechselt automatisch (Foto links/rechts). Fotos lokal unter public/uploads/.
+// Jede Karte verlinkt thematisch auf eine bereits gebaute Astro-Seite (Links geprüft 2026-06-26).
+const STORIES = [
+  { name: 'Matthias Hauck', tag: '#Aktiv',
+    img: '/uploads/2025/08/stbonifatius-ichbleibe-Matthias.png',
+    alt: 'Matthias Hauck, Messdiener in der Pfarrei Sankt Bonifatius Frankfurt',
+    quote: 'Ich bin in der Kirche, weil ich hier auch aktiv sein kann: als Messdiener, beim BonFriday im Garten, bei den Jugendfahrten oder beim Kicker-Spielen im Caf&eacute; ORCA. Gott und Jesus sind mir wichtig und in den letzten Jahren habe ich in St. Bonifatius schon viele besondere Momente erlebt, z.&#8201;B. meine Kommunionfeier. Ich bin Teil einer coolen Gemeinde. In St. Bonifatius ist viel los und ich gehe gerne hin. Ich habe auch schon Freunde mitgebracht.',
+    btnText: 'BonFamily entdecken', btnHref: '/bonfamily/' },
+  { name: 'Ann-Kristin', tag: '#Engagiert',
+    img: '/uploads/2025/08/stbonifatius-ichbleibe-annkristin.png',
+    alt: 'Ann-Kristin, PGR-Vorsitzende in der Pfarrei Sankt Bonifatius Frankfurt',
+    quote: 'Ich bin in der Kirche ehrenamtlich engagiert, weil mein Glaube mich dazu bewegt, f&uuml;r andere da zu sein. Die Botschaft Jesu gibt mir Kraft und Orientierung. Es ist mir ein Herzensanliegen, als PGR-Vorsitzende das kirchliche Leben mitzugestalten und Gemeinschaft lebendig werden zu lassen.',
+    btnText: 'Mitmachen!', btnHref: '/kontakt/engagement/' },
+  { name: 'Christoph', tag: '#Gott',
+    img: '/uploads/2025/08/stbonifatius-ichbleibe-christoph.png',
+    alt: 'Christoph, Gemeindemitglied in der Pfarrei Sankt Bonifatius Frankfurt',
+    quote: 'Um zu Gott zu finden, brauche ich die Kirche &#8211; und um ihn zu suchen, noch dringender. Ich will nicht allein an den technischen und gesellschaftlichen Fortschritt glauben. Wie viel sinnvoller ist doch der Glaube an einen g&uuml;tigen, pers&ouml;nlichen Gott. Eine Ahnung vom g&ouml;ttlichen Geheimnis vermittelt mir die Frohe Botschaft Jesu Christi. Um diese zu h&ouml;ren, gehe ich sonntags in die Kirche &#8211; und um in der Heiligen Messe die Anwesenheit Gottes zu sp&uuml;ren.',
+    btnText: 'Balsam f&uuml;r die Seele', btnHref: '/gottesdienst-glaube/' },
+  { name: 'Fabian', tag: '#Jugend',
+    img: '/uploads/2025/08/stbonifatius-ichbleibe-fabian.png',
+    alt: 'Fabian, Jugendlicher in der Pfarrei Sankt Bonifatius Frankfurt',
+    quote: 'Ich bin in der Kirche, weil ich mich in St. Bonifatius zuhause f&uuml;hle. Die freundliche und entspannte Atmosph&auml;re gibt mir die M&ouml;glichkeit, meinen Glauben auszuleben, neue Freunde zu finden und mit alten Freunden in Kontakt zu bleiben. Deshalb engagiere ich mich als Messdiener und als Betreuer auf Freizeiten &#8211; so versuche ich, etwas von dem Gef&uuml;hl von Heimat zur&uuml;ckzugeben.',
+    btnText: 'Angebote f&uuml;r Jugendliche', btnHref: '/jugend/' },
+  { name: 'Birgit', tag: '#Fernsehgottesdienst',
+    img: '/uploads/2025/08/stbonifatius-ichbleibe-birgit.png',
+    alt: 'Birgit, Gemeindemitglied der Pfarrei Sankt Bonifatius Frankfurt',
+    quote: 'Ich hatte fest vor, aus der Kirche auszutreten. Doch dann habe ich den Fernsehgottesdienst aus St. Bonifatius gesehen &#8211; und mich entschieden, der katholischen Kirche und mir selbst noch eine Chance zu geben. Ich habe dort erlebt, dass Gottesdienste auch ber&uuml;hrend und bewegend sein k&ouml;nnen. Mir gef&auml;llt die Offenheit f&uuml;r die unterschiedlichsten Menschen und die Willkommenskultur, die hier gelebt wird. Ich bin &uuml;berzeugt: Glaube braucht Gemeinschaft.',
+    btnText: 'Gottesdienste entdecken', btnHref: '/gottesdienst-glaube/gottesdienstordnung/' },
+  { name: 'Stephanie', tag: '#Kirchensteuer',
+    img: '/uploads/2025/08/stbonifatius-ichbleibe-stephanie.png',
+    alt: 'Stephanie, Verwaltungsr&auml;tin in der Pfarrei Sankt Bonifatius Frankfurt',
+    quote: 'Mir ist die Kirche als zus&auml;tzliche Dimension und S&auml;ule in unserer Gesellschaft wichtig. Sie bringt Menschen in vielen verschiedenen Formaten zusammen und engagiert sich, wo Hilfe n&ouml;tig ist. In unserem Bistum Limburg wird die Kirchensteuer sehr verantwortungsvoll eingesetzt. Ich engagiere mich im Verwaltungsrat von St. Bonifatius &#8211; f&uuml;r mich ein gutes Investment in Menschen und in unseren Glauben!',
+    btnText: 'Infos zur Kirchensteuer', btnHref: '/ueberuns/finanzen/' },
+  { name: 'Heribert', tag: '#Sozial',
+    img: '/uploads/2025/08/stbonifatius-ichbleibe-heribert.png',
+    alt: 'Heribert, ehrenamtlich engagiert in der Pfarrei Sankt Bonifatius Frankfurt',
+    quote: 'Ich bin in der Kirche, weil das Gebot der N&auml;chstenliebe f&uuml;r mich der zentrale Bestandteil meines Glaubens ist. Deshalb engagiere ich mich in der vielf&auml;ltigen sozialpastoralen Arbeit in St. Bonifatius. Dabei ist es mir ein besonderes Anliegen, Menschen in schwierigen Lebenssituationen beizustehen und ihnen mit Offenheit und Respekt zu begegnen.',
+    btnText: 'Unsere soziale Arbeit', btnHref: '/engagiert-leben/' },
+];
+---
+<div class="astro-ibcards">
+  {STORIES.map((s, i) => (
+    <section class={`astro-ibcard ${i % 2 === 1 ? 'astro-ibcard--rtl' : ''}`}>
+      <div class="astro-ibcard__inner">
+        <div class="astro-ibcard__photo">
+          <img src={s.img} alt={s.alt} width="400" height="533" loading="lazy" decoding="async" />
+        </div>
+        <div class="astro-ibcard__text">
+          <p class="astro-ibcard__tag">{s.tag}</p>
+          <h3 class="astro-ibcard__name">{s.name}</h3>
+          <blockquote class="astro-ibcard__quote" set:html={s.quote} />
+          <a class="astro-ibcard__btn" href={s.btnHref}>
+            <span set:html={s.btnText} />
+            <span aria-hidden="true">&#8594;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  ))}
+</div>
+
+<style is:global>
+.astro-ibcard{width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;position:relative;padding:72px 24px}
+.astro-ibcard:nth-child(odd){background:#f7f3ef}
+.astro-ibcard:nth-child(even){background:#fff}
+.astro-ibcard__inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:400px 1fr;gap:64px;align-items:center}
+.astro-ibcard--rtl .astro-ibcard__inner{grid-template-columns:1fr 400px}
+.astro-ibcard--rtl .astro-ibcard__photo{order:2}
+.astro-ibcard--rtl .astro-ibcard__text{order:1}
+.astro-ibcard__photo{border-radius:16px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 10px 32px rgba(30,21,18,.12)}
+.astro-ibcard__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.astro-ibcard__tag{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;color:#9a2d2d;letter-spacing:.04em;margin:0 0 10px}
+.astro-ibcard__name{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:#1e1512;margin:0 0 20px;line-height:1.2}
+.astro-ibcard__quote{font-size:16px;color:#3d2e28;line-height:1.8;margin:0 0 28px;border:0;padding:0;font-style:normal}
+.astro-ibcard__btn{display:inline-flex;align-items:center;gap:8px;background:#9a2d2d;color:#fff;border-radius:50px;padding:11px 26px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s,transform .2s}
+.astro-ibcard__btn:hover{background:#7e2424;color:#fff;transform:translateY(-1px)}
+@media(max-width:860px){
+  .astro-ibcard{padding:48px 20px}
+  .astro-ibcard__inner,.astro-ibcard--rtl .astro-ibcard__inner{grid-template-columns:1fr;gap:28px}
+  .astro-ibcard--rtl .astro-ibcard__photo,.astro-ibcard--rtl .astro-ibcard__text{order:0}
+  .astro-ibcard__photo{aspect-ratio:4/3;max-width:460px;margin:0 auto}
+}
+</style>

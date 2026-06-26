@@ -1,0 +1,39 @@
+---
+// Intro der Kampagnen-Seite „Ich bleibe!" — WP-Seite 48677 (/ich-bleibe/).
+// Eigene Klassen `astro-ibintro`. H2 (auf der WP-Seite ist dies die einzige weitere Hauptüberschrift
+// neben der Hero-H1 — saubere H1→H2-Struktur). Feste Inhalte. Muster ElIntro / SegenIntro.
+---
+<section class="astro-ibintro">
+  <div class="astro-ibintro__inner">
+    <p class="astro-ibintro__eyebrow">Echte Stimmen aus der Gemeinde</p>
+    <h2 class="astro-ibintro__hl">Warum bleiben Menschen in der Pfarrei Sankt Bonifatius Frankfurt?</h2>
+    <p class="astro-ibintro__lead">
+      Kirchenaustritte nehmen zu &#8211; das ist eine Realit&auml;t, die auch uns besch&auml;ftigt.
+      Doch viele Menschen bleiben: weil sie in ihrer Pfarrei echte Gemeinschaft erleben, weil ihr
+      Glaube sie tr&auml;gt und weil sie Orte finden, an denen ihr Engagement z&auml;hlt.
+    </p>
+    <p class="astro-ibintro__lead">
+      In der Pfarrei Sankt Bonifatius Frankfurt haben wir sieben Gemeindemitglieder gefragt, warum
+      sie in der Kirche bleiben &#8211; trotz aller Fragen, Zweifel und Herausforderungen, die unsere
+      Zeit mit sich bringt. Ihre Antworten sind so verschieden wie sie selbst: ein junger Messdiener,
+      eine PGR-Vorsitzende, ein nachdenklicher Gl&auml;ubiger, ein Jugendlicher, der Heimat gefunden
+      hat, eine Frau, die durch einen Gottesdienst &uuml;berzeugt wurde, eine Verwaltungsr&auml;tin,
+      die f&uuml;r die Kirchensteuer einsteht, und ein Engagierter, dem N&auml;chstenliebe alles bedeutet.
+    </p>
+    <p class="astro-ibintro__lead">
+      Herzlich willkommen! Hier treffen Sie aktive Mitglieder unserer Pfarrei. In den kommenden
+      Monaten entwickeln wir unsere Kampagne &#8222;Ich bleibe!&#8220; weiter &#8211; freuen Sie sich auf
+      Videos, gemeinsamen Austausch und M&ouml;glichkeiten zum Mitmachen. Wir freuen uns, wenn auch
+      Sie bleiben!
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-ibintro{background:#fff;padding:80px 24px}
+.astro-ibintro__inner{max-width:780px;margin:0 auto;text-align:center}
+.astro-ibintro__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;color:#9a2d2d;letter-spacing:.06em;text-transform:uppercase;margin:0 0 14px}
+.astro-ibintro__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,4vw,42px);font-weight:700;color:#1e1512;margin:0 0 28px;line-height:1.2}
+.astro-ibintro__lead{font-size:17px;line-height:1.75;color:#3d2e28;max-width:720px;margin:0 auto 16px}
+@media(max-width:600px){.astro-ibintro{padding:48px 20px}}
+</style>
