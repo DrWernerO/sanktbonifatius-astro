@@ -15,9 +15,9 @@ const CARDS = [
     img: '/uploads/2021/10/Kleica_StAposteln-1024x683.jpg',
     alt: 'Kleider Caf&eacute; auf der Orgelempore in St. Aposteln',
     title: 'Kleider Caf&eacute;',
-    text: 'Secondhand-Boutique auf der Orgelempore in St. Aposteln. Erst Kaffee und Kuchen, dann shoppen gehen.',
-    href: '/engagiert-leben/',
-    linkText: 'Zum Kleider Caf&eacute; &#8594;' },
+    text: 'Einmal ganz anders shoppen&#8230; diese M&ouml;glichkeit bietet Ihnen die Boutique des KleiCa auf der Orgelempore in der Kirche St. Aposteln. Erst Kaffee und Kuchen genie&szlig;en und dann shoppen gehen. Kommen Sie vorbei!<br><br>Mittwochs, 14:00 &#8211; 16:00 Uhr<br>Freitags, 15:00 &#8211; 17:30 Uhr, um 17:30 Uhr Abendgebet',
+    href: null,
+    linkText: '' },
   { id: 'el-kuehlschrank',
     img: '/uploads/2021/10/Offener-Kuehlschrank-1-1024x726.jpg',
     alt: 'Offener K&uuml;hlschrank zum Teilen von Lebensmitteln',
@@ -29,9 +29,9 @@ const CARDS = [
     img: '/uploads/2020/08/Sozialberatung-1024x671.jpg',
     alt: 'Allgemeine Sozialberatung im Beratungsb&uuml;ro Im Dialog',
     title: 'Allgemeine Sozialberatung',
-    text: 'Im Beratungsb&uuml;ro &#8222;Im Dialog&#8220; helfen ausgebildete Ehrenamtliche bei Lebenskrisen, Antr&auml;gen und der Vermittlung an Fachstellen.',
+    text: 'Im Beratungsb&uuml;ro &#8222;Im Dialog&#8220; stehen Ihnen ausgebildete Ehrenamtliche mit Rat und Tat zur Seite. Wir h&ouml;ren Ihnen zu und unterst&uuml;tzen Sie bei Lebenskrisen, beim Ausf&uuml;llen von Antr&auml;gen und vermitteln Sie bei Bedarf an kompetente Berater und Institutionen weiter.',
     href: 'mailto:l.wykipil@sanktbonifatius.de',
-    linkText: 'Zur Beratung &#8594;' },
+    linkText: 'Kontakt aufnehmen &#8594;' },
 ];
 ---
 <section class="astro-eltiles" id="el-bereiche">
@@ -48,7 +48,7 @@ const CARDS = [
           <div class="astro-elcard__body">
             <h3 class="astro-elcard__title" set:html={c.title} />
             <p class="astro-elcard__text" set:html={c.text} />
-            <a class="astro-elcard__link" href={c.href} set:html={c.linkText} />
+            {c.href && <a class="astro-elcard__link" href={c.href} set:html={c.linkText} />}
           </div>
         </article>
       ))}
