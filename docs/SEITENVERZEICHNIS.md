@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 52 bereits in Astro übernommen bzw. per Direktlink erledigt · 28 offen.** Stand: 26.06.2026.
+> **80 Live-Seiten erfasst · 56 bereits in Astro übernommen bzw. per Direktlink erledigt · 24 offen.** Stand: 26.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -124,9 +124,9 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
-| Kultur & Begegnung | [Link](https://www.sanktbonifatius.de/kultur-begegnung/) | — | — | offen |  |
-| Büchereien | [Link](https://www.sanktbonifatius.de/kultur-begegnung/buechereien/) | — | — | offen |  |
-| Chöre | [Link](https://www.sanktbonifatius.de/kultur-begegnung/choere/) | — | — | offen |  |
+| Kultur & Begegnung | [Link](https://www.sanktbonifatius.de/kultur-begegnung/) | `src/pages/kultur-begegnung/index.astro` | Werner | ✅ erledigt | Page-ID 46764, eigene `astro-kb`-Komponenten (Hero, Schnellzugriff-Strip, Intro, 6 Angebots-Kacheln: Kirchcafé/Pommesbude/Kleider Café/BonCasino/Chöre/Büchereien, EventCalendar Kat. 2588, CTA, 5 FAQ). Bilder lokal. |
+| Büchereien | [Link](https://www.sanktbonifatius.de/kultur-begegnung/buechereien/) | `src/pages/kultur-begegnung/buechereien.astro` | Werner | ✅ erledigt | Page-ID 49151, eigene `astro-bue`-Komponenten (Verlauf-Hero mit Buchrücken-Muster, Intro, 3 KÖB-Karten Herz Jesu/St. Bonifatius/St. Wendel mit Adresse/Öffnungszeiten/Online-Katalog, CTA). Bilder lokal. |
+| Chöre | [Link](https://www.sanktbonifatius.de/kultur-begegnung/choere/) | `src/pages/kultur-begegnung/choere.astro` | Werner | ✅ erledigt | Page-ID 49153, eigene `astro-cho`-Komponenten (Foto-Hero, Intro, Stellenausschreibung Chorleitung + PDF, 4 Chor-Karten Wendelinos/Schola Herz Jesu/Kirchenchor + Vokalensemble St. Wendel, CTA). Bilder lokal. |
 
 ## 11 · Kitas (mit Unterseiten)
 
@@ -150,4 +150,4 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Suche | [Link](https://www.sanktbonifatius.de/suche/) | — | — | offen |  |
 | Datenschutz | [Link](https://www.sanktbonifatius.de/datenschutz/) | — | — | offen |  |
 | Impressum | [Link](https://www.sanktbonifatius.de/impressum/) | — | — | offen |  |
-| Ich bleibe | [Link](https://www.sanktbonifatius.de/ich-bleibe/) | — | — | offen |  |
+| Ich bleibe | [Link](https://www.sanktbonifatius.de/ich-bleibe/) | `src/pages/ich-bleibe.astro` | Werner | ✅ erledigt | Page-ID 48677, eigene Ib*-Komponenten (Präfix `astro-ib`); Foto-Hero, Intro, 7 Personen-Zeugnisse (abwechselnd, je mit thematischem Link auf eine gebaute Seite), 6 FAQ (FAQPage-JSON-LD aus WP), CTA. Alle 7 Inhalts-Links geprüft → existierende Astro-Routen |
