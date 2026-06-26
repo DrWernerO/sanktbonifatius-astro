@@ -1,0 +1,402 @@
+---
+// Gruppen & Gemeinschaft St. Bonifatius — WP-Seite 49489
+// Präfix: astro-sbg (Saint Bonifatius Gruppen). Kein set:html, Inhalte fest in dieser Datei.
+import Base from '../../../layouts/Base.astro';
+import { getSeoHead } from '../../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/st-bonifatius/gruppen-st-bonifatius/');
+
+const ACCENT = '#6440a4';
+
+const GRUPPEN = [
+  {
+    titel: 'Frauengruppe',
+    wann: 'Letzter Mittwoch im Monat · 9:30 Uhr',
+    text: 'Die Frauengruppe trifft sich monatlich zu gemeinsamen Frühstücken, Gesprächen, Vorträgen, Adventsbasteleien und interessanten Unternehmungen. Das Miteinander steht im Vordergrund. Einmal jährlich gibt es einen Ganztagsausflug und einen 2-tägigen Einkehrtag. Treffen im Kleinen Pfarrsaal.',
+    kontakt: 'Gabriele Loosen',
+    email: 'G.Loosen@t-online.de',
+    icon: '<circle cx="12" cy="8" r="4"/><path d="M12 12v8"/><path d="M9 19h6"/><path d="M8 15a4 4 0 0 0-4 4v1h16v-1a4 4 0 0 0-4-4"/>',
+  },
+  {
+    titel: 'BonLadies',
+    wann: 'Monatlich · 19:30 Uhr · BoniLounge',
+    text: 'Seit September 2024 treffen sich monatlich interessierte Frauen, um die BonLadies als festen Bestandteil der Pfarrei aufzubauen. Die Gruppe kommt aus verschiedenen Lebenssituationen – meist berufstätig, zum Teil mit erwachsenen Kindern. Treffen in der BoniLounge (Burnitzstr. 10). Neue Ladies herzlich willkommen!',
+    kontakt: 'martina.laudan@hb37.de',
+    email: 'martina.laudan@hb37.de',
+    icon: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  },
+  {
+    titel: 'Kirch-Café',
+    wann: '1. & 3. Sonntag · Nach dem Gottesdienst',
+    text: 'Nach dem Gottesdienst beim Kaffee ins Gespräch kommen – das ist die Idee hinter dem Kirch-Café. Jeden ersten und dritten Sonntag im Monat (außer in den Ferien) lädt das Team im Schülercafé Orca zum gemütlichen Beisammensein ein.',
+    kontakt: 'Karl Brendel · 0177 82 95 238',
+    email: 'karl.g.brendel@gmx.de',
+    icon: '<path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>',
+  },
+  {
+    titel: 'Kirchenchor',
+    wann: 'Mittwochs · 20:00 Uhr · Kleiner Pfarrsaal',
+    text: 'Chormusik in Gottesdienst und Konzert: Der Chor St. Bonifatius wirkt auf vielfältige Weise in der Gemeinde mit. Die Proben finden immer mittwochs um 20:00 Uhr im Kleinen Pfarrsaal statt (Eingang Achenbachstraße). Einfach vorbeikommen und mitsingen!',
+    kontakt: 'Dorothea Schneider',
+    email: 'd.schneider@sanktbonifatius.de',
+    icon: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+  },
+  {
+    titel: 'Spätschicht',
+    wann: '1. Donnerstag im Monat · 19:30 Uhr',
+    text: 'Ein Abend mit spirituellem Impuls, Stille, Gesang und Austausch – anschließend sind alle zum gemeinsamen Abendessen in den Kleinen Pfarrsaal eingeladen. Die Spätschicht findet am ersten Donnerstag im Monat um 19:30 Uhr in der Krypta von St. Bonifatius statt (Eingang Achenbachstraße).',
+    kontakt: 'Bernhard Knopp · 069. 62 90 49',
+    email: 'bernhard.knopp@gmx.de',
+    icon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+  },
+  {
+    titel: 'Ufü\'s',
+    wann: '3. Samstagabend im Monat · Schülercafé Orca',
+    text: 'Die Ufü\'s – „um die 50" – sind eine Gruppe von ca. 20–25 Personen, die sich an jedem 3. Samstagabend im Monat im Schülercafé Orca treffen. Auf dem Programm stehen: gemütliches Beisammensein, Gespräche über Gott und die Welt, Essen, Trinken und Spielen.',
+    kontakt: 'juergen.bremer@hotmail.de',
+    email: 'juergen.bremer@hotmail.de',
+    icon: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>',
+  },
+];
+---
+<Base seo={seo} title="Gruppen & Gemeinschaft – St. Bonifatius Frankfurt">
+
+  <!-- Hero -->
+  <section class="astro-sbg-hero astro-sbg-fb">
+    <div class="astro-sbg-hero__bg" style="background-image:url('/uploads/2022/03/StBonifatius_Begegnung.jpg');background-position:center 40%"
+         role="img" aria-label="Begegnung und Gemeinschaft in St. Bonifatius"></div>
+    <div class="astro-sbg-hero__inner">
+      <p class="astro-sbg-hero__eyebrow">St. Bonifatius · Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-sbg-hero__h1">Gruppen &amp; Gemeinschaft</h1>
+      <p class="astro-sbg-hero__sub">In St. Bonifatius gibt es viele Möglichkeiten, Gleichgesinnte zu finden und gemeinsam etwas zu erleben.</p>
+      <div class="astro-sbg-hero__btns">
+        <a href="/kirchorte/st-bonifatius/" class="astro-sbg-btn astro-sbg-btn--outline">← Zurück zu St. Bonifatius</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gruppen-Karten -->
+  <section class="astro-sbg-section astro-sbg-fb" style="background:#fff;">
+    <div class="astro-sbg-in">
+      <div class="astro-sbg-head">
+        <h2>Die Gruppen in St. Bonifatius</h2>
+        <p>Vom spirituellen Abend bis zum gemütlichen Beisammensein – für jeden ist etwas dabei.</p>
+      </div>
+      <div class="astro-sbg-grid">
+        {GRUPPEN.map(g => (
+          <div class="astro-sbg-card">
+            <div class="astro-sbg-card__head">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                   set:html={g.icon} />
+              <div>
+                <div class="astro-sbg-card__titel">{g.titel}</div>
+                <div class="astro-sbg-card__wann">{g.wann}</div>
+              </div>
+            </div>
+            <div class="astro-sbg-card__body">
+              <p class="astro-sbg-card__text">{g.text}</p>
+              <div class="astro-sbg-card__kontakt">
+                {g.kontakt !== g.email ? `${g.kontakt} · ` : ''}
+                <a href={`mailto:${g.email}`}>{g.email}</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="astro-sbg-cta astro-sbg-fb">
+    <div class="astro-sbg-in astro-sbg-cta__in">
+      <h2>Interesse? Einfach vorbeikommen.</h2>
+      <p>Alle Gruppen freuen sich über neue Mitglieder. Ein erster Besuch ist immer unverbindlich.</p>
+      <div class="astro-sbg-cta__btns">
+        <a href="/kirchorte/st-bonifatius/" class="astro-sbg-btn astro-sbg-btn--white-outline">← Zurück zu St. Bonifatius</a>
+        <a href="/kontakt/pfarrbuero/" class="astro-sbg-btn astro-sbg-btn--white">Pfarrbüro kontaktieren</a>
+      </div>
+      <div class="astro-sbg-cta__contact">
+        <span>Pfarrei St. Bonifatius · Holbeinstraße 70 · 60596 Frankfurt</span>
+        <a href="tel:+4969695975850">069 695 97 58 50</a>
+        <a href="mailto:info@sanktbonifatius.de">info@sanktbonifatius.de</a>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style is:global>
+  :root {
+    --sbg-accent: #6440a4;
+    --sbg-accent-dark: #4f3282;
+    --sbg-accent-light: #c9b6e8;
+    --sbg-bg: #f3eefb;
+    --sbg-ink: #2c2420;
+    --sbg-muted: #5a4430;
+    --sbg-radius: 14px;
+    --sbg-shadow: 0 2px 16px rgba(100,64,164,.09);
+    --sbg-shadow-lg: 0 8px 28px rgba(100,64,164,.16);
+  }
+
+  /* Full-bleed */
+  .astro-sbg-fb {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  /* Hero */
+  .astro-sbg-hero {
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    align-items: flex-end;
+    padding: 96px 48px 64px;
+    overflow: hidden;
+    color: #fff;
+  }
+  .astro-sbg-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    z-index: 0;
+  }
+  .astro-sbg-hero__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(30,21,18,.25) 0%, rgba(30,21,18,.50) 50%, rgba(30,21,18,.85) 100%);
+  }
+  .astro-sbg-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .astro-sbg-hero__eyebrow {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: .14em;
+    color: var(--sbg-accent-light);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+    font-weight: 700;
+  }
+  .astro-sbg-hero__h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(38px, 5.5vw, 64px);
+    font-weight: 700;
+    line-height: 1.05;
+    margin: 0 0 16px;
+    letter-spacing: -.02em;
+    color: #fff;
+  }
+  .astro-sbg-hero__sub {
+    font-size: 18px;
+    line-height: 1.55;
+    max-width: 540px;
+    color: rgba(255,255,255,.88);
+    margin: 0 0 28px;
+  }
+  .astro-sbg-hero__btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Sections */
+  .astro-sbg-section { padding: 56px 24px; }
+  .astro-sbg-in {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .astro-sbg-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 40px;
+  }
+  .astro-sbg-head h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    color: var(--sbg-ink);
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+  .astro-sbg-head p {
+    font-size: 17px;
+    color: var(--sbg-muted);
+    margin: 0;
+  }
+
+  /* Karten-Grid */
+  .astro-sbg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .astro-sbg-card {
+    background: #fff;
+    border-radius: var(--sbg-radius);
+    box-shadow: var(--sbg-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .astro-sbg-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sbg-shadow-lg);
+  }
+  .astro-sbg-card__head {
+    background: linear-gradient(135deg, var(--sbg-accent) 0%, var(--sbg-accent-dark) 100%);
+    padding: 24px 24px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-height: 110px;
+  }
+  .astro-sbg-card__head svg {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    opacity: .9;
+  }
+  .astro-sbg-card__titel {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+  }
+  .astro-sbg-card__wann {
+    font-size: .75rem;
+    color: var(--sbg-accent-light);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .astro-sbg-card__body {
+    padding: 20px 24px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .astro-sbg-card__text {
+    font-size: .95rem;
+    color: #3d3530;
+    line-height: 1.65;
+    flex: 1;
+    margin: 0;
+  }
+  .astro-sbg-card__kontakt {
+    font-size: .85rem;
+    color: #666;
+    border-top: 1px solid #ede4f5;
+    padding-top: 12px;
+  }
+  .astro-sbg-card__kontakt a {
+    color: var(--sbg-accent);
+    text-decoration: none;
+  }
+  .astro-sbg-card__kontakt a:hover { text-decoration: underline; }
+
+  /* CTA */
+  .astro-sbg-cta {
+    background: linear-gradient(135deg, var(--sbg-accent) 0%, var(--sbg-accent-dark) 100%);
+    padding: 64px 24px;
+    text-align: center;
+    color: #fff;
+  }
+  .astro-sbg-cta__in h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #fff;
+  }
+  .astro-sbg-cta__in p {
+    font-size: 17px;
+    color: rgba(255,255,255,.8);
+    margin: 0 0 32px;
+  }
+  .astro-sbg-cta__btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .astro-sbg-cta__contact {
+    font-size: 14px;
+    color: rgba(255,255,255,.7);
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .astro-sbg-cta__contact a {
+    color: var(--sbg-accent-light);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .astro-sbg-cta__contact a:hover { text-decoration: underline; }
+
+  /* Buttons */
+  .astro-sbg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 24px;
+    border-radius: 28px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .2s;
+    border: 2px solid transparent;
+  }
+  .astro-sbg-btn--outline {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255,255,255,.8);
+  }
+  .astro-sbg-btn--outline:hover {
+    background: #fff;
+    color: var(--sbg-ink);
+    border-color: #fff;
+  }
+  .astro-sbg-btn--white-outline {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255,255,255,.8);
+  }
+  .astro-sbg-btn--white-outline:hover {
+    background: #fff;
+    color: var(--sbg-accent);
+    border-color: #fff;
+  }
+  .astro-sbg-btn--white {
+    background: #fff;
+    color: var(--sbg-accent);
+    border-color: #fff;
+  }
+  .astro-sbg-btn--white:hover {
+    background: var(--sbg-bg);
+    border-color: var(--sbg-bg);
+  }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .astro-sbg-hero { padding: 72px 24px 48px; min-height: 420px; }
+  }
+  @media (max-width: 600px) {
+    .astro-sbg-grid { grid-template-columns: 1fr; }
+    .astro-sbg-section { padding: 40px 20px; }
+    .astro-sbg-cta { padding: 48px 20px; }
+  }
+</style>

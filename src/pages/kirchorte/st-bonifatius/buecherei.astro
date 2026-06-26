@@ -1,0 +1,504 @@
+---
+// Pfarrbücherei St. Bonifatius — WP-Seite 49496
+// Präfix: astro-sbb (Saint Bonifatius Bücherei). Kein set:html, Inhalte fest in dieser Datei.
+import Base from '../../../layouts/Base.astro';
+import { getSeoHead } from '../../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/');
+
+const DOWNLOADS = [
+  {
+    href: 'https://www.sanktbonifatius.de/wp-content/uploads/2019/05/anmeldung-und-erklaerung-benutzungsordnung-bibliothek-st.-bonifatius.pdf',
+    label: 'Anmeldeformular herunterladen (PDF)',
+    icon: 'download',
+  },
+  {
+    href: 'https://www.sanktbonifatius.de/wp-content/uploads/2018/08/Benutzerordnung-Bücherei.pdf',
+    label: 'Benutzungsordnung Bücherei (PDF)',
+    icon: 'doc',
+  },
+  {
+    href: 'https://www.sanktbonifatius.de/wp-content/uploads/2018/07/KOEB-Bonifatius-Anlage-Datenschutz.pdf',
+    label: 'Benutzungsordnung – Anlage Datenschutz (PDF)',
+    icon: 'shield',
+  },
+];
+---
+<Base seo={seo} title="Pfarrbücherei St. Bonifatius – KÖB Frankfurt">
+
+  <!-- Hero -->
+  <section class="astro-sbb-hero astro-sbb-fb">
+    <div class="astro-sbb-hero__bg"
+         style="background-image:url('/uploads/2018/03/koeb-st-boniaftius-1-1.jpg');background-position:center 55%"
+         role="img" aria-label="Innenansicht der Pfarrbücherei St. Bonifatius"></div>
+    <div class="astro-sbb-hero__inner">
+      <p class="astro-sbb-hero__eyebrow">St. Bonifatius · Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-sbb-hero__h1">KÖB St. Bonifatius</h1>
+      <p class="astro-sbb-hero__sub">Die Katholische Öffentliche Bücherei – für alle, die Freude an Büchern haben. Über 2.000 Medien, Bilderbuchkino und ein herzliches Team.</p>
+      <div class="astro-sbb-hero__btns">
+        <a href="/kirchorte/st-bonifatius/" class="astro-sbb-btn astro-sbb-btn--outline">← Zurück zu St. Bonifatius</a>
+        <a href="https://www.eopac.net/BGX429702/" class="astro-sbb-btn astro-sbb-btn--primary"
+           target="_blank" rel="noopener">Online-Katalog durchstöbern</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Welcome -->
+  <section class="astro-sbb-section astro-sbb-fb astro-sbb-welcome">
+    <div class="astro-sbb-in">
+      <div class="astro-sbb-head">
+        <h2>Herzlich willkommen!</h2>
+        <p>Die KÖB St. Bonifatius ist – wie der Name sagt – für alle da, die Freude an Büchern haben. Wir verfügen über ein vielfältiges Angebot und machen tolle Veranstaltungen für Kinder. Unsere KÖB ist sogar von der Sternsinger-Aktion ausgezeichnet worden. Schauen Sie einfach vorbei, wir freuen uns auf Ihren Besuch!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Öffnungszeiten & Kontakt -->
+  <section class="astro-sbb-section astro-sbb-fb" style="background:#fff;" id="info">
+    <div class="astro-sbb-in">
+      <div class="astro-sbb-head">
+        <h2>Öffnungszeiten &amp; Kontakt</h2>
+      </div>
+      <div class="astro-sbb-info-grid">
+        <div class="astro-sbb-info-box">
+          <span class="astro-sbb-info-box__label">Öffnungszeiten</span>
+          <h3>Jeden Sonntag</h3>
+          <p>10:45 – 12:30 Uhr<br>Außer in den Hessischen Schulferien</p>
+        </div>
+        <div class="astro-sbb-info-box">
+          <span class="astro-sbb-info-box__label">Adresse &amp; Eingang</span>
+          <h3>KÖB St. Bonifatius</h3>
+          <address>Holbeinstraße 70<br>60596 Frankfurt am Main<br><br>Eingang: Seiteneingang zur Kirche neben dem Pfarrhaus oder durch das eiserne Tor an der Thorwaldsenstraße</address>
+        </div>
+        <div class="astro-sbb-info-box">
+          <span class="astro-sbb-info-box__label">Kontakt</span>
+          <h3>Wir sind für Sie da</h3>
+          <p>
+            Tel: <a href="tel:+4969695975859">069. 6959758-59</a><br>
+            E-Mail: <a href="mailto:buecherei@sanktbonifatius.de">buecherei@sanktbonifatius.de</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Angebote -->
+  <section class="astro-sbb-section astro-sbb-fb" style="background:var(--sbb-bg);" id="angebote">
+    <div class="astro-sbb-in">
+      <div class="astro-sbb-head">
+        <h2>Was Sie bei uns erwartet</h2>
+        <p>Mehr als 2.000 Medien – und jede Menge Leben in unserer Bücherei.</p>
+      </div>
+      <div class="astro-sbb-angebot-grid">
+        <div class="astro-sbb-angebot">
+          <div class="astro-sbb-angebot__img"
+               style="background-image:url('/uploads/2018/01/KOEB_StBoniaftius-1024x671.jpg')"
+               role="img" aria-label="Bücherregale in der KÖB St. Bonifatius"></div>
+          <div class="astro-sbb-angebot__body">
+            <span class="astro-sbb-angebot__label">Medienauswahl</span>
+            <h3>Über 2.000 Medien für alle</h3>
+            <p>Unsere Spezialität sind Bücher für Kinder unterschiedlicher Altersgruppen. Aber auch wenn Sie mal einen spannenden Krimi lesen wollen, sind Sie bei uns genau richtig. Stöbern Sie gerne vorab in unserem Online-Katalog!</p>
+          </div>
+        </div>
+        <div class="astro-sbb-angebot">
+          <div class="astro-sbb-angebot__img"
+               style="background-image:url('/uploads/2026/02/Screenshot-2026-02-12-093741-1024x719.png');background-position:top center"
+               role="img" aria-label="Bilderbuchkino in der KÖB St. Bonifatius"></div>
+          <div class="astro-sbb-angebot__body">
+            <span class="astro-sbb-angebot__label">Dienstag &amp; Mittwoch</span>
+            <h3>Bilderbuchkino für Kinder</h3>
+            <p>Jeden Dienstag und Mittwoch besuchen Kindergartengruppen die Bücherei zum Ausleihen und Bilderbuchkino. Die Bilder werden auf einer Leinwand projiziert – das fasziniert die Kinder und weckt die Leselust. Regelmäßige Gäste: KiGa St. Bonifatius, St. Aposteln und Ratatouille.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Downloads -->
+  <section class="astro-sbb-section astro-sbb-fb" style="background:#fff;" id="anmeldung">
+    <div class="astro-sbb-in">
+      <div class="astro-sbb-head">
+        <h2>Anmeldung &amp; Downloads</h2>
+        <p>Das Anmeldeformular bitte am PC ausfüllen, ausdrucken, unterschreiben und in der Bücherei abgeben. Mit der Anmeldung erkennen Sie die Benutzungsordnung an.</p>
+      </div>
+      <div class="astro-sbb-downloads">
+        {DOWNLOADS.map(dl => (
+          <a href={dl.href} class="astro-sbb-dl" target="_blank" rel="noopener">
+            {dl.icon === 'download' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" y1="18" x2="12" y2="12"/>
+                <line x1="9" y1="15" x2="15" y2="15"/>
+              </svg>
+            )}
+            {dl.icon === 'doc' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="4" y1="9" x2="20" y2="9"/>
+              </svg>
+            )}
+            {dl.icon === 'shield' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            )}
+            {dl.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="astro-sbb-cta astro-sbb-fb">
+    <div class="astro-sbb-in astro-sbb-cta__in">
+      <h2>Einfach vorbeikommen.</h2>
+      <p>Wir freuen uns auf Sie – jeden Sonntag von 10:45 bis 12:30 Uhr in der Holbeinstraße 70.</p>
+      <div class="astro-sbb-cta__btns">
+        <a href="/kirchorte/st-bonifatius/" class="astro-sbb-btn astro-sbb-btn--white-outline">← Zurück zu St. Bonifatius</a>
+        <a href="https://www.eopac.net/BGX429702/" class="astro-sbb-btn astro-sbb-btn--white"
+           target="_blank" rel="noopener">Online-Katalog öffnen</a>
+      </div>
+      <div class="astro-sbb-cta__contact">
+        <a href="tel:+4969695975859">069. 6959758-59</a>
+        <a href="mailto:buecherei@sanktbonifatius.de">buecherei@sanktbonifatius.de</a>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style is:global>
+  :root {
+    --sbb-accent: #6440a4;
+    --sbb-accent-dark: #4f3282;
+    --sbb-accent-light: #c9b6e8;
+    --sbb-bg: #f3eefb;
+    --sbb-ink: #2c2420;
+    --sbb-muted: #5a4430;
+    --sbb-radius: 14px;
+    --sbb-shadow: 0 2px 16px rgba(100,64,164,.09);
+  }
+
+  .astro-sbb-fb {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  /* Hero */
+  .astro-sbb-hero {
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    align-items: flex-end;
+    padding: 96px 48px 64px;
+    overflow: hidden;
+    color: #fff;
+  }
+  .astro-sbb-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    z-index: 0;
+  }
+  .astro-sbb-hero__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(30,21,18,.25) 0%, rgba(30,21,18,.50) 50%, rgba(30,21,18,.85) 100%);
+  }
+  .astro-sbb-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .astro-sbb-hero__eyebrow {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: .14em;
+    color: var(--sbb-accent-light);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+    font-weight: 700;
+  }
+  .astro-sbb-hero__h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(38px, 5.5vw, 64px);
+    font-weight: 700;
+    line-height: 1.05;
+    margin: 0 0 16px;
+    letter-spacing: -.02em;
+    color: #fff;
+  }
+  .astro-sbb-hero__sub {
+    font-size: 18px;
+    line-height: 1.55;
+    max-width: 580px;
+    color: rgba(255,255,255,.88);
+    margin: 0 0 28px;
+  }
+  .astro-sbb-hero__btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Sections */
+  .astro-sbb-section { padding: 56px 24px; }
+  .astro-sbb-in { max-width: 1200px; margin: 0 auto; }
+  .astro-sbb-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 36px;
+  }
+  .astro-sbb-head h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    color: var(--sbb-ink);
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+  .astro-sbb-head p {
+    font-size: 17px;
+    color: var(--sbb-muted);
+    margin: 0;
+  }
+
+  /* Welcome */
+  .astro-sbb-welcome { background: var(--sbb-bg); }
+
+  /* Info Grid */
+  .astro-sbb-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .astro-sbb-info-box {
+    background: #fff;
+    border-radius: var(--sbb-radius);
+    border-left: 4px solid var(--sbb-accent);
+    padding: 28px;
+    box-shadow: var(--sbb-shadow);
+  }
+  .astro-sbb-info-box__label {
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--sbb-accent);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .astro-sbb-info-box h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sbb-ink);
+    margin: 0 0 10px;
+  }
+  .astro-sbb-info-box p,
+  .astro-sbb-info-box address {
+    font-size: .95rem;
+    color: var(--sbb-muted);
+    line-height: 1.65;
+    margin: 0;
+    font-style: normal;
+  }
+  .astro-sbb-info-box a { color: var(--sbb-accent); text-decoration: none; }
+  .astro-sbb-info-box a:hover { text-decoration: underline; }
+
+  /* Angebote */
+  .astro-sbb-angebot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .astro-sbb-angebot {
+    background: #fff;
+    border-radius: var(--sbb-radius);
+    overflow: hidden;
+    box-shadow: var(--sbb-shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  .astro-sbb-angebot__img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+  .astro-sbb-angebot__body {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .astro-sbb-angebot__label {
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--sbb-accent);
+  }
+  .astro-sbb-angebot h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--sbb-ink);
+    margin: 0;
+    line-height: 1.2;
+  }
+  .astro-sbb-angebot p {
+    font-size: .95rem;
+    color: var(--sbb-muted);
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+  }
+
+  /* Downloads */
+  .astro-sbb-downloads {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .astro-sbb-dl {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #e0d5f0;
+    text-decoration: none;
+    color: var(--sbb-ink);
+    font-size: .95rem;
+    font-weight: 500;
+    transition: all .2s;
+  }
+  .astro-sbb-dl:hover {
+    border-color: var(--sbb-accent);
+    background: #f9f5ff;
+    color: var(--sbb-accent);
+  }
+  .astro-sbb-dl svg { flex-shrink: 0; color: var(--sbb-accent); }
+
+  /* CTA */
+  .astro-sbb-cta {
+    background: linear-gradient(135deg, var(--sbb-accent) 0%, var(--sbb-accent-dark) 100%);
+    padding: 64px 24px;
+    text-align: center;
+    color: #fff;
+  }
+  .astro-sbb-cta__in h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #fff;
+  }
+  .astro-sbb-cta__in p {
+    font-size: 17px;
+    color: rgba(255,255,255,.8);
+    margin: 0 0 32px;
+  }
+  .astro-sbb-cta__btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .astro-sbb-cta__contact {
+    font-size: 14px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .astro-sbb-cta__contact a {
+    color: var(--sbb-accent-light);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .astro-sbb-cta__contact a:hover { text-decoration: underline; }
+
+  /* Buttons */
+  .astro-sbb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 24px;
+    border-radius: 28px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .2s;
+    border: 2px solid transparent;
+  }
+  .astro-sbb-btn--outline {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255,255,255,.8);
+  }
+  .astro-sbb-btn--outline:hover {
+    background: #fff;
+    color: var(--sbb-ink);
+    border-color: #fff;
+  }
+  .astro-sbb-btn--primary {
+    background: var(--sbb-accent);
+    color: #fff;
+    border-color: var(--sbb-accent);
+  }
+  .astro-sbb-btn--primary:hover {
+    background: var(--sbb-accent-dark);
+    border-color: var(--sbb-accent-dark);
+  }
+  .astro-sbb-btn--white-outline {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255,255,255,.8);
+  }
+  .astro-sbb-btn--white-outline:hover {
+    background: #fff;
+    color: var(--sbb-accent);
+    border-color: #fff;
+  }
+  .astro-sbb-btn--white {
+    background: #fff;
+    color: var(--sbb-accent);
+    border-color: #fff;
+  }
+  .astro-sbb-btn--white:hover {
+    background: var(--sbb-bg);
+    border-color: var(--sbb-bg);
+  }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .astro-sbb-hero { padding: 72px 24px 48px; min-height: 420px; }
+    .astro-sbb-angebot-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .astro-sbb-section { padding: 40px 20px; }
+    .astro-sbb-info-grid { grid-template-columns: 1fr; }
+    .astro-sbb-cta { padding: 48px 20px; }
+  }
+</style>

@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 60 bereits in Astro übernommen bzw. per Direktlink erledigt · 20 offen.** Stand: 26.06.2026.
+> **80 Live-Seiten erfasst · 62 bereits in Astro übernommen bzw. per Direktlink erledigt · 18 offen.** Stand: 26.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -68,8 +68,8 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Kleider-Café (KleiCa) St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/kleider-cafe/) | `src/pages/kirchorte/st-aposteln/kleider-cafe.astro` | Frank | ✅ erledigt | Page-ID 49512, Astro-Pfad `/kirchorte/st-aposteln/kleider-cafe/`; eigene `astro-kc-*` Klassen; Hero, Strip, Öffnungszeiten-Karten (Mi/Do/Fr), Split-Bild, Mitmachen-Grid, CTA |
 | Meet'n Frites St. Aposteln | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-aposteln/meetn-frites/) | `src/pages/kirchorte/st-aposteln/meetn-frites.astro` | Frank | ✅ erledigt | Page-ID 49516, Astro-Pfad `/kirchorte/st-aposteln/meetn-frites/`; eigene `astro-mf-*` Klassen; Hero mit Kicker "Schwestern-Pommes", Strip, Split-Bild, Termine-Grid, Mitmachen-Grid, CTA |
 | St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/) | `src/pages/kirchorte/st-bonifatius.astro` | Werner | ✅ erledigt | Astro-Pfad jetzt `/kirchorte/st-bonifatius/` |
-| Bücherei St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/) | — | — | offen |  |
-| Gruppen St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/gruppen-st-bonifatius/) | — | — | offen |  |
+| Bücherei St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/) | `src/pages/kirchorte/st-bonifatius/buecherei.astro` | Frank | ✅ erledigt | Page-ID 49496, Astro-Pfad `/kirchorte/st-bonifatius/buecherei/`; eigene `astro-sbb`-Komponenten; Lila-Hero (#6440a4), Info-Grid (Öffnungszeiten/Adresse/Kontakt), Angebote (2 Karten: allg. Bestand + Bilderbuchkino), Downloads (3 PDFs), CTA mit Online-Katalog (eopac.net) |
+| Gruppen St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/gruppen-st-bonifatius/) | `src/pages/kirchorte/st-bonifatius/gruppen.astro` | Frank | ✅ erledigt | Page-ID 49489, Astro-Pfad `/kirchorte/st-bonifatius/gruppen/`; eigene `astro-sbg`-Komponenten; Lila-Hero (#6440a4), 6 Gruppen-Karten (Frauengruppe, BonLadies, Kirch-Café, Kirchenchor, Spätschicht, Ufü's) mit Icon/Zeiten/Kontakt/E-Mail, CTA |
 | Kirche St. Bonifatius | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/) | `src/pages/kirchorte/st-bonifatius/kirche.astro` | Werner | ✅ erledigt | Astro-Pfad jetzt `/kirchorte/st-bonifatius/kirche/` |
 | Kirche – Altar | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/altar/) | — | — | offen |  |
 | Kirche – Beleuchtung | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/beleuchtung/) | — | — | offen |  |
