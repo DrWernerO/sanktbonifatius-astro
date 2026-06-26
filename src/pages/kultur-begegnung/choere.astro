@@ -1,0 +1,22 @@
+---
+// Unterseite „Chöre" — WP-Seite 49153 (/kultur-begegnung/choere/), vollständig aus eigenen
+// Astro-Komponenten (kein set:html mit WP-Markup). Nav + Footer global aus Base.astro (Handbuch 4b).
+// SEO live aus WP via getSeoHead('/kultur-begegnung/choere/'). Eigene Präfixe `astro-cho…`
+// (goldene Regel, Handbuch 3 — WP nutzt `ch-`). Datei in pages/kultur-begegnung/ → exakter WP-Pfad.
+import Base from '../../layouts/Base.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+import ChoHero from '../../components/ChoHero.astro';
+import ChoIntro from '../../components/ChoIntro.astro';
+import ChoJob from '../../components/ChoJob.astro';
+import ChoCards from '../../components/ChoCards.astro';
+import ChoCta from '../../components/ChoCta.astro';
+
+const seo = await getSeoHead('/kultur-begegnung/choere/');
+---
+<Base seo={seo} title="Unsere Chöre – Kirchenmusik in der Pfarrei · St. Bonifatius Frankfurt">
+  <ChoHero />
+  <ChoIntro />
+  <ChoJob />
+  <ChoCards />
+  <ChoCta />
+</Base>

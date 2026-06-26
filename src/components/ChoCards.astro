@@ -1,0 +1,109 @@
+---
+// Die 4 Chor-Karten der Unterseite „Chöre" (Page 49153). Eigene Klassen `astro-chocards`.
+// Bilder lokal unter public/uploads/. Feste Inhalte (Leitung, Proben, Ort, Kontakt).
+const CHOIRS = [
+  {
+    img: '/uploads/2024/10/kinderchor-pixa-1024x512.jpg',
+    alt: 'Kinderprojektchor Die Wendelinos der Pfarrei Sankt Bonifatius Frankfurt',
+    name: 'Kinderprojektchor &#8222;Die Wendelinos&#8220;',
+    rows: [
+      { label: 'Leitung', value: 'Alexandra Gockel-Bok' },
+      { label: 'Probe', value: 'Projektweise mittwochs, 17:30&#8211;18:30 Uhr' },
+      { label: 'Ort', value: 'St. Wendel, B&uuml;hnenraum' },
+    ],
+    email: 'alexandra.bok@web.de',
+  },
+  {
+    img: '/uploads/2024/04/Bonifatius_HerzJesu_s-5775-1024x683.jpg',
+    alt: 'Schola Herz Jesu der Pfarrei Sankt Bonifatius Frankfurt',
+    name: 'Schola Herz Jesu',
+    rows: [
+      { label: 'Leitung', value: 'Johanna Zerlik' },
+      { label: 'Probe', value: 'Termine nach Vereinbarung' },
+      { label: 'Status', value: 'Derzeit in Elternzeit pausierend' },
+      { label: 'Ort', value: 'Herz Jesu, Mathildenstra&szlig;e 30, Frankfurt-Oberrad' },
+    ],
+  },
+  {
+    img: '/uploads/2022/04/kirche-st-wendel-frankfurt3-1024x683.jpg',
+    alt: 'Kirchenchor St. Wendel der Pfarrei Sankt Bonifatius Frankfurt',
+    name: 'Kirchenchor St. Wendel',
+    rows: [
+      { label: 'Leitung', value: 'Adelheid M&uuml;ller-Horig' },
+      { label: 'Probe', value: 'Montag, 20:00 Uhr' },
+      { label: 'Ort', value: 'St. Wendel, Gemeindehaus' },
+    ],
+    email: 'mueller-horrig@web.de',
+  },
+  {
+    img: '/uploads/2024/11/Wendel_FamGoGospel_hires-01235-1024x683.jpg',
+    alt: 'Vokalensemble St. Wendel der Pfarrei Sankt Bonifatius Frankfurt',
+    name: 'Vokalensemble St. Wendel',
+    rows: [
+      { label: 'Leitung', value: 'Alexandra Gockel-Bok' },
+      { label: 'Probe', value: 'Donnerstag, 20:00 Uhr (projektweise)' },
+      { label: 'Ort', value: 'St. Wendel, Gemeindehaus' },
+    ],
+    email: 'alexandra.bok@web.de',
+  },
+];
+---
+<section class="astro-chocards" id="cho-choere">
+  <div class="astro-chocards__inner">
+    <div class="astro-chocards__head">
+      <h2 class="astro-chocards__hl">Vier Ch&ouml;re an drei Kirchorten</h2>
+      <p class="astro-chocards__sub">Klicken Sie auf den Chor Ihrer Wahl f&uuml;r Kontakt und Probentermine.</p>
+    </div>
+    <div class="astro-chocards__grid">
+      {CHOIRS.map((c) => (
+        <article class="astro-chocards__card">
+          <div class="astro-chocards__img">
+            <img src={c.img} alt={c.alt} loading="lazy" decoding="async" />
+          </div>
+          <div class="astro-chocards__body">
+            <h3 set:html={c.name} />
+            <dl class="astro-chocards__meta">
+              {c.rows.map((r) => (
+                <div class="astro-chocards__row">
+                  <dt set:html={r.label} />
+                  <dd set:html={r.value} />
+                </div>
+              ))}
+            </dl>
+            {c.email && (
+              <p class="astro-chocards__contact">
+                Mehr Informationen: <a href={`mailto:${c.email}`}>{c.email}</a>
+              </p>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-chocards{background:#fff;padding:8px 24px 72px}
+.astro-chocards__inner{max-width:1180px;margin:0 auto}
+.astro-chocards__head{text-align:center;margin:0 0 44px;scroll-margin-top:96px}
+.astro-chocards__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,36px);color:#2c2420;margin:0 0 10px;font-weight:700}
+.astro-chocards__sub{font-size:15.5px;color:#928269;margin:0}
+.astro-chocards__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.astro-chocards__card{background:#f7f3ef;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(30,21,18,.07);border:1px solid #e7ddd0;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.astro-chocards__card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(30,21,18,.12)}
+.astro-chocards__img{aspect-ratio:3/2;overflow:hidden;background:#f0e8d8}
+.astro-chocards__img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.astro-chocards__card:hover .astro-chocards__img img{transform:scale(1.04)}
+.astro-chocards__body{padding:26px 28px 28px;flex:1;display:flex;flex-direction:column}
+.astro-chocards__body h3{font-family:'Playfair Display',Georgia,serif;font-size:21px;color:#2c2420;margin:0 0 16px;font-weight:700;line-height:1.2}
+.astro-chocards__meta{margin:0 0 14px;display:flex;flex-direction:column;gap:8px}
+.astro-chocards__row{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:baseline;border-bottom:1px solid #e7ddd0;padding-bottom:8px}
+.astro-chocards__row:last-child{border-bottom:none;padding-bottom:0}
+.astro-chocards__row dt{font-size:11px;font-weight:700;color:#7e2424;letter-spacing:.08em;text-transform:uppercase}
+.astro-chocards__row dd{margin:0;font-size:14px;color:#3d3530;line-height:1.5}
+.astro-chocards__contact{margin:auto 0 0;font-size:13.5px;color:#928269;line-height:1.6}
+.astro-chocards__contact a{color:#7e2424;text-decoration:none;font-weight:600}
+.astro-chocards__contact a:hover{text-decoration:underline}
+@media(max-width:760px){.astro-chocards__grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}}
+@media(max-width:600px){.astro-chocards{padding:4px 20px 56px}}
+</style>

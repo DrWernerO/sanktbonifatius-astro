@@ -1,0 +1,100 @@
+---
+// Die 3 KÖB-Karten der Unterseite „Büchereien" (Page 49151). Eigene Klassen `astro-buecards`.
+// Bilder lokal unter public/uploads/. Feste Inhalte (Adressen, Öffnungszeiten, Online-Kataloge).
+const CARDS = [
+  {
+    img: '/uploads/2018/01/KOEB_HerzJesu-1024x671.jpg',
+    alt: 'Katholische Öffentliche Bücherei Herz Jesu in Frankfurt-Oberrad',
+    loc: 'Frankfurt-Oberrad',
+    name: 'K&Ouml;B Herz Jesu',
+    hoursLabel: '&Ouml;ffnungszeit',
+    hours: ['Jeden Sonntag &middot; 10:30&#8211;11:30 Uhr'],
+    addr: 'Mathildenstra&szlig;e 30, 60599 Frankfurt',
+    email: 'koeb-herzjesu@web.de',
+    btnHref: 'http://www.bibkat.de/Oberrad', btnText: 'Online-Katalog ansehen',
+  },
+  {
+    img: '/uploads/2018/01/KOEB_StBoniaftius-1024x671.jpg',
+    alt: 'Katholische Öffentliche Bücherei St. Bonifatius in Frankfurt-Sachsenhausen',
+    loc: 'Frankfurt-Sachsenhausen',
+    name: 'K&Ouml;B St. Bonifatius',
+    hoursLabel: '&Ouml;ffnungszeit',
+    hours: ['Jeden Sonntag &middot; 10:45&#8211;12:30 Uhr'],
+    addr: 'Holbeinstra&szlig;e 70, 60596 Frankfurt',
+    tel: '069 6959758-59', telHref: 'tel:+4969695975859',
+    email: 'buecherei@sanktbonifatius.de',
+    btnHref: 'https://www.eopac.net/BGX429702/', btnText: 'Online-Katalog ansehen',
+  },
+  {
+    img: '/uploads/2018/01/KOEB_StWendel-1024x671.jpg',
+    alt: 'Katholische Öffentliche Bücherei St. Wendel in Frankfurt',
+    loc: 'Frankfurt-Sachsenhausen',
+    name: 'K&Ouml;B St. Wendel',
+    hoursLabel: '&Ouml;ffnungszeiten (auch in den Ferien)',
+    hours: ['Mittwochs &middot; 15:30&#8211;18:00 Uhr', 'Sonntags &middot; 10:30&#8211;12:30 Uhr'],
+    addr: 'Altes Sch&uuml;tzenh&uuml;tteng&auml;&szlig;chen 4, 60599 Frankfurt',
+    tel: '069 683370', telHref: 'tel:+4969683370',
+    btnHref: '/kultur-begegnung/', btnText: 'Mehr zur K&Ouml;B St. Wendel',
+  },
+];
+---
+<section class="astro-buecards">
+  <div class="astro-buecards__inner">
+    <div class="astro-buecards__head">
+      <h2 class="astro-buecards__hl">Drei B&uuml;chereien &middot; Drei Stadtteile</h2>
+      <p class="astro-buecards__sub">Klicken Sie auf die Online-Kataloge, um den Bestand zu durchsuchen.</p>
+    </div>
+    <div class="astro-buecards__grid">
+      {CARDS.map((c) => (
+        <article class="astro-buecards__card">
+          <div class="astro-buecards__img">
+            <img src={c.img} alt={c.alt} loading="lazy" decoding="async" />
+          </div>
+          <div class="astro-buecards__body">
+            <p class="astro-buecards__loc" set:html={c.loc} />
+            <h3 set:html={c.name} />
+            <div class="astro-buecards__hours">
+              <strong set:html={c.hoursLabel} />
+              {c.hours.map((h) => <span class="astro-buecards__hours-line" set:html={h} />)}
+            </div>
+            <p class="astro-buecards__addr">
+              <span set:html={c.addr} /><br />
+              {c.tel && (<><a href={c.telHref}>{c.tel}</a><br /></>)}
+              {c.email && <a href={`mailto:${c.email}`}>{c.email}</a>}
+            </p>
+            <a class="astro-buecards__btn" href={c.btnHref}
+               target={c.btnHref.startsWith('http') ? '_blank' : undefined}
+               rel={c.btnHref.startsWith('http') ? 'noopener' : undefined}
+               set:html={c.btnText} />
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-buecards{background:#f7f3ef;padding:64px 24px 72px}
+.astro-buecards__inner{max-width:1180px;margin:0 auto}
+.astro-buecards__head{text-align:center;margin:0 0 44px}
+.astro-buecards__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,36px);color:#2c2420;margin:0 0 10px;font-weight:700}
+.astro-buecards__sub{font-size:15.5px;color:#928269;margin:0}
+.astro-buecards__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.astro-buecards__card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(30,21,18,.07);border:1px solid #e7ddd0;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.astro-buecards__card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(30,21,18,.12)}
+.astro-buecards__img{aspect-ratio:3/2;overflow:hidden;background:#f0e8d8}
+.astro-buecards__img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.astro-buecards__card:hover .astro-buecards__img img{transform:scale(1.04)}
+.astro-buecards__body{padding:26px 26px 28px;flex:1;display:flex;flex-direction:column}
+.astro-buecards__loc{font-family:'Playfair Display',serif;font-style:italic;font-size:11px;color:#7e2424;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 8px}
+.astro-buecards__body h3{font-family:'Playfair Display',Georgia,serif;font-size:22px;color:#2c2420;margin:0 0 14px;font-weight:700;line-height:1.2}
+.astro-buecards__hours{font-size:14px;color:#928269;line-height:1.6;margin:0 0 14px;padding:12px 0;border-top:1px solid #e7ddd0;border-bottom:1px solid #e7ddd0;display:flex;flex-direction:column}
+.astro-buecards__hours strong{font-family:'Playfair Display',serif;font-size:12px;color:#2c2420;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;font-weight:700}
+.astro-buecards__addr{font-size:13.5px;color:#928269;line-height:1.7;margin:0 0 18px}
+.astro-buecards__addr a{color:#7e2424;text-decoration:none;font-weight:600}
+.astro-buecards__addr a:hover{text-decoration:underline}
+.astro-buecards__btn{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;padding:11px 22px;border-radius:24px;background:#9a2d2d;color:#fff;font-weight:600;font-size:13.5px;text-decoration:none;transition:background .2s;min-height:44px}
+.astro-buecards__btn:hover{background:#7e2424}
+@media(max-width:920px){.astro-buecards__grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}}
+@media(max-width:600px){.astro-buecards{padding:48px 20px 56px}}
+</style>

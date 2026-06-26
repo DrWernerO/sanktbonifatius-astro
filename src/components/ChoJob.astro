@@ -1,0 +1,32 @@
+---
+// Stellenausschreibung „Kirchenmusiker/in St. Bonifatius (Chorleitung)" der Unterseite „Chöre"
+// (Page 49153). Eigene Klassen `astro-chojob`. PDF-Link auf das Live-WP (Datei-Umzug siehe Handbuch 1b,
+// TODO beim Go-Live). Feste Inhalte.
+const pdf = 'https://www.sanktbonifatius.de/wp-content/uploads/2026/05/Ausschreibung-Kirchenmusik-St.-Bonifatius.pdf';
+---
+<section class="astro-chojob">
+  <div class="astro-chojob__inner">
+    <div class="astro-chojob__txt">
+      <p class="astro-chojob__eyebrow">Stellenausschreibung</p>
+      <h2 class="astro-chojob__hl">Kirchenmusiker / Kirchenmusikerin St. Bonifatius (Chorleitung)</h2>
+      <p class="astro-chojob__lead">
+        F&uuml;r unsere Pfarrei in Frankfurt am Main suchen wir zum n&auml;chstm&ouml;glichen Termin
+        eine Chorleitung. Kirchenmusik hat in unserer Pfarrei einen festen Platz und bereichert
+        unser gottesdienstliches Angebot und kulturelles Leben.
+      </p>
+    </div>
+    <a class="astro-chojob__btn" href={pdf} target="_blank" rel="noopener">PDF ansehen &#8594;</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-chojob{background:#fff;padding:24px 40px 64px}
+.astro-chojob__inner{max-width:980px;margin:0 auto;background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%);color:#fff;border-radius:16px;padding:36px 40px;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.astro-chojob__txt{flex:1;min-width:260px}
+.astro-chojob__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#f0d9a0;margin:0 0 10px;font-weight:600}
+.astro-chojob__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,2.4vw,26px);font-weight:700;color:#fff;margin:0 0 12px;line-height:1.25}
+.astro-chojob__lead{font-size:15px;color:#f2dede;line-height:1.65;margin:0}
+.astro-chojob__btn{flex-shrink:0;display:inline-flex;align-items:center;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:700;text-decoration:none;background:#fff;color:#9a2d2d;transition:background .2s,transform .2s;min-height:44px}
+.astro-chojob__btn:hover{background:#f3e7d4;transform:translateY(-2px)}
+@media(max-width:600px){.astro-chojob{padding:16px 20px 48px}.astro-chojob__inner{padding:28px 24px}}
+</style>

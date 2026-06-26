@@ -1,0 +1,34 @@
+---
+// Hero der Unterseite „Büchereien" — WP-Seite 49151 (/kultur-begegnung/buechereien/).
+// Eigene Klassen `astro-buehero` (goldene Regel — WP nutzt `bu-`). Full-Bleed-Foto (Bücherregal
+// aus der KÖB St. Wendel) + Verlauf-Overlay (Muster ChoHero/SegenHero). Bild lokal unter
+// public/uploads/. Inhalte fest gepflegt.
+const bg = '/uploads/2022/01/Buecherei-St.-Wendel-2-1024x768.jpg';
+---
+<section class="astro-buehero">
+  <div class="astro-buehero__bg" role="img"
+       aria-label="Bücherregal in einer Bücherei der Pfarrei Sankt Bonifatius Frankfurt"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-buehero__overlay"></div>
+  <div class="astro-buehero__inner">
+    <p class="astro-buehero__eyebrow">Kultur &amp; Begegnung &middot; Pfarrei Sankt Bonifatius</p>
+    <h1 class="astro-buehero__title">Unsere B&uuml;chereien in Frankfurt</h1>
+    <p class="astro-buehero__sub">
+      Drei Katholische &Ouml;ffentliche B&uuml;chereien (K&Ouml;B) in Sachsenhausen und Oberrad
+      bieten Ihnen ein vielf&auml;ltiges Medienangebot &#8211; Romane, Sachb&uuml;cher,
+      Kinderb&uuml;cher, H&ouml;rb&uuml;cher und mehr. Die Teams unserer B&uuml;chereien freuen sich
+      auf Ihren Besuch.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-buehero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:min(56vh,460px);display:flex;align-items:flex-end;overflow:hidden;background:#3a1810}
+.astro-buehero__bg{position:absolute;inset:0;background-size:cover;background-position:center 45%}
+.astro-buehero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.25) 0%,rgba(30,21,18,.55) 55%,rgba(30,21,18,.86) 100%)}
+.astro-buehero__inner{position:relative;z-index:2;width:100%;max-width:1180px;margin:0 auto;padding:96px 40px 56px;color:#f0e8d8}
+.astro-buehero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#e8c89a;margin:0 0 14px;font-weight:600}
+.astro-buehero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,5vw,62px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700}
+.astro-buehero__sub{color:rgba(255,255,255,.9);font-size:clamp(15px,1.8vw,18px);margin:0;max-width:640px;line-height:1.6}
+@media(max-width:600px){.astro-buehero{min-height:min(60vh,420px)}.astro-buehero__inner{padding:80px 20px 40px}}
+</style>

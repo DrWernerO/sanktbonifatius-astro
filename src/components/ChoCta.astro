@@ -1,0 +1,25 @@
+---
+// Abschluss-CTA „Lust mitzusingen?" der Unterseite „Chöre" (Page 49153). Eigene Klassen `astro-chocta`.
+// Full-Bleed Bordeaux (Muster KbCta). Feste Inhalte.
+---
+<section class="astro-chocta">
+  <div class="astro-chocta__inner">
+    <h2 class="astro-chocta__hl">Lust mitzusingen?</h2>
+    <p class="astro-chocta__sub">
+      Vorkenntnisse sind nicht erforderlich. Kommen Sie einfach zu einer Probe vorbei oder schreiben
+      Sie der jeweiligen Chorleitung. Wir freuen uns auf Sie!
+    </p>
+    <a class="astro-chocta__btn" href="/kultur-begegnung/">Mehr zu Kultur &amp; Begegnung</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-chocta{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%);color:#fff;padding:72px 0;overflow:hidden}
+.astro-chocta::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 10%,rgba(255,255,255,.10),transparent 55%)}
+.astro-chocta__inner{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-chocta__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,40px);font-weight:700;color:#fff;margin:0 0 14px}
+.astro-chocta__sub{font-size:clamp(15px,1.8vw,18px);color:#f2dede;line-height:1.65;margin:0 0 28px}
+.astro-chocta__btn{display:inline-flex;align-items:center;padding:14px 30px;border-radius:50px;font-size:15px;font-weight:700;text-decoration:none;background:#fff;color:#9a2d2d;transition:background .2s,transform .2s;min-height:44px}
+.astro-chocta__btn:hover{background:#f3e7d4;transform:translateY(-2px)}
+@media(max-width:600px){.astro-chocta{padding:56px 0}.astro-chocta__inner{padding:0 20px}}
+</style>

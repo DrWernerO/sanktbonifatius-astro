@@ -1,0 +1,21 @@
+---
+// Unterseite „Büchereien" — WP-Seite 49151 (/kultur-begegnung/buechereien/), vollständig aus eigenen
+// Astro-Komponenten (kein set:html mit WP-Markup). Nav + Footer global aus Base.astro (Handbuch 4b).
+// SEO live aus WP via getSeoHead('/kultur-begegnung/buechereien/'). Eigene Präfixe `astro-bue…`
+// (goldene Regel, Handbuch 3 — WP nutzt `bu-`). Datei liegt in pages/kultur-begegnung/ → erzeugt
+// exakt den WP-Pfad (wichtig für getSeoHead + canonical).
+import Base from '../../layouts/Base.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+import BueHero from '../../components/BueHero.astro';
+import BueIntro from '../../components/BueIntro.astro';
+import BueCards from '../../components/BueCards.astro';
+import BueCta from '../../components/BueCta.astro';
+
+const seo = await getSeoHead('/kultur-begegnung/buechereien/');
+---
+<Base seo={seo} title="Büchereien – Drei KÖB in Sachsenhausen & Oberrad · St. Bonifatius Frankfurt">
+  <BueHero />
+  <BueIntro />
+  <BueCards />
+  <BueCta />
+</Base>

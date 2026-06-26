@@ -1,0 +1,46 @@
+---
+// Übersichtsseite „Kultur & Begegnung" — WP-Seite 46764 (/kultur-begegnung/), vollständig aus eigenen
+// Astro-Komponenten (kein set:html mit WP-Markup). Nav + Footer global aus Base.astro (Handbuch 4b).
+// SEO live aus WP (SEOPress) via getSeoHead('/kultur-begegnung/'). Termine live via EventCalendar
+// (Kategorie 2588). Eigene Präfixe `astro-kb…` (goldene Regel, Handbuch 3 — WP nutzt `el-`).
+import Base from '../../layouts/Base.astro';            // ACHTUNG: zwei Ebenen hoch
+import { getSeoHead } from '../../lib/wordpress.js';
+import EventCalendar from '../../components/EventCalendar.astro';
+import KbHero from '../../components/KbHero.astro';
+import KbStrip from '../../components/KbStrip.astro';
+import KbIntro from '../../components/KbIntro.astro';
+import KbTiles from '../../components/KbTiles.astro';
+import KbCta from '../../components/KbCta.astro';
+import KbFaq from '../../components/KbFaq.astro';
+
+const seo = await getSeoHead('/kultur-begegnung/');
+---
+<Base seo={seo} title="Kultur & Begegnung – Kirchcafé, Chöre, Büchereien · St. Bonifatius Frankfurt">
+  <KbHero />
+  <KbStrip />
+  <KbIntro />
+  <KbTiles />
+  <div id="kb-termine" class="astro-kb-anchor">
+    <EventCalendar
+      heading="Unsere nächsten Veranstaltungen"
+      moreHref="/terminkalender/"
+      category={2588}
+      categoryLabel="Kultur & Begegnung"
+    />
+  </div>
+  <KbCta />
+  <KbFaq />
+</Base>
+
+<style is:global>
+/* Anker-Versatz: fixierte Nav (80px) verdeckt sonst den Sprung-Anker */
+.astro-kb-anchor,
+#kb-angebote { scroll-margin-top: 96px; }
+
+/* Termin-Überschriften in Bordeaux + weiße Karten — nur auf dieser Seite (Muster bonfamily/el) */
+#kb-termine .astro-ev__hl,
+#kb-termine .astro-ev-card__title,
+#kb-termine .astro-ev-list__hl,
+#kb-termine .astro-ev-list__title { color: #9a2d2d; }
+#kb-termine .astro-ev-card { background: #fff; }
+</style>

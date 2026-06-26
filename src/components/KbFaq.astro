@@ -1,0 +1,46 @@
+---
+// „Häufige Fragen" der Übersichtsseite „Kultur & Begegnung" (Page 46764).
+// Eigene Klassen `astro-kbfaq`. Natives <details> (kein JS, Muster ElFaq/SegenFaq). Feste Inhalte.
+const FAQ = [
+  { q: 'Muss ich Mitglied der Pfarrei sein, um die Angebote zu nutzen?',
+    a: 'Nein. Alle Angebote von Kultur &amp; Begegnung stehen offen &#8211; unabh&auml;ngig von Konfession oder Mitgliedschaft. Kommen Sie einfach vorbei.' },
+  { q: 'Ist die Teilnahme kostenlos?',
+    a: 'Die meisten Angebote sind kostenlos oder gegen geringen Unkostenbeitrag zug&auml;nglich. Kirchcaf&eacute;, BonCasino und Chorproben sind kostenfrei. F&uuml;r das Kleider Caf&eacute; und die B&uuml;chereien gelten die jeweiligen Konditionen.' },
+  { q: 'Wo befindet sich die Pfarrei Sankt Bonifatius in Frankfurt?',
+    a: 'Unsere Hauptkirche liegt in der Holbeinstra&szlig;e 70, 60596 Frankfurt am Main (Sachsenhausen). Das Kleider Caf&eacute; ist in der Kirche St. Aposteln auf der Orgelempore. Weitere Kirchorte befinden sich in Oberrad.' },
+  { q: 'Wann findet das Kirchcaf&eacute; statt?',
+    a: 'Das Kirchcaf&eacute; findet jeden Sonntag nach dem Gottesdienst an allen Kirchorten statt. Kaffee, Tee und Kakao inklusive &#8211; Eintritt frei.' },
+  { q: 'Wie kann ich beim Chor mitmachen?',
+    a: 'Einfach zu einer der Chorproben kommen &#8211; Vorkenntnisse sind nicht erforderlich. Kontakt und Probenzeiten finden Sie auf der <a href="/kultur-begegnung/choere/">Ch&ouml;re-Seite</a> oder per E-Mail an info@sanktbonifatius.de.' },
+];
+---
+<section class="astro-kbfaq">
+  <div class="astro-kbfaq__inner">
+    <p class="astro-kbfaq__eyebrow">H&auml;ufige Fragen</p>
+    <h2 class="astro-kbfaq__hl">Antworten auf die h&auml;ufigsten Fragen zu unseren Kultur-Angeboten</h2>
+    <div class="astro-kbfaq__list">
+      {FAQ.map((f) => (
+        <details>
+          <summary><span set:html={f.q} /></summary>
+          <div class="astro-kbfaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-kbfaq{background:#fff;padding:80px 0}
+.astro-kbfaq__inner{max-width:840px;margin:0 auto;padding:0 40px}
+.astro-kbfaq__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px;font-weight:600;text-align:center}
+.astro-kbfaq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 36px;text-align:center;line-height:1.15}
+.astro-kbfaq__list{max-width:840px;margin:0 auto}
+.astro-kbfaq details{background:#f7f3ef;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(30,21,18,.05);overflow:hidden}
+.astro-kbfaq summary{padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:16px;color:#2c2420}
+.astro-kbfaq summary::-webkit-details-marker{display:none}
+.astro-kbfaq summary::after{content:"+";font-size:24px;color:#9a2d2d;transition:transform .2s;flex-shrink:0}
+.astro-kbfaq details[open] summary::after{transform:rotate(45deg)}
+.astro-kbfaq__a{padding:0 24px 20px;font-size:15px;color:#3d3530;line-height:1.65}
+.astro-kbfaq__a a{color:#9a2d2d;font-weight:600}
+@media(max-width:600px){.astro-kbfaq{padding:56px 0}.astro-kbfaq__inner{padding:0 20px}}
+</style>

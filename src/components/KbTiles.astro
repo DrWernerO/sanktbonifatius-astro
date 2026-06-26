@@ -1,0 +1,107 @@
+---
+// Angebots-Kacheln der Übersichtsseite „Kultur & Begegnung" (Page 46764).
+// Eigene Klassen `astro-kbtiles`. 6 Angebote (Foto + Titel + Text + optional Meta + optional Link).
+// Bilder lokal unter public/uploads/. Anker-IDs für die Schnellzugriff-Leiste (KbStrip).
+const TILES = [
+  {
+    id: 'kb-kirchcafe',
+    img: '/uploads/2022/10/kirchcafe-sanktbonifatius.jpg',
+    alt: 'Kirchcaf&eacute; nach dem Gottesdienst in Sankt Bonifatius Frankfurt',
+    title: 'Kirchcaf&eacute;: Treffpunkt nach dem Gottesdienst',
+    text: 'In Sankt Bonifatius lieben wir guten Kaffee! Sonntags nach dem Gottesdienst laden wir an allen Kirchorten zum Kirchcaf&eacute; ein &#8211; f&uuml;r Gespr&auml;che, Tee und Kakao.',
+    meta: 'Jeden Sonntag nach dem Gottesdienst &middot; alle Kirchorte',
+  },
+  {
+    id: 'kb-pommes',
+    img: '/uploads/2022/10/pommesbude-staposteln-frankfurt.jpg',
+    alt: 'Schwestern-Pommesbude auf dem Kirchplatz von St. Aposteln',
+    title: 'Schwestern-Pommesbude',
+    text: 'Auf dem Kirchplatz von St. Aposteln laden die Steyler Schwestern zu leckeren Pommes mit selbstgemachten Saucen ein &#8211; ein ganz besonderer Genuss und Ort f&uuml;r Begegnung.',
+    meta: 'Termine im Veranstaltungskalender',
+    href: '/terminkalender/', linkText: 'Zu den Terminen',
+  },
+  {
+    id: 'kb-kleidercafe',
+    img: '/uploads/2022/10/Kleidercafe-staposteln-frankfurt.jpg',
+    alt: 'Kleider Caf&eacute; auf der Orgelempore in St. Aposteln',
+    title: 'Kleider Caf&eacute;',
+    text: 'Kaffee und Kuchen &#8211; und dann anders-shoppen: in der Boutique auf der Orgelempore in St. Aposteln. Nachhaltig einkaufen mit geselligem Caf&eacute;-Erlebnis.',
+    meta: 'Mi 14&#8211;16 Uhr &middot; Fr 14&#8211;18 Uhr &middot; NEU: Do 18&#8211;19 Uhr',
+    href: '/terminkalender/', linkText: 'Zu den Terminen',
+  },
+  {
+    id: 'kb-boncasino',
+    img: '/uploads/2024/05/boncasino-1024x682.jpg',
+    alt: 'BonCasino &#8211; geselliger Spielenachmittag in St. Bonifatius',
+    title: 'BonCasino',
+    text: 'Skat, Doppelkopf oder Kniffel? Bei BonCasino stehen Spielen, Kommunikation und Geselligkeit im Vordergrund. Offen f&uuml;r alle Spieleinteressierten ab 60+.',
+    meta: 'Jeden 1. Mittwoch im Monat, 15 Uhr &middot; St. Bonifatius, Kleiner Pfarrsaal',
+    href: '/terminkalender/', linkText: 'Zu den Terminen',
+  },
+  {
+    id: 'kb-choere',
+    img: '/uploads/2024/05/choere-stbonifatius-frankfurt-1024x681.jpg',
+    alt: 'Ch&ouml;re der Pfarrei Sankt Bonifatius Frankfurt beim Singen',
+    title: 'Ch&ouml;re in unserer Pfarrei',
+    text: 'Singen Sie mit! In der Pfarrei Sankt Bonifatius Frankfurt proben mehrere Ch&ouml;re geistliche und weltliche Werke aus allen Epochen. Vorkenntnisse sind nicht erforderlich &#8211; neue S&auml;ngerinnen und S&auml;nger sind jederzeit herzlich willkommen.',
+    href: '/kultur-begegnung/choere/', linkText: 'Zu den Ch&ouml;ren',
+  },
+  {
+    id: 'kb-buechereien',
+    img: '/uploads/2022/01/Buecherei-St.-Wendel-2-1024x768.jpg',
+    alt: 'Katholische &Ouml;ffentliche B&uuml;cherei der Pfarrei Sankt Bonifatius Frankfurt',
+    title: 'Unsere B&uuml;chereien',
+    text: 'Drei Katholische &Ouml;ffentliche B&uuml;chereien (K&Ouml;B) in Frankfurt-Sachsenhausen und Oberrad bieten ein vielf&auml;ltiges Angebot f&uuml;r alle Altersgruppen &#8211; Romane, Sachb&uuml;cher, Kinder- und Jugendb&uuml;cher. Die Teams freuen sich auf Ihren Besuch!',
+    href: '/kultur-begegnung/buechereien/', linkText: 'Zu den B&uuml;chereien',
+  },
+];
+---
+<section class="astro-kbtiles" id="kb-angebote">
+  <div class="astro-kbtiles__inner">
+    <div class="astro-kbtiles__head">
+      <h2 class="astro-kbtiles__hl">Unsere Kulturangebote in Frankfurt-Sachsenhausen</h2>
+      <p class="astro-kbtiles__sub">Begegnung, Kultur und Gemeinschaft in unserer Pfarrei</p>
+    </div>
+    <div class="astro-kbtiles__grid">
+      {TILES.map((t) => (
+        <article class="astro-kbtiles__tile" id={t.id}>
+          <div class="astro-kbtiles__img">
+            <img src={t.img} alt={t.alt.replace(/&[a-z]+;|&#\d+;/g, '')} loading="lazy" decoding="async" />
+          </div>
+          <div class="astro-kbtiles__body">
+            <h3 set:html={t.title} />
+            <p class="astro-kbtiles__text" set:html={t.text} />
+            {t.meta && <p class="astro-kbtiles__meta" set:html={t.meta} />}
+            {t.href && (
+              <a class="astro-kbtiles__link" href={t.href}>
+                <span set:html={t.linkText} /> <span aria-hidden="true">&#8594;</span>
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-kbtiles{background:#f7f3ef;padding:72px 40px}
+.astro-kbtiles__inner{max-width:1280px;margin:0 auto}
+.astro-kbtiles__head{text-align:center;margin:0 0 52px}
+.astro-kbtiles__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3vw,38px);font-weight:700;color:#2c2420;line-height:1.12;margin:0 0 12px}
+.astro-kbtiles__sub{color:#928269;font-size:16px;max-width:560px;margin:0 auto;line-height:1.6}
+.astro-kbtiles__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.astro-kbtiles__tile{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(61,43,26,.08);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;scroll-margin-top:96px}
+.astro-kbtiles__tile:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(61,43,26,.18)}
+.astro-kbtiles__img{aspect-ratio:4/3;overflow:hidden;flex-shrink:0}
+.astro-kbtiles__img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.astro-kbtiles__tile:hover .astro-kbtiles__img img{transform:scale(1.06)}
+.astro-kbtiles__body{padding:26px 28px 28px;flex:1;display:flex;flex-direction:column}
+.astro-kbtiles__body h3{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:#2c2420;margin:0 0 8px;line-height:1.25}
+.astro-kbtiles__text{font-size:14px;color:#928269;line-height:1.65;margin:0 0 16px;flex:1}
+.astro-kbtiles__meta{font-size:12px;font-weight:600;color:#7e2424;background:#f7f3ef;border-radius:6px;padding:8px 12px;margin:0 0 14px;border-left:2px solid #9a2d2d;line-height:1.7}
+.astro-kbtiles__link{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#9a2d2d;text-decoration:none;text-transform:uppercase;letter-spacing:.05em;margin-top:auto}
+.astro-kbtiles__link:hover{gap:10px;color:#7e2424}
+@media(max-width:860px){.astro-kbtiles__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.astro-kbtiles{padding:52px 20px}.astro-kbtiles__grid{grid-template-columns:1fr}}
+</style>

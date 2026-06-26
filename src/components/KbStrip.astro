@@ -1,0 +1,32 @@
+---
+// Schnellzugriff-Leiste der Übersichtsseite „Kultur & Begegnung" (Page 46764).
+// Eigene Klassen `astro-kbstrip`. Sprung-Anker zu den Angebots-Kacheln + Links zu den Unterseiten.
+const LINKS = [
+  { label: 'Kirchcaf&eacute;',   href: '#kb-kirchcafe' },
+  { label: 'Pommesbude',         href: '#kb-pommes' },
+  { label: 'Kleider Caf&eacute;', href: '#kb-kleidercafe' },
+  { label: 'BonCasino',          href: '#kb-boncasino' },
+  { label: 'Ch&ouml;re',         href: '/kultur-begegnung/choere/' },
+  { label: 'B&uuml;chereien',    href: '/kultur-begegnung/buechereien/' },
+];
+---
+<nav class="astro-kbstrip" aria-label="Schnellzugriff Kultur &amp; Begegnung">
+  <div class="astro-kbstrip__inner">
+    <span class="astro-kbstrip__label">Schnell zu:</span>
+    <div class="astro-kbstrip__links">
+      {LINKS.map((l) => (
+        <a class="astro-kbstrip__link" href={l.href} set:html={l.label} />
+      ))}
+    </div>
+  </div>
+</nav>
+
+<style is:global>
+.astro-kbstrip{background:#f7f3ef;border-bottom:1px solid #e7ddd0;padding:14px 40px}
+.astro-kbstrip__inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.astro-kbstrip__label{color:#6b5c52;font-size:13px;font-weight:700}
+.astro-kbstrip__links{display:flex;gap:8px;flex-wrap:wrap}
+.astro-kbstrip__link{display:inline-flex;align-items:center;padding:7px 16px;background:#fff;border:1px solid #e7ddd0;border-radius:20px;font-size:12px;font-weight:600;color:#6b5c52;text-decoration:none;transition:all .15s}
+.astro-kbstrip__link:hover{background:#9a2d2d;color:#fff;border-color:#9a2d2d}
+@media(max-width:600px){.astro-kbstrip{padding:14px 20px}}
+</style>
