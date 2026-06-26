@@ -1,0 +1,58 @@
+---
+// Inhalt der Seite „Impressum" — WP-Seite 49117 (ersetzt WP-Blöcke `im-body` + `im-credits`).
+// Eigene Klassen `astro-imbody` (Handbuch Abschnitt 3). Text 1:1 aus der WP-Vorlage übernommen
+// (fest gepflegt, ändert sich selten). Spätere eRecht24-Anbindung erfolgt separat über Netlify.
+const MAIL = 'info@sanktbonifatius.de';
+---
+<section class="astro-imbody">
+  <div class="astro-imbody__in">
+    <p>
+      Kath. Kirchengemeinde St. Bonifatius<br />
+      Holbeinstra&szlig;e 70<br />
+      60596 Frankfurt
+    </p>
+
+    <p>
+      <strong>Vertreten durch:</strong><br />
+      Vorsitzender des Verwaltungsrats ist Pfarrer Dr. Werner Otto
+    </p>
+
+    <h2 id="kontakt">Kontakt</h2>
+    <p>
+      Telefon: Tel.: 069 . 695 97 58 50<br />
+      E-Mail: <a href={`mailto:${MAIL}`}>{MAIL}</a>
+    </p>
+
+    <h2 id="redaktionell-verantwortlich">Redaktionell verantwortlich</h2>
+    <p>
+      Kath. Kirchengemeinde St. Bonifatius<br />
+      Holbeinstra&szlig;e 70<br />
+      60596 Frankfurt am Main
+    </p>
+
+    <h2 id="verbraucherstreitbeilegung">Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+    <p>
+      Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+      Verbraucherschlichtungsstelle teilzunehmen.
+    </p>
+
+    <h3 id="bildnachweis">Bildnachweis</h3>
+    <p>
+      Die auf dieser Website verwendeten Fotos und Videos wurden erstellt von
+      <strong>Klein &amp; Rose Advertising</strong>. Weitere Informationen unter
+      <a href="https://www.klein-rose.com/de" target="_blank" rel="noopener">klein-rose.com</a>
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-imbody{background:#fff}
+.astro-imbody__in{max-width:820px;margin:0 auto;padding:64px 40px}
+.astro-imbody__in h2{font-family:'Playfair Display',serif;font-size:clamp(22px,2.6vw,28px);font-weight:700;color:#2c2420;margin:40px 0 12px}
+.astro-imbody__in h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:36px 0 10px}
+.astro-imbody__in p{font-size:16px;color:#4a3f37;line-height:1.7;margin:0 0 16px}
+.astro-imbody__in a{color:#9a2d2d;text-decoration:none}
+.astro-imbody__in a:hover{text-decoration:underline}
+.astro-imbody__in>p:first-child{font-size:17px;color:#2c2420}
+@media(max-width:560px){.astro-imbody__in{padding:48px 20px}}
+</style>

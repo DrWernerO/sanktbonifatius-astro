@@ -1,0 +1,19 @@
+---
+// Seite „Datenschutz" — WP-Seite 49118 (/datenschutz/), vollständig aus eigenen astro-Komponenten
+// (kein set:html mit WP-Markup, vgl. Migrationsplan Abschnitt 9b). Nav + Footer kommen global
+// aus Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden. Der Footer verlinkt
+// bereits auf /datenschutz/ (Footer.astro). Spätere eRecht24-Anbindung erfolgt separat über Netlify.
+import Base from '../layouts/Base.astro';
+import DatenschutzHero from '../components/DatenschutzHero.astro';
+import DatenschutzBody from '../components/DatenschutzBody.astro';
+import DatenschutzCta from '../components/DatenschutzCta.astro';
+import { getSeoHead } from '../lib/wordpress.js';
+
+// SEO (Titel/Description/OG) aus der mit SEOPress optimierten WP-Seite übernehmen.
+const seo = await getSeoHead('/datenschutz/');
+---
+<Base seo={seo} title="Datenschutz – Pfarrei Sankt Bonifatius Frankfurt">
+  <DatenschutzHero />
+  <DatenschutzBody />
+  <DatenschutzCta />
+</Base>

@@ -1,0 +1,24 @@
+---
+// Hero der Seite „Impressum" — WP-Seite 49117 (/impressum/, ersetzt WP-Block `im-hero`).
+// Eigene Klassen `astro-imhero` (Handbuch Abschnitt 3 — niemals WP-Klassen `im-…`).
+// Kein Bild in der WP-Vorlage → dunkel-warmer Verlauf (konsistent mit KontaktHero).
+---
+<section class="astro-imhero">
+  <div class="astro-imhero__inner">
+    <p class="astro-imhero__eyebrow">Rechtliche Hinweise</p>
+    <h1 class="astro-imhero__title">Impressum</h1>
+    <p class="astro-imhero__sub">
+      Angaben gem&auml;&szlig; &sect; 5 TMG zur Pfarrei Sankt Bonifatius Frankfurt am Main.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-imhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:340px;overflow:hidden;background:linear-gradient(135deg,#2c1a14 0%,#3a241b 55%,#1f130d 100%)}
+.astro-imhero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 0%,rgba(197,165,90,.18),transparent 55%)}
+.astro-imhero__inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:96px 40px 52px;color:#f0e8d8}
+.astro-imhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
+.astro-imhero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(36px,5.4vw,64px);margin:0}
+.astro-imhero__sub{font-size:clamp(16px,1.9vw,20px);color:#e8ddc9;line-height:1.55;margin:18px 0 0;max-width:620px}
+@media(max-width:600px){.astro-imhero{min-height:280px}.astro-imhero__inner{padding:80px 20px 40px}}
+</style>

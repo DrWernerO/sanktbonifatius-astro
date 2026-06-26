@@ -1,0 +1,23 @@
+---
+// Abschluss-CTA der Seite „Datenschutz" — WP-Seite 49118 (ersetzt WP-Block `dz-cta`).
+// Eigene Klassen `astro-dzcta`. Verlinkt aufs Pfarrbüro (bereits gebaute Astro-Seite).
+---
+<section class="astro-dzcta">
+  <div class="astro-dzcta__inner">
+    <h2 class="astro-dzcta__hl">Fragen zum Datenschutz?</h2>
+    <p class="astro-dzcta__sub">
+      Wenden Sie sich an unser Pfarrb&uuml;ro oder unseren Datenschutzbeauftragten.
+    </p>
+    <a class="astro-dzcta__btn" href="/kontakt/pfarrbuero/">Pfarrb&uuml;ro kontaktieren</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-dzcta{background:#f7f3ef}
+.astro-dzcta__inner{max-width:760px;margin:0 auto;padding:72px 40px;text-align:center}
+.astro-dzcta__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-dzcta__sub{font-size:clamp(16px,1.8vw,19px);color:#6b5c52;line-height:1.6;margin:0 0 28px}
+.astro-dzcta__btn{display:inline-block;padding:14px 32px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:15px;font-weight:600;letter-spacing:.02em;transition:background .2s}
+.astro-dzcta__btn:hover{background:#7e2424}
+@media(max-width:560px){.astro-dzcta__inner{padding:56px 20px}}
+</style>

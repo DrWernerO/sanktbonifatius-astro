@@ -1,0 +1,23 @@
+---
+// Abschluss-CTA der Seite „Impressum" — WP-Seite 49117 (ersetzt WP-Block `im-cta`).
+// Eigene Klassen `astro-imcta`. Verlinkt aufs Pfarrbüro (bereits gebaute Astro-Seite).
+---
+<section class="astro-imcta">
+  <div class="astro-imcta__inner">
+    <h2 class="astro-imcta__hl">Fragen zum Impressum?</h2>
+    <p class="astro-imcta__sub">
+      Wenden Sie sich an unser Pfarrb&uuml;ro &#8212; wir helfen Ihnen gerne weiter.
+    </p>
+    <a class="astro-imcta__btn" href="/kontakt/pfarrbuero/">Pfarrb&uuml;ro kontaktieren</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-imcta{background:#f7f3ef}
+.astro-imcta__inner{max-width:760px;margin:0 auto;padding:72px 40px;text-align:center}
+.astro-imcta__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 14px}
+.astro-imcta__sub{font-size:clamp(16px,1.8vw,19px);color:#6b5c52;line-height:1.6;margin:0 0 28px}
+.astro-imcta__btn{display:inline-block;padding:14px 32px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:15px;font-weight:600;letter-spacing:.02em;transition:background .2s}
+.astro-imcta__btn:hover{background:#7e2424}
+@media(max-width:560px){.astro-imcta__inner{padding:56px 20px}}
+</style>
