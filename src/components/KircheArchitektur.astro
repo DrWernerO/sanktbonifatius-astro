@@ -15,12 +15,12 @@ const url = (rel) => `${IMG_BASE}${rel}`;
     </div>
 
     {ARCH.map((row, i) => (
-      <div class={`astro-kfarch__row${row.imgs.length ? '' : ' is-text'}${row.imgs.length && i % 2 === 1 ? ' is-rev' : ''}`}>
-        <div class="astro-kfarch__text">
-          <p class="astro-kfarch__q">{row.q}</p>
-          {row.ps.map((p) => <p>{p}</p>)}
-        </div>
-        {row.imgs.length > 0 && (
+      row.imgs.length > 0 ? (
+        <div class={`astro-kfarch__row${i % 2 === 1 ? ' is-rev' : ''}`}>
+          <div class="astro-kfarch__text">
+            <p class="astro-kfarch__q">{row.q}</p>
+            {row.ps.map((p) => <p>{p}</p>)}
+          </div>
           <div class="astro-kfarch__media">
             {row.imgs.length === 1
               ? <div class="astro-kfarch__img" role="img" aria-label={row.q} style={`background-image:url('${url(row.imgs[0])}')`}></div>
@@ -37,8 +37,17 @@ const url = (rel) => `${IMG_BASE}${rel}`;
                 </div>
               )}
           </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div class="astro-kfarch__textcard">
+          <div class="astro-kfarch__textcard-q">
+            <p class="astro-kfarch__q">{row.q}</p>
+          </div>
+          <div class="astro-kfarch__textcard-body">
+            {row.ps.map((p) => <p>{p}</p>)}
+          </div>
+        </div>
+      )
     ))}
   </div>
 
@@ -61,13 +70,19 @@ const url = (rel) => `${IMG_BASE}${rel}`;
 .astro-kfarch__intro{max-width:780px;margin:0 auto 56px}
 .astro-kfarch__intro p{font-size:16px;line-height:1.75;color:#3a3330;margin:0 0 14px}
 .astro-kfarch__intro p:last-child{margin-bottom:0}
-/* Q&A-Reihen */
+/* Bild-Text-Reihen */
 .astro-kfarch__row{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:56px}
 .astro-kfarch__row.is-rev .astro-kfarch__text{order:2}
-.astro-kfarch__row.is-text{display:block;max-width:780px;margin-left:auto;margin-right:auto}
 .astro-kfarch__q{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:700;color:#6440a4;margin:0 0 14px;line-height:1.25}
 .astro-kfarch__text p{font-size:15px;line-height:1.75;color:#3a3330;margin:0 0 12px}
 .astro-kfarch__text p:last-child{margin-bottom:0}
+/* Reine Text-Karten (ohne Bild) */
+.astro-kfarch__textcard{display:grid;grid-template-columns:280px 1fr;gap:0;margin-bottom:56px;border-radius:14px;overflow:hidden;box-shadow:0 2px 18px rgba(100,64,164,.10)}
+.astro-kfarch__textcard-q{background:#6440a4;padding:36px 32px;display:flex;align-items:center}
+.astro-kfarch__textcard-q .astro-kfarch__q{color:#fff;margin:0;font-size:19px}
+.astro-kfarch__textcard-body{background:#f9f6ff;padding:36px 36px}
+.astro-kfarch__textcard-body p{font-size:15px;line-height:1.75;color:#3a3330;margin:0 0 12px}
+.astro-kfarch__textcard-body p:last-child{margin-bottom:0}
 .astro-kfarch__img,.astro-kfarch__slider{border-radius:12px;overflow:hidden;aspect-ratio:4/3;background:#eee;background-size:cover;background-position:center}
 .astro-kfarch__slider{position:relative}
 .astro-kfarch__slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .5s ease}
@@ -82,7 +97,7 @@ const url = (rel) => `${IMG_BASE}${rel}`;
 .astro-kfarch__beleucht-body{max-width:780px;margin:0 auto}
 .astro-kfarch__beleucht-body p{color:rgba(255,255,255,.92);font-size:16px;line-height:1.75;margin:0 0 14px;text-align:center}
 .astro-kfarch__beleucht-body p:last-child{margin-bottom:0}
-@media(max-width:760px){.astro-kfarch__row{grid-template-columns:1fr;gap:20px}.astro-kfarch__row.is-rev .astro-kfarch__text{order:0}.astro-kfarch__h2{font-size:27px}}
+@media(max-width:760px){.astro-kfarch__row{grid-template-columns:1fr;gap:20px}.astro-kfarch__row.is-rev .astro-kfarch__text{order:0}.astro-kfarch__h2{font-size:27px}.astro-kfarch__textcard{grid-template-columns:1fr}.astro-kfarch__textcard-q{padding:24px 24px}.astro-kfarch__textcard-body{padding:24px 24px}}
 @media(max-width:600px){.astro-kfarch__in{padding:0 16px}}
 </style>
 
