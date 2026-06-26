@@ -1,0 +1,45 @@
+---
+// Häufige Fragen zum Spenden — Inhalte 1:1 aus der Live-Seite (/spenden/, FAQ-Schema).
+// Eigene Klassen `astro-spn-faq`. Reines <details>/<summary> — kein JS nötig.
+const FAQ = [
+  {
+    q: 'Erhalte ich eine Spendenquittung?',
+    a: 'Bei Spenden bis 300 Euro genügt der Bankbeleg als Nachweis für das Finanzamt. Für höhere Beträge oder auf Wunsch stellen wir Ihnen gerne eine Spendenquittung aus.',
+  },
+  {
+    q: 'Ist meine Online-Spende sicher?',
+    a: 'Ja. Die Spendenformulare werden über den Anbieter ChurchDesk verarbeitet, speziell für Kirchengemeinden. Die Übertragung erfolgt verschlüsselt; Ihre Bank- und Kreditkartendaten werden nicht bei uns gespeichert.',
+  },
+  {
+    q: 'Kann ich auch per Überweisung spenden?',
+    a: 'Selbstverständlich. Unsere Bankverbindung finden Sie auf dieser Seite im Abschnitt „Spende per Überweisung“.',
+  },
+];
+---
+<section class="astro-spn-faq">
+  <div class="astro-spn-faq__inner">
+    <h2 class="astro-spn-faq__hl">Häufige Fragen zum Spenden</h2>
+    <div class="astro-spn-faq__list">
+      {FAQ.map((item) => (
+        <details class="astro-spn-faq__item">
+          <summary class="astro-spn-faq__q">{item.q}</summary>
+          <p class="astro-spn-faq__a">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-spn-faq{background:#f7f3ef;padding:72px 0}
+.astro-spn-faq__inner{max-width:780px;margin:0 auto;padding:0 40px}
+.astro-spn-faq__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#2c2420;margin:0 0 28px;text-align:center}
+.astro-spn-faq__list{display:flex;flex-direction:column;gap:12px}
+.astro-spn-faq__item{background:#fff;border:1px solid #e0d8cf;border-radius:12px;padding:4px 22px}
+.astro-spn-faq__q{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2c2420;cursor:pointer;padding:16px 0;list-style:none;position:relative}
+.astro-spn-faq__q::-webkit-details-marker{display:none}
+.astro-spn-faq__q::after{content:"+";position:absolute;right:0;top:14px;font-size:22px;color:#9a2d2d;font-weight:400}
+.astro-spn-faq__item[open] .astro-spn-faq__q::after{content:"–"}
+.astro-spn-faq__a{font-size:15px;color:#6b5c52;line-height:1.65;margin:0 0 18px}
+@media(max-width:600px){.astro-spn-faq{padding:52px 0}.astro-spn-faq__inner{padding:0 20px}}
+</style>

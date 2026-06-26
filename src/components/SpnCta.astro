@@ -1,0 +1,24 @@
+---
+// Abschluss-CTA der Spendenseite — Text 1:1 aus der Live-Seite (/spenden/).
+// Eigene Klassen `astro-spn-cta`. Verlauf in Bonifatius-Tönen (wie WP-Original).
+---
+<section class="astro-spn-cta">
+  <div class="astro-spn-cta__inner">
+    <h2 class="astro-spn-cta__hl">Vielen Dank für Ihre Unterstützung</h2>
+    <p class="astro-spn-cta__sub">
+      Jede Spende, ob klein oder groß, hilft uns dabei, unsere Pfarrei in Frankfurt-Sachsenhausen
+      lebendig zu halten und Menschen in Not zu unterstützen. Auch ohne Spende können Sie sich
+      engagieren – z.&nbsp;B. in einer unserer Gruppen, als Ehrenamtliche/r oder durch Ihr Gebet.
+    </p>
+    <a class="astro-spn-cta__btn" href="/kontakt/pfarrbuero/">Pfarrbüro kontaktieren</a>
+  </div>
+</section>
+
+<style is:global>
+.astro-spn-cta{background:linear-gradient(135deg,#3a2415,#5a3823);padding:72px 24px;text-align:center;color:#fff}
+.astro-spn-cta__inner{max-width:600px;margin:0 auto}
+.astro-spn-cta__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,42px);font-weight:700;color:#fff;margin:0 0 16px}
+.astro-spn-cta__sub{font-size:clamp(16px,1.8vw,18px);color:rgba(255,255,255,.9);line-height:1.65;margin:0 0 30px}
+.astro-spn-cta__btn{display:inline-block;padding:14px 32px;border-radius:50px;background:#fff;color:#5a3823;font-size:15px;font-weight:600;transition:transform .15s,background .2s}
+.astro-spn-cta__btn:hover{transform:translateY(-1px);background:#fbeede}
+</style>

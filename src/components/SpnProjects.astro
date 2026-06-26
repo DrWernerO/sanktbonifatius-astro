@@ -1,0 +1,91 @@
+---
+// „Unsere aktuellen Spendenprojekte" — die DREI Projekte der Live-Seite (/spenden/), jeweils mit
+// dem EXAKTEN ChurchDesk-Donation-Embed. Eigene Klassen `astro-spn-proj`. Anker #projekte (Hero).
+//
+// Das ChurchDesk-Embed funktioniert hier anders als das Registrierungsformular (iframe): pro
+// Projekt ein <div id="churchdesk-donation-<ID>">, das vom externen Loader-Script
+// (donate.churchdesk.com/donation-loader.js) + Init-Script befüllt wird. Loader + Init sind 1:1
+// aus dem WP-Original übernommen (is:inline → Astro lässt sie unverändert, kein Bundling).
+// Die drei Alias-IDs stammen direkt aus dem ChurchDesk-Konto der Pfarrei.
+const PROJEKTE = [
+  {
+    badge: 'Projekt 1 · St. Aposteln',
+    titel: 'Restaurierung der Orgel in St. Aposteln',
+    text: 'Die Orgel von St. Aposteln ist Herzstück unserer Liturgie und Kultur. Mit Ihrer Spende ermöglichen Sie ihre fachgerechte Restaurierung.',
+    id: 'h_P0X6elQW',
+  },
+  {
+    badge: 'Projekt 2 · Pfarrei St. Bonifatius',
+    titel: 'Pastorale Arbeit in der Pfarrei',
+    text: 'Seelsorge, Gemeindeangebote, Familienarbeit und vieles mehr: Ihre Spende stärkt die pastorale Arbeit unserer Pfarrei.',
+    id: 'dqasDzdNpr',
+  },
+  {
+    badge: 'Projekt 3 · St. Aposteln',
+    titel: 'Sozialprojekte in St. Aposteln',
+    text: 'Offener Kühlschrank, KleiCa und weitere Initiativen helfen Menschen in unserem Stadtteil ganz konkret. Unterstützen Sie die soziale Arbeit vor Ort.',
+    id: 'JPF890m3wm',
+  },
+];
+---
+<section class="astro-spn-proj" id="projekte">
+  <div class="astro-spn-proj__inner">
+    <div class="astro-spn-proj__head">
+      <h2 class="astro-spn-proj__hl">Unsere aktuellen Spendenprojekte</h2>
+      <p class="astro-spn-proj__sub">Drei konkrete Vorhaben, für die wir Ihre Unterstützung brauchen.</p>
+    </div>
+    <div class="astro-spn-proj__grid">
+      {PROJEKTE.map((p) => (
+        <article class="astro-spn-proj__card">
+          <header class="astro-spn-proj__card-hd">
+            <span class="astro-spn-proj__badge">{p.badge}</span>
+            <h3 class="astro-spn-proj__card-hl">{p.titel}</h3>
+            <p class="astro-spn-proj__card-tx">{p.text}</p>
+          </header>
+          <div class="astro-spn-proj__widget">
+            <div id={`churchdesk-donation-${p.id}`}></div>
+          </div>
+          <p class="astro-spn-proj__fallback">
+            Wenn das Spendenformular bei Ihnen nicht angezeigt wird:
+            <a href={`https://donate.churchdesk.com/de/1/${p.id}`} target="_blank" rel="noopener">Direkt zur Spendenseite</a>
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ChurchDesk Donation Loader + Init — 1:1 aus dem WP-Original (/spenden/) übernommen. -->
+<script is:inline defer src="https://donate.churchdesk.com/donation-loader.js"></script>
+<script is:inline>
+function initDonations(){
+  if (typeof CHURCH_DESK_DONATION_NAMESPACE === 'undefined') return setTimeout(initDonations, 200);
+  if (typeof DonationWidgetCode === 'undefined') var DonationWidgetCode = Object.create(Object.prototype);
+  var ids = ['h_P0X6elQW','dqasDzdNpr','JPF890m3wm'];
+  ids.forEach(function(id){
+    if (!document.getElementById('churchdesk-donation-'+id)) return;
+    DonationWidgetCode[id] = new CHURCH_DESK_DONATION_NAMESPACE.Donation({ alias: id, language: 'de' });
+    DonationWidgetCode[id].initDonation();
+  });
+}
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initDonations); } else { initDonations(); }
+</script>
+
+<style is:global>
+.astro-spn-proj{background:#f7f3ef;padding:80px 0}
+.astro-spn-proj__inner{max-width:1180px;margin:0 auto;padding:0 40px}
+.astro-spn-proj__head{text-align:center;margin:0 0 44px}
+.astro-spn-proj__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,42px);font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-spn-proj__sub{font-size:clamp(16px,1.8vw,19px);color:#6b5c52;line-height:1.6;margin:0}
+.astro-spn-proj__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+.astro-spn-proj__card{background:#fff;border:1px solid #e0d8cf;border-radius:16px;padding:28px;box-shadow:0 8px 28px rgba(30,21,18,.06);display:flex;flex-direction:column}
+.astro-spn-proj__badge{display:inline-block;align-self:flex-start;font-size:12px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:#9a2d2d;background:#f6e7e2;border-radius:50px;padding:5px 12px;margin:0 0 14px}
+.astro-spn-proj__card-hl{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#2c2420;margin:0 0 10px;line-height:1.2}
+.astro-spn-proj__card-tx{font-size:15px;color:#6b5c52;line-height:1.65;margin:0 0 20px}
+.astro-spn-proj__widget{background:#f7f3ef;border-radius:10px;min-height:120px;overflow:hidden}
+.astro-spn-proj__widget>div{width:100%}
+.astro-spn-proj__fallback{font-size:13px;color:#928269;line-height:1.55;margin:16px 0 0}
+.astro-spn-proj__fallback a{color:#9a2d2d;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:960px){.astro-spn-proj__grid{grid-template-columns:1fr;max-width:620px;margin:0 auto}}
+@media(max-width:600px){.astro-spn-proj{padding:56px 0}.astro-spn-proj__inner{padding:0 20px}}
+</style>

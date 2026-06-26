@@ -1,0 +1,29 @@
+---
+// Seite „Spenden" (/spenden/) — vollständig aus eigenen astro-spn-Komponenten, inhaltlich 1:1
+// an der Live-Seite (www, /spenden/) orientiert. Nav + Footer kommen global aus Base.astro
+// (Handbuch 4b) — hier NICHT erneut einbinden. Spenden laufen über drei ChurchDesk-Donation-
+// Widgets (SpnProjects) zzgl. Überweisung (SpnBank). SEO live aus WP via getSeoHead;
+// title/description dienen als Fallback, falls WP nicht erreichbar ist.
+import Base from '../layouts/Base.astro';
+import SpnHero from '../components/SpnHero.astro';
+import SpnHow from '../components/SpnHow.astro';
+import SpnProjects from '../components/SpnProjects.astro';
+import SpnBank from '../components/SpnBank.astro';
+import SpnFaq from '../components/SpnFaq.astro';
+import SpnCta from '../components/SpnCta.astro';
+import { getSeoHead } from '../lib/wordpress.js';
+
+const seo = await getSeoHead('/spenden/');
+---
+<Base
+  seo={seo}
+  title="Spenden"
+  description="Unterstützen Sie die Pfarrei Sankt Bonifatius Frankfurt mit einer Online-Spende oder Überweisung. Aktuelle Spendenprojekte: Orgelrestaurierung St. Aposteln, Pastorale Arbeit und Sozialprojekte."
+>
+  <SpnHero />
+  <SpnHow />
+  <SpnProjects />
+  <SpnBank />
+  <SpnFaq />
+  <SpnCta />
+</Base>

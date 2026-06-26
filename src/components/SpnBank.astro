@@ -1,0 +1,85 @@
+---
+// „Spende per Überweisung" — Bankverbindung der Pfarrei, 1:1 aus der Live-Seite (/spenden/).
+// Eigene Klassen `astro-spn-bank`. Anker #ueberweisung (vom Hero-Link „Lieber überweisen?").
+// Die Kopier-Buttons schreiben den jeweiligen Wert in die Zwischenablage (Inline-Script).
+---
+<section class="astro-spn-bank" id="ueberweisung">
+  <div class="astro-spn-bank__inner">
+    <div class="astro-spn-bank__head">
+      <h2 class="astro-spn-bank__hl">Spende per Überweisung</h2>
+      <p class="astro-spn-bank__sub">Sie möchten lieber klassisch überweisen? Hier sind unsere Bankdaten.</p>
+    </div>
+    <div class="astro-spn-bank__card">
+      <div class="astro-spn-bank__row">
+        <span class="astro-spn-bank__label">Empfänger</span>
+        <span class="astro-spn-bank__value" id="sp-bank-name">Kath. Kirchengemeinde St. Bonifatius Frankfurt</span>
+        <button type="button" class="astro-spn-bank__copy" data-copy="sp-bank-name" aria-label="Empfänger kopieren">Kopieren</button>
+      </div>
+      <div class="astro-spn-bank__row">
+        <span class="astro-spn-bank__label">IBAN</span>
+        <span class="astro-spn-bank__value" id="sp-bank-iban">DE55 5105 0015 0162 0103 28</span>
+        <button type="button" class="astro-spn-bank__copy" data-copy="sp-bank-iban" aria-label="IBAN kopieren">Kopieren</button>
+      </div>
+      <div class="astro-spn-bank__row">
+        <span class="astro-spn-bank__label">BIC</span>
+        <span class="astro-spn-bank__value" id="sp-bank-bic">NASSDE55XXX</span>
+        <button type="button" class="astro-spn-bank__copy" data-copy="sp-bank-bic" aria-label="BIC kopieren">Kopieren</button>
+      </div>
+      <div class="astro-spn-bank__row">
+        <span class="astro-spn-bank__label">Bank</span>
+        <span class="astro-spn-bank__value">Nassauische Sparkasse</span>
+        <span></span>
+      </div>
+      <div aria-live="polite" id="sp-copy-status" class="astro-spn-bank__sr"></div>
+      <p class="astro-spn-bank__note">
+        Falls Sie bei einer Online-Überweisung den Hinweis erhalten, dass der Empfänger nicht mit
+        der IBAN übereinstimmt: Einfach trotzdem bestätigen. Empfänger und IBAN sind richtig!
+      </p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function(){
+  var status = document.getElementById('sp-copy-status');
+  document.querySelectorAll('.astro-spn-bank__copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      if (!el) return;
+      var text = el.textContent.trim();
+      var done = function(){
+        var old = btn.textContent;
+        btn.textContent = 'Kopiert ✓';
+        if (status) status.textContent = text + ' kopiert.';
+        setTimeout(function(){ btn.textContent = old; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(done);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta); done();
+      }
+    });
+  });
+})();
+</script>
+
+<style is:global>
+.astro-spn-bank{background:#fff;padding:80px 0}
+.astro-spn-bank__inner{max-width:760px;margin:0 auto;padding:0 40px}
+.astro-spn-bank__head{text-align:center;margin:0 0 32px}
+.astro-spn-bank__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,42px);font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-spn-bank__sub{font-size:clamp(16px,1.8vw,19px);color:#6b5c52;line-height:1.6;margin:0}
+.astro-spn-bank__card{background:#f7f3ef;border:1px solid #e0d8cf;border-radius:16px;padding:14px 28px 26px;position:relative}
+.astro-spn-bank__row{display:grid;grid-template-columns:120px 1fr auto;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #e7ddd3}
+.astro-spn-bank__row:last-of-type{border-bottom:0}
+.astro-spn-bank__label{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#9a2d2d;font-weight:700}
+.astro-spn-bank__value{font-size:16px;color:#2c2420;font-weight:600;word-break:break-word}
+.astro-spn-bank__copy{border:1.5px solid #d8b3b3;background:transparent;color:#9a2d2d;font-size:13px;font-weight:600;border-radius:50px;padding:7px 16px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s}
+.astro-spn-bank__copy:hover{background:#9a2d2d;color:#fff;border-color:#9a2d2d}
+.astro-spn-bank__note{font-size:14px;color:#928269;line-height:1.6;margin:18px 0 0}
+.astro-spn-bank__sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+@media(max-width:560px){.astro-spn-bank{padding:56px 0}.astro-spn-bank__inner{padding:0 20px}.astro-spn-bank__row{grid-template-columns:1fr auto;row-gap:4px}.astro-spn-bank__label{grid-column:1/-1}}
+</style>

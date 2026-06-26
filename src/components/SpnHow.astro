@@ -1,0 +1,55 @@
+---
+// „So spenden Sie" — drei Schritte zur Online-Spende über ChurchDesk. Inhalte 1:1 aus der
+// Live-Seite (/spenden/). Eigene Klassen `astro-spn-how`.
+const STEPS = [
+  {
+    label: 'Schritt 1',
+    titel: 'Projekt auswählen',
+    text: 'Wählen Sie eines unserer drei aktuellen Hilfsprojekte aus. Jedes Projekt hat sein eigenes Spendenformular.',
+  },
+  {
+    label: 'Schritt 2',
+    titel: 'Betrag & Daten eingeben',
+    text: 'Im blau unterlegten Fenster scrollen Sie nach unten, wählen Ihren Betrag und drücken auf „Spenden“. Anschließend geben Sie Ihre Bank- oder Kreditkartendaten ein.',
+  },
+  {
+    label: 'Schritt 3',
+    titel: 'Spendenquittung',
+    text: 'Bei Spenden bis 300 € ist der Bankbeleg ausreichend. Auf Wunsch stellen wir Ihnen gerne eine Spendenquittung aus – einfach im Formular angeben.',
+  },
+];
+---
+<section class="astro-spn-how">
+  <div class="astro-spn-how__inner">
+    <div class="astro-spn-how__head">
+      <h2 class="astro-spn-how__hl">So spenden Sie</h2>
+      <p class="astro-spn-how__sub">In drei einfachen Schritten zu Ihrer Spende.</p>
+    </div>
+    <div class="astro-spn-how__grid">
+      {STEPS.map((s, i) => (
+        <article class="astro-spn-how__step">
+          <div class="astro-spn-how__num" aria-hidden="true">{i + 1}</div>
+          <span class="astro-spn-how__label">{s.label}</span>
+          <h3 class="astro-spn-how__step-hl">{s.titel}</h3>
+          <p class="astro-spn-how__step-tx">{s.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-spn-how{background:#fff;padding:80px 0}
+.astro-spn-how__inner{max-width:1120px;margin:0 auto;padding:0 40px}
+.astro-spn-how__head{text-align:center;margin:0 0 44px}
+.astro-spn-how__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,42px);font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-spn-how__sub{font-size:clamp(16px,1.8vw,19px);color:#6b5c52;line-height:1.6;margin:0}
+.astro-spn-how__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.astro-spn-how__step{background:#f7f3ef;border:1px solid #e0d8cf;border-radius:14px;padding:32px 26px;position:relative}
+.astro-spn-how__num{width:46px;height:46px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 0 16px}
+.astro-spn-how__label{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9a2d2d;font-weight:700;margin:0 0 6px}
+.astro-spn-how__step-hl{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-spn-how__step-tx{font-size:15px;color:#6b5c52;line-height:1.65;margin:0}
+@media(max-width:860px){.astro-spn-how__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-spn-how{padding:56px 0}.astro-spn-how__inner{padding:0 20px}}
+</style>
