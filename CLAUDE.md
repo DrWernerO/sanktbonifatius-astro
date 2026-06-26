@@ -1,8 +1,9 @@
 # Sankt Bonifatius — Astro-Frontend (Headless WordPress)
 
-> **VOR jeder Arbeit an einer Seitenübernahme zuerst [`docs/ASTRO-HANDBUCH.md`](docs/ASTRO-HANDBUCH.md) lesen.**
-> Dort steht alles zu Architektur, Nav-Aufbau, Beitrags-/Termin-Kacheln und den
-> wiederkehrenden Fallstricken.
+> **VOR jeder Arbeit zuerst [`docs/ASTRO-QUICKREF.md`](docs/ASTRO-QUICKREF.md) lesen** —
+> kompakte Sessionreferenz mit allen wichtigen Regeln, Seitenstand und Fallstricken.
+> Für Details zu einzelnen Seiten/Komponenten den passenden Abschnitt in
+> [`docs/ASTRO-HANDBUCH.md`](docs/ASTRO-HANDBUCH.md) gezielt nachlesen.
 >
 > **Für Kirchort-Seiten und deren Unterseiten** gilt zusätzlich die verbindliche
 > **[`docs/kirchort-routine.md`](docs/kirchort-routine.md)** — 4-Phasen-Routine:
