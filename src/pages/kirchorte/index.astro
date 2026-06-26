@@ -1,0 +1,272 @@
+---
+// Kirchorte-Übersicht — WP-Seite 48948 (/ueberuns/kirchorte/), vollständig aus eigenen
+// astro-ko-Komponenten. Astro-Pfad: /kirchorte/. Nav + Footer global aus Base.astro.
+// Inhalte fest (Kirchortdaten ändern sich selten); SEO-Head live aus WP.
+import Base from '../../layouts/Base.astro';
+import { getSeoHead } from '../../lib/wordpress.js';
+
+const seo = await getSeoHead('/ueberuns/kirchorte/');
+
+const KIRCHORTE = [
+  {
+    name: 'St. Bonifatius',
+    href: '/kirchorte/st-bonifatius/',
+    img: '/uploads/2020/04/St.-Bonifatius-von-oben.jpg',
+    alt: 'Kirche St. Bonifatius Frankfurt-Sachsenhausen von oben',
+    color: '#6440a4',
+    stadtteil: 'Frankfurt-Sachsenhausen',
+    adresse: 'Holbeinstraße 70 · 60596 Frankfurt am Main',
+    oeffnung: 'Täglich 9–17 Uhr geöffnet',
+    desc: 'Als bedeutendster Kirchenbau des 20. Jahrhunderts im Bistum Limburg ist die St.-Bonifatius-Kirche ein Beispiel expressionistischer Baukunst. Erbaut von Martin Weber, 1927 geweiht.',
+  },
+  {
+    name: 'Herz Jesu',
+    href: '/kirchorte/herz-jesu/',
+    img: '/uploads/2026/06/Bonifatius_HerzJesu_Kirchturm-0829.jpg',
+    alt: 'Kirche Herz Jesu Frankfurt-Oberrad',
+    color: '#9a2d2d',
+    stadtteil: 'Frankfurt-Oberrad',
+    adresse: 'Mathildenstraße 30 · 60599 Frankfurt am Main',
+    oeffnung: 'Öffentliche Parkplätze in der Nähe',
+    desc: 'Die spätneugotische Hallenkirche wurde 1895 errichtet, nach dem Krieg 1948 neu geweiht. Herz Jesu legt besonderen Wert auf eine sorgfältig gestaltete Liturgie und ökumenische Zusammenarbeit.',
+  },
+  {
+    name: 'St. Aposteln',
+    href: '/kirchorte/st-aposteln/',
+    img: '/uploads/2020/05/KircheStAposteln.jpeg',
+    alt: 'Kirche St. Aposteln Frankfurt-Sachsenhausen',
+    color: '#016006',
+    stadtteil: 'Frankfurt-Sachsenhausen',
+    adresse: 'Ziegelhüttenweg 149 · 60598 Frankfurt am Main',
+    oeffnung: 'Eigene Parkplätze vorhanden',
+    desc: 'St. Aposteln, am 29. Mai 1957 geweiht, ist unser Sozialpastorales Zentrum – ein Ort, an dem wir immer neu fragen: Was können wir für die Menschen in dieser Stadt tun?',
+  },
+  {
+    name: 'St. Wendel',
+    href: '/kirchorte/st-wendel/',
+    img: '/uploads/2021/10/St_Wendel_Teaser.jpg',
+    alt: 'Kirche St. Wendel Frankfurt-Sachsenhausen',
+    color: '#012C7B',
+    stadtteil: 'Frankfurt-Sachsenhausen',
+    adresse: 'Altes Schützenhüttengässchen 2–6 · 60599 Frankfurt am Main',
+    oeffnung: 'Öffentliche Parkplätze in der Nähe',
+    desc: 'Die Kirche St. Wendel wurde 1955–1957 nach Plänen von Johannes Krahn erbaut. Am Kirchort St. Wendel gibt es ein breites Angebot für Kinder und Familien sowie Begegnungsmöglichkeiten für alle.',
+  },
+];
+
+const FAQS = [
+  {
+    q: 'Wo liegt die Pfarrkirche von Sankt Bonifatius Frankfurt?',
+    a: 'Die Pfarrkirche ist St. Bonifatius in der Holbeinstraße 70, 60596 Frankfurt am Main (Sachsenhausen). Dort befindet sich auch das Zentrale Pfarrbüro.',
+  },
+  {
+    q: 'In welchen Frankfurter Stadtteilen liegen die Kirchorte?',
+    a: 'Herz Jesu liegt in Oberrad (Mathildenstraße 30). St. Bonifatius (Holbeinstraße 70), St. Aposteln (Ziegelhüttenweg 149) und St. Wendel (Altes Schützenhüttengässchen 2–6) befinden sich in Sachsenhausen.',
+  },
+  {
+    q: 'Kann ich in jedem Kirchort Gottesdienste besuchen?',
+    a: 'Ja – alle vier Kirchorte feiern regelmäßig Gottesdienste. Den aktuellen Gottesdienstplan finden Sie auf unserer Website oder können ihn im Pfarrbüro erfragen.',
+  },
+  {
+    q: 'Kann ich in jedem Kirchort Sakramente empfangen?',
+    a: 'Taufen, Trauungen und andere Sakramente sind grundsätzlich in allen Kirchorten möglich, nach Absprache mit dem Pfarrbüro. Bitte nehmen Sie frühzeitig Kontakt auf.',
+  },
+  {
+    q: 'Gibt es Parkmöglichkeiten bei den Kirchorten?',
+    a: 'Bei St. Bonifatius und St. Aposteln stehen eigene Parkplätze zur Verfügung. Bei Herz Jesu und St. Wendel finden Sie gut erreichbare öffentliche Parkplätze in der Nähe.',
+  },
+  {
+    q: 'Wie ist es um die Barrierefreiheit an den Kirchorten bestellt?',
+    a: 'Über die Barrierefreiheit der verschiedenen Räume informiert eine eigene Seite.',
+    link: { href: '/ueberuns/barrierefreiheit/', text: 'Zur Barrierefreiheitsseite' },
+  },
+  {
+    q: 'Wie erreiche ich das Pfarrbüro?',
+    a: 'Das Zentrale Pfarrbüro erreichen Sie unter Tel. 069 695 97 58 50 oder per E-Mail an info@sanktbonifatius.de. Die Öffnungszeiten finden Sie auf der Kontaktseite.',
+  },
+];
+---
+<Base seo={seo}>
+
+  <!-- HERO -->
+  <section class="astro-ko-hero">
+    <div class="astro-ko-hero__bg" style="background-image:url('/uploads/2022/04/st-bonifatius-frankfurt31.jpg')"></div>
+    <div class="astro-ko-hero__in">
+      <span class="astro-ko-eyebrow">Pfarrei Sankt Bonifatius Frankfurt</span>
+      <h1>Unsere vier Kirchorte in Frankfurt</h1>
+      <p class="astro-ko-hero__sub">In Sachsenhausen und Oberrad – jeder Kirchort mit eigenem Charakter, eigener Geschichte und lebendiger Gemeinschaft.</p>
+      <div class="astro-ko-hero__btns">
+        <a href="#kirchorte" class="astro-ko-btn astro-ko-btn--p">Kirchorte entdecken</a>
+        <a href="#faq" class="astro-ko-btn astro-ko-btn--o">Häufige Fragen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICKNAV -->
+  <nav class="astro-ko-strip" aria-label="Direktnavigation Kirchorte">
+    <div class="astro-ko-strip__in">
+      {KIRCHORTE.map((k) => (
+        <a href={k.href} class="astro-ko-strip__item" style={`--ko-c:${k.color}`}>
+          <span class="astro-ko-strip__dot"></span>{k.name}
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  <!-- INTRO -->
+  <section class="astro-ko-intro">
+    <div class="astro-ko-intro__in">
+      <span class="astro-ko-badge">Vier Orte – eine Gemeinschaft</span>
+      <h2>Herzlich willkommen an allen Kirchorten</h2>
+      <p>Die Pfarrei Sankt Bonifatius Frankfurt umfasst die Frankfurter Stadtteile Sachsenhausen und Oberrad. An unseren vier Kirchorten – St. Bonifatius (Pfarrkirche), Herz Jesu, St. Aposteln und St. Wendel – gestalten wir gemeinsam Gottesdienste, Gemeinschaft und Glaubensleben. Jeder Kirchort hat seinen eigenen Charakter und Schwerpunkt.</p>
+    </div>
+  </section>
+
+  <!-- KIRCHORT-KARTEN -->
+  <section id="kirchorte" class="astro-ko-cards">
+    <div class="astro-ko-cards__in">
+      <div class="astro-ko-cards__head">
+        <h2>Die vier Kirchorte im Überblick</h2>
+        <p>Entdecken Sie jeden Kirchort mit seinen Angeboten, seinem Team und seiner Geschichte.</p>
+      </div>
+      <div class="astro-ko-grid">
+        {KIRCHORTE.map((k) => (
+          <a href={k.href} class="astro-ko-card" style={`--ko-c:${k.color}`}>
+            <div class="astro-ko-card__img">
+              <img src={k.img} alt={k.alt} loading="lazy" />
+              <div class="astro-ko-card__badge">{k.stadtteil}</div>
+            </div>
+            <div class="astro-ko-card__body">
+              <div class="astro-ko-card__name">{k.name}</div>
+              <p class="astro-ko-card__desc">{k.desc}</p>
+              <div class="astro-ko-card__adr">{k.adresse}</div>
+              <span class="astro-ko-card__link">
+                Zum Kirchort
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="astro-ko-faq">
+    <div class="astro-ko-faq__in">
+      <div class="astro-ko-faq__head">
+        <h2>Häufige Fragen zu unseren Kirchorten</h2>
+      </div>
+      {FAQS.map((f) => (
+        <details class="astro-ko-faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}{f.link && <> <a href={f.link.href}>{f.link.text}</a></>}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="astro-ko-cta">
+    <div class="astro-ko-cta__in">
+      <h2>Sie haben Fragen?</h2>
+      <p>Unser Zentrales Pfarrbüro ist Ihre erste Anlaufstelle – für Gottesdienste, Sakramente und alle Fragen rund um das Leben in der Pfarrei.</p>
+      <div class="astro-ko-cta__btns">
+        <a href="/kontakt/pfarrbuero/" class="astro-ko-cta__btn astro-ko-cta__btn--p">Pfarrbüro kontaktieren</a>
+        <a href="/gottesdienst-glaube/gottesdienstordnung/" class="astro-ko-cta__btn astro-ko-cta__btn--s">Gottesdienstplan</a>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style is:global>
+/* ── Tokens ── */
+:root{
+  --ko-ink:#2c2420;--ko-muted:#5a4430;--ko-bg:#f7f3ef;--ko-bg-alt:#ede4d5;
+  --ko-border:#e0d8cf;--ko-shadow:0 4px 20px rgba(30,21,18,.07);
+  --ko-shadow-lg:0 10px 32px rgba(30,21,18,.12);--ko-radius:14px;
+}
+
+/* ── Hero ── */
+.astro-ko-hero{position:relative;min-height:520px;display:flex;align-items:flex-end;padding:100px 48px 72px;overflow:hidden;color:#fff}
+.astro-ko-hero__bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
+.astro-ko-hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.2) 0%,rgba(30,21,18,.45) 50%,rgba(30,21,18,.88) 100%)}
+.astro-ko-hero__in{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto}
+.astro-ko-eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:13px;letter-spacing:.14em;color:#c5a55a;text-transform:uppercase;display:block;margin-bottom:16px}
+.astro-ko-hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,62px);line-height:1.07;margin:0 0 18px;font-weight:700;letter-spacing:-.02em}
+.astro-ko-hero__sub{font-size:18px;line-height:1.55;max-width:520px;color:rgba(255,255,255,.88);margin:0 0 28px}
+.astro-ko-hero__btns{display:flex;gap:12px;flex-wrap:wrap}
+.astro-ko-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:28px;font-size:15px;font-weight:600;text-decoration:none;transition:all .2s}
+.astro-ko-btn--p{background:#c5a55a;color:#1a100a}
+.astro-ko-btn--p:hover{background:#b08e47}
+.astro-ko-btn--o{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.75)}
+.astro-ko-btn--o:hover{background:#fff;color:#2c2420}
+
+/* ── Quicknav Strip ── */
+.astro-ko-strip{background:#1e1512;padding:0 24px}
+.astro-ko-strip__in{max-width:1200px;margin:0 auto;display:flex;align-items:stretch;gap:0;overflow-x:auto}
+.astro-ko-strip__item{display:flex;align-items:center;gap:8px;padding:16px 24px;font-size:13px;font-weight:600;color:#c5b9a8;text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;letter-spacing:.04em;text-transform:uppercase}
+.astro-ko-strip__item:hover{color:#fff;border-bottom-color:var(--ko-c,#c5a55a)}
+.astro-ko-strip__dot{width:8px;height:8px;border-radius:50%;background:var(--ko-c,#c5a55a);flex-shrink:0}
+
+/* ── Intro ── */
+.astro-ko-intro{background:#F5F0E8;padding:64px 24px;text-align:center}
+.astro-ko-intro__in{max-width:760px;margin:0 auto}
+.astro-ko-badge{display:inline-block;background:#e8dcc8;color:#5a4430;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px}
+.astro-ko-intro h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,4vw,38px);font-weight:700;margin:0 0 16px;color:#2c2420}
+.astro-ko-intro p{font-size:17px;color:#5a4430;line-height:1.7;margin:0}
+
+/* ── Kirchort-Karten ── */
+.astro-ko-cards{background:#fff;padding:72px 24px}
+.astro-ko-cards__in{max-width:1200px;margin:0 auto}
+.astro-ko-cards__head{text-align:center;max-width:640px;margin:0 auto 48px}
+.astro-ko-cards__head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,4vw,38px);font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-ko-cards__head p{font-size:16px;color:#5a4430;margin:0}
+.astro-ko-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.astro-ko-card{display:flex;flex-direction:column;border-radius:var(--ko-radius);overflow:hidden;text-decoration:none;color:var(--ko-ink);box-shadow:var(--ko-shadow);transition:transform .22s,box-shadow .22s;background:#fff}
+.astro-ko-card:hover{transform:translateY(-5px);box-shadow:var(--ko-shadow-lg)}
+.astro-ko-card__img{position:relative;aspect-ratio:3/2;overflow:hidden}
+.astro-ko-card__img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .4s}
+.astro-ko-card:hover .astro-ko-card__img img{transform:scale(1.04)}
+.astro-ko-card__badge{position:absolute;bottom:10px;left:12px;background:var(--ko-c,#c5a55a);color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px}
+.astro-ko-card__body{padding:24px 22px;display:flex;flex-direction:column;flex:1}
+.astro-ko-card__name{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:var(--ko-c,#2c2420);margin-bottom:10px;line-height:1.2}
+.astro-ko-card__desc{font-size:14px;line-height:1.65;color:#5a4430;margin:0 0 14px;flex:1}
+.astro-ko-card__adr{font-size:13px;color:#8a7060;margin-bottom:16px;line-height:1.5}
+.astro-ko-card__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ko-c,#c5a55a);letter-spacing:.04em;text-transform:uppercase;transition:gap .2s}
+.astro-ko-card:hover .astro-ko-card__link{gap:10px}
+
+/* ── FAQ ── */
+.astro-ko-faq{background:var(--ko-bg);padding:72px 24px}
+.astro-ko-faq__in{max-width:760px;margin:0 auto}
+.astro-ko-faq__head{text-align:center;margin-bottom:40px}
+.astro-ko-faq__head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;color:#2c2420;margin:0}
+.astro-ko-faq-item{border-bottom:1px solid var(--ko-border);background:#fff;border-radius:10px;margin-bottom:8px;overflow:hidden}
+.astro-ko-faq-item summary{list-style:none;cursor:pointer;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Playfair Display',Georgia,serif;font-size:16px;font-weight:700;color:#2c2420;line-height:1.4}
+.astro-ko-faq-item summary::-webkit-details-marker{display:none}
+.astro-ko-faq-item summary::after{content:'+';font-size:22px;font-weight:300;color:#c5a55a;flex-shrink:0;line-height:1;transition:transform .25s}
+.astro-ko-faq-item[open] summary::after{transform:rotate(45deg)}
+.astro-ko-faq-item p{font-size:15px;color:#5a4430;line-height:1.75;padding:0 24px 20px;margin:0}
+.astro-ko-faq-item a{color:#c5a55a;text-decoration:underline}
+
+/* ── CTA ── */
+.astro-ko-cta{background:linear-gradient(135deg,#4a2e1a,#3a2315);padding:80px 24px;text-align:center}
+.astro-ko-cta__in{max-width:640px;margin:0 auto}
+.astro-ko-cta h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,4vw,38px);color:#fff;margin:0 0 14px;font-weight:700;line-height:1.2}
+.astro-ko-cta p{color:rgba(255,255,255,.82);font-size:16px;margin:0 0 32px;line-height:1.65}
+.astro-ko-cta__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.astro-ko-cta__btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:28px;font-size:15px;font-weight:600;text-decoration:none;transition:all .2s}
+.astro-ko-cta__btn--p{background:#c5a55a;color:#1a100a}
+.astro-ko-cta__btn--p:hover{background:#d4b56a}
+.astro-ko-cta__btn--s{border:2px solid rgba(255,255,255,.5);color:#fff}
+.astro-ko-cta__btn--s:hover{background:rgba(255,255,255,.1)}
+
+/* ── Responsive ── */
+@media(max-width:1024px){.astro-ko-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .astro-ko-hero{padding:80px 24px 56px}
+  .astro-ko-grid{grid-template-columns:1fr}
+  .astro-ko-strip__item{padding:14px 16px;font-size:12px}
+}
+</style>

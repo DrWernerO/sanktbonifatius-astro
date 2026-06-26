@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 62 bereits in Astro übernommen bzw. per Direktlink erledigt · 18 offen.** Stand: 26.06.2026.
+> **80 Live-Seiten erfasst · 63 bereits in Astro übernommen bzw. per Direktlink erledigt · 17 offen.** Stand: 26.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -59,7 +59,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
-| Kirchorte (Übersicht) | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/) | — | — | offen |  |
+| Kirchorte (Übersicht) | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/) | `src/pages/kirchorte/index.astro` | Frank | ✅ erledigt | Page-ID 48948, Astro-Pfad `/kirchorte/`; eigene `astro-ko`-Komponenten; Foto-Hero, Quicknav mit Kirchortfarben, Intro-Sektion, 4 Kirchort-Karten mit Stadtteil-Badge + Hover, 7 FAQ, CTA |
 | Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/) | `src/pages/kirchorte/herz-jesu.astro` | Frank | ✅ erledigt | Page-ID 47906, Astro-Pfad `/kirchorte/herz-jesu/`; eigene Hj*-Komponenten (Präfix `astro-hj`); Foto-Hero (Kirchturm), Quicklinks, Willkommen, Gottesdienste (So/Fr), 4 Angebots-Karten, Team (Doly Kadavil, Bernhard Flack, Johanna Zerlik), scrollende Galerie (26 Fotos), FAQ, CTA |
 | Gruppen & Gemeinschaft Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/herz-jesu-gruppen/) | `src/pages/kirchorte/herz-jesu/gruppen-gemeinschaft.astro` | Frank | ✅ erledigt | Page-ID 49378, eigene Hjg*-Komponenten (Präfix `astro-hjg`); 9 Gruppen-Karten, Intro, CTA |
 | Kirchortrat Herz Jesu | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/herz-jesu/herz-jesu-kirchortrat/) | `src/pages/kirchorte/herz-jesu/kirchortrat.astro` | Frank | ✅ erledigt | Page-ID 49383, eigene Hjk*-Komponenten (Präfix `astro-hjk`); Vorsitz (3 Karten), 15 Mitglieder-Grid, CTA |
