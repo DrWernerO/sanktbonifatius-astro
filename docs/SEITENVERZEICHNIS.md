@@ -2,7 +2,7 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 57 bereits in Astro übernommen bzw. per Direktlink erledigt · 23 offen.** Stand: 26.06.2026.
+> **80 Live-Seiten erfasst · 59 bereits in Astro übernommen bzw. per Direktlink erledigt · 21 offen.** Stand: 26.06.2026.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -83,7 +83,9 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 | Kirche – Osterkerze | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/osterkerze/) | — | — | offen |  |
 | Kirche – Sakristei | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/sakristei/) | — | — | offen |  |
 | Kirche – Taufstein | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/taufstein/) | — | — | offen |  |
-| St. Wendel | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-wendel/) | `src/pages/kirchorte/st-wendel.astro` | Frank | ✅ erledigt | Page-ID 47880, Astro-Pfad `/kirchorte/st-wendel/`; eigene Sw*-Komponenten (Präfix `astro-sw`); Primärfarbe Dunkelblau `#012C7B`; Foto-Hero (St_Wendel_Teaser.jpg), Quicklinks, Willkommen, Gottesdienste-Box (So 11 Uhr / Mi 18 Uhr), 3 Angebots-Karten (Gruppen/FamiGo/Chöre), 2 Engagement-Karten (Kirchortrat/Förderverein), Team (Martin Kestler, Pater Gaby, Alexandra Gockel-Bok, Adelheid Müller-Horrig), Marquee-Galerie (21 Fotos), FAQ (5), CTA. Keine Unterseiten vorhanden. |
+| St. Wendel | [Link](https://www.sanktbonifatius.de/ueberuns/kirchorte/st-wendel/) | `src/pages/kirchorte/st-wendel.astro` | Frank | ✅ erledigt | Page-ID 47880, Astro-Pfad `/kirchorte/st-wendel/`; eigene Sw*-Komponenten (Präfix `astro-sw`); Primärfarbe Dunkelblau `#012C7B`; Foto-Hero (St_Wendel_Teaser.jpg), Quicklinks, Willkommen, Gottesdienste-Box (So 11 Uhr / Mi 18 Uhr), 3 Angebots-Karten (Gruppen/FamiGo/Chöre), 2 Engagement-Karten (Kirchortrat/Förderverein), Team (Martin Kestler, Pater Gaby, Alexandra Gockel-Bok, Adelheid Müller-Horrig), Marquee-Galerie (21 Fotos), FAQ (5), CTA. |
+| Kirchortrat St. Wendel | (WP-Entwurf ID 49288) | `src/pages/kirchorte/st-wendel/gremien.astro` | Frank | ✅ erledigt | Astro-Pfad `/kirchorte/st-wendel/gremien/`; eigene `astro-swgr`-Komponenten; Blau-Hero mit Back-Link, 2-Spalten-Grid: Vorsitz-Karte (Alexandra Gockel-Bok + Valerie Buchmaier) + Mitglieder-Tabelle (16 Personen), CTA |
+| Förderverein St. Wendel | (WP-Entwurf ID 49295) | `src/pages/kirchorte/st-wendel/foerderverein.astro` | Frank | ✅ erledigt | Astro-Pfad `/kirchorte/st-wendel/foerderverein/`; eigene `astro-swfv`-Komponenten; Blau-Hero mit Back-Link, 3 Karten (Geschichte/Vorstand/Projekte), Spenden-Box mit Bankdaten + Beitrittserklärung-PDF, CTA |
 
 ## 6 · Gottesdienst & Glaube (mit Unterseiten)
 
