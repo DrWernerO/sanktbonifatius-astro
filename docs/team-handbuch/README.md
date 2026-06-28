@@ -4,6 +4,15 @@
 **Autoren:** Werner Otto + Claude (Anthropic)
 **Zweck:** Alle Informationen, die für die gemeinsame Weiterarbeit an der Website nötig sind.
 
+> ### 🌐 NEU (28.06.2026) — Vorschau jetzt über Netlify
+> Die neue **Astro-Version** der Website läuft als Test-Deploy unter
+> **https://sage-cupcake-956dae.netlify.app/**.
+> Neue oder geänderte Astro-Seiten werden ab sofort **dort** angeschaut und abgenommen
+> (nicht mehr nur lokal auf `localhost`). Die Adresse ist von überall erreichbar und
+> aktualisiert sich automatisch bei jedem Upload zu GitHub.
+> Die echte Adresse `sanktbonifatius.de` bleibt bis zum endgültigen Go-Live **unberührt**.
+> Technische Details: [`ASTRO-HANDBUCH.md`](../ASTRO-HANDBUCH.md) Abschnitt 1b.
+
 ---
 
 ## Worum es geht

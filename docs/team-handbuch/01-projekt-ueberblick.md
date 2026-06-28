@@ -58,6 +58,23 @@ In intensiven Arbeitssessions im Mai 2026 entstanden über 30 neue Seiten im ein
 
 ---
 
+## Aktueller Stand: Astro-Frontend auf Netlify (28.06.2026)
+
+Die Seiten werden inzwischen in ein eigenständiges **Astro-Frontend** überführt (Headless:
+WordPress liefert nur noch die Inhalte). Dieses Frontend läuft seit dem **28.06.2026** als
+**Netlify-Test-Deploy**:
+
+- **Vorschau-Adresse:** https://sage-cupcake-956dae.netlify.app/ — von überall erreichbar.
+- **So wird gearbeitet:** Neue/geänderte Astro-Seiten werden **dort** angeschaut und
+  abgenommen, nicht mehr nur lokal. Netlify baut bei jedem Upload zu GitHub automatisch neu.
+- **Risiko = null:** Die echte Adresse `sanktbonifatius.de` bleibt bis zum endgültigen
+  Go-Live unberührt.
+- **Endgültiger Go-Live** (DNS-Umstellung) erst, wenn alle Seiten fertig sind; dann zieht
+  WordPress auf `cms.sanktbonifatius.de` um. Details: [`ASTRO-HANDBUCH.md`](../ASTRO-HANDBUCH.md)
+  Abschnitt 1b.
+
+---
+
 ## Arbeitsumgebung
 
 - **Lokaler Arbeitsordner:** `/Users/wernerotto/Library/Mobile Documents/com~apple~CloudDocs/Claude/Code/`
