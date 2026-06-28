@@ -52,6 +52,8 @@ CSS/Client-JS lädt per HMR. Hartnäckiger JS-Cache → privates Browser-Fenster
 
 **Beim Netlify-Go-Live:** WordPress zieht auf `cms.`-Subdomain → Quell-Domains und Adapter anpassen. SMTP-Env-Vars für Taufe-Formular setzen (`.env.example`).
 
+**Kurz-URLs + llms.txt** sind in `public/_redirects` und `public/llms.txt` **vorbereitet** (greifen automatisch beim Netlify-Deploy, lokal inaktiv). Pflege bei neuen/verschobenen Seiten → Handbuch **Abschnitt 1f**.
+
 ---
 
 ## Seitenstand (Stand 2026-06-26)

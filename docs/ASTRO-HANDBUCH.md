@@ -212,6 +212,61 @@ const pfarrbriefUrl = await withVersion(DOWNLOADS.pfarrbrief);
 
 ---
 
+## 1f. Kurz-URLs (Weiterleitungen) + llms.txt — Astro/Netlify ✅ VORBEREITET (greift beim Go-Live)
+
+> **Hintergrund:** Viele Seiten liegen tief verschachtelt (`/segen-sakramente/taufe/`,
+> `/kontakt/newsletter/` …). Die **kommunizierten, gedruckten** Adressen sind aber kurz
+> (`/taufe/`, `/newsletter/` …). In WordPress lösen das 301-Redirects in der `functions.php`
+> (Team-Handbuch 06, Abschnitt 25.1). **Beim Netlify-Go-Live übernimmt das die Datei
+> [`public/_redirects`](../public/_redirects)** — gleiche Wirkung (echte 301), nur ohne PHP.
+
+### Wie es funktioniert
+- **[`public/_redirects`](../public/_redirects)** — Netlify-Format `quelle  ziel  301`. Jede
+  Kurz-Adresse steht **zweimal** (mit/ohne Schrägstrich), damit beide Schreibweisen greifen.
+- Greift **nur auf Netlify** (Server-Ebene) — im lokalen `astro dev` sind die Weiterleitungen
+  inaktiv, das ist normal.
+- Alle Zielpfade müssen existierende Astro-Seiten sein (sonst 301 → 404). Vor dem Eintragen
+  prüfen.
+
+### Aktuelle Kurz-URL-Liste (Quelle der Wahrheit für gedruckte Adressen)
+| Kurz-Adresse | Ziel |
+|---|---|
+| `/taufe/` | `/segen-sakramente/taufe/` |
+| `/trauung/` | `/segen-sakramente/trauung/` |
+| `/erstkommunion/` | `/segen-sakramente/erstkommunion/` |
+| `/firmung/` | `/segen-sakramente/firmung/` |
+| `/beichte/` | `/segen-sakramente/beichte/` |
+| `/krankensalbung/` | `/segen-sakramente/krankensalbung/` |
+| `/trauerfall/` | `/kontakt/trauerfall/` |
+| `/katholisch-werden/` | `/kontakt/katholisch-werden/` |
+| `/newsletter/` | `/kontakt/newsletter/` |
+| `/engagement/` | `/kontakt/engagement/` |
+| `/pfarrbuero/` | `/kontakt/pfarrbuero/` |
+| `/seelsorge/` | `/kontakt/seelsorge/` |
+| `/pastoralteam/` | `/ueberuns/pastoralteam/` |
+| `/leitung/` | `/ueberuns/leitung/` |
+| `/gemeinschaft/` | `/ueberuns/gemeinschaft/` |
+| `/familiengottesdienste/` | `/bonfamily/familiengottesdienste/` |
+| `/whatsapp-kanal/` | `/bonfamily/whatsapp-kanal/` |
+| `/gottesdienste/` | `/gottesdienst-glaube/gottesdienstordnung/` |
+| `/gottesdienstordnung/` | `/gottesdienst-glaube/gottesdienstordnung/` |
+
+- **Bewusst KEINE Kurz-URL:** `/gottesdienste-die-beruehren/` (über die Navigation gut
+  erreichbar), `/kontakt/` und `/ueberuns/` (sind bereits Top-Level-Adressen).
+- **Wartung:** Verschiebt sich eine Zielseite, hier den Pfad anpassen. Neue Kurz-Adresse →
+  beide Schreibweisen eintragen **und** Zielseite prüfen.
+
+### llms.txt (für KI-Suche)
+- **[`public/llms.txt`](../public/llms.txt)** — strukturierte Seitenübersicht für KI-Assistenten
+  (ChatGPT, Perplexity …). Wird auf Netlify automatisch unter `https://sanktbonifatius.de/llms.txt`
+  ausgeliefert (wie `robots.txt`). Ersetzt die frühere WP-Variante (Rewrite-Endpoint, 06/Abschnitt 25).
+- **Bewirbt die Kurz-Adressen** (konsistent mit `_redirects` + gedruckten Adressen). Wo es keine
+  Kurz-URL gibt (z. B. „Gottesdienste, die berühren"), steht der echte Pfad.
+- **Wartung:** Bei neuen/verschobenen Seiten `llms.txt` mitpflegen — am besten gemeinsam mit
+  `_redirects` und `SEITENVERZEICHNIS.md`.
+
+---
+
 ## 2. WordPress-Anbindung (`src/lib/wordpress.js`)
 
 Zentrale Datei für alle WP-Zugriffe. Wichtige Bausteine:
