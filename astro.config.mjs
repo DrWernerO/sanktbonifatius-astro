@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import node from '@astrojs/node';
+import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 // Inhalts-Quelle: LIVE-Seite (www, gültiges Zertifikat). Früher Dev-Server (Handbuch 1).
@@ -11,9 +11,9 @@ export default defineConfig({
   // Produktive Frontend-Domain (Handbuch 1b). Basis für sitemap + canonical-URLs.
   site: 'https://sanktbonifatius.de',
   // Seiten bleiben statisch; nur Routen mit `export const prerender = false`
-  // (z. B. src/pages/api/taufe-anmeldung.ts) laufen server-seitig.
-  // Beim Netlify-Deploy später @astrojs/netlify statt node verwenden (Handbuch 13b).
-  adapter: node({ mode: 'standalone' }),
+  // (z. B. src/pages/api/taufe-anmeldung.ts) laufen server-seitig (auf Netlify als Function).
+  // Lokal (`npm run dev`) funktioniert der Adapter ebenfalls; der Vite-Proxy unten greift nur im Dev.
+  adapter: netlify(),
   integrations: [sitemap()],
   vite: {
     server: {

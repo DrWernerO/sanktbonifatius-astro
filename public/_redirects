@@ -1,0 +1,61 @@
+# Kurz-URLs (Short-Links) -> verschachtelte Astro-Pfade, 301 (dauerhaft)
+# Ersetzt nach dem Netlify-Go-Live die functions.php-Redirects aus WordPress
+# (Handbuch 06, Abschnitt 25.1). Quelle der Wahrheit fuer die kommunizierten,
+# gedruckten Kurz-Adressen. Wird auch in /llms.txt beworben.
+#
+# WICHTIG bei Aenderungen: Verschiebt sich eine Zielseite, hier den Pfad anpassen.
+# Jeweils zwei Zeilen (mit/ohne Schraegstrich), damit beide Schreibweisen greifen.
+
+# --- WP-Proxy (clientseitige Fetches: Terminkalender etc.) ---
+# Ersetzt den lokalen Vite-Proxy aus astro.config.mjs (der greift nur im Dev).
+# Browser ruft /wp-proxy/... auf gleicher Origin auf -> Netlify leitet (200/Rewrite) an die
+# Inhalts-Quelle weiter (kein CORS). Beim WP-Umzug auf cms.-Subdomain hier das Ziel anpassen.
+/wp-proxy/*  https://www.sanktbonifatius.de/:splat  200
+
+# --- Sakramente ---
+/taufe              /segen-sakramente/taufe/                          301
+/taufe/             /segen-sakramente/taufe/                          301
+/trauung            /segen-sakramente/trauung/                        301
+/trauung/           /segen-sakramente/trauung/                        301
+/erstkommunion      /segen-sakramente/erstkommunion/                  301
+/erstkommunion/     /segen-sakramente/erstkommunion/                  301
+/firmung            /segen-sakramente/firmung/                        301
+/firmung/           /segen-sakramente/firmung/                        301
+/beichte            /segen-sakramente/beichte/                        301
+/beichte/           /segen-sakramente/beichte/                        301
+/krankensalbung     /segen-sakramente/krankensalbung/                 301
+/krankensalbung/    /segen-sakramente/krankensalbung/                 301
+
+# --- Kontakt / Lebenswenden ---
+/trauerfall         /kontakt/trauerfall/                              301
+/trauerfall/        /kontakt/trauerfall/                              301
+/katholisch-werden  /kontakt/katholisch-werden/                       301
+/katholisch-werden/ /kontakt/katholisch-werden/                       301
+/newsletter         /kontakt/newsletter/                              301
+/newsletter/        /kontakt/newsletter/                              301
+/engagement         /kontakt/engagement/                              301
+/engagement/        /kontakt/engagement/                              301
+/pfarrbuero         /kontakt/pfarrbuero/                              301
+/pfarrbuero/        /kontakt/pfarrbuero/                              301
+/seelsorge          /kontakt/seelsorge/                              301
+/seelsorge/         /kontakt/seelsorge/                              301
+
+# --- Pfarrei / Ueber uns ---
+/pastoralteam       /ueberuns/pastoralteam/                           301
+/pastoralteam/      /ueberuns/pastoralteam/                           301
+/leitung            /ueberuns/leitung/                                301
+/leitung/           /ueberuns/leitung/                                301
+/gemeinschaft       /ueberuns/gemeinschaft/                           301
+/gemeinschaft/      /ueberuns/gemeinschaft/                           301
+
+# --- BonFamily ---
+/familiengottesdienste   /bonfamily/familiengottesdienste/            301
+/familiengottesdienste/  /bonfamily/familiengottesdienste/            301
+/whatsapp-kanal     /bonfamily/whatsapp-kanal/                        301
+/whatsapp-kanal/    /bonfamily/whatsapp-kanal/                        301
+
+# --- Gottesdienste (beide Schreibweisen -> Gottesdienstordnung) ---
+/gottesdienste          /gottesdienst-glaube/gottesdienstordnung/     301
+/gottesdienste/         /gottesdienst-glaube/gottesdienstordnung/     301
+/gottesdienstordnung    /gottesdienst-glaube/gottesdienstordnung/     301
+/gottesdienstordnung/   /gottesdienst-glaube/gottesdienstordnung/     301
