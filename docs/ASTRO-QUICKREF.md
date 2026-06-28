@@ -3,6 +3,13 @@
 > Kompakte Sessionreferenz. Für Details zum Aufbau einzelner Seiten/Komponenten
 > den passenden Abschnitt in [`ASTRO-HANDBUCH.md`](ASTRO-HANDBUCH.md) nachlesen.
 
+> ## 🌐 Die neue Seite im Browser ansehen
+> ### 👉 **https://sage-cupcake-956dae.netlify.app/**
+> Das ist die **Live-Vorschau** der neuen Astro-Website (Test-Deploy auf Netlify, seit
+> 2026-06-28). Von überall im Browser erreichbar; aktualisiert sich automatisch bei jedem
+> Upload zu GitHub. Die echte Adresse `sanktbonifatius.de` zeigt noch die **alte** Seite und
+> bleibt bis zum endgültigen Go-Live unberührt.
+
 ---
 
 ## Sofort-Start
@@ -46,11 +53,14 @@ CSS/Client-JS lädt per HMR. Hartnäckiger JS-Cache → privates Browser-Fenster
 | Was | Wo | Status |
 |-----|----|----|
 | WordPress (CMS) | All-inkl (kasserver.com) | läuft, bleibt dort |
-| Astro-Frontend | lokal (`npm run dev`) | nur Entwicklung |
-| Astro-Frontend (geplant) | Netlify | noch nicht eingerichtet |
-| Rebuild-Webhook | — | noch nicht gebaut (Handbuch 1c) |
+| **Astro-Frontend (Vorschau)** | **Netlify** — https://sage-cupcake-956dae.netlify.app/ | ✅ **live (Test-Deploy)**, baut autom. bei Push |
+| Astro-Frontend (Entwicklung) | lokal (`npm run dev`) | für die laufende Arbeit |
+| Adapter | `@astrojs/netlify` | ✅ umgestellt (vorher node) |
+| Rebuild bei Code-Push | Netlify | ✅ automatisch |
+| Rebuild bei WP-Inhaltsänderung (Webhook) | — | noch nicht gebaut (Handbuch 1c) |
+| Echter Go-Live (eigene Domain via DNS) | — | erst wenn alle Seiten fertig |
 
-**Beim Netlify-Go-Live:** WordPress zieht auf `cms.`-Subdomain → Quell-Domains und Adapter anpassen. SMTP-Env-Vars für Taufe-Formular setzen (`.env.example`).
+**Beim echten Go-Live:** WordPress zieht auf `cms.`-Subdomain → Quell-Domains anpassen (`WP_API`/`WP_RENDER_ORIGIN`, `WP_LIVE`, `/wp-proxy`-Ziel in `_redirects`), dann DNS umstellen. **SMTP fürs Taufe-Formular über Microsoft 365** (`smtp.office365.com:587`) — Env-Vars in Netlify, IT-Admin schaltet „Authenticated SMTP" frei (`.env.example`).
 
 **Kurz-URLs + llms.txt** sind in `public/_redirects` und `public/llms.txt` **vorbereitet** (greifen automatisch beim Netlify-Deploy, lokal inaktiv). Pflege bei neuen/verschobenen Seiten → Handbuch **Abschnitt 1f**.
 

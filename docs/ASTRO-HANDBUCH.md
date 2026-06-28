@@ -53,7 +53,9 @@ export default defineConfig({
 ## 1b. Hosting & Deployment — aktueller Stand und Plan
 
 > Dieser Abschnitt hält fest, **wo was läuft**, damit in anderen Dialogen klar ist, was als
-> Nächstes passiert. Stand: Entwicklung läuft lokal; produktives Deployment noch nicht eingerichtet.
+> Nächstes passiert. **Stand 2026-06-28: Test-Deploy auf Netlify ist LIVE** unter
+> **https://sage-cupcake-956dae.netlify.app/** (privat, baut automatisch bei jedem Push auf
+> `main`). Der echte Go-Live (eigene Domain via DNS) folgt erst, wenn alle Seiten fertig sind.
 
 ### Wo gehostet wird
 | Was | Wo | Status |
@@ -61,17 +63,22 @@ export default defineConfig({
 | **WordPress (Backend/CMS)** | **All-inkl** (KAS / `kasserver.com`) | läuft — bleibt dort |
 | Dev-WordPress | `dev.sanktbonifatius.de.w021941a.kasserver.com` (All-inkl) | läuft — unsere Datenquelle |
 | Live-WordPress (alt) | `sanktbonifatius.de` (All-inkl) | läuft — veraltet, wird abgelöst |
-| **Astro-Frontend** | **lokal** (`npm run dev`, Port 4321) | nur Entwicklung |
-| Astro-Frontend (geplant) | **Netlify** (oder Vercel / Cloudflare Pages) | **noch nicht eingerichtet** |
+| **Astro-Frontend (Vorschau)** | **Netlify** — https://sage-cupcake-956dae.netlify.app/ | ✅ **live (Test-Deploy)**, baut autom. bei Push |
+| Astro-Frontend (Entwicklung) | **lokal** (`npm run dev`, Port 4321) | für die laufende Arbeit |
+| Astro-Frontend (Endziel) | `sanktbonifatius.de` via DNS → Netlify | erst beim echten Go-Live |
 
 ### Geplanter Endzustand
 - WordPress zieht auf eine Subdomain um, z.B. `cms.sanktbonifatius.de` (nur Backend + REST-API), bleibt bei All-inkl.
 - `sanktbonifatius.de` zeigt per DNS auf **Netlify** → liefert das statische Astro-Frontend.
 - Quellcode + Backup des Frontends in **Git/GitHub**; Netlify baut bei jedem Push automatisch (`astro build`).
 
-### Noch offen (TODO, in keinem Dialog erledigt)
-- [ ] GitHub-Repo anlegen
-- [ ] Netlify-Projekt mit Repo verbinden, Build-Command `astro build`
+### Erledigt (2026-06-28)
+- [x] GitHub-Repo angelegt (`DrWernerO/sanktbonifatius-astro`)
+- [x] Netlify-Projekt mit Repo verbunden — baut autom. bei jedem Push auf `main`
+- [x] Adapter auf `@astrojs/netlify` umgestellt (Abschnitt 13b)
+- [x] `/wp-proxy`-Rewrite für den Live-Betrieb in [`public/_redirects`](../public/_redirects) ergänzt
+
+### Noch offen (TODO)
 - [ ] WordPress auf `cms.sanktbonifatius.de` umziehen
 - [ ] **Rebuild-Webhook** einrichten (siehe Abschnitt 1c) — *aktuell NICHT vorhanden*
 - [ ] DNS umstellen (Domain → Netlify, CMS-Subdomain → All-inkl)
@@ -85,10 +92,11 @@ export default defineConfig({
 
 ## 1c. Automatischer Rebuild bei WP-Änderungen (Webhook) — KONZEPT, noch nicht gebaut
 
-> **Wichtig / ehrlicher Stand:** Es wurde **noch kein Webhook gebaut**. Im aktuellen
-> Entwicklungsmodus (`npm run dev`) ist das auch unnötig — Astro holt die WP-Daten bei
-> jedem Seitenaufruf frisch. Der Webhook wird erst **mit dem Netlify-Deployment** relevant,
-> weil dort die Inhalte beim Build statisch „eingebacken" werden.
+> **Wichtig / ehrlicher Stand:** Netlify baut bereits **automatisch bei jedem Push** auf den
+> `main`-Branch (GitHub) — Code-Änderungen sind also nach kurzer Zeit auf der Vorschau-Adresse
+> live. Was **noch fehlt**, ist der Auslöser bei reinen **WordPress-Inhaltsänderungen**
+> (neuer Termin/Beitrag, ohne Code-Push): dafür ist **noch kein Webhook gebaut**. Lokal
+> (`npm run dev`) ist er unnötig — Astro holt die WP-Daten bei jedem Seitenaufruf frisch.
 
 ### Warum überhaupt ein Webhook?
 Auf Netlify ist die Seite statisch: WP-Inhalte werden **zum Build-Zeitpunkt** abgefragt und
@@ -819,8 +827,9 @@ Das Formular ist **WP-unabhängig**: kein admin-ajax/Nonce/CORS mehr. Der Ablauf
 3. **PDF-Erzeugung** [`src/lib/taufe/fill-taufe.js`](../src/lib/taufe/fill-taufe.js): füllt die
    **ausfüllbare Vorlage** [`src/lib/taufe/taufe-vorlage.pdf`](../src/lib/taufe/taufe-vorlage.pdf)
    (echte AcroForm-Felder, 38 Stück — inkl. Seite/Lfd. Nr. oben rechts) — pixelgenau wie das amtliche Limburger Formular.
-4. **Server-Modus:** [`astro.config.mjs`](../astro.config.mjs) nutzt **`@astrojs/node`** (standalone);
-   nur Routen mit `prerender = false` laufen server-seitig, alle Seiten bleiben statisch.
+4. **Server-Modus:** [`astro.config.mjs`](../astro.config.mjs) nutzt **`@astrojs/netlify`** (seit
+   2026-06-28; vorher `@astrojs/node` für lokal). Nur Routen mit `prerender = false` laufen
+   server-seitig (auf Netlify als Function), alle übrigen Seiten bleiben statisch.
 
 **Vorlage neu bauen** (Kopf/Logo/Felder ändern): Quell-Rohling + Logo liegen unter
 `scripts/taufe-assets/`, Generator ist [`scripts/build-taufe-vorlage.mjs`](../scripts/build-taufe-vorlage.mjs)
@@ -837,13 +846,16 @@ abgebildet. Wo das amtliche Formular zusammenfasst, werden Einzelfelder gejoint 
 > wird statt versendet unter `./.taufe-eingaben/` gespeichert (gitignored). Verifiziert 2026-06-21
 > (Formular abgeschickt → PDF korrekt erzeugt).
 
-### 🔜 Offen — erst beim Netlify-Go-Live
-1. **SMTP-Zugangsdaten** des All-inkl-Postfachs als **Env-Vars** hinterlegen (NIE ins Repo):
+### 🔜 Offen — SMTP fürs Taufe-Formular (bewusst aufgeschoben bis nach den restlichen Seiten)
+1. **SMTP-Zugangsdaten als Env-Vars** in Netlify hinterlegen (NIE ins Repo):
    `SMTP_HOST/PORT/USER/PASS`, `SMTP_FROM`, `TAUFE_TO` — Muster in [`.env.example`](../.env.example).
-   Empfänger wie bisher: `pfarrer@`, `info@`, `w.otto@sanktbonifatius.de` (Team-Handbuch 15).
-2. **Adapter umstellen:** für Netlify `@astrojs/netlify` statt `@astrojs/node` in `astro.config.mjs`.
-   Sicherstellen, dass die Vorlage `src/lib/taufe/taufe-vorlage.pdf` im Serverless-Bundle landet
-   (ggf. `includeFiles`/`functionPerRoute` prüfen — die Route liest sie über `import.meta.url`).
+   **Plan (2026-06-28): Versand über Microsoft 365** statt All-inkl, weil die `@sanktbonifatius.de`-
+   Adressen dort liegen → beste Zustellbarkeit (SPF/DKIM aligned). Server `smtp.office365.com`,
+   Port 587. Hürde: MS365 blockt einfaches Passwort-Login → IT-Admin muss „Authenticated SMTP"
+   freischalten und ggf. App-Passwort / Funktionspostfach bereitstellen (Anfrage an IT läuft).
+2. ~~Adapter umstellen~~ ✅ **erledigt** — `@astrojs/netlify` ist aktiv (Abschnitt 1b/13b oben).
+   Noch zu prüfen: ob die Vorlage `src/lib/taufe/taufe-vorlage.pdf` im Serverless-Bundle landet
+   (die Route liest sie über `import.meta.url`).
 3. Danach echten Versand mit Test-Anmeldung verifizieren (Mail kommt mit PDF-Anhang an).
 
 > Die frühere WordPress-AJAX-Anbindung (`taufe_anmeldung`, Nonce-Abruf über `/wp-proxy`) ist abgelöst.
