@@ -610,10 +610,12 @@ sich automatisch der Zahl sichtbarer Kacheln an. Umgesetzt im Client-Script von 
 
 ## 9. Fonts (Design-Vorgabe)
 
-- **Body:** „Source Sans 3" (Bunny Fonts: `fonts.bunny.net`)
-- **Überschriften:** „Playfair Display" — **seit 2026-06-26 ebenfalls über Bunny Fonts** (vorher Google
-  Fonts). Bewusst google-frei aus Datenschutzgründen (keine Verbindung zu Google-Servern), siehe
-  Datenschutz-Abschnitt „Schriftarten". Beide Schriften in EINEM `fonts.bunny.net`-Link in `Base.astro`.
+- **Body:** „Source Sans 3", **Überschriften:** „Playfair Display".
+- **Seit 2026-06-29 LOKAL selbst gehostet** (vorher Google Fonts → kurz Bunny Fonts → jetzt lokal).
+  Schriftdateien (woff2, Subsets latin + latin-ext) liegen in `public/fonts/`, eingebunden über
+  `public/fonts/fonts.css` (eigene `@font-face`) per `<link>` in `Base.astro`. **Keine Verbindung zu
+  externen Font-Servern** (weder Google noch Bunny) — KDG-/DSGVO-konform (KDSZ-Empfehlung: externe
+  Komponenten intern einbinden). Schriften aktualisieren: woff2 von `fonts.bunny.net` neu ziehen.
 - Geladen in `src/layouts/Base.astro`; dort auch `html, body { overflow-x: hidden }`
   für Full-Bleed-Elemente (`width:100vw; left:50%; margin-left:-50vw`).
 
