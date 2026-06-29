@@ -1,172 +1,234 @@
 ---
-// Inhalt der Seite „Datenschutz" — WP-Seite 49118, GEZIELT FÜR DAS ASTRO-/NETLIFY-SETUP angepasst
-// UND auf das Gesetz über den Kirchlichen Datenschutz (KDG) umgestellt.
+// Inhalt der Seite „Datenschutz" — WP-Seite 49118.
+// Struktur nach dem OFFIZIELLEN BISTUMS-MUSTER (Bistum Limburg, Betriebl. DSB der
+// Kirchengemeinden), orientiert an § 15 KDG (Abschnitte A–L). Beschreibt nur die
+// tatsächlichen Datenverarbeitungen DIESER Website (KDSZ: „echte Beschreibung, nicht zu
+// viel/zu wenig"). „Externe Nutzungen" (Anmeldungen/Spenden via ChurchDesk) sind bewusst
+// nur kurz als eingebettete Inhalte genannt (Detail-Infos beim jeweiligen Angebot) — so der
+// Rat von Herrn Hilpüsch. Schriften werden lokal selbst gehostet (keine externe Verbindung).
 // Eigene Klassen `astro-dzbody` (Handbuch Abschnitt 3).
 //
-// Rechtsrahmen: Die Pfarrei ist eine Einrichtung der katholischen Kirche und unterliegt dem KDG
-// (nicht unmittelbar der DSGVO). Rechtsgrundlagen daher als §§ KDG: Einwilligung § 6 Abs. 1 lit. b,
-// Vertrag lit. c, rechtl. Verpflichtung lit. d, kirchliches Interesse/Aufgabe lit. f. WICHTIG:
-// § 6 Abs. 1 lit. g (berechtigtes Interesse) gilt für öffentlich-rechtlich organisierte kirchliche
-// Stellen bei der Aufgabenerfüllung NICHT → stattdessen lit. f verwendet. Betroffenenrechte §§ 17–23,
-// Beschwerde § 48, Drittlandübermittlung § 40 KDG. Zuständige Aufsicht: KDSZ Frankfurt.
-//
-// ⚠️ INTERIM-ENTWURF (Stand 2026-06-26), erstellt vom Webteam. MUSS vor Veröffentlichung vom
-// Datenschutzbeauftragten der Pfarrei (Martin Kestler) bzw. über das Bistum Limburg
-// (Betrieblicher DSB der Kirchengemeinden, Michael Hilpüsch) geprüft und freigegeben werden.
-// Offene Prüfpunkte: genaue Zuordnung lit. f vs. lit. g je Verarbeitung; Netlify-Firmenanschrift;
-// ChurchDesk-Datenschutz-URL; Bestehen der AVV mit Netlify/ChurchDesk.
+// ⚠️ INTERIM-ENTWURF (Stand 2026-06-29) für die Prüfung durch das Bistum (Hilpüsch) bzw. den
+// Pfarrei-DSB. OFFENE PRÜFPUNKTE:
+//  - Abschnitt B: betrieblicher DSB = zentrale Bistumsstelle (lt. Muster) ODER Martin Kestler? bestätigen
+//  - Hosting Netlify (USA): AVV nach § 29 KDG muss abgeschlossen werden; ggf. EU-Hoster prüfen
+//  - AVV mit ChurchDesk; lit. f/g je Verarbeitung; KDSZ-Adresse (Roßmarkt 23, aktuell)
 ---
 <section class="astro-dzbody">
   <div class="astro-dzbody__in">
 
-    <h2 id="datenschutz-auf-einen-blick">1. Datenschutz auf einen Blick</h2>
+    <p>
+      Diese Datenschutzerklärung informiert Sie nach &sect;&sect; 14, 15 KDG über die Verarbeitung
+      personenbezogener Daten, wenn Sie unsere Website besuchen und die angebotenen Kontaktwege
+      nutzen. Als Einrichtung der katholischen Kirche unterliegen wir dem
+      <strong>Gesetz über den Kirchlichen Datenschutz (KDG)</strong>; an die Stelle der
+      Datenschutz-Grundverordnung (DSGVO) treten für uns die Regelungen des KDG.
+    </p>
 
-    <h3>Allgemeine Hinweise</h3>
-    <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung.</p>
-    <p>Als Einrichtung der katholischen Kirche unterliegen wir dem <strong>Gesetz über den Kirchlichen Datenschutz (KDG)</strong>. An die Stelle der Vorschriften der Datenschutz-Grundverordnung (DSGVO) treten für uns daher die entsprechenden Regelungen des KDG.</p>
-
-    <h3>Datenerfassung auf dieser Website</h3>
-    <h4>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h4>
-    <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur verantwortlichen Stelle“ in dieser Datenschutzerklärung entnehmen.</p>
-    <h4>Wie erfassen wir Ihre Daten?</h4>
-    <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Formular (etwa zur Taufanmeldung oder zur Newsletter-Anmeldung) eingeben.</p>
-    <p>Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme bzw. die unseres Hosters erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten.</p>
-    <h4>Wofür nutzen wir Ihre Daten?</h4>
-    <p>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Daten aus Formularen nutzen wir, um Ihr Anliegen (z. B. eine Anmeldung oder Anfrage) zu bearbeiten.</p>
-    <h4>Welche Rechte haben Sie bezüglich Ihrer Daten?</h4>
-    <p>Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen kirchlichen Datenschutzaufsicht zu.</p>
-    <p>Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit an uns wenden.</p>
-
-    <h3>Analyse-Tools und Tracking</h3>
-    <p>Auf dieser Website werden <strong>keine Analyse-, Tracking- oder Werbe-Tools</strong> eingesetzt. Ihr Surf-Verhalten wird nicht statistisch ausgewertet und es werden keine Nutzerprofile erstellt.</p>
-
-    <h2 id="hosting">2. Hosting</h2>
-    <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
-
-    <h3>Externes Hosting (Netlify)</h3>
-    <p>Diese Website wird extern bei Netlify gehostet. Anbieter ist die Netlify, Inc., 512 2nd Street, Suite 200, San Francisco, CA 94107, USA (im Folgenden „Netlify“). Wenn Sie unsere Website besuchen, werden verschiedene technische Daten (insbesondere Ihre IP-Adresse sowie Zugriffsdaten wie aufgerufene Seite, Datum und Uhrzeit) auf den Servern von Netlify verarbeitet.</p>
-    <p>Das externe Hosting erfolgt zur Wahrnehmung unserer im kirchlichen Interesse liegenden Aufgabe, unser Online-Angebot sicher, schnell und zuverlässig bereitzustellen (§ 6 Abs. 1 lit. f KDG).</p>
-    <p>Mit der Übermittlung von Daten in die USA ist eine Datenverarbeitung in einem Drittland verbunden (§ 40 KDG). Diese wird auf die Standardvertragsklauseln der EU-Kommission gestützt. Weitere Informationen finden Sie in der Datenschutzerklärung von Netlify unter <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">https://www.netlify.com/privacy/</a>.</p>
-    <h4>Auftragsverarbeitung</h4>
-    <p>Wir haben einen Vertrag über Auftragsverarbeitung zur Nutzung des oben genannten Dienstes geschlossen. Hierbei handelt es sich um einen datenschutzrechtlich vorgeschriebenen Vertrag, der gewährleistet, dass dieser die personenbezogenen Daten unserer Websitebesucher nur nach unseren Weisungen und unter Einhaltung des KDG verarbeitet.</p>
-
-    <h2 id="pflichtinformationen">3. Allgemeine Hinweise und Pflichtinformationen</h2>
-
-    <h3>Datenschutz</h3>
-    <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften – insbesondere dem KDG – sowie dieser Datenschutzerklärung.</p>
-    <p>Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht.</p>
-    <p>Wir weisen darauf hin, dass die Datenübertragung im Internet (z. B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
-
-    <h3>Hinweis zur verantwortlichen Stelle</h3>
-    <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+    <h2 id="verantwortlicher">A. Verantwortlicher</h2>
     <p>
       Kath. Kirchengemeinde St. Bonifatius<br />
-      Holbeinstraße 70<br />
-      60596 Frankfurt am Main
-    </p>
-    <p>
+      Holbeinstraße 70, 60596 Frankfurt am Main<br />
       Telefon: 069 . 695 97 58 50<br />
       E-Mail: <a href="mailto:info@sanktbonifatius.de">info@sanktbonifatius.de</a>
     </p>
-    <p>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.</p>
-
-    <h3>Speicherdauer</h3>
-    <p>Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gelöscht, sofern wir keine anderen rechtlich zulässigen Gründe für die Speicherung Ihrer personenbezogenen Daten haben (z. B. steuer- oder handelsrechtliche Aufbewahrungsfristen); im letztgenannten Fall erfolgt die Löschung nach Fortfall dieser Gründe.</p>
-
-    <h3>Rechtsgrundlagen der Datenverarbeitung auf dieser Website</h3>
-    <p>Sofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre personenbezogenen Daten auf Grundlage von § 6 Abs. 1 lit. b KDG; werden besondere Kategorien personenbezogener Daten verarbeitet, zusätzlich nach § 11 KDG. Sofern Sie in die Speicherung von Informationen in Ihrem Endgerät (z. B. über Cookies oder vergleichbare Technologien) eingewilligt haben, erfolgt die Verarbeitung zusätzlich auf Grundlage von § 25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar. Sind Ihre Daten zur Erfüllung eines Vertrags oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, verarbeiten wir Ihre Daten auf Grundlage von § 6 Abs. 1 lit. c KDG. Zur Erfüllung einer rechtlichen Verpflichtung verarbeiten wir Ihre Daten auf Grundlage von § 6 Abs. 1 lit. d KDG. Soweit die Verarbeitung zur Wahrnehmung einer in unserem kirchlichen Interesse liegenden Aufgabe erforderlich ist, erfolgt sie auf Grundlage von § 6 Abs. 1 lit. f KDG. Über die jeweils im Einzelfall einschlägige Rechtsgrundlage informieren wir in den folgenden Abschnitten dieser Datenschutzerklärung.</p>
-
-    <h3>Datenschutzbeauftragter</h3>
-    <p>Wir haben einen Datenschutzbeauftragten benannt.</p>
     <p>
-      Martin Kestler<br />
-      Kath. Pfarrgemeinde St. Bonifatius<br />
-      Holbeinstr. 70<br />
-      60596 Frankfurt
-    </p>
-    <p>
-      Telefon: 069 6959758-66<br />
-      E-Mail: <a href="mailto:m.kestler@sanktbonifatius.de">m.kestler@sanktbonifatius.de</a>
+      vertreten durch den Verwaltungsrat, dieser vertreten durch den Verwaltungsratsvorsitzenden
+      oder dessen Stellvertreter und ein weiteres Verwaltungsratsmitglied.
     </p>
 
-    <h3>Empfänger von personenbezogenen Daten</h3>
-    <p>Im Rahmen unserer Tätigkeit arbeiten wir mit verschiedenen externen Stellen zusammen. Dabei ist teilweise auch eine Übermittlung von personenbezogenen Daten an diese externen Stellen erforderlich. Wir geben personenbezogene Daten nur dann an externe Stellen weiter, wenn dies im Rahmen einer Vertragserfüllung erforderlich ist, wenn wir gesetzlich hierzu verpflichtet sind (z. B. Weitergabe von Daten an Steuerbehörden), wenn die Weitergabe zur Wahrnehmung einer im kirchlichen Interesse liegenden Aufgabe nach § 6 Abs. 1 lit. f KDG erforderlich ist oder wenn eine sonstige Rechtsgrundlage die Datenweitergabe erlaubt. Beim Einsatz von Auftragsverarbeitern geben wir personenbezogene Daten nur auf Grundlage eines gültigen Vertrags über Auftragsverarbeitung weiter.</p>
+    <h2 id="datenschutzbeauftragter">B. Betrieblicher Datenschutzbeauftragter</h2>
+    <p>
+      Datenschutzbeauftragter der Kirchengemeinden des Bistums Limburg<br />
+      Roßmarkt 4, 65549 Limburg<br />
+      Telefon: 06431 295-202<br />
+      E-Mail: <a href="mailto:datenschutzbeauftragter-kirchengemeinden@bistumlimburg.de">datenschutzbeauftragter-kirchengemeinden@bistumlimburg.de</a>
+    </p>
 
-    <h3>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
-    <p>Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+    <h2 id="zweck-rechtsgrundlage">C. Zweck der Datenverarbeitung und Rechtsgrundlage</h2>
+    <p>
+      Wir betreiben dieses Webangebot, um die uns als Kirchengemeinde übertragenen Aufgaben zu
+      erfüllen &#8212; insbesondere die Verkündigung des Evangeliums, die Feier der Sakramente und
+      den Dienst der Nächstenliebe. Dazu informieren wir über Gottesdienste, Veranstaltungen und
+      das Gemeindeleben und bieten Ihnen Wege zur Kontaktaufnahme an. Rechtsgrundlage für die
+      damit verbundene Datenverarbeitung ist, soweit nachfolgend nicht anders angegeben,
+      &sect; 6 Abs. 1 lit. f KDG (Wahrnehmung einer im kirchlichen Interesse liegenden Aufgabe,
+      i.&#8201;V.&#8201;m. can. 747 ff. CIC).
+    </p>
 
-    <h3>Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen (§ 23 KDG)</h3>
-    <p class="astro-dzbody__upper">WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON § 6 ABS. 1 LIT. F KDG ERFOLGT, HABEN SIE JEDERZEIT DAS RECHT, AUS GRÜNDEN, DIE SICH AUS IHRER BESONDEREN SITUATION ERGEBEN, GEGEN DIE VERARBEITUNG IHRER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH FÜR EIN AUF DIESE BESTIMMUNG GESTÜTZTES PROFILING. WENN SIE WIDERSPRUCH EINLEGEN, WERDEN WIR IHRE BETROFFENEN PERSONENBEZOGENEN DATEN NICHT MEHR VERARBEITEN, ES SEI DENN, WIR KÖNNEN ZWINGENDE SCHUTZWÜRDIGE GRÜNDE FÜR DIE VERARBEITUNG NACHWEISEN, DIE IHRE INTERESSEN, RECHTE UND FREIHEITEN ÜBERWIEGEN, ODER DIE VERARBEITUNG DIENT DER GELTENDMACHUNG, AUSÜBUNG ODER VERTEIDIGUNG VON RECHTSANSPRÜCHEN (WIDERSPRUCH NACH § 23 KDG).</p>
+    <h3>1. Besuch der Website (Server-Logfiles)</h3>
+    <p>
+      Bei jedem Zugriff auf unsere Website übermittelt Ihr Browser technisch notwendige
+      Nutzungsdaten: Name der abgerufenen Datei, Datum und Uhrzeit des Abrufs, übertragene
+      Datenmenge, anfragender Provider, Ihre IP-Adresse sowie &#8212; je nach Konfiguration &#8212;
+      Browsertyp und -version, Betriebssystem und Referrer-URL. Ohne IP-Adresse und Dateibezeichnung
+      ist die Auslieferung der Seite technisch nicht möglich. Wir bzw. unser Hoster verarbeiten
+      diese Daten zur Bereitstellung der Inhalte sowie zur Wahrung der Systemsicherheit und
+      -stabilität und zur Abwehr von Angriffen. <strong>Eine Webanalyse oder Zugriffsstatistik
+      wird nicht erstellt; es kommen keine Tracking- oder Werbe-Tools zum Einsatz.</strong>
+      Rechtsgrundlage: &sect; 6 Abs. 1 lit. f KDG. Unsere Website wird bei einem externen
+      Dienstleister gehostet; Näheres zum Hoster (Abschnitt E) und zur Übermittlung in ein
+      Drittland (Abschnitt F).
+    </p>
 
-    <h3>Beschwerderecht bei der zuständigen kirchlichen Datenschutzaufsicht</h3>
-    <p>Unbeschadet eines anderweitigen Rechtsbehelfs haben Sie nach § 48 KDG das Recht, die kirchliche Datenschutzaufsicht anzurufen, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen das KDG verstößt. Für die Pfarrei (Bistum Limburg) zuständig ist:</p>
+    <h3>2. Wenn Sie uns einen Brief schicken</h3>
+    <p>
+      Unsere postalische Anschrift stellen wir Ihnen für eine Kontaktaufnahme zur Verfügung. Die
+      uns übermittelten Daten werden zur Bearbeitung Ihres Anliegens nach dem geltenden Aktenplan
+      aufbewahrt bzw. im Rahmen des Posteingangs gespeichert. Rechtsgrundlage ist &sect; 6 Abs. 1
+      lit. f KDG; bei organisatorischen Vertragsverhältnissen &sect; 6 Abs. 1 lit. c KDG; bei der
+      Geltendmachung datenschutzrechtlicher Betroffenenrechte &sect; 6 Abs. 1 lit. d KDG
+      i.&#8201;V.&#8201;m. &sect;&sect; 17 bis 25 KDG. Für Anliegen außerhalb unseres
+      Aufgabenbereichs stützen wir die Verarbeitung auf &sect; 6 Abs. 1 lit. g KDG (Abschnitt D).
+    </p>
+
+    <h3>3. Wenn Sie uns anrufen oder ein Telefax schicken</h3>
+    <p>
+      Bei Anruf oder Telefax wird &#8212; je nach Ihren Einstellungen &#8212; Ihre Ruf- bzw.
+      Faxnummer mit Datum und Uhrzeit gespeichert; eine Sprachnachricht wird zum Abhören
+      gespeichert, ein Telefax gedruckt und/oder digital abgelegt. Die Daten werden zur Bearbeitung
+      Ihres Anliegens verarbeitet. Rechtsgrundlagen wie unter C.2.
+    </p>
+
+    <h3>4. Wenn Sie uns eine E-Mail schicken</h3>
+    <p>
+      Bei einer E-Mail werden die übermittelten Daten (Absenderadresse, Betreff, Inhalt,
+      Dateianhänge sowie technisch bedingte Header-Daten) gespeichert und zur Bearbeitung Ihres
+      Anliegens verarbeitet. Rechtsgrundlagen wie unter C.2. Bitte beachten Sie, dass der
+      Versand unverschlüsselter E-Mails nicht vor Kenntnisnahme durch Dritte geschützt ist.
+    </p>
+
+    <h3>5. Besondere Kategorien personenbezogener Daten (&sect; 4 Nr. 2 KDG)</h3>
+    <p>
+      Wir erheben ohne besonderen Anlass keine besonderen Kategorien personenbezogener Daten
+      („sensible Daten", z.&#8201;B. Gesundheitsdaten); bitte sehen Sie von einer unaufgeforderten
+      Übermittlung ab. Ist deren Verarbeitung im Einzelfall erforderlich, ergibt sich die
+      Rechtsgrundlage aus &sect; 11 KDG; Sie erhalten dann in der Regel eine gesonderte
+      Datenschutzinformation.
+    </p>
+
+    <h3>6. Eingebundene Inhalte und Schriftarten</h3>
+    <p>
+      <strong>Schriftarten:</strong> Die verwendeten Schriftarten (Source Sans 3, Playfair Display)
+      sind lokal auf unserem Server hinterlegt und werden von dort ausgeliefert. Es besteht
+      <strong>keine Verbindung zu externen Schrift-Servern</strong> (insbesondere nicht zu Google
+      Fonts oder Bunny Fonts); es werden hierfür keine Cookies gesetzt und keine Daten an Dritte
+      übertragen.
+    </p>
+    <p>
+      <strong>Videoinhalte:</strong> Auf einzelnen Seiten können Videos (YouTube, Vimeo) eingebettet
+      sein. Ein Video wird erst geladen, wenn Sie es aktiv starten. Erst dann wird eine Verbindung
+      zu den Servern des jeweiligen Anbieters &#8212; YouTube: Google Ireland Limited, Irland;
+      Vimeo: Vimeo, Inc., USA &#8212; hergestellt und dabei u.&#8201;a. Ihre IP-Adresse übertragen.
+      Vorher findet keine Verbindung statt. Rechtsgrundlage: &sect; 6 Abs. 1 lit. f KDG; soweit eine
+      Einwilligung abgefragt wird, &sect; 6 Abs. 1 lit. b KDG und &sect; 25 Abs. 1 TDDDG. Zur
+      Übermittlung in die USA siehe Abschnitt F.
+    </p>
+    <p>
+      <strong>Interaktive Angebote:</strong> Einzelne Funktionen (z.&#8201;B. Newsletter-Anmeldung,
+      Online-Spenden, Anmeldungen, Veranstaltungskalender) werden technisch über den Dienst
+      ChurchDesk (ChurchDesk ApS, Dänemark) bereitgestellt und als eingebettete Inhalte geladen.
+      Wenn Sie ein solches Angebot aufrufen oder nutzen, wird eine Verbindung zu ChurchDesk
+      hergestellt; dabei kann Ihre IP-Adresse übertragen werden. Für die dabei von Ihnen
+      eingegebenen Daten gelten die jeweils beim Angebot bereitgestellten gesonderten
+      Datenschutzinformationen.
+    </p>
+
+    <h2 id="berechtigte-interessen">D. Berechtigte Interessen (&sect; 6 Abs. 1 lit. g KDG)</h2>
+    <p>
+      Auf unser berechtigtes Interesse stützen wir die Verarbeitung nur in den Fällen nach C.2 bis
+      C.4, soweit Ihr Anliegen Vorgänge außerhalb des uns übertragenen kirchlichen Aufgabenbereichs
+      betrifft; unser berechtigtes Interesse besteht dann in der Bearbeitung und Beantwortung des an
+      uns herangetragenen Anliegens. Für Verarbeitungen in Erfüllung unserer kirchlichen Aufgaben
+      stützen wir uns nicht auf lit. g, sondern auf &sect; 6 Abs. 1 lit. f KDG.
+    </p>
+
+    <h2 id="empfaenger">E. Empfänger der Daten</h2>
+    <p>
+      <strong>Hosting:</strong> Unsere Website wird bei der Netlify, Inc., 512 2nd Street, Suite 200,
+      San Francisco, CA 94107, USA, gehostet. Netlify verarbeitet die beim Besuch anfallenden
+      technischen Daten (insbesondere IP-Adresse und Zugriffsdaten) als Auftragsverarbeiter
+      ausschließlich nach unseren Weisungen. Hierfür ist nach &sect; 29 KDG ein
+      Auftragsverarbeitungsvertrag abzuschließen.
+    </p>
+    <p>
+      <strong>ChurchDesk:</strong> Für die interaktiven Angebote (Abschnitt C.6) ist die ChurchDesk
+      ApS, Dänemark, Empfänger der dort eingegebenen Daten.
+    </p>
+    <p>
+      Im Übrigen geben wir die Daten nach C.1 nicht an Dritte weiter. Eine Weitergabe von
+      Kommunikationsdaten (C.2 bis C.4) kann zur weiteren Bearbeitung Ihres Anliegens erforderlich
+      sein und richtet sich nach den &sect;&sect; 9, 10 KDG.
+    </p>
+
+    <h2 id="drittland">F. Übermittlung in ein Drittland</h2>
+    <p>
+      Mit dem Hosting bei Netlify (USA) sowie beim aktiven Abspielen von YouTube-/Vimeo-Videos ist
+      eine Übermittlung personenbezogener Daten (insbesondere der IP-Adresse) in die USA verbunden.
+      Diese Drittlandübermittlung stützen wir auf die Standardvertragsklauseln der EU-Kommission
+      (&sect; 40 KDG). Beim reinen Besuch der Website beschränken sich die an den US-Hoster
+      übermittelten Daten auf die technisch notwendigen Zugriffsdaten; eine Webanalyse findet nicht
+      statt.
+    </p>
+
+    <h2 id="speicherdauer">G. Speicherdauer</h2>
+    <p>
+      Server-Logfiles (C.1) werden nur kurzzeitig gespeichert und anschließend automatisch gelöscht,
+      soweit sie nicht zur Wahrung der Systemsicherheit und -stabilität weiter benötigt werden; eine
+      Zugriffsstatistik wird nicht erstellt. Daten aus Ihrer Kontaktaufnahme (C.2 bis C.4) speichern
+      wir, solange dies zur Bearbeitung Ihres Anliegens erforderlich ist. Darüber hinaus richten sich
+      die Fristen nach gesetzlichen und kirchlichen Aufbewahrungspflichten sowie der Archivordnung des
+      Bistums Limburg; die Archivierung archivwürdiger Unterlagen ersetzt die Löschung.
+    </p>
+
+    <h2 id="betroffenenrechte">H. Ihre Rechte</h2>
+    <p>
+      Sie haben das Recht auf Auskunft (&sect; 17 KDG), Berichtigung (&sect; 18 KDG), Löschung
+      (&sect; 19 KDG), Einschränkung der Verarbeitung (&sect; 20 KDG) und Datenübertragbarkeit
+      (&sect; 22 KDG).
+    </p>
+    <p>
+      <strong>Widerspruchsrecht (&sect; 23 KDG):</strong> Soweit wir Ihre Daten auf Grundlage von
+      &sect; 6 Abs. 1 lit. f oder lit. g KDG verarbeiten, haben Sie das Recht, aus Gründen, die sich
+      aus Ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung Widerspruch
+      einzulegen. Bitte richten Sie den Widerspruch an den Verantwortlichen (Abschnitt A) und
+      begründen Sie ihn aus Ihrer besonderen Situation.
+    </p>
+
+    <h2 id="widerruf">I. Widerruf der Einwilligung</h2>
+    <p>
+      Soweit die Verarbeitung Ihrer Daten auf einer Einwilligung (&sect; 6 Abs. 1 lit. b bzw.
+      &sect; 11 Abs. 2 lit. a KDG) beruht, haben Sie das Recht, diese jederzeit mit Wirkung für die
+      Zukunft zu widerrufen (&sect; 8 Abs. 6 Satz 1 KDG); die Rechtmäßigkeit der bis zum Widerruf
+      erfolgten Verarbeitung bleibt unberührt.
+    </p>
+
+    <h2 id="beschwerderecht">J. Beschwerderecht bei der Datenschutzaufsicht</h2>
+    <p>
+      Wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer Daten gegen das KDG verstößt, können Sie
+      sich nach &sect; 48 KDG an die zuständige kirchliche Datenschutzaufsicht wenden:
+    </p>
     <p>
       Katholisches Datenschutzzentrum Frankfurt am Main (KDSZ)<br />
-      Roßmarkt 23<br />
-      60311 Frankfurt am Main<br />
+      Roßmarkt 23, 60311 Frankfurt am Main<br />
       Telefon: 069 58 99 755-10<br />
       E-Mail: <a href="mailto:info@kdsz-ffm.de">info@kdsz-ffm.de</a><br />
       Internet: <a href="https://www.kath-datenschutzzentrum-ffm.de" target="_blank" rel="noopener noreferrer">www.kath-datenschutzzentrum-ffm.de</a>
     </p>
 
-    <h3>Recht auf Datenübertragbarkeit (§ 22 KDG)</h3>
-    <p>Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch machbar ist.</p>
+    <h2 id="bereitstellung">K. Bereitstellung Ihrer Daten</h2>
+    <p>
+      Die Bereitstellung der Daten nach C.1 ist weder gesetzlich noch vertraglich vorgeschrieben;
+      ohne diese technisch notwendigen Daten können Sie die Website jedoch nicht nutzen. Die
+      Bereitstellung der Daten nach C.2 bis C.4 ist freiwillig; ohne sie können wir Ihr Anliegen
+      gegebenenfalls nicht bearbeiten.
+    </p>
 
-    <h3>Auskunft, Berichtigung und Löschung (§§ 17–19 KDG)</h3>
-    <p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit an uns wenden.</p>
-
-    <h3>Recht auf Einschränkung der Verarbeitung (§ 20 KDG)</h3>
-    <p>Sie haben das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Hierzu können Sie sich jederzeit an uns wenden. Das Recht auf Einschränkung der Verarbeitung besteht in folgenden Fällen:</p>
-    <ul>
-      <li>Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten personenbezogenen Daten bestreiten, benötigen wir in der Regel Zeit, um dies zu überprüfen. Für die Dauer der Prüfung haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</li>
-      <li>Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtmäßig geschah/geschieht, können Sie statt der Löschung die Einschränkung der Datenverarbeitung verlangen.</li>
-      <li>Wenn wir Ihre personenbezogenen Daten nicht mehr benötigen, Sie sie jedoch zur Ausübung, Verteidigung oder Geltendmachung von Rechtsansprüchen benötigen, haben Sie das Recht, statt der Löschung die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</li>
-      <li>Wenn Sie einen Widerspruch nach § 23 KDG eingelegt haben, muss eine Abwägung zwischen Ihren und unseren Interessen vorgenommen werden. Solange noch nicht feststeht, wessen Interessen überwiegen, haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</li>
-    </ul>
-    <p>Wenn Sie die Verarbeitung Ihrer personenbezogenen Daten eingeschränkt haben, dürfen diese Daten – von ihrer Speicherung abgesehen – nur mit Ihrer Einwilligung oder zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen oder zum Schutz der Rechte einer anderen natürlichen oder juristischen Person oder aus Gründen eines wichtigen öffentlichen Interesses verarbeitet werden.</p>
-
-    <h3>SSL- bzw. TLS-Verschlüsselung</h3>
-    <p>Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://“ auf „https://“ wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.</p>
-    <p>Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.</p>
-
-    <h3>Widerspruch gegen Werbe-E-Mails</h3>
-    <p>Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor.</p>
-
-    <h2 id="datenerfassung">4. Datenerfassung auf dieser Website</h2>
-
-    <h3>Cookies</h3>
-    <p>Unsere Website setzt von sich aus <strong>keine Tracking- oder Analyse-Cookies</strong>. Technisch notwendige Cookies oder vergleichbare Speichertechnologien können im Rahmen eingebundener Dienste auftreten – etwa wenn Sie ein ChurchDesk-Formular nutzen oder ein eingebettetes Video starten (siehe Abschnitt 5).</p>
-    <p>Soweit dabei Cookies eingesetzt werden, geschieht dies, soweit sie für die von Ihnen erwünschte Funktion technisch erforderlich sind, auf Grundlage von § 6 Abs. 1 lit. f KDG; im Übrigen nur auf Grundlage Ihrer Einwilligung (§ 6 Abs. 1 lit. b KDG und § 25 Abs. 1 TDDDG). Die Einwilligung ist jederzeit widerrufbar. Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben oder generell ausschließen. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein.</p>
-
-    <h3>Anmelde- und Kontaktformulare</h3>
-    <p>Auf einzelnen Seiten bieten wir Formulare an (z. B. die Anmeldung zur Taufe). Die von Ihnen in ein solches Formular eingegebenen Daten werden zur Bearbeitung Ihres Anliegens verarbeitet. Bei der Taufanmeldung werden die eingegebenen Angaben unmittelbar per E-Mail an das Pfarrbüro übermittelt und dort gespeichert; eine Weitergabe an sonstige Dritte erfolgt nicht.</p>
-    <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von § 6 Abs. 1 lit. c KDG, sofern Ihre Anfrage mit der Erfüllung oder Anbahnung eines Vertrags zusammenhängt. In allen übrigen Fällen beruht die Verarbeitung auf der Wahrnehmung unserer im kirchlichen Interesse liegenden Aufgaben (§ 6 Abs. 1 lit. f KDG) oder auf Ihrer Einwilligung (§ 6 Abs. 1 lit. b KDG), sofern diese abgefragt wurde; die Einwilligung ist jederzeit widerrufbar.</p>
-    <p>Die von Ihnen übermittelten Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihres Anliegens). Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.</p>
-    <p>Hinweis: Die Newsletter-Anmeldung sowie Spenden- und Registrierungsformulare werden technisch über den Dienst ChurchDesk bereitgestellt; Einzelheiten hierzu finden Sie in Abschnitt 5.</p>
-
-    <h3>Anfrage per E-Mail oder Telefon</h3>
-    <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
-    <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von § 6 Abs. 1 lit. c KDG, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf der Wahrnehmung unserer im kirchlichen Interesse liegenden Aufgaben (§ 6 Abs. 1 lit. f KDG) oder auf Ihrer Einwilligung (§ 6 Abs. 1 lit. b KDG), sofern diese abgefragt wurde; die Einwilligung ist jederzeit widerrufbar.</p>
-    <p>Die von Ihnen an uns per Kontaktanfrage übersandten Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihres Anliegens). Zwingende gesetzliche Bestimmungen – insbesondere gesetzliche Aufbewahrungsfristen – bleiben unberührt.</p>
-
-    <h3>Kommunikation via WhatsApp</h3>
-    <p>Für die Kommunikation mit Gemeindemitgliedern und sonstigen Dritten nutzen wir unter anderem den Instant-Messaging-Dienst WhatsApp (u. a. über einen WhatsApp-Kanal). Anbieter ist die WhatsApp Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland.</p>
-    <p>Die Kommunikation erfolgt über eine Ende-zu-Ende-Verschlüsselung, die verhindert, dass WhatsApp oder sonstige Dritte Zugriff auf die Kommunikationsinhalte erlangen können. WhatsApp erhält jedoch Zugriff auf Metadaten, die im Zuge des Kommunikationsvorgangs entstehen (z. B. Absender, Empfänger und Zeitpunkt). Wir weisen ferner darauf hin, dass WhatsApp nach eigener Aussage personenbezogene Daten seiner Nutzer mit seiner in den USA ansässigen Konzernmutter Meta teilt. Weitere Details finden Sie in der Datenschutzrichtlinie von WhatsApp unter: <a href="https://www.whatsapp.com/legal/#privacy-policy" target="_blank" rel="noopener noreferrer">https://www.whatsapp.com/legal/#privacy-policy</a>.</p>
-    <p>Der Einsatz von WhatsApp erfolgt zur Wahrnehmung unserer im kirchlichen Interesse liegenden Aufgabe einer möglichst schnellen und effektiven Kommunikation (§ 6 Abs. 1 lit. f KDG). Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Datenverarbeitung ausschließlich auf Grundlage der Einwilligung (§ 6 Abs. 1 lit. b KDG); diese ist jederzeit mit Wirkung für die Zukunft widerrufbar.</p>
-
-    <h2 id="dienste-schriftarten">5. Eingebundene Dienste und Schriftarten</h2>
-
-    <h3>ChurchDesk (Formulare, Spenden, Veranstaltungskalender)</h3>
-    <p>Auf einzelnen Seiten binden wir Dienste der ChurchDesk ApS, Masnedøgade 22, 2100 Kopenhagen, Dänemark, ein. Dazu gehören Online-Formulare (z. B. die Newsletter-Anmeldung und die Registrierung für ehrenamtliches Engagement), Spendenformulare sowie der Veranstaltungskalender. Diese Inhalte werden als eingebettete Elemente (iframe) von den Servern von ChurchDesk geladen.</p>
-    <p>Beim Aufruf einer Seite mit einem solchen Element wird eine Verbindung zu den Servern von ChurchDesk hergestellt; dabei kann Ihre IP-Adresse übertragen werden. Wenn Sie ein Formular ausfüllen oder eine Spende tätigen, werden die von Ihnen eingegebenen Daten durch ChurchDesk im Auftrag der Pfarrei verarbeitet, um Ihr Anliegen zu bearbeiten. Rechtsgrundlage ist § 6 Abs. 1 lit. c KDG (Bearbeitung Ihres Anliegens), § 6 Abs. 1 lit. f KDG (Wahrnehmung unserer kirchlichen Aufgaben durch eine komfortable Bereitstellung dieser Funktionen) oder Ihre Einwilligung (§ 6 Abs. 1 lit. b KDG). Weitere Informationen finden Sie in der Datenschutzerklärung von ChurchDesk unter <a href="https://www.churchdesk.com/de/datenschutz" target="_blank" rel="noopener noreferrer">churchdesk.com</a>.</p>
-
-    <h3>Videoinhalte (YouTube und Vimeo)</h3>
-    <p>In Einzelfällen binden wir Videos ein (z. B. innerhalb der Bildergalerie bzw. der Rubrik „Aktuelles“). Ein Video wird erst geladen, wenn Sie es aktiv starten. Erst dann wird eine Verbindung zu den Servern des jeweiligen Anbieters hergestellt und dabei Ihre IP-Adresse übertragen.</p>
-    <p>Anbieter von YouTube ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland; Anbieter von Vimeo ist die Vimeo, Inc., 330 West 34th Street, New York, New York 10001, USA (Drittlandübermittlung, § 40 KDG). Die Nutzung erfolgt zur ansprechenden Darstellung unserer Online-Angebote im Rahmen unserer kirchlichen Aufgaben (§ 6 Abs. 1 lit. f KDG); sofern eine Einwilligung abgefragt wurde, auf Grundlage von § 6 Abs. 1 lit. b KDG und § 25 Abs. 1 TDDDG. Weitere Informationen finden Sie in den Datenschutzerklärungen von <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer">Google/YouTube</a> und <a href="https://vimeo.com/privacy" target="_blank" rel="noopener noreferrer">Vimeo</a>.</p>
-
-    <h3 id="schriftarten">Schriftarten (Bunny Fonts)</h3>
-    <p>Diese Website bindet die Schriftarten <em>Source Sans 3</em> und <em>Playfair Display</em> über den Dienst Bunny Fonts (Anbieter: BunnyWay d.o.o., Cesta komandanta Staneta 4A, 1215 Medvode, Slowenien; <a href="https://fonts.bunny.net" target="_blank" rel="noopener noreferrer">fonts.bunny.net</a>) ein. Die Schriftdateien werden von europäischen Servern ausgeliefert. Dabei kann Ihre IP-Adresse an die Server von Bunny Fonts übertragen werden. Eine Protokollierung von IP-Adressen findet laut Anbieter nicht statt; es werden keine Cookies gesetzt und keine Nutzerprofile erstellt. <strong>Es findet keine Verbindung zu Google-Servern statt</strong> (es werden keine Google Fonts verwendet).</p>
-    <p>Grundlage der Nutzung ist § 6 Abs. 1 lit. f KDG (Wahrnehmung unserer kirchlichen Aufgaben durch eine einheitliche und ansprechende Darstellung unseres Online-Angebots).</p>
+    <h2 id="profiling">L. Automatisierte Entscheidungsfindung / Profiling</h2>
+    <p>
+      Eine automatisierte Entscheidungsfindung im Einzelfall einschließlich Profiling im Sinne des
+      &sect; 24 KDG setzen wir nicht ein.
+    </p>
 
   </div>
 </section>
@@ -176,13 +238,9 @@
 .astro-dzbody__in{max-width:820px;margin:0 auto;padding:64px 40px}
 .astro-dzbody__in h2{font-family:'Playfair Display',serif;font-size:clamp(24px,2.8vw,32px);font-weight:700;color:#2c2420;margin:52px 0 16px;padding-bottom:10px;border-bottom:2px solid #ede4d8;scroll-margin-top:96px}
 .astro-dzbody__in h2:first-child{margin-top:0}
-.astro-dzbody__in h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:34px 0 10px;scroll-margin-top:96px}
-.astro-dzbody__in h4{font-size:16px;font-weight:700;color:#3a2f28;margin:22px 0 8px}
+.astro-dzbody__in h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:28px 0 8px;scroll-margin-top:96px}
 .astro-dzbody__in p{font-size:15.5px;color:#4a3f37;line-height:1.72;margin:0 0 14px}
-.astro-dzbody__in ul{margin:0 0 16px;padding-left:22px}
-.astro-dzbody__in li{font-size:15.5px;color:#4a3f37;line-height:1.7;margin:0 0 8px}
 .astro-dzbody__in a{color:#9a2d2d;text-decoration:none;word-break:break-word}
 .astro-dzbody__in a:hover{text-decoration:underline}
-.astro-dzbody__upper{font-size:13px !important;color:#6b5c52 !important;letter-spacing:.01em;background:#f7f3ef;border-left:3px solid #c5a55a;padding:14px 16px;border-radius:4px}
 @media(max-width:560px){.astro-dzbody__in{padding:48px 20px}}
 </style>

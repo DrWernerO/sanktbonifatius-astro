@@ -17,11 +17,11 @@ const { title = 'Pfarrei Sankt Bonifatius Frankfurt', description = '', seo = ''
         {description && <meta name="description" content={description} />}
       </>
   }
-  <!-- Schriften ausschließlich über Bunny Fonts (DSGVO-freundlich, KEINE Verbindung zu
-       Google-Servern). Source Sans 3 = Fließtext, Playfair Display = Überschriften.
-       Bewusst nicht über Google Fonts geladen (siehe Datenschutz-Abschnitt „Schriftarten"). -->
-  <link rel="preconnect" href="https://fonts.bunny.net" />
-  <link href="https://fonts.bunny.net/css?family=source-sans-3:400,400i,500,500i,600|playfair-display:400,600,700&display=swap" rel="stylesheet" />
+  <!-- Schriften werden LOKAL selbst gehostet (Dateien unter /public/fonts/, Subsets latin +
+       latin-ext). KEINE Verbindung zu externen Font-Servern (weder Google noch Bunny) —
+       KDG-/DSGVO-freundlich, vgl. Datenschutz-Abschnitt „Schriftarten" und KDSZ-Empfehlung
+       (externe Komponenten intern einbinden). Source Sans 3 = Fließtext, Playfair = Überschriften. -->
+  <link rel="stylesheet" href="/fonts/fonts.css" />
   <style is:global>
     :root {
       --clr-primary: #1a3a5c;
