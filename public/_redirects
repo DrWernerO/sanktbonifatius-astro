@@ -54,6 +54,35 @@
 /whatsapp-kanal     /bonfamily/whatsapp-kanal/                        301
 /whatsapp-kanal/    /bonfamily/whatsapp-kanal/                        301
 
+# --- Digitaler Kirchenfuehrer St. Bonifatius (QR-Codes in der Kirche) ---
+# Die QR-Codes verlinken auf die alten WP-URLs (/ueberuns/kirchorte/st-bonifatius/kirche/<objekt>/).
+# Sie landen per 301 auf der Kirchenfuehrer-Seite mit dem passenden Anker-ID (kf-…).
+# Anker existieren bereits als id-Attribute in KircheCards.astro / kirche.js.
+/ueberuns/kirchorte/st-bonifatius/kirche/taufstein              /kirchorte/st-bonifatius/kirche/#kf-taufstein       301
+/ueberuns/kirchorte/st-bonifatius/kirche/taufstein/             /kirchorte/st-bonifatius/kirche/#kf-taufstein       301
+/ueberuns/kirchorte/st-bonifatius/kirche/orgel                  /kirchorte/st-bonifatius/kirche/#kf-orgel           301
+/ueberuns/kirchorte/st-bonifatius/kirche/orgel/                 /kirchorte/st-bonifatius/kirche/#kf-orgel           301
+/ueberuns/kirchorte/st-bonifatius/kirche/altar                  /kirchorte/st-bonifatius/kirche/#kf-altar           301
+/ueberuns/kirchorte/st-bonifatius/kirche/altar/                 /kirchorte/st-bonifatius/kirche/#kf-altar           301
+/ueberuns/kirchorte/st-bonifatius/kirche/beleuchtung            /kirchorte/st-bonifatius/kirche/#kf-beleuchtung     301
+/ueberuns/kirchorte/st-bonifatius/kirche/beleuchtung/           /kirchorte/st-bonifatius/kirche/#kf-beleuchtung     301
+/ueberuns/kirchorte/st-bonifatius/kirche/bonifatius-reliquie    /kirchorte/st-bonifatius/kirche/#kf-reliquie        301
+/ueberuns/kirchorte/st-bonifatius/kirche/bonifatius-reliquie/   /kirchorte/st-bonifatius/kirche/#kf-reliquie        301
+/ueberuns/kirchorte/st-bonifatius/kirche/chorraum               /kirchorte/st-bonifatius/kirche/#kf-chorraum        301
+/ueberuns/kirchorte/st-bonifatius/kirche/chorraum/              /kirchorte/st-bonifatius/kirche/#kf-chorraum        301
+/ueberuns/kirchorte/st-bonifatius/kirche/engelbilder            /kirchorte/st-bonifatius/kirche/#kf-engelbilder     301
+/ueberuns/kirchorte/st-bonifatius/kirche/engelbilder/           /kirchorte/st-bonifatius/kirche/#kf-engelbilder     301
+/ueberuns/kirchorte/st-bonifatius/kirche/madonna                /kirchorte/st-bonifatius/kirche/#kf-madonna         301
+/ueberuns/kirchorte/st-bonifatius/kirche/madonna/               /kirchorte/st-bonifatius/kirche/#kf-madonna         301
+/ueberuns/kirchorte/st-bonifatius/kirche/marienbild             /kirchorte/st-bonifatius/kirche/#kf-mariengemaelde  301
+/ueberuns/kirchorte/st-bonifatius/kirche/marienbild/            /kirchorte/st-bonifatius/kirche/#kf-mariengemaelde  301
+/ueberuns/kirchorte/st-bonifatius/kirche/marienfigur            /kirchorte/st-bonifatius/kirche/#kf-marienfigur     301
+/ueberuns/kirchorte/st-bonifatius/kirche/marienfigur/           /kirchorte/st-bonifatius/kirche/#kf-marienfigur     301
+/ueberuns/kirchorte/st-bonifatius/kirche/osterkerze             /kirchorte/st-bonifatius/kirche/#kf-osterkerze      301
+/ueberuns/kirchorte/st-bonifatius/kirche/osterkerze/            /kirchorte/st-bonifatius/kirche/#kf-osterkerze      301
+/ueberuns/kirchorte/st-bonifatius/kirche/sakristei              /kirchorte/st-bonifatius/kirche/#kf-sakristei       301
+/ueberuns/kirchorte/st-bonifatius/kirche/sakristei/             /kirchorte/st-bonifatius/kirche/#kf-sakristei       301
+
 # --- Gottesdienste (beide Schreibweisen -> Gottesdienstordnung) ---
 /gottesdienste          /gottesdienst-glaube/gottesdienstordnung/     301
 /gottesdienste/         /gottesdienst-glaube/gottesdienstordnung/     301
