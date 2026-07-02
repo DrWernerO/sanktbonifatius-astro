@@ -1075,6 +1075,10 @@ im selben Verzeichnis → erzeugen exakt die WP-Pfade (wichtig für `getSeoHead`
   (`…/2023/12/Helga_Jantschek--1024x1434.jpg`).
 
 ### Offene Punkte (Abschnitt 12 — tote Links, bewusst belassen)
-Auf der Übersicht zeigen die Kacheln **Inklusion** und **Kleider Café** noch auf
-`/engagiert-leben/` (im WP-Original ebenso), **Sozialberatung** auf einen `mailto:`. Eigene
-Astro-Unterseiten dafür gibt es noch nicht — beim Portfolio-Check vor Go-Live abgleichen.
+Die **Inklusion**-Kachel wurde entfernt (siehe `SEITENVERZEICHNIS.md`). **Kleider Café**
+verlinkt seit 2026-07-02 auf die bestehende Kirchort-Seite
+[`/kirchorte/st-aposteln/kleider-cafe/`](../src/pages/kirchorte/st-aposteln/kleider-cafe.astro)
+(grün statt Haus-Bordeaux) — bewusst **keine** zweite Version gebaut, um Inhalte nicht doppelt
+pflegen zu müssen (Musterentscheidung, vgl. Abschnitt 3 „goldene Regel" gilt nur für CSS, nicht
+für Content-Duplizierung). **Sozialberatung** bleibt auf einen `mailto:`. Beim Portfolio-Check
+vor Go-Live (Abschnitt 12) trotzdem gegenprüfen.
