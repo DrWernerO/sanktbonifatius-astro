@@ -121,7 +121,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 |---|---|---|---|---|---|
 | Engagiert leben | [Link](https://www.sanktbonifatius.de/engagiert-leben/) | `src/pages/engagiert-leben/index.astro` | Werner | ✅ erledigt | Page-ID 46769, eigene `astro-el`-Komponenten (Hero, Intro, 4 Angebots-Kacheln, EventCalendar Kat. 2590, FAQ, CTA); Hausfarben statt WP-Lila (Inklusion-Kachel auf Wunsch entfernt). |
 | Nachbarschaftliches Hilfenetz | [Link](https://www.sanktbonifatius.de/engagiert-leben/nachbarschaftliches-hilfenetz/) | `src/pages/engagiert-leben/nachbarschaftliches-hilfenetz.astro` | Werner | ✅ erledigt | Page-ID 49124, eigene `astro-nh`-Komponenten (Hero, Intro+Caritas-Callout, Testimonials, 10 Bereiche, Kosten 21,50 €, Kontakt Helga Jantschek, FAQ, CTA) |
-| Offener Kühlschrank | [Link](https://www.sanktbonifatius.de/engagiert-leben/offener-kuehlschrank/) | `src/pages/engagiert-leben/offener-kuehlschrank.astro` | Werner | ✅ erledigt | Page-ID 49123, eigene `astro-ok`-Komponenten (Hero, Lead, Intro, 2 Mitmach-Karten, Hintergrund, Standort+Maps-Link, FAQ, CTA) |
+| Offener Kühlschrank | [Link](https://www.sanktbonifatius.de/engagiert-leben/offener-kuehlschrank/) | — (Link auf `/kirchorte/st-aposteln/offener-kuehlschrank/`) | Werner | ✅ erledigt | Page-ID 49123; eigene Astro-Seite am 2026-07-07 gelöscht (Doppelung, gleiches Angebot wie St. Aposteln, Zeile 67), Kachel auf der Engagiert-Leben-Übersicht verweist seitdem direkt auf die Kirchort-Seite (analog Kleider Café) |
 
 ## 10 · Kultur & Begegnung (mit Unterseiten)
 

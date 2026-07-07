@@ -1059,7 +1059,6 @@ WP nutzt die Theme-Präfixe `el-`, `nh-`, `ok-` → tabu. Eigene Präfixe je Sei
 |-------|---------|-------|--------|-------------|
 | Engagiert Leben (Übersicht) | 46769 | `src/pages/engagiert-leben/index.astro` | `astro-el` | `ElHero`, `ElIntro`, `ElTiles`, `ElFaq`, `ElCta` + `EventCalendar` (Kat. **2590**) |
 | Nachbarschaftliches Hilfenetz | 49124 | `src/pages/engagiert-leben/nachbarschaftliches-hilfenetz.astro` | `astro-nh` | `NhHero`, `NhIntro`, `NhTestimonials`, `NhAreas`, `NhCosts`, `NhContact`, `NhFaq`, `NhCta` |
-| Offener Kühlschrank | 49123 | `src/pages/engagiert-leben/offener-kuehlschrank.astro` | `astro-ok` | `OkHero`, `OkLead`, `OkIntro`, `OkCards`, `OkBg`, `OkStandort`, `OkFaq`, `OkCta` |
 
 Route der Übersicht als `engagiert-leben/index.astro`, die Unterseiten als Geschwister-Dateien
 im selben Verzeichnis → erzeugen exakt die WP-Pfade (wichtig für `getSeoHead` + canonical).
@@ -1082,3 +1081,10 @@ verlinkt seit 2026-07-02 auf die bestehende Kirchort-Seite
 pflegen zu müssen (Musterentscheidung, vgl. Abschnitt 3 „goldene Regel" gilt nur für CSS, nicht
 für Content-Duplizierung). **Sozialberatung** bleibt auf einen `mailto:`. Beim Portfolio-Check
 vor Go-Live (Abschnitt 12) trotzdem gegenprüfen.
+
+> **Update 2026-07-07 — „Offener Kühlschrank" nach demselben Muster bereinigt:** Die eigene
+> Unterseite `src/pages/engagiert-leben/offener-kuehlschrank.astro` (Page-ID 49123) plus ihre
+> `Ok*`-Komponenten wurden **gelöscht** — sie beschrieb dasselbe Angebot wie die Kirchort-Seite
+> [`/kirchorte/st-aposteln/offener-kuehlschrank/`](../src/pages/kirchorte/st-aposteln/offener-kuehlschrank.astro)
+> (Page-ID 49509, Abschnitt „Kirchort-Seiten"). Die Kachel in `ElTiles.astro` verlinkt jetzt
+> direkt dorthin, analog zum Kleider Café.
