@@ -231,6 +231,69 @@ async function resolveMediaUrls(ids) {
   return map;
 }
 
+// --- Monatsprogramme (z.B. St. Aposteln): aktuelle + kommende Ausgabe automatisch ------
+// aus der Mediathek ziehen, statt Link + Monatsangabe jeden Monat per Hand im Code zu
+// pflegen. WICHTIG: Der REST-Parameter `search=` ist auf dieser WP-Instanz gesperrt
+// (liefert für JEDEN Suchbegriff einen 400er, vermutlich Server-Hardening) — deshalb holen
+// wir stattdessen die letzten `scan` PDF-Uploads OHNE search-Parameter und filtern selbst
+// nach Kirchort-Wort + einem Programm-Hinweiswort. Monat/Jahr werden aus dem Medientitel
+// gelesen (nicht aus dem Upload-Datum), damit spätere Nachreichungen/Korrekturen nicht stören.
+const MONTH_NAMES = [
+  'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+  'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember',
+];
+// Deckt die real vorkommenden Titel-Varianten ab, z.B. "Monatsprogramm-Aposteln-August-2026"
+// UND "st aposteln angebote im Juli 2026" (Sekretärinnen benennen nicht immer gleich).
+const PROGRAMM_HINWEISWORTE = ['programm', 'angebote'];
+
+function parseMonthYear(text) {
+  const t = text.toLowerCase();
+  for (let i = 0; i < MONTH_NAMES.length; i++) {
+    const idx = t.indexOf(MONTH_NAMES[i].toLowerCase());
+    if (idx === -1) continue;
+    const yearMatch = t.slice(idx, idx + MONTH_NAMES[i].length + 8).match(/\d{4}/);
+    if (yearMatch) return { month: i, year: Number(yearMatch[0]) };
+  }
+  return null;
+}
+
+// Liefert bis zu `max` Ausgaben (aktuelle + zukünftige, chronologisch), z.B.
+// [{ url, label: 'August 2026', tag: 'aktuell' }, { url, label: 'September 2026', tag: 'Ausblick' }].
+// `ortWort` = eindeutiges Kirchort-Wort im Dateititel (z.B. 'aposteln'). Bereits vergangene
+// Monate werden verworfen. Findet WP nichts Passendes → [] (Aufrufer blendet den
+// Download-Bereich dann einfach aus, der Build bricht nie ab).
+export async function getMonatsprogramme(ortWort, max = 2, scan = 40) {
+  try {
+    const res = await fetch(
+      `${WP_API}/media?media_type=application&orderby=date&order=desc&per_page=${scan}&_fields=id,title,source_url`,
+      { cache: 'no-store' }
+    );
+    if (!res.ok) return [];
+    const items = await res.json();
+
+    const now = new Date();
+    const curKey = now.getFullYear() * 12 + now.getMonth();
+    const ort = ortWort.toLowerCase();
+    const seenKeys = new Set();
+    const parsed = [];
+    for (const item of items) {
+      const title = decodeEntities(item.title?.rendered ?? '');
+      const t = title.toLowerCase();
+      if (!t.includes(ort) || !PROGRAMM_HINWEISWORTE.some((w) => t.includes(w))) continue;
+      const my = parseMonthYear(title);
+      if (!my) continue;
+      const key = my.year * 12 + my.month;
+      if (key < curKey || seenKeys.has(key)) continue; // vergangen oder Duplikat → raus
+      seenKeys.add(key);
+      parsed.push({ key, url: item.source_url, label: `${MONTH_NAMES[my.month]} ${my.year}` });
+    }
+    parsed.sort((a, b) => a.key - b.key);
+    return parsed.slice(0, max).map(({ url, label }, i) => ({ url, label, tag: i === 0 ? 'aktuell' : 'Ausblick' }));
+  } catch {
+    return [];
+  }
+}
+
 // Alle Termine mit aufgelöstem Bild für die Detailseiten (src/pages/termine/[slug].astro).
 // Termine haben keinen Fließtext — alle Infos stehen in `event_meta`. Das Bild ist eine Media-ID.
 export async function getEventsFull() {

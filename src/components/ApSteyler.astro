@@ -1,4 +1,6 @@
 ---
+import { getMonatsprogramme } from '../lib/wordpress.js';
+const programme = await getMonatsprogramme('aposteln');
 ---
 <div class="astro-ap-root astro-ap-sec alt" id="weitere-angebote">
   <div class="astro-ap-in">
@@ -21,19 +23,38 @@
         </div>
       </a>
 
-      <a href="https://www.sanktbonifatius.de/wp-content/uploads/2026/07/Monatspgrogramm-St.-Aposteln.pdf" target="_blank" rel="noopener" class="astro-sw-karte">
+      <div class="astro-sw-karte">
         <div class="astro-sw-karte__kopf" style="background:linear-gradient(135deg,#2a5c2a 0%,#3d7a3d 100%)">
           <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
           <div>
             <div class="astro-sw-karte__titel">Monatsprogramm</div>
-            <div class="astro-sw-karte__sub">Aktuell · Ausgabe Juli 2026</div>
           </div>
         </div>
         <div class="astro-sw-karte__body">
           <p class="astro-sw-karte__text">Alle aktuellen Veranstaltungen und Termine am Kirchort St. Aposteln auf einen Blick — jeden Monat neu zusammengestellt. Auch in der Kirche ausliegend.</p>
-          <span class="astro-sw-karte__more">Programm herunterladen →</span>
+          {programme.length > 0 && (
+            <div class="astro-sw-karte__links">
+              {programme.map((p, i) => (
+                <a
+                  class:list={['astro-sw-karte__linkrow', { 'astro-sw-karte__linkrow--secondary': i > 0 }]}
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="astro-sw-karte__linkrow__icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg>
+                  </span>
+                  <span class="astro-sw-karte__linkrow__txt">
+                    <span class="astro-sw-karte__linkrow__month">{p.label}</span>
+                    <span class="astro-sw-karte__linkrow__tag">{p.tag}</span>
+                  </span>
+                  <span class="astro-sw-karte__linkrow__arrow">→</span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
-      </a>
+      </div>
 
     </div>
   </div>
@@ -100,6 +121,75 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--ap-g);
+}
+.astro-sw-karte__links {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #ece7de;
+}
+.astro-sw-karte__linkrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 2px;
+  border-bottom: 1px solid #ece7de;
+  text-decoration: none;
+  color: inherit;
+}
+.astro-sw-karte__links a.astro-sw-karte__linkrow:last-child {
+  border-bottom: none;
+  padding-bottom: 2px;
+}
+.astro-sw-karte__linkrow__icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ap-gs, #e6f4e8);
+}
+.astro-sw-karte__linkrow__icon svg {
+  stroke: var(--ap-g);
+}
+.astro-sw-karte__linkrow__txt {
+  flex: 1;
+  min-width: 0;
+}
+.astro-sw-karte__linkrow__month {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ap-ink, #1e1512);
+}
+.astro-sw-karte__linkrow__tag {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--ap-g);
+  background: var(--ap-gs, #e6f4e8);
+  border-radius: 5px;
+  padding: 2px 6px;
+  vertical-align: 1px;
+}
+.astro-sw-karte__linkrow--secondary .astro-sw-karte__linkrow__month {
+  color: var(--ap-mute);
+}
+.astro-sw-karte__linkrow--secondary .astro-sw-karte__linkrow__tag {
+  color: var(--ap-mute);
+  background: #f1ede6;
+}
+.astro-sw-karte__linkrow__arrow {
+  flex: 0 0 auto;
+  color: var(--ap-g);
+  font-size: 14px;
+  font-weight: 600;
+}
+.astro-sw-karte__linkrow:hover .astro-sw-karte__linkrow__month {
+  text-decoration: underline;
 }
 @media (max-width: 860px) {
   .astro-ap-grid.two { grid-template-columns: 1fr; }
