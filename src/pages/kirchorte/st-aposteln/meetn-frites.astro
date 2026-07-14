@@ -3,9 +3,26 @@
 // (/ueberuns/kirchorte/st-aposteln/meetn-frites/, Unterseite von 45941)
 // Vollständig aus eigenen astro-mf-* Klassen (WP-Klon-Muster). Nav + Footer aus Base.astro.
 import Base from '../../../layouts/Base.astro';
-import { getSeoHead } from '../../../lib/wordpress.js';
+import { getSeoHead, getMeetnFritesTermine } from '../../../lib/wordpress.js';
 
 const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/meetn-frites/');
+const termine = await getMeetnFritesTermine(3);
+
+// Gleiches Format wie die Termin-Detailseiten (src/pages/termine/[slug].astro).
+function parseYmd(s) {
+  if (!s || s.length < 8) return null;
+  return new Date(Number(s.slice(0, 4)), Number(s.slice(4, 6)) - 1, Number(s.slice(6, 8)));
+}
+function fmtDate(s) {
+  const d = parseYmd(s);
+  return d ? d.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) : '';
+}
+// Sonderausgaben (z.B. "… : Soßenfestival!") tragen einen Doppelpunkt im Titel — deren
+// Zusatz zeigen wir unter dem Datum an, damit Besucher nicht von "17-19 Uhr" allein ausgehen.
+function specialLabel(title) {
+  const i = title.indexOf(':');
+  return i === -1 ? '' : title.slice(i + 1).replace(/[!.]+$/, '').trim();
+}
 ---
 <Base seo={seo} title="Meet'n Frites – Schwestern-Pommes Frankfurt · Kirche St. Aposteln · Pfarrei Sankt Bonifatius">
 
@@ -89,8 +106,18 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/meetn-frites/');
           <a href="tel:+496969714900" class="astro-mf-termin__link">069 697 14 900</a></p>
         </div>
         <div class="astro-mf-dates">
-          <div class="astro-mf-dates__row"><span class="astro-mf-dates__day">11. Juni 2026</span><span>17 – 19 Uhr</span></div>
-          <div class="astro-mf-dates__row"><span class="astro-mf-dates__day">25. Juni 2026</span><span>17 – 19 Uhr</span></div>
+          {termine.length === 0 && (
+            <p class="astro-mf-termin__p" style="margin:0">Die nächsten Termine werden in Kürze hier ergänzt.</p>
+          )}
+          {termine.map((t) => (
+            <a class="astro-mf-dates__row" href={t.path}>
+              <span class="astro-mf-dates__day">
+                {fmtDate(t.date)}
+                {specialLabel(t.title) && <span class="astro-mf-dates__special"> · {specialLabel(t.title)}</span>}
+              </span>
+              <span>{t.times}</span>
+            </a>
+          ))}
           <div class="astro-mf-dates__row astro-mf-dates__row--note"><span class="astro-mf-dates__day">Alle 14 Tage</span><span>donnerstags</span></div>
         </div>
       </div>
@@ -353,13 +380,17 @@ const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/meetn-frites/');
   border-radius: 8px;
   font-size: 15px;
   color: var(--mf-ink);
+  text-decoration: none;
+  transition: background .2s;
 }
+a.astro-mf-dates__row:hover { background: #d3ead6; }
 .astro-mf-dates__row--note {
   background: var(--mf-cream);
   font-size: 13px;
   color: var(--mf-mute);
 }
 .astro-mf-dates__day { font-weight: 700; }
+.astro-mf-dates__special { font-weight: 600; color: var(--mf-g); }
 
 /* ─── Mitmachen ─── */
 .astro-mf-mitmachen {

@@ -318,6 +318,42 @@ export async function getEventsFull() {
   }
 }
 
+// --- Meet'n Frites St. Aposteln: nächste Termine automatisch aus der Termindatenbank ---
+// Die Karte auf /kirchorte/st-aposteln/meetn-frites/ pflegte die Termine bisher von Hand
+// im Code — genau die Art Detailseite, die beim nächsten Umbau leicht vergessen wird.
+// Filtert alle künftigen Termine, deren Titel "frites" enthält (deckt alle bisherigen
+// Schreibweisen ab: Backtick/Apostroph, sowie Sonderausgaben wie "Soßenfestival").
+// `status=trash`-Termine liefert die öffentliche (unauthentifizierte) API ohnehin nicht mit.
+// Paginiert über alle Seiten (WP-`per_page`-Limit ist 100, es gibt >100 Termine insgesamt).
+export async function getMeetnFritesTermine(max = 3) {
+  try {
+    let events = [];
+    for (let page = 1; page <= 5; page++) {
+      const res = await fetch(
+        `${WP_API}/event?per_page=100&page=${page}&_fields=id,slug,link,title,event_meta`,
+        { cache: 'no-store' }
+      );
+      if (!res.ok) break;
+      const batch = await res.json();
+      events = events.concat(batch);
+      if (batch.length < 100) break;
+    }
+    const todayKey = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    return events
+      .filter((e) => /frites/i.test(e.title?.rendered ?? '') && (e.event_meta?.start_date ?? '0') >= todayKey)
+      .sort((a, b) => (a.event_meta.start_date || '').localeCompare(b.event_meta.start_date || ''))
+      .slice(0, max)
+      .map((e) => ({
+        date: e.event_meta.start_date,
+        times: e.event_meta.times || '',
+        title: decodeEntities(e.title?.rendered ?? ''),
+        path: (() => { try { return new URL(e.link).pathname; } catch { return '/'; } })(),
+      }));
+  } catch {
+    return []; // WP nicht erreichbar → leere Liste, Komponente zeigt dann nur den Turnus-Hinweis
+  }
+}
+
 // --- "Aktuelles": Beiträge (posts) + News (pin) zusammenführen -----------------------
 // "News" = WP-Custom-Post-Type `pin` (Menü "News" im WP-Admin): Bild, Video oder Fotogalerie.
 // Der pin-REST-Endpunkt liefert KEIN Bild/Typ — diese Daten stehen nur im Theme-Datenblob
