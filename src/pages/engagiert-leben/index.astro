@@ -7,6 +7,7 @@ import Base from '../../layouts/Base.astro';            // ACHTUNG: zwei Ebenen 
 import { getSeoHead } from '../../lib/wordpress.js';
 import EventCalendar from '../../components/EventCalendar.astro';
 import ElHero from '../../components/ElHero.astro';
+import ElStrip from '../../components/ElStrip.astro';
 import ElIntro from '../../components/ElIntro.astro';
 import ElTiles from '../../components/ElTiles.astro';
 import ElFaq from '../../components/ElFaq.astro';
@@ -16,6 +17,7 @@ const seo = await getSeoHead('/engagiert-leben/');
 ---
 <Base seo={seo} title="Engagiert Leben – Ehrenamt & soziales Engagement · St. Bonifatius Frankfurt">
   <ElHero />
+  <ElStrip />
   <ElIntro />
   <ElTiles />
   <div id="el-termine" class="astro-el-anchor">
@@ -40,10 +42,13 @@ const seo = await getSeoHead('/engagiert-leben/');
 #el-kuehlschrank,
 #el-beratung { scroll-margin-top: 96px; }
 
-/* Termin-Überschriften in Bordeaux + weiße Karten — nur auf dieser Seite (Muster bonfamily) */
+/* Termin-Überschriften in Violett — nur auf dieser Seite (Muster bonfamily) */
 #el-termine .astro-ev__hl,
 #el-termine .astro-ev-card__title,
 #el-termine .astro-ev-list__hl,
-#el-termine .astro-ev-list__title { color: #9a2d2d; }
+#el-termine .astro-ev-list__title { color: #7b2fbe; }
+/* Sektion weiß statt Standard-Creme — wechselt sich mit ElTiles (Creme) davor und
+   ElFaq (Creme) danach ab (Bänder-Prinzip wie St. Aposteln, Handbuch 04-design-system §5) */
+#el-termine .astro-ev { background: #fff; }
 #el-termine .astro-ev-card { background: #fff; }
 </style>
