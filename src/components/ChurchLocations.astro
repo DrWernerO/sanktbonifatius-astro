@@ -2,14 +2,16 @@
 // Kirchorte (ersetzt WP-Block `bh3a-kirch`). 4 Kärtchen mit Bild/Overlay/Text.
 // Bilder lokal im Projekt unter public/uploads/ (vom WP heruntergeladen, Handbuch 1b).
 const IMG = '/uploads';
+// Farben je Kirchort = Primärfarbe der jeweiligen Kirchort-Hero-Komponente
+// (HjHero/HjCards, ApHero, StbHero, SwHero) — hier nur referenziert, nicht neu erfunden.
 const cards = [
-  { href: '/kirchorte/herz-jesu/', img: `${IMG}/2020/05/Kirche-HerzJesu-1.jpg`,
+  { href: '/kirchorte/herz-jesu/', img: `${IMG}/2020/05/Kirche-HerzJesu-1.jpg`, color: '#9a2d2d',
     name: 'Herz Jesu', desc: '160 Jahre Kirchengeschichte in Oberrad. Ökumenisch offen, mit Visionen für die Zukunft.' },
-  { href: '/kirchorte/st-aposteln/', img: `${IMG}/2020/05/KircheStAposteln.jpeg`,
+  { href: '/kirchorte/st-aposteln/', img: `${IMG}/2020/05/KircheStAposteln.jpeg`, color: '#016006',
     name: 'St. Aposteln', desc: 'Kirche für die Menschen im Stadtteil. Offen für alle, die Gemeinschaft oder Unterstützung suchen.' },
-  { href: '/kirchorte/st-bonifatius/', img: `${IMG}/2020/04/St.-Bonifatius-von-oben.jpg`,
+  { href: '/kirchorte/st-bonifatius/', img: `${IMG}/2020/04/St.-Bonifatius-von-oben.jpg`, color: '#6440a4',
     name: 'St. Bonifatius', desc: 'Pfarrkirche mit Gottesdiensten für jeden Geschmack. Treffpunkt für Familien und Heimat der Jugendkirche JONA.' },
-  { href: '/kirchorte/st-wendel/', img: `${IMG}/2021/10/St_Wendel_Teaser.jpg`,
+  { href: '/kirchorte/st-wendel/', img: `${IMG}/2021/10/St_Wendel_Teaser.jpg`, color: '#012C7B',
     name: 'St. Wendel', desc: 'Kirche in der Nachbarschaft für alle Generationen. Glaube und Gemeinschaft mit Freude gelebt.' },
 ];
 ---
@@ -19,7 +21,7 @@ const cards = [
     <p class="astro-kirch__sub">Vier Kirchen, ein Geist — in den Stadtteilen Sachsenhausen und Oberrad.</p>
     <div class="astro-kirch__grid">
       {cards.map((c) => (
-        <a href={c.href} class="astro-kcard">
+        <a href={c.href} class="astro-kcard" style={`--k-accent:${c.color}`}>
           <div class="astro-kcard__img" role="img" aria-label={`Kirche ${c.name}`} style={`background-image:url('${c.img}')`}>
             <div class="astro-kcard__overlay"></div>
           </div>
@@ -41,10 +43,10 @@ const cards = [
 .astro-kirch__sub{font-size:15px;color:#7a6d59;text-align:center;margin:0 0 36px}
 .astro-kirch__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .astro-kcard{border-radius:10px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
-.astro-kcard:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(44,36,32,.15)}
+.astro-kcard:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(44,36,32,.12),0 6px 18px color-mix(in srgb,var(--k-accent) 30%,transparent)}
 .astro-kcard__img{height:160px;background-size:cover;background-position:center;position:relative}
 .astro-kcard__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(44,36,32,.7) 0%,transparent 60%)}
-.astro-kcard__body{padding:20px;background:#fff;flex:1;display:flex;flex-direction:column;gap:6px;border-bottom:3px solid #928269}
+.astro-kcard__body{padding:20px;background:#fff;flex:1;display:flex;flex-direction:column;gap:6px;border-bottom:3px solid var(--k-accent)}
 .astro-kcard__name{font-family:'Playfair Display',serif;font-size:17px;color:#2c2420;font-weight:700;margin:0}
 .astro-kcard__desc{font-size:12px;color:#7a6d59;line-height:1.5;margin:0;flex:1}
 .astro-kcard__link{font-size:12px;color:#928269;font-weight:600;margin-top:4px}
