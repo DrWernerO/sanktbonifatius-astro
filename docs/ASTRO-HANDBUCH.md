@@ -72,50 +72,114 @@ export default defineConfig({
 - `sanktbonifatius.de` zeigt per DNS auf **Netlify** → liefert das statische Astro-Frontend.
 - Quellcode + Backup des Frontends in **Git/GitHub**; Netlify baut bei jedem Push automatisch (`astro build`).
 
-### Erledigt (2026-06-28)
+### Erledigt
 - [x] GitHub-Repo angelegt (`DrWernerO/sanktbonifatius-astro`)
 - [x] Netlify-Projekt mit Repo verbunden — baut autom. bei jedem Push auf `main`
 - [x] Adapter auf `@astrojs/netlify` umgestellt (Abschnitt 13b)
 - [x] `/wp-proxy`-Rewrite für den Live-Betrieb in [`public/_redirects`](../public/_redirects) ergänzt
+- [x] **Alle Fotos lokal** (2026-07-18): keine Bild-URLs mehr aus WordPress — siehe **Regel unten**
+      und Abschnitt 1g. Damit entfällt der frühere „Bild-URLs umziehen"-Punkt beim WP-Umzug.
+- [x] **Taufe-Formular versendet live** über `formular@mail.sanktbonifatius.de` (All-inkl), SMTP als
+      Netlify-Env-Vars (Abschnitt 13b)
+- [x] **Rebuild-Webhook läuft** (Abschnitt 1c) — Hook angelegt, Code in `functions.php`, end-to-end getestet
 
 ### Noch offen (TODO)
 - [ ] WordPress auf `cms.sanktbonifatius.de` umziehen
-- [ ] **Rebuild-Webhook** einrichten (siehe Abschnitt 1c) — *aktuell NICHT vorhanden*
 - [ ] DNS umstellen (Domain → Netlify, CMS-Subdomain → All-inkl)
-- [ ] **Datei-/Bild-URLs umziehen:** Beim WP-Umzug zeigen alle fest verdrahteten WP-URLs noch auf
-      `dev.sanktbonifatius.de`. Betroffen u.a. die **Download-Links** (`DOWNLOADS` in
+- [ ] **PDF-Download-Links prüfen:** Beim WP-Umzug zeigen die fest verdrahteten **PDF**-URLs noch auf
+      `www.sanktbonifatius.de` (z.B. **Download-Links** `DOWNLOADS` in
       [`Nav.astro`](../src/components/Nav.astro), Pfarrbrief/Highlights inkl. `?v=`-Cache-Busting,
-      Abschnitt 1d) sowie Bild-URLs in Hero/Kirchorte/Marquee/Feature-Blöcken. Auf die neue
-      CMS-Domain (`cms.sanktbonifatius.de`) umstellen.
+      Abschnitt 1d; diverse Flyer/Formulare in Kirchort-Seiten). Auf die neue CMS-Domain
+      (`cms.sanktbonifatius.de`) umstellen. **Bilder sind bereits lokal** und nicht betroffen.
+
+> **📷 REGEL: Fotos immer lokal, nie aus WordPress ziehen.** Alle aktuell verwendeten Bilder liegen
+> unter [`public/uploads/…`](../public/uploads) und werden über einen **relativen** Pfad
+> (`/uploads/JAHR/MONAT/datei.jpg`) referenziert — **keine** `https://…sanktbonifatius.de/wp-content/…`-
+> Bild-URLs mehr. Vorteile: unabhängig vom WP-Umzug, schneller, keine Broken Images bei DNS-Umstellung.
+> **Beim Bau neuer Seiten:** benötigte Fotos aus WP herunterladen nach `public/uploads/JAHR/MONAT/`
+> und lokal verlinken (Ablauf in Abschnitt 1g). **Ausnahme: PDFs** (Pfarrbrief, Flyer, Formulare)
+> bleiben bewusst in WordPress — die pflegen die Sekretärinnen dort, Cache-Busting via `?v=` (Abschnitt 1d).
 
 ---
 
-## 1c. Automatischer Rebuild bei WP-Änderungen (Webhook) — KONZEPT, noch nicht gebaut
+## 1c. Automatischer Rebuild bei WP-Änderungen (Webhook) — ✅ LÄUFT (getestet 2026-07-18)
 
-> **Wichtig / ehrlicher Stand:** Netlify baut bereits **automatisch bei jedem Push** auf den
-> `main`-Branch (GitHub) — Code-Änderungen sind also nach kurzer Zeit auf der Vorschau-Adresse
-> live. Was **noch fehlt**, ist der Auslöser bei reinen **WordPress-Inhaltsänderungen**
-> (neuer Termin/Beitrag, ohne Code-Push): dafür ist **noch kein Webhook gebaut**. Lokal
-> (`npm run dev`) ist er unnötig — Astro holt die WP-Daten bei jedem Seitenaufruf frisch.
+> **Stand 2026-07-18:** Vollständig eingerichtet und **end-to-end verifiziert** — Termin in
+> WordPress geändert → Netlify-Build mit Auslöser „Deploy triggered by hook" erschien binnen
+> Sekunden. Der Hook heißt in Netlify **„Netlify Aktualisierung durch WordPress"**; der Code steht
+> am Ende der WordPress-`functions.php` (Schritt 2 unten). Netlify baut ohnehin schon **bei jedem
+> Push** auf `main`; dieser Webhook ergänzt den Auslöser für reine **WordPress-Inhaltsänderungen**
+> (neuer Termin/Beitrag ohne Code-Push). Lokal (`npm run dev`) ist er unnötig — Astro holt die
+> WP-Daten bei jedem Seitenaufruf frisch.
 
 ### Warum überhaupt ein Webhook?
 Auf Netlify ist die Seite statisch: WP-Inhalte werden **zum Build-Zeitpunkt** abgefragt und
 in fertiges HTML gegossen. Ein neuer Termin/Beitrag im WP wird also **erst nach einem neuen
 Build** sichtbar. Damit das automatisch passiert, braucht es einen Auslöser.
 
-### Geplante Umsetzung (wenn Netlify steht)
-1. In Netlify einen **Build-Hook** anlegen → ergibt eine geheime URL
-   (`https://api.netlify.com/build_hooks/XXXX`).
-2. In WordPress bei Inhalts-Änderungen ein `POST` an diese URL senden. Optionen:
-   - **Plugin** „WP Webhooks" / „Headless WP" o. Ä. (Trigger: Beitrag/Termin gespeichert/veröffentlicht), **oder**
-   - kleiner Hook in `functions.php` mit `wp_remote_post()` an die Build-Hook-URL bei
-     `save_post` / `publish_post`.
-3. Optional zusätzlich: **zeitgesteuerter Rebuild** (Netlify Scheduled Build, z.B. nächtlich)
-   als Sicherheitsnetz.
+### Schritt 1 (manuell, braucht Netlify-Login) — Build-Hook anlegen ✅ erledigt (2026-07-18)
+Im Netlify-Dashboard: **Project configuration → Build & deploy → Continuous deployment**, runter
+zu **Build hooks → „Add build hook"**. Name `WordPress-Inhalt`, Branch `main` → **Save**. Netlify
+zeigt eine geheime URL der Form `https://api.netlify.com/build_hooks/XXXXXXXX`.
+**Die URL ist ein Geheimnis** (wer sie kennt, kann Builds auslösen) → **NICHT** ins Git-Repo,
+nicht öffentlich posten. **Stand:** Hook ist angelegt; die echte URL steht **nur** in der
+WordPress-`functions.php` (nicht hier im Repo). Neu-Anlage bei Bedarf über denselben Weg.
 
-> Sobald das gebaut ist, diesen Abschnitt mit den **konkreten Werten** aktualisieren
-> (welches Plugin / welcher Code, welche Trigger, Hook-URL-Verweis — **nicht die geheime URL
-> selbst** ins Repo schreiben).
+### Schritt 2 — Code in WordPress (`functions.php`)
+Am Ende der `functions.php` (Theme-Editor, `theme=ursprung-bonifatius`; Zugang: Team-Handbuch 02)
+einfügen. Feuert bei Veröffentlichen/Ändern/Löschen von **Beitrag, Seite und Termin** und ist
+gegen Autosaves/Revisionen sowie schnelle Mehrfach-Speicherung (90-Sek.-Sperre) abgesichert:
+
+```php
+/* ===== Netlify-Rebuild bei Inhaltsänderungen ================================
+ * POST an den Netlify Build-Hook, wenn Beitrag/Seite/Termin veröffentlicht,
+ * geändert, gelöscht oder in den Papierkorb verschoben wird → Netlify baut die
+ * statische Astro-Seite automatisch neu.
+ * Die Hook-URL aus Schritt 1 unten einsetzen. functions.php liegt NICHT im
+ * öffentlichen Git-Repo → die URL ist hier tolerierbar; trotzdem nicht teilen.
+ * ========================================================================== */
+if ( ! function_exists( 'sb_trigger_netlify_build' ) ) {
+
+    // >>> HIER die Build-Hook-URL aus Netlify (Schritt 1) eintragen <<<
+    if ( ! defined( 'SB_NETLIFY_BUILD_HOOK' ) ) {
+        define( 'SB_NETLIFY_BUILD_HOOK', 'https://api.netlify.com/build_hooks/XXXXXXXX' );
+    }
+
+    function sb_trigger_netlify_build( $post_id ) {
+        if ( ! SB_NETLIFY_BUILD_HOOK || false !== strpos( SB_NETLIFY_BUILD_HOOK, 'XXXXXXXX' ) ) return;
+        if ( ! in_array( get_post_type( $post_id ), array( 'post', 'page', 'event' ), true ) ) return;
+        if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+        if ( get_transient( 'sb_netlify_build_lock' ) ) return;   // Debounce: max. 1 Build / 90 Sek.
+        set_transient( 'sb_netlify_build_lock', 1, 90 );
+
+        wp_remote_post( SB_NETLIFY_BUILD_HOOK, array(
+            'blocking' => false,          // Editor nicht blockieren
+            'timeout'  => 5,
+            'headers'  => array( 'Content-Type' => 'application/json' ),
+            'body'     => '{}',
+        ) );
+    }
+
+    // Veröffentlichen / Ändern eines öffentlichen Inhalts
+    add_action( 'transition_post_status', function ( $new, $old, $post ) {
+        if ( 'publish' === $new || 'publish' === $old ) sb_trigger_netlify_build( $post->ID );
+    }, 10, 3 );
+
+    // Löschen / Papierkorb
+    add_action( 'trashed_post', 'sb_trigger_netlify_build' );
+    add_action( 'delete_post',  'sb_trigger_netlify_build' );
+}
+```
+
+### Schritt 3 — testen
+In WordPress einen Termin/Beitrag speichern → in Netlify unter **Deploys** sollte binnen Sekunden
+ein neuer Build mit Auslöser „Build hook" erscheinen. (Wegen der 90-Sek.-Sperre löst schnelles
+Mehrfach-Speichern nur **einen** Build aus.)
+
+### Optional als Sicherheitsnetz
+Zusätzlich ein **zeitgesteuerter Rebuild** (Netlify Scheduled Build, z.B. nächtlich) — fängt den
+seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingerichtet.
 
 ---
 
@@ -272,6 +336,36 @@ const pfarrbriefUrl = await withVersion(DOWNLOADS.pfarrbrief);
   Kurz-URL gibt (z. B. „Gottesdienste, die berühren"), steht der echte Pfad.
 - **Wartung:** Bei neuen/verschobenen Seiten `llms.txt` mitpflegen — am besten gemeinsam mit
   `_redirects` und `SEITENVERZEICHNIS.md`.
+
+---
+
+## 1g. Fotos immer lokal einbinden (keine WP-Bild-URLs) — ✅ REGEL seit 2026-07-18
+
+> **Grundregel:** Alle aktuell verwendeten **Fotos** liegen im Repo unter
+> [`public/uploads/…`](../public/uploads) und werden **relativ** referenziert
+> (`/uploads/JAHR/MONAT/datei.jpg`). **Keine** `https://…sanktbonifatius.de/wp-content/…`-Bild-URLs
+> mehr. So ist das Frontend unabhängig vom späteren WordPress-Umzug (Abschnitt 1b), lädt schneller
+> und zeigt keine Broken Images bei der DNS-Umstellung. **PDFs** (Pfarrbrief, Flyer, Formulare)
+> bleiben bewusst in WordPress (die Sekretärinnen pflegen sie dort) — Cache-Busting via `?v=` (1d).
+
+### Ablauf beim Bau neuer Seiten
+1. Benötigte Fotos aus WordPress herunterladen in den passenden Monatsordner, z.B.:
+   ```bash
+   mkdir -p public/uploads/2026/06
+   curl -o public/uploads/2026/06/foto.jpg \
+     https://www.sanktbonifatius.de/wp-content/uploads/2026/06/foto.jpg
+   ```
+2. In der Komponente **relativ** verlinken: `src="/uploads/2026/06/foto.jpg"` bzw. im CSS
+   `background-image:url('/uploads/2026/06/foto.jpg')`.
+3. Der Pfad `public/uploads/…` wird 1:1 als `/uploads/…` ausgeliefert (lokal wie auf Netlify).
+
+### Prüfen, ob noch WP-Bild-URLs übrig sind
+```bash
+grep -rn "sanktbonifatius\.de/wp-content" src --include="*.astro" --include="*.js" --include="*.ts" | grep -vi "\.pdf"
+```
+→ **muss leer sein.** Treffer = Foto noch nicht lokal (herunterladen + Pfad umstellen).
+Zuletzt geprüft **2026-07-18**: 0 Treffer (26 Fotos aus Sakramente-/Trauung-/BonFamily-Komponenten
+lokalisiert). Übrig bleiben nur PDF-Links (bewusst, siehe oben).
 
 ---
 
@@ -848,17 +942,18 @@ abgebildet. Wo das amtliche Formular zusammenfasst, werden Einzelfelder gejoint 
 > wird statt versendet unter `./.taufe-eingaben/` gespeichert (gitignored). Verifiziert 2026-06-21
 > (Formular abgeschickt → PDF korrekt erzeugt).
 
-### 🔜 Offen — SMTP fürs Taufe-Formular (bewusst aufgeschoben bis nach den restlichen Seiten)
-1. **SMTP-Zugangsdaten als Env-Vars** in Netlify hinterlegen (NIE ins Repo):
-   `SMTP_HOST/PORT/USER/PASS`, `SMTP_FROM`, `TAUFE_TO` — Muster in [`.env.example`](../.env.example).
-   **Plan (2026-06-28): Versand über Microsoft 365** statt All-inkl, weil die `@sanktbonifatius.de`-
-   Adressen dort liegen → beste Zustellbarkeit (SPF/DKIM aligned). Server `smtp.office365.com`,
-   Port 587. Hürde: MS365 blockt einfaches Passwort-Login → IT-Admin muss „Authenticated SMTP"
-   freischalten und ggf. App-Passwort / Funktionspostfach bereitstellen (Anfrage an IT läuft).
-2. ~~Adapter umstellen~~ ✅ **erledigt** — `@astrojs/netlify` ist aktiv (Abschnitt 1b/13b oben).
-   Noch zu prüfen: ob die Vorlage `src/lib/taufe/taufe-vorlage.pdf` im Serverless-Bundle landet
-   (die Route liest sie über `import.meta.url`).
-3. Danach echten Versand mit Test-Anmeldung verifizieren (Mail kommt mit PDF-Anhang an).
+### ✅ SMTP fürs Taufe-Formular — LÄUFT (Stand 2026-07-18)
+Der echte Mailversand ist **in Betrieb**: Die Anmeldung wird als PDF-Anhang zugestellt,
+Absender ist **`formular@mail.sanktbonifatius.de`** (Postfach bei **All-inkl** / kasserver.com).
+- **SMTP-Zugangsdaten liegen als Env-Vars in Netlify** (NICHT im Repo): `SMTP_HOST/PORT/USER/PASS`,
+  `SMTP_FROM`, `TAUFE_TO` — Muster in [`.env.example`](../.env.example).
+- **Der frühere MS-365-Plan ist verworfen** — Versand läuft über das All-inkl-Postfach
+  (`formular@mail.sanktbonifatius.de`), kein „Authenticated SMTP"/IT-Freischaltung nötig.
+- Adapter `@astrojs/netlify` ist aktiv (Abschnitt 1b); die Vorlage `taufe-vorlage.pdf` landet
+  im Serverless-Bundle (Route liest sie über `import.meta.url`) und der Versand ist verifiziert.
+
+> Ohne gesetzte SMTP-Env-Vars (z.B. lokal) greift weiterhin der DEV-Modus: PDF landet in
+> `./.taufe-eingaben/` statt versendet zu werden (siehe Kasten oben).
 
 > Die frühere WordPress-AJAX-Anbindung (`taufe_anmeldung`, Nonce-Abruf über `/wp-proxy`) ist abgelöst.
 > Der WP-Handler in `functions.php` bleibt unangetastet und versorgt weiterhin die alte WP-Seite.

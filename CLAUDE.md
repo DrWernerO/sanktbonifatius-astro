@@ -40,11 +40,19 @@
    werden gebaut, aber **nicht automatisch ins Menü aufgenommen**. Vor jeder Menü-Änderung
    Werners ausdrückliche Freigabe einholen.
 
-## Hosting-Stand (Details in Handbuch 1b–1d)
+## Hosting-Stand (Details in Handbuch 1b–1d, 1g)
 - **WordPress** läuft auf **All-inkl** (kasserver.com) → bleibt dort (Backend/CMS).
-- **Astro-Frontend** läuft derzeit **nur lokal**; produktiv geplant auf **Netlify** (noch nicht eingerichtet).
-- **Rebuild-Webhook** (WP-Änderung → Netlify-Build): **noch NICHT gebaut**, nur Konzept (Handbuch 1c).
-- **Pfarrbrief/Datei-Cache** (frische PDF trotz gleichem Namen): Lösung dokumentiert (Handbuch 1d), Helfer noch zu bauen.
+- **Astro-Frontend**: **Test-Deploy auf Netlify ist LIVE** (`sage-cupcake-956dae.netlify.app`, privat,
+  baut autom. bei jedem Push auf `main`); lokal via `npm run dev`. Echter Go-Live (eigene Domain via
+  DNS) erst, wenn alle Seiten fertig sind (Handbuch 1b).
+- **Fotos immer lokal** (`public/uploads/…`, relativer Pfad) — **keine** WP-Bild-URLs mehr (Handbuch 1g).
+  Ausnahme: PDFs bleiben in WordPress.
+- **Rebuild-Webhook** (WP-Änderung → Netlify-Build): **Code fertig** (Handbuch 1c); offen nur der
+  Netlify-Build-Hook (ein Klick im Dashboard) + URL eintragen.
+- **Taufe-Formular**: versendet live über `formular@mail.sanktbonifatius.de` (All-inkl), SMTP als
+  Netlify-Env-Vars (Handbuch 13b).
+- **Pfarrbrief/Datei-Cache** (frische PDF trotz gleichem Namen): ✅ umgesetzt via `withVersion()` in
+  `Nav.astro` (Handbuch 1d).
 
 ## Start
 ```bash
@@ -62,4 +70,4 @@ npm run dev   # läuft mit NODE_TLS_REJECT_UNAUTHORIZED=0 auf Port 4321
 - `src/pages/segen-sakramente/taufe.astro` — Taufe-Seite (Page-ID 46566), 100 % eigene `Taufe*`-Komponenten; Anmeldeformular postet an eigene Route `/api/taufe-anmeldung` (Handbuch 13/13b)
 - `src/pages/api/taufe-anmeldung.ts` — API-Route: füllt das amtliche Taufe-PDF + verschickt es als Mail-Anhang (`prerender = false`)
 - `src/lib/taufe/` — `fill-taufe.js` (Formulardaten → PDF) + `taufe-vorlage.pdf` (ausfüllbare Vorlage); Generator: `scripts/build-taufe-vorlage.mjs`
-- `astro.config.mjs` — Vite-Proxy `/wp-proxy`; Server-Modus via `@astrojs/node` (für `/api/*`)
+- `astro.config.mjs` — Vite-Proxy `/wp-proxy`; Server-Modus via `@astrojs/netlify` (für `/api/*`)

@@ -2,7 +2,9 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **80 Live-Seiten erfasst · 78 bereits in Astro übernommen bzw. per Direktlink/Redirect erledigt · 2 offen.** Stand: 29.06.2026.
+> **86 Live-Seiten erfasst · 78 bereits in Astro übernommen bzw. per Direktlink/Redirect erledigt · 8 offen.** Stand: 18.07.2026.
+>
+> Offen: „Pfarrer Dr. Werner Otto" (Über uns) + die 7 Kita-Seiten (Übersicht, 5 Einzel-Kitas, Stellenbörse) — Abschnitt 11.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
