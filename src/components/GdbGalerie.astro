@@ -1,0 +1,126 @@
+---
+// Fotogalerie „Schauen Sie mal rein!" (Eindrücke der Taizégottesdienste).
+// Sitzt hinter den Terminen (GdbFormate) und vor dem CTA. Eigene Klassen `astro-gdbgal`.
+// 3 Vorschaubilder im Raster; Klick öffnet eine Lightbox mit allen Fotos (Weiter/Zurück,
+// Tastatur, Zähler). Bilder lokal aus public/uploads/2026/07 (Handbuch 1g – keine WP-URLs).
+const base = '/uploads/2026/07/taizegottesdienst-stbonifatius-frankfurt-';
+const count = 13;
+const photos = Array.from({ length: count }, (_, i) => {
+  const n = String(i + 1).padStart(2, '0');
+  return {
+    full: `${base}${n}.jpg`,
+    thumb: `${base}${n}-thumb.jpg`,
+    alt: `Taizégottesdienst in der Pfarrkirche St. Bonifatius Frankfurt – Eindruck ${i + 1}`,
+  };
+});
+const previews = photos.slice(0, 3);
+const rest = count - previews.length;
+---
+<section class="astro-gdbgal" id="galerie">
+  <div class="astro-gdbgal__inner">
+    <h2 class="astro-gdbgal__hl">Schauen Sie mal rein!</h2>
+    <p class="astro-gdbgal__intro">Bei unseren Taizégottesdiensten entsteht durch die einzigartige Beleuchtung, die wunderschönen Gesänge aus Taizé und die meditative Gestaltung der Feier ein Raum, in den Sie einfach eintauchen, zur Ruhe kommen und näher zu Gott finden können.</p>
+
+    <div class="astro-gdbgal__grid" data-gal>
+      {previews.map((img, i) => (
+        <button type="button" class="astro-gdbgal__thumb" data-idx={i}
+                aria-label={`Foto ${i + 1} von ${count} vergrößern`}>
+          <img src={img.thumb} alt={img.alt} loading="lazy" decoding="async" width="768" height="512" />
+          {i === previews.length - 1 && rest > 0 && (
+            <span class="astro-gdbgal__more" aria-hidden="true">
+              <span class="astro-gdbgal__more-plus">+{rest}</span>
+              <span class="astro-gdbgal__more-txt">weitere Fotos</span>
+            </span>
+          )}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="astro-gdbgal__lb" data-lb hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Fotogalerie Taizégottesdienste">
+    <button type="button" class="astro-gdbgal__lb-close" data-lb-close aria-label="Galerie schließen">&times;</button>
+    <img class="astro-gdbgal__lb-img" data-lb-img src="" alt="" />
+    <div class="astro-gdbgal__lb-bar">
+      <button type="button" class="astro-gdbgal__lb-nav" data-lb-prev aria-label="Vorheriges Foto">&#8249;</button>
+      <span class="astro-gdbgal__lb-count" data-lb-count></span>
+      <button type="button" class="astro-gdbgal__lb-nav" data-lb-next aria-label="Nächstes Foto">&#8250;</button>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ photos }}>
+  (function () {
+    const sec = document.getElementById('galerie');
+    if (!sec) return;
+    const lb = sec.querySelector('[data-lb]');
+    const img = sec.querySelector('[data-lb-img]');
+    const counter = sec.querySelector('[data-lb-count]');
+    let idx = 0;
+
+    function show(i) {
+      idx = (i + photos.length) % photos.length;
+      const p = photos[idx];
+      img.src = p.full;
+      img.alt = p.alt;
+      counter.textContent = (idx + 1) + ' / ' + photos.length;
+    }
+    function open(i) {
+      show(i);
+      lb.hidden = false;
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lb.hidden = true;
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    sec.querySelectorAll('.astro-gdbgal__thumb').forEach((btn) => {
+      btn.addEventListener('click', () => open(parseInt(btn.dataset.idx, 10) || 0));
+    });
+    sec.querySelector('[data-lb-close]').addEventListener('click', close);
+    sec.querySelector('[data-lb-prev]').addEventListener('click', () => show(idx - 1));
+    sec.querySelector('[data-lb-next]').addEventListener('click', () => show(idx + 1));
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') show(idx - 1);
+      else if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  })();
+</script>
+
+<style is:global>
+.astro-gdbgal{background:#ede8e1;padding:72px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-gdbgal__inner{max-width:1100px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-gdbgal__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,42px);font-weight:700;font-style:italic;color:#2c2420;margin:0 0 18px}
+.astro-gdbgal__intro{font-size:clamp(15px,1.8vw,18px);color:#6b5c52;line-height:1.72;max-width:720px;margin:0 auto 40px}
+.astro-gdbgal__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.astro-gdbgal__thumb{position:relative;display:block;padding:0;border:none;margin:0;border-radius:12px;overflow:hidden;cursor:pointer;background:#d8cfc4;box-shadow:0 2px 14px rgba(44,36,32,.10);aspect-ratio:4/3;transition:transform .25s,box-shadow .25s}
+.astro-gdbgal__thumb:hover,.astro-gdbgal__thumb:focus-visible{transform:translateY(-3px);box-shadow:0 8px 26px rgba(44,36,32,.20);outline:none}
+.astro-gdbgal__thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.astro-gdbgal__thumb:hover img{transform:scale(1.05)}
+.astro-gdbgal__more{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:rgba(44,24,18,.55);color:#f4ede0;font-family:Inter,system-ui,sans-serif}
+.astro-gdbgal__more-plus{font-family:'Playfair Display',serif;font-size:clamp(30px,4vw,44px);font-weight:700;line-height:1}
+.astro-gdbgal__more-txt{font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+/* Lightbox */
+.astro-gdbgal__lb{position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:rgba(15,8,5,.92);padding:24px}
+.astro-gdbgal__lb[hidden]{display:none}
+.astro-gdbgal__lb-img{max-width:92vw;max-height:78vh;object-fit:contain;border-radius:6px;box-shadow:0 10px 50px rgba(0,0,0,.5)}
+.astro-gdbgal__lb-bar{display:flex;align-items:center;gap:22px}
+.astro-gdbgal__lb-count{color:#e0d6c6;font-family:Inter,system-ui,sans-serif;font-size:14px;letter-spacing:.05em;min-width:66px;text-align:center}
+.astro-gdbgal__lb-close{position:absolute;top:18px;right:24px;width:48px;height:48px;border:none;background:none;color:#f0e8d8;font-size:38px;line-height:1;cursor:pointer;opacity:.8;transition:opacity .2s;z-index:1}
+.astro-gdbgal__lb-close:hover{opacity:1}
+.astro-gdbgal__lb-nav{width:54px;height:54px;border:none;border-radius:50%;background:rgba(240,232,216,.14);color:#f0e8d8;font-size:30px;line-height:1;cursor:pointer;transition:background .2s}
+.astro-gdbgal__lb-nav:hover{background:rgba(240,232,216,.28)}
+@media(max-width:760px){
+  .astro-gdbgal{padding:52px 0}
+  .astro-gdbgal__inner{padding:0 20px}
+  .astro-gdbgal__grid{grid-template-columns:1fr 1fr;gap:12px}
+  .astro-gdbgal__thumb:nth-child(3){grid-column:1 / -1;aspect-ratio:16/9}
+  .astro-gdbgal__lb-img{max-height:72vh}
+  .astro-gdbgal__lb-nav{width:48px;height:48px;font-size:27px}
+}
+</style>

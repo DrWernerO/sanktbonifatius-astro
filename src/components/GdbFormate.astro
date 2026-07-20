@@ -18,6 +18,7 @@ const formats = [
       { date: 'Sa 16. Januar 2027', act: '' },
     ],
     location: 'Pfarrkirche St. Bonifatius, 18:30 Uhr',
+    video: 'https://youtu.be/q617tAsMQLY',
   },
   {
     mod: 'taize',
@@ -76,6 +77,12 @@ const formats = [
             ))}
           </ul>
           <p class="astro-gdbfmt-card__location">{f.location}</p>
+          {f.video && (
+            <a class="astro-gdbfmt-card__video" href={f.video} target="_blank" rel="noopener" aria-label={`Video über ${f.name} auf YouTube ansehen`}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor" stroke="none"/></svg>
+              Video über {f.name}
+            </a>
+          )}
         </article>
       ))}
     </div>
@@ -105,6 +112,9 @@ const formats = [
 .astro-gdbfmt-card__date{font-size:15px;font-weight:600;color:#2c2420}
 .astro-gdbfmt-card__act{font-size:13px;color:#928269}
 .astro-gdbfmt-card__location{font-size:13px;color:#6b5c52;margin:0;padding-top:14px;border-top:1px solid #ece4da}
+.astro-gdbfmt-card__video{align-self:flex-start;display:inline-flex;align-items:center;gap:9px;margin-top:16px;padding:11px 20px;border-radius:26px;background:#9a2d2d;color:#fff;font-size:13.5px;font-weight:600;text-decoration:none;transition:background .2s,transform .2s}
+.astro-gdbfmt-card__video:hover{background:#7e2424;transform:translateY(-1px)}
+.astro-gdbfmt-card__video svg{width:18px;height:18px;flex-shrink:0}
 @media(max-width:860px){.astro-gdbfmt__grid{grid-template-columns:1fr;max-width:520px;margin:0 auto}}
 @media(max-width:600px){.astro-gdbfmt{padding:52px 0}.astro-gdbfmt__inner{padding:0 20px}}
 </style>

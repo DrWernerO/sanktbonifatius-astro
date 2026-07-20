@@ -8,6 +8,7 @@ import Base from '../../layouts/Base.astro';
 import GdbHero from '../../components/GdbHero.astro';
 import GdbIntro from '../../components/GdbIntro.astro';
 import GdbFormate from '../../components/GdbFormate.astro';
+import GdbGalerie from '../../components/GdbGalerie.astro';
 import GdbCta from '../../components/GdbCta.astro';
 import GdbMaps from '../../components/GdbMaps.astro';
 import { getSeoHead } from '../../lib/wordpress.js';
@@ -18,6 +19,7 @@ const seo = await getSeoHead('/gottesdienst-glaube/gottesdienste-die-beruehren/'
   <GdbHero />
   <GdbIntro />
   <GdbFormate />
+  <GdbGalerie />
   <GdbCta />
   <GdbMaps />
 </Base>
