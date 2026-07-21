@@ -256,9 +256,16 @@ const pfarrbriefUrl = await withVersion(DOWNLOADS.pfarrbrief);
   und `twitter:`-Metas und alle `application/ld+json`-Blöcke (bei uns: WebSite, Organization,
   LocalBusiness).
 - **Domain-Umschreibung:** Render-Domain `dev.sanktbonifatius.de` → Produktiv-Domain
-  `PUBLIC_SITE` (`https://sanktbonifatius.de`) **für canonical/og:url** — aber **NICHT** für
-  `/wp-content/`-URLs (Bilder/Dateien bleiben auf dem WP-Host, sonst bräche die OG-Vorschau).
-  Beim WP-Umzug (Abschnitt 1b) `PUBLIC_SITE` + `WP_RENDER_ORIGIN` anpassen.
+  `PUBLIC_SITE` (`https://sanktbonifatius.de`) **für canonical/og:url**. Beim WP-Umzug
+  (Abschnitt 1b) `PUBLIC_SITE` + `WP_RENDER_ORIGIN` anpassen.
+- **og:image lokal (seit 2026-07-22):** `extractSeoTags()` biegt WP-Upload-URLs in
+  `og:image`/`og:image:secure_url`/`twitter:image` auf das lokale `/uploads/…` um — **aber nur,
+  wenn die Datei wirklich im Repo (`public/uploads/`) liegt** (Prüfung per `existsSync`). Dadurch
+  liefern die **statischen Seiten** ihr Vorschaubild WP-unabhängig aus (das Standard-Vorschaubild
+  `2026/05/st-bonifatius-frankfurt.jpg` liegt lokal). **Dynamische Aktuelles/Termine-Bilder** ohne
+  lokale Kopie bleiben bewusst auf dem WP-Host → neue Beiträge/Termine bekommen so nie ein totes
+  OG-Vorschaubild. Übrige `/wp-content/`-URLs (Nicht-Uploads, z. B. Theme-Assets in JSON-LD)
+  bleiben ebenfalls auf WP. (Früher blieben **alle** `/wp-content/`-URLs auf WP.)
 - **[`Base.astro`](../src/layouts/Base.astro)** nimmt einen `seo`-Prop (HTML-String). Ist er
   gesetzt → wird er per `set:html` in den `<head>` eingefügt und die Standard-Tags
   (eigener `<title>`/`description`) werden **übersprungen** (kein doppelter Titel). Ohne
