@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 // Server-seitig: direkt zur LIVE-Seite (www, gültiges Zertifikat). Frühere Quelle war der
 // Dev-Server; seit 2026-06-22 ist www die aktuelle Inhalts-Quelle (Handbuch Abschnitt 1).
 const WP_API = 'https://www.sanktbonifatius.de/wp-json/wp/v2';
@@ -459,9 +462,20 @@ function extractSeoTags(html) {
   // (nach </head>), nicht im Head — daher hier `html` statt `head` (sonst geht das
   // strukturierte Daten-Markup auf allen Astro-Seiten verloren).
   for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi)) tags.push(m[0]);
-  return tags.join('\n').replace(
+  const withDomain = tags.join('\n').replace(
     /https:\/\/(?:dev|www)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?(?!\/wp-content)/g,
     PUBLIC_SITE,
+  );
+  // og:image & Co.: WP-Upload-URLs auf das lokale /uploads/ umbiegen – aber NUR, wenn die Datei
+  // wirklich im Repo (public/uploads/) liegt. So werden die Vorschaubilder der statischen Seiten
+  // lokal (WP-unabhängig), während dynamische Aktuelles/Termine-Bilder ohne lokale Kopie weiter
+  // von WordPress kommen (kein kaputtes OG-Bild bei neuen Beiträgen).
+  return withDomain.replace(
+    /https:\/\/(?:dev|www)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?\/wp-content\/uploads\/([^"'\s>]+)/g,
+    (whole, relPath) =>
+      existsSync(join(process.cwd(), 'public', 'uploads', relPath))
+        ? `${PUBLIC_SITE}/uploads/${relPath}`
+        : whole,
   );
 }
 
