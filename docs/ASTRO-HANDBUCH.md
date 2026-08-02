@@ -112,6 +112,13 @@ export default defineConfig({
 > (neuer Termin/Beitrag ohne Code-Push). Lokal (`npm run dev`) ist er unnötig — Astro holt die
 > WP-Daten bei jedem Seitenaufruf frisch.
 
+> **Update 2026-08-02:** Termine (`event`) lösen **keinen** Rebuild mehr aus — sie laden ohnehin
+> live im Browser (Abschnitt 7), ein Build dafür wäre reine Guthaben-Verschwendung. Auslöser sind
+> jetzt nur noch **Beitrag + Seite**. Hintergrund: Ende Juli war das kostenlose Netlify-Guthaben
+> aufgebraucht → Deploys wurden „skipped", neue Beiträge erschienen nicht mehr auf der Seite. Seither
+> Netlify **Pro** (vorübergehend gebucht; Rückstufung auf kostenlos geplant, sobald sich der Andrang
+> nach dem Go-Live legt). Der sparsamere Webhook soll das kostenlose Kontingent künftig reichen lassen.
+
 ### Warum überhaupt ein Webhook?
 Auf Netlify ist die Seite statisch: WP-Inhalte werden **zum Build-Zeitpunkt** abgefragt und
 in fertiges HTML gegossen. Ein neuer Termin/Beitrag im WP wird also **erst nach einem neuen
@@ -127,14 +134,16 @@ WordPress-`functions.php` (nicht hier im Repo). Neu-Anlage bei Bedarf über dens
 
 ### Schritt 2 — Code in WordPress (`functions.php`)
 Am Ende der `functions.php` (Theme-Editor, `theme=ursprung-bonifatius`; Zugang: Team-Handbuch 02)
-einfügen. Feuert bei Veröffentlichen/Ändern/Löschen von **Beitrag, Seite und Termin** und ist
-gegen Autosaves/Revisionen sowie schnelle Mehrfach-Speicherung (90-Sek.-Sperre) abgesichert:
+einfügen. Feuert bei Veröffentlichen/Ändern/Löschen von **Beitrag und Seite** (Termine bewusst
+ausgenommen — sie laden live im Browser) und ist gegen Autosaves/Revisionen sowie schnelle
+Mehrfach-Speicherung (90-Sek.-Sperre) abgesichert:
 
 ```php
 /* ===== Netlify-Rebuild bei Inhaltsänderungen ================================
- * POST an den Netlify Build-Hook, wenn Beitrag/Seite/Termin veröffentlicht,
+ * POST an den Netlify Build-Hook, wenn Beitrag oder Seite veröffentlicht,
  * geändert, gelöscht oder in den Papierkorb verschoben wird → Netlify baut die
- * statische Astro-Seite automatisch neu.
+ * statische Astro-Seite automatisch neu. Termine (event) sind BEWUSST
+ * ausgenommen: Sie laden im Browser live und brauchen keinen Rebuild.
  * Die Hook-URL aus Schritt 1 unten einsetzen. functions.php liegt NICHT im
  * öffentlichen Git-Repo → die URL ist hier tolerierbar; trotzdem nicht teilen.
  * ========================================================================== */
@@ -147,7 +156,7 @@ if ( ! function_exists( 'sb_trigger_netlify_build' ) ) {
 
     function sb_trigger_netlify_build( $post_id ) {
         if ( ! SB_NETLIFY_BUILD_HOOK || false !== strpos( SB_NETLIFY_BUILD_HOOK, 'XXXXXXXX' ) ) return;
-        if ( ! in_array( get_post_type( $post_id ), array( 'post', 'page', 'event' ), true ) ) return;
+        if ( ! in_array( get_post_type( $post_id ), array( 'post', 'page' ), true ) ) return;
         if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
         if ( get_transient( 'sb_netlify_build_lock' ) ) return;   // Debounce: max. 1 Build / 90 Sek.
