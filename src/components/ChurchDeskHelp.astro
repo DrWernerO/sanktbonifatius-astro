@@ -1,9 +1,9 @@
 ---
 // Hilfe-Karten am Seitenende — WP-Seite 49146 (ersetzt WP-Block `cd-help`).
-// Eigene Klassen `astro-cd-help` (Handbuch Abschnitt 3). Inhalte 1:1 aus dem WP-Content (2 Karten).
-// Links: /kontakt/pfarrbuero/ (in Astro noch nicht gebaut) und /gruppen-treffpunkte/ (ebenfalls
-// noch nicht gebaut) — Handbuch Abschnitt 12 (Portfolio-Check vor Go-Live). Icon-Glyphen wie im
-// WP-Original (?/+), dekorativ → aria-hidden.
+// Eigene Klassen `astro-cd-help` (Handbuch Abschnitt 3). Icon-Glyphe wie im WP-Original (?),
+// dekorativ → aria-hidden. Link /kontakt/pfarrbuero/ ist in Astro gebaut.
+// Frühere 2. Karte „Sie suchen eine Gruppe?" (Verweis auf nicht existierende
+// /gruppen-treffpunkte/) am 2026-08-02 auf Werners Wunsch entfernt.
 const cards = [
   {
     glyph: '?',
@@ -11,13 +11,6 @@ const cards = [
     text: 'Sie sind sich unsicher, ob eine Anmeldung für Sie passt oder welche Angaben Sie machen müssen? Das Pfarrbüro hilft Ihnen gerne weiter.',
     href: '/kontakt/pfarrbuero/',
     linkText: 'Pfarrbüro kontaktieren &#8594;',
-  },
-  {
-    glyph: '+',
-    title: 'Sie suchen eine Gruppe?',
-    text: 'Sie möchten sich einer bestehenden Gruppe anschließen? Hier finden Sie unsere Gruppen und Treffpunkte in der Pfarrei.',
-    href: '/gruppen-treffpunkte/',
-    linkText: 'Gruppen ansehen &#8594;',
   },
 ];
 ---
@@ -36,7 +29,7 @@ const cards = [
 
 <style is:global>
 .astro-cd-help{background:#fff;padding:56px 0}
-.astro-cd-help__inner{max-width:880px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.astro-cd-help__inner{max-width:880px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
 .astro-cd-help-card{background:linear-gradient(135deg,#faf6ee,#ede4d5);border-radius:14px;padding:28px;border:1px solid #e0d8cf}
 .astro-cd-help-card__icon{width:44px;height:44px;background:#c5a55a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 0 16px;font-size:20px;font-weight:700;font-family:'Playfair Display',Georgia,serif}
 .astro-cd-help-card__title{font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#2c2420;margin:0 0 10px;font-weight:700;line-height:1.3}
