@@ -1,0 +1,259 @@
+---
+// Kontakt-Sektion Kita St. Bonifatius — Team + Adresse
+// Feedback: heller Hintergrund (var(--bf-bg) statt --bf-bg-alt), nur E-Mail für Koordination.
+---
+<section class="astro-kb-kontakt astro-kb-sec" id="astro-kb-kontakt">
+  <div class="astro-kb-kontakt__in">
+    <p class="astro-kb-eyebrow" style="text-align:center">Ihr Team</p>
+    <h2 class="astro-kb-kontakt__h2">Ansprechpersonen</h2>
+
+    <!-- Einrichtungsleitung -->
+    <div class="astro-kb-kontakt__team">
+      <div class="astro-kb-kontakt__person">
+        <img src="/uploads/2023/07/Frank-Neumann-Kita-Boni-edited.jpg"
+             alt="Frank Neumann, Einrichtungsleitung Kita St. Bonifatius"
+             class="astro-kb-kontakt__photo" loading="lazy" />
+        <p class="astro-kb-kontakt__role">Einrichtungsleitung</p>
+        <p class="astro-kb-kontakt__name">Frank Neumann</p>
+        <p class="astro-kb-kontakt__info">Tel: <a href="tel:+4969636818">069 . 63 68 18</a></p>
+        <p class="astro-kb-kontakt__info"><a href="mailto:kita-bonifatius@sanktbonifatius.de">kita-bonifatius@sanktbonifatius.de</a></p>
+      </div>
+
+      <div class="astro-kb-kontakt__person">
+        <img src="/uploads/2022/05/natascha-bienas-kita-stbonifatius.jpeg"
+             alt="Natascha Binas, Stellvertretende Einrichtungsleitung"
+             class="astro-kb-kontakt__photo" loading="lazy" />
+        <p class="astro-kb-kontakt__role">Stellv. Einrichtungsleitung</p>
+        <p class="astro-kb-kontakt__name">Natascha Binas</p>
+        <p class="astro-kb-kontakt__info">Tel: <a href="tel:+4969636818">069 . 63 68 18</a></p>
+        <p class="astro-kb-kontakt__info"><a href="mailto:kita-bonifatius@sanktbonifatius.de">kita-bonifatius@sanktbonifatius.de</a></p>
+      </div>
+    </div>
+
+    <!-- Kita-Koordination -->
+    <div class="astro-kb-kontakt__koord-head">
+      <p class="astro-kb-eyebrow" style="text-align:center;margin-bottom:8px">Kita-Koordination</p>
+      <h3 class="astro-kb-kontakt__koord-title">Ihre Ansprechpersonen der Pfarrei</h3>
+    </div>
+    <div class="astro-kb-kontakt__koord">
+      <div class="astro-kb-kontakt__koord-card">
+        <p class="astro-kb-kontakt__koord-role">Kita-Koordinatorin</p>
+        <p class="astro-kb-kontakt__koord-name">Sandra Roos-Greulich</p>
+        <a href="mailto:s.Roos-Greulich@sanktbonifatius.de">s.Roos-Greulich@sanktbonifatius.de</a>
+      </div>
+      <div class="astro-kb-kontakt__koord-card">
+        <p class="astro-kb-kontakt__koord-role">Referentin Kita-Koordination</p>
+        <p class="astro-kb-kontakt__koord-name">Jeannine Douverne</p>
+        <a href="mailto:j.douverne@sanktbonifatius.de">j.douverne@sanktbonifatius.de</a>
+      </div>
+    </div>
+
+    <hr class="astro-kb-kontakt__divider" />
+
+    <!-- Adresse -->
+    <div class="astro-kb-kontakt__addr">
+      <div class="astro-kb-kontakt__addr-text">
+        <h2 class="astro-kb-kontakt__addr-head">Interesse an einem Platz?</h2>
+        <p>Anmeldungen laufen &uuml;ber Kindernet Frankfurt. Bei Fragen zu Betreuungszeiten, freien Pl&auml;tzen oder dem Einrichtungsalltag kontaktieren Sie uns direkt.</p>
+        <a href="https://www.kindernetfrankfurt.de" target="_blank" rel="noopener" class="astro-kb-btn astro-kb-btn--accent" style="margin-top:20px;display:inline-flex">
+          Anmeldung &uuml;ber Kindernet Frankfurt &#8599;
+        </a>
+      </div>
+      <div class="astro-kb-kontakt__addr-info">
+        <div class="astro-kb-kontakt__info-row">
+          <strong>Adresse</strong>
+          <span>Achenbachstr. 5, 60596 Frankfurt am Main</span>
+        </div>
+        <div class="astro-kb-kontakt__info-row">
+          <strong>Telefon</strong>
+          <span><a href="tel:+4969636818">069 . 63 68 18</a></span>
+        </div>
+        <div class="astro-kb-kontakt__info-row">
+          <strong>E-Mail</strong>
+          <span><a href="mailto:kita-bonifatius@sanktbonifatius.de">kita-bonifatius@sanktbonifatius.de</a></span>
+        </div>
+        <div class="astro-kb-kontakt__info-row">
+          <strong>Jobs</strong>
+          <span><a href="/kitas/stellenboerse/" style="color:var(--bf-accent)">Kita-Stellenb&ouml;rse &rarr;</a></span>
+        </div>
+        <div class="astro-kb-kontakt__info-row">
+          <span style="grid-column:1/-1">
+            <a href="https://maps.google.com/?q=Achenbachstr.+5+60596+Frankfurt" target="_blank" rel="noopener">In Google Maps &ouml;ffnen &rarr;</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+/* Feedback: heller Hintergrund */
+.astro-kb-kontakt {
+  background: var(--bf-bg);
+  padding: 80px 24px;
+}
+.astro-kb-kontakt__in {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.astro-kb-kontakt__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 700;
+  color: var(--bf-ink);
+  margin: 0 0 40px;
+  text-align: center;
+}
+/* Team photos */
+.astro-kb-kontakt__team {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 680px;
+  margin: 0 auto 48px;
+}
+.astro-kb-kontakt__person {
+  text-align: center;
+  background: #fff;
+  border-radius: var(--bf-radius);
+  padding: 28px 20px;
+  border: 1px solid var(--bf-border);
+}
+.astro-kb-kontakt__photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 3px solid var(--bf-border);
+  margin: 0 auto 16px;
+  display: block;
+}
+.astro-kb-kontakt__role {
+  font-family: 'Futura LT W01 Book', Futura, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--bf-accent);
+  margin: 0 0 4px;
+}
+.astro-kb-kontakt__name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--bf-ink);
+  margin: 0 0 10px;
+}
+.astro-kb-kontakt__info {
+  font-size: 14px;
+  color: var(--bf-ink-60);
+  margin: 4px 0;
+}
+.astro-kb-kontakt__info a { color: var(--bf-ink-60); text-decoration: none; word-break: break-word; }
+.astro-kb-kontakt__info a:hover { color: var(--bf-accent); }
+
+/* Koordination */
+.astro-kb-kontakt__koord-head { text-align: center; margin-bottom: 20px; }
+.astro-kb-kontakt__koord-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 700;
+  color: var(--bf-ink);
+  margin: 0;
+}
+.astro-kb-kontakt__koord {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.astro-kb-kontakt__koord-card {
+  background: #fff;
+  border-radius: var(--bf-radius);
+  padding: 28px 32px;
+  border: 1px solid var(--bf-border);
+  text-align: center;
+  min-width: 220px;
+  max-width: 280px;
+}
+.astro-kb-kontakt__koord-role {
+  font-family: 'Futura LT W01 Book', Futura, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--bf-accent);
+  margin: 0 0 6px;
+}
+.astro-kb-kontakt__koord-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--bf-ink);
+  margin: 0 0 10px;
+}
+.astro-kb-kontakt__koord-card a {
+  font-size: 13px;
+  color: var(--bf-accent);
+  text-decoration: none;
+  word-break: break-all;
+}
+.astro-kb-kontakt__koord-card a:hover { text-decoration: underline; }
+
+.astro-kb-kontakt__divider { border: none; border-top: 1px solid var(--bf-border); margin: 0 0 48px; }
+
+/* Adresse */
+.astro-kb-kontakt__addr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.astro-kb-kontakt__addr-head {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 700;
+  color: var(--bf-ink);
+  margin: 0 0 12px;
+}
+.astro-kb-kontakt__addr-text p {
+  font-size: 15px;
+  color: var(--bf-ink-60);
+  line-height: 1.75;
+  margin: 0;
+}
+.astro-kb-kontakt__addr-info {
+  background: #fff;
+  border: 1px solid var(--bf-border);
+  border-radius: var(--bf-radius);
+  padding: 28px 32px;
+}
+.astro-kb-kontakt__info-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--bf-border);
+  font-size: 14px;
+  color: var(--bf-ink);
+}
+.astro-kb-kontakt__info-row:last-child { border-bottom: none; }
+.astro-kb-kontakt__info-row strong {
+  font-family: 'Futura LT W01 Book', Futura, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--bf-accent);
+  padding-top: 2px;
+}
+.astro-kb-kontakt__info-row a { color: var(--bf-ink-60); text-decoration: none; }
+.astro-kb-kontakt__info-row a:hover { color: var(--bf-accent); }
+
+@media (max-width: 700px) {
+  .astro-kb-kontakt__team { grid-template-columns: 1fr; max-width: 360px; }
+  .astro-kb-kontakt__addr { grid-template-columns: 1fr; gap: 28px; }
+}
+</style>

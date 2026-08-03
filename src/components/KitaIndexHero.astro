@@ -1,0 +1,110 @@
+---
+// Kita-Übersicht Hero — alle 5 Kitas der Pfarrei Sankt Bonifatius
+// CSS-Präfix: astro-ki-
+---
+<div class="astro-ki-root">
+  <section class="astro-ki-hero">
+    <div class="astro-ki-hero__in">
+      <p class="astro-ki-eyebrow">Kitas der Pfarrei Sankt Bonifatius &middot; Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-ki-hero__h1">F&uuml;nf Kitas &ndash; ein Leitbild.</h1>
+      <p class="astro-ki-hero__lead">Rund 400 Kinder finden in unseren f&uuml;nf katholischen Kitas in Frankfurt-Sachsenhausen Geborgenheit, Bildung und Gemeinschaft. Jede Einrichtung mit eigenem Profil, alle verbunden durch christliche Werte.</p>
+      <div class="astro-ki-hero__ctas">
+        <a href="#astro-ki-kitas" class="astro-ki-btn astro-ki-btn--gold">Kitas entdecken</a>
+        <a href="/kitas/stellenboerse/" class="astro-ki-btn astro-ki-btn--ghost">Stellenb&ouml;rse</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style is:global>
+:root {
+  --bf-bg: #f7f3ef;
+  --bf-bg-alt: #ede4d5;
+  --bf-ink: #1e1512;
+  --bf-ink-60: #6b5c52;
+  --bf-accent: #9a2d2d;
+  --bf-gold: #b88a3a;
+  --bf-border: #e0d8cf;
+  --bf-radius: 14px;
+}
+.astro-ki-root {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.astro-ki-hero {
+  min-height: 520px;
+  display: flex;
+  align-items: flex-end;
+  background: linear-gradient(135deg, #3a1818 0%, #5a2424 40%, #b88a3a 100%);
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+.astro-ki-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.astro-ki-hero__in {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px 64px;
+}
+.astro-ki-eyebrow {
+  font-family: 'Futura LT W01 Book', Futura, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--bf-gold);
+  margin: 0 0 16px;
+}
+.astro-ki-hero__h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(34px, 5.5vw, 64px);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 18px;
+  line-height: 1.1;
+}
+.astro-ki-hero__lead {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255,255,255,.82);
+  max-width: 620px;
+  line-height: 1.65;
+  margin: 0 0 32px;
+}
+.astro-ki-hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.astro-ki-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 26px;
+  border-radius: 32px;
+  font-weight: 700;
+  font-size: 14.5px;
+  text-decoration: none;
+  min-height: 44px;
+  transition: all .2s;
+}
+.astro-ki-btn--gold { background: var(--bf-gold); color: #1a120e; }
+.astro-ki-btn--gold:hover { background: #a07832; }
+.astro-ki-btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
+.astro-ki-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+
+/* Shared */
+.astro-ki-sec { width: 100vw; position: relative; left: 50%; margin-left: -50vw; margin-right: -50vw; }
+.astro-ki-eyebrow-sm { font-family: 'Futura LT W01 Book', Futura, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 10px; }
+[id] { scroll-margin-top: 100px; }
+
+@media (max-width: 600px) {
+  .astro-ki-hero__in { padding: 0 20px 48px; }
+}
+</style>

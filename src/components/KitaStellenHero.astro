@@ -1,0 +1,104 @@
+---
+// Stellenbörse Hero — Kita-Stellen der Pfarrei Sankt Bonifatius Frankfurt
+// CSS-Präfix: astro-stl-
+---
+<div class="astro-stl-root">
+  <section class="astro-stl-hero">
+    <div class="astro-stl-hero__in">
+      <p class="astro-stl-hero__eyebrow">Kita-Stellen &middot; Pfarrei Sankt Bonifatius Frankfurt</p>
+      <h1 class="astro-stl-hero__h1">Arbeiten, wo es z&auml;hlt.</h1>
+      <p class="astro-stl-hero__lead">Wir suchen Menschen, die Kinder auf ihrem Weg begleiten m&ouml;chten. Keine Karriere wie jede andere.</p>
+      <span class="astro-stl-hero__count">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Aktuell 4 offene Stellen
+      </span>
+    </div>
+  </section>
+</div>
+
+<style is:global>
+:root {
+  --bf-bg: #f7f3ef;
+  --bf-bg-alt: #ede4d5;
+  --bf-ink: #1e1512;
+  --bf-ink-60: #6b5c52;
+  --bf-accent: #9a2d2d;
+  --bf-gold: #b88a3a;
+  --bf-border: #e0d8cf;
+  --bf-radius: 14px;
+}
+.astro-stl-root {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.astro-stl-hero {
+  position: relative;
+  background: linear-gradient(135deg, #3a1818 0%, #5a2424 55%, #4a2e1a 100%);
+  padding: 100px 24px 88px;
+  text-align: center;
+  overflow: hidden;
+}
+.astro-stl-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23fff'/%3E%3C/svg%3E");
+  background-size: 40px 40px;
+}
+.astro-stl-hero__in {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.astro-stl-hero__eyebrow {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--bf-gold);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin: 0 0 18px;
+}
+.astro-stl-hero__h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(36px, 5.5vw, 64px);
+  line-height: 1.1;
+  color: #f0e8d8;
+  margin: 0 0 18px;
+}
+.astro-stl-hero__lead {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(240,232,216,.72);
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0 auto 28px;
+}
+.astro-stl-hero__count {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(184,138,58,.15);
+  border: 1px solid rgba(184,138,58,.3);
+  border-radius: 50px;
+  padding: 8px 20px;
+  font-size: 13px;
+  color: var(--bf-gold);
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+/* Shared section helper */
+.astro-stl-sec { width: 100vw; position: relative; left: 50%; margin-left: -50vw; margin-right: -50vw; }
+.astro-stl-eyebrow-sm { font-family: 'Futura LT W01 Book', Futura, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 10px; }
+[id] { scroll-margin-top: 100px; }
+
+@media (max-width: 600px) {
+  .astro-stl-hero { padding: 80px 20px 64px; }
+}
+</style>

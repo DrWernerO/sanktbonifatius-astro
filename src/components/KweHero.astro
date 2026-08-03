@@ -1,0 +1,133 @@
+---
+// Hero der Kita St. Wendel — WP-Seite 48347 (draft)
+// Eigene Klassen astro-kwe-* (nie kstw-* aus WP wiederverwenden).
+// Einrichtungsleitung: Kathrin Knocke + Monika Bernatovic (Feedback).
+---
+<div class="astro-kwe-root">
+  <section class="astro-kwe-hero">
+    <div class="astro-kwe-hero__in">
+      <p class="astro-kwe-eyebrow">Kita St. Wendel &middot; Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-kwe-hero__h1">Jedes Kind ist kostbar.</h1>
+      <p class="astro-kwe-hero__lead">Krippe und Kindergarten im gr&uuml;nen Sachsenh&auml;user Berg. P&auml;dagogisches Konzept nach Situationsansatz und Emmi Pikler.</p>
+      <div class="astro-kwe-hero__ctas">
+        <a href="#astro-kwe-angebot" class="astro-kwe-btn astro-kwe-btn--ghost">Kita kennenlernen</a>
+        <a href="/kitas/stellenboerse/" class="astro-kwe-btn astro-kwe-btn--ghost">Stellenb&ouml;rse</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quicknav -->
+  <nav class="astro-kwe-quicknav" aria-label="Schnellzugriff">
+    <div class="astro-kwe-quicknav__in">
+      <a href="#astro-kwe-angebot">Angebot</a>
+      <a href="#astro-kwe-paed">P&auml;dagogik</a>
+      <a href="#astro-kwe-tagesablauf">Tagesablauf</a>
+      <a href="#astro-kwe-anmeld">Anmeldung</a>
+      <a href="#astro-kwe-faq">FAQ</a>
+      <a href="#astro-kwe-kontakt">Kontakt</a>
+    </div>
+  </nav>
+</div>
+
+<style is:global>
+:root {
+  --bf-bg: #f7f3ef;
+  --bf-bg-alt: #ede4d5;
+  --bf-ink: #1e1512;
+  --bf-ink-60: #6b5c52;
+  --bf-accent: #9a2d2d;
+  --bf-gold: #b88a3a;
+  --bf-border: #e0d8cf;
+  --bf-radius: 14px;
+}
+.astro-kwe-root {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.astro-kwe-hero {
+  height: min(70vh, 580px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  position: relative;
+  background: url('/uploads/2024/08/KiTa-St-Wendel-Gebaeude.jpg') center/cover no-repeat;
+}
+.astro-kwe-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.65) 0%, rgba(0,0,0,.2) 45%, rgba(0,0,0,.02) 100%);
+}
+.astro-kwe-hero__in {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px 60px;
+}
+.astro-kwe-eyebrow {
+  font-family: 'Futura LT W01 Book', Futura, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--bf-gold);
+  margin: 0 0 14px;
+}
+.astro-kwe-hero__h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(34px, 5.5vw, 64px);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+.astro-kwe-hero__lead {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255,255,255,.88);
+  max-width: 560px;
+  line-height: 1.65;
+  margin: 0 0 28px;
+}
+.astro-kwe-hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.astro-kwe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  border-radius: 32px;
+  font-weight: 700;
+  font-size: 14.5px;
+  text-decoration: none;
+  min-height: 44px;
+  transition: all .2s;
+}
+.astro-kwe-btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
+.astro-kwe-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+.astro-kwe-btn--accent { background: var(--bf-accent); color: #fff; }
+.astro-kwe-btn--accent:hover { background: #7a2424; }
+.astro-kwe-btn--outline { background: transparent; color: var(--bf-accent); border: 2px solid var(--bf-accent); padding: 13px 26px; border-radius: 32px; font-weight: 700; font-size: 14.5px; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; transition: all .2s; }
+.astro-kwe-btn--outline:hover { background: var(--bf-accent); color: #fff; }
+
+/* Quicknav */
+.astro-kwe-quicknav { background: var(--bf-ink); padding: 0 16px; position: sticky; top: 80px; z-index: 999; }
+.astro-kwe-quicknav__in { max-width: 1100px; margin: 0 auto; display: flex; justify-content: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 14px 0; scrollbar-width: none; }
+.astro-kwe-quicknav__in::-webkit-scrollbar { display: none; }
+.astro-kwe-quicknav a { color: #d4c9b5; text-decoration: none; padding: 10px 18px; border-radius: 22px; font-size: 14px; font-weight: 600; white-space: nowrap; transition: background .2s, color .2s; min-height: 44px; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,.25); }
+.astro-kwe-quicknav a:hover { background: var(--bf-gold); color: var(--bf-ink); border-color: var(--bf-gold); }
+
+/* Shared */
+.astro-kwe-sec { width: 100vw; position: relative; left: 50%; margin-left: -50vw; margin-right: -50vw; }
+.astro-kwe-in { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.astro-kwe-eyebrow-sm { font-family: 'Futura LT W01 Book', Futura, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 12px; }
+[id] { scroll-margin-top: 100px; }
+
+@media (max-width: 600px) {
+  .astro-kwe-hero__in { padding: 0 20px 48px; }
+  .astro-kwe-quicknav__in { justify-content: flex-start; padding-left: 8px; }
+}
+</style>

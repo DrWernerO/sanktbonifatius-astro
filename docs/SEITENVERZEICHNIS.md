@@ -2,9 +2,9 @@
 
 Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Übernahme in das neue Astro-Frontend.
 
-> **86 Live-Seiten erfasst · 78 bereits in Astro übernommen bzw. per Direktlink/Redirect erledigt · 8 offen.** Stand: 21.07.2026.
+> **86 Live-Seiten erfasst · 85 bereits in Astro übernommen bzw. per Direktlink/Redirect erledigt · 1 offen.** Stand: 03.08.2026.
 >
-> Offen: „Pfarrer Dr. Werner Otto" (Über uns) + die 7 Kita-Seiten (Übersicht, 5 Einzel-Kitas, Stellenbörse) — Abschnitt 11.
+> Offen: „Pfarrer Dr. Werner Otto" (Über uns) — Abschnitt 2.
 
 > Quelle: page-/jobs-Sitemap. Dieses Verzeichnis ersetzt die frühere Word-Datei und wird im Repo gepflegt.
 
@@ -137,13 +137,13 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
-| Kitas | [Link](https://www.sanktbonifatius.de/kitas/) | — | — | offen | Im Astro-Menü jetzt eigener Hauptpunkt (`/kitas/`); Seite noch zu bauen |
-| Kita Deutschorden | [Link](https://www.sanktbonifatius.de/kitas/deutschorden-cs/) | — | — | offen |  |
-| Kita Herz Jesu | [Link](https://www.sanktbonifatius.de/kitas/herz-jesu-cs/) | — | — | offen |  |
-| Kita St. Aposteln | [Link](https://www.sanktbonifatius.de/kitas/st-aposteln-cs/) | — | — | offen |  |
-| Kita St. Bonifatius | [Link](https://www.sanktbonifatius.de/kitas/st-bonifatius-cs/) | — | — | offen |  |
-| Kita St. Wendel | [Link](https://www.sanktbonifatius.de/kitas/st-wendel-cs/) | — | — | offen |  |
-| Stellenbörse | [Link](https://www.sanktbonifatius.de/kitas/stellenboerse/) | — | — | offen |  |
+| Kitas (Übersicht) | [Link](https://www.sanktbonifatius.de/kitas/) | `src/pages/kitas/index.astro` | Lovis | ✅ erledigt | Astro-Pfad `/kitas/`; eigene `astro-ki-*`-Komponenten (`KitaIndexHero`, `KitaIndexCards`); Hero mit Verlauf (Bordeaux→Gold), 5 Kita-Karten mit Bild/Infos/Link, Koordination (Sandra Roos-Greulich, Jeannine Douverne), CTA zur Stellenbörse |
+| Kita Deutschorden | [Link](https://www.sanktbonifatius.de/kitas/deutschorden-cs/) | `src/pages/kitas/deutschorden-cs.astro` | Lovis | ✅ erledigt | WP-Seite im Aufbau; vereinfachte Seite mit `KdeHero.astro` (Präfix `astro-kde-`); Gradient-Hero (Blau), Info-Strip, Coming-soon-Karte, Kontakt: Kim Gehringer (EL), Adresse Elisabethenstr. 14 / Post Brückenstraße 3, 60594 Frankfurt, Tel 069 27 29 79 87 |
+| Kita Herz Jesu | [Link](https://www.sanktbonifatius.de/kitas/herz-jesu-cs/) | `src/pages/kitas/herz-jesu-cs.astro` | Lovis | ✅ erledigt | WP-Seite im Aufbau; vereinfachte Seite mit `KhjHero.astro` (Präfix `astro-khj-`); Gradient-Hero (Bordeaux), Info-Strip, Coming-soon-Karte, Kontakt: Dorota Wieckowska (EL), Adresse Mathildenstr. 30a, 60599 Frankfurt, Tel 069 652522 |
+| Kita St. Aposteln | [Link](https://www.sanktbonifatius.de/kitas/st-aposteln-cs/) | `src/pages/kitas/st-aposteln-cs.astro` | Lovis | ✅ erledigt | WP-Seite 48345 (draft); eigene `Kap*`-Komponenten (Präfix `astro-kap-`); vollständige Seite mit Hero (Foto Umabu-Umbau), Konzept/Angebot, Tagesablauf (8 Zeilen), Öffnungszeiten, Anmeldung mit Besichtigungsterminen 2026, Pädagogik-Docs, Elternarbeit, Leitung Martina Mikulasch, Kita-Koordination Sandra Roos-Greulich + Jeannine Douverne (Email-only, Feedback), YouTube-Film, FAQ (5), Kontakt/Adresse Ziegelhüttenweg 149 |
+| Kita St. Bonifatius | [Link](https://www.sanktbonifatius.de/kitas/st-bonifatius-cs/) | `src/pages/kitas/st-bonifatius-cs.astro` | Lovis | ✅ erledigt | WP-Seite 48346 (draft); eigene `Kbo*`-Komponenten (Präfix `astro-kb-`); vollständige Seite mit Foto-Hero (Garten, lightened gradient), Foto-Marquee (11 Bilder), Info-Strip, Willkommen, Haus-Grid, Tagesablauf (kleiner Padding, Feedback), Öffnungszeiten (Schließzeiten-Button klein, Feedback), Anmeldung, Pädagogik-Docs, Kontakt auf hellem Hintergrund (Feedback). Leitung Frank Neumann + Natascha Binas; Koordination Sandra Roos-Greulich + Jeannine Douverne (Email-only, Feedback). Kein „Platz anfragen"-Button (Feedback) |
+| Kita St. Wendel | [Link](https://www.sanktbonifatius.de/kitas/st-wendel-cs/) | `src/pages/kitas/st-wendel-cs.astro` | Lovis | ✅ erledigt | WP-Seite 48347 (draft); eigene `Kwe*`-Komponenten (Präfix `astro-kwe-`); vollständige Seite mit Foto-Hero (Gebäude), QuickNav, Willkommen, Info-Strip, Angebot, Pädagogik (Situationsansatz/Pikler, GUK/METACOM, QM, Religionspädagogik), tabbed Tagesablauf (Krippe/Kiga), Verpflegung, Anmeldung (4 Schritte), Dokumente, FAQ (6), Kontakt: Einrichtungsleitung Kathrin Knocke + Monika Bernatovic (Feedback), Kita-Koordination Email-only (Feedback), Adresse Altes Schützenhüttengässchen 2, 60599 Frankfurt |
+| Stellenbörse | [Link](https://www.sanktbonifatius.de/kitas/stellenboerse/) | `src/pages/kitas/stellenboerse.astro` | Lovis | ✅ erledigt | WP-Seite 18767 (live); eigene `KitaStellen*`-Komponenten (Präfix `astro-stl-`); Hero (dunkler Verlauf), 4 Stellenangebote (Fachkraft Boni, Fachkraft Deutschorden, Leitung Deutschorden, Fachkraft Herz Jesu), Warum-Grid (5 Punkte), CTA mit Sandra Roos-Greulich + Jeannine Douverne |
 
 ## 12 · Alle anderen Seiten
 

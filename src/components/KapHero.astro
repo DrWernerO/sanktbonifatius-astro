@@ -1,0 +1,163 @@
+---
+// Hero der Kita St. Aposteln — WP-Seite 48345 (draft)
+// Eigene Klassen astro-kap-* (nie kapos-* aus WP wiederverwenden).
+---
+<div class="astro-kap-root">
+  <section class="astro-kap-hero">
+    <div class="astro-kap-hero__in">
+      <p class="astro-kap-eyebrow">Kita St. Aposteln &middot; Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-kap-hero__h1">Wo jeder Tag dein Tag ist.</h1>
+      <p class="astro-kap-hero__lead">Teiloffenes Konzept mit Funktionsr&auml;umen und gro&szlig;em Au&szlig;engel&auml;nde. Seit 1965 in Sachsenhausen.</p>
+      <div class="astro-kap-hero__ctas">
+        <a href="https://www.kindernetfrankfurt.de" target="_blank" rel="noopener" class="astro-kap-btn astro-kap-btn--primary">Platz anfragen &#8599;</a>
+        <a href="#astro-kap-haus" class="astro-kap-btn astro-kap-btn--ghost">Kita kennenlernen</a>
+        <a href="/kitas/stellenboerse/" class="astro-kap-btn astro-kap-btn--ghost">Stellenb&ouml;rse</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quicknav -->
+  <nav class="astro-kap-quicknav" aria-label="Schnellzugriff">
+    <div class="astro-kap-quicknav__in">
+      <a href="#astro-kap-angebot">Angebot</a>
+      <a href="#astro-kap-tagesablauf">Tagesablauf</a>
+      <a href="#astro-kap-zeiten">&Ouml;ffnungszeiten</a>
+      <a href="#astro-kap-anmeld">Anmeldung</a>
+      <a href="#astro-kap-paed">P&auml;dagogik</a>
+      <a href="#astro-kap-film">Film</a>
+      <a href="#astro-kap-kontakt">Kontakt</a>
+    </div>
+  </nav>
+</div>
+
+<style is:global>
+:root {
+  --bf-bg: #f7f3ef;
+  --bf-bg-alt: #ede4d5;
+  --bf-ink: #1e1512;
+  --bf-ink-60: #6b5c52;
+  --bf-accent: #9a2d2d;
+  --bf-gold: #b88a3a;
+  --bf-border: #e0d8cf;
+  --bf-radius: 14px;
+}
+.astro-kap-root {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.astro-kap-hero {
+  height: min(70vh, 580px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  position: relative;
+  background: url('/uploads/2024/12/Umabu-St.-Aposteln-1-e1733907623749.jpg') center/cover no-repeat;
+}
+.astro-kap-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.65) 0%, rgba(0,0,0,.2) 45%, rgba(0,0,0,.02) 100%);
+}
+.astro-kap-hero__in {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px 60px;
+}
+.astro-kap-eyebrow {
+  font-family: 'Futura LT W01 Book', Futura, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--bf-gold);
+  margin: 0 0 14px;
+}
+.astro-kap-hero__h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(34px, 5.5vw, 64px);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+.astro-kap-hero__lead {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255,255,255,.88);
+  max-width: 560px;
+  line-height: 1.65;
+  margin: 0 0 28px;
+}
+.astro-kap-hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.astro-kap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  border-radius: 32px;
+  font-weight: 700;
+  font-size: 14.5px;
+  text-decoration: none;
+  min-height: 44px;
+  transition: all .2s;
+  letter-spacing: .02em;
+}
+.astro-kap-btn--primary { background: #fff; color: var(--bf-accent); }
+.astro-kap-btn--primary:hover { background: #f0e8d8; }
+.astro-kap-btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
+.astro-kap-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+.astro-kap-btn--accent { background: var(--bf-accent); color: #fff; }
+.astro-kap-btn--accent:hover { background: #7a2424; }
+
+/* Quicknav */
+.astro-kap-quicknav { background: var(--bf-ink); padding: 0 16px; position: sticky; top: 80px; z-index: 999; }
+.astro-kap-quicknav__in {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 0;
+  scrollbar-width: none;
+}
+.astro-kap-quicknav__in::-webkit-scrollbar { display: none; }
+.astro-kap-quicknav a {
+  color: #d4c9b5;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 22px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background .2s, color .2s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,.25);
+}
+.astro-kap-quicknav a:hover { background: var(--bf-gold); color: var(--bf-ink); border-color: var(--bf-gold); }
+
+/* Shared section helpers */
+.astro-kap-sec {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.astro-kap-in { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+[id] { scroll-margin-top: 100px; }
+
+@media (max-width: 600px) {
+  .astro-kap-hero__in { padding: 0 20px 48px; }
+  .astro-kap-quicknav__in { justify-content: flex-start; padding-left: 8px; }
+}
+</style>

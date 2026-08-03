@@ -1,0 +1,257 @@
+---
+// Hero der Kita St. Bonifatius — WP-Seite 48346 (draft)
+// Eigene Klassen `astro-kb-*` (nie kapos-* aus WP wiederverwenden).
+// Gradient laut Feedback aufgehellt. Kein "Platz anfragen" Button.
+---
+<div class="astro-kb-root">
+  <section class="astro-kb-hero">
+    <div class="astro-kb-hero__in">
+      <p class="astro-kb-hero__eyebrow">Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-kb-hero__h1">Kita St. Bonifatius</h1>
+      <p class="astro-kb-hero__lead">100 Kinder, zwei Krippengruppen und vier Kindergartengruppen &ndash; in modernen, hellen R&auml;umen mit gro&szlig;em Garten in Sachsenhausen.</p>
+      <div class="astro-kb-hero__ctas">
+        <a href="#astro-kb-haus" class="astro-kb-btn astro-kb-btn--ghost">Kita kennenlernen</a>
+        <a href="/kitas/stellenboerse/" class="astro-kb-btn astro-kb-btn--ghost">Stellenb&ouml;rse</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fotostreifen -->
+  <div class="astro-kb-marquee">
+    <div class="astro-kb-marquee__track">
+      <img src="/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg" alt="Kinder im Garten der Kita St. Bonifatius" loading="lazy" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-3.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-5.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-6.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-7.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-9.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-10.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <!-- duplicate for seamless loop -->
+      <img src="/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-3.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-5.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-6.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-7.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-9.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-10.jpg" alt="" loading="lazy" aria-hidden="true" />
+    </div>
+  </div>
+
+  <!-- Quicknav -->
+  <nav class="astro-kb-quicknav" aria-label="Schnellzugriff">
+    <div class="astro-kb-quicknav__in">
+      <a href="#astro-kb-welcome">Willkommen</a>
+      <a href="#astro-kb-tagesablauf">Tagesablauf</a>
+      <a href="#astro-kb-zeiten">&Ouml;ffnungszeiten</a>
+      <a href="#astro-kb-anmeld">Anmeldung</a>
+      <a href="#astro-kb-dok">Dokumente</a>
+      <a href="#astro-kb-kontakt">Kontakt</a>
+    </div>
+  </nav>
+</div>
+
+<style is:global>
+:root {
+  --bf-bg: #f7f3ef;
+  --bf-bg-alt: #ede4d5;
+  --bf-ink: #1e1512;
+  --bf-ink-60: #6b5c52;
+  --bf-accent: #9a2d2d;
+  --bf-gold: #b88a3a;
+  --bf-border: #e0d8cf;
+  --bf-radius: 14px;
+}
+.astro-kb-root {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.astro-kb-hero {
+  height: min(70vh, 580px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  position: relative;
+  background: url('/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg') center/cover no-repeat;
+}
+.astro-kb-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Feedback: aufgehellter Gradient */
+  background: linear-gradient(to top, rgba(0,0,0,.6) 0%, rgba(0,0,0,.18) 45%, rgba(0,0,0,.02) 100%);
+}
+.astro-kb-hero__in {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px 60px;
+}
+.astro-kb-hero__eyebrow {
+  font-family: 'Futura LT W01 Book', Futura, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--bf-gold);
+  margin: 0 0 14px;
+}
+.astro-kb-hero__h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(34px, 5.5vw, 64px);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+.astro-kb-hero__lead {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255,255,255,.88);
+  max-width: 560px;
+  line-height: 1.65;
+  margin: 0 0 28px;
+}
+.astro-kb-hero__ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.astro-kb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  border-radius: 32px;
+  font-weight: 700;
+  font-size: 14.5px;
+  text-decoration: none;
+  min-height: 44px;
+  transition: all .2s;
+  letter-spacing: .02em;
+}
+.astro-kb-btn--ghost {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,.5);
+}
+.astro-kb-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+.astro-kb-btn--primary {
+  background: #fff;
+  color: var(--bf-accent);
+}
+.astro-kb-btn--primary:hover { background: #f0e8d8; }
+.astro-kb-btn--accent {
+  background: var(--bf-accent);
+  color: #fff;
+}
+.astro-kb-btn--accent:hover { background: #7a2424; }
+
+/* Marquee */
+.astro-kb-marquee {
+  overflow: hidden;
+  background: #1e1512;
+  padding: 6px 0;
+}
+.astro-kb-marquee__track {
+  display: flex;
+  gap: 8px;
+  width: max-content;
+  animation: astroKbMarquee 70s linear infinite;
+}
+.astro-kb-marquee__track:hover { animation-play-state: paused; }
+.astro-kb-marquee__track img {
+  height: 220px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  flex-shrink: 0;
+}
+@keyframes astroKbMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astro-kb-marquee__track { animation: none; overflow-x: auto; }
+}
+
+/* Quicknav */
+.astro-kb-quicknav {
+  background: var(--bf-ink);
+  padding: 0 16px;
+  position: sticky;
+  top: 80px;
+  z-index: 999;
+}
+.astro-kb-quicknav__in {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 0;
+  scrollbar-width: none;
+}
+.astro-kb-quicknav__in::-webkit-scrollbar { display: none; }
+.astro-kb-quicknav a {
+  color: #d4c9b5;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 22px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background .2s, color .2s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,.25);
+}
+.astro-kb-quicknav a:hover { background: var(--bf-gold); color: var(--bf-ink); border-color: var(--bf-gold); }
+
+/* Shared section layout */
+.astro-kb-sec {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.astro-kb-in {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.astro-kb-eyebrow {
+  font-family: 'Futura LT W01 Book', Futura, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--bf-accent);
+  margin: 0 0 12px;
+}
+
+/* Section anchors scroll behind sticky nav */
+[id] { scroll-margin-top: 100px; }
+
+@media (max-width: 600px) {
+  .astro-kb-hero__in { padding: 0 20px 48px; }
+  .astro-kb-quicknav__in { justify-content: flex-start; padding-left: 8px; }
+  .astro-kb-marquee__track img { height: 160px; }
+}
+</style>
