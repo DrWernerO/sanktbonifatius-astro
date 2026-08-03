@@ -138,6 +138,40 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="astro-kb-faq astro-kb-sec" id="astro-kb-faq">
+  <div class="astro-kb-faq__in">
+    <p class="astro-kb-eyebrow" style="text-align:center">H&auml;ufig gefragt</p>
+    <h2 class="astro-kb-faq__h2" style="text-align:center">Antworten auf Ihre Fragen</h2>
+    <div class="astro-kb-faq__list">
+      <details class="astro-kb-faq__item">
+        <summary class="astro-kb-faq__q">Ab welchem Alter nehmen Sie Kinder auf?</summary>
+        <div class="astro-kb-faq__a"><p>Wir betreuen Kinder ab einem Jahr in unseren zwei Krippengruppen und von 3 bis 6 Jahren in unseren vier Kindergartengruppen.</p></div>
+      </details>
+      <details class="astro-kb-faq__item">
+        <summary class="astro-kb-faq__q">Wie l&auml;uft die Anmeldung?</summary>
+        <div class="astro-kb-faq__a"><p>Die Anmeldung erfolgt ausschlie&szlig;lich &uuml;ber Kindernet Frankfurt. Sobald Sie sich dort eingetragen haben, k&ouml;nnen Sie uns direkt kontaktieren, um einen Besichtigungstermin zu vereinbaren.</p></div>
+      </details>
+      <details class="astro-kb-faq__item">
+        <summary class="astro-kb-faq__q">Wann hat die Kita ge&ouml;ffnet?</summary>
+        <div class="astro-kb-faq__a"><p>Unsere Kita ist montags bis freitags von 7:30 bis 17:00 Uhr ge&ouml;ffnet. Die genauen Schlie&szlig;zeiten entnehmen Sie dem Kalender auf dieser Seite.</p></div>
+      </details>
+      <details class="astro-kb-faq__item">
+        <summary class="astro-kb-faq__q">Wie lange dauert die Eingewöhnung?</summary>
+        <div class="astro-kb-faq__a"><p>Die Eingewöhnung richtet sich nach den Bed&uuml;rfnissen Ihres Kindes. In der Krippe planen wir mindestens zwei bis vier Wochen ein, im Kindergarten in der Regel ein bis zwei Wochen.</p></div>
+      </details>
+      <details class="astro-kb-faq__item">
+        <summary class="astro-kb-faq__q">Gibt es ein Mittagessen?</summary>
+        <div class="astro-kb-faq__a"><p>Ja. In unserer Mensa wird t&auml;glich ein frisches Mittagessen zubereitet. Allergien und Unvertr&auml;glichkeiten ber&uuml;cksichtigen wir auf Absprache.</p></div>
+      </details>
+      <details class="astro-kb-faq__item">
+        <summary class="astro-kb-faq__q">Ist die Kita konfessionell gebunden?</summary>
+        <div class="astro-kb-faq__a"><p>Wir sind eine katholische Kita in Tr&auml;gerschaft der Pfarrei Sankt Bonifatius Frankfurt. Das Kirchenjahr ist Teil unseres Alltags. Familien aller Konfessionen und Kulturen sind herzlich willkommen.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- PÄDAGOGIK & DOKUMENTE -->
 <section class="astro-kb-paed astro-kb-sec" id="astro-kb-dok">
   <div class="astro-kb-paed__in">
@@ -432,6 +466,20 @@
   transition: all .2s;
 }
 .astro-kb-btn--outline:hover { background: var(--bf-accent); color: #fff; }
+
+/* FAQ */
+.astro-kb-faq { background: #fff; padding: 80px 24px; }
+.astro-kb-faq__in { max-width: 800px; margin: 0 auto; }
+.astro-kb-faq__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 40px; }
+.astro-kb-faq__list { display: flex; flex-direction: column; gap: 4px; }
+.astro-kb-faq__item { background: var(--bf-bg); border: 1px solid var(--bf-border); border-radius: 10px; overflow: hidden; }
+.astro-kb-faq__item[open] { border-color: var(--bf-accent); }
+.astro-kb-faq__q { padding: 18px 24px; font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 700; color: var(--bf-ink); cursor: pointer; list-style: none; position: relative; padding-right: 48px; }
+.astro-kb-faq__q::-webkit-details-marker { display: none; }
+.astro-kb-faq__q::after { content: '+'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 22px; font-weight: 400; color: var(--bf-accent); }
+.astro-kb-faq__item[open] .astro-kb-faq__q::after { content: '\2212'; }
+.astro-kb-faq__a { padding: 0 24px 18px; }
+.astro-kb-faq__a p { font-size: 15px; color: var(--bf-ink-60); line-height: 1.7; margin: 0; }
 
 /* PÄDAGOGIK */
 .astro-kb-paed {
