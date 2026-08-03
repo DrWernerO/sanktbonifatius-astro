@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 // Server-seitig: direkt zur LIVE-Seite (www, gültiges Zertifikat). Frühere Quelle war der
 // Dev-Server; seit 2026-06-22 ist www die aktuelle Inhalts-Quelle (Handbuch Abschnitt 1).
-const WP_API = 'https://www.sanktbonifatius.de/wp-json/wp/v2';
+const WP_API = 'https://cms.sanktbonifatius.de/wp-json/wp/v2';
 
 export async function getPage(slug) {
   const res = await fetch(
@@ -213,7 +213,7 @@ export async function getMenuItems() {
 
 // Render-Host: LIVE-Seite (www) — liefert das aktuelle, SEO-optimierte HTML (gültiges Zertifikat).
 // Frühere Quelle war der Dev-Server; seit 2026-06-22 ist www die Quelle (Handbuch Abschnitt 1).
-const WP_RENDER_ORIGIN = 'https://www.sanktbonifatius.de';
+const WP_RENDER_ORIGIN = 'https://cms.sanktbonifatius.de';
 // Produktive Frontend-Domain für canonical/og:url (Umzug: Handbuch Abschnitt 1b).
 // Bild-/Datei-URLs (/wp-content/) werden NICHT umgeschrieben (bleiben auf dem WP-Host).
 const PUBLIC_SITE = 'https://sanktbonifatius.de';

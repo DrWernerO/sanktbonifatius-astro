@@ -10,7 +10,7 @@
 # Ersetzt den lokalen Vite-Proxy aus astro.config.mjs (der greift nur im Dev).
 # Browser ruft /wp-proxy/... auf gleicher Origin auf -> Netlify leitet (200/Rewrite) an die
 # Inhalts-Quelle weiter (kein CORS). Beim WP-Umzug auf cms.-Subdomain hier das Ziel anpassen.
-/wp-proxy/*  https://www.sanktbonifatius.de/:splat  200
+/wp-proxy/*  https://cms.sanktbonifatius.de/:splat  200
 
 # --- Sakramente ---
 /taufe              /segen-sakramente/taufe/                          301

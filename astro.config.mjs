@@ -5,7 +5,7 @@ import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 // Inhalts-Quelle: LIVE-Seite (www, gültiges Zertifikat). Früher Dev-Server (Handbuch 1).
-const WP_LIVE = 'https://www.sanktbonifatius.de';
+const WP_LIVE = 'https://cms.sanktbonifatius.de';
 
 export default defineConfig({
   // Produktive Frontend-Domain (Handbuch 1b). Basis für sitemap + canonical-URLs.
