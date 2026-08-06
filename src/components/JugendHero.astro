@@ -3,7 +3,7 @@
 // Eigene Klassen `astro-juhero` (goldene Regel, Handbuch Abschnitt 3 — niemals WP-Klassen `jug-…`).
 // Full-Bleed-Bild + Verlauf-Overlay + Text. Bild lokal unter public/uploads/ (vom Live-WP geladen,
 // unabhängig vom Server, vgl. Handbuch 1b). Inhalte fest gepflegt (selten geändert).
-const bg = '/uploads/2026/04/teaser-jugend-stbonifatius.jpeg';
+const bg = '/uploads/2026/08/jugend-picknick-gruppe.jpg';
 ---
 <section class="astro-juhero">
   <div class="astro-juhero__bg" role="img"
@@ -22,8 +22,8 @@ const bg = '/uploads/2026/04/teaser-jugend-stbonifatius.jpeg';
 
 <style is:global>
 .astro-juhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(70vh,560px);display:flex;align-items:flex-end;overflow:hidden}
-.astro-juhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 35%}
-.astro-juhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.10) 0%,rgba(30,21,18,.50) 60%,rgba(30,21,18,.88) 100%)}
+.astro-juhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 55%}
+.astro-juhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.02) 0%,rgba(30,21,18,.28) 60%,rgba(30,21,18,.68) 100%)}
 .astro-juhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;color:#f0e8d8}
 .astro-juhero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 14px}
 .astro-juhero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,68px);color:#fff;margin:0 0 16px;line-height:1.08;font-weight:700}
