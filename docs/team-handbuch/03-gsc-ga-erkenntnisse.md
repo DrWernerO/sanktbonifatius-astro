@@ -82,7 +82,7 @@ Jede Persona bildet eine Tür in die Navigation ab. Wer die Seite designt, soll 
 - **Englischsprachige Kurzinfos** für Expats (Frankfurt-Sachsenhausen gentrifiziert, internationales Milieu)
 - **Erstkommunion-Seite** mit Anmeldeformular
 - **Google My Business** für alle 4 Kirchorte pflegen (Öffnungszeiten, Fotos, Reviews)
-- **Schema.org-Markup** für lokale Suche (siehe 06-technische-loesungen.md)
+- **Schema.org-Markup** für lokale Suche
 
 ---
 

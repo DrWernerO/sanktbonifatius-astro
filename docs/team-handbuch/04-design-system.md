@@ -57,16 +57,7 @@ Diese Print-Farben sind in den Vortrag-PDFs verbaut (siehe 08-vortrag-projekt.md
 
 ## 3. CSS-Präfix-Konvention
 
-| Präfix | Kontext | Beispiele |
-|---|---|---|
-| `bh2-` | Startseiten-Iterationen + home6-Erbe | `bh2-vt`, `bh2-editorial`, `bh2-news` |
-| `bh3a-` | home6-Header (Navigation, Dropdowns) | `bh3a-hdr`, `bh3a-dd`, `bh3aSrch` |
-| `bh4-` | homeneu4-Ergänzungen | `bh4-ziel`, `bh4-formate` |
-| `boni-` | globale Komponenten (Programmzeilen, QuickLinks) | `boni-prog`, `boni-ql2` |
-| `bf-` | **bonfamily2-Komponenten** | `bf-hero`, `bf-strip`, `bf-section`, `bf-faq-item` |
-| `apos-` | **Kirchort-Aposteln-Entwurf** | `apos-hero-section`, `apos-tile`, `apos-modal` |
-
-**Regel:** Für eine neue Kirchort-Seite (z.B. Herz Jesu) entweder `apos-`-Klassen wiederverwenden ODER eigenen kurzen Präfix (`hj-`) und dieselbe Struktur übernehmen.
+**Für Astro gilt die eigene Regel:** Präfix `astro-` für alle neuen Komponenten (siehe `ASTRO-HANDBUCH.md` §3) — nie die alten WordPress-Theme-Klassen (`bh2-`, `bh3a-`, `bf-`, `apos-` …) wiederverwenden, sonst überschreibt das WP-CSS die eigenen Styles. Die alten Präfixe sind nur noch relevant, falls man den historischen WP-Seiteninhalt zum Vergleich liest.
 
 ---
 
@@ -111,19 +102,6 @@ body:has(.bh3a-hdr) .bh3a-hdr.nav-scrolled {
 
 Es sind **keine page-id-spezifischen nav-scrolled-Regeln** mehr nötig. Auch kein MutationObserver oder Scroll-JavaScript im Seiteninhalt — das würde mit dem bh3a-Scroll-Script interferieren.
 
-#### 4.1.3 Pflicht-Korrekturen im Seiteninhalt (navBereinigen)
-
-Bei **jedem** `wp.apiFetch`-Save muss `navBereinigen(c)` aufgerufen werden:
-
-```javascript
-function navBereinigen(c) {
-  c = c.replace('Frankfurt &middot; Sachsenhausen', 'Frankfurt am Main');
-  c = removeSvgBefore(c, 'Kitas');      // SVG-Schmuck-Icon entfernen
-  c = removeSvgBefore(c, 'Trauerfall'); // SVG-Schmuck-Icon entfernen
-  return c;
-}
-```
-
 #### 4.1.4 Social-Icons & Spenden-Button — häufige Fehler
 
 ```css
@@ -167,16 +145,6 @@ function navBereinigen(c) {
 ```
 
 **Hintergrund (2026-05-20):** Massenkorrektur über alle 108 Seiten der Website (damals noch auf dem dev-Server, vor dem Go-Live). 29 Seiten hatten noch `logo-kreis-st-bonifatius.png` oder `logokreis-stbonifatius-klein.jpg`, darunter alle größeren Entwürfe (home6 48305, Segen&Sakramente2, alle Kita-Seiten, Kasualienseiten, Jugend2, Kontakt2 u.v.m.). Zusätzlich hatte `st-aposteln-entwurf` (45941) zwar das richtige Bild, aber `44px` statt `48px` — ebenfalls korrigiert. Referenz-Seite für korrekte Größe: 46764 (Kultur und Begegnung 2) und 46769 (Engagiert Leben3).
-
-#### 4.1.7 Code-Location
-
-- Code-Quelle: home6 (Post 45758), Zeichen 0–9771 (Style + HTML)
-- Übernahme in neue Seite:
-
-```javascript
-const h6Header = window._h6_header;  // ersten 9771 chars aus home6
-// In neuen Content prependen als <!-- wp:html -->{h6Header}<!-- /wp:html -->
-```
 
 ### 4.2 Hero (Full-Bleed mit Foto)
 
@@ -227,7 +195,52 @@ CSS-Tweaks (Pflicht):
 
 3 Vorschau-Kacheln + "Alle Fotos anzeigen →" Button → öffnet Lightbox mit 6–12 Fotos, Tastatur-Navigation (← → Esc), Full-Screen Overlay mit Blur-Backdrop.
 
-Code siehe 06-technische-loesungen.md § Lightbox.
+```html
+<section class="apos-gallery-section" id="meine-galerie">
+  <h2>Fotos aus unserem Gemeindeleben</h2>
+  <div class="apos-gallery">
+    <button class="apos-gallery-item" data-idx="0" style="background-image:url('…/1.jpg');"></button>
+    <button class="apos-gallery-item" data-idx="1" style="background-image:url('…/2.jpg');"></button>
+    <button class="apos-gallery-item" data-idx="2" style="background-image:url('…/3.jpg');"></button>
+  </div>
+  <div class="apos-gallery-more">
+    <button class="apos-gallery-open-all">Alle Fotos anzeigen →</button>
+  </div>
+  <div class="apos-lightbox" hidden>
+    <button class="close">&times;</button>
+    <button class="prev">&lsaquo;</button>
+    <button class="next">&rsaquo;</button>
+    <img alt="" />
+    <div class="counter"></div>
+  </div>
+  <script>
+  (function(){
+    var all = [/* vollständige URLs aller Fotos */];
+    var root = document.getElementById('meine-galerie');
+    var lb = root.querySelector('.apos-lightbox');
+    var img = lb.querySelector('img'), counter = lb.querySelector('.counter');
+    var idx = 0;
+    function show(i){ if(i<0)i=all.length-1; if(i>=all.length)i=0; idx=i; img.src=all[i]; counter.textContent=(i+1)+' / '+all.length; }
+    function open(i){ show(i); lb.hidden=false; document.body.style.overflow='hidden'; }
+    function close(){ lb.hidden=true; document.body.style.overflow=''; }
+    root.querySelectorAll('.apos-gallery-item').forEach(function(b){
+      b.addEventListener('click', function(){ open(parseInt(b.dataset.idx,10)||0); });
+    });
+    root.querySelector('.apos-gallery-open-all').addEventListener('click', function(){ open(0); });
+    lb.querySelector('.close').addEventListener('click', close);
+    lb.querySelector('.prev').addEventListener('click', function(){ show(idx-1); });
+    lb.querySelector('.next').addEventListener('click', function(){ show(idx+1); });
+    lb.addEventListener('click', function(e){ if(e.target===lb) close(); });
+    document.addEventListener('keydown', function(e){
+      if(lb.hidden) return;
+      if(e.key==='Escape') close();
+      else if(e.key==='ArrowLeft') show(idx-1);
+      else if(e.key==='ArrowRight') show(idx+1);
+    });
+  })();
+  </script>
+</section>
+```
 
 ### 4.7 Ansprechpartner-Karten
 
@@ -253,7 +266,48 @@ CSS setzt `summary::-webkit-details-marker { display:none }`, `[open] .icon { tr
 
 Fixed overlay + dialog, Fade+Slide in, schließt bei ×-Klick / Overlay-Klick / Esc. Body-Scroll wird gesperrt während offen.
 
-Code-Muster siehe 06-technische-loesungen.md § Modal.
+```html
+<div class="apos-modal" id="apos-kirche-modal" hidden role="dialog" aria-modal="true" aria-labelledby="apos-modal-title">
+  <div class="apos-modal-overlay"></div>
+  <div class="apos-modal-dialog">
+    <button type="button" class="apos-modal-close" aria-label="Schließen">&times;</button>
+    <div class="apos-modal-header">
+      <div class="eyebrow">Die Kirche St. Aposteln</div>
+      <h2 id="apos-modal-title">Geschichte &amp; Architektur</h2>
+    </div>
+    <div class="apos-modal-body">
+      <section class="apos-modal-section">
+        <h3>Architektur</h3>
+        <p>…</p>
+      </section>
+      <!-- weitere Sections: Die Fenster, Die Orgel, Die Glocken -->
+    </div>
+  </div>
+</div>
+```
+
+```css
+.apos-modal{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:40px 20px;opacity:0;transition:opacity .25s ease;}
+.apos-modal[hidden]{display:none !important;}
+.apos-modal.is-open{opacity:1;}
+.apos-modal-overlay{position:absolute;inset:0;background:rgba(15,12,10,.7);backdrop-filter:blur(4px);}
+.apos-modal-dialog{position:relative;background:#fff;max-width:820px;width:100%;max-height:85vh;overflow-y:auto;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.4);transform:translateY(20px);opacity:0;transition:transform .3s ease,opacity .3s ease;}
+.apos-modal.is-open .apos-modal-dialog{transform:translateY(0);opacity:1;}
+```
+
+```javascript
+(function(){
+  var modal = document.getElementById('apos-kirche-modal');
+  if(!modal) return;
+  var trigger = document.querySelector('.apos-kirche-more');
+  function open(e){ if(e) e.preventDefault(); modal.hidden = false; document.body.style.overflow='hidden'; setTimeout(function(){ modal.classList.add('is-open'); }, 10); }
+  function close(){ modal.classList.remove('is-open'); document.body.style.overflow=''; setTimeout(function(){ modal.hidden = true; }, 250); }
+  if(trigger) trigger.addEventListener('click', open);
+  modal.querySelector('.apos-modal-close').addEventListener('click', close);
+  modal.querySelector('.apos-modal-overlay').addEventListener('click', close);
+  document.addEventListener('keydown', function(e){ if(!modal.hidden && e.key === 'Escape') close(); });
+})();
+```
 
 ### 4.10 Dunkler Footer-Block
 
@@ -341,17 +395,7 @@ Das Ursprung-Theme hat einen 780 px-Content-Container (`.frame-content` / `.us_c
 }
 ```
 
-**Option B — page-weit:** In bonfamily2/aposteln wird der Container selbst entsperrt:
-```css
-.us_content, .frame-content {
-  max-width: none !important;
-  width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-```
-
-Dann hat jeder Block 100 % Breite und kann über `max-width + margin:0 auto` nach innen begrenzt werden.
+In Astro gibt es keinen einschränkenden Theme-Container mehr — die Full-Bleed-Technik (Option A) reicht direkt.
 
 ---
 

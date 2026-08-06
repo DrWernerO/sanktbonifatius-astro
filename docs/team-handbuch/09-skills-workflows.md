@@ -19,7 +19,7 @@ Wie wir mit Claude arbeiten — konkrete Skills, Muster, Prompts.
 ### Wie wir ihn einsetzen
 
 1. **Neuer Dialog, erste Aufgabe:**
-   *„Ich möchte mit dir am Redesign der Kirchort-Seite Herz Jesu arbeiten. Nutze den Skill `/ui-ux-pro-max` als Rahmen. Wir folgen dem Design-System aus `/Users/wernerotto/Library/Mobile Documents/com~apple~CloudDocs/Claude/Code/team-handbuch/04-design-system.md`."*
+   *„Ich möchte mit dir am Redesign der Kirchort-Seite Herz Jesu arbeiten. Nutze den Skill `/ui-ux-pro-max` als Rahmen. Wir folgen dem Design-System aus `docs/team-handbuch/04-design-system.md`."*
 
 2. Claude ruft `/ui-ux-pro-max` auf, stellt Fragen zu:
    - Produkt-Typ (Kirchort-Seite, thematische Seite, Event-Seite …)
@@ -31,7 +31,7 @@ Wie wir mit Claude arbeiten — konkrete Skills, Muster, Prompts.
 4. Claude liefert einen strukturierten Design-Brief, den wir mit diesem Handbuch abgleichen, bevor die Umsetzung startet.
 
 ### Wichtig
-Der Skill liefert allgemeine Best Practices. Die **Sankt-Bonifatius-spezifischen Entscheidungen** (Post-IDs, WP-Zugang, REST-Workflow) kommen aus diesem Handbuch. Beide Quellen zusammen ergeben den verbindlichen Rahmen.
+Der Skill liefert allgemeine Best Practices. Die **Sankt-Bonifatius-spezifischen Entscheidungen** (Post-IDs, Design-Tokens, Event-Kategorien) kommen aus diesem Handbuch. Beide Quellen zusammen ergeben den verbindlichen Rahmen.
 
 ---
 
@@ -49,43 +49,31 @@ Der Skill liefert allgemeine Best Practices. Die **Sankt-Bonifatius-spezifischen
 
 ---
 
-## Arbeits-Workflow für eine neue Seite
+## Arbeits-Workflow für eine neue Astro-Seite
 
 ### Schritt 1 — Kontext laden (einmalig pro Dialog)
 
 Erste Nachricht an Claude:
 
-> *„Bitte lies das Team-Handbuch unter `/Users/wernerotto/Library/Mobile Documents/com~apple~CloudDocs/Claude/Code/team-handbuch/` — beginne mit `README.md` und arbeite die nummerierten Dateien durch. Danach sind wir bereit für die Arbeit an [konkrete Seite]."*
-
-Claude liest alle Dateien mit `Read`, hat dann den vollen Projekt-Kontext.
+> *„Bitte lies zuerst `docs/ASTRO-QUICKREF.md`, danach bei Bedarf den passenden Abschnitt in `docs/ASTRO-HANDBUCH.md`. Für Design/Post-IDs/Event-Kategorien ergänzend `docs/team-handbuch/`. Danach sind wir bereit für die Arbeit an [konkrete Seite]."*
 
 ### Schritt 2 — Aufgabe definieren
 
 Kurz und konkret:
-- Welche Seite? (Slug + Post-ID falls bekannt)
+- Welche Seite? (Astro-Pfad + WP-Page-ID falls bekannt, siehe `07-seiten-inventar.md`)
 - Was soll geändert werden? (Liste)
-- Worauf achten? (z.B. „BonFamily2-Stil übernehmen, Accent-Farbe wie dort")
+- Worauf achten? (z. B. „BonFamily2-Stil übernehmen, Accent-Farbe wie dort")
 
-### Schritt 3 — Browser vorbereiten
+### Schritt 3 — Umsetzen (siehe `ASTRO-QUICKREF.md`, „Typisches Vorgehen neue Seite")
 
-- Chrome offen
-- WordPress Admin eingeloggt (Werner)
-- Tab auf dem **Edit-URL der betroffenen Seite** (`/wp-admin/post.php?post=XXX&action=edit`)
-- Claude fragt per `mcp__Claude_in_Chrome__tabs_context_mcp` ab, welche Tabs verfügbar sind
+1. Page-ID und ggf. Event-Kategorie-ID nachschlagen (`07-seiten-inventar.md`, `05-veranstaltungskalender.md`)
+2. Eigene `.astro`-Komponente(n) mit `astro-`-Präfix bauen
+3. `npm run dev`, im privaten Browser-Fenster testen
+4. `docs/SEITENVERZEICHNIS.md` mitpflegen, als eigenen `Doku:`-Commit
 
-### Schritt 4 — Iterativ ändern und testen
-
-1. Claude lädt aktuellen Content per `wp.apiFetch`
-2. Ändert per String-Operationen
-3. Speichert zurück
-4. Öffnet Preview-Tab (`/?page_id=XXX&preview=true&nocache=N`)
-5. Prüft per DOM-Abfrage, ob alles aussieht wie gewollt
-6. Berichtet zurück, Nutzer:in gibt Feedback, Schleife von vorn
-
-### Schritt 5 — Memory aktualisieren
+### Schritt 4 — Memory aktualisieren
 
 Nach wichtigen Meilensteinen:
-- Falls neuer Trick/Lösung → in `06-technische-loesungen.md` ergänzen
 - Falls neue Seite → in `07-seiten-inventar.md` eintragen
 - Falls neues Design-Muster → in `04-design-system.md` ergänzen
 
@@ -94,32 +82,38 @@ Nach wichtigen Meilensteinen:
 ## Tipps für gute Claude-Prompts (in diesem Projekt)
 
 ### DO
-- **Konkrete Post-ID** nennen, wenn möglich (*„bonfamily2 ist Post 45898"*)
-- **Vorbild-Seite** benennen (*„im Stil von home6"*)
+- **Konkrete Page-ID** nennen, wenn möglich (*„bonfamily2 ist WP-Post 45898"*)
+- **Vorbild-Seite** benennen (*„im Stil von home6/bonfamily2"*)
 - **Strategische Intention** mitgeben (*„…damit Externe sofort den Weg zur Taufe-Seite finden"*)
-- **Format** verlangen (*„als Gutenberg-Block"* oder *„als Custom-HTML im wp:html-Block"*)
+- **Format** verlangen (*„als eigene Astro-Komponente mit Präfix astro-XX"*)
 
 ### DON'T
 - „Mach's schöner" (ohne Referenz) — Claude rät dann wild
-- Live-Seite direkt ändern ohne Backup/Draft
 - Mehr als 3–4 Änderungen in einer Iteration — unüberschaubar
-- Gutenberg-Accordions für FAQ (→ Theme-Bug, siehe 06-technische-loesungen.md § FAQ)
+- Eigene JS-Accordions für FAQ bauen (→ natives `<details>`-Element nutzen, siehe `04-design-system.md` §4.8)
 
 ---
 
 ## Nützliche Einstiegsformulierungen
 
-**Für Redesign einer bestehenden Seite:**
-> „Ich möchte die Seite [URL oder Slug] im Stil von home6/bonfamily2 redesignen. Bitte dupliziere sie als Entwurf, übernimm den Home6-Header und das Farbsystem `--bf-*`, und baue die Inhalte gemäß Team-Handbuch 04 in das neue Layout ein."
-
-**Für neue Seite:**
-> „Bitte lege eine neue Draft-Seite `[slug]` an, Parent: [parent-id]. Verwende den Home6-Header, ein Hero mit Foto [URL], einen Willkommens-Block und danach [Struktur]. Design-Vorbild: bonfamily2."
+**Für eine neue Astro-Seite:**
+> „Bitte baue die Seite [Slug] als eigene Astro-Komponente(n) mit Präfix `astro-XX`. Design-Vorbild: bonfamily2/home6 (siehe 04-design-system.md). WP-Page-ID für den Content: [ID] (siehe 07-seiten-inventar.md)."
 
 **Für Analyse:**
 > „Analysiere die Seite [URL]. Welche GSC-Suchbegriffe würden hier landen? Welche Blöcke fehlen für die Zielgruppe [Persona]?"
 
 **Für Veranstaltungskalender-Einbau:**
-> „Füge auf Seite [ID] den dynamischen Veranstaltungskalender aus home6 ein, gefiltert auf die Kategorie [Name] (Term-ID: [zzz])."
+> „Füge auf Seite [Astro-Pfad] den `EventCalendar` ein, gefiltert auf die Kategorie [Name] (Term-ID: [zzz], siehe 05-veranstaltungskalender.md)."
+
+---
+
+## Notfall: etwas ist kaputt
+
+Bei Astro/Git läuft das anders als früher in WordPress (dort gab es Revisions):
+
+1. **Nicht committen/pushen!** Erst lokal (`npm run dev`) prüfen.
+2. Letzten funktionierenden Stand ansehen/zurückholen: `git diff`, `git checkout -- <datei>`, oder im Zweifel `git log` und einen früheren Commit auschecken.
+3. Bei einem fehlerhaften Netlify-Deploy: im Netlify-Dashboard auf den letzten funktionierenden Deploy zurückrollen.
 
 ---
 
@@ -127,33 +121,14 @@ Nach wichtigen Meilensteinen:
 
 Claude speichert wichtige Erkenntnisse automatisch in:
 ```
-~/.claude/projects/-Users-wernerotto-Library-Mobile-Documents-com~apple~CloudDocs-Claude-Code/memory/
+~/.claude/projects/-Users-wernerotto-Claude-Code/memory/
 ```
 
-Das ist **nicht** Teil des Team-Handbuchs, sondern Claudes persönliches Gedächtnis zwischen Sessions. Falls eine Info dort steht, aber nicht im Handbuch → Claude bitten, sie ins Handbuch zu übernehmen.
+Das ist **nicht** Teil des Team-Handbuchs, sondern Claudes persönliches Gedächtnis zwischen Sessions — gebunden an den Arbeitsordner `/Users/wernerotto/Claude/Code/`. Falls eine Info dort steht, aber nicht im Handbuch → Claude bitten, sie ins Handbuch zu übernehmen.
 
 ---
 
-## Notfall-Checkliste
+## Wo das Handbuch liegt
 
-Wenn eine Änderung etwas kaputt macht:
-
-1. **Nicht speichern!** Erst Preview überprüfen.
-2. WordPress hat **Revisions** — letzte funktionierende Version wiederherstellen:
-   ```javascript
-   wp.apiFetch({path:'/wp/v2/pages/POST_ID/revisions?per_page=5&_fields=id,date'});
-   ```
-3. Im WP-Admin: Editor → rechts „Beitrag" → „Überarbeitungen" → wiederherstellen.
-4. Oder: Draft-Status setzen, damit Live-Seite intakt bleibt, während debuggt wird.
-
----
-
-## Wo Code liegt
-
-- **Handbuch-Quellen:** `/Users/wernerotto/Library/CloudStorage/OneDrive-KatholischeKirchengemeindeSt.BonifatiusFrankfurt/0_Pfarreiaustausch/Claude/team-handbuch/`
-- **Dieses Handbuch als Markdown:** lesbar in VS Code, Typora, GitHub, Obsidian, …
-- **Versions-Kontrolle:** Ordner ist derzeit nicht als Git-Repo initialisiert. Falls gewünscht:
-  ```bash
-  cd "/Users/wernerotto/Library/Mobile Documents/com~apple~CloudDocs/Claude/Code"
-  git init && git add team-handbuch/ && git commit -m "Initial team handbook"
-  ```
+- **Einzige gepflegte Kopie:** `docs/team-handbuch/` im Astro-Projekt (`Senior Web Developer/`), GitHub-Repo `DrWernerO/sanktbonifatius-astro`. Wird auch von Lovis gelesen/aktualisiert.
+- Änderungen als eigene `Doku:`-Commits, nie mit Astro-Code-Commits mischen.
