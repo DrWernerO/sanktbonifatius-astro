@@ -44,7 +44,7 @@
           >
         </div>
         <div class="astro-ki-card__body">
-          <p class="astro-ki-card__tag">Kindergarten &middot; Teiloffen</p>
+          <p class="astro-ki-card__tag">Kindergarten</p>
           <h3 class="astro-ki-card__h3">Kita St. Aposteln</h3>
           <ul class="astro-ki-card__meta">
             <li>3&ndash;6 Jahre &middot; 4 Gruppen</li>
@@ -120,15 +120,16 @@
   <div class="astro-ki-koord__in">
     <p class="astro-ki-eyebrow-sm">Zentrale Ansprechpartnerinnen</p>
     <h2 class="astro-ki-koord__h2">Kita-Koordination</h2>
-    <p class="astro-ki-koord__sub">Fragen zu Betreuungspl&auml;tzen, Anmeldung oder Kooperationen? Sandra und Jeannine helfen Ihnen weiter.</p>
     <div class="astro-ki-koord__cards">
       <div class="astro-ki-koord__card">
         <img src="/uploads/2026/07/Sandra-Roos-Greulich-2026.jpg" alt="Sandra Roos-Greulich" class="astro-ki-koord__photo" loading="lazy" />
+        <p class="astro-ki-koord__role">Kita-Koordinatorin</p>
         <p class="astro-ki-koord__name">Sandra Roos-Greulich</p>
         <a href="mailto:s.roos-greulich@sanktbonifatius.de" class="astro-ki-koord__email">s.roos-greulich@sanktbonifatius.de</a>
       </div>
       <div class="astro-ki-koord__card">
         <img src="/uploads/2026/07/Jeannine-Douverne-2026.jpg" alt="Jeannine Douverne" class="astro-ki-koord__photo" loading="lazy" />
+        <p class="astro-ki-koord__role">Referentin Kita-Koordination</p>
         <p class="astro-ki-koord__name">Jeannine Douverne</p>
         <a href="mailto:j.douverne@sanktbonifatius.de" class="astro-ki-koord__email">j.douverne@sanktbonifatius.de</a>
       </div>
@@ -164,7 +165,7 @@
 .astro-ki-card__h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 700; color: var(--bf-ink); margin: 0 0 10px; }
 .astro-ki-card__meta { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .astro-ki-card__meta li { font-size: 13px; color: var(--bf-ink-60); }
-.astro-ki-card__meta li::before { content: '↳ '; color: var(--bf-accent); }
+.astro-ki-card__meta li::before { content: none; }
 .astro-ki-card__link { font-size: 14px; font-weight: 700; color: var(--bf-accent); text-decoration: none; }
 .astro-ki-card__link:hover { text-decoration: underline; }
 
@@ -176,6 +177,7 @@
 .astro-ki-koord__cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 .astro-ki-koord__card { background: var(--bf-bg); border: 1px solid var(--bf-border); border-radius: 12px; padding: 18px 24px; min-width: 220px; }
 .astro-ki-koord__photo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: top; border: 2px solid var(--bf-border); margin: 0 auto 14px; display: block; }
+.astro-ki-koord__role { font-family: 'Futura LT W01 Book', Futura, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 4px; }
 .astro-ki-koord__name { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 700; color: var(--bf-ink); margin: 0 0 6px; }
 .astro-ki-koord__email { font-size: 13.5px; color: var(--bf-accent); text-decoration: none; }
 .astro-ki-koord__email:hover { text-decoration: underline; }
