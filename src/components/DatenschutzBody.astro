@@ -8,11 +8,15 @@
 // Rat von Herrn Hilpüsch. Schriften werden lokal selbst gehostet (keine externe Verbindung).
 // Eigene Klassen `astro-dzbody` (Handbuch Abschnitt 3).
 //
-// ⚠️ INTERIM-ENTWURF (Stand 2026-06-29) für die Prüfung durch das Bistum (Hilpüsch) bzw. den
-// Pfarrei-DSB. OFFENE PRÜFPUNKTE:
+// ⚠️ INTERIM-ENTWURF (Stand 2026-06-29, ergänzt 2026-08-08) für die Prüfung durch das Bistum
+// (Hilpüsch) bzw. den Pfarrei-DSB. OFFENE PRÜFPUNKTE:
 //  - Abschnitt B: betrieblicher DSB = zentrale Bistumsstelle (lt. Muster) ODER Martin Kestler? bestätigen
 //  - Hosting Netlify (USA): AVV nach § 29 KDG muss abgeschlossen werden; ggf. EU-Hoster prüfen
 //  - AVV mit ChurchDesk; lit. f/g je Verarbeitung; KDSZ-Adresse (Roßmarkt 23, aktuell)
+//  - NEU (2026-08-08): Abschnitt C.7 „Google Analytics" ergänzt, da GA4 (Mess-ID G-N30N9E43H5,
+//    bestehende Property aus 2020) wieder in die Astro-Seite eingebaut wurde — mit vorgeschaltetem
+//    Cookie-Consent-Banner (Opt-in, siehe CookieConsent.astro). Formulierung noch nicht vom
+//    Bistum/DSB freigegeben, ebenso die Ergänzungen in E und F.
 ---
 <section class="astro-dzbody">
   <div class="astro-dzbody__in">
@@ -64,8 +68,8 @@
       Browsertyp und -version, Betriebssystem und Referrer-URL. Ohne IP-Adresse und Dateibezeichnung
       ist die Auslieferung der Seite technisch nicht möglich. Wir bzw. unser Hoster verarbeiten
       diese Daten zur Bereitstellung der Inhalte sowie zur Wahrung der Systemsicherheit und
-      -stabilität und zur Abwehr von Angriffen. <strong>Eine Webanalyse oder Zugriffsstatistik
-      wird nicht erstellt; es kommen keine Tracking- oder Werbe-Tools zum Einsatz.</strong>
+      -stabilität und zur Abwehr von Angriffen. Eine darüber hinausgehende Webanalyse führen wir
+      nur mit Ihrer vorherigen Einwilligung durch; siehe dazu Ziffer 7.
       Rechtsgrundlage: &sect; 6 Abs. 1 lit. f KDG. Unsere Website wird bei einem externen
       Dienstleister gehostet; Näheres zum Hoster (Abschnitt E) und zur Übermittlung in ein
       Drittland (Abschnitt F).
@@ -134,6 +138,25 @@
       Datenschutzinformationen.
     </p>
 
+    <h3>7. Webanalyse mit Google Analytics (nur mit Ihrer Einwilligung)</h3>
+    <p>
+      Mit Ihrer Einwilligung setzen wir den Webanalysedienst <strong>Google Analytics</strong> der
+      Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland (im Konzernverbund mit
+      der Google LLC, USA), ein. Der Dienst erstellt mithilfe von Cookies bzw. vergleichbaren
+      Technologien pseudonyme Nutzungsstatistiken (z.&#8201;B. aufgerufene Seiten, Verweildauer,
+      verwendetes Gerät). Die IP-Adresse wird dabei gekürzt (IP-Anonymisierung) und nicht mit
+      anderen Google-Daten zusammengeführt.
+    </p>
+    <p>
+      Google Analytics wird technisch erst aktiv, wenn Sie im Einwilligungsbanner
+      &bdquo;Akzeptieren&ldquo; ausgewählt haben; ohne Ihre Einwilligung findet keine Webanalyse
+      statt und es werden keine entsprechenden Cookies gesetzt. Rechtsgrundlage ist Ihre
+      Einwilligung (&sect; 6 Abs. 1 lit. b KDG i.&#8201;V.&#8201;m. &sect; 25 Abs. 1 TDDDG). Sie
+      können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft
+      <button type="button" class="astro-dzbody__linkbtn" onclick="window.openCookieSettings && window.openCookieSettings()">widerrufen oder ändern</button>
+      (siehe auch Abschnitt I).
+    </p>
+
     <h2 id="berechtigte-interessen">D. Berechtigte Interessen (&sect; 6 Abs. 1 lit. g KDG)</h2>
     <p>
       Auf unser berechtigtes Interesse stützen wir die Verarbeitung nur in den Fällen nach C.2 bis
@@ -156,6 +179,11 @@
       ApS, Dänemark, Empfänger der dort eingegebenen Daten.
     </p>
     <p>
+      <strong>Google Analytics:</strong> Soweit Sie eingewilligt haben (Abschnitt C.7), verarbeitet
+      die Google Ireland Limited (Irland) die dabei anfallenden pseudonymen Nutzungsdaten als
+      Auftragsverarbeiter nach unseren Weisungen.
+    </p>
+    <p>
       Im Übrigen geben wir die Daten nach C.1 nicht an Dritte weiter. Eine Weitergabe von
       Kommunikationsdaten (C.2 bis C.4) kann zur weiteren Bearbeitung Ihres Anliegens erforderlich
       sein und richtet sich nach den &sect;&sect; 9, 10 KDG.
@@ -166,9 +194,12 @@
       Mit dem Hosting bei Netlify (USA) sowie beim aktiven Abspielen von YouTube-/Vimeo-Videos ist
       eine Übermittlung personenbezogener Daten (insbesondere der IP-Adresse) in die USA verbunden.
       Diese Drittlandübermittlung stützen wir auf die Standardvertragsklauseln der EU-Kommission
-      (&sect; 40 KDG). Beim reinen Besuch der Website beschränken sich die an den US-Hoster
-      übermittelten Daten auf die technisch notwendigen Zugriffsdaten; eine Webanalyse findet nicht
-      statt.
+      (&sect; 40 KDG). Beim reinen Besuch der Website ohne Einwilligung zu Google Analytics
+      (Abschnitt C.7) beschränken sich die an den US-Hoster übermittelten Daten auf die technisch
+      notwendigen Zugriffsdaten. Haben Sie in Google Analytics eingewilligt, verarbeitet
+      vorrangig die Google Ireland Limited (EU) die pseudonymen Nutzungsdaten; im Konzernverbund
+      kann im Einzelfall auch die Google LLC (USA) Zugriff erhalten. Auch diese Übermittlung
+      stützen wir auf die Standardvertragsklauseln der EU-Kommission (&sect; 40 KDG).
     </p>
 
     <h2 id="speicherdauer">G. Speicherdauer</h2>
@@ -242,5 +273,6 @@
 .astro-dzbody__in p{font-size:15.5px;color:#4a3f37;line-height:1.72;margin:0 0 14px}
 .astro-dzbody__in a{color:#9a2d2d;text-decoration:none;word-break:break-word}
 .astro-dzbody__in a:hover{text-decoration:underline}
+.astro-dzbody__linkbtn{background:none;border:0;padding:0;margin:0;font:inherit;font-size:15.5px;color:#9a2d2d;text-decoration:underline;cursor:pointer}
 @media(max-width:560px){.astro-dzbody__in{padding:48px 20px}}
 </style>

@@ -1,6 +1,12 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+// Google Analytics (Mess-ID der bestehenden GA4-Property, Konto „bonifatiusffm" → wird
+// perspektivisch zu w.otto@sanktbonifatius.de verschoben). Lädt erst nach Einwilligung im
+// Cookie-Banner (Google Consent Mode, default „denied"); siehe CookieConsent.astro und
+// Datenschutzerklärung Abschnitt C.7.
+const GA_ID = 'G-N30N9E43H5';
 // `seo` = fertiger SEOPress-Head (HTML-String aus getSeoHead()). Wenn gesetzt, übernehmen wir
 // Titel/Description/OG/Twitter/JSON-LD aus WordPress; sonst greifen die Standard-Tags unten.
 const { title = 'Pfarrei Sankt Bonifatius Frankfurt', description = '', seo = '' } = Astro.props;
@@ -22,6 +28,40 @@ const { title = 'Pfarrei Sankt Bonifatius Frankfurt', description = '', seo = ''
        KDG-/DSGVO-freundlich, vgl. Datenschutz-Abschnitt „Schriftarten" und KDSZ-Empfehlung
        (externe Komponenten intern einbinden). Source Sans 3 = Fließtext, Playfair = Überschriften. -->
   <link rel="stylesheet" href="/fonts/fonts.css" />
+  <script define:vars={{ GA_ID }}>
+    // Google Consent Mode: standardmäßig ABGELEHNT, bis der Nutzer im Cookie-Banner zustimmt.
+    // Ohne Zustimmung wird das gtag.js-Skript gar nicht erst nachgeladen (KDG-konformes Opt-in).
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('consent', 'default', { analytics_storage: 'denied' });
+
+    function loadGoogleAnalytics() {
+      if (window.__gaLoaded) return;
+      window.__gaLoaded = true;
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+      gtag('js', new Date());
+      gtag('config', GA_ID, { anonymize_ip: true });
+    }
+
+    // Frühere Einwilligung (vorheriger Besuch) übernehmen.
+    if (localStorage.getItem('cookie-consent') === 'granted') {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+      loadGoogleAnalytics();
+    }
+
+    // Wird vom Cookie-Banner (CookieConsent.astro) beim Klick auf Akzeptieren/Ablehnen aufgerufen.
+    window.__handleCookieConsent = function (granted) {
+      localStorage.setItem('cookie-consent', granted ? 'granted' : 'denied');
+      if (granted) {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+        loadGoogleAnalytics();
+      }
+    };
+  </script>
   <style is:global>
     :root {
       --clr-primary: #1a3a5c;
@@ -53,5 +93,5 @@ const { title = 'Pfarrei Sankt Bonifatius Frankfurt', description = '', seo = ''
     <slot />
   </div>
   <Footer />
-</body>
+  <CookieConsent />
 </html>

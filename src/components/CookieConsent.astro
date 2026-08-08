@@ -1,0 +1,54 @@
+---
+// Cookie-Consent-Banner für Google Analytics (KDG: Opt-in VOR dem Laden von GA, nicht Opt-out).
+// Speichert die Entscheidung in localStorage ('cookie-consent': 'granted' | 'denied') und
+// steuert darüber `window.__handleCookieConsent` (definiert in Base.astro <head>), das GA lädt
+// bzw. Google Consent Mode aktualisiert. `window.openCookieSettings()` öffnet den Banner erneut
+// (Link dazu in der Datenschutzerklärung, Abschnitt C.7). Eigene Klassen `astro-cc`.
+---
+<div id="astro-cc" class="astro-cc" hidden role="dialog" aria-live="polite" aria-label="Cookie-Einstellungen">
+  <div class="astro-cc__box">
+    <p class="astro-cc__text">
+      Diese Website verwendet Cookies, um die Nutzung zu analysieren und stetig zu verbessern.
+      Mehr dazu in unserer
+      <a href="/datenschutz/">Datenschutzerklärung</a>.
+    </p>
+    <div class="astro-cc__actions">
+      <button type="button" id="astro-cc-decline" class="astro-cc__btn astro-cc__btn--ghost">Ablehnen</button>
+      <button type="button" id="astro-cc-accept" class="astro-cc__btn">Akzeptieren</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const KEY = 'cookie-consent';
+  const banner = document.getElementById('astro-cc');
+
+  function show() { if (banner) banner.hidden = false; }
+  function hide() { if (banner) banner.hidden = true; }
+
+  if (banner && !localStorage.getItem(KEY)) show();
+
+  document.getElementById('astro-cc-accept')?.addEventListener('click', () => {
+    window.__handleCookieConsent?.(true);
+    hide();
+  });
+  document.getElementById('astro-cc-decline')?.addEventListener('click', () => {
+    window.__handleCookieConsent?.(false);
+    hide();
+  });
+
+  // Von der Datenschutzerklärung aus aufrufbar, um die Auswahl später zu ändern.
+  window.openCookieSettings = show;
+</script>
+
+<style>
+.astro-cc{position:fixed;inset:auto 0 0 0;z-index:9999;padding:16px;display:flex;justify-content:center}
+.astro-cc__box{max-width:720px;width:100%;background:#fff;border:1px solid #e5e0d8;border-radius:var(--radius,8px);box-shadow:0 8px 30px rgba(0,0,0,.18);padding:20px 24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.astro-cc__text{font-size:14px;color:#3a332c;line-height:1.5;flex:1 1 320px;margin:0}
+.astro-cc__text a{color:var(--clr-primary,#1a3a5c);text-decoration:underline}
+.astro-cc__actions{display:flex;gap:10px;flex-shrink:0}
+.astro-cc__btn{font-size:14px;font-weight:600;padding:10px 18px;border-radius:6px;border:1px solid var(--clr-primary,#1a3a5c);background:var(--clr-primary,#1a3a5c);color:#fff;cursor:pointer;font-family:inherit}
+.astro-cc__btn--ghost{background:transparent;color:var(--clr-primary,#1a3a5c)}
+.astro-cc__btn:hover{opacity:.88}
+@media(max-width:480px){.astro-cc__box{padding:16px}.astro-cc__actions{width:100%;justify-content:flex-end}}
+</style>
