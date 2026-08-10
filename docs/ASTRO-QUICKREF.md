@@ -4,11 +4,10 @@
 > den passenden Abschnitt in [`ASTRO-HANDBUCH.md`](ASTRO-HANDBUCH.md) nachlesen.
 
 > ## 🌐 Die neue Seite im Browser ansehen
-> ### 👉 **https://sage-cupcake-956dae.netlify.app/**
-> Das ist die **Live-Vorschau** der neuen Astro-Website (Test-Deploy auf Netlify, seit
-> 2026-06-28). Von überall im Browser erreichbar; aktualisiert sich automatisch bei jedem
-> Upload zu GitHub. Die echte Adresse `sanktbonifatius.de` zeigt noch die **alte** Seite und
-> bleibt bis zum endgültigen Go-Live unberührt.
+> ### 👉 **https://sanktbonifatius.de**
+> Das ist jetzt die **echte, live geschaltete** Astro-Website (Go-Live 2026-08-03, DNS zeigt auf
+> Netlify). Aktualisiert sich automatisch bei jedem Push auf `main` sowie bei WP-Inhaltsänderungen
+> über den Rebuild-Webhook (Handbuch 1c). WordPress läuft als Backend unter `cms.sanktbonifatius.de`.
 
 ---
 
@@ -26,7 +25,7 @@ CSS/Client-JS lädt per HMR. Hartnäckiger JS-Cache → privates Browser-Fenster
 ## Die 5 wichtigsten Regeln
 
 1. **`astro-`-Präfix** für ALLE eigenen CSS-Klassen — nie WP-Theme-Klassen (`bh2-…`, `bh3a-…`) wiederverwenden, sonst überschreibt WP-CSS unsere Styles. (Handbuch Abschnitt 3)
-2. **Inhalte von der LIVE-Seite** `https://www.sanktbonifatius.de` (seit 2026-06-22). Quell-Domains in `src/lib/wordpress.js` (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs` (`WP_LIVE`).
+2. **Inhalte kommen von WordPress unter** `https://cms.sanktbonifatius.de` (seit Go-Live 2026-08-03). Quell-Domains in `src/lib/wordpress.js` (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs` (`WP_LIVE`).
 3. **Nav (`Nav.astro`) NUR mit Werners ausdrücklicher Freigabe ändern.** Neue Seiten werden gebaut, aber nicht automatisch ins Menü aufgenommen.
 4. **Seitenverzeichnis (`docs/SEITENVERZEICHNIS.md`) sofort mitpflegen** — bei jeder neuen oder geänderten Seite als eigener `Doku:`-Commit.
 5. **Nie löschen/senden/veröffentlichen ohne Franks Rückfrage.**
@@ -42,7 +41,7 @@ CSS/Client-JS lädt per HMR. Hartnäckiger JS-Cache → privates Browser-Fenster
 | `src/components/Nav.astro` | Hauptnavigation (nur mit Werners OK ändern) |
 | `src/components/EventCalendar.astro` | Termin-Kacheln (`astro-ev`), Props: `heading`, `category`, `categoryLabel`, `moreHref` |
 | `src/components/NewsGrid.astro` | Beitrags-Kacheln (`astro-news`), Startseite |
-| `astro.config.mjs` | Vite-Proxy `/wp-proxy`, `@astrojs/node`-Adapter |
+| `astro.config.mjs` | Vite-Proxy `/wp-proxy` → `cms.sanktbonifatius.de`, `@astrojs/netlify`-Adapter |
 | `src/pages/api/taufe-anmeldung.ts` | Taufe-Formular API-Route (`prerender = false`) |
 | `docs/kirchort-routine.md` | **Pflichtlektüre vor Kirchort-Seiten** (4-Phasen-Routine) |
 
@@ -52,36 +51,37 @@ CSS/Client-JS lädt per HMR. Hartnäckiger JS-Cache → privates Browser-Fenster
 
 | Was | Wo | Status |
 |-----|----|----|
-| WordPress (CMS) | All-inkl (kasserver.com) | läuft, bleibt dort |
-| **Astro-Frontend (Vorschau)** | **Netlify** — https://sage-cupcake-956dae.netlify.app/ | ✅ **live (Test-Deploy)**, baut autom. bei Push |
+| WordPress (CMS) | `cms.sanktbonifatius.de` (All-inkl) | läuft — reines Backend/REST-API |
+| **Astro-Frontend (LIVE)** | **`sanktbonifatius.de`** → Netlify (DNS) | ✅ **live**, baut autom. bei Push |
 | Astro-Frontend (Entwicklung) | lokal (`npm run dev`) | für die laufende Arbeit |
-| Adapter | `@astrojs/netlify` | ✅ umgestellt (vorher node) |
+| Adapter | `@astrojs/netlify` | ✅ umgestellt |
 | Rebuild bei Code-Push | Netlify | ✅ automatisch |
-| Rebuild bei WP-Inhaltsänderung (Webhook) | — | noch nicht gebaut (Handbuch 1c) |
-| Echter Go-Live (eigene Domain via DNS) | — | erst wenn alle Seiten fertig |
+| Rebuild bei WP-Inhaltsänderung (Webhook) | Netlify Build Hook | ✅ läuft (Handbuch 1c) |
+| Go-Live (eigene Domain via DNS) | — | ✅ erledigt 2026-08-03 |
 
-**Beim echten Go-Live:** WordPress zieht auf `cms.`-Subdomain → Quell-Domains anpassen (`WP_API`/`WP_RENDER_ORIGIN`, `WP_LIVE`, `/wp-proxy`-Ziel in `_redirects`), dann DNS umstellen. **SMTP fürs Taufe-Formular über Microsoft 365** (`smtp.office365.com:587`) — Env-Vars in Netlify, IT-Admin schaltet „Authenticated SMTP" frei (`.env.example`).
+**SMTP fürs Taufe-Formular** läuft über das All-inkl-Postfach `formular@mail.sanktbonifatius.de`
+(nicht Microsoft 365) — Env-Vars in Netlify (`.env.example`, Handbuch 13b).
 
 **Kurz-URLs + llms.txt** sind in `public/_redirects` und `public/llms.txt` **vorbereitet** (greifen automatisch beim Netlify-Deploy, lokal inaktiv). Pflege bei neuen/verschobenen Seiten → Handbuch **Abschnitt 1f**.
 
 ---
 
-## Seitenstand (Stand 2026-06-26)
+## Seitenstand (Stand 2026-08-03)
 
-**80 Live-Seiten · 66 erledigt · 14 offen**
+**86 Live-Seiten · 85 erledigt · 1 offen** (vollständige Liste in `docs/SEITENVERZEICHNIS.md`)
 
-### Fertig (Auswahl — vollständige Liste in `docs/SEITENVERZEICHNIS.md`)
+### Fertig (Auswahl)
 - Startseite, Über uns + Unterseiten, Kirchorte (St. Bonifatius, St. Aposteln, Herz Jesu, St. Wendel + je Unterseiten)
 - Kontakt + alle Unterseiten (Pfarrbüro, Engagement, Beratung, Trauerfall, Seelsorge, Newsletter, Kath. werden)
 - Segen & Sakramente + alle Unterseiten (Taufe inkl. PDF-Formular, Firmung, Erstkommunion, Trauung, Beichte, Krankensalbung)
 - Gottesdienst & Glaube + Unterseiten (Gottesdienstordnung, Gottesdienste die berühren)
 - BonFamily, Engagiert Leben + Unterseiten (Hilfenetz, Offener Kühlschrank)
+- Kitas-Bereich (Übersicht + 5 Kita-Unterseiten + Stellenbörse)
+- Kirchen-Detailseiten St. Bonifatius (Altar, Orgel, Taufstein …) per Redirect auf den Kirchenführer
 - BoniBlog (`/blog/`), Terminkalender, Spenden
 
 ### Noch offen
-- Pfarrer Dr. Werner Otto
-- Kitas-Bereich (Übersicht + 5 Kita-Unterseiten + Stellenbörse)
-- Kirchen-Detailseiten St. Bonifatius (Altar, Orgel, Taufstein u.a. — 13 Seiten)
+- Pfarrer Dr. Werner Otto (Über uns)
 
 ---
 

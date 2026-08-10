@@ -11,22 +11,23 @@ Beim nächsten Seiten-Projekt **zuerst dieses Dokument lesen**, dann loslegen.
 
 ## 1. Architektur & warum es so gebaut ist
 
-> **UPDATE 2026-06-22 — Quelle ist jetzt die LIVE-Seite `https://www.sanktbonifatius.de`.**
-> Nach dem Go-Live ist www die aktuelle, vollständige und SEO-optimierte Quelle (der Dev-Server
-> ist jetzt veraltet). Live hat ein **gültiges Zertifikat**, daher entfallen die früheren
-> Dev-Notbehelfe (`NODE_TLS_REJECT_UNAUTHORIZED=0`/`secure:false` nicht mehr nötig — im
-> dev-Script bleibt das Flag nur als harmloser Rest). Quell-Domains zentral in
+> **UPDATE 2026-08-03 — Echter Go-Live vollzogen.** `sanktbonifatius.de` zeigt per DNS auf
+> **Netlify** und liefert live das Astro-Frontend; WordPress ist auf **`cms.sanktbonifatius.de`**
+> umgezogen und läuft dort ausschließlich als Backend/REST-API. Inhaltsquelle ist seither
+> `https://cms.sanktbonifatius.de` (vorher lief das WP-Backend noch unter der jetzt für Astro
+> genutzten Hauptdomain, davor der inzwischen abgelöste Dev-Server). Quell-Domains zentral in
 > `src/lib/wordpress.js` (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs` (`WP_LIVE`).
-> Die Code-Beispiele weiter unten nennen teils noch den alten Dev-Host — gemeint ist jetzt www.
+> Die Code-Beispiele weiter unten nennen teils noch ältere Host-Namen (Dev-Server oder www) —
+> gemeint ist inzwischen immer `cms.sanktbonifatius.de`.
 
 | Thema | Lösung |
 |-------|--------|
-| Inhalte kommen von | **Live-Seite** `https://www.sanktbonifatius.de` (seit 2026-06-22; Dev-Server abgelöst) |
+| Inhalte kommen von | WordPress unter **`https://cms.sanktbonifatius.de`** (seit Go-Live 2026-08-03) |
 | Live hat | **gültiges** SSL-Zertifikat → direkter Zugriff möglich, kein Workaround nötig |
-| Server-seitig (Astro-Build) | Fetch direkt zu www (`WP_API` / `WP_RENDER_ORIGIN`) |
-| Client-seitig (Browser) | Fetch über **Vite-Proxy** `/wp-proxy/...` → www (gleiche Origin, kein CORS) |
-| Beim Netlify-Go-Live | WordPress zieht auf `cms.`-Subdomain → Quell-Domains erneut anpassen (Abschnitt 1b) |
-| Sekretärinnen arbeiten weiter in | WordPress-Admin, unverändert |
+| Server-seitig (Astro-Build) | Fetch direkt zu `cms.` (`WP_API` / `WP_RENDER_ORIGIN`) |
+| Client-seitig (Browser) | Fetch über **Vite-/Netlify-Proxy** `/wp-proxy/...` → `cms.` (gleiche Origin, kein CORS) |
+| Öffentliche Domain `sanktbonifatius.de` | zeigt per DNS auf **Netlify** → liefert das Astro-Frontend |
+| Sekretärinnen arbeiten weiter in | WordPress-Admin unter `cms.sanktbonifatius.de`, unverändert |
 
 ### Die zwei festen Bausteine (nie löschen)
 - `package.json` → dev-Script: `"dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 astro dev"`
@@ -34,11 +35,11 @@ Beim nächsten Seiten-Projekt **zuerst dieses Dokument lesen**, dann loslegen.
 
 ```js
 // astro.config.mjs
-const WP_DEV = 'https://dev.sanktbonifatius.de.w021941a.kasserver.com';
+const WP_LIVE = 'https://cms.sanktbonifatius.de';
 export default defineConfig({
   vite: { server: { proxy: {
     '/wp-proxy': {
-      target: WP_DEV, changeOrigin: true,
+      target: WP_LIVE, changeOrigin: true,
       rewrite: (p) => p.replace(/^\/wp-proxy/, ''), secure: false,
     }
   }}}
@@ -53,24 +54,16 @@ export default defineConfig({
 ## 1b. Hosting & Deployment — aktueller Stand und Plan
 
 > Dieser Abschnitt hält fest, **wo was läuft**, damit in anderen Dialogen klar ist, was als
-> Nächstes passiert. **Stand 2026-06-28: Test-Deploy auf Netlify ist LIVE** unter
-> **https://sage-cupcake-956dae.netlify.app/** (privat, baut automatisch bei jedem Push auf
-> `main`). Der echte Go-Live (eigene Domain via DNS) folgt erst, wenn alle Seiten fertig sind.
+> Nächstes passiert. **Stand 2026-08-03: echter Go-Live vollzogen.** `sanktbonifatius.de` zeigt
+> per DNS auf **Netlify** und liefert live das Astro-Frontend; WordPress ist auf
+> `cms.sanktbonifatius.de` umgezogen und läuft dort ausschließlich als Backend/REST-API.
 
 ### Wo gehostet wird
 | Was | Wo | Status |
 |-----|-----|--------|
-| **WordPress (Backend/CMS)** | **All-inkl** (KAS / `kasserver.com`) | läuft — bleibt dort |
-| Dev-WordPress | `dev.sanktbonifatius.de.w021941a.kasserver.com` (All-inkl) | läuft — unsere Datenquelle |
-| Live-WordPress (alt) | `sanktbonifatius.de` (All-inkl) | läuft — veraltet, wird abgelöst |
-| **Astro-Frontend (Vorschau)** | **Netlify** — https://sage-cupcake-956dae.netlify.app/ | ✅ **live (Test-Deploy)**, baut autom. bei Push |
+| **WordPress (Backend/CMS)** | **`cms.sanktbonifatius.de`** (All-inkl / `kasserver.com`) | läuft — Sekretärinnen arbeiten hier unverändert weiter |
+| **Astro-Frontend (LIVE)** | **`sanktbonifatius.de`** via DNS → **Netlify** | ✅ **live**, baut autom. bei jedem Push auf `main` |
 | Astro-Frontend (Entwicklung) | **lokal** (`npm run dev`, Port 4321) | für die laufende Arbeit |
-| Astro-Frontend (Endziel) | `sanktbonifatius.de` via DNS → Netlify | erst beim echten Go-Live |
-
-### Geplanter Endzustand
-- WordPress zieht auf eine Subdomain um, z.B. `cms.sanktbonifatius.de` (nur Backend + REST-API), bleibt bei All-inkl.
-- `sanktbonifatius.de` zeigt per DNS auf **Netlify** → liefert das statische Astro-Frontend.
-- Quellcode + Backup des Frontends in **Git/GitHub**; Netlify baut bei jedem Push automatisch (`astro build`).
 
 ### Erledigt
 - [x] GitHub-Repo angelegt (`DrWernerO/sanktbonifatius-astro`)
@@ -78,19 +71,18 @@ export default defineConfig({
 - [x] Adapter auf `@astrojs/netlify` umgestellt (Abschnitt 13b)
 - [x] `/wp-proxy`-Rewrite für den Live-Betrieb in [`public/_redirects`](../public/_redirects) ergänzt
 - [x] **Alle Fotos lokal** (2026-07-18): keine Bild-URLs mehr aus WordPress — siehe **Regel unten**
-      und Abschnitt 1g. Damit entfällt der frühere „Bild-URLs umziehen"-Punkt beim WP-Umzug.
+      und Abschnitt 1g.
 - [x] **Taufe-Formular versendet live** über `formular@mail.sanktbonifatius.de` (All-inkl), SMTP als
       Netlify-Env-Vars (Abschnitt 13b)
 - [x] **Rebuild-Webhook läuft** (Abschnitt 1c) — Hook angelegt, Code in `functions.php`, end-to-end getestet
+- [x] **WordPress auf `cms.sanktbonifatius.de` umgezogen** (2026-08-03)
+- [x] **DNS umgestellt** — `sanktbonifatius.de` → Netlify, `cms.sanktbonifatius.de` → All-inkl (2026-08-03)
+- [x] **PDF-Download-Links umgestellt** auf `cms.sanktbonifatius.de` (Nav.astro `DOWNLOADS`
+      Pfarrbrief/Highlights inkl. `?v=`-Cache-Busting, Abschnitt 1d; sowie Flyer/Formulare in
+      Kirchort-Seiten). **Bilder waren bereits lokal** und nicht betroffen.
 
 ### Noch offen (TODO)
-- [ ] WordPress auf `cms.sanktbonifatius.de` umziehen
-- [ ] DNS umstellen (Domain → Netlify, CMS-Subdomain → All-inkl)
-- [ ] **PDF-Download-Links prüfen:** Beim WP-Umzug zeigen die fest verdrahteten **PDF**-URLs noch auf
-      `www.sanktbonifatius.de` (z.B. **Download-Links** `DOWNLOADS` in
-      [`Nav.astro`](../src/components/Nav.astro), Pfarrbrief/Highlights inkl. `?v=`-Cache-Busting,
-      Abschnitt 1d; diverse Flyer/Formulare in Kirchort-Seiten). Auf die neue CMS-Domain
-      (`cms.sanktbonifatius.de`) umstellen. **Bilder sind bereits lokal** und nicht betroffen.
+- [ ] Finaler portfolioweiter Link-Check nach dem Go-Live (Abschnitt 12) — turnusmäßig gegenprüfen.
 
 > **📷 REGEL: Fotos immer lokal, nie aus WordPress ziehen.** Alle aktuell verwendeten Bilder liegen
 > unter [`public/uploads/…`](../public/uploads) und werden über einen **relativen** Pfad

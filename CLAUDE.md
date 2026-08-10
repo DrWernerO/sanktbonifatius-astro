@@ -19,12 +19,12 @@
 
 ## Die wichtigsten Regeln in Kürze
 
-1. **Inhalte kommen von der LIVE-Seite** `https://www.sanktbonifatius.de` (seit 2026-06-22;
-   früher der Dev-Server, der jetzt veraltet ist). Live hat ein **gültiges Zertifikat** —
-   server-seitig direkt, client-seitig weiterhin über Vite-Proxy `/wp-proxy/...` (gleiche
-   Origin, kein SSL/CORS-Problem). Quell-Domains zentral in `src/lib/wordpress.js`
-   (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs` (`WP_LIVE`). **Beim späteren
-   Netlify-Go-Live** zieht WordPress auf eine `cms.`-Subdomain um → dann hier erneut anpassen.
+1. **Echter Go-Live vollzogen (2026-08-03):** `sanktbonifatius.de` zeigt per DNS auf **Netlify**
+   und liefert live das Astro-Frontend. **Inhalte kommen von WordPress unter
+   `https://cms.sanktbonifatius.de`** (Backend auf die `cms.`-Subdomain umgezogen). Server-seitig
+   fetcht Astro direkt zu `cms.`, client-seitig weiterhin über Vite-/Netlify-Proxy `/wp-proxy/...`
+   (gleiche Origin, kein SSL/CORS-Problem). Quell-Domains zentral in `src/lib/wordpress.js`
+   (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs` (`WP_LIVE`).
 2. **Eigene Komponenten IMMER mit Präfix `astro-`** — nie WP-Theme-Klassen (`bh2-…`)
    wiederverwenden, sonst überschreibt das WP-CSS unsere Styles.
 3. **Server-seitige Änderungen (`lib/*.js`, `.astro`-Frontmatter) → Dev-Server neu starten.**
@@ -41,14 +41,13 @@
    Werners ausdrückliche Freigabe einholen.
 
 ## Hosting-Stand (Details in Handbuch 1b–1d, 1g)
-- **WordPress** läuft auf **All-inkl** (kasserver.com) → bleibt dort (Backend/CMS).
-- **Astro-Frontend**: **Test-Deploy auf Netlify ist LIVE** (`sage-cupcake-956dae.netlify.app`, privat,
-  baut autom. bei jedem Push auf `main`); lokal via `npm run dev`. Echter Go-Live (eigene Domain via
-  DNS) erst, wenn alle Seiten fertig sind (Handbuch 1b).
+- **WordPress** läuft auf **All-inkl** (kasserver.com), erreichbar unter **`cms.sanktbonifatius.de`**
+  → bleibt dort als reines Backend/REST-API.
+- **Astro-Frontend ist LIVE** unter der echten Domain **`sanktbonifatius.de`** (DNS → Netlify,
+  Go-Live 2026-08-03), baut autom. bei jedem Push auf `main`; lokal via `npm run dev`.
 - **Fotos immer lokal** (`public/uploads/…`, relativer Pfad) — **keine** WP-Bild-URLs mehr (Handbuch 1g).
-  Ausnahme: PDFs bleiben in WordPress.
-- **Rebuild-Webhook** (WP-Änderung → Netlify-Build): **Code fertig** (Handbuch 1c); offen nur der
-  Netlify-Build-Hook (ein Klick im Dashboard) + URL eintragen.
+  Ausnahme: PDFs bleiben in WordPress (Links zeigen auf `cms.sanktbonifatius.de`).
+- **Rebuild-Webhook** (WP-Änderung → Netlify-Build): ✅ läuft (Handbuch 1c), end-to-end getestet.
 - **Taufe-Formular**: versendet live über `formular@mail.sanktbonifatius.de` (All-inkl), SMTP als
   Netlify-Env-Vars (Handbuch 13b).
 - **Pfarrbrief/Datei-Cache** (frische PDF trotz gleichem Namen): ✅ umgesetzt via `withVersion()` in
