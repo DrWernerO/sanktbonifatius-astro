@@ -16,6 +16,33 @@
     </div>
   </section>
 
+  <!-- Fotostreifen (Fotos der Kita, Freigabe Jeannine 12.08.2026) -->
+  <div class="astro-kap-marquee">
+    <div class="astro-kap-marquee__track">
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-6.jpg" alt="Das Kita-Geb&auml;ude vom Garten aus gesehen" loading="lazy" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-23.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-11.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-24.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-21.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-14.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <!-- Duplikat fuer nahtlose Schleife -->
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-6.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-23.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-11.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-24.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-21.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="/uploads/2022/05/kita-staposteln-frankfurt-14.jpg" alt="" loading="lazy" aria-hidden="true" />
+    </div>
+  </div>
+
   <!-- Quicknav -->
   <nav class="astro-kap-quicknav" aria-label="Schnellzugriff">
     <div class="astro-kap-quicknav__in">
@@ -54,7 +81,7 @@
   align-items: flex-end;
   overflow: hidden;
   position: relative;
-  background: url('/uploads/2024/12/Umabu-St.-Aposteln-1-e1733907623749.jpg') center/cover no-repeat;
+  background: url('/uploads/2022/05/kita-staposteln-frankfurt-6.jpg') center/cover no-repeat;
 }
 .astro-kap-hero::after {
   content: '';
@@ -115,6 +142,35 @@
 .astro-kap-btn--accent { background: var(--bf-accent); color: #fff; }
 .astro-kap-btn--accent:hover { background: #7a2424; }
 
+/* Marquee */
+.astro-kap-marquee {
+  overflow: hidden;
+  background: #1e1512;
+  padding: 6px 0;
+}
+.astro-kap-marquee__track {
+  display: flex;
+  gap: 8px;
+  width: max-content;
+  animation: astroKapMarquee 70s linear infinite;
+}
+.astro-kap-marquee__track:hover { animation-play-state: paused; }
+.astro-kap-marquee__track img {
+  height: 220px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  flex-shrink: 0;
+}
+@keyframes astroKapMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astro-kap-marquee__track { animation: none; overflow-x: auto; }
+}
+
 /* Quicknav */
 .astro-kap-quicknav { background: var(--bf-ink); padding: 0 16px; position: sticky; top: 80px; z-index: 999; }
 .astro-kap-quicknav__in {
@@ -160,5 +216,6 @@
 @media (max-width: 600px) {
   .astro-kap-hero__in { padding: 0 20px 48px; }
   .astro-kap-quicknav__in { justify-content: flex-start; padding-left: 8px; }
+  .astro-kap-marquee__track img { height: 160px; }
 }
 </style>
