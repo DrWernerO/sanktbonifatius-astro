@@ -152,11 +152,24 @@ const {
   const section = document.querySelector('.astro-ev');
   const CAT = section ? parseInt(section.dataset.category, 10) || 0 : 0;
 
+  // WP liefert max. 100 Termine pro Seite (aktuell >120 insgesamt) — ohne Paginierung
+  // fehlen Termine ab Seite 2, wodurch die Vorschau-Karte den falschen „nächsten Termin" zeigt.
+  async function fetchAllEvents(){
+    let all=[];
+    for(let page=1; page<=10; page++){
+      const res = await fetch(WP+'/event?per_page=100&page='+page+'&_fields=id,title,link,event_meta,event-category');
+      if(!res.ok) break;
+      const batch = await res.json();
+      all = all.concat(batch);
+      if(batch.length < 100) break;
+    }
+    return all;
+  }
+
   async function init() {
     const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
     try {
-      const r = await fetch(WP+'/event?per_page=100&_fields=id,title,link,event_meta,event-category');
-      const all = await r.json();
+      const all = await fetchAllEvents();
       const upcoming = all
         .filter(function(e){ return e.event_meta && e.event_meta.start_date >= today; })
         .filter(function(e){ return !CAT || (e['event-category']||[]).indexOf(CAT) > -1; })

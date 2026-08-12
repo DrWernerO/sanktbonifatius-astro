@@ -299,11 +299,18 @@ export async function getMonatsprogramme(ortWort, max = 2, scan = 40) {
 
 // Alle Termine mit aufgelöstem Bild für die Detailseiten (src/pages/termine/[slug].astro).
 // Termine haben keinen Fließtext — alle Infos stehen in `event_meta`. Das Bild ist eine Media-ID.
+// WP liefert max. 100 Termine pro Seite (aktuell >120 insgesamt) — ohne Paginierung fehlen
+// Termine ab Seite 2 komplett als Detailseite (404 beim Klick aus dem Terminkalender).
 export async function getEventsFull() {
   try {
-    const res = await fetch(`${WP_API}/event?per_page=100&_fields=id,slug,link,title,event_meta`);
-    if (!res.ok) return [];
-    const events = await res.json();
+    let events = [];
+    for (let page = 1; page <= 10; page++) {
+      const res = await fetch(`${WP_API}/event?per_page=100&page=${page}&_fields=id,slug,link,title,event_meta`);
+      if (!res.ok) break;
+      const batch = await res.json();
+      events = events.concat(batch);
+      if (batch.length < 100) break;
+    }
     const imgMap = await resolveMediaUrls(events.map((e) => e.event_meta?.image));
     return events.map((e) => {
       const m = e.event_meta || {};

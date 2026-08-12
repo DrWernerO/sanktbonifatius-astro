@@ -147,14 +147,27 @@
     listEl.innerHTML=html;
   }
 
+  // WP liefert max. 100 Termine pro Seite (aktuell >120 Termine insgesamt, Tendenz steigend) -
+  // ohne Paginierung fehlen Termine ab Seite 2 einfach in der Liste.
+  async function fetchAllEvents(){
+    let all=[];
+    for(let page=1; page<=10; page++){
+      const res = await fetch(WP+'/event?per_page=100&page='+page+'&_fields=id,title,link,event_meta,event-category');
+      if(!res.ok) break;
+      const batch = await res.json();
+      all = all.concat(batch);
+      if(batch.length < 100) break;
+    }
+    return all;
+  }
+
   async function init(){
     const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
     try{
-      const [evRes, catRes] = await Promise.all([
-        fetch(WP+'/event?per_page=100&_fields=id,title,link,event_meta,event-category'),
+      const [all, catRes] = await Promise.all([
+        fetchAllEvents(),
         fetch(WP+'/event-category?per_page=50&_fields=id,name'),
       ]);
-      const all = await evRes.json();
       const cats = catRes.ok ? await catRes.json() : [];
 
       EVENTS = all
