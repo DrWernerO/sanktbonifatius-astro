@@ -470,7 +470,7 @@ function extractSeoTags(html) {
   // strukturierte Daten-Markup auf allen Astro-Seiten verloren).
   for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi)) tags.push(m[0]);
   const withDomain = tags.join('\n').replace(
-    /https:\/\/(?:dev|www)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?(?!\/wp-content)/g,
+    /https:\/\/(?:dev|www|cms)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?(?!\/wp-content)/g,
     PUBLIC_SITE,
   );
   // og:image & Co.: WP-Upload-URLs auf das lokale /uploads/ umbiegen – aber NUR, wenn die Datei
@@ -478,7 +478,7 @@ function extractSeoTags(html) {
   // lokal (WP-unabhängig), während dynamische Aktuelles/Termine-Bilder ohne lokale Kopie weiter
   // von WordPress kommen (kein kaputtes OG-Bild bei neuen Beiträgen).
   return withDomain.replace(
-    /https:\/\/(?:dev|www)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?\/wp-content\/uploads\/([^"'\s>]+)/g,
+    /https:\/\/(?:dev|www|cms)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?\/wp-content\/uploads\/([^"'\s>]+)/g,
     (whole, relPath) =>
       existsSync(join(process.cwd(), 'public', 'uploads', relPath))
         ? `${PUBLIC_SITE}/uploads/${relPath}`
