@@ -216,7 +216,7 @@ export async function getMenuItems() {
 const WP_RENDER_ORIGIN = 'https://cms.sanktbonifatius.de';
 // Produktive Frontend-Domain für canonical/og:url (Umzug: Handbuch Abschnitt 1b).
 // Bild-/Datei-URLs (/wp-content/) werden NICHT umgeschrieben (bleiben auf dem WP-Host).
-const PUBLIC_SITE = 'https://sanktbonifatius.de';
+export const PUBLIC_SITE = 'https://sanktbonifatius.de';
 
 // Bild-IDs gebündelt auf source_url auflösen. WICHTIG: `_embedded`/`wp:featuredmedia` ist hier
 // unzuverlässig (mal befüllt, mal nicht) — daher IMMER über die Media-IDs (`featured_media`
@@ -454,7 +454,11 @@ export async function getAktuelles(limit = 0) {
 }
 
 // SEO-Tags aus dem gerenderten <head> ziehen (SEOPress): title, description, robots,
-// canonical, OpenGraph, Twitter, JSON-LD. Render-Domain → Produktiv-Domain (außer /wp-content/).
+// OpenGraph, Twitter, JSON-LD. Render-Domain → Produktiv-Domain (außer /wp-content/).
+// WICHTIG: canonical und og:url werden HIER BEWUSST NICHT übernommen — WordPress kennt nur
+// den Pfad, unter dem Astro den Inhalt abgerufen hat (bei umgezogenen Seiten der ALTE WP-Pfad,
+// z.B. /ueberuns/kirchorte/st-bonifatius/), nicht die tatsächliche Astro-URL. Base.astro setzt
+// canonical/og:url deshalb selbst anhand von Astro.url (SEO-Check 2026-08-14).
 function extractSeoTags(html) {
   const head = html.slice(0, html.indexOf('</head>'));
   const tags = [];
@@ -462,8 +466,7 @@ function extractSeoTags(html) {
   push(/<title[^>]*>[\s\S]*?<\/title>/i);
   push(/<meta\s+name=["']description["'][^>]*>/i);
   push(/<meta\s+name=["']robots["'][^>]*>/i);
-  push(/<link\s+rel=["']canonical["'][^>]*>/i);
-  for (const m of head.matchAll(/<meta\s+property=["'](?:og|article):[^"']*["'][^>]*>/gi)) tags.push(m[0]);
+  for (const m of head.matchAll(/<meta\s+property=["'](?:og:(?!url["'])|article:)[^"']*["'][^>]*>/gi)) tags.push(m[0]);
   for (const m of head.matchAll(/<meta\s+name=["']twitter:[^"']*["'][^>]*>/gi)) tags.push(m[0]);
   // JSON-LD im GANZEN Dokument suchen: SEOPress gibt die ld+json-Blöcke im <body> aus
   // (nach </head>), nicht im Head — daher hier `html` statt `head` (sonst geht das
