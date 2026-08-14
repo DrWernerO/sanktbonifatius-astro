@@ -88,3 +88,54 @@
 /gottesdienste/         /gottesdienst-glaube/gottesdienstordnung/     301
 /gottesdienstordnung    /gottesdienst-glaube/gottesdienstordnung/     301
 /gottesdienstordnung/   /gottesdienst-glaube/gottesdienstordnung/     301
+
+# --- Migrations-Altlasten: alte WordPress-Pfade -> neue Astro-Struktur ---
+# Diese Pfade waren bei Google jahrelang indexiert und bringen echten Suchtraffic
+# (siehe SEO-Check 2026-08-14, GA/GSC-Export). Ohne Weiterleitung liefern sie seit
+# dem Netlify-Go-Live 404 -- damit geht Ranking/Klicks verloren statt zu wandern.
+
+# Kirchort-Seiten: von /ueberuns/... nach /kirchorte/... gewandert (inkl. Unterseiten).
+/ueberuns/kirchorte                /kirchorte/                                    301
+/ueberuns/kirchorte/*              /kirchorte/:splat                              301
+/ueberuns/unsere-vier-kirchorte                /kirchorte/                        301
+/ueberuns/unsere-vier-kirchorte/*              /kirchorte/:splat                  301
+/home-alt/st-aposteln              /kirchorte/st-aposteln/                        301
+/home-alt/st-aposteln/             /kirchorte/st-aposteln/                        301
+
+# Segen & Sakramente: eine Ebene hoch, von /gottesdienst-glaube/segen-sakramente/...
+# nach /segen-sakramente/... (inkl. Unterseiten wie taufe, firmung, trauung ...).
+/gottesdienst-glaube/segen-sakramente              /segen-sakramente/             301
+/gottesdienst-glaube/segen-sakramente/*            /segen-sakramente/:splat       301
+/kontakt/taufe                      /segen-sakramente/taufe/                      301
+/kontakt/taufe/                     /segen-sakramente/taufe/                      301
+
+# Kita-Seiten: Pfad trägt jetzt das Suffix "-cs".
+/kitas/st-bonifatius                /kitas/st-bonifatius-cs/                      301
+/kitas/st-bonifatius/*              /kitas/st-bonifatius-cs/:splat                301
+/kitas/st-bonifatius-2              /kitas/st-bonifatius-cs/                      301
+/kitas/st-bonifatius-2/*            /kitas/st-bonifatius-cs/:splat                301
+/kitas/st-aposteln                  /kitas/st-aposteln-cs/                        301
+/kitas/st-aposteln/*                /kitas/st-aposteln-cs/:splat                  301
+/kitas/st-wendel                    /kitas/st-wendel-cs/                          301
+/kitas/st-wendel/*                  /kitas/st-wendel-cs/:splat                    301
+/kitas/deutschorden                 /kitas/deutschorden-cs/                       301
+/kitas/deutschorden/*               /kitas/deutschorden-cs/:splat                 301
+/stellenboerse                      /kitas/stellenboerse/                         301
+/stellenboerse/                     /kitas/stellenboerse/                         301
+
+# Einzelseiten ohne 1:1-Nachfolger -> nächstbeste bestehende Seite (besser als 404;
+# eigene Seite ggf. langfristig nachbauen, siehe SEO-Check 2026-08-14).
+/kontakt/anfahrtadresse             /kontakt/pfarrbuero/                          301
+/kontakt/anfahrtadresse/            /kontakt/pfarrbuero/                          301
+/kontakt/links                      /kontakt/                                     301
+/kontakt/links/                     /kontakt/                                     301
+/ueberuns/pfarrer-dr-werner-otto    /ueberuns/pastoralteam/                       301
+/ueberuns/pfarrer-dr-werner-otto/   /ueberuns/pastoralteam/                       301
+/exerzitien                         /gottesdienst-glaube/                         301
+/exerzitien/                        /gottesdienst-glaube/                         301
+/kultur-begegnung/buechereien/koeb-st-bonifatius    /kultur-begegnung/buechereien/  301
+/kultur-begegnung/buechereien/koeb-st-bonifatius/   /kultur-begegnung/buechereien/  301
+/kultur-begegnung/buechereien/koeb-st-bonifatius-2  /kultur-begegnung/buechereien/  301
+/kultur-begegnung/buechereien/koeb-st-bonifatius-2/ /kultur-begegnung/buechereien/  301
+/zukunftsprojekt-herz-jesu           /blog/zukunftsprojekt-herz-jesu/              301
+/zukunftsprojekt-herz-jesu/          /blog/zukunftsprojekt-herz-jesu/              301
