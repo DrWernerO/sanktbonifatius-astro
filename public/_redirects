@@ -109,17 +109,20 @@
 /kontakt/taufe                      /segen-sakramente/taufe/                      301
 /kontakt/taufe/                     /segen-sakramente/taufe/                      301
 
-# Kita-Seiten: Pfad trägt jetzt das Suffix "-cs".
-/kitas/st-bonifatius                /kitas/st-bonifatius-cs/                      301
-/kitas/st-bonifatius/*              /kitas/st-bonifatius-cs/:splat                301
-/kitas/st-bonifatius-2              /kitas/st-bonifatius-cs/                      301
-/kitas/st-bonifatius-2/*            /kitas/st-bonifatius-cs/:splat                301
-/kitas/st-aposteln                  /kitas/st-aposteln-cs/                        301
-/kitas/st-aposteln/*                /kitas/st-aposteln-cs/:splat                  301
-/kitas/st-wendel                    /kitas/st-wendel-cs/                          301
-/kitas/st-wendel/*                  /kitas/st-wendel-cs/:splat                    301
-/kitas/deutschorden                 /kitas/deutschorden-cs/                       301
-/kitas/deutschorden/*               /kitas/deutschorden-cs/:splat                 301
+# Kita-Seiten: WP-Duplikat-Slug "-2" -> saubere Seite.
+/kitas/st-bonifatius-2               /kitas/st-bonifatius/                        301
+/kitas/st-bonifatius-2/*             /kitas/st-bonifatius/:splat                  301
+# Kurzlebiges Zwischen-Suffix "-cs" (nur kurz live, 2026-08-14) -> saubere Seite ohne Suffix.
+/kitas/st-bonifatius-cs              /kitas/st-bonifatius/                        301
+/kitas/st-bonifatius-cs/*            /kitas/st-bonifatius/:splat                  301
+/kitas/st-aposteln-cs                /kitas/st-aposteln/                          301
+/kitas/st-aposteln-cs/*              /kitas/st-aposteln/:splat                    301
+/kitas/st-wendel-cs                  /kitas/st-wendel/                            301
+/kitas/st-wendel-cs/*                /kitas/st-wendel/:splat                      301
+/kitas/deutschorden-cs               /kitas/deutschorden/                         301
+/kitas/deutschorden-cs/*             /kitas/deutschorden/:splat                   301
+/kitas/herz-jesu-cs                  /kitas/herz-jesu/                            301
+/kitas/herz-jesu-cs/*                /kitas/herz-jesu/:splat                      301
 /stellenboerse                      /kitas/stellenboerse/                         301
 /stellenboerse/                     /kitas/stellenboerse/                         301
 
