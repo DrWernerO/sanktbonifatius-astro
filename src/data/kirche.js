@@ -79,62 +79,62 @@ export const BELEUCHTUNG = {
 
 export const THUMBS = [
   {
-    "id": "kf-taufstein",
+    "id": "taufstein",
     "title": "Taufstein",
     "img": "/uploads/2023/07/taufstein-0-edited-1-1024x1024.jpg"
   },
   {
-    "id": "kf-mariengemaelde",
+    "id": "mariengemaelde",
     "title": "Mariengemälde",
     "img": "/uploads/2020/05/mariengemaelde-1-1024x671.jpg"
   },
   {
-    "id": "kf-beleuchtung",
+    "id": "beleuchtung",
     "title": "Beleuchtung",
     "img": "/uploads/2020/05/2-licht-1024x683.jpg"
   },
   {
-    "id": "kf-madonna",
+    "id": "madonna",
     "title": "Madonna",
     "img": "/uploads/2020/05/immaculata-barock-1-1024x671.jpg"
   },
   {
-    "id": "kf-reliquie",
+    "id": "reliquie",
     "title": "Bonifatius-Reliquie",
     "img": "/uploads/2020/05/reliquie-1-1-1024x671.jpg"
   },
   {
-    "id": "kf-engelbilder",
+    "id": "engelbilder",
     "title": "Engelbilder",
     "img": "/uploads/2020/05/engel-2-1024x723.jpg"
   },
   {
-    "id": "kf-altar",
+    "id": "altar",
     "title": "Altar",
     "img": "/uploads/2025/06/altar-stbonifatius-1024x1025.jpeg"
   },
   {
-    "id": "kf-orgel",
+    "id": "orgel",
     "title": "Orgel",
     "img": "/uploads/2020/05/orgel-1-1-1024x683.jpg"
   },
   {
-    "id": "kf-sakristei",
+    "id": "sakristei",
     "title": "Sakristei",
     "img": "/uploads/2020/05/sakristei-1-1024x671.jpg"
   },
   {
-    "id": "kf-chorraum",
+    "id": "chorraum",
     "title": "Chorraum",
     "img": "/uploads/2020/05/altarraum-2-1024x787.jpg"
   },
   {
-    "id": "kf-osterkerze",
+    "id": "osterkerze",
     "title": "Osterkerze",
     "img": "/uploads/2020/05/osterkerze-2-1024x768.jpg"
   },
   {
-    "id": "kf-marienfigur",
+    "id": "marienfigur",
     "title": "Marienfigur",
     "img": "/uploads/2020/05/immaculata-belz-1-1024x671.jpg"
   }
@@ -142,7 +142,7 @@ export const THUMBS = [
 
 export const KF_CARDS = [
   {
-    "id": "kf-taufstein",
+    "id": "taufstein",
     "num": "01 / 12",
     "title": "Taufstein",
     "imgs": [
@@ -192,7 +192,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-mariengemaelde",
+    "id": "mariengemaelde",
     "num": "02 / 12",
     "title": "Mariengemälde",
     "imgs": [
@@ -223,7 +223,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-beleuchtung",
+    "id": "beleuchtung",
     "num": "03 / 12",
     "title": "Beleuchtung",
     "imgs": [
@@ -277,7 +277,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-madonna",
+    "id": "madonna",
     "num": "04 / 12",
     "title": "Madonna",
     "imgs": [
@@ -328,7 +328,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-reliquie",
+    "id": "reliquie",
     "num": "05 / 12",
     "title": "Bonifatius-Reliquie",
     "imgs": [
@@ -386,7 +386,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-engelbilder",
+    "id": "engelbilder",
     "num": "06 / 12",
     "title": "Engelbilder",
     "imgs": [
@@ -446,7 +446,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-altar",
+    "id": "altar",
     "num": "07 / 12",
     "title": "Altar",
     "imgs": [
@@ -497,7 +497,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-orgel",
+    "id": "orgel",
     "num": "08 / 12",
     "title": "Orgel",
     "imgs": [
@@ -524,7 +524,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-sakristei",
+    "id": "sakristei",
     "num": "09 / 12",
     "title": "Sakristei",
     "imgs": [
@@ -550,7 +550,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-chorraum",
+    "id": "chorraum",
     "num": "10 / 12",
     "title": "Chorraum",
     "imgs": [
@@ -602,7 +602,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-osterkerze",
+    "id": "osterkerze",
     "num": "11 / 12",
     "title": "Osterkerze",
     "imgs": [
@@ -661,7 +661,7 @@ export const KF_CARDS = [
     ]
   },
   {
-    "id": "kf-marienfigur",
+    "id": "marienfigur",
     "num": "12 / 12",
     "title": "Marienfigur",
     "imgs": [

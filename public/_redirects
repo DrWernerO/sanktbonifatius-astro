@@ -55,33 +55,35 @@
 /whatsapp-kanal/    /bonfamily/whatsapp-kanal/                        301
 
 # --- Digitaler Kirchenfuehrer St. Bonifatius (QR-Codes in der Kirche) ---
-# Die QR-Codes verlinken auf die alten WP-URLs (/ueberuns/kirchorte/st-bonifatius/kirche/<objekt>/).
-# Sie landen per 301 auf der Kirchenfuehrer-Seite mit dem passenden Anker-ID (kf-…).
-# Anker existieren bereits als id-Attribute in KircheCards.astro / kirche.js.
-/ueberuns/kirchorte/st-bonifatius/kirche/taufstein              /kirchorte/st-bonifatius/kirche/#kf-taufstein       301
-/ueberuns/kirchorte/st-bonifatius/kirche/taufstein/             /kirchorte/st-bonifatius/kirche/#kf-taufstein       301
-/ueberuns/kirchorte/st-bonifatius/kirche/orgel                  /kirchorte/st-bonifatius/kirche/#kf-orgel           301
-/ueberuns/kirchorte/st-bonifatius/kirche/orgel/                 /kirchorte/st-bonifatius/kirche/#kf-orgel           301
-/ueberuns/kirchorte/st-bonifatius/kirche/altar                  /kirchorte/st-bonifatius/kirche/#kf-altar           301
-/ueberuns/kirchorte/st-bonifatius/kirche/altar/                 /kirchorte/st-bonifatius/kirche/#kf-altar           301
-/ueberuns/kirchorte/st-bonifatius/kirche/beleuchtung            /kirchorte/st-bonifatius/kirche/#kf-beleuchtung     301
-/ueberuns/kirchorte/st-bonifatius/kirche/beleuchtung/           /kirchorte/st-bonifatius/kirche/#kf-beleuchtung     301
-/ueberuns/kirchorte/st-bonifatius/kirche/bonifatius-reliquie    /kirchorte/st-bonifatius/kirche/#kf-reliquie        301
-/ueberuns/kirchorte/st-bonifatius/kirche/bonifatius-reliquie/   /kirchorte/st-bonifatius/kirche/#kf-reliquie        301
-/ueberuns/kirchorte/st-bonifatius/kirche/chorraum               /kirchorte/st-bonifatius/kirche/#kf-chorraum        301
-/ueberuns/kirchorte/st-bonifatius/kirche/chorraum/              /kirchorte/st-bonifatius/kirche/#kf-chorraum        301
-/ueberuns/kirchorte/st-bonifatius/kirche/engelbilder            /kirchorte/st-bonifatius/kirche/#kf-engelbilder     301
-/ueberuns/kirchorte/st-bonifatius/kirche/engelbilder/           /kirchorte/st-bonifatius/kirche/#kf-engelbilder     301
-/ueberuns/kirchorte/st-bonifatius/kirche/madonna                /kirchorte/st-bonifatius/kirche/#kf-madonna         301
-/ueberuns/kirchorte/st-bonifatius/kirche/madonna/               /kirchorte/st-bonifatius/kirche/#kf-madonna         301
-/ueberuns/kirchorte/st-bonifatius/kirche/marienbild             /kirchorte/st-bonifatius/kirche/#kf-mariengemaelde  301
-/ueberuns/kirchorte/st-bonifatius/kirche/marienbild/            /kirchorte/st-bonifatius/kirche/#kf-mariengemaelde  301
-/ueberuns/kirchorte/st-bonifatius/kirche/marienfigur            /kirchorte/st-bonifatius/kirche/#kf-marienfigur     301
-/ueberuns/kirchorte/st-bonifatius/kirche/marienfigur/           /kirchorte/st-bonifatius/kirche/#kf-marienfigur     301
-/ueberuns/kirchorte/st-bonifatius/kirche/osterkerze             /kirchorte/st-bonifatius/kirche/#kf-osterkerze      301
-/ueberuns/kirchorte/st-bonifatius/kirche/osterkerze/            /kirchorte/st-bonifatius/kirche/#kf-osterkerze      301
-/ueberuns/kirchorte/st-bonifatius/kirche/sakristei              /kirchorte/st-bonifatius/kirche/#kf-sakristei       301
-/ueberuns/kirchorte/st-bonifatius/kirche/sakristei/             /kirchorte/st-bonifatius/kirche/#kf-sakristei       301
+# Die QR-Codes an den Objekten verlinken auf die alten WP-URLs
+# (/ueberuns/kirchorte/st-bonifatius/kirche/<objekt>/) -- diese Aufkleber haengen und werden
+# NICHT ausgetauscht. Sie landen per 301 auf der Kirchenfuehrer-Seite mit dem passenden Anker-ID.
+# Anker existieren bereits als id-Attribute in KircheCards.astro / kirche.js (seit 2026-08-16
+# ohne "kf-"-Vorsilbe, ist rein kosmetisch fuer die Anker-ID in der Adresszeile).
+/ueberuns/kirchorte/st-bonifatius/kirche/taufstein              /kirchorte/st-bonifatius/kirche/#taufstein       301
+/ueberuns/kirchorte/st-bonifatius/kirche/taufstein/             /kirchorte/st-bonifatius/kirche/#taufstein       301
+/ueberuns/kirchorte/st-bonifatius/kirche/orgel                  /kirchorte/st-bonifatius/kirche/#orgel           301
+/ueberuns/kirchorte/st-bonifatius/kirche/orgel/                 /kirchorte/st-bonifatius/kirche/#orgel           301
+/ueberuns/kirchorte/st-bonifatius/kirche/altar                  /kirchorte/st-bonifatius/kirche/#altar           301
+/ueberuns/kirchorte/st-bonifatius/kirche/altar/                 /kirchorte/st-bonifatius/kirche/#altar           301
+/ueberuns/kirchorte/st-bonifatius/kirche/beleuchtung            /kirchorte/st-bonifatius/kirche/#beleuchtung     301
+/ueberuns/kirchorte/st-bonifatius/kirche/beleuchtung/           /kirchorte/st-bonifatius/kirche/#beleuchtung     301
+/ueberuns/kirchorte/st-bonifatius/kirche/bonifatius-reliquie    /kirchorte/st-bonifatius/kirche/#reliquie        301
+/ueberuns/kirchorte/st-bonifatius/kirche/bonifatius-reliquie/   /kirchorte/st-bonifatius/kirche/#reliquie        301
+/ueberuns/kirchorte/st-bonifatius/kirche/chorraum               /kirchorte/st-bonifatius/kirche/#chorraum        301
+/ueberuns/kirchorte/st-bonifatius/kirche/chorraum/              /kirchorte/st-bonifatius/kirche/#chorraum        301
+/ueberuns/kirchorte/st-bonifatius/kirche/engelbilder            /kirchorte/st-bonifatius/kirche/#engelbilder     301
+/ueberuns/kirchorte/st-bonifatius/kirche/engelbilder/           /kirchorte/st-bonifatius/kirche/#engelbilder     301
+/ueberuns/kirchorte/st-bonifatius/kirche/madonna                /kirchorte/st-bonifatius/kirche/#madonna         301
+/ueberuns/kirchorte/st-bonifatius/kirche/madonna/               /kirchorte/st-bonifatius/kirche/#madonna         301
+/ueberuns/kirchorte/st-bonifatius/kirche/marienbild             /kirchorte/st-bonifatius/kirche/#mariengemaelde  301
+/ueberuns/kirchorte/st-bonifatius/kirche/marienbild/            /kirchorte/st-bonifatius/kirche/#mariengemaelde  301
+/ueberuns/kirchorte/st-bonifatius/kirche/marienfigur            /kirchorte/st-bonifatius/kirche/#marienfigur     301
+/ueberuns/kirchorte/st-bonifatius/kirche/marienfigur/           /kirchorte/st-bonifatius/kirche/#marienfigur     301
+/ueberuns/kirchorte/st-bonifatius/kirche/osterkerze             /kirchorte/st-bonifatius/kirche/#osterkerze      301
+/ueberuns/kirchorte/st-bonifatius/kirche/osterkerze/            /kirchorte/st-bonifatius/kirche/#osterkerze      301
+/ueberuns/kirchorte/st-bonifatius/kirche/sakristei              /kirchorte/st-bonifatius/kirche/#sakristei       301
+/ueberuns/kirchorte/st-bonifatius/kirche/sakristei/             /kirchorte/st-bonifatius/kirche/#sakristei       301
 
 # --- Gottesdienste (beide Schreibweisen -> Gottesdienstordnung) ---
 /gottesdienste          /gottesdienst-glaube/gottesdienstordnung/     301
@@ -142,3 +144,11 @@
 /kultur-begegnung/buechereien/koeb-st-bonifatius-2/ /kultur-begegnung/buechereien/  301
 /zukunftsprojekt-herz-jesu           /blog/zukunftsprojekt-herz-jesu/              301
 /zukunftsprojekt-herz-jesu/          /blog/zukunftsprojekt-herz-jesu/              301
+
+# --- Abgelaufene Termine: Auffangnetz statt 404 (SEO-Check 2026-08-16) ---
+# Vergangene Termine werden vom Pfarrbuero irgendwann in WordPress geloescht; ihre
+# Astro-Seite (aus getStaticPaths in termine/[slug].astro) verschwindet dann beim naechsten
+# Build ersatzlos. Diese Regel greift NUR fuer /termine/<slug>/, die es nicht mehr gibt --
+# noch bestehende Termin-Seiten sind echte Dateien und haben beim Aufruf immer Vorrang vor
+# einer Weiterleitung (Netlify liefert dann die Seite, nicht die Regel).
+/termine/*                          /terminkalender/                              301
