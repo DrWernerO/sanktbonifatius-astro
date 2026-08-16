@@ -5,6 +5,14 @@ import { join } from 'node:path';
 // Dev-Server; seit 2026-06-22 ist www die aktuelle Inhalts-Quelle (Handbuch Abschnitt 1).
 const WP_API = 'https://cms.sanktbonifatius.de/wp-json/wp/v2';
 
+// Kennung fuer alle serverseitigen Abrufe bei cms.sanktbonifatius.de.
+// Die .htaccess der CMS-Subdomain leitet Frontend-Aufrufe per 301 auf sanktbonifatius.de
+// um und nimmt diese Kennung aus. getSeoHead()/getEventDetail() rufen echte WP-Frontend-
+// Seiten ab (kein /wp-json) und wuerden sonst im Redirect landen: Der Fetch bekaeme dann
+// die Startseite statt der echten Seite, ohne Fehlermeldung. Kennung nur zusammen mit der
+// .htaccess aendern.
+const BUILD_UA = 'SanktBonifatiusAstroBuild/1.0';
+
 export async function getPage(slug) {
   const res = await fetch(
     `${WP_API}/pages?slug=${slug}&_fields=id,slug,title,content`,
@@ -182,7 +190,7 @@ export async function searchSite(query, limit = 30) {
   try {
     const res = await fetch(
       `${WP_API}/search?search=${encodeURIComponent(q)}&per_page=${limit}&_embed=1`,
-      { headers: { 'User-Agent': 'Mozilla/5.0' }, cache: 'no-store' }
+      { headers: { 'User-Agent': BUILD_UA }, cache: 'no-store' }
     );
     if (!res.ok) return [];
     const rows = await res.json();
@@ -509,7 +517,7 @@ function extractEventBody(html) {
 
 export async function getSeoHead(path = '/', origin = WP_RENDER_ORIGIN) {
   try {
-    const res = await fetch(origin + path, { headers: { 'User-Agent': 'Mozilla/5.0' }, cache: 'no-store' });
+    const res = await fetch(origin + path, { headers: { 'User-Agent': BUILD_UA }, cache: 'no-store' });
     if (!res.ok) return '';
     return extractSeoTags(await res.text());
   } catch {
@@ -520,7 +528,7 @@ export async function getSeoHead(path = '/', origin = WP_RENDER_ORIGIN) {
 // EIN Fetch der gerenderten Termin-Seite → SEO-Head UND Beschreibung (spart einen Abruf je Termin).
 export async function getEventDetail(path) {
   try {
-    const res = await fetch(WP_RENDER_ORIGIN + path, { headers: { 'User-Agent': 'Mozilla/5.0' }, cache: 'no-store' });
+    const res = await fetch(WP_RENDER_ORIGIN + path, { headers: { 'User-Agent': BUILD_UA }, cache: 'no-store' });
     if (!res.ok) return { seo: '', description: '' };
     const html = await res.text();
     return { seo: extractSeoTags(html), description: extractEventBody(html) };
