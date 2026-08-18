@@ -17,7 +17,7 @@ import { fillTaufeForm } from '../../lib/taufe/fill-taufe.js';
 export const prerender = false;
 
 const E = import.meta.env;
-const EMPFAENGER_STD = 'pfarrer@sanktbonifatius.de, info@sanktbonifatius.de, w.otto@sanktbonifatius.de';
+const EMPFAENGER_STD = 'n.tadic@sanktbonifatius.de, info@sanktbonifatius.de';
 
 function jsonAntwort(success: boolean, data: string, status = 200) {
   return new Response(JSON.stringify({ success, data }), {
