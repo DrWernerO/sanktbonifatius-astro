@@ -145,10 +145,14 @@
 /zukunftsprojekt-herz-jesu           /blog/zukunftsprojekt-herz-jesu/              301
 /zukunftsprojekt-herz-jesu/          /blog/zukunftsprojekt-herz-jesu/              301
 
-# --- Abgelaufene Termine: Auffangnetz statt 404 (SEO-Check 2026-08-16) ---
-# Vergangene Termine werden vom Pfarrbuero irgendwann in WordPress geloescht; ihre
-# Astro-Seite (aus getStaticPaths in termine/[slug].astro) verschwindet dann beim naechsten
-# Build ersatzlos. Diese Regel greift NUR fuer /termine/<slug>/, die es nicht mehr gibt --
-# noch bestehende Termin-Seiten sind echte Dateien und haben beim Aufruf immer Vorrang vor
-# einer Weiterleitung (Netlify liefert dann die Seite, nicht die Regel).
-/termine/*                          /terminkalender/                              301
+# --- /termine/* Auffangnetz ENTFERNT (2026-08-20) -----------------------------------
+# Frueher (bis 2026-08-16) waren Termin-Seiten statisch vorgebaute Dateien; diese Regel
+# fing nur die geloeschten/abgelaufenen ab (echte Dateien hatten immer Vorrang vor der
+# Regel). Seit termine/[slug].astro serverseitig rendert (`prerender = false`, kein
+# getStaticPaths mehr), gibt es fuer /termine/* KEINE vorgefertigten Dateien mehr --
+# Netlify-Redirects haben dann aber Vorrang vor der Server-Function, nicht umgekehrt.
+# Die Regel hat dadurch ALLE Termine abgefangen, auch existierende (Bug beobachtet
+# 2026-08-20: Klick auf einen Termin landete immer auf der Terminkalender-Liste).
+# Das Astro-Auffangnetz fuer echt geloeschte/unbekannte Termine sitzt jetzt direkt in
+# termine/[slug].astro (Astro.redirect, siehe dort) -- pruefti live gegen WordPress statt
+# blind nach Pfadmuster zu greifen.
