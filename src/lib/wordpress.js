@@ -482,15 +482,26 @@ function extractSeoTags(html) {
   // (nach </head>), nicht im Head — daher hier `html` statt `head` (sonst geht das
   // strukturierte Daten-Markup auf allen Astro-Seiten verloren).
   for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi)) tags.push(m[0]);
-  const withDomain = tags.join('\n').replace(
+  return tags.join('\n').replace(
     /https:\/\/(?:dev|www|cms)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?(?!\/wp-content)/g,
     PUBLIC_SITE,
   );
-  // og:image & Co.: WP-Upload-URLs auf das lokale /uploads/ umbiegen – aber NUR, wenn die Datei
-  // wirklich im Repo (public/uploads/) liegt. So werden die Vorschaubilder der statischen Seiten
-  // lokal (WP-unabhängig), während dynamische Aktuelles/Termine-Bilder ohne lokale Kopie weiter
-  // von WordPress kommen (kein kaputtes OG-Bild bei neuen Beiträgen).
-  return withDomain.replace(
+}
+
+// og:image & Co.: WP-Upload-URLs auf das lokale /uploads/ umbiegen – aber NUR, wenn die Datei
+// wirklich im Repo (public/uploads/) liegt. So werden die Vorschaubilder der statischen Seiten
+// lokal (WP-unabhängig), während dynamische Aktuelles/Termine-Bilder ohne lokale Kopie weiter
+// von WordPress kommen (kein kaputtes OG-Bild bei neuen Beiträgen).
+//
+// WICHTIG: NUR von getSeoHead() aufrufen (build-time, vorgefertigte Seiten) — NIEMALS von
+// getEventDetail() (Termin-Seiten sind seit 2026-08-20 serverseitig gerendert, `prerender = false`).
+// Der `existsSync(join(process.cwd(), 'public', 'uploads', …))`-Aufruf hier hat ein dynamisches
+// Pfad-Argument; Netlifys Function-Bundler kann das nicht auflösen und zieht dann sicherheitshalber
+// den KOMPLETTEN public/uploads-Ordner (>350 MB) ins Server-Bundle — der Upload zur Function schlägt
+// dann mit "request body too large" fehl (beobachtet 2026-08-20). Termin-Bilder haben ohnehin nie
+// eine lokale Kopie (Kommentar oben), der Aufruf wäre für getEventDetail() also wirkungslos gewesen.
+function localizeUploadUrls(html) {
+  return html.replace(
     /https:\/\/(?:dev|www|cms)\.sanktbonifatius\.de(?:\.w021941a\.kasserver\.com)?\/wp-content\/uploads\/([^"'\s>]+)/g,
     (whole, relPath) =>
       existsSync(join(process.cwd(), 'public', 'uploads', relPath))
@@ -528,7 +539,7 @@ export async function getSeoHead(path = '/', origin = WP_RENDER_ORIGIN) {
   try {
     const res = await fetch(origin + path, { headers: { 'User-Agent': BUILD_UA }, cache: 'no-store' });
     if (!res.ok) return '';
-    return extractSeoTags(await res.text());
+    return localizeUploadUrls(extractSeoTags(await res.text()));
   } catch {
     return ''; // WP nicht erreichbar → Base.astro nutzt seine Standard-Tags
   }
