@@ -305,34 +305,36 @@ export async function getMonatsprogramme(ortWort, max = 2, scan = 40) {
   }
 }
 
-// Alle Termine mit aufgelöstem Bild für die Detailseiten (src/pages/termine/[slug].astro).
+// EIN Termin per Slug, live vom Server (src/pages/termine/[slug].astro, `prerender = false`).
 // Termine haben keinen Fließtext — alle Infos stehen in `event_meta`. Das Bild ist eine Media-ID.
-// WP liefert max. 100 Termine pro Seite (aktuell >120 insgesamt) — ohne Paginierung fehlen
-// Termine ab Seite 2 komplett als Detailseite (404 beim Klick aus dem Terminkalender).
-export async function getEventsFull() {
+//
+// Bewusst KEIN Build-Time-Fetch aller Termine mehr (frühere `getEventsFull()` + `getStaticPaths`):
+// Termine ändern sich in WordPress ständig, lösen aber seit 2026-08-02 keinen Netlify-Rebuild
+// mehr aus (Handbuch 1c) — ein zur Build-Zeit „eingefrorener" Termin-Fließtext war dadurch nach
+// jeder WP-Änderung veraltet, und neu angelegte Termine hatten schlicht keine Seite (liefen ins
+// 404-Auffangnetz in `public/_redirects`, `/termine/*` → `/terminkalender/`). Mit `prerender = false`
+// holt jeder Seitenaufruf den aktuellen Stand direkt von WordPress — kann nicht mehr veralten.
+export async function getEventBySlug(slug) {
   try {
-    let events = [];
-    for (let page = 1; page <= 10; page++) {
-      const res = await fetch(`${WP_API}/event?per_page=100&page=${page}&_fields=id,slug,link,title,event_meta`);
-      if (!res.ok) break;
-      const batch = await res.json();
-      events = events.concat(batch);
-      if (batch.length < 100) break;
-    }
-    const imgMap = await resolveMediaUrls(events.map((e) => e.event_meta?.image));
-    return events.map((e) => {
-      const m = e.event_meta || {};
-      return {
-        id: e.id,
-        slug: e.slug,
-        title: e.title?.rendered ?? '',
-        wpPath: (() => { try { return new URL(e.link).pathname; } catch { return '/'; } })(),
-        meta: m,
-        image: m.image ? (imgMap[m.image] || null) : null,
-      };
-    });
+    const res = await fetch(
+      `${WP_API}/event?slug=${encodeURIComponent(slug)}&_fields=id,slug,link,title,event_meta`,
+      { cache: 'no-store' }
+    );
+    if (!res.ok) return null;
+    const [e] = await res.json();
+    if (!e) return null;
+    const m = e.event_meta || {};
+    const imgMap = m.image ? await resolveMediaUrls([m.image]) : {};
+    return {
+      id: e.id,
+      slug: e.slug,
+      title: e.title?.rendered ?? '',
+      wpPath: (() => { try { return new URL(e.link).pathname; } catch { return '/'; } })(),
+      meta: m,
+      image: m.image ? (imgMap[m.image] || null) : null,
+    };
   } catch {
-    return [];
+    return null;
   }
 }
 
@@ -507,12 +509,19 @@ function extractEventBody(html) {
   let region = html.slice(bi, bounds.length ? Math.min(...bounds) : bi + 8000);
   region = region.replace(/<div class="pbm-meta"[\s\S]*?<\/a>\s*<\/div>/, ''); // Meta + „Alle Termine" raus
   const blocks = region.match(/<(p|h2|h3|h4|ul|ol|blockquote|figure)\b[^>]*>[\s\S]*?<\/\1>/gi) || [];
-  // Fette Datums-Wiederholung entfernen (zeigen wir bereits in der kompakten Meta-Zeile).
-  const filtered = blocks.filter((b) => {
-    const text = b.replace(/<[^>]+>/g, '').trim();
-    return !(/<strong>/i.test(b) && /\b20\d{2}\b/.test(text) && text.length < 120);
-  });
-  return filtered.join('\n');
+  // Fette Datums-Wiederholung am Absatzanfang entfernen (zeigen wir bereits in der kompakten
+  // Meta-Zeile) — aber NUR diesen Teil, nicht den ganzen Absatz: WP hängt z.B. bei
+  // wiederkehrenden Terminen oft „Weitere Termine: …" per <br> direkt dahinter, das soll bleiben.
+  const LEAD_STRONG = /^(<p[^>]*>)\s*<strong>([\s\S]*?)<\/strong>\s*(?:<br\s*\/?>\s*)?/i;
+  const cleaned = blocks
+    .map((b) => {
+      const m = b.match(LEAD_STRONG);
+      if (!m || !/\b20\d{2}\b/.test(m[2].replace(/<[^>]+>/g, ''))) return b; // kein Datum im Fettdruck → unverändert
+      const stripped = b.replace(LEAD_STRONG, '$1');
+      return stripped.replace(/<[^>]+>/g, '').trim() ? stripped : null; // nichts übrig → Absatz raus
+    })
+    .filter(Boolean);
+  return cleaned.join('\n');
 }
 
 export async function getSeoHead(path = '/', origin = WP_RENDER_ORIGIN) {

@@ -3,15 +3,28 @@
 // Aufbau: Bild-Hero mit Titel · Untertitel · kompakte Meta-Zeile (Datum·Zeit·Ort) · Beschreibung.
 // Termine haben keinen REST-Fließtext — die Beschreibung kommt aus der gerenderten WP-Seite
 // (getEventDetail liefert SEO-Head UND Beschreibung in EINEM Fetch).
-import Base from '../../layouts/Base.astro';
-import { getEventsFull, getEventDetail } from '../../lib/wordpress.js';
+//
+// `prerender = false`: Diese Route wird NICHT beim Build vorgefertigt, sondern bei jedem Aufruf
+// serverseitig (Netlify Function) neu aus WordPress geladen. Grund: Termine lösen seit 2026-08-02
+// keinen Netlify-Rebuild mehr aus (Handbuch 1c) — eine zur Build-Zeit erzeugte Seite (frühere
+// `getStaticPaths` + `getEventsFull()`) zeigte nach WP-Änderungen veralteten Text, und neu
+// angelegte Termine hatten bis zum nächsten Code-Push gar keine Seite (liefen ins 404-Auffangnetz
+// in `public/_redirects`). Mit Server-Rendering ist der Inhalt immer aktuell, unabhängig vom
+// letzten Build. Einziger Nebeneffekt: einzelne Termine tauchen nicht mehr in der Sitemap auf
+// (bleiben aber über die Terminkalender-Übersicht verlinkt/auffindbar).
+export const prerender = false;
 
-export async function getStaticPaths() {
-  const events = await getEventsFull();
-  return events.map((event) => ({ params: { slug: event.slug }, props: { event } }));
+import Base from '../../layouts/Base.astro';
+import { getEventBySlug, getEventDetail } from '../../lib/wordpress.js';
+
+const { slug } = Astro.params;
+const event = await getEventBySlug(slug);
+
+// Unbekannter/gelöschter Termin → wie beim früheren 404-Auffangnetz sanft auf die Übersicht.
+if (!event) {
+  return Astro.redirect('/terminkalender/', 301);
 }
 
-const { event } = Astro.props;
 const m = event.meta || {};
 const { seo, description } = await getEventDetail(event.wpPath);
 
