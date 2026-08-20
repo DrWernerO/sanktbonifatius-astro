@@ -3,9 +3,9 @@
 // astro-ko-Komponenten. Astro-Pfad: /kirchorte/. Nav + Footer global aus Base.astro.
 // Inhalte fest (Kirchortdaten ändern sich selten); SEO-Head live aus WP.
 import Base from '../../layouts/Base.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/kirchorte/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/'];
 
 const KIRCHORTE = [
   {

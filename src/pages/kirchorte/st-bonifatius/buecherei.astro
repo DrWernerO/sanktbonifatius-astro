@@ -2,9 +2,9 @@
 // Pfarrbücherei St. Bonifatius — WP-Seite 49496
 // Präfix: astro-sbb (Saint Bonifatius Bücherei). Kein set:html, Inhalte fest in dieser Datei.
 import Base from '../../../layouts/Base.astro';
-import { getSeoHead } from '../../../lib/wordpress.js';
+import { SEO_STATIC } from '../../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/'];
 
 const DOWNLOADS = [
   {

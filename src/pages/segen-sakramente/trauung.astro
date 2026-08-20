@@ -14,9 +14,9 @@ import TrauungFeier from '../../components/TrauungFeier.astro';
 import TrauungSteps from '../../components/TrauungSteps.astro';
 import TrauungFaq from '../../components/TrauungFaq.astro';
 import TrauungKontakt from '../../components/TrauungKontakt.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/segen-sakramente/trauung/');
+const seo = SEO_STATIC['/segen-sakramente/trauung/'];
 ---
 <Base seo={seo} title="Kirchliche Trauung Frankfurt – heiraten bei St. Bonifatius">
   <TrauungHero />

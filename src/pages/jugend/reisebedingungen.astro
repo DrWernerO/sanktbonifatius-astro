@@ -1,17 +1,18 @@
 ---
 // Seite „Reisebedingungen" — WP-Seite 32113 (/jugend/reisebedingungen/),
 // Unterseite von „Jugend". Reine Rechtstext-Seite (keine Bilder/Design-Blöcke):
-// eigener Hero + Prosa-Container im Blog-Detail-Muster (Handbuch 6). Der Text kommt
-// LIVE aus WordPress (content.rendered) → die Sekretärinnen pflegen ihn weiter im WP-Editor.
+// eigener Hero + Prosa-Container im Blog-Detail-Muster (Handbuch 6). Der Text lag früher LIVE
+// aus WordPress (content.rendered); seit der SEO/cms-Entkopplung (2026-08-20) fest im Repo unter
+// `lib/content/reisebedingungen.js` — Änderungen am Rechtstext dort von Hand nachpflegen.
 // Eigene Klassen `astro-rb` (WP hat hier nur `wp-block-list`, kein Theme-Präfix → keine Kollision).
-// Nav + Footer global aus Base.astro (Handbuch 4b). SEO live aus WP via getSeoHead.
+// Nav + Footer global aus Base.astro (Handbuch 4b). SEO fest aus `lib/seo-static.js`.
 import Base from '../../layouts/Base.astro';
 import RbHero from '../../components/RbHero.astro';
-import { getPageById, getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
+import { REISEBEDINGUNGEN_HTML } from '../../lib/content/reisebedingungen.js';
 
-const seo = await getSeoHead('/jugend/reisebedingungen/');
-const page = await getPageById(32113);
-let body = page?.content?.rendered ?? '';
+const seo = SEO_STATIC['/jugend/reisebedingungen/'];
+let body = REISEBEDINGUNGEN_HTML;
 // Sektionstitel „N. Titel" (z.B. „1. Anmeldung …") → echte <h2> (Semantik/SEO).
 // Textbasiert + robust gegen WP-Auszeichnungsfehler (Sektion 5 nicht fett; Sektion 9
 // hat ein kaputtes <strong>). Ein Absatz wird zur Überschrift, wenn sein reiner Text mit

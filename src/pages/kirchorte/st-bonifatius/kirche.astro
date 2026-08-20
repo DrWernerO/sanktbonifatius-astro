@@ -10,9 +10,9 @@ import KircheIndex from '../../../components/KircheIndex.astro';
 import KircheCards from '../../../components/KircheCards.astro';
 import KircheInfobar from '../../../components/KircheInfobar.astro';
 import StbCta from '../../../components/StbCta.astro';
-import { getSeoHead } from '../../../lib/wordpress.js';
+import { SEO_STATIC } from '../../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/kirchorte/st-bonifatius/kirche/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/st-bonifatius/kirche/'];
 ---
 <Base seo={seo}>
   <KircheHero />

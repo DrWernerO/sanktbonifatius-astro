@@ -7,10 +7,10 @@ import Base from '../layouts/Base.astro';
 import DatenschutzHero from '../components/DatenschutzHero.astro';
 import DatenschutzBody from '../components/DatenschutzBody.astro';
 import DatenschutzCta from '../components/DatenschutzCta.astro';
-import { getSeoHead } from '../lib/wordpress.js';
+import { SEO_STATIC } from '../lib/seo-static.js';
 
 // SEO (Titel/Description/OG) aus der mit SEOPress optimierten WP-Seite übernehmen.
-const seo = await getSeoHead('/datenschutz/');
+const seo = SEO_STATIC['/datenschutz/'];
 ---
 <Base seo={seo} title="Datenschutz – Pfarrei Sankt Bonifatius Frankfurt">
   <DatenschutzHero />

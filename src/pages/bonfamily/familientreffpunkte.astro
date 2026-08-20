@@ -8,9 +8,9 @@ import FmIntro from '../../components/FmIntro.astro';
 import FmGrid from '../../components/FmGrid.astro';
 import FmQuick from '../../components/FmQuick.astro';
 import FmContact from '../../components/FmContact.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/bonfamily/familientreffpunkte/');
+const seo = SEO_STATIC['/bonfamily/familientreffpunkte/'];
 ---
 <Base seo={seo} title="Familientreffpunkte · BonFamily · St. Bonifatius Frankfurt">
   <FmHero />

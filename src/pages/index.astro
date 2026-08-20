@@ -15,11 +15,11 @@ import PhotoMarquee from '../components/PhotoMarquee.astro';
 import FeatureBlocks from '../components/FeatureBlocks.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import NewsLightbox from '../components/NewsLightbox.astro';
-import { getSeoHead } from '../lib/wordpress.js';
+import { SEO_STATIC } from '../lib/seo-static.js';
 // Nav + Footer kommen global aus Base.astro — hier nicht mehr nötig.
 
 // SEO (Titel/Description/OG/JSON-LD) aus der mit SEOPress optimierten WP-Startseite übernehmen.
-const seo = await getSeoHead('/');
+const seo = SEO_STATIC['/'];
 ---
 <Base seo={seo}>
   <Hero />

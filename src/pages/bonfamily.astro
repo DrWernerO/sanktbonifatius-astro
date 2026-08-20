@@ -1,7 +1,7 @@
 ---
 // Seite „BonFamily" — WP-Seite 45898 (/bonfamily/), vollständig aus eigenen Astro-Komponenten
 // (kein set:html mit WP-Markup, vgl. Handbuch 9b). Nav + Footer global aus Base.astro (Handbuch 4b).
-// SEO live aus WP (SEOPress) via getSeoHead('/bonfamily/').
+// SEO fest aus lib/seo-static.js (SEOPress-Head, einmalig eingefroren).
 // EventCalendar gefiltert auf BonFamily-Kategorie = 2586 (Team-Handbuch 07).
 import Base from '../layouts/Base.astro';
 import BfHero from '../components/BfHero.astro';
@@ -17,9 +17,9 @@ import BfKontakt from '../components/BfKontakt.astro';
 import BfFaq from '../components/BfFaq.astro';
 import BfCta from '../components/BfCta.astro';
 import EventCalendar from '../components/EventCalendar.astro';
-import { getSeoHead } from '../lib/wordpress.js';
+import { SEO_STATIC } from '../lib/seo-static.js';
 
-const seo = await getSeoHead('/bonfamily/');
+const seo = SEO_STATIC['/bonfamily/'];
 ---
 <Base seo={seo} title="BonFamily – Familien & Kinder · St. Bonifatius Frankfurt">
   <BfHero />

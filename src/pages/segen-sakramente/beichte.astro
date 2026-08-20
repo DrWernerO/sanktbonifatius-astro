@@ -16,9 +16,9 @@ import BcChildren from '../../components/BcChildren.astro';
 import BcFaq from '../../components/BcFaq.astro';
 import BcRelated from '../../components/BcRelated.astro';
 import BcCta from '../../components/BcCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/segen-sakramente/beichte/');
+const seo = SEO_STATIC['/segen-sakramente/beichte/'];
 ---
 <Base seo={seo} title="Beichte in Frankfurt – Sakrament der Versöhnung | St. Bonifatius">
   <BcHero />

@@ -12,9 +12,9 @@ import KwTaufe from '../../components/KwTaufe.astro';
 import KwWege from '../../components/KwWege.astro';
 import KwFaq from '../../components/KwFaq.astro';
 import KwCta from '../../components/KwCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/kontakt/katholisch-werden/');
+const seo = SEO_STATIC['/kontakt/katholisch-werden/'];
 ---
 <Base seo={seo} title="Katholisch werden – St. Bonifatius Frankfurt">
   <KwHero />

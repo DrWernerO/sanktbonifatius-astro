@@ -80,6 +80,19 @@ export default defineConfig({
 - [x] **PDF-Download-Links umgestellt** auf `cms.sanktbonifatius.de` (Nav.astro `DOWNLOADS`
       Pfarrbrief/Highlights inkl. `?v=`-Cache-Busting, Abschnitt 1d; sowie Flyer/Formulare in
       Kirchort-Seiten). **Bilder waren bereits lokal** und nicht betroffen.
+- [x] **`cms.sanktbonifatius.de` per `.htaccess` als Frontend geschlossen** (Lovis, ~2026-08-16,
+      **liegt auf dem All-inkl-Server, nicht in diesem Git-Repo**): normale Frontend-Aufrufe,
+      `robots.txt` und `sitemap.xml` auf cms bekommen jetzt live-verifiziert einen 301 auf
+      `sanktbonifatius.de`. Ausgenommen: `wp-json` (offen, wird für alle Datenabrufe gebraucht),
+      `/wp-content/uploads/…`-Dateien (PDFs bleiben abrufbar) und Abrufe mit der Kennung
+      `SanktBonifatiusAstroBuild/1.0` (`BUILD_UA` in `wordpress.js`, für die verbliebenen
+      `getSeoHead()`-Aufrufe bei Beiträgen/Terminen). Grund: cms soll nur noch Datenlager sein,
+      nicht mehr öffentlich als Website erreichbar/indexierbar (SEO-Check 2026-08-14/16, siehe
+      auch die GSC-Meldungen „Nicht gefunden"/„Seite mit Weiterleitung").
+- [x] **SEO-Head für alle statischen Seiten eingefroren** (2026-08-20, Abschnitt 1e):
+      `getSeoHead()`-Live-Abrufe durch `src/lib/seo-static.js` ersetzt — Astro holt sich für
+      normale Inhaltsseiten **keine** Daten mehr aus cms. Einzige Ausnahmen bleiben Termine,
+      News/Pins, Beiträge und Tauftermine (echte, laufend wechselnde Daten).
 
 ### Noch offen (TODO)
 - [ ] Finaler portfolioweiter Link-Check nach dem Go-Live (Abschnitt 12) — turnusmäßig gegenprüfen.
@@ -243,39 +256,62 @@ const pfarrbriefUrl = await withVersion(DOWNLOADS.pfarrbrief);
 
 ---
 
-## 1e. SEO — WordPress-SEOPress-Head übernehmen (headless SEO) ✅ UMGESETZT (Startseite)
+## 1e. SEO — SEOPress-Head fest eingebaut (headless SEO) ✅ UMGESETZT (seit 2026-08-20 statisch)
 
 > **Grundidee:** Die Seiten wurden im WP mit **SEOPress** für Suchmaschinen + KI optimiert
-> (Titel, Meta-Description, OpenGraph, Twitter, JSON-LD). Statt das in Astro nachzubauen,
-> **ziehen wir den fertigen SEO-Head beim Build aus WordPress** und bauen ihn ein. So fließt
-> die WP-SEO-Arbeit automatisch in die Astro-Seiten — **kein eigenes JSON-LD/Texten nötig.**
+> (Titel, Meta-Description, OpenGraph, Twitter, JSON-LD). Diesen fertigen SEO-Head haben wir
+> **einmalig** aus WordPress gezogen und **fest ins Repo eingefroren** — kein eigenes
+> JSON-LD/Texten nötig, aber auch **kein Live-Zugriff auf cms mehr** für diese ~56 Seiten.
 
-### Wie es funktioniert
-- **`getSeoHead(path)`** in [`wordpress.js`](../src/lib/wordpress.js) holt die gerenderte
-  Dev-Seite (`https://dev.sanktbonifatius.de` + `path`) und extrahiert nur die SEO-Tags:
-  `<title>`, `meta[name=description|robots]`, `link[rel=canonical]`, alle `og:`/`article:`-
-  und `twitter:`-Metas und alle `application/ld+json`-Blöcke (bei uns: WebSite, Organization,
-  LocalBusiness).
-- **Domain-Umschreibung:** Render-Domain `dev.sanktbonifatius.de` → Produktiv-Domain
-  `PUBLIC_SITE` (`https://sanktbonifatius.de`) **für canonical/og:url**. Beim WP-Umzug
-  (Abschnitt 1b) `PUBLIC_SITE` + `WP_RENDER_ORIGIN` anpassen.
+> **⚠️ Grundregel seit 2026-08-20:** Astro holt sich für normale Inhaltsseiten **keine** Daten
+> mehr live aus WordPress/`cms.sanktbonifatius.de`. Erlaubte Ausnahmen sind ausschließlich
+> **Termine, News/Pins, Beiträge und Tauftermine** (echte, sich laufend ändernde Daten). Hintergrund:
+> `cms.sanktbonifatius.de` ist per `.htaccess` (auf dem All-inkl-Server, nicht in diesem Repo)
+> so umgestellt, dass normale Frontend-Aufrufe per 301 auf `sanktbonifatius.de` umgeleitet werden
+> — cms ist nur noch Datenlager (`wp-json`) und Medien-Host (PDFs, alte Fotos), kein öffentliches
+> Frontend mehr. Server-seitige Abrufe, die trotzdem echte WP-Frontend-Seiten brauchen (aktuell nur
+> `getSeoHead()` für Beiträge, s.u.), senden dafür die Kennung `SanktBonifatiusAstroBuild/1.0`
+> (`BUILD_UA` in `wordpress.js`), die die `.htaccess` ausnimmt.
+
+### Wie es funktioniert (statische Seiten — Regelfall)
+- **[`src/lib/seo-static.js`](../src/lib/seo-static.js)** enthält den **eingefrorenen** SEO-Head
+  (Titel, Description, OG/Twitter-Tags, JSON-LD) für jede der ~56 statischen Astro-Routen, als
+  Objekt `SEO_STATIC['/pfad/']`. Erzeugt am 2026-08-20 per Einmal-Skript aus dem letzten
+  `getSeoHead()`-Abruf jeder Seite (Ergebnis Byte-für-Byte identisch zum vorherigen Live-Stand).
+- Jede betroffene Seite importiert `{ SEO_STATIC }` statt `{ getSeoHead }` und schreibt
+  `const seo = SEO_STATIC['/pfad/'];` (synchron, kein Netz-Call mehr) statt
+  `const seo = await getSeoHead('/pfad/');`.
+- **Wartung:** Ändert sich der SEO-Text einer Seite inhaltlich (neuer Titel, neue Beschreibung,
+  neues Vorschaubild), **muss der Eintrag in `seo-static.js` von Hand angepasst werden** — es gibt
+  keinen Abgleich mit WordPress mehr. Bei größeren SEO-Überarbeitungen ggf. das alte
+  Einfrier-Muster (`getSeoHead(path)` einmalig aufrufen, Ergebnis übernehmen) wiederholen.
+- **`src/lib/content/reisebedingungen.js`**: Die einzige Seite, die früher **echten Inhalt**
+  (nicht nur SEO) live aus WP zog (`getPageById(32113)`, Seite „Jugend/Reisebedingungen"), hat
+  ihren Rechtstext ebenso eingefroren erhalten (`REISEBEDINGUNGEN_HTML`). Änderungen am Text dort
+  von Hand nachpflegen.
+
+### Wie es funktioniert (Beiträge — bleiben bewusst live)
+- **`getSeoHead(path)`** in [`wordpress.js`](../src/lib/wordpress.js) bleibt unverändert bestehen
+  und wird **nur noch** von [`src/pages/blog/[slug].astro`](../src/pages/blog/[slug].astro)
+  (`getSeoHead(post.wpPath)`) sowie für Termin-Detailseiten (`getEventDetail()`, Abschnitt 7)
+  aufgerufen — beides erlaubte Live-Ausnahmen (Beiträge/Termine ändern sich laufend, ein
+  Einfrieren wäre falsch). Extrahiert `<title>`, `meta[name=description|robots]`, alle
+  `og:`/`article:`- und `twitter:`-Metas und alle `application/ld+json`-Blöcke.
+- **Domain-Umschreibung:** Render-Domain `cms.sanktbonifatius.de` → Produktiv-Domain
+  `PUBLIC_SITE` (`https://sanktbonifatius.de`) **für canonical/og:url**.
 - **og:image lokal (seit 2026-07-22):** `extractSeoTags()` biegt WP-Upload-URLs in
   `og:image`/`og:image:secure_url`/`twitter:image` auf das lokale `/uploads/…` um — **aber nur,
-  wenn die Datei wirklich im Repo (`public/uploads/`) liegt** (Prüfung per `existsSync`). Dadurch
-  liefern die **statischen Seiten** ihr Vorschaubild WP-unabhängig aus (das Standard-Vorschaubild
-  `2026/05/st-bonifatius-frankfurt.jpg` liegt lokal). **Dynamische Aktuelles/Termine-Bilder** ohne
-  lokale Kopie bleiben bewusst auf dem WP-Host → neue Beiträge/Termine bekommen so nie ein totes
-  OG-Vorschaubild. Übrige `/wp-content/`-URLs (Nicht-Uploads, z. B. Theme-Assets in JSON-LD)
-  bleiben ebenfalls auf WP. (Früher blieben **alle** `/wp-content/`-URLs auf WP.)
-- **[`Base.astro`](../src/layouts/Base.astro)** nimmt einen `seo`-Prop (HTML-String). Ist er
-  gesetzt → wird er per `set:html` in den `<head>` eingefügt und die Standard-Tags
-  (eigener `<title>`/`description`) werden **übersprungen** (kein doppelter Titel). Ohne
-  `seo` greifen die Standard-Tags (`title`/`description`-Props) als Fallback.
-- **[`index.astro`](../src/pages/index.astro)**: `const seo = await getSeoHead('/')` → `<Base seo={seo}>`.
-  Für neue Seiten analog mit deren WP-Pfad.
+  wenn die Datei wirklich im Repo (`public/uploads/`) liegt** (Prüfung per `existsSync`).
+  **Nur von `getSeoHead()` aufrufen**, niemals von `getEventDetail()` (Kommentar in `wordpress.js`
+  erklärt, warum — Netlify-Function-Bundle-Größe).
+- **[`Base.astro`](../src/layouts/Base.astro)** nimmt einen `seo`-Prop (HTML-String, egal ob aus
+  `SEO_STATIC` oder live aus `getSeoHead()`). Ist er gesetzt → wird er per `set:html` in den
+  `<head>` eingefügt, Standard-Tags (`title`/`description`-Props) werden übersprungen. Ohne `seo`
+  greifen die Standard-Tags als Fallback.
 
-> **Fällt WP beim Build aus**, liefert `getSeoHead()` einen leeren String → Base nutzt die
-> Standard-Tags, der Build bricht nie ab.
+> **Fällt WP beim Build aus**, liefert `getSeoHead()` (für Beiträge/Termine) einen leeren String
+> → Base nutzt die Standard-Tags, der Build bricht nie ab. `SEO_STATIC`-Seiten sind davon gar
+> nicht mehr betroffen, da kein Netz-Call mehr stattfindet.
 
 ### Sitemap & robots
 - **`@astrojs/sitemap`** in [`astro.config.mjs`](../astro.config.mjs) (braucht `site:` =

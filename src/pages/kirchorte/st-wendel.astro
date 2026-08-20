@@ -3,7 +3,7 @@
 // Primärfarbe Dunkelblau #012C7B. Eigene Sw*-Komponenten (Präfix astro-sw).
 // Keine Unterseiten vorhanden. Nav + Footer global aus Base.astro (Handbuch 4b).
 import Base from '../../layouts/Base.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 import SwHero from '../../components/SwHero.astro';
 import SwQuick from '../../components/SwQuick.astro';
 import SwWelcome from '../../components/SwWelcome.astro';
@@ -14,7 +14,7 @@ import SwMarquee from '../../components/SwMarquee.astro';
 import SwFaq from '../../components/SwFaq.astro';
 import SwCta from '../../components/SwCta.astro';
 
-const seo = await getSeoHead('/ueberuns/kirchorte/st-wendel/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/st-wendel/'];
 ---
 <Base seo={seo} title="St. Wendel – Kirchort der Pfarrei Sankt Bonifatius Frankfurt">
   <SwHero />

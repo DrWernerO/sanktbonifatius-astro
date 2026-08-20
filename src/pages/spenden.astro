@@ -2,7 +2,7 @@
 // Seite „Spenden" (/spenden/) — vollständig aus eigenen astro-spn-Komponenten, inhaltlich 1:1
 // an der Live-Seite (www, /spenden/) orientiert. Nav + Footer kommen global aus Base.astro
 // (Handbuch 4b) — hier NICHT erneut einbinden. Spenden laufen über drei ChurchDesk-Donation-
-// Widgets (SpnProjects) zzgl. Überweisung (SpnBank). SEO live aus WP via getSeoHead;
+// Widgets (SpnProjects) zzgl. Überweisung (SpnBank). SEO fest aus lib/seo-static.js (einmalig eingefroren);
 // title/description dienen als Fallback, falls WP nicht erreichbar ist.
 import Base from '../layouts/Base.astro';
 import SpnHero from '../components/SpnHero.astro';
@@ -11,9 +11,9 @@ import SpnProjects from '../components/SpnProjects.astro';
 import SpnBank from '../components/SpnBank.astro';
 import SpnFaq from '../components/SpnFaq.astro';
 import SpnCta from '../components/SpnCta.astro';
-import { getSeoHead } from '../lib/wordpress.js';
+import { SEO_STATIC } from '../lib/seo-static.js';
 
-const seo = await getSeoHead('/spenden/');
+const seo = SEO_STATIC['/spenden/'];
 ---
 <Base
   seo={seo}

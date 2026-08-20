@@ -4,8 +4,7 @@
 // NICHT erneut einbinden. Bänder-Prinzip: dunkler Hero → Bordeaux-Notfallbanner → Crème
 // Angebote → weiße Ansprechpersonen → Crème externe Stellen → weißer Schutz → dunkler CTA.
 // Würdevoller, ruhiger Ton (sensibles Thema). Eigener CSS-Präfix `astro-ber`.
-// SEO-Head live aus WordPress via getSeoHead (macht intern einen Netz-Call — nur im echten
-// Build/Dev relevant; bei WP-Ausfall liefert getSeoHead leeren String, Base nutzt Fallback).
+// SEO-Head fest aus lib/seo-static.js (eingefroren, kein Live-Call mehr zu cms.).
 import Base from '../../layouts/Base.astro';
 import BeratungHero from '../../components/BeratungHero.astro';
 import BeratungNotfall from '../../components/BeratungNotfall.astro';
@@ -14,9 +13,9 @@ import BeratungTeam from '../../components/BeratungTeam.astro';
 import BeratungExtern from '../../components/BeratungExtern.astro';
 import BeratungSchutz from '../../components/BeratungSchutz.astro';
 import BeratungCta from '../../components/BeratungCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/kontakt/beratung-und-hilfe/');
+const seo = SEO_STATIC['/kontakt/beratung-und-hilfe/'];
 ---
 <Base seo={seo} title="Beratung und Hilfe">
   <BeratungHero />

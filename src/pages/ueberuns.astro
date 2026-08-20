@@ -10,10 +10,10 @@ import UeberunsPfarrei from '../components/UeberunsPfarrei.astro';
 import UeberunsKirchorte from '../components/UeberunsKirchorte.astro';
 import UeberunsLeitung from '../components/UeberunsLeitung.astro';
 import UeberunsCta from '../components/UeberunsCta.astro';
-import { getSeoHead } from '../lib/wordpress.js';
+import { SEO_STATIC } from '../lib/seo-static.js';
 
 // SEO (Titel/Description/OG/JSON-LD) aus der mit SEOPress optimierten WP-Seite übernehmen.
-const seo = await getSeoHead('/ueberuns/');
+const seo = SEO_STATIC['/ueberuns/'];
 ---
 <Base seo={seo} title="Über uns">
   <UeberunsHero />

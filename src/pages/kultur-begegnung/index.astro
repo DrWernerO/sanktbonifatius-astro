@@ -1,10 +1,10 @@
 ---
 // Übersichtsseite „Kultur & Begegnung" — WP-Seite 46764 (/kultur-begegnung/), vollständig aus eigenen
 // Astro-Komponenten (kein set:html mit WP-Markup). Nav + Footer global aus Base.astro (Handbuch 4b).
-// SEO live aus WP (SEOPress) via getSeoHead('/kultur-begegnung/'). Termine live via EventCalendar
+// SEO fest aus lib/seo-static.js (SEOPress-Head, einmalig eingefroren). Termine live via EventCalendar
 // (Kategorie 2588). Eigene Präfixe `astro-kb…` (goldene Regel, Handbuch 3 — WP nutzt `el-`).
 import Base from '../../layouts/Base.astro';            // ACHTUNG: zwei Ebenen hoch
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 import EventCalendar from '../../components/EventCalendar.astro';
 import KbHero from '../../components/KbHero.astro';
 import KbStrip from '../../components/KbStrip.astro';
@@ -13,7 +13,7 @@ import KbTiles from '../../components/KbTiles.astro';
 import KbCta from '../../components/KbCta.astro';
 import KbFaq from '../../components/KbFaq.astro';
 
-const seo = await getSeoHead('/kultur-begegnung/');
+const seo = SEO_STATIC['/kultur-begegnung/'];
 ---
 <Base seo={seo} title="Kultur & Begegnung – Kirchcafé, Chöre, Büchereien · St. Bonifatius Frankfurt">
   <KbHero />

@@ -8,9 +8,9 @@ import BarIntro from '../../components/BarIntro.astro';
 import BarAnsprechpartner from '../../components/BarAnsprechpartner.astro';
 import BarKirchorte from '../../components/BarKirchorte.astro';
 import BarCta from '../../components/BarCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/barrierefreiheit/');
+const seo = SEO_STATIC['/ueberuns/barrierefreiheit/'];
 ---
 <Base seo={seo} title="Barrierefreiheit">
   <BarHero />

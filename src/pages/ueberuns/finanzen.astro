@@ -10,9 +10,9 @@ import FinBistum from '../../components/FinBistum.astro';
 import FinPfarrei from '../../components/FinPfarrei.astro';
 import FinDownload from '../../components/FinDownload.astro';
 import FinCta from '../../components/FinCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/finanzen/');
+const seo = SEO_STATIC['/ueberuns/finanzen/'];
 ---
 <Base seo={seo} title="Transparenz & Finanzen">
   <FinHero />

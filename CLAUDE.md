@@ -19,12 +19,22 @@
 
 ## Die wichtigsten Regeln in Kürze
 
+0. ⚠️ **Astro holt sich KEINE Seiteninhalte mehr live aus `cms.sanktbonifatius.de`** — einzige
+   erlaubte Ausnahmen: **Termine, News/Pins, Beiträge, Tauftermine** (echte, laufend wechselnde
+   Daten). Alles andere (SEO-Head aller statischen Seiten, der Rechtstext „Reisebedingungen")
+   liegt seit 2026-08-20 fest im Repo (`src/lib/seo-static.js`, `src/lib/content/`). Grund: cms
+   ist per `.htaccess` auf dem All-inkl-Server (nicht in diesem Repo) als öffentliches Frontend
+   geschlossen — nur noch Datenlager (`wp-json`) + Medien-Host. Neue statische Seite bauen →
+   **keine** neue `getSeoHead()`/`getPageById()`-Live-Abhängigkeit einführen, sondern SEO-Text
+   einmalig besorgen und in `seo-static.js` eintragen (Handbuch 1e).
 1. **Echter Go-Live vollzogen (2026-08-03):** `sanktbonifatius.de` zeigt per DNS auf **Netlify**
    und liefert live das Astro-Frontend. **Inhalte kommen von WordPress unter
-   `https://cms.sanktbonifatius.de`** (Backend auf die `cms.`-Subdomain umgezogen). Server-seitig
-   fetcht Astro direkt zu `cms.`, client-seitig weiterhin über Vite-/Netlify-Proxy `/wp-proxy/...`
-   (gleiche Origin, kein SSL/CORS-Problem). Quell-Domains zentral in `src/lib/wordpress.js`
-   (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs` (`WP_LIVE`).
+   `https://cms.sanktbonifatius.de`** (Backend auf die `cms.`-Subdomain umgezogen, dort per
+   `.htaccess` als Frontend gesperrt — siehe Regel 0). Server-seitig fetcht Astro direkt zu
+   `cms.` (nur `wp-json` + die erlaubten Ausnahmen), client-seitig weiterhin über
+   Vite-/Netlify-Proxy `/wp-proxy/...` (gleiche Origin, kein SSL/CORS-Problem). Quell-Domains
+   zentral in `src/lib/wordpress.js` (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs`
+   (`WP_LIVE`).
 2. **Eigene Komponenten IMMER mit Präfix `astro-`** — nie WP-Theme-Klassen (`bh2-…`)
    wiederverwenden, sonst überschreibt das WP-CSS unsere Styles.
 3. **Server-seitige Änderungen (`lib/*.js`, `.astro`-Frontmatter) → Dev-Server neu starten.**
@@ -59,11 +69,15 @@ npm run dev   # läuft mit NODE_TLS_REJECT_UNAUTHORIZED=0 auf Port 4321
 ```
 
 ## Schlüsseldateien
-- `src/lib/wordpress.js` — WP-Anbindung, Content-Bereinigung, Sektions-Ersatz
+- `src/lib/wordpress.js` — WP-Anbindung (nur noch Termine/News/Beiträge/Tauftermine + `getSeoHead`
+  für Beiträge, siehe Regel 0), Content-Bereinigung
+- `src/lib/seo-static.js` — eingefrorener SEO-Head je statischer Route (Handbuch 1e), ersetzt
+  `getSeoHead()` für alle Seiten außer Beiträgen/Terminen
+- `src/lib/content/reisebedingungen.js` — eingefrorener Rechtstext „Jugend/Reisebedingungen"
 - `src/components/Nav.astro` — Hauptnavigation (Logo 80px, Social, Dropdowns, Spenden)
 - `src/components/EventCalendar.astro` — Termin-Kacheln (`astro-ev`), client-seitig
 - `src/components/NewsGrid.astro` — Beitrags-Kacheln (`astro-news`), server-seitig
-- `src/pages/index.astro` — Startseite, Page-ID 45758, splittet Content am `ASTRO_SLOT`
+- `src/pages/index.astro` — Startseite, vollständig aus eigenen Komponenten (kein WP-`set:html` mehr)
 - `src/pages/kontakt.astro` — Kontakt-Seite (Page-ID 46800), 100 % eigene `Kontakt*`-Komponenten (Handbuch 11)
 - `src/pages/segen-sakramente/index.astro` — Übersicht „Segen und Sakramente" (Page-ID 48265), 100 % eigene `Segen*`-Komponenten (Handbuch 14)
 - `src/pages/segen-sakramente/taufe.astro` — Taufe-Seite (Page-ID 46566), 100 % eigene `Taufe*`-Komponenten; Anmeldeformular postet an eigene Route `/api/taufe-anmeldung` (Handbuch 13/13b)

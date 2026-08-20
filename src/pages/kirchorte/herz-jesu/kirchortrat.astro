@@ -7,9 +7,9 @@ import Base from '../../../layouts/Base.astro';
 import HjkHero from '../../../components/HjkHero.astro';
 import HjkTeam from '../../../components/HjkTeam.astro';
 import HjkCta from '../../../components/HjkCta.astro';
-import { getSeoHead } from '../../../lib/wordpress.js';
+import { SEO_STATIC } from '../../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/kirchorte/herz-jesu/herz-jesu-kirchortrat/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/herz-jesu/herz-jesu-kirchortrat/'];
 ---
 <Base seo={seo} title="Kirchortrat Herz Jesu Frankfurt-Oberrad · Pfarrei Sankt Bonifatius">
   <HjkHero />

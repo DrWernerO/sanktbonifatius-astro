@@ -2,9 +2,9 @@
 // Gruppen & Gemeinschaft St. Bonifatius — WP-Seite 49489
 // Präfix: astro-sbg (Saint Bonifatius Gruppen). Kein set:html, Inhalte fest in dieser Datei.
 import Base from '../../../layouts/Base.astro';
-import { getSeoHead } from '../../../lib/wordpress.js';
+import { SEO_STATIC } from '../../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/kirchorte/st-bonifatius/gruppen-st-bonifatius/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/st-bonifatius/gruppen-st-bonifatius/'];
 
 const ACCENT = '#6440a4';
 

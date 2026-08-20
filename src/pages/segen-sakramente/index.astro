@@ -14,9 +14,9 @@ import SegenIntro from '../../components/SegenIntro.astro';
 import SegenTiles from '../../components/SegenTiles.astro';
 import SegenFaq from '../../components/SegenFaq.astro';
 import SegenCta from '../../components/SegenCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/segen-sakramente/');
+const seo = SEO_STATIC['/segen-sakramente/'];
 
 // „Gottes Segen für Sie" — 2 Segensformen
 const segen = [

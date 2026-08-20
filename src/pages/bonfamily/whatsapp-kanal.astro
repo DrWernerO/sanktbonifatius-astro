@@ -7,9 +7,9 @@ import WaHero from '../../components/WaHero.astro';
 import WaBenefits from '../../components/WaBenefits.astro';
 import WaFaq from '../../components/WaFaq.astro';
 import WaCta from '../../components/WaCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/bonfamily/whatsapp-kanal/');
+const seo = SEO_STATIC['/bonfamily/whatsapp-kanal/'];
 ---
 <Base seo={seo} title="BonFamily WhatsApp-Kanal · St. Bonifatius Frankfurt">
   <WaHero />

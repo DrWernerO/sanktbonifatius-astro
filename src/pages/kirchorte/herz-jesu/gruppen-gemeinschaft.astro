@@ -7,9 +7,9 @@ import Base from '../../../layouts/Base.astro';
 import HjgHero from '../../../components/HjgHero.astro';
 import HjgGroups from '../../../components/HjgGroups.astro';
 import HjgCta from '../../../components/HjgCta.astro';
-import { getSeoHead } from '../../../lib/wordpress.js';
+import { SEO_STATIC } from '../../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/kirchorte/herz-jesu/herz-jesu-gruppen/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/herz-jesu/herz-jesu-gruppen/'];
 ---
 <Base seo={seo} title="Gruppen & Gemeinschaft · Herz Jesu Frankfurt-Oberrad · Pfarrei Sankt Bonifatius">
   <HjgHero />

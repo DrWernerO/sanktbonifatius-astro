@@ -7,10 +7,10 @@ import Base from '../layouts/Base.astro';
 import ImpressumHero from '../components/ImpressumHero.astro';
 import ImpressumBody from '../components/ImpressumBody.astro';
 import ImpressumCta from '../components/ImpressumCta.astro';
-import { getSeoHead } from '../lib/wordpress.js';
+import { SEO_STATIC } from '../lib/seo-static.js';
 
 // SEO (Titel/Description/OG) aus der mit SEOPress optimierten WP-Seite übernehmen.
-const seo = await getSeoHead('/impressum/');
+const seo = SEO_STATIC['/impressum/'];
 ---
 <Base seo={seo} title="Impressum – Pfarrei Sankt Bonifatius Frankfurt">
   <ImpressumHero />

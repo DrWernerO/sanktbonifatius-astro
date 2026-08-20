@@ -19,10 +19,10 @@ import TaufeFaq from '../../components/TaufeFaq.astro';
 import TaufeTeam from '../../components/TaufeTeam.astro';
 import TaufeForm from '../../components/TaufeForm.astro';
 import TaufeEndCta from '../../components/TaufeEndCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
 // SEO (Titel/Description/OG/JSON-LD) aus der mit SEOPress optimierten WP-Seite übernehmen.
-const seo = await getSeoHead('/segen-sakramente/taufe/');
+const seo = SEO_STATIC['/segen-sakramente/taufe/'];
 ---
 <Base seo={seo} title="Taufe">
   <TaufeHero />

@@ -3,9 +3,10 @@
 // (/ueberuns/kirchorte/st-aposteln/meetn-frites/, Unterseite von 45941)
 // Vollständig aus eigenen astro-mf-* Klassen (WP-Klon-Muster). Nav + Footer aus Base.astro.
 import Base from '../../../layouts/Base.astro';
-import { getSeoHead, getMeetnFritesTermine } from '../../../lib/wordpress.js';
+import { getMeetnFritesTermine } from '../../../lib/wordpress.js';
+import { SEO_STATIC } from '../../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/meetn-frites/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/st-aposteln/meetn-frites/'];
 const termine = await getMeetnFritesTermine(3);
 
 // Gleiches Format wie die Termin-Detailseiten (src/pages/termine/[slug].astro).

@@ -14,9 +14,9 @@ import FirmVoraussetzungen from '../../components/FirmVoraussetzungen.astro';
 import FirmFaq from '../../components/FirmFaq.astro';
 import FirmContact from '../../components/FirmContact.astro';
 import FirmCta from '../../components/FirmCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/segen-sakramente/firmung/');
+const seo = SEO_STATIC['/segen-sakramente/firmung/'];
 ---
 <Base seo={seo} title="Firmung Frankfurt – Dein Ja zu Gott | St. Bonifatius">
   <FirmHero />

@@ -7,11 +7,11 @@ import KontaktHero from '../components/KontaktHero.astro';
 import KontaktPaths from '../components/KontaktPaths.astro';
 import KontaktAddress from '../components/KontaktAddress.astro';
 import KontaktCta from '../components/KontaktCta.astro';
-import { getSeoHead } from '../lib/wordpress.js';
+import { SEO_STATIC } from '../lib/seo-static.js';
 
 // SEO (Titel/Description/OG/JSON-LD inkl. ContactPage + CatholicChurch) aus der mit SEOPress
 // optimierten WP-Seite übernehmen.
-const seo = await getSeoHead('/kontakt/');
+const seo = SEO_STATIC['/kontakt/'];
 ---
 <Base seo={seo}>
   <KontaktHero />

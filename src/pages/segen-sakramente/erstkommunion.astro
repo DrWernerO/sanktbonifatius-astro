@@ -14,9 +14,9 @@ import EkGalerie from '../../components/EkGalerie.astro';
 import EkAnmeldung from '../../components/EkAnmeldung.astro';
 import EkFaq from '../../components/EkFaq.astro';
 import EkCta from '../../components/EkCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/segen-sakramente/erstkommunion/');
+const seo = SEO_STATIC['/segen-sakramente/erstkommunion/'];
 ---
 <Base seo={seo} title="Erstkommunion in Frankfurt – St. Bonifatius">
   <EkHero />

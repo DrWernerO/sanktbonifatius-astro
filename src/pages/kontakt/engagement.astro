@@ -18,9 +18,9 @@ import EngagementIntro from '../../components/EngagementIntro.astro';
 import EngagementTiles from '../../components/EngagementTiles.astro';
 import EngagementSteps from '../../components/EngagementSteps.astro';
 import EngagementCta from '../../components/EngagementCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/kontakt/engagement/');
+const seo = SEO_STATIC['/kontakt/engagement/'];
 
 // „Konkret & nahbar — was du tun kannst" — 6 Engagement-Bereiche (1:1 aus WP-Seite 48449)
 const cards = [

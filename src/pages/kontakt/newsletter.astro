@@ -9,9 +9,9 @@ import NlStrip from '../../components/NlStrip.astro';
 import NlIntro from '../../components/NlIntro.astro';
 import NlForm from '../../components/NlForm.astro';
 import NlPrivacy from '../../components/NlPrivacy.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/kontakt/newsletter/');
+const seo = SEO_STATIC['/kontakt/newsletter/'];
 ---
 <Base seo={seo} title="Pfarrbrief abonnieren – Sankt Bonifatius Frankfurt">
   <NlHero />

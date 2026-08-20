@@ -10,9 +10,9 @@ import KfgFormate from '../../components/KfgFormate.astro';
 import KfgTermine from '../../components/KfgTermine.astro';
 import KfgFaq from '../../components/KfgFaq.astro';
 import KfgCta from '../../components/KfgCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/bonfamily/familiengottesdienste/');
+const seo = SEO_STATIC['/bonfamily/familiengottesdienste/'];
 ---
 <Base seo={seo} title="Kinder- & Familiengottesdienste · BonFamily · St. Bonifatius Frankfurt">
   <KfgHero />

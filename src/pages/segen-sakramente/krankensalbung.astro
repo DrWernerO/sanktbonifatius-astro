@@ -14,9 +14,9 @@ import KsProcess from '../../components/KsProcess.astro';
 import KsContact from '../../components/KsContact.astro';
 import KsFaq from '../../components/KsFaq.astro';
 import KsCta from '../../components/KsCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
-const seo = await getSeoHead('/segen-sakramente/krankensalbung/');
+const seo = SEO_STATIC['/segen-sakramente/krankensalbung/'];
 ---
 <Base seo={seo} title="Krankensalbung in Frankfurt – Sakrament der Stärkung | St. Bonifatius">
   <KsHero />

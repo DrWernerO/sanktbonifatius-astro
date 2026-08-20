@@ -3,9 +3,9 @@
 // (/ueberuns/kirchorte/st-aposteln/offener-kuehlschrank/, Unterseite von 45941)
 // Vollständig aus eigenen astro-ok-* Klassen (WP-Klon-Muster). Nav + Footer aus Base.astro.
 import Base from '../../../layouts/Base.astro';
-import { getSeoHead } from '../../../lib/wordpress.js';
+import { SEO_STATIC } from '../../../lib/seo-static.js';
 
-const seo = await getSeoHead('/ueberuns/kirchorte/st-aposteln/offener-kuehlschrank/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/st-aposteln/offener-kuehlschrank/'];
 ---
 <Base seo={seo} title="Offener Kühlschrank Frankfurt-Sachsenhausen · Kirche St. Aposteln · Pfarrei Sankt Bonifatius">
 

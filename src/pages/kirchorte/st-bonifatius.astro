@@ -13,10 +13,10 @@ import StbTeam from '../../components/StbTeam.astro';
 import StbGallery from '../../components/StbGallery.astro';
 import StbFaq from '../../components/StbFaq.astro';
 import StbCta from '../../components/StbCta.astro';
-import { getSeoHead } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 
 // SEO (Titel/Description/OG/JSON-LD) aus der mit SEOPress optimierten WP-Seite übernehmen.
-const seo = await getSeoHead('/ueberuns/kirchorte/st-bonifatius/');
+const seo = SEO_STATIC['/ueberuns/kirchorte/st-bonifatius/'];
 
 const IMG = '/uploads';
 
