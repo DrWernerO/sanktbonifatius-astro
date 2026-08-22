@@ -24,9 +24,24 @@ const seo = SEO_STATIC['/'];
 <Base seo={seo}>
   <Hero />
   <QuickLinks />
+  {/* TEMPORÄR (2026-08-22, Werner): EventCalendar direkt hinter den Begrüßungstext
+      "Mitten im Leben ..." (Teil von QuickLinks) vorgezogen — Original-Reihenfolge
+      (nach Sacraments) siehe Git-Historie dieser Datei. sixpack + notice gelten NUR
+      hier auf der Startseite, alle anderen Seiten mit <EventCalendar /> bleiben im
+      Original-Layout "2 Kacheln + Übersicht". */}
+  <EventCalendar
+    sixpack
+    notice={{
+      meta: 'So, 30. August 2026 · 11 Uhr · Dom',
+      title: 'Stadtkirchengottesdienst',
+      text: 'Wir laden Christen in der Pfarrei herzlich ein, am festlichen Gottesdienst im Dom mit anschließendem Empfang teilzunehmen. Ein tolles Fest der Begegnung mit den anderen Frankfurter Pfarreien. ',
+      linkHref: 'https://frankfurt.bistumlimburg.de/kalender-frankfurt/bartholomaeustag-2026',
+      linkLabel: 'Mehr Infos',
+      footnote: 'Die Sonntagsgottesdienste in unserer Pfarrei entfallen deshalb an diesem Tag gemäß Beschluss des Pfarrgemeinderats. Die Vorabendmessen in Herz Jesu und St. Bonifatius finden wie gewohnt statt.',
+    }}
+  />
   <ProgramGrid />
   <Sacraments />
-  <EventCalendar />
   <NewsGrid />
   <ChurchLocations />
   <PhotoMarquee />
