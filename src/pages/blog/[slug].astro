@@ -18,9 +18,14 @@ const decode = (s) =>
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
     .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)))
     .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'")
-    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ');
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/&hellip;/g, '…');
 
 const title = decode(post.title);
+// Untertitel: WP-Beitragsauszug (Excerpt) — NUR wenn im Admin ein eigener Auszug gepflegt
+// wurde. Ohne eigenen Auszug hängt WordPress automatisch "[…]" an den Textanfang — das
+// erkennen wir am Marker und zeigen dann lieber gar keine Zeile (sonst doppelt/abgeschnitten).
+const rawSubtitle = decode((post.excerpt || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
+const subtitle = /\[…\]$/.test(rawSubtitle) ? '' : rawSubtitle;
 const dateStr = new Date(post.date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
 const heroStyle = post.image ? `background-image:url('${post.image}')` : '';
 ---
@@ -29,6 +34,7 @@ const heroStyle = post.image ? `background-image:url('${post.image}')` : '';
     <div class="astro-post-hero__inner">
       <p class="astro-post-hero__eyebrow">{dateStr}</p>
       <h1 class="astro-post-hero__title">{title}</h1>
+      {subtitle && <p class="astro-post-hero__subtitle">{subtitle}</p>}
     </div>
   </header>
 
@@ -51,6 +57,7 @@ const heroStyle = post.image ? `background-image:url('${post.image}')` : '';
 .astro-post-hero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c5a55a;margin:0 0 12px}
 .astro-post-hero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.1;color:#fff;
   font-size:clamp(32px,4.6vw,56px);margin:0;max-width:900px;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.astro-post-hero__subtitle{font-size:clamp(15px,1.6vw,18px);line-height:1.5;color:#d4c9b5;margin:14px 0 0;max-width:640px;text-shadow:0 1px 12px rgba(0,0,0,.3)}
 .astro-post{background:#fff;padding:48px 0 64px}
 .astro-post__inner{max-width:760px;margin:0 auto;padding:0 24px}
 .astro-post__content{font-size:17px;line-height:1.75;color:#3a3228}
