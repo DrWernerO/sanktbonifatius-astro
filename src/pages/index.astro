@@ -40,9 +40,12 @@ const seo = SEO_STATIC['/'];
       footnote: 'Die Sonntagsgottesdienste in unserer Pfarrei entfallen deshalb an diesem Tag gemäß Beschluss des Pfarrgemeinderats. Die Vorabendmessen in Herz Jesu und St. Bonifatius finden wie gewohnt statt.',
     }}
   />
+  {/* TEMPORÄR (2026-08-23, Werner): Beiträge (NewsGrid) direkt hinter die Termine gezogen,
+      damit Termine und Beiträge untereinanderstehen. ProgramGrid/Sacraments folgen danach
+      (Original-Reihenfolge: ProgramGrid, Sacraments, NewsGrid — siehe Git-Historie). */}
+  <NewsGrid />
   <ProgramGrid />
   <Sacraments />
-  <NewsGrid />
   <ChurchLocations />
   <PhotoMarquee />
   <FeatureBlocks />
