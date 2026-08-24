@@ -10,7 +10,7 @@ import { PUBLIC_SITE } from '../lib/wordpress.js';
 const GA_ID = 'G-N30N9E43H5';
 // `seo` = fertiger SEOPress-Head (HTML-String aus getSeoHead()). Wenn gesetzt, übernehmen wir
 // Titel/Description/OG/Twitter/JSON-LD aus WordPress; sonst greifen die Standard-Tags unten.
-const { title = 'Pfarrei Sankt Bonifatius Frankfurt', description = '', seo = '' } = Astro.props;
+const { title = 'Pfarrei Sankt Bonifatius Frankfurt', description = '', seo = '', noindex = false } = Astro.props;
 // canonical/og:url IMMER selbst aus der echten Astro-Route bauen, nie aus dem WP-Scrape
 // übernehmen (der kennt nur den WP-Abrufpfad, nicht die tatsächliche Astro-URL — siehe
 // getSeoHead()-Kommentar in wordpress.js). So bleibt das auch bei umgezogenen Seiten korrekt.
@@ -23,6 +23,7 @@ const canonicalUrl = new URL(Astro.url.pathname, PUBLIC_SITE).href;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="canonical" href={canonicalUrl} />
   <meta property="og:url" content={canonicalUrl} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
   {seo
     ? <Fragment set:html={seo} />
     : <>

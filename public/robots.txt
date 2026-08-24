@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /kontakt/raumbuchung
+Disallow: /raumbuchung
 
 Sitemap: https://sanktbonifatius.de/sitemap-index.xml

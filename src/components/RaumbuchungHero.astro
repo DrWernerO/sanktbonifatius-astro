@@ -1,0 +1,26 @@
+---
+// Hero der Seite „Raumbuchung" (/kontakt/raumbuchung/, passwortgeschützt für Ehrenamtliche).
+// Vorbild: KontaktHero — bewusst OHNE den dunkel-warmen Verlauf der anderen Neutral-Heros
+// (Kontakt, ChurchDesk-Registrierung), stattdessen cremefarben (--bf-bg/--bf-bg-alt aus dem
+// Design-System, Handbuch 04) auf Wunsch von Werner.
+---
+<section class="astro-rb-hero">
+  <div class="astro-rb-hero__inner">
+    <p class="astro-rb-hero__eyebrow">Für ausgewählte Ehrenamtliche</p>
+    <h1 class="astro-rb-hero__title">Raumbuchung</h1>
+    <p class="astro-rb-hero__sub">
+      Hier buchen Sie Räume unserer vier Kirchorte direkt über ChurchDesk &#8212;
+      wählen Sie unten den passenden Kirchort und Raum.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-rb-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:340px;overflow:hidden;background:linear-gradient(135deg,#f7f3ef 0%,#ede4d5 100%)}
+.astro-rb-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 0%,rgba(184,138,58,.14),transparent 55%)}
+.astro-rb-hero__inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:88px 40px 48px}
+.astro-rb-hero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;letter-spacing:.02em;text-transform:uppercase;color:#9a2d2d;margin:0 0 14px}
+.astro-rb-hero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#1e1512;font-size:clamp(36px,5.4vw,60px);margin:0}
+.astro-rb-hero__sub{font-size:clamp(16px,1.9vw,19px);color:#6b5c52;line-height:1.55;margin:18px 0 0;max-width:640px}
+@media(max-width:600px){.astro-rb-hero{min-height:280px}.astro-rb-hero__inner{padding:72px 20px 36px}}
+</style>

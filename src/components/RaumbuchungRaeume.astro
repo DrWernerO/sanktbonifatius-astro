@@ -1,0 +1,84 @@
+---
+// Raumbuchung — vier Kirchorte untereinander (feste Reihenfolge, von Werner vorgegeben:
+// St. Bonifatius, St. Wendel, Herz Jesu, St. Aposteln), darunter je Kirchort eine Kachel
+// pro Raum. Das ChurchDesk-Buchungswidget (viele Uhrzeiten, sehr hoch) steckt in einem
+// nativen <details>-Element und ist standardmäßig zugeklappt — man sieht nur die schlanke
+// Kachel, keine Eingabemaske, bis man draufklickt.
+//
+// WICHTIG: Das Widget-Div + sein Loader-Script müssen beim Seitenaufruf im HTML stehen
+// (nicht erst per JS beim Klick nachladen!) — ChurchDesks Loader initialisiert nur beim
+// ersten Laden der Seite (reagiert nicht auf nachträglich eingefügte Divs/Scripts). Das
+// <details>-Element blendet den Inhalt bis zum Klick rein optisch aus, das Widget lädt im
+// Hintergrund ganz normal mit.
+//
+// Neue Räume ergänzen: einfach ein weiteres Objekt in das `rooms`-Array des jeweiligen
+// Kirchorts eintragen (widgetId + organizationId kommen direkt vom ChurchDesk-Embed-Code).
+// Ein Kirchort ohne Räume zeigt automatisch den Platzhaltertext an.
+const kirchorte = [
+  {
+    name: 'St. Bonifatius',
+    rooms: [
+      { name: 'Großer Pfarrsaal', widgetId: 'sb-grosser-pfarrsaal', organizationId: '5bk90o4fe3' },
+    ],
+  },
+  { name: 'St. Wendel', rooms: [] },
+  { name: 'Herz Jesu', rooms: [] },
+  { name: 'St. Aposteln', rooms: [] },
+];
+---
+<section class="astro-rb-raeume">
+  {kirchorte.map((kirchort) => (
+    <div class="astro-rb-raeume__kirchort" id={kirchort.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>
+      <h2 class="astro-rb-raeume__hl">{kirchort.name}</h2>
+      {kirchort.rooms.length === 0 ? (
+        <p class="astro-rb-raeume__platzhalter">Räume für diesen Kirchort folgen in Kürze.</p>
+      ) : (
+        <div class="astro-rb-raeume__kacheln">
+          {kirchort.rooms.map((room) => (
+            <details class="astro-rb-raeume__karte" data-rb-karte>
+              <summary class="astro-rb-raeume__kachel">
+                <span class="astro-rb-raeume__kachel-name">{room.name}</span>
+                <span class="astro-rb-raeume__kachel-cta">
+                  Jetzt buchen
+                  <span class="astro-rb-raeume__chevron" aria-hidden="true">›</span>
+                </span>
+              </summary>
+              <div class="astro-rb-raeume__widget">
+                <div
+                  data-churchdesk-widget-id={room.widgetId}
+                  data-churchdesk-organization-id={room.organizationId}
+                  data-churchdesk-widget-type="booking-page"
+                  data-churchdesk-user-embed="true"
+                />
+              </div>
+            </details>
+          ))}
+        </div>
+      )}
+    </div>
+  ))}
+</section>
+
+<script is:inline src="https://widget.churchdesk.com/widget-loader.js"></script>
+
+<style is:global>
+.astro-rb-raeume{max-width:960px;margin:0 auto;padding:16px 40px 80px}
+.astro-rb-raeume__kirchort{padding:40px 0;border-top:1px solid #e0d8cf}
+.astro-rb-raeume__kirchort:first-child{border-top:none}
+.astro-rb-raeume__hl{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(24px,3vw,32px);color:#1e1512;margin:0 0 20px}
+.astro-rb-raeume__platzhalter{color:#6b5c52;font-size:15px;font-style:italic;margin:0}
+.astro-rb-raeume__kacheln{display:flex;flex-direction:column;gap:14px}
+
+.astro-rb-raeume__karte{border-radius:14px;background:#fff;box-shadow:0 4px 20px rgba(30,21,18,.08);overflow:hidden;transition:box-shadow .2s}
+.astro-rb-raeume__karte:hover{box-shadow:0 6px 20px rgba(30,21,18,.16)}
+.astro-rb-raeume__kachel{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 26px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:19px;color:#fff;background:linear-gradient(135deg,#b88a3a 0%,#9a2d2d 100%);transition:background .2s}
+.astro-rb-raeume__kachel::-webkit-details-marker{display:none}
+.astro-rb-raeume__kachel:hover{background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%)}
+.astro-rb-raeume__kachel-cta{display:flex;align-items:center;gap:8px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14px;letter-spacing:.02em;text-transform:uppercase;color:#f5e6c8;white-space:nowrap}
+.astro-rb-raeume__chevron{display:inline-block;font-size:18px;transition:transform .2s;color:#f5e6c8}
+.astro-rb-raeume__karte[open] .astro-rb-raeume__chevron{transform:rotate(90deg)}
+.astro-rb-raeume__widget{border-top:1px solid #e0d8cf;padding:8px}
+.astro-rb-raeume__widget iframe{width:100%!important;border:0;display:block}
+@media(max-width:860px){.astro-rb-raeume{padding:8px 24px 64px}.astro-rb-raeume__kachel{padding:18px 20px}}
+@media(max-width:480px){.astro-rb-raeume__kachel{flex-wrap:wrap}.astro-rb-raeume__kachel-cta{font-size:13px}}
+</style>

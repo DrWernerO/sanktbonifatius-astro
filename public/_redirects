@@ -26,6 +26,10 @@
 /krankensalbung     /segen-sakramente/krankensalbung/                 301
 /krankensalbung/    /segen-sakramente/krankensalbung/                 301
 
+# --- Kontakt / Raumbuchung (passwortgeschützt, siehe src/middleware.ts) ---
+/raumbuchung        /kontakt/raumbuchung/                             301
+/raumbuchung/       /kontakt/raumbuchung/                             301
+
 # --- Kontakt / Lebenswenden ---
 /trauerfall         /kontakt/trauerfall/                              301
 /trauerfall/        /kontakt/trauerfall/                              301

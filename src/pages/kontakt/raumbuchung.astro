@@ -1,0 +1,24 @@
+---
+// Seite „Raumbuchung" — passwortgeschützte Seite für ausgewählte Ehrenamtliche, die über
+// ChurchDesk Räume der vier Kirchorte buchen können. KEINE WP-Quelle (neue, eigene Seite,
+// nicht Teil der WP-Migration) — daher SEO direkt hier statt in seo-static.js.
+//
+// `prerender = false` ist zwingend: nur dann läuft die Seite als Netlify-Function und die
+// Basic-Auth-Middleware (src/middleware.ts) greift. Als reine statische Datei würde Netlify
+// sie ungeschützt ausliefern.
+export const prerender = false;
+
+import Base from '../../layouts/Base.astro';
+import RaumbuchungHero from '../../components/RaumbuchungHero.astro';
+import RaumbuchungRaeume from '../../components/RaumbuchungRaeume.astro';
+
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+---
+<Base
+  title="Raumbuchung"
+  description="Raumbuchung für ausgewählte Ehrenamtliche der Pfarrei Sankt Bonifatius."
+  noindex={true}
+>
+  <RaumbuchungHero />
+  <RaumbuchungRaeume />
+</Base>
