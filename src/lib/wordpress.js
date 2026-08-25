@@ -384,30 +384,36 @@ export async function getMeetnFritesTermine(max = 3) {
 
 // --- "Aktuelles": Beiträge (posts) + News (pin) zusammenführen -----------------------
 // "News" = WP-Custom-Post-Type `pin` (Menü "News" im WP-Admin): Bild, Video oder Fotogalerie.
-// Der pin-REST-Endpunkt liefert KEIN Bild/Typ — diese Daten stehen nur im Theme-Datenblob
-// `window.__BONI_PINS` (auf der Startseite, Page 45758). Das ist die einzige strukturierte
-// Quelle für Bild/Typ/Excerpt; sie enthält aktuell alle News (X-WP-Total pin = 8).
+// Die ACF-Felder (typ/image/gallery/video/subtitle/description) werden per `pin_data`
+// live über die REST-API geliefert (functions.php, register_rest_field) -- Stand 2026-08-25.
+// Vorher stand das nur in einem Datenblock (window.__BONI_PINS), der von Hand über eine
+// WP-Seite neu geschrieben werden musste; das brach, seit das CMS-Frontend gesperrt ist
+// und die Seite mit dem Aktualisieren-Button nicht mehr aufrufbar war.
 export async function getNewsPins() {
   try {
-    const res = await fetch(`${WP_API}/pages/45758?_fields=content`, { cache: 'no-store' });
+    const res = await fetch(
+      `${WP_API}/pin?per_page=100&_fields=id,date,link,title,pin_data`,
+      { cache: 'no-store' }
+    );
     if (!res.ok) return [];
-    const html = (await res.json())?.content?.rendered ?? '';
-    const m = html.match(/window\.__BONI_PINS\s*=\s*(\{[\s\S]*?\});/);
-    if (!m) return [];
-    const pins = JSON.parse(m[1]);
-    return Object.entries(pins).map(([id, v]) => ({
-      id: Number(id),
-      kind: 'news',
-      type: v.ty || 'image',           // 'image' | 'gallery' | 'video'
-      date: v.d || '',
-      title: v.t || '',
-      link: v.l || '#',
-      excerpt: v.e || '',
-      image: v.i || null,
-      galleryCount: Array.isArray(v.g) ? v.g.length : 0,
-      gallery: Array.isArray(v.g) ? v.g : [], // [{u: Bild-URL, a: Alt-Text}]
-      video: v.v || '',                       // Video-URL (derzeit keine Video-Pins vorhanden)
-    }));
+    const pins = await res.json();
+    return pins.map((p) => {
+      const d = p.pin_data || {};
+      const excerpt = d.subtitle || (d.description || '').slice(0, 260);
+      return {
+        id: p.id,
+        kind: 'news',
+        type: d.typ || 'image',          // 'image' | 'gallery' | 'video'
+        date: p.date || '',
+        title: p.title?.rendered ?? '',
+        link: p.link || '#',
+        excerpt: excerpt || '',
+        image: d.image || null,
+        galleryCount: Array.isArray(d.gallery) ? d.gallery.length : 0,
+        gallery: Array.isArray(d.gallery) ? d.gallery : [], // [{u: Bild-URL, a: Alt-Text}]
+        video: d.video || '',
+      };
+    });
   } catch {
     return [];
   }
