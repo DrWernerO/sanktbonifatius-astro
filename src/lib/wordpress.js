@@ -194,13 +194,21 @@ export async function searchSite(query, limit = 30) {
     );
     if (!res.ok) return [];
     const rows = await res.json();
-    return rows.map((r) => ({
-      id: r.id,
-      title: decodeEntities(r.title || ''),
-      url: r.url,
-      typeLabel: SEARCH_TYPE_LABEL[r.subtype] || 'Seite',
-      excerpt: cleanExcerpt(r._embedded?.self?.[0]?.excerpt?.rendered || ''),
-    }));
+    return rows
+      // News (Custom-Post-Type "pin") haben keine eigene Astro-Seite — die WP-Permalink-Seite
+      // /pins/… ist im Headless-Setup absichtlich leer, News werden nur als Lightbox auf der
+      // Startseite gezeigt (vgl. NewsLightbox.astro). Aus der Suche raus, sonst toter Link/404.
+      .filter((r) => r.subtype !== 'pin')
+      .map((r) => ({
+        id: r.id,
+        title: decodeEntities(r.title || ''),
+        // r.url kommt von wp/v2/search immer mit der cms.-Origin — die ist per .htaccess als
+        // Frontend gesperrt (Regel 0) und würde auf "/" umleiten. Nur den Pfad übernehmen, damit
+        // der Link auf der eigenen Astro-Seite bleibt.
+        url: r.url ? new URL(r.url).pathname : '#',
+        typeLabel: SEARCH_TYPE_LABEL[r.subtype] || 'Seite',
+        excerpt: cleanExcerpt(r._embedded?.self?.[0]?.excerpt?.rendered || ''),
+      }));
   } catch {
     return []; // WP nicht erreichbar → leere Trefferliste, Seite bricht nie ab
   }
