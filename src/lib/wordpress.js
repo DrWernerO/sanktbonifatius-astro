@@ -382,6 +382,13 @@ export async function getMeetnFritesTermine(max = 3) {
   }
 }
 
+// YouTube-Vorschaubild aus der Video-URL ableiten (funktioniert ohne API-Key, öffentliche
+// Bild-Adresse pro Video-ID). Deckt watch?v=, youtu.be/ und embed/-Links ab.
+function youtubeThumbnail(url) {
+  const m = (url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
+  return m ? `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg` : null;
+}
+
 // --- "Aktuelles": Beiträge (posts) + News (pin) zusammenführen -----------------------
 // "News" = WP-Custom-Post-Type `pin` (Menü "News" im WP-Admin): Bild, Video oder Fotogalerie.
 // Die ACF-Felder (typ/image/gallery/video/subtitle/description) werden per `pin_data`
@@ -400,6 +407,8 @@ export async function getNewsPins() {
     return pins.map((p) => {
       const d = p.pin_data || {};
       const excerpt = d.subtitle || (d.description || '').slice(0, 260);
+      // Video-News ohne eigenes Bild: YouTube-Vorschaubild als Kachel-Bild nutzen.
+      const image = d.image || (d.typ === 'video' ? youtubeThumbnail(d.video) : null);
       return {
         id: p.id,
         kind: 'news',
@@ -408,7 +417,7 @@ export async function getNewsPins() {
         title: p.title?.rendered ?? '',
         link: p.link || '#',
         excerpt: excerpt || '',
-        image: d.image || null,
+        image,
         galleryCount: Array.isArray(d.gallery) ? d.gallery.length : 0,
         gallery: Array.isArray(d.gallery) ? d.gallery : [], // [{u: Bild-URL, a: Alt-Text}]
         video: d.video || '',
