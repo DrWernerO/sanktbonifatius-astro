@@ -1,0 +1,79 @@
+---
+// Stellenanzeige-Detailseite (eine Route → automatisch je Stelle eine Seite).
+// Inhalte kommen aus src/data/stellenanzeigen.js (Herkunft dort dokumentiert).
+// Eigene Klassen astro-stljob-* (Fortsetzung des astro-stl-Präfixes der Übersichtsseite).
+import Base from '../../../layouts/Base.astro';
+import { STELLEN, BEWERBUNG_EMAIL } from '../../../data/stellenanzeigen.js';
+
+export async function getStaticPaths() {
+  return STELLEN.map((job) => ({ params: { slug: job.slug }, props: { job } }));
+}
+
+const { job } = Astro.props;
+const pageTitle = `${job.title} – ${job.kita} | Sankt Bonifatius Frankfurt`;
+const description = `${job.title} bei der ${job.kita} in Frankfurt-Sachsenhausen. ${job.pills.join(' · ')}. Jetzt bewerben.`;
+---
+<Base title={pageTitle} description={description}>
+  <div class="astro-stljob-wrap">
+    <a class="astro-stljob-back" href="/kitas/stellenboerse/">&#8592; Zur&uuml;ck zur Stellenb&ouml;rse</a>
+    <p class="astro-stljob-eyebrow">{job.kita}</p>
+    <h1 class="astro-stljob-title">{job.title}</h1>
+    <div class="astro-stljob-meta">
+      {job.pills.map((p) => <span class="astro-stljob-pill">{p}</span>)}
+    </div>
+
+    {job.sections.map((s) => (
+      <div class="astro-stljob-section">
+        <h2>{s.h2}</h2>
+        {s.items
+          ? <ul>{s.items.map((it) => <li>{it}</li>)}</ul>
+          : s.paras.map((p) => <p>{p}</p>)}
+      </div>
+    ))}
+
+    <div class="astro-stljob-section">
+      <h2>Bewerbung</h2>
+      <p><strong>Haben wir Ihr Interesse geweckt?</strong><br>Dann freuen wir uns, wenn Sie Teil unseres sympathischen Teams werden wollen!</p>
+      <p><strong>Bitte senden Sie Ihre Bewerbung an <a href={`mailto:${BEWERBUNG_EMAIL}`}>{BEWERBUNG_EMAIL}</a>.</strong></p>
+      {job.contact && (
+        <p>
+          F&uuml;r R&uuml;ckfragen steht Ihnen {job.contact.name} ({job.contact.role}) gerne zur Verf&uuml;gung:<br>
+          Tel: <a href={`tel:${job.contact.telHref}`}>{job.contact.tel}</a>
+          {job.contact.email && <> &middot; E-Mail: <a href={`mailto:${job.contact.email}`}>{job.contact.email}</a></>}
+        </p>
+      )}
+      {job.hinweis && <p>{job.hinweis}</p>}
+    </div>
+
+    <div class="astro-stljob-cta">
+      <p>Interesse geweckt? Wir freuen uns auf Ihre Bewerbung.</p>
+      <a class="astro-stljob-cta__btn" href={`mailto:${BEWERBUNG_EMAIL}`}>{BEWERBUNG_EMAIL} &#8594;</a>
+    </div>
+  </div>
+</Base>
+
+<style is:global>
+.astro-stljob-wrap { max-width: 860px; margin: 0 auto; padding: 56px 24px 80px; }
+.astro-stljob-back { display: inline-flex; align-items: center; gap: 6px; color: var(--bf-accent); font-size: 13px; text-decoration: none; font-weight: 600; letter-spacing: .03em; margin-bottom: 40px; }
+.astro-stljob-back:hover { text-decoration: underline; }
+.astro-stljob-eyebrow { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 13px; color: var(--bf-accent); letter-spacing: .06em; text-transform: uppercase; margin: 0 0 10px; }
+.astro-stljob-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(28px, 4vw, 46px); color: var(--bf-ink); line-height: 1.15; margin: 0 0 20px; }
+.astro-stljob-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--bf-border); }
+.astro-stljob-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--bf-bg); border: 1px solid var(--bf-border); border-radius: 50px; padding: 6px 14px; font-size: 13px; color: #4a3828; font-weight: 500; }
+.astro-stljob-section { margin-bottom: 36px; }
+.astro-stljob-section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 700; color: var(--bf-ink); margin: 0 0 14px; padding-bottom: 10px; border-bottom: 2px solid var(--bf-gold); }
+.astro-stljob-section p, .astro-stljob-section li { font-size: 16px; color: #3d3028; line-height: 1.75; }
+.astro-stljob-section p { margin: 0 0 14px; }
+.astro-stljob-section p:last-child { margin-bottom: 0; }
+.astro-stljob-section ul { padding-left: 20px; margin: 0; }
+.astro-stljob-section li { margin-bottom: 6px; }
+.astro-stljob-section a { color: var(--bf-accent); font-weight: 600; }
+.astro-stljob-cta { background: linear-gradient(135deg, #4a2e1a, #3a2315); border-radius: 16px; padding: 36px 40px; margin-top: 48px; text-align: center; }
+.astro-stljob-cta p { color: rgba(255,255,255,.85); font-size: 15px; margin: 0 0 20px; line-height: 1.6; }
+.astro-stljob-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--bf-gold); color: #1a120e; text-decoration: none; padding: 13px 32px; border-radius: 50px; font-size: 14px; font-weight: 700; }
+.astro-stljob-cta__btn:hover { background: var(--bf-accent); color: #fff; }
+@media (max-width: 600px) {
+  .astro-stljob-wrap { padding: 40px 20px 60px; }
+  .astro-stljob-cta { padding: 28px 20px; }
+}
+</style>
