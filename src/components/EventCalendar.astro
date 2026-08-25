@@ -9,10 +9,11 @@
 //              Kategorie (clientseitig gefiltert). 0/leer = alle Termine.
 //
 // ⚠️ TEMPORÄRE Sonder-Variante NUR für die Startseite (2026-08-22, auf Wunsch Werner):
-//   sixpack – true = „6 Kacheln"-Layout (2 Reihen à 3 Spalten): Reihe 1 = Hinweis-Kachel
-//             (doppelbreit, statisch) + 1 Termin, Reihe 2 = 2 Termine + Übersicht-Liste.
-//             Kacheln niedriger (kleineres Bild, weniger Innenabstand, kleinere Schrift).
-//   notice   – { label, title, text } für die Hinweis-Kachel (nur mit sixpack wirksam).
+//   sixpack – true = „6 Kacheln"-Layout (2 Reihen à 3 Spalten): Reihe 1 = 3 Termine,
+//             Reihe 2 = 2 Termine + Übersicht-Liste (= 5 echte Termine + 1 Vorschau-Kachel).
+//             Kacheln gleiche Foto-/Schriftgroesse wie das Standard-Layout (Abschnitt 7).
+//   notice   – { meta, title, text, linkHref, linkLabel, footnote } für die eigene,
+//             zentrierte Ankündigungs-Box ÜBER dem Termin-Raster (nur mit sixpack wirksam).
 // Alle anderen Seiten rufen die Komponente ohne diese Props auf und bleiben unverändert
 // im Original-Layout „2 Kacheln + Übersicht". Zum Zurückstellen der Startseite einfach
 // sixpack/notice in src/pages/index.astro wieder entfernen.
@@ -31,32 +32,34 @@ const {
       <h2 class="astro-ev__hl">{heading}</h2>
       <a href={moreHref} class="astro-ev__more">Alle Termine →</a>
     </div>
+    {sixpack && notice && (
+      <div class="astro-ev-announce">
+        <span class="astro-ev-announce__eyebrow">Aktuell</span>
+        {notice.meta && <p class="astro-ev-announce__meta">{notice.meta}</p>}
+        <h3 class="astro-ev-announce__hl">{notice.title}</h3>
+        <p class="astro-ev-announce__txt">
+          {notice.text}
+          {notice.linkHref && (
+            <a href={notice.linkHref} target="_blank" rel="noopener" class="astro-ev-announce__link">{notice.linkLabel || 'Mehr Infos'} →</a>
+          )}
+        </p>
+        {notice.footnote && (
+          <>
+            <hr class="astro-ev-announce__divider" />
+            <p class="astro-ev-announce__footnote"><strong>Bitte beachten:</strong> {notice.footnote}</p>
+          </>
+        )}
+      </div>
+    )}
     <div class:list={['astro-ev__grid', { 'astro-ev__grid--sixpack': sixpack }]}>
-      {sixpack && notice && (
-        <div class="astro-ev-notice">
-          <svg class="astro-ev-notice__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <div class="astro-ev-notice__body">
-            {notice.meta && <p class="astro-ev-notice__meta">{notice.meta}</p>}
-            <h3 class="astro-ev-notice__hl">{notice.title}</h3>
-            <p class="astro-ev-notice__txt">
-              {notice.text}
-              {notice.linkHref && (
-                <a href={notice.linkHref} target="_blank" rel="noopener" class="astro-ev-notice__link">{notice.linkLabel || 'Mehr Infos'} →</a>
-              )}
-            </p>
-            {notice.footnote && (
-              <>
-                <hr class="astro-ev-notice__divider" />
-                <p class="astro-ev-notice__footnote"><strong>Bitte beachten:</strong> {notice.footnote}</p>
-              </>
-            )}
-          </div>
-        </div>
-      )}
       <div id="astro-ev-card1" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
       <div id="astro-ev-card2" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
       {sixpack && (
-        <div id="astro-ev-card3" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+        <>
+          <div id="astro-ev-card3" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+          <div id="astro-ev-card4" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+          <div id="astro-ev-card5" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+        </>
       )}
       <div id="astro-ev-list" class="astro-ev-list">
         <h3 class="astro-ev-list__hl">Weitere Termine</h3>
@@ -106,37 +109,26 @@ const {
    ============================================================ */
 .astro-ev--sixpack .astro-ev__head{margin:0 0 20px}
 .astro-ev--sixpack .astro-ev__hl{font-size:24px}
+/* Vereinheitlicht mit den Beitrags-Kacheln (NewsGrid): gleiche Spaltenbreite (gap 24px statt
+   16px), gleiche Foto-/Schriftgroessen -- dafuer reichen die Standard-Regeln oben. Karten
+   werden per align-items:stretch wieder auf gemeinsame Zeilenhoehe gebracht (wie im
+   Standard-Layout), das Foto bleibt dank aspect-ratio unverzerrt. Text sitzt wie bei den
+   Beitrags-Kacheln direkt unter dem Foto (kein space-between) -- ueberschuessige Hoehe
+   bleibt als variabler Leerraum am Kachel-Ende. */
+.astro-ev__grid--sixpack{gap:24px;align-items:stretch}
 .astro-ev__grid--sixpack .astro-ev-card{background:#fff}
-.astro-ev__grid--sixpack .astro-ev-card--loading{min-height:120px;font-size:13px;background:#f7f3ef}
-/* Foto wächst mit, statt dass unten Leerraum unter dem Text entsteht (Reihe wird durch die
-   Übersicht-Liste hochgezogen, align-items:stretch dehnt sonst nur den leeren Kartenrest) */
-.astro-ev__grid--sixpack .astro-ev-card__img{height:auto !important;flex:1 1 130px;min-height:130px;max-height:240px}
-.astro-ev__grid--sixpack .astro-ev-card__body{flex-shrink:0}
-.astro-ev__grid--sixpack .astro-ev-card__body{padding:12px 16px 14px}
-.astro-ev__grid--sixpack .astro-ev-card__meta{font-size:10px;margin:0 0 5px}
-.astro-ev__grid--sixpack .astro-ev-card__title{font-size:15px;margin:0 0 5px}
-/* Untertitel NICHT abschneiden — auch bei 2+ Zeilen komplett anzeigen (Kachel/Foto passt
-   sich automatisch an, siehe astro-ev-card__img weiter oben) */
-.astro-ev__grid--sixpack .astro-ev-card__sub{font-size:12.5px;line-height:1.4;display:block;overflow:visible;-webkit-line-clamp:unset;-webkit-box-orient:unset}
-.astro-ev__grid--sixpack .astro-ev-list{padding:14px 18px}
-.astro-ev__grid--sixpack .astro-ev-list__hl{font-size:14px;margin:0 0 4px;padding-bottom:8px}
-.astro-ev__grid--sixpack .astro-ev-list__item{padding:7px 0}
-.astro-ev__grid--sixpack .astro-ev-list__date{font-size:10.5px;gap:5px;margin:0 0 2px}
-.astro-ev__grid--sixpack .astro-ev-list__title{font-size:12.5px;line-height:1.25}
-.astro-ev__grid--sixpack .astro-ev-list__empty{font-size:12.5px}
-/* Sonderkachel „Bitte beachten" — doppelbreit, statischer Hinweis */
-.astro-ev-notice{grid-column:span 2;display:flex;align-items:flex-start;gap:12px;border-radius:10px;background:#f0e8d8;border-left:4px solid #9a2d2d;padding:16px 20px;box-shadow:0 2px 12px rgba(30,21,18,.06)}
-.astro-ev-notice__icon{flex-shrink:0;color:#9a2d2d;margin-top:3px}
-.astro-ev-notice__body{display:flex;flex-direction:column;gap:4px}
-.astro-ev-notice__meta{font-size:12px;letter-spacing:.04em;color:#928269;margin:0}
-.astro-ev-notice__hl{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:0 0 2px;line-height:1.3}
-.astro-ev-notice__txt{font-size:14px;color:#6b5c52;line-height:1.55;margin:0}
-.astro-ev-notice__link{color:#9a2d2d;font-weight:600;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
-.astro-ev-notice__link:hover{color:#2c2420}
-.astro-ev-notice__divider{border:none;border-top:1px solid #e7d9c9;margin:8px 0 0}
-.astro-ev-notice__footnote{font-size:12.5px;color:#6b5c52;line-height:1.5;margin:6px 0 0}
-.astro-ev-notice__footnote strong{color:#9a2d2d;font-weight:700}
-@media(max-width:600px){.astro-ev-notice{grid-column:span 1}}
+/* Zentrierte Ankuendigungs-Box UEBER dem Termin-Raster (ersetzt keine Kacheln mehr) */
+.astro-ev-announce{max-width:640px;margin:0 auto 28px;text-align:center;border-radius:12px;background:#f0e8d8;border-left:4px solid #9a2d2d;padding:22px 28px;box-shadow:0 2px 12px rgba(30,21,18,.06)}
+.astro-ev-announce__eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9a2d2d;margin:0 0 6px}
+.astro-ev-announce__meta{font-size:12px;letter-spacing:.04em;color:#928269;margin:0 0 4px}
+.astro-ev-announce__hl{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 8px;line-height:1.3}
+.astro-ev-announce__txt{font-size:14px;color:#6b5c52;line-height:1.55;margin:0}
+.astro-ev-announce__link{color:#9a2d2d;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.astro-ev-announce__link:hover{color:#2c2420}
+.astro-ev-announce__divider{border:none;border-top:1px solid #e7d9c9;margin:10px auto 0;max-width:520px}
+.astro-ev-announce__footnote{font-size:12.5px;color:#6b5c52;line-height:1.5;margin:8px 0 0}
+.astro-ev-announce__footnote strong{color:#9a2d2d;font-weight:700}
+@media(max-width:600px){.astro-ev-announce{padding:18px 20px}}
 </style>
 
 <script>
@@ -248,9 +240,10 @@ const {
         .filter(function(e){ return !CAT || (e['event-category']||[]).indexOf(CAT) > -1; })
         .sort(function(a,b){ return a.event_meta.start_date.localeCompare(b.event_meta.start_date); });
 
-      // TEMPORÄR: card3 existiert nur im sixpack-Layout (Startseite) → 3 Kacheln statt 2.
-      const hasCard3 = !!document.getElementById('astro-ev-card3');
-      const cardCount = hasCard3 ? 3 : 2;
+      // Kachel-Anzahl aus den vorhandenen Platzhaltern zaehlen (Standard: 2, sixpack: 5).
+      let cardCount = 0;
+      while (document.getElementById('astro-ev-card' + (cardCount + 1))) cardCount++;
+      const isSixpack = cardCount > 2;
 
       for (let i = 0; i < cardCount; i++) {
         const cardEl = document.getElementById('astro-ev-card' + (i + 1));
@@ -269,7 +262,7 @@ const {
       // Spalte „Weitere Termine": ab dem ersten Termin nach den Kacheln die Liste der
       // folgenden Termine (Standard: bis zu 4, sixpack: bis zu 5); sonst ein Hinweistext.
       const itemsEl = document.getElementById('astro-ev-list-items');
-      const listMax = hasCard3 ? 5 : 4;
+      const listMax = isSixpack ? 5 : 4;
       if (upcoming.length > cardCount) {
         renderList(upcoming.slice(cardCount, cardCount + listMax));
       } else if (itemsEl) {
@@ -283,7 +276,7 @@ const {
       // Spaltenzahl an die tatsächlich sichtbaren Kacheln anpassen (keine leere Lücke) —
       // nur im Standard-Layout (2 Kacheln + Übersicht), das sixpack-Layout ist fest 3-spaltig.
       const grid = section ? section.querySelector('.astro-ev__grid') : null;
-      if (grid && !hasCard3 && !grid.classList.contains('astro-ev__grid--sixpack')) {
+      if (grid && !isSixpack && !grid.classList.contains('astro-ev__grid--sixpack')) {
         const tiles = grid.children.length;
         if (tiles <= 1) grid.style.gridTemplateColumns = '1fr';
         else if (tiles === 2) grid.style.gridTemplateColumns = '1fr 1fr';
