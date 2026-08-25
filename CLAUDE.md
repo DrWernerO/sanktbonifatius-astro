@@ -55,8 +55,10 @@
   → bleibt dort als reines Backend/REST-API.
 - **Astro-Frontend ist LIVE** unter der echten Domain **`sanktbonifatius.de`** (DNS → Netlify,
   Go-Live 2026-08-03), baut autom. bei jedem Push auf `main`; lokal via `npm run dev`.
-- **Fotos immer lokal** (`public/uploads/…`, relativer Pfad) — **keine** WP-Bild-URLs mehr (Handbuch 1g).
-  Ausnahme: PDFs bleiben in WordPress (Links zeigen auf `cms.sanktbonifatius.de`).
+- **Fotos und Dokumente (auch PDFs) immer lokal** (`public/uploads/…`, relativer Pfad) — **keine**
+  WP-Medien-URLs mehr (Handbuch 1g, Regel seit 2026-08-25 auch für PDFs). Ausnahme nur echte,
+  laufend wechselnde Daten: Termine, Beiträge, News/Pins (s. Regel 0) — deren Anhänge/Bilder
+  dürfen weiter auf `cms.sanktbonifatius.de` liegen.
 - **Rebuild-Webhook** (WP-Änderung → Netlify-Build): ✅ läuft (Handbuch 1c), end-to-end getestet.
 - **Taufe-Formular**: versendet live über `formular@mail.sanktbonifatius.de` (All-inkl), SMTP als
   Netlify-Env-Vars (Handbuch 13b).
