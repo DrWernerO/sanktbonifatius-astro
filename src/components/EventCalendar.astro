@@ -78,8 +78,12 @@ const {
 .astro-ev__more:hover{color:#7e2424}
 /* align-items:stretch → alle drei Spalten gleich hoch */
 .astro-ev__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:stretch}
-.astro-ev-card{border-radius:10px;overflow:hidden;background:#f7f3ef;box-shadow:0 2px 12px rgba(30,21,18,.06);text-decoration:none;color:#2c2420;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.astro-ev-card{position:relative;box-sizing:border-box;border-radius:10px;overflow:hidden;background:#f7f3ef;box-shadow:0 2px 12px rgba(30,21,18,.06);text-decoration:none;color:#2c2420;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
 .astro-ev-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(30,21,18,.12)}
+/* Highlight-Kachel (z.B. Weintasting, bis auf Weiteres fixiert) — Weinrot-Akzent der Seite */
+.astro-ev-card--highlight{border:3px solid #9a2d2d;box-shadow:0 4px 20px rgba(154,45,45,.25)}
+.astro-ev-card--highlight:hover{box-shadow:0 8px 26px rgba(154,45,45,.32)}
+.astro-ev-card__badge{position:absolute;top:12px;right:12px;z-index:2;background:#9a2d2d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px;box-shadow:0 2px 6px rgba(30,21,18,.25)}
 .astro-ev-card--loading{display:flex;align-items:center;justify-content:center;min-height:240px;color:#928269;font-size:14px}
 .astro-ev-card__img{width:100%;aspect-ratio:3/2 !important;height:auto !important;object-fit:cover !important;display:block;background:#ede8e1}
 .astro-ev-card__body{padding:18px 22px 22px}
@@ -167,14 +171,16 @@ const {
     try { return new URL(url).pathname; } catch (e) { return url || '#'; }
   }
 
-  function renderCard(el, event, imgUrl) {
+  function renderCard(el, event, imgUrl, isHighlight) {
     const m = event.event_meta || {};
-    el.className = 'astro-ev-card';
+    el.className = 'astro-ev-card' + (isHighlight ? ' astro-ev-card--highlight' : '');
     el.href = localPath(event.link);
     const imgHtml = imgUrl
       ? '<img class="astro-ev-card__img" src="'+imgUrl+'" alt="'+event.title.rendered+'" loading="lazy">'
       : '<div class="astro-ev-card__img astro-ev-card__img--placeholder"></div>';
+    const badgeHtml = isHighlight ? '<span class="astro-ev-card__badge">Highlight</span>' : '';
     el.innerHTML =
+      badgeHtml +
       imgHtml +
       '<div class="astro-ev-card__body">' +
         '<p class="astro-ev-card__meta">'+formatMeta(m)+'</p>' +
@@ -240,6 +246,22 @@ const {
         .filter(function(e){ return !CAT || (e['event-category']||[]).indexOf(CAT) > -1; })
         .sort(function(a,b){ return a.event_meta.start_date.localeCompare(b.event_meta.start_date); });
 
+      // Highlight-Pin: das Weintasting (WP-Titel "Der Boni-Wein 2027: Das große Tasting",
+      // 18.09.2026) bleibt bis auf Weiteres auf Platz 1 (Wunsch Werner, 2026-08-26).
+      // Abgleich über Datum + Titel-Stichwort, da am 18.09. noch weitere Termine liegen.
+      // Verschwindet automatisch, sobald der Termin vorbei ist (fällt dann aus der obigen
+      // `upcoming`-Filterung heraus) — diesen Block einfach entfernen, um die Fixierung
+      // wieder aufzuheben.
+      const HIGHLIGHT_DATE = '20260918';
+      const HIGHLIGHT_TITLE_RE = /wein|tasting/i;
+      function isHighlightEvent(e) {
+        return !!e.event_meta && e.event_meta.start_date === HIGHLIGHT_DATE && HIGHLIGHT_TITLE_RE.test(e.title.rendered);
+      }
+      const pinnedIdx = upcoming.findIndex(isHighlightEvent);
+      if (pinnedIdx > 0) {
+        upcoming.unshift(upcoming.splice(pinnedIdx, 1)[0]);
+      }
+
       // Kachel-Anzahl aus den vorhandenen Platzhaltern zaehlen (Standard: 2, sixpack: 5).
       let cardCount = 0;
       while (document.getElementById('astro-ev-card' + (cardCount + 1))) cardCount++;
@@ -253,7 +275,7 @@ const {
           const img = await loadImage(ev.event_meta.image);
           const a = document.createElement('a');
           cardEl.replaceWith(a);
-          renderCard(a, ev, img);
+          renderCard(a, ev, img, isHighlightEvent(ev));
         } else {
           cardEl.remove();
         }
