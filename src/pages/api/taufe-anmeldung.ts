@@ -16,7 +16,10 @@ import { fillTaufeForm } from '../../lib/taufe/fill-taufe.js';
 
 export const prerender = false;
 
-const E = import.meta.env;
+// process.env statt import.meta.env: Astro 6 friert import.meta.env beim Build ein — echte
+// Laufzeit-Secrets (Netlify-Umgebungsvariablen) kommen dadurch nie an, obwohl sie in Netlify
+// korrekt hinterlegt sind (Fix vom 29.08.2026, betraf auch middleware.ts/kita-bewerbung.ts).
+const E = process.env;
 const EMPFAENGER_STD = 'n.tadic@sanktbonifatius.de, info@sanktbonifatius.de';
 
 function jsonAntwort(success: boolean, data: string, status = 200) {

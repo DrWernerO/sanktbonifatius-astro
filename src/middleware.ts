@@ -23,7 +23,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  const sollPasswort = import.meta.env.RAUMBUCHUNG_PASSWORD;
+  // process.env statt import.meta.env: Astro 6 friert import.meta.env beim Build ein — für
+  // echte Laufzeit-Secrets (Netlify-Umgebungsvariable) braucht es process.env (s. Handbuch/Fix
+  // vom 29.08.2026, betraf auch die SMTP-Zugangsdaten in taufe-anmeldung.ts/kita-bewerbung.ts).
+  const sollPasswort = process.env.RAUMBUCHUNG_PASSWORD;
   const authHeader = context.request.headers.get('authorization');
 
   if (sollPasswort && authHeader?.startsWith('Basic ')) {

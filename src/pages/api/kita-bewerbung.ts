@@ -13,7 +13,10 @@ import { buildBewerbungPdf } from '../../lib/bewerbung/build-bewerbung-pdf.js';
 
 export const prerender = false;
 
-const E = import.meta.env;
+// process.env statt import.meta.env: Astro 6 friert import.meta.env beim Build ein — echte
+// Laufzeit-Secrets (Netlify-Umgebungsvariablen) kommen dadurch nie an, obwohl sie in Netlify
+// korrekt hinterlegt sind (Fix vom 29.08.2026, betraf auch middleware.ts/taufe-anmeldung.ts).
+const E = process.env;
 // ⚠️ TEMPORÄR für den ersten Live-Test auf Werners eigene Adresse gestellt (statt der echten
 // bewerbungen-kita@…) — nach erfolgreichem Test zurück auf die echte Adresse stellen!
 const BEWERBUNG_TO_STD = 'w.otto@sanktbonifatius.de';
