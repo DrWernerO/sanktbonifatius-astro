@@ -17,9 +17,7 @@ export const prerender = false;
 // Laufzeit-Secrets (Netlify-Umgebungsvariablen) kommen dadurch nie an, obwohl sie in Netlify
 // korrekt hinterlegt sind (Fix vom 29.08.2026, betraf auch middleware.ts/taufe-anmeldung.ts).
 const E = process.env;
-// ⚠️ TEMPORÄR für den ersten Live-Test auf Werners eigene Adresse gestellt (statt der echten
-// bewerbungen-kita@…) — nach erfolgreichem Test zurück auf die echte Adresse stellen!
-const BEWERBUNG_TO_STD = 'w.otto@sanktbonifatius.de';
+const BEWERBUNG_TO_STD = 'bewerbungen-kita@sanktbonifatius.de';
 const MAX_FILE_BYTES = 4 * 1024 * 1024; // 4 MB je Datei
 const MAX_TOTAL_BYTES = 8 * 1024 * 1024; // Netlify-Funktionen haben ein Payload-Limit im Bereich weniger MB
 const ALLOWED_EXT = ['.pdf', '.doc', '.docx', '.jpg', '.jpeg', '.png'];
