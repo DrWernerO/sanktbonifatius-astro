@@ -1,0 +1,129 @@
+---
+// Bewerbungsformular auf der Stellenanzeige-Detailseite. Eigene Klassen `astro-bwform`.
+// id="bewerben" für den Sprunglink aus dem "Jetzt bewerben"-CTA in [slug].astro.
+//
+// ÜBERMITTLUNG: sendet die Felder + ggf. hochgeladene Dateien per FormData an die eigene
+// API-Route `/api/kita-bewerbung` (src/pages/api/kita-bewerbung.ts). Diese erzeugt eine
+// PDF-Zusammenfassung und verschickt sie inkl. Anhänge per Mail — analog zur Taufanmeldung
+// (src/pages/api/taufe-anmeldung.ts), aber ohne amtliche Formularvorlage.
+//
+// 🔑 Feldnamen sind VERTRAG: müssen mit dem Mapping in src/pages/api/kita-bewerbung.ts
+// übereinstimmen. NICHT umbenennen.
+const { jobTitle, jobSlug } = Astro.props;
+---
+<section class="astro-bwform" id="bewerben">
+  <div class="astro-bwform__inner">
+    <div class="astro-bwform__head">
+      <h2 class="astro-bwform__hl">Jetzt bewerben</h2>
+      <p class="astro-bwform__sub">F&uuml;r: <strong>{jobTitle}</strong></p>
+    </div>
+
+    <form id="astro-bwform-form" class="astro-bwform__form" novalidate>
+      <input type="hidden" name="job_titel" value={jobTitle} />
+      <input type="hidden" name="job_slug" value={jobSlug} />
+
+      <div class="astro-bwform__grid">
+        <label class="astro-bwform__f">Vorname *<input type="text" name="bew_vorname" required /></label>
+        <label class="astro-bwform__f">Name *<input type="text" name="bew_name" required /></label>
+        <label class="astro-bwform__f">E-Mail-Adresse *<input type="email" name="bew_email" required /></label>
+        <label class="astro-bwform__f">Telefonnummer<input type="tel" name="bew_telefon" /></label>
+        <label class="astro-bwform__f">Fr&uuml;hester Eintrittstermin<input type="text" name="bew_eintritt" placeholder="z. B. ab sofort" /></label>
+      </div>
+
+      <label class="astro-bwform__f astro-bwform__f--wide">
+        Ihre Nachricht / Motivation
+        <textarea name="bew_nachricht" rows="5" placeholder="Warum passen Sie zu uns?"></textarea>
+      </label>
+
+      <label class="astro-bwform__f astro-bwform__f--wide">
+        Lebenslauf, Anschreiben, Zeugnisse (PDF, Word oder Bild, max. 4&nbsp;MB je Datei)
+        <input type="file" name="bew_dateien" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple />
+      </label>
+
+      <div class="astro-bwform__consent">
+        <label><input type="checkbox" name="bew_datenschutz" required /> Ich habe die <a href="/datenschutz/" target="_blank" rel="noopener">Datenschutzhinweise</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung dieser Bewerbung einverstanden. *</label>
+      </div>
+
+      <p class="astro-bwform__required">* Pflichtfeld</p>
+      <button type="submit" class="astro-bwform__submit">Bewerbung absenden</button>
+      <div class="astro-bwform__msg" id="astro-bwform-msg" role="status" aria-live="polite" hidden></div>
+    </form>
+  </div>
+</section>
+
+<style is:global>
+.astro-bwform{background:#f7f3ef;padding:64px 0}
+.astro-bwform__inner{max-width:720px;margin:0 auto;padding:0 24px}
+.astro-bwform__head{text-align:center;margin:0 0 28px}
+.astro-bwform__hl{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,34px);font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-bwform__sub{font-size:15px;color:#6b5c52;margin:0}
+.astro-bwform__form{background:#fff;border-radius:14px;box-shadow:0 2px 16px rgba(30,21,18,.07);padding:30px 28px 34px;display:flex;flex-direction:column;gap:18px}
+.astro-bwform__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 18px}
+.astro-bwform__f{display:flex;flex-direction:column;font-size:13px;font-weight:600;color:#6b5c52;gap:6px}
+.astro-bwform__f--wide{grid-column:1 / -1}
+.astro-bwform__f input,.astro-bwform__f textarea{font-family:inherit;font-size:15px;font-weight:400;color:#2c2420;padding:10px 12px;border:1px solid #d9cfc2;border-radius:8px;background:#fdfbf8;transition:border-color .15s,box-shadow .15s}
+.astro-bwform__f input:focus,.astro-bwform__f textarea:focus{outline:none;border-color:#9a2d2d;box-shadow:0 0 0 3px rgba(154,45,45,.12)}
+.astro-bwform__f textarea{resize:vertical}
+.astro-bwform__consent{background:#f7f3ef;border-radius:10px;padding:16px 18px}
+.astro-bwform__consent label{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:#3d3530;line-height:1.5}
+.astro-bwform__consent input{margin-top:3px}
+.astro-bwform__consent a{color:#9a2d2d;font-weight:600}
+.astro-bwform__required{font-size:13px;color:#928269;margin:0}
+.astro-bwform__submit{display:block;width:100%;padding:16px;border:none;border-radius:50px;background:#9a2d2d;color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s}
+.astro-bwform__submit:hover{background:#7e2424}
+.astro-bwform__submit:disabled{opacity:.65;cursor:default}
+.astro-bwform__msg{padding:14px 16px;border-radius:8px;font-size:14.5px;line-height:1.5}
+@media(max-width:600px){.astro-bwform{padding:48px 0}.astro-bwform__form{padding:24px 18px 28px}.astro-bwform__grid{grid-template-columns:1fr}}
+</style>
+
+<script>
+(function(){
+  const form = document.getElementById('astro-bwform-form');
+  if(!form) return;
+  const msg = document.getElementById('astro-bwform-msg');
+  const btn = form.querySelector('.astro-bwform__submit');
+  const ENDPOINT = '/api/kita-bewerbung';
+  const MAX_FILE_MB = 4;
+
+  function setMsg(ok, text){
+    msg.hidden = false;
+    msg.style.background = ok ? '#e8f5e9' : '#ffebee';
+    msg.style.border = ok ? '1px solid #a5d6a7' : '1px solid #ef9a9a';
+    msg.style.color = ok ? '#2e7d32' : '#c62828';
+    msg.textContent = (ok ? '✓ ' : '⚠ ') + text;
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;
+
+    const fileInput = form.querySelector('input[type="file"]');
+    if (fileInput && fileInput.files) {
+      for (const f of fileInput.files) {
+        if (f.size > MAX_FILE_MB * 1024 * 1024) {
+          setMsg(false, `"${f.name}" ist größer als ${MAX_FILE_MB} MB. Bitte eine kleinere Datei wählen.`);
+          return;
+        }
+      }
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet…';
+    try {
+      const data = new FormData(form);
+      const res = await fetch(ENDPOINT, { method: 'POST', body: data }).then((r) => r.json());
+      if (res && res.success) {
+        setMsg(true, typeof res.data === 'string' ? res.data : 'Vielen Dank! Ihre Bewerbung ist eingegangen.');
+        form.reset();
+      } else {
+        setMsg(false, (res && res.data) || 'Fehler beim Senden. Bitte versuchen Sie es erneut.');
+      }
+    } catch (err) {
+      setMsg(false, 'Verbindungsfehler. Bitte versuchen Sie es erneut oder senden Sie Ihre Bewerbung per E-Mail.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Bewerbung absenden';
+    }
+  });
+})();
+</script>

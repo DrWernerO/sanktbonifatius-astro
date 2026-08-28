@@ -1,6 +1,10 @@
 ---
 // Kita-Übersichtskarten — alle 5 Kitas + Koordination + Stellenbörse CTA
 // CSS-Präfix: astro-ki-
+const { jobCount = 0 } = Astro.props;
+const stellenText = jobCount > 0
+  ? `Aktuell ${jobCount} offene ${jobCount === 1 ? 'Stelle' : 'Stellen'} in Frankfurt-Sachsenhausen.`
+  : 'Auch ohne aktuell offene Stellen freuen wir uns über Initiativbewerbungen.';
 ---
 
 <!-- KITA CARDS -->
@@ -141,8 +145,8 @@
   <div class="astro-ki-stellen-cta__in">
     <p class="astro-ki-eyebrow-sm" style="color:var(--bf-gold)">Jetzt bewerben</p>
     <h2 class="astro-ki-stellen-cta__h2">Mitarbeiten in unseren Kitas</h2>
-    <p class="astro-ki-stellen-cta__p">Wir suchen P&auml;dagog:innen und Leitungen, die Kinder auf ihrem Weg begleiten m&ouml;chten. Aktuell vier offene Stellen in Frankfurt-Sachsenhausen.</p>
-    <a href="/kitas/stellenboerse/" class="astro-ki-btn astro-ki-btn--gold">Zu den offenen Stellen</a>
+    <p class="astro-ki-stellen-cta__p">Wir suchen P&auml;dagog:innen und Leitungen, die Kinder auf ihrem Weg begleiten m&ouml;chten. {stellenText}</p>
+    <a href="/kitas/stellenboerse/" class="astro-ki-btn astro-ki-btn--red">Zu den offenen Stellen</a>
   </div>
 </section>
 
@@ -151,7 +155,8 @@
 .astro-ki-cards { background: var(--bf-bg); padding: 80px 24px; }
 .astro-ki-cards__in { max-width: 1160px; margin: 0 auto; }
 .astro-ki-cards__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
-.astro-ki-card { background: #fff; border: 1px solid var(--bf-border); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; }
+.astro-ki-card { background: #fff; border: 1px solid var(--bf-border); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s, border-color .2s; }
+.astro-ki-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(30,21,18,.1); border-color: var(--bf-gold); }
 .astro-ki-card__img-wrap { aspect-ratio: 16/9; overflow: hidden; }
 .astro-ki-card__img-wrap--placeholder { background: var(--bf-bg-alt); display: flex; align-items: center; justify-content: center; }
 .astro-ki-card__img-ph { color: var(--bf-border); }
@@ -160,9 +165,28 @@
 .astro-ki-card__body { padding: 22px 24px 24px; flex: 1; display: flex; flex-direction: column; }
 .astro-ki-card__tag { font-family: 'Futura LT W01 Book', Futura, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 8px; }
 .astro-ki-card__h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 700; color: var(--bf-ink); margin: 0 0 10px; }
-.astro-ki-card__meta { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 4px; flex: 1; }
-.astro-ki-card__meta li { font-size: 13px; color: var(--bf-ink-60); }
-.astro-ki-card__meta li::before { content: none; }
+.astro-ki-card__meta { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.astro-ki-card__meta li { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--bf-ink-60); }
+.astro-ki-card__meta li::before {
+  content: '';
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  background-color: var(--bf-accent);
+  opacity: .7;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+.astro-ki-card__meta li:nth-child(1)::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'/%3E%3C/svg%3E");
+}
+.astro-ki-card__meta li:nth-child(2)::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E");
+}
 .astro-ki-card__link { font-size: 14px; font-weight: 700; color: var(--bf-accent); text-decoration: none; }
 .astro-ki-card__link:hover { text-decoration: underline; }
 

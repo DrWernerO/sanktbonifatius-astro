@@ -6,8 +6,10 @@ import KboHero from '../../components/KboHero.astro';
 import KboStrip from '../../components/KboStrip.astro';
 import KboContent from '../../components/KboContent.astro';
 import KboKontakt from '../../components/KboKontakt.astro';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 ---
 <Base
+  seo={SEO_STATIC['/kitas/st-bonifatius/']}
   title="Kita St. Bonifatius Frankfurt – Katholische Kindertagesstätte in Sachsenhausen"
   description="Die Kita St. Bonifatius in Frankfurt-Sachsenhausen: 100 Kinder, Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Mo–Fr 7:30–17:00 Uhr. Anmeldung über Kindernet Frankfurt."
 >

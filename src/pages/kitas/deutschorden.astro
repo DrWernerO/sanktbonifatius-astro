@@ -2,8 +2,10 @@
 // Kita Deutschorden — vereinfachte Seite (WP-Seite im Aufbau), Astro-Pfad /kitas/deutschorden/
 import Base from '../../layouts/Base.astro';
 import KdeHero from '../../components/KdeHero.astro';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 ---
 <Base
+  seo={SEO_STATIC['/kitas/deutschorden/']}
   title="Kita Deutschorden Frankfurt – Katholische Kindertagesstätte in Sachsenhausen"
   description="Die Kita Deutschorden in Frankfurt-Sachsenhausen betreut Kinder von 3 bis 6 Jahren in katholischer Trägerschaft. Informationen und Kontakt."
 >

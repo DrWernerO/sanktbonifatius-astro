@@ -5,8 +5,10 @@ import Base from '../../layouts/Base.astro';
 import KweHero from '../../components/KweHero.astro';
 import KweContent from '../../components/KweContent.astro';
 import KweKontakt from '../../components/KweKontakt.astro';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 ---
 <Base
+  seo={SEO_STATIC['/kitas/st-wendel/']}
   title="Kita St. Wendel Frankfurt – Krippe und Kindergarten in Sachsenhausen"
   description="Kita St. Wendel in Frankfurt-Sachsenhausen: Krippe (ab 1 Jahr) und Kindergarten (3–6 Jahre), Situationsansatz und Pikler-Pädagogik, frisch gekochtes Mittagessen."
 >

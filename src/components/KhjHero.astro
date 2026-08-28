@@ -183,7 +183,8 @@
 /* Strip */
 .astro-khj-strip { background: var(--bf-bg); padding: 48px 24px; }
 .astro-khj-strip__in { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }
-.astro-khj-strip__item { text-align: center; background: #fff; border-radius: 10px; padding: 20px 14px; border: 1px solid var(--bf-border); }
+.astro-khj-strip__item { text-align: center; background: #fff; border-radius: 10px; padding: 20px 14px; border: 1px solid var(--bf-border); transition: transform .2s, box-shadow .2s; }
+.astro-khj-strip__item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(30,21,18,.08); }
 .astro-khj-strip__icon { color: var(--bf-accent); margin-bottom: 8px; display: flex; justify-content: center; }
 .astro-khj-strip__label { font-family: 'Futura LT W01 Book', Futura, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--bf-ink-60); margin-bottom: 6px; }
 .astro-khj-strip__value { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; color: var(--bf-ink); line-height: 1.4; font-weight: 700; }

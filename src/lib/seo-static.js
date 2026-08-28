@@ -25,6 +25,405 @@ export const SEO_STATIC = {
   "/jugend/kinder-und-jugendfreizeiten/": "<title>Kinder- &amp; Jugendfreizeiten 2026 – Sankt Bonifatius Frankfurt - Sankt Bonifatius</title>\n<meta name=\"description\" content=\"Sankt Bonifatius Frankfurt am Main Über uns Leitbild &amp; Überblick Pastoralteam Kirchorte Kitas Leitung &amp; Gremien Finanzen Barrierefreiheit Kontakt Pfarrbüro Anfahrt &amp; Adresse WhatsApp Kanal Mitmachen Beratung &amp; Hilfe Trauerfall Katholisch werden Newsletter Links Downloads Pfarrbrief Bonifatius Highlights Online spenden Suchen Kinder &amp; Jugend · Pfarrei Sankt Bonifatius Frankfurt Freizeiten&hellip;\">\n<meta property=\"og:site_name\" content=\"Sankt Bonifatius\">\n<meta property=\"og:locale\" content=\"de_DE\">\n<meta property=\"og:type\" content=\"article\">\n<meta property=\"article:author\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"og:title\" content=\"Kinder- &amp; Jugendfreizeiten 2026 – Sankt Bonifatius Frankfurt - Sankt Bonifatius\">\n<meta property=\"og:description\" content=\"Sankt Bonifatius Frankfurt am Main Über uns Leitbild &amp; Überblick Pastoralteam Kirchorte Kitas Leitung &amp; Gremien Finanzen Barrierefreiheit Kontakt Pfarrbüro Anfahrt &amp; Adresse WhatsApp Kanal Mitmachen Beratung &amp; Hilfe Trauerfall Katholisch werden Newsletter Links Downloads Pfarrbrief Bonifatius Highlights Online spenden Suchen Kinder &amp; Jugend · Pfarrei Sankt Bonifatius Frankfurt Freizeiten&hellip;\">\n<meta property=\"og:image\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<meta property=\"og:image:secure_url\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<meta property=\"og:image:alt\" content=\"\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Kinder- &amp; Jugendfreizeiten 2026 – Sankt Bonifatius Frankfurt - Sankt Bonifatius\">\n<meta name=\"twitter:description\" content=\"Sankt Bonifatius Frankfurt am Main Über uns Leitbild &amp; Überblick Pastoralteam Kirchorte Kitas Leitung &amp; Gremien Finanzen Barrierefreiheit Kontakt Pfarrbüro Anfahrt &amp; Adresse WhatsApp Kanal Mitmachen Beratung &amp; Hilfe Trauerfall Katholisch werden Newsletter Links Downloads Pfarrbrief Bonifatius Highlights Online spenden Suchen Kinder &amp; Jugend · Pfarrei Sankt Bonifatius Frankfurt Freizeiten&hellip;\">\n<meta name=\"twitter:image\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"WebPage\",\n  \"@id\": \"https://sanktbonifatius.de/?page_id=45667\",\n  \"name\": \"Gottesdienst & Glaube – Pfarrei Sankt Bonifatius Frankfurt – Fiat Lux, Taizé & Familie\",\n  \"description\": \"Gottesdienste in Frankfurt-Sachsenhausen und Oberrad: Fiat-Lux-Gottesdienst, Taizé-Abend, Familiengottesdienste, Segen für alle.\",\n  \"url\": \"https://sanktbonifatius.de/gottesdienst-und-glaube/\",\n  \"isPartOf\": {\n    \"@type\": \"WebSite\",\n    \"@id\": \"https://sanktbonifatius.de/#website\"\n  },\n  \"about\": {\n    \"@type\": \"CatholicChurch\",\n    \"@id\": \"https://sanktbonifatius.de/#church\",\n    \"name\": \"Katholische Pfarrei Sankt Bonifatius Frankfurt\"\n  },\n  \"mainEntity\": {\n    \"@type\": \"Service\",\n    \"serviceType\": \"Gottesdienst\",\n    \"provider\": {\n      \"@type\": \"CatholicChurch\",\n      \"@id\": \"https://sanktbonifatius.de/#church\"\n    },\n    \"areaServed\": {\n      \"@type\": \"City\",\n      \"name\": \"Frankfurt am Main\"\n    },\n    \"hasOfferCatalog\": {\n      \"@type\": \"OfferCatalog\",\n      \"name\": \"Gottesdienstangebote\",\n      \"itemListElement\": [\n        {\n          \"@type\": \"Offer\",\n          \"itemOffered\": {\n            \"@type\": \"Service\",\n            \"name\": \"Fiat-Lux-Gottesdienst\"\n          }\n        },\n        {\n          \"@type\": \"Offer\",\n          \"itemOffered\": {\n            \"@type\": \"Service\",\n            \"name\": \"Taizé-Abend\"\n          }\n        },\n        {\n          \"@type\": \"Offer\",\n          \"itemOffered\": {\n            \"@type\": \"Service\",\n            \"name\": \"Familiengottesdienst\"\n          }\n        },\n        {\n          \"@type\": \"Offer\",\n          \"itemOffered\": {\n            \"@type\": \"Service\",\n            \"name\": \"Segen für alle\"\n          }\n        }\n      ]\n    }\n  }\n}\n</script>\n<script type=\"application/ld+json\">{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"WebPage\", \"@id\": \"https://sanktbonifatius.de/jugend/kinder-und-jugendfreizeiten/#webpage\", \"name\": \"Kinder- und Jugendfreizeiten 2026 – Pfarrei Sankt Bonifatius Frankfurt\", \"description\": \"Sechs Freizeiten und Fahrten 2026 der Pfarrei Sankt Bonifatius Frankfurt: Lago Maggiore, Dänemark, Elbtal, Westerwald, Ostdeutschland und Tirol. Für Kinder und Jugendliche von 7–21 Jahren.\", \"url\": \"https://sanktbonifatius.de/jugend/kinder-und-jugendfreizeiten/\", \"inLanguage\": \"de\", \"isPartOf\": {\"@type\": \"WebSite\", \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\", \"url\": \"https://sanktbonifatius.de\"}, \"breadcrumb\": {\"@id\": \"https://sanktbonifatius.de/jugend/kinder-und-jugendfreizeiten/#breadcrumb\"}}, {\"@type\": \"BreadcrumbList\", \"@id\": \"https://sanktbonifatius.de/jugend/kinder-und-jugendfreizeiten/#breadcrumb\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Startseite\", \"item\": \"https://sanktbonifatius.de/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Jugend\", \"item\": \"https://sanktbonifatius.de/jugend/\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Freizeiten &amp; Fahrten\", \"item\": \"https://sanktbonifatius.de/jugend/kinder-und-jugendfreizeiten/\"}]}, {\"@type\": \"Event\", \"name\": \"Sommerfreizeit am Lago Maggiore\", \"description\": \"Das schönste Abenteuer des Jahres erlebst du hier! Sonne auf der Haut, Wasser vor dir und eine Gruppe, die schnell zu einer kleinen Gemeinschaft wird. Diese Freizeit schenkt dir Abstand vom Alltag und unvergessliche Momente zwischen Baden, Spielen, G\", \"startDate\": \"2026-07-03\", \"endDate\": \"2026-07-17\", \"location\": {\"@type\": \"Place\", \"name\": \"Lago Maggiore\"}, \"organizer\": {\"@type\": \"CatholicChurch\", \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\", \"url\": \"https://sanktbonifatius.de\"}, \"eventStatus\": \"https://schema.org/EventScheduled\", \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\"}, {\"@type\": \"Event\", \"name\": \"Herz Jesu Sommerfreizeit nach Dänemark\", \"description\": \"Verbringe zwei unvergessliche Wochen mit uns in Oddesundlejren! Wir spielen eine Menge cooler Spiele, du lernst tolle neue Leute kennen und gewinnst Freunde fürs Leben. Gemeinschaft steht bei uns an erster Stelle. \", \"startDate\": \"2026-07-17\", \"endDate\": \"2026-08-01\", \"location\": {\"@type\": \"Place\", \"name\": \"Oddesundlejren (DK)\"}, \"organizer\": {\"@type\": \"CatholicChurch\", \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\", \"url\": \"https://sanktbonifatius.de\"}, \"eventStatus\": \"https://schema.org/EventScheduled\", \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\"}, {\"@type\": \"Event\", \"name\": \"Boni-Sommerfreizeit im Elbtal\", \"description\": \"Abenteuer, Spiel und Spaß mit Freunden oder jenen, die es noch werden sollen. Du hast Lust auf draußen sein, Bewegung, Musik, Lagerfeuer und kreative Aktionen? Das Schullandheim Burg Waldmannshausen im Elbtal bietet dafür die perfekte Umgebung. Die P\", \"startDate\": \"2026-07-26\", \"endDate\": \"2026-08-05\", \"location\": {\"@type\": \"Place\", \"name\": \"Burg Waldmannshausen, Elbtal\"}, \"organizer\": {\"@type\": \"CatholicChurch\", \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\", \"url\": \"https://sanktbonifatius.de\"}, \"eventStatus\": \"https://schema.org/EventScheduled\", \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\"}, {\"@type\": \"Event\", \"name\": \"Zeltlager 2026 · St. Wendel\", \"description\": \"Auch 2026 geht es wieder ins Zeltlager! Dieses Jahr fahren wir zur Jugendbegegnungsstätte Karlsheim (Kirchähr) in 56412 Gackenbach – ein schöner Zeltplatz direkt am Wald mit Flusszugang sowie Volley- und Fußballfeld. Die Anmeldung erfolgt digital per\", \"startDate\": \"2026-08-01\", \"endDate\": \"2026-08-08\", \"location\": {\"@type\": \"Place\", \"name\": \"Karlsheim, Kirchähr\"}, \"organizer\": {\"@type\": \"CatholicChurch\", \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\", \"url\": \"https://sanktbonifatius.de\"}, \"eventStatus\": \"https://schema.org/EventScheduled\", \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\"}, {\"@type\": \"Event\", \"name\": \"Bergabenteuer 2026 in Tirol\", \"description\": \"Lasst uns die Berge erkunden – packt eure Neugier ein! Wir machen uns auf den Weg zu einem kleinen Abenteuer zwischen Bergen, Tannen und gemütlichen Hütten. Keine großen Märsche – eher Entdeckertouren: kurze Wege, gute Gesellschaft, und abends Geschi\", \"startDate\": \"2026-10-05\", \"endDate\": \"2026-10-10\", \"location\": {\"@type\": \"Place\", \"name\": \"Paznauntal (Tirol)\"}, \"organizer\": {\"@type\": \"CatholicChurch\", \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\", \"url\": \"https://sanktbonifatius.de\"}, \"eventStatus\": \"https://schema.org/EventScheduled\", \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\"}]}</script>",
   "/jugend/ministranten-st-bonifatius/": "<title>Ministranten St. Bonifatius – Pfarrei Frankfurt - Sankt Bonifatius</title>\n<meta name=\"description\" content=\"Sankt Bonifatius Frankfurt am Main Über uns Leitbild &amp; Überblick Pastoralteam Kirchorte Kitas Leitung &amp; Gremien Finanzen Barrierefreiheit Kontakt Pfarrbüro Anfahrt &amp; Adresse WhatsApp Kanal Mitmachen Beratung &amp; Hilfe Trauerfall Katholisch werden Newsletter Links Downloads Pfarrbrief Bonifatius Highlights Online spenden Suchen Pfarrei Sankt Bonifatius · Frankfurt-Sachsenhausen Ministranten in St. Bonifatius&hellip;\">\n<meta property=\"og:site_name\" content=\"Sankt Bonifatius\">\n<meta property=\"og:locale\" content=\"de_DE\">\n<meta property=\"og:type\" content=\"article\">\n<meta property=\"article:author\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"og:title\" content=\"Ministranten St. Bonifatius – Pfarrei Frankfurt - Sankt Bonifatius\">\n<meta property=\"og:description\" content=\"Sankt Bonifatius Frankfurt am Main Über uns Leitbild &amp; Überblick Pastoralteam Kirchorte Kitas Leitung &amp; Gremien Finanzen Barrierefreiheit Kontakt Pfarrbüro Anfahrt &amp; Adresse WhatsApp Kanal Mitmachen Beratung &amp; Hilfe Trauerfall Katholisch werden Newsletter Links Downloads Pfarrbrief Bonifatius Highlights Online spenden Suchen Pfarrei Sankt Bonifatius · Frankfurt-Sachsenhausen Ministranten in St. Bonifatius&hellip;\">\n<meta property=\"og:image\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<meta property=\"og:image:secure_url\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<meta property=\"og:image:alt\" content=\"\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Ministranten St. Bonifatius – Pfarrei Frankfurt - Sankt Bonifatius\">\n<meta name=\"twitter:description\" content=\"Sankt Bonifatius Frankfurt am Main Über uns Leitbild &amp; Überblick Pastoralteam Kirchorte Kitas Leitung &amp; Gremien Finanzen Barrierefreiheit Kontakt Pfarrbüro Anfahrt &amp; Adresse WhatsApp Kanal Mitmachen Beratung &amp; Hilfe Trauerfall Katholisch werden Newsletter Links Downloads Pfarrbrief Bonifatius Highlights Online spenden Suchen Pfarrei Sankt Bonifatius · Frankfurt-Sachsenhausen Ministranten in St. Bonifatius&hellip;\">\n<meta name=\"twitter:image\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"WebPage\",\n  \"@id\": \"https://sanktbonifatius.de/?page_id=45667\",\n  \"name\": \"Gottesdienst & Glaube – Pfarrei Sankt Bonifatius Frankfurt – Fiat Lux, Taizé & Familie\",\n  \"description\": \"Gottesdienste in Frankfurt-Sachsenhausen und Oberrad: Fiat-Lux-Gottesdienst, Taizé-Abend, Familiengottesdienste, Segen für alle.\",\n  \"url\": \"https://sanktbonifatius.de/gottesdienst-und-glaube/\",\n  \"isPartOf\": {\n    \"@type\": \"WebSite\",\n    \"@id\": \"https://sanktbonifatius.de/#website\"\n  },\n  \"about\": {\n    \"@type\": \"CatholicChurch\",\n    \"@id\": \"https://sanktbonifatius.de/#church\",\n    \"name\": \"Katholische Pfarrei Sankt Bonifatius Frankfurt\"\n  },\n  \"mainEntity\": {\n    \"@type\": \"Service\",\n    \"serviceType\": \"Gottesdienst\",\n    \"provider\": {\n      \"@type\": \"CatholicChurch\",\n      \"@id\": \"https://sanktbonifatius.de/#church\"\n    },\n    \"areaServed\": {\n      \"@type\": \"City\",\n      \"name\": \"Frankfurt am Main\"\n    },\n    \"hasOfferCatalog\": {\n      \"@type\": \"OfferCatalog\",\n      \"name\": \"Gottesdienstangebote\",\n      \"itemListElement\": [\n        {\n          \"@type\": \"Offer\",\n          \"itemOffered\": {\n            \"@type\": \"Service\",\n            \"name\": \"Fiat-Lux-Gottesdienst\"\n          }\n        },\n        {\n          \"@type\": \"Offer\",\n          \"itemOffered\": {\n            \"@type\": \"Service\",\n            \"name\": \"Taizé-Abend\"\n          }\n        },\n        {\n          \"@type\": \"Offer\",\n          \"itemOffered\": {\n            \"@type\": \"Service\",\n            \"name\": \"Familiengottesdienst\"\n          }\n        },\n        {\n          \"@type\": \"Offer\",\n          \"itemOffered\": {\n            \"@type\": \"Service\",\n            \"name\": \"Segen für alle\"\n          }\n        }\n      ]\n    }\n  }\n}\n</script>\n<script type=\"application/ld+json\">{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"WebPage\", \"@id\": \"https://sanktbonifatius.de/jugend/ministranten-st-bonifatius/#webpage\", \"name\": \"Ministranten St. Bonifatius – Pfarrei Sankt Bonifatius Frankfurt\", \"description\": \"56 Ministrantinnen und Ministranten in der Pfarrkirche St. Bonifatius Frankfurt-Sachsenhausen. Ausbildung, Freizeitprogramm, Specials wie Weihrauch-Tastings.\", \"url\": \"https://sanktbonifatius.de/jugend/ministranten-st-bonifatius/\", \"inLanguage\": \"de\", \"isPartOf\": {\"@type\": \"WebSite\", \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\", \"url\": \"https://sanktbonifatius.de\"}, \"breadcrumb\": {\"@id\": \"https://sanktbonifatius.de/jugend/ministranten-st-bonifatius/#breadcrumb\"}}, {\"@type\": \"BreadcrumbList\", \"@id\": \"https://sanktbonifatius.de/jugend/ministranten-st-bonifatius/#breadcrumb\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Startseite\", \"item\": \"https://sanktbonifatius.de/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Jugend\", \"item\": \"https://sanktbonifatius.de/jugend/\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Ministranten St. Bonifatius\", \"item\": \"https://sanktbonifatius.de/jugend/ministranten-st-bonifatius/\"}]}, {\"@type\": \"Organization\", \"name\": \"Ministranten St. Bonifatius\", \"description\": \"Gruppe von 56 Kindern und Jugendlichen, die die Gottesdienste in der Pfarrkirche St. Bonifatius mitgestalten.\", \"email\": \"&#109;&#x69;&#x6e;i&#115;&#x74;r&#97;&#x6e;&#x74;&#101;&#x6e;&#x40;s&#97;&#x6e;k&#116;&#x62;&#x6f;&#110;&#x69;&#x66;a&#116;&#x69;u&#115;&#x2e;&#x64;&#101;\", \"memberOf\": {\"@type\": \"CatholicChurch\", \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\"}, \"address\": {\"@type\": \"PostalAddress\", \"streetAddress\": \"Holbeinstraße 70\", \"postalCode\": \"60596\", \"addressLocality\": \"Frankfurt am Main\", \"addressCountry\": \"DE\"}}]}</script>",
   "/jugend/reisebedingungen/": "<title>Reisebedingungen für unsere Kinder- und Jugendfreizeiten - Sankt Bonifatius</title>\n<meta name=\"description\" content=\"1. Anmeldung / Vertragsabschluss / Bestätigung 1.1 Mit der Freizeitanmeldung, die ausschließlich schriftlich mit dem vorgedruckten Anmeldeformular erfolgen muss, bietet der/die Teilnehmer/in (soweit minderjährig, durch den/die gesetzliche/n Vertreter/in) der Kath. Pfarrei St. Bonifatius in Frankfurt (im Folgenden: St. Bonifatius) den Abschluss eines Reisevertrages auf der Grundlage dieser Reisebedingungen verbindlich an.&hellip;\">\n<meta property=\"og:site_name\" content=\"Sankt Bonifatius\">\n<meta property=\"og:locale\" content=\"de_DE\">\n<meta property=\"og:type\" content=\"article\">\n<meta property=\"article:author\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"og:title\" content=\"Reisebedingungen für unsere Kinder- und Jugendfreizeiten - Sankt Bonifatius\">\n<meta property=\"og:description\" content=\"1. Anmeldung / Vertragsabschluss / Bestätigung 1.1 Mit der Freizeitanmeldung, die ausschließlich schriftlich mit dem vorgedruckten Anmeldeformular erfolgen muss, bietet der/die Teilnehmer/in (soweit minderjährig, durch den/die gesetzliche/n Vertreter/in) der Kath. Pfarrei St. Bonifatius in Frankfurt (im Folgenden: St. Bonifatius) den Abschluss eines Reisevertrages auf der Grundlage dieser Reisebedingungen verbindlich an.&hellip;\">\n<meta property=\"og:image\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<meta property=\"og:image:secure_url\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<meta property=\"og:image:alt\" content=\"\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Reisebedingungen für unsere Kinder- und Jugendfreizeiten - Sankt Bonifatius\">\n<meta name=\"twitter:description\" content=\"1. Anmeldung / Vertragsabschluss / Bestätigung 1.1 Mit der Freizeitanmeldung, die ausschließlich schriftlich mit dem vorgedruckten Anmeldeformular erfolgen muss, bietet der/die Teilnehmer/in (soweit minderjährig, durch den/die gesetzliche/n Vertreter/in) der Kath. Pfarrei St. Bonifatius in Frankfurt (im Folgenden: St. Bonifatius) den Abschluss eines Reisevertrages auf der Grundlage dieser Reisebedingungen verbindlich an.&hellip;\">\n<meta name=\"twitter:image\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">",
+  "/kitas/": `<title>Kitas in Frankfurt-Sachsenhausen | Sankt Bonifatius</title>
+<meta name="description" content="Fünf katholische Kitas in Frankfurt-Sachsenhausen und Oberrad: Krippe &amp; Kindergarten für Kinder von 1–6 Jahren. Finden Sie die passende Kita für Ihr Kind.">
+<meta property="og:site_name" content="Sankt Bonifatius">
+<meta property="og:locale" content="de_DE">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kitas in Frankfurt-Sachsenhausen | Sankt Bonifatius">
+<meta property="og:description" content="Fünf katholische Kitas in Frankfurt-Sachsenhausen und Oberrad: Krippe &amp; Kindergarten für Kinder von 1–6 Jahren. Finden Sie die passende Kita für Ihr Kind.">
+<meta property="og:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kitas in Frankfurt-Sachsenhausen | Sankt Bonifatius">
+<meta name="twitter:description" content="Fünf katholische Kitas in Frankfurt-Sachsenhausen und Oberrad: Krippe &amp; Kindergarten für Kinder von 1–6 Jahren. Finden Sie die passende Kita für Ihr Kind.">
+<meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://sanktbonifatius.de/kitas/",
+      "url": "https://sanktbonifatius.de/kitas/",
+      "name": "Kitas in Frankfurt-Sachsenhausen | Sankt Bonifatius",
+      "description": "Fünf katholische Kitas in Frankfurt-Sachsenhausen und Oberrad: Krippe & Kindergarten für Kinder von 1–6 Jahren.",
+      "inLanguage": "de-DE",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Startseite","item":"https://sanktbonifatius.de/"},
+          {"@type":"ListItem","position":2,"name":"Kitas","item":"https://sanktbonifatius.de/kitas/"}
+        ]
+      }
+    },
+    {
+      "@type": "ItemList",
+      "name": "Kitas der Pfarrei Sankt Bonifatius",
+      "numberOfItems": 5,
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"item":{"@type":"ChildCare","name":"Kita St. Bonifatius","url":"https://sanktbonifatius.de/kitas/st-bonifatius/","address":{"@type":"PostalAddress","streetAddress":"Achenbachstr. 5","postalCode":"60596","addressLocality":"Frankfurt am Main","addressCountry":"DE"}}},
+        {"@type":"ListItem","position":2,"item":{"@type":"ChildCare","name":"Kita St. Aposteln","url":"https://sanktbonifatius.de/kitas/st-aposteln/","address":{"@type":"PostalAddress","streetAddress":"Ziegelhüttenweg 149","postalCode":"60598","addressLocality":"Frankfurt am Main","addressCountry":"DE"}}},
+        {"@type":"ListItem","position":3,"item":{"@type":"ChildCare","name":"Kita Deutschorden","url":"https://sanktbonifatius.de/kitas/deutschorden/","address":{"@type":"PostalAddress","streetAddress":"Elisabethenstr. 14","postalCode":"60594","addressLocality":"Frankfurt am Main","addressCountry":"DE"}}},
+        {"@type":"ListItem","position":4,"item":{"@type":"ChildCare","name":"Kita St. Wendel","url":"https://sanktbonifatius.de/kitas/st-wendel/","address":{"@type":"PostalAddress","streetAddress":"Altes Schützenhüttengässchen 2","postalCode":"60599","addressLocality":"Frankfurt am Main","addressCountry":"DE"}}},
+        {"@type":"ListItem","position":5,"item":{"@type":"ChildCare","name":"Kita Herz Jesu","url":"https://sanktbonifatius.de/kitas/herz-jesu/","address":{"@type":"PostalAddress","streetAddress":"Mathildenstraße 30a","postalCode":"60599","addressLocality":"Frankfurt am Main","addressCountry":"DE"}}}
+      ]
+    }
+  ]
+}
+</script>`,
+  "/kitas/deutschorden/": `<title>Kita Deutschorden Frankfurt-Sachsenhausen</title>
+<meta name="description" content="Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Gemeindeverband Sankt Bonifatius. Kontakt &amp; Öffnungszeiten.">
+<meta property="og:site_name" content="Sankt Bonifatius">
+<meta property="og:locale" content="de_DE">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kita Deutschorden Frankfurt-Sachsenhausen">
+<meta property="og:description" content="Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Gemeindeverband Sankt Bonifatius. Kontakt &amp; Öffnungszeiten.">
+<meta property="og:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kita Deutschorden Frankfurt-Sachsenhausen">
+<meta name="twitter:description" content="Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Gemeindeverband Sankt Bonifatius. Kontakt &amp; Öffnungszeiten.">
+<meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://sanktbonifatius.de/kitas/deutschorden/",
+      "url": "https://sanktbonifatius.de/kitas/deutschorden/",
+      "name": "Kita Deutschorden Frankfurt-Sachsenhausen",
+      "description": "Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Gemeindeverband Sankt Bonifatius.",
+      "inLanguage": "de-DE",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Startseite","item":"https://sanktbonifatius.de/"},
+          {"@type":"ListItem","position":2,"name":"Kitas","item":"https://sanktbonifatius.de/kitas/"},
+          {"@type":"ListItem","position":3,"name":"Kita Deutschorden","item":"https://sanktbonifatius.de/kitas/deutschorden/"}
+        ]
+      }
+    },
+    {
+      "@type": "ChildCare",
+      "@id": "https://sanktbonifatius.de/kitas/deutschorden/#childcare",
+      "name": "Kita Deutschorden",
+      "url": "https://sanktbonifatius.de/kitas/deutschorden/",
+      "image": "https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg",
+      "telephone": "+496927297987",
+      "email": "kita-deutschorden@sanktbonifatius.de",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Elisabethenstr. 14",
+        "postalCode": "60594",
+        "addressLocality": "Frankfurt am Main",
+        "addressRegion": "HE",
+        "addressCountry": "DE"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "07:30",
+        "closes": "17:00"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Pfarrei Sankt Bonifatius Frankfurt",
+        "url": "https://sanktbonifatius.de/"
+      }
+    }
+  ]
+}
+</script>`,
+  "/kitas/herz-jesu/": `<title>Kita Herz Jesu Frankfurt – Katholische Kita</title>
+<meta name="description" content="Katholische Kita Herz Jesu im südlichen Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
+<meta property="og:site_name" content="Sankt Bonifatius">
+<meta property="og:locale" content="de_DE">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kita Herz Jesu Frankfurt – Katholische Kita">
+<meta property="og:description" content="Katholische Kita Herz Jesu im südlichen Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
+<meta property="og:image" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
+<meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kita Herz Jesu Frankfurt – Katholische Kita">
+<meta name="twitter:description" content="Katholische Kita Herz Jesu im südlichen Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
+<meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://sanktbonifatius.de/kitas/herz-jesu/",
+      "url": "https://sanktbonifatius.de/kitas/herz-jesu/",
+      "name": "Kita Herz Jesu Frankfurt – Katholische Kita",
+      "description": "Katholische Kita Herz Jesu im südlichen Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße.",
+      "inLanguage": "de-DE",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Startseite","item":"https://sanktbonifatius.de/"},
+          {"@type":"ListItem","position":2,"name":"Kitas","item":"https://sanktbonifatius.de/kitas/"},
+          {"@type":"ListItem","position":3,"name":"Kita Herz Jesu","item":"https://sanktbonifatius.de/kitas/herz-jesu/"}
+        ]
+      }
+    },
+    {
+      "@type": "ChildCare",
+      "@id": "https://sanktbonifatius.de/kitas/herz-jesu/#childcare",
+      "name": "Kita Herz Jesu",
+      "url": "https://sanktbonifatius.de/kitas/herz-jesu/",
+      "image": "https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg",
+      "telephone": "+49696522522",
+      "email": "kita-herzjesu@sanktbonifatius.de",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Mathildenstraße 30a",
+        "postalCode": "60599",
+        "addressLocality": "Frankfurt am Main",
+        "addressRegion": "HE",
+        "addressCountry": "DE"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "07:30",
+        "closes": "17:00"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Pfarrei Sankt Bonifatius Frankfurt",
+        "url": "https://sanktbonifatius.de/"
+      }
+    }
+  ]
+}
+</script>`,
+  "/kitas/st-aposteln/": `<title>Kita St. Aposteln Frankfurt – Teiloffenes Konzept</title>
+<meta name="description" content="Katholische Kita in Frankfurt-Sachsenhausen: 80 Kinder von 3–6 Jahren, teiloffenes Konzept mit Funktionsräumen, großes Außengelände. Seit 1965 vor Ort.">
+<meta property="og:site_name" content="Sankt Bonifatius">
+<meta property="og:locale" content="de_DE">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kita St. Aposteln Frankfurt – Teiloffenes Konzept">
+<meta property="og:description" content="Katholische Kita in Frankfurt-Sachsenhausen: 80 Kinder von 3–6 Jahren, teiloffenes Konzept mit Funktionsräumen, großes Außengelände. Seit 1965 vor Ort.">
+<meta property="og:image" content="https://sanktbonifatius.de/uploads/2022/05/kita-staposteln-frankfurt-6.jpg">
+<meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2022/05/kita-staposteln-frankfurt-6.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kita St. Aposteln Frankfurt – Teiloffenes Konzept">
+<meta name="twitter:description" content="Katholische Kita in Frankfurt-Sachsenhausen: 80 Kinder von 3–6 Jahren, teiloffenes Konzept mit Funktionsräumen, großes Außengelände. Seit 1965 vor Ort.">
+<meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2022/05/kita-staposteln-frankfurt-6.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://sanktbonifatius.de/kitas/st-aposteln/",
+      "url": "https://sanktbonifatius.de/kitas/st-aposteln/",
+      "name": "Kita St. Aposteln Frankfurt – Teiloffenes Konzept",
+      "description": "Katholische Kita in Frankfurt-Sachsenhausen: 80 Kinder von 3–6 Jahren, teiloffenes Konzept mit Funktionsräumen, großes Außengelände.",
+      "inLanguage": "de-DE",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Startseite","item":"https://sanktbonifatius.de/"},
+          {"@type":"ListItem","position":2,"name":"Kitas","item":"https://sanktbonifatius.de/kitas/"},
+          {"@type":"ListItem","position":3,"name":"Kita St. Aposteln","item":"https://sanktbonifatius.de/kitas/st-aposteln/"}
+        ]
+      }
+    },
+    {
+      "@type": "ChildCare",
+      "@id": "https://sanktbonifatius.de/kitas/st-aposteln/#childcare",
+      "name": "Kita St. Aposteln",
+      "url": "https://sanktbonifatius.de/kitas/st-aposteln/",
+      "image": "https://sanktbonifatius.de/uploads/2022/05/kita-staposteln-frankfurt-6.jpg",
+      "telephone": "+4969633927970",
+      "email": "kita-aposteln@sanktbonifatius.de",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ziegelhüttenweg 149",
+        "postalCode": "60598",
+        "addressLocality": "Frankfurt am Main",
+        "addressRegion": "HE",
+        "addressCountry": "DE"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "07:30",
+        "closes": "17:00"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Pfarrei Sankt Bonifatius Frankfurt",
+        "url": "https://sanktbonifatius.de/"
+      }
+    }
+  ]
+}
+</script>`,
+  "/kitas/st-bonifatius/": `<title>Kita St. Bonifatius Frankfurt – Krippe &amp; Kindergarten</title>
+<meta name="description" content="Katholische Kita in Frankfurt-Sachsenhausen: 100 Kinder, 2 Krippen- und 4 Kindergartengruppen, moderne helle Räume mit großem Garten. Mo–Fr 7:30–17 Uhr.">
+<meta property="og:site_name" content="Sankt Bonifatius">
+<meta property="og:locale" content="de_DE">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kita St. Bonifatius Frankfurt – Krippe &amp; Kindergarten">
+<meta property="og:description" content="Katholische Kita in Frankfurt-Sachsenhausen: 100 Kinder, 2 Krippen- und 4 Kindergartengruppen, moderne helle Räume mit großem Garten. Mo–Fr 7:30–17 Uhr.">
+<meta property="og:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kita St. Bonifatius Frankfurt – Krippe &amp; Kindergarten">
+<meta name="twitter:description" content="Katholische Kita in Frankfurt-Sachsenhausen: 100 Kinder, 2 Krippen- und 4 Kindergartengruppen, moderne helle Räume mit großem Garten. Mo–Fr 7:30–17 Uhr.">
+<meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://sanktbonifatius.de/kitas/st-bonifatius/",
+      "url": "https://sanktbonifatius.de/kitas/st-bonifatius/",
+      "name": "Kita St. Bonifatius Frankfurt – Krippe & Kindergarten",
+      "description": "Katholische Kita in Frankfurt-Sachsenhausen: 100 Kinder, 2 Krippen- und 4 Kindergartengruppen, moderne helle Räume mit großem Garten.",
+      "inLanguage": "de-DE",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Startseite","item":"https://sanktbonifatius.de/"},
+          {"@type":"ListItem","position":2,"name":"Kitas","item":"https://sanktbonifatius.de/kitas/"},
+          {"@type":"ListItem","position":3,"name":"Kita St. Bonifatius","item":"https://sanktbonifatius.de/kitas/st-bonifatius/"}
+        ]
+      }
+    },
+    {
+      "@type": "ChildCare",
+      "@id": "https://sanktbonifatius.de/kitas/st-bonifatius/#childcare",
+      "name": "Kita St. Bonifatius",
+      "url": "https://sanktbonifatius.de/kitas/st-bonifatius/",
+      "image": "https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg",
+      "telephone": "+4969636818",
+      "email": "kita-bonifatius@sanktbonifatius.de",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Achenbachstr. 5",
+        "postalCode": "60596",
+        "addressLocality": "Frankfurt am Main",
+        "addressRegion": "HE",
+        "addressCountry": "DE"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "07:30",
+        "closes": "17:00"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Pfarrei Sankt Bonifatius Frankfurt",
+        "url": "https://sanktbonifatius.de/"
+      }
+    }
+  ]
+}
+</script>`,
+  "/kitas/st-wendel/": `<title>Kita St. Wendel Frankfurt – Krippe &amp; Kindergarten</title>
+<meta name="description" content="Katholische Kita in Frankfurt-Sachsenhausen: Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Situationsansatz &amp; Pikler-Pädagogik, frisches Mittagessen täglich.">
+<meta property="og:site_name" content="Sankt Bonifatius">
+<meta property="og:locale" content="de_DE">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kita St. Wendel Frankfurt – Krippe &amp; Kindergarten">
+<meta property="og:description" content="Katholische Kita in Frankfurt-Sachsenhausen: Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Situationsansatz &amp; Pikler-Pädagogik, frisches Mittagessen täglich.">
+<meta property="og:image" content="https://sanktbonifatius.de/uploads/2024/08/KiTa-St-Wendel-Gebaeude.jpg">
+<meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2024/08/KiTa-St-Wendel-Gebaeude.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kita St. Wendel Frankfurt – Krippe &amp; Kindergarten">
+<meta name="twitter:description" content="Katholische Kita in Frankfurt-Sachsenhausen: Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Situationsansatz &amp; Pikler-Pädagogik, frisches Mittagessen täglich.">
+<meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2024/08/KiTa-St-Wendel-Gebaeude.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://sanktbonifatius.de/kitas/st-wendel/",
+      "url": "https://sanktbonifatius.de/kitas/st-wendel/",
+      "name": "Kita St. Wendel Frankfurt – Krippe & Kindergarten",
+      "description": "Katholische Kita in Frankfurt-Sachsenhausen: Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Situationsansatz & Pikler-Pädagogik.",
+      "inLanguage": "de-DE",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Startseite","item":"https://sanktbonifatius.de/"},
+          {"@type":"ListItem","position":2,"name":"Kitas","item":"https://sanktbonifatius.de/kitas/"},
+          {"@type":"ListItem","position":3,"name":"Kita St. Wendel","item":"https://sanktbonifatius.de/kitas/st-wendel/"}
+        ]
+      }
+    },
+    {
+      "@type": "ChildCare",
+      "@id": "https://sanktbonifatius.de/kitas/st-wendel/#childcare",
+      "name": "Kita St. Wendel",
+      "url": "https://sanktbonifatius.de/kitas/st-wendel/",
+      "image": "https://sanktbonifatius.de/uploads/2024/08/KiTa-St-Wendel-Gebaeude.jpg",
+      "telephone": "+4969631983",
+      "email": "kita-wendel@sanktbonifatius.de",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Altes Schützenhüttengässchen 2",
+        "postalCode": "60599",
+        "addressLocality": "Frankfurt am Main",
+        "addressRegion": "HE",
+        "addressCountry": "DE"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "07:30",
+        "closes": "17:00"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Pfarrei Sankt Bonifatius Frankfurt",
+        "url": "https://sanktbonifatius.de/"
+      }
+    }
+  ]
+}
+</script>`,
+  "/kitas/stellenboerse/": `<title>Stellenangebote Kita Frankfurt | Sankt Bonifatius</title>
+<meta name="description" content="Offene Stellen als Erzieher:in oder Kita-Leitung in den katholischen Kitas der Pfarrei Sankt Bonifatius in Frankfurt-Sachsenhausen. Jetzt bewerben.">
+<meta property="og:site_name" content="Sankt Bonifatius">
+<meta property="og:locale" content="de_DE">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Stellenangebote Kita Frankfurt | Sankt Bonifatius">
+<meta property="og:description" content="Offene Stellen als Erzieher:in oder Kita-Leitung in den katholischen Kitas der Pfarrei Sankt Bonifatius in Frankfurt-Sachsenhausen. Jetzt bewerben.">
+<meta property="og:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stellenangebote Kita Frankfurt | Sankt Bonifatius">
+<meta name="twitter:description" content="Offene Stellen als Erzieher:in oder Kita-Leitung in den katholischen Kitas der Pfarrei Sankt Bonifatius in Frankfurt-Sachsenhausen. Jetzt bewerben.">
+<meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://sanktbonifatius.de/kitas/stellenboerse/",
+  "url": "https://sanktbonifatius.de/kitas/stellenboerse/",
+  "name": "Stellenangebote Kita Frankfurt | Sankt Bonifatius",
+  "description": "Offene Stellen als Erzieher:in oder Kita-Leitung in den katholischen Kitas der Pfarrei Sankt Bonifatius in Frankfurt-Sachsenhausen.",
+  "inLanguage": "de-DE",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Startseite","item":"https://sanktbonifatius.de/"},
+      {"@type":"ListItem","position":2,"name":"Kitas","item":"https://sanktbonifatius.de/kitas/"},
+      {"@type":"ListItem","position":3,"name":"Stellenbörse","item":"https://sanktbonifatius.de/kitas/stellenboerse/"}
+    ]
+  }
+}
+</script>`,
   "/kontakt/": "<title>Kontakt - Sankt Bonifatius</title>\n<meta name=\"description\" content=\"Sankt Bonifatius Frankfurt am Main Über uns Leitbild &amp; Überblick Pastoralteam Kirchorte Kitas Leitung &amp; Gremien Finanzen Barrierefreiheit Kontakt Pfarrbüro Anfahrt &amp; Adresse WhatsApp Kanal ↗ Mitmachen Beratung &amp; Hilfe Trauerfall Katholisch werden Newsletter Downloads Pfarrbrief Bonifatius Highlights Online spenden Suchen Kontakt aufnehmen Wir freuen uns, von Ihnen zu h&#246;ren&hellip;\">\n<meta property=\"og:site_name\" content=\"Sankt Bonifatius\">\n<meta property=\"og:locale\" content=\"de_DE\">\n<meta property=\"og:type\" content=\"article\">\n<meta property=\"article:author\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"og:title\" content=\"Kontakt - Sankt Bonifatius\">\n<meta property=\"og:description\" content=\"Sankt Bonifatius Frankfurt am Main Über uns Leitbild &amp; Überblick Pastoralteam Kirchorte Kitas Leitung &amp; Gremien Finanzen Barrierefreiheit Kontakt Pfarrbüro Anfahrt &amp; Adresse WhatsApp Kanal ↗ Mitmachen Beratung &amp; Hilfe Trauerfall Katholisch werden Newsletter Downloads Pfarrbrief Bonifatius Highlights Online spenden Suchen Kontakt aufnehmen Wir freuen uns, von Ihnen zu h&#246;ren&hellip;\">\n<meta property=\"og:image\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<meta property=\"og:image:secure_url\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<meta property=\"og:image:alt\" content=\"\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Kontakt - Sankt Bonifatius\">\n<meta name=\"twitter:description\" content=\"Sankt Bonifatius Frankfurt am Main Über uns Leitbild &amp; Überblick Pastoralteam Kirchorte Kitas Leitung &amp; Gremien Finanzen Barrierefreiheit Kontakt Pfarrbüro Anfahrt &amp; Adresse WhatsApp Kanal ↗ Mitmachen Beratung &amp; Hilfe Trauerfall Katholisch werden Newsletter Downloads Pfarrbrief Bonifatius Highlights Online spenden Suchen Kontakt aufnehmen Wir freuen uns, von Ihnen zu h&#246;ren&hellip;\">\n<meta name=\"twitter:image\" content=\"https://sanktbonifatius.de/uploads/2026/05/st-bonifatius-frankfurt.jpg\">\n<script type=\"application/ld+json\">\n{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"ContactPage\",\"name\":\"Kontakt – Pfarrei Sankt Bonifatius Frankfurt\",\"description\":\"Nehmen Sie Kontakt mit der Pfarrei Sankt Bonifatius Frankfurt auf – per E-Mail, Telefon oder persönlich im Pfarrbüro in Sachsenhausen.\",\"url\":\"https://sanktbonifatius.de/kontakt/\",\"breadcrumb\":{\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Startseite\",\"item\":\"https://sanktbonifatius.de/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Kontakt\",\"item\":\"https://sanktbonifatius.de/kontakt/\"}]}},{\"@type\":\"CatholicChurch\",\"name\":\"Pfarrei Sankt Bonifatius Frankfurt\",\"url\":\"https://sanktbonifatius.de/\",\"telephone\":\"+49-69-69597585-0\",\"email\":\"&#x69;&#x6e;&#x66;&#x6f;&#x40;&#x73;&#x61;&#x6e;&#x6b;&#x74;&#x62;&#x6f;&#x6e;&#x69;&#102;&#97;&#116;&#105;&#117;&#115;&#46;&#100;&#101;\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"Holbeinstraße 70\",\"postalCode\":\"60596\",\"addressLocality\":\"Frankfurt am Main\",\"addressRegion\":\"Hessen\",\"addressCountry\":\"DE\"},\"openingHoursSpecification\":[{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\"],\"opens\":\"09:00\",\"closes\":\"12:00\"},{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Tuesday\",\"Thursday\"],\"opens\":\"14:00\",\"closes\":\"16:00\"},{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Friday\"],\"opens\":\"09:00\",\"closes\":\"12:00\"}]}]}\n</script>",
   "/kontakt/beratung-und-hilfe/": "<title>Beratung &amp; Seelsorge – St. Bonifatius Frankfurt-Sachsenhausen</title>\n<meta name=\"description\" content=\"Seelsorge, geistliche Begleitung und Hilfe in Krisen – die Pfarrei Sankt Bonifatius Frankfurt-Sachsenhausen ist für Sie da. Ansprechpersonen &amp; Beratungsstellen.\">\n<meta property=\"og:site_name\" content=\"Sankt Bonifatius\">\n<meta property=\"og:locale\" content=\"de_DE\">\n<meta property=\"og:type\" content=\"article\">\n<meta property=\"article:author\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"og:title\" content=\"Beratung &amp; Seelsorge – St. Bonifatius Frankfurt-Sachsenhausen\">\n<meta property=\"og:description\" content=\"Seelsorge, geistliche Begleitung und Hilfe in Krisen – die Pfarrei Sankt Bonifatius Frankfurt-Sachsenhausen ist für Sie da. Ansprechpersonen &amp; Beratungsstellen.\">\n<meta property=\"og:image\" content=\"https://sanktbonifatius.de/uploads/2026/04/startseite-fotogalerie-00043.jpg\">\n<meta property=\"og:image:secure_url\" content=\"https://sanktbonifatius.de/uploads/2026/04/startseite-fotogalerie-00043.jpg\">\n<meta property=\"og:image:width\" content=\"2700\">\n<meta property=\"og:image:height\" content=\"1545\">\n<meta property=\"og:image:alt\" content=\"Kirchenchor singt mit Klavierbegleitung in Kapelle\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Beratung &amp; Seelsorge – St. Bonifatius Frankfurt-Sachsenhausen\">\n<meta name=\"twitter:description\" content=\"Seelsorge, geistliche Begleitung und Hilfe in Krisen – die Pfarrei Sankt Bonifatius Frankfurt-Sachsenhausen ist für Sie da. Ansprechpersonen &amp; Beratungsstellen.\">\n<meta name=\"twitter:image\" content=\"https://sanktbonifatius.de/uploads/2026/04/startseite-fotogalerie-00043.jpg\">\n<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"WebPage\",\n      \"@id\": \"https://sanktbonifatius.de/kontakt/beratung-und-hilfe/#webpage\",\n      \"url\": \"https://sanktbonifatius.de/kontakt/beratung-und-hilfe/\",\n      \"name\": \"Beratung & Seelsorge – St. Bonifatius Frankfurt-Sachsenhausen\",\n      \"description\": \"Seelsorge, geistliche Begleitung und Hilfe in Krisen – die Pfarrei Sankt Bonifatius Frankfurt-Sachsenhausen ist für Sie da. Ansprechpersonen & Beratungsstellen.\",\n      \"inLanguage\": \"de-DE\",\n      \"isPartOf\": {\n        \"@id\": \"https://sanktbonifatius.de/#website\"\n      },\n      \"about\": {\n        \"@id\": \"https://sanktbonifatius.de/#church\"\n      }\n    },\n    {\n      \"@type\": \"WebSite\",\n      \"@id\": \"https://sanktbonifatius.de/#website\",\n      \"url\": \"https://sanktbonifatius.de\",\n      \"name\": \"Sankt Bonifatius Frankfurt\"\n    },\n    {\n      \"@type\": \"CatholicChurch\",\n      \"@id\": \"https://sanktbonifatius.de/#church\",\n      \"name\": \"Katholische Pfarrei Sankt Bonifatius Frankfurt\",\n      \"url\": \"https://sanktbonifatius.de\",\n      \"areaServed\": [\n        \"Frankfurt-Sachsenhausen\",\n        \"Frankfurt-Oberrad\"\n      ]\n    },\n    {\n      \"@type\": \"BreadcrumbList\",\n      \"@id\": \"https://sanktbonifatius.de/kontakt/beratung-und-hilfe/#breadcrumb\",\n      \"itemListElement\": [\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 1,\n          \"name\": \"Startseite\",\n          \"item\": \"https://sanktbonifatius.de/\"\n        },\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 2,\n          \"name\": \"Kontakt\",\n          \"item\": \"https://sanktbonifatius.de/kontakt/\"\n        },\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 3,\n          \"name\": \"Beratung und Hilfe\"\n        }\n      ]\n    }\n  ]\n}\n</script>",
   "/kontakt/engagement/": "<title>Ehrenamtlich engagieren in Frankfurt | Sankt Bonifatius</title>\n<meta name=\"description\" content=\"Engagiere dich in der Pfarrei Sankt Bonifatius Frankfurt – Gottesdienst-Teams, BonFamily, Sozialberatung, Chöre und mehr. Jetzt mitmachen!\">\n<meta property=\"og:site_name\" content=\"Sankt Bonifatius\">\n<meta property=\"og:locale\" content=\"de_DE\">\n<meta property=\"og:type\" content=\"article\">\n<meta property=\"article:author\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/bonifatiusffm/\">\n<meta property=\"og:title\" content=\"Ehrenamtlich engagieren in Frankfurt | Sankt Bonifatius\">\n<meta property=\"og:description\" content=\"Engagiere dich in der Pfarrei Sankt Bonifatius Frankfurt – Gottesdienst-Teams, BonFamily, Sozialberatung, Chöre und mehr. Jetzt mitmachen!\">\n<meta property=\"og:image\" content=\"https://sanktbonifatius.de/uploads/2026/04/startseite-fotogalerie-00043.jpg\">\n<meta property=\"og:image:secure_url\" content=\"https://sanktbonifatius.de/uploads/2026/04/startseite-fotogalerie-00043.jpg\">\n<meta property=\"og:image:width\" content=\"2700\">\n<meta property=\"og:image:height\" content=\"1545\">\n<meta property=\"og:image:alt\" content=\"Kirchenchor singt mit Klavierbegleitung in Kapelle\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Ehrenamtlich engagieren in Frankfurt | Sankt Bonifatius\">\n<meta name=\"twitter:description\" content=\"Engagiere dich in der Pfarrei Sankt Bonifatius Frankfurt – Gottesdienst-Teams, BonFamily, Sozialberatung, Chöre und mehr. Jetzt mitmachen!\">\n<meta name=\"twitter:image\" content=\"https://sanktbonifatius.de/uploads/2026/04/startseite-fotogalerie-00043.jpg\">\n<script type=\"application/ld+json\">\n[\n  {\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Ehrenamtlich engagieren in Frankfurt | Sankt Bonifatius\",\n    \"description\": \"Engagiere dich in der Pfarrei Sankt Bonifatius Frankfurt - Gottesdienst-Teams, BonFamily, Sozialberatung, Choere und mehr. Jetzt mitmachen!\",\n    \"url\": \"https://sanktbonifatius.de/kontakt/engagement/\",\n    \"inLanguage\": \"de-DE\",\n    \"isPartOf\": {\n      \"@type\": \"WebSite\",\n      \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\",\n      \"url\": \"https://sanktbonifatius.de/\"\n    },\n    \"breadcrumb\": {\n      \"@type\": \"BreadcrumbList\",\n      \"itemListElement\": [\n        { \"@type\": \"ListItem\", \"position\": 1, \"name\": \"Startseite\", \"item\": \"https://sanktbonifatius.de/\" },\n        { \"@type\": \"ListItem\", \"position\": 2, \"name\": \"Engagement\", \"item\": \"https://sanktbonifatius.de/kontakt/engagement/\" }\n      ]\n    }\n  },\n  {\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"CatholicChurch\",\n    \"name\": \"Pfarrei Sankt Bonifatius Frankfurt\",\n    \"alternateName\": \"Sankt Bonifatius Frankfurt am Main\",\n    \"url\": \"https://sanktbonifatius.de/\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"Sandhofstrasse 42\",\n      \"addressLocality\": \"Frankfurt am Main\",\n      \"postalCode\": \"60596\",\n      \"addressCountry\": \"DE\"\n    },\n    \"telephone\": \"+49-69-631085-0\",\n    \"email\": \"&#112;&#x66;&#97;&#x72;r&#101;&#x69;&#64;&#x73;a&#x6e;k&#116;&#x62;&#111;&#x6e;i&#x66;&#x61;&#116;&#x69;u&#x73;&#46;&#100;&#x65;\",\n    \"sameAs\": [\n      \"https://www.facebook.com/sanktbonifatiusfrankfurt\",\n      \"https://www.instagram.com/sanktbonifatiusfrankfurt\"\n    ]\n  },\n  {\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"ItemList\",\n    \"name\": \"Engagement-Bereiche in der Pfarrei Sankt Bonifatius Frankfurt\",\n    \"description\": \"6 Bereiche fuer ehrenamtliches Engagement in der Pfarrei\",\n    \"numberOfItems\": 6,\n    \"itemListElement\": [\n      { \"@type\": \"ListItem\", \"position\": 1, \"name\": \"Gottesdienst-Teams\" },\n      { \"@type\": \"ListItem\", \"position\": 2, \"name\": \"BonFamily und Familien\" },\n      { \"@type\": \"ListItem\", \"position\": 3, \"name\": \"Soziales Engagement\" },\n      { \"@type\": \"ListItem\", \"position\": 4, \"name\": \"Nachhaltigkeit und Kleidercafe\" },\n      { \"@type\": \"ListItem\", \"position\": 5, \"name\": \"Mitgestaltung und Gremien\" },\n      { \"@type\": \"ListItem\", \"position\": 6, \"name\": \"Musik und Kultur\" }\n    ]\n  }\n]\n</script>",

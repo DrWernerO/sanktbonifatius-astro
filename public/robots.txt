@@ -4,3 +4,4 @@ Disallow: /kontakt/raumbuchung
 Disallow: /raumbuchung
 
 Sitemap: https://sanktbonifatius.de/sitemap-index.xml
+Sitemap: https://sanktbonifatius.de/sitemap-jobs.xml

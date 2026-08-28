@@ -1,6 +1,10 @@
 ---
 // Stellenangebote + Warum-Grid + CTA — Kita-Stellenbörse
 // CSS-Präfix: astro-stl-
+// `jobs` kommt live aus WordPress (getJobs() in stellenboerse.astro) — Titel/Ort/Art
+// stehen als Klartext-Felder aus dem Plugin "Jobs for WP" zur Verfügung.
+const { jobs = [] } = Astro.props;
+const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 ---
 
 <!-- STELLENANGEBOTE -->
@@ -10,41 +14,26 @@
       <p class="astro-stl-eyebrow-sm">Offene Stellen</p>
       <h2 class="astro-stl-stellen__h2">Aktuelle Stellenangebote</h2>
       <p class="astro-stl-stellen__sub">Wir suchen engagierte P&auml;dagog:innen f&uuml;r unsere Kitas in Frankfurt-Sachsenhausen.</p>
+      <p class="astro-stl-stellen__invite">Bei uns erwarten Sie kurze Wege, ein Team, das zusammenh&auml;lt, und Arbeit, die jeden Tag sp&uuml;rbar bei den Kindern ankommt &ndash; das macht eine Bewerbung bei uns besonders attraktiv.</p>
     </div>
-    <div class="astro-stl-stellen__list">
-      <a class="astro-stl-card" href="/kitas/stellenboerse/fachkraft-st-bonifatius/">
-        <div class="astro-stl-card__body">
-          <p class="astro-stl-card__kita">Kita St. Bonifatius</p>
-          <h3 class="astro-stl-card__title">P&auml;dagogische Fachkraft (w/m/d)</h3>
-          <p class="astro-stl-card__type">Vollzeit &middot; Teilzeit &middot; Frankfurt am Main</p>
-        </div>
-        <span class="astro-stl-card__arrow" aria-hidden="true">&#8594;</span>
-      </a>
-      <a class="astro-stl-card" href="/kitas/stellenboerse/fachkraft-deutschorden/">
-        <div class="astro-stl-card__body">
-          <p class="astro-stl-card__kita">Kita Deutschorden</p>
-          <h3 class="astro-stl-card__title">P&auml;dagogische Fachkraft (w/m/d)</h3>
-          <p class="astro-stl-card__type">Vollzeit &middot; Teilzeit &middot; Frankfurt am Main</p>
-        </div>
-        <span class="astro-stl-card__arrow" aria-hidden="true">&#8594;</span>
-      </a>
-      <a class="astro-stl-card" href="/kitas/stellenboerse/leitung-deutschorden/">
-        <div class="astro-stl-card__body">
-          <p class="astro-stl-card__kita">Kita Deutschorden</p>
-          <h3 class="astro-stl-card__title">Kita-Leitung (w/m/d)</h3>
-          <p class="astro-stl-card__type">Vollzeit &middot; Teilzeit &middot; Frankfurt am Main</p>
-        </div>
-        <span class="astro-stl-card__arrow" aria-hidden="true">&#8594;</span>
-      </a>
-      <a class="astro-stl-card" href="/kitas/stellenboerse/fachkraft-herz-jesu/">
-        <div class="astro-stl-card__body">
-          <p class="astro-stl-card__kita">Kita Herz Jesu</p>
-          <h3 class="astro-stl-card__title">P&auml;dagogische Fachkraft (w/m/d)</h3>
-          <p class="astro-stl-card__type">Vollzeit &middot; Teilzeit &middot; Frankfurt am Main</p>
-        </div>
-        <span class="astro-stl-card__arrow" aria-hidden="true">&#8594;</span>
-      </a>
-    </div>
+    {jobs.length > 0 ? (
+      <div class="astro-stl-stellen__list">
+        {jobs.map((job) => (
+          <a class="astro-stl-card" href={`/kitas/stellenboerse/${job.slug}/`}>
+            <div class="astro-stl-card__body">
+              <h3 class="astro-stl-card__title">{job.title}</h3>
+              <p class="astro-stl-card__type">
+                {job.location && <span class="astro-stl-card__type-pin" aria-hidden="true" set:html={ICON_PIN} />}
+                {[...job.employment, job.location].filter(Boolean).join(' · ')}
+              </p>
+            </div>
+            <span class="astro-stl-card__arrow" aria-hidden="true">Details ansehen &#8594;</span>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="astro-stl-stellen__empty">Aktuell sind keine offenen Stellen ausgeschrieben. Bitte schauen Sie später wieder vorbei.</p>
+    )}
   </div>
 </section>
 
@@ -58,22 +47,27 @@
     </div>
     <div class="astro-stl-warum__grid">
       <div class="astro-stl-warum__item">
+        <span class="astro-stl-warum__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
         <h3 class="astro-stl-warum__item-h3">Christliche Werte</h3>
         <p>Unsere Arbeit basiert auf christlichen Werten als p&auml;dagogischem Fundament.</p>
       </div>
       <div class="astro-stl-warum__item">
+        <span class="astro-stl-warum__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 6.5c-1.6-1.3-4-2-6.5-2S1 5.2 1 5.2v13.3s2-1 4.5-1 4.9.7 6.5 2c1.6-1.3 4-2 6.5-2s4.5 1 4.5 1V5.2S20.6 4.5 18 4.5s-4.9.7-6.5 2z"/><path d="M12 6.5v13"/></svg></span>
         <h3 class="astro-stl-warum__item-h3">Moderne P&auml;dagogik</h3>
         <p>Spielerisches Lernen, kreative Aktivit&auml;ten und individuelle F&ouml;rderung.</p>
       </div>
       <div class="astro-stl-warum__item">
+        <span class="astro-stl-warum__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
         <h3 class="astro-stl-warum__item-h3">Teamarbeit</h3>
         <p>Dynamische, multiprofessionelle Teams mit echter gegenseitiger Unterst&uuml;tzung.</p>
       </div>
       <div class="astro-stl-warum__item">
+        <span class="astro-stl-warum__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg></span>
         <h3 class="astro-stl-warum__item-h3">Sicheres Umfeld</h3>
         <p>Liebevolle Einrichtungen, in denen Kinder und Mitarbeiter:innen sich wohlf&uuml;hlen.</p>
       </div>
       <div class="astro-stl-warum__item">
+        <span class="astro-stl-warum__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v6M9.8 16.7l-2.9-3.2M14.2 16.7l2.9-3.2"/></svg></span>
         <h3 class="astro-stl-warum__item-h3">Netzwerk</h3>
         <p>Teil von &uuml;ber 300 Kitas im Bistum Limburg mit vielen Vorteilen.</p>
       </div>
@@ -103,15 +97,18 @@
 .astro-stl-stellen__in { max-width: 1100px; margin: 0 auto; }
 .astro-stl-stellen__head { margin-bottom: 36px; }
 .astro-stl-stellen__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 8px; }
-.astro-stl-stellen__sub { font-size: 16px; color: var(--bf-ink-60); margin: 0; line-height: 1.6; }
-.astro-stl-stellen__list { display: flex; flex-direction: column; gap: 10px; }
-.astro-stl-card { display: flex; align-items: center; justify-content: space-between; background: var(--bf-bg); border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 22px 28px; text-decoration: none; color: inherit; transition: border-color .2s, box-shadow .2s; }
-.astro-stl-card:hover { border-color: var(--bf-accent); box-shadow: 0 4px 20px rgba(154,45,45,.07); }
-.astro-stl-card__kita { font-family: 'Futura LT W01 Book', Futura, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 5px; }
-.astro-stl-card__title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 700; color: var(--bf-ink); margin: 0 0 5px; line-height: 1.25; }
-.astro-stl-card__type { font-size: 13px; color: var(--bf-ink-60); margin: 0; }
-.astro-stl-card__arrow { font-size: 20px; color: var(--bf-accent); flex-shrink: 0; margin-left: 16px; transition: transform .2s; }
+.astro-stl-stellen__sub { font-size: 16px; color: var(--bf-ink-60); margin: 0 0 14px; line-height: 1.6; }
+.astro-stl-stellen__invite { font-size: 15px; color: var(--bf-ink); background: var(--bf-bg); border-left: 3px solid var(--bf-gold); padding: 14px 18px; margin: 0; line-height: 1.65; border-radius: 0 8px 8px 0; }
+.astro-stl-stellen__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.astro-stl-card { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; background: #fff; border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 24px 26px; text-decoration: none; color: inherit; transition: border-color .2s, box-shadow .2s, transform .2s; height: 100%; }
+.astro-stl-card:hover { border-color: var(--bf-accent); box-shadow: 0 10px 26px rgba(154,45,45,.1); transform: translateY(-3px); }
+.astro-stl-card__body { flex: 1; }
+.astro-stl-card__title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 700; color: var(--bf-ink); margin: 0 0 6px; line-height: 1.25; }
+.astro-stl-card__type { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--bf-ink-60); margin: 0; }
+.astro-stl-card__type-pin { display: inline-flex; flex-shrink: 0; color: var(--bf-accent); }
+.astro-stl-card__arrow { font-size: 13px; font-weight: 700; color: var(--bf-accent); transition: transform .2s; }
 .astro-stl-card:hover .astro-stl-card__arrow { transform: translateX(4px); }
+.astro-stl-stellen__empty { font-size: 15px; color: var(--bf-ink-60); background: var(--bf-bg); border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 24px 28px; margin: 0; }
 
 /* WARUM */
 .astro-stl-warum { background: var(--bf-bg); padding: 80px 24px; }
@@ -120,24 +117,21 @@
 .astro-stl-warum__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 8px; }
 .astro-stl-warum__sub { font-size: 16px; color: var(--bf-ink-60); margin: 0; line-height: 1.6; }
 .astro-stl-warum__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-.astro-stl-warum__item { background: #fff; border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 24px; }
+.astro-stl-warum__item { background: #fff; border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 24px; transition: transform .2s, box-shadow .2s; }
+.astro-stl-warum__item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(30,21,18,.08); }
+.astro-stl-warum__icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--bf-bg); color: var(--bf-accent); margin: 0 0 14px; }
 .astro-stl-warum__item-h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 700; color: var(--bf-ink); margin: 0 0 8px; }
 .astro-stl-warum__item p { font-size: 14px; color: var(--bf-ink-60); line-height: 1.65; margin: 0; }
 
 /* CTA */
-.astro-stl-cta { background: linear-gradient(135deg, #4a2e1a, #3a2315); padding: 80px 24px; text-align: center; }
+.astro-stl-cta { background: linear-gradient(135deg, var(--bf-bg) 0%, var(--bf-bg-alt) 100%); padding: 72px 24px 96px; text-align: center; }
 .astro-stl-cta__in { max-width: 600px; margin: 0 auto; }
-.astro-stl-cta__h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(26px, 4vw, 42px); color: #f0e8d8; margin: 0 0 14px; }
-.astro-stl-cta__p { color: rgba(240,232,216,.72); font-size: 16px; margin: 0 0 32px; line-height: 1.65; }
+.astro-stl-cta__h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(26px, 4vw, 42px); color: var(--bf-ink); margin: 0 0 14px; }
+.astro-stl-cta__p { color: var(--bf-ink-60); font-size: 16px; margin: 0 0 32px; line-height: 1.65; }
 .astro-stl-cta__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.astro-stl-cta__btn { display: inline-flex; align-items: center; gap: 6px; padding: 13px 28px; border-radius: 50px; font-size: 14px; font-weight: 700; text-decoration: none; transition: background .2s; }
+.astro-stl-cta__btn { display: inline-flex; align-items: center; gap: 6px; padding: 13px 28px; border-radius: 50px; font-size: 14px; font-weight: 700; text-decoration: none; transition: background .2s, border-color .2s; }
 .astro-stl-cta__btn--gold { background: var(--bf-gold); color: #1a120e; }
 .astro-stl-cta__btn--gold:hover { background: var(--bf-accent); color: #fff; }
-.astro-stl-cta__btn--outline { background: rgba(184,138,58,.15); border: 1px solid rgba(184,138,58,.4); color: var(--bf-gold); }
-.astro-stl-cta__btn--outline:hover { background: rgba(184,138,58,.3); }
-
-@media (max-width: 640px) {
-  .astro-stl-card { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .astro-stl-card__arrow { display: none; }
-}
+.astro-stl-cta__btn--outline { background: #fff; border: 1px solid var(--bf-border); color: var(--bf-accent); }
+.astro-stl-cta__btn--outline:hover { border-color: var(--bf-accent); background: var(--bf-bg); }
 </style>

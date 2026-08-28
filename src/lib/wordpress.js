@@ -558,6 +558,73 @@ function extractEventBody(html) {
   return cleaned.join('\n');
 }
 
+// --- Stelleninserate: Plugin "Jobs for WP" (CPT `jobs`) -----------------------------
+// Kita-Koordinatorinnen pflegen die Stellen weiterhin im WP-Backend unter "Stelleninserate".
+// Live abgerufen (kein Build-Time-Freeze wie bei Termine/Events, s. getEventBySlug oben),
+// damit eine neue oder geänderte Stelle sofort online steht statt erst beim nächsten Build.
+const JOB_FIELDS = [
+  'id', 'slug', 'title', 'link', 'date',
+  'position_title', 'position_job_location', 'position_employment_type',
+  'position_description', 'position_responsibilities', 'position_qualifications',
+  'position_job_benefits', 'position_contacts', 'position_valid_through_date',
+].join(',');
+
+const EMPLOYMENT_LABEL = {
+  FULL_TIME: 'Vollzeit', PART_TIME: 'Teilzeit', CONTRACTOR: 'Freie Mitarbeit',
+  INTERN: 'Praktikum', TEMPORARY: 'Befristet', VOLUNTEER: 'Ehrenamt',
+  PER_DIEM: 'Tageweise', OTHER: 'Sonstiges',
+};
+
+function mapJob(j) {
+  const employmentTypes = Array.isArray(j.position_employment_type) ? j.position_employment_type : [];
+  const validThrough = j.position_valid_through_date;
+  return {
+    id: j.id,
+    slug: j.slug,
+    // Titel als reiner Text (decodeEntities): landet u.a. in <title>, Bewerbungs-Mail und
+    // dem versteckten Formularfeld — dort würde rohes "&#8211;" sonst doppelt kodiert.
+    title: decodeEntities(j.position_title || j.title?.rendered || ''),
+    location: j.position_job_location || '',
+    employment: employmentTypes.map((e) => EMPLOYMENT_LABEL[e] || e),
+    // Rohe schema.org-Enum-Werte (FULL_TIME/PART_TIME/…) für JobPosting-JSON-LD — nicht die
+    // deutschen Anzeige-Labels oben.
+    employmentTypeSchema: employmentTypes,
+    datePosted: j.date || '',
+    description: j.position_description || '',
+    responsibilities: j.position_responsibilities || '',
+    qualifications: j.position_qualifications || '',
+    benefits: j.position_job_benefits || '',
+    contacts: j.position_contacts || '',
+    // Plugin liefert bei ungesetztem Feld den Unix-Epoch-Default statt eines leeren Strings.
+    validThrough: validThrough && validThrough !== '1970-01-01' ? validThrough : '',
+  };
+}
+
+export async function getJobs() {
+  try {
+    const res = await fetch(`${WP_API}/jobs?per_page=100&_fields=${JOB_FIELDS}`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    const jobs = await res.json();
+    return jobs.map(mapJob);
+  } catch {
+    return [];
+  }
+}
+
+export async function getJobBySlug(slug) {
+  try {
+    const res = await fetch(
+      `${WP_API}/jobs?slug=${encodeURIComponent(slug)}&_fields=${JOB_FIELDS}`,
+      { cache: 'no-store' }
+    );
+    if (!res.ok) return null;
+    const [j] = await res.json();
+    return j ? mapJob(j) : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getSeoHead(path = '/', origin = WP_RENDER_ORIGIN) {
   try {
     const res = await fetch(origin + path, { headers: { 'User-Agent': BUILD_UA }, cache: 'no-store' });

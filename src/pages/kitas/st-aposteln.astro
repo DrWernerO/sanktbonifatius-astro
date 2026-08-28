@@ -5,8 +5,10 @@ import Base from '../../layouts/Base.astro';
 import KapHero from '../../components/KapHero.astro';
 import KapContent from '../../components/KapContent.astro';
 import KapKontakt from '../../components/KapKontakt.astro';
+import { SEO_STATIC } from '../../lib/seo-static.js';
 ---
 <Base
+  seo={SEO_STATIC['/kitas/st-aposteln/']}
   title="Kita St. Aposteln Frankfurt – Katholische Kindertagesstätte in Sachsenhausen"
   description="Die Kita St. Aposteln in Frankfurt-Sachsenhausen: 80 Kinder, 3–6 Jahre, teiloffenes Konzept mit Funktionsräumen. Mo–Fr 7:30–17:00 Uhr."
 >

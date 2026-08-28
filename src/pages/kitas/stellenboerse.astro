@@ -1,14 +1,24 @@
 ---
 // Kita-Stellenbörse — WP-Seite 18767 (live), Astro-Pfad /kitas/stellenboerse/
 // CSS-Präfix: astro-stl-
+// Stellen kommen live aus WordPress (Plugin "Jobs for WP", CPT `jobs`) — kein
+// Build-Time-Freeze, damit neue/geänderte Stellen sofort online stehen (wie Termine).
 import Base from '../../layouts/Base.astro';
 import KitaStellenHero from '../../components/KitaStellenHero.astro';
 import KitaStellenContent from '../../components/KitaStellenContent.astro';
+import { getJobs } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
+
+export const prerender = false;
+
+const jobs = await getJobs();
+const seo = SEO_STATIC['/kitas/stellenboerse/'];
 ---
 <Base
+  seo={seo}
   title="Kita-Stellenbörse – Pfarrei Sankt Bonifatius Frankfurt"
   description="Offene Stellen in den katholischen Kitas der Pfarrei Sankt Bonifatius Frankfurt. Wir suchen Erzieher:innen und Kita-Leitungen in Sachsenhausen."
 >
-  <KitaStellenHero />
-  <KitaStellenContent />
+  <KitaStellenHero count={jobs.length} />
+  <KitaStellenContent jobs={jobs} />
 </Base>

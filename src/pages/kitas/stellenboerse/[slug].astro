@@ -1,62 +1,130 @@
 ---
-// Stellenanzeige-Detailseite (eine Route → automatisch je Stelle eine Seite).
-// Inhalte kommen aus src/data/stellenanzeigen.js (Herkunft dort dokumentiert).
+// Stellenanzeige-Detailseite — Inhalte live aus WordPress (Plugin "Jobs for WP", CPT `jobs`).
+// Kein Build-Time-Freeze (prerender=false, wie Termine): eine neue/geänderte Stelle steht
+// sofort online statt erst beim nächsten Netlify-Build.
 // Eigene Klassen astro-stljob-* (Fortsetzung des astro-stl-Präfixes der Übersichtsseite).
 import Base from '../../../layouts/Base.astro';
-import { STELLEN, BEWERBUNG_EMAIL } from '../../../data/stellenanzeigen.js';
+import KitaBewerbungForm from '../../../components/KitaBewerbungForm.astro';
+import { getJobBySlug, PUBLIC_SITE } from '../../../lib/wordpress.js';
 
-export async function getStaticPaths() {
-  return STELLEN.map((job) => ({ params: { slug: job.slug }, props: { job } }));
+export const prerender = false;
+
+const { slug } = Astro.params;
+const job = slug ? await getJobBySlug(slug) : null;
+
+if (!job) {
+  return Astro.redirect('/kitas/stellenboerse/', 302);
 }
 
-const { job } = Astro.props;
-const pageTitle = `${job.title} – ${job.kita} | Sankt Bonifatius Frankfurt`;
-const description = `${job.title} bei der ${job.kita} in Frankfurt-Sachsenhausen. ${job.pills.join(' · ')}. Jetzt bewerben.`;
+const meta = [...job.employment, job.location].filter(Boolean);
+const description = `${job.title}. ${meta.join(' · ')}. Jetzt bewerben.`;
+
+const ICON_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>';
+const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+
+// JobPosting-Schema (Google for Jobs). description bewusst als HTML (Google erlaubt/erwartet
+// eine vollständige Beschreibung, kein reiner Kurztext) — Beschreibung + Anforderungen + Benefits
+// zusammengefasst, jeweils nur wenn im WP-Inserat gefüllt.
+const jobDescriptionHtml = [job.description, job.qualifications, job.benefits].filter(Boolean).join('\n');
+const jobPostingLd = {
+  '@context': 'https://schema.org',
+  '@type': 'JobPosting',
+  title: job.title,
+  description: jobDescriptionHtml || description,
+  identifier: { '@type': 'PropertyValue', name: 'Sankt Bonifatius Frankfurt', value: String(job.id) },
+  datePosted: job.datePosted || undefined,
+  validThrough: job.validThrough || undefined,
+  employmentType: job.employmentTypeSchema?.length ? job.employmentTypeSchema : undefined,
+  hiringOrganization: {
+    '@type': 'Organization',
+    name: 'Pfarrei Sankt Bonifatius Frankfurt',
+    sameAs: PUBLIC_SITE + '/',
+    logo: PUBLIC_SITE + '/uploads/2025/09/sanktbonifatius-logo.png',
+  },
+  jobLocation: {
+    '@type': 'Place',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: job.location || 'Frankfurt am Main',
+      addressRegion: 'HE',
+      addressCountry: 'DE',
+    },
+  },
+};
 ---
-<Base title={pageTitle} description={description}>
+<Base title={job.title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jobPostingLd)} />
   <div class="astro-stljob-wrap">
     <a class="astro-stljob-back" href="/kitas/stellenboerse/">&#8592; Zur&uuml;ck zur Stellenb&ouml;rse</a>
-    <p class="astro-stljob-eyebrow">{job.kita}</p>
     <h1 class="astro-stljob-title">{job.title}</h1>
-    <div class="astro-stljob-meta">
-      {job.pills.map((p) => <span class="astro-stljob-pill">{p}</span>)}
-    </div>
-
-    {job.sections.map((s) => (
-      <div class="astro-stljob-section">
-        <h2>{s.h2}</h2>
-        {s.items
-          ? <ul>{s.items.map((it) => <li>{it}</li>)}</ul>
-          : s.paras.map((p) => <p>{p}</p>)}
+    {meta.length > 0 && (
+      <div class="astro-stljob-meta">
+        {job.employment.map((m) => (
+          <span class="astro-stljob-pill"><span aria-hidden="true" set:html={ICON_CLOCK} />{m}</span>
+        ))}
+        {job.location && (
+          <span class="astro-stljob-pill"><span aria-hidden="true" set:html={ICON_PIN} />{job.location}</span>
+        )}
       </div>
-    ))}
+    )}
 
-    <div class="astro-stljob-section">
-      <h2>Bewerbung</h2>
-      <p><strong>Haben wir Ihr Interesse geweckt?</strong><br>Dann freuen wir uns, wenn Sie Teil unseres sympathischen Teams werden wollen!</p>
-      <p><strong>Bitte senden Sie Ihre Bewerbung an <a href={`mailto:${BEWERBUNG_EMAIL}`}>{BEWERBUNG_EMAIL}</a>.</strong></p>
-      {job.contact && (
-        <p>
-          F&uuml;r R&uuml;ckfragen steht Ihnen {job.contact.name} ({job.contact.role}) gerne zur Verf&uuml;gung:<br>
-          Tel: <a href={`tel:${job.contact.telHref}`}>{job.contact.tel}</a>
-          {job.contact.email && <> &middot; E-Mail: <a href={`mailto:${job.contact.email}`}>{job.contact.email}</a></>}
-        </p>
-      )}
-      {job.hinweis && <p>{job.hinweis}</p>}
-    </div>
+    {job.description && (
+      <div class="astro-stljob-section">
+        <h2>&Uuml;ber die Stelle</h2>
+        <div set:html={job.description} />
+      </div>
+    )}
+    {job.responsibilities && (
+      <div class="astro-stljob-section">
+        <h2>Ihre Aufgaben</h2>
+        <div set:html={job.responsibilities} />
+      </div>
+    )}
+    {job.qualifications && (
+      <div class="astro-stljob-section">
+        <h2>Das bringen Sie mit</h2>
+        <div set:html={job.qualifications} />
+      </div>
+    )}
+    {job.benefits && (
+      <div class="astro-stljob-section">
+        <h2>Wir bieten</h2>
+        <div set:html={job.benefits} />
+      </div>
+    )}
+    {job.contacts && (
+      <div class="astro-stljob-section">
+        <h2>Kontakt</h2>
+        <div set:html={job.contacts} />
+      </div>
+    )}
 
     <div class="astro-stljob-cta">
       <p>Interesse geweckt? Wir freuen uns auf Ihre Bewerbung.</p>
-      <a class="astro-stljob-cta__btn" href={`mailto:${BEWERBUNG_EMAIL}`}>{BEWERBUNG_EMAIL} &#8594;</a>
+      <a class="astro-stljob-cta__btn" href="#bewerben">Jetzt bewerben &#8594;</a>
     </div>
   </div>
+
+  <KitaBewerbungForm jobTitle={job.title} jobSlug={job.slug} />
 </Base>
 
 <style is:global>
+/* --bf-*-Tokens: diese Seite bindet keine Kxx-Hero-Komponente ein (einzige Quelle der
+   Tokens sonst), deshalb hier redundant deklariert — sonst bleiben var(--bf-*) unten
+   unaufgelöst (transparent/vererbte Farbe). Werte wie in KitaStellenHero.astro. */
+:root {
+  --bf-bg: #f7f3ef;
+  --bf-bg-alt: #ede4d5;
+  --bf-ink: #1e1512;
+  --bf-ink-60: #6b5c52;
+  --bf-accent: #9a2d2d;
+  --bf-gold: #b88a3a;
+  --bf-border: #e0d8cf;
+  --bf-radius: 14px;
+}
 .astro-stljob-wrap { max-width: 860px; margin: 0 auto; padding: 56px 24px 80px; }
 .astro-stljob-back { display: inline-flex; align-items: center; gap: 6px; color: var(--bf-accent); font-size: 13px; text-decoration: none; font-weight: 600; letter-spacing: .03em; margin-bottom: 40px; }
 .astro-stljob-back:hover { text-decoration: underline; }
-.astro-stljob-eyebrow { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 13px; color: var(--bf-accent); letter-spacing: .06em; text-transform: uppercase; margin: 0 0 10px; }
 .astro-stljob-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(28px, 4vw, 46px); color: var(--bf-ink); line-height: 1.15; margin: 0 0 20px; }
 .astro-stljob-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--bf-border); }
 .astro-stljob-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--bf-bg); border: 1px solid var(--bf-border); border-radius: 50px; padding: 6px 14px; font-size: 13px; color: #4a3828; font-weight: 500; }
@@ -68,10 +136,10 @@ const description = `${job.title} bei der ${job.kita} in Frankfurt-Sachsenhausen
 .astro-stljob-section ul { padding-left: 20px; margin: 0; }
 .astro-stljob-section li { margin-bottom: 6px; }
 .astro-stljob-section a { color: var(--bf-accent); font-weight: 600; }
-.astro-stljob-cta { background: linear-gradient(135deg, #4a2e1a, #3a2315); border-radius: 16px; padding: 36px 40px; margin-top: 48px; text-align: center; }
-.astro-stljob-cta p { color: rgba(255,255,255,.85); font-size: 15px; margin: 0 0 20px; line-height: 1.6; }
-.astro-stljob-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--bf-gold); color: #1a120e; text-decoration: none; padding: 13px 32px; border-radius: 50px; font-size: 14px; font-weight: 700; }
-.astro-stljob-cta__btn:hover { background: var(--bf-accent); color: #fff; }
+.astro-stljob-cta { background: var(--bf-bg); border: 1px solid var(--bf-border); border-radius: 16px; padding: 36px 40px; margin-top: 48px; text-align: center; }
+.astro-stljob-cta p { color: var(--bf-ink); font-size: 15px; margin: 0 0 20px; line-height: 1.6; }
+.astro-stljob-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--bf-accent); color: #fff; text-decoration: none; padding: 13px 32px; border-radius: 50px; font-size: 14px; font-weight: 700; }
+.astro-stljob-cta__btn:hover { background: #7e2424; }
 @media (max-width: 600px) {
   .astro-stljob-wrap { padding: 40px 20px 60px; }
   .astro-stljob-cta { padding: 28px 20px; }

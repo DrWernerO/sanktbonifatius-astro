@@ -20,6 +20,9 @@ pnpm-debug.log*
 # Taufe-Anmeldungen, die im Testmodus (ohne SMTP) lokal gespeichert werden
 .taufe-eingaben/
 
+# Kita-Bewerbungen, die im Testmodus (ohne SMTP) lokal gespeichert werden
+.bewerbung-eingaben/
+
 # macOS-specific files
 .DS_Store
 
