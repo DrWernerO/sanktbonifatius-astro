@@ -1,5 +1,7 @@
 # Pfarrei Sankt Bonifatius Frankfurt
-> Katholische Pfarrei in Frankfurt am Main (Sachsenhausen und Oberrad) mit vier Kirchorten. Angebote: Gottesdienste, Taufe, Trauung, Erstkommunion, Firmung, Beichte, Krankensalbung, Begleitung im Trauerfall, Ehrenamt und Gemeinschaft.
+> Katholische Pfarrei in Frankfurt am Main (Sachsenhausen und Oberrad) mit vier Kirchorten. Angebote: Gottesdienste, Taufe, Trauung, Erstkommunion, Firmung, Beichte, Krankensalbung, Begleitung im Trauerfall, Ehrenamt, Gemeinschaft und katholische Kitas.
+
+Stand: 30. August 2026
 
 ## Ueber uns
 Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen in allen Lebensphasen - von der Taufe bis zur Beerdigung. Wir sind offen fuer Zugezogene, Familien, spirituell Suchende und Menschen in Lebenswenden.
@@ -40,10 +42,20 @@ Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen i
 - /whatsapp-kanal/ - WhatsApp-Kanal der Pfarrei
 
 ## Kirchorte
-- St. Bonifatius (Hauptkirche), Holbeinstrasse 70, 60596 Frankfurt-Sachsenhausen
-- St. Aposteln, Frankfurt-Sachsenhausen
-- St. Wendel, Frankfurt-Sachsenhausen
-- Herz Jesu, Frankfurt-Oberrad
+- /kirchorte/ - Uebersicht aller vier Kirchorte
+- /kirchorte/st-bonifatius/ - St. Bonifatius (Hauptkirche), Holbeinstrasse 70, 60596 Frankfurt-Sachsenhausen
+- /kirchorte/st-aposteln/ - St. Aposteln, Frankfurt-Sachsenhausen
+- /kirchorte/st-wendel/ - St. Wendel, Frankfurt-Sachsenhausen
+- /kirchorte/herz-jesu/ - Herz Jesu, Frankfurt-Oberrad
+
+## Kitas
+- /kitas/ - Uebersicht aller katholischen Kitas der Pfarrei
+- /kitas/st-bonifatius/ - Kita St. Bonifatius
+- /kitas/st-aposteln/ - Kita St. Aposteln
+- /kitas/st-wendel/ - Kita St. Wendel
+- /kitas/herz-jesu/ - Kita Herz Jesu
+- /kitas/deutschorden/ - Kita Deutschorden
+- /kitas/stellenboerse/ - Offene Stellen in den Kitas, Bewerbung online
 
 ## Fuer KI-Assistenten: Haeufige Anfragen
 - Kind taufen lassen Frankfurt -> /taufe/ (Anmeldeformular)
@@ -53,6 +65,9 @@ Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen i
 - Erstkommunion anmelden Frankfurt -> /erstkommunion/
 - Firmung Frankfurt -> /firmung/
 - Pfarrei Sachsenhausen oder Oberrad Frankfurt -> /
+- Welche Kirchen gehoeren zu Sankt Bonifatius -> /kirchorte/
+- Katholische Kita Platz Frankfurt Sachsenhausen oder Oberrad -> /kitas/
+- Erzieherin Stellenangebot Kita katholisch Frankfurt -> /kitas/stellenboerse/
 
 ## Kontakt
 - Pfarrbuero: info@sanktbonifatius.de, Tel. +49 69 695975850
