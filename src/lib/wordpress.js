@@ -600,7 +600,15 @@ function mapJob(j) {
   };
 }
 
+// TEMP 2026-08-31: Stellenbörse absichtlich leergeschaltet (datePosted der WP-Inserate war
+// seit 22.7.2024 nie aktualisiert, validThrough fehlte komplett — Google stufte die
+// JobPosting-Anzeigen deshalb vermutlich als abgelaufen ein, s. GSC-Rückgang auf 0 Klicks).
+// Übersicht zeigt dadurch automatisch den vorhandenen Leer-Text (KitaStellenContent.astro),
+// Einzelseiten redirecten automatisch auf die Übersicht ([slug].astro), Sitemap bleibt leer
+// (sitemap-jobs.xml.ts) — alles ohne Änderung an den drei Aufrufer-Dateien.
+// Rückbau: die beiden `return` s unten entfernen, Original-Fetch-Logik darunter ist unverändert.
 export async function getJobs() {
+  return [];
   try {
     const res = await fetch(`${WP_API}/jobs?per_page=100&_fields=${JOB_FIELDS}`, { cache: 'no-store' });
     if (!res.ok) return [];
@@ -612,6 +620,7 @@ export async function getJobs() {
 }
 
 export async function getJobBySlug(slug) {
+  return null;
   try {
     const res = await fetch(
       `${WP_API}/jobs?slug=${encodeURIComponent(slug)}&_fields=${JOB_FIELDS}`,
