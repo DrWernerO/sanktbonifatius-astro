@@ -2,6 +2,9 @@
 // Hero der Kita St. Bonifatius — WP-Seite 48346 (draft)
 // Eigene Klassen `astro-kb-*` (nie kapos-* aus WP wiederverwenden).
 // Gradient laut Feedback aufgehellt. Kein "Platz anfragen" Button.
+// showAktuelles: Quicknav-Punkt „Aktuelles" nur zeigen, wenn die WP-Seite
+// `kita-st-bonifatius-aktuelles` veröffentlicht ist (siehe KboAktuelles.astro).
+const { showAktuelles = false } = Astro.props;
 ---
 <div class="astro-kb-root">
   <section class="astro-kb-hero">
@@ -48,6 +51,7 @@
   <!-- Quicknav -->
   <nav class="astro-kb-quicknav" aria-label="Schnellzugriff">
     <div class="astro-kb-quicknav__in">
+      {showAktuelles && <a href="#astro-kb-aktuell">Aktuelles</a>}
       <a href="#astro-kb-welcome">Willkommen</a>
       <a href="#astro-kb-tagesablauf">Tagesablauf</a>
       <a href="#astro-kb-zeiten">&Ouml;ffnungszeiten</a>
@@ -106,7 +110,9 @@
   font-weight: 700;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--bf-gold);
+  /* Feedback Frank 27.08.: Gold war auf dem Foto schwer lesbar */
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 1px 4px rgba(0,0,0,.45);
   margin: 0 0 14px;
 }
 .astro-kb-hero__h1 {

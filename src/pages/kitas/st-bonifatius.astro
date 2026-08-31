@@ -4,16 +4,26 @@
 import Base from '../../layouts/Base.astro';
 import KboHero from '../../components/KboHero.astro';
 import KboStrip from '../../components/KboStrip.astro';
+import KboAktuelles from '../../components/KboAktuelles.astro';
 import KboContent from '../../components/KboContent.astro';
 import KboKontakt from '../../components/KboKontakt.astro';
 import { SEO_STATIC } from '../../lib/seo-static.js';
+import { getPage } from '../../lib/wordpress.js';
+
+// „Aktuelles"-Toggle: WP-Seite `kita-st-bonifatius-aktuelles` auf „Veröffentlicht"
+// → Sektion + Quicknav-Punkt erscheinen; auf „Entwurf" → beides weg (siehe KboAktuelles).
+let aktuelles = null;
+try {
+  aktuelles = await getPage('kita-st-bonifatius-aktuelles');
+} catch { /* WP nicht erreichbar → Sektion einfach ausblenden, Build läuft weiter */ }
 ---
 <Base
   seo={SEO_STATIC['/kitas/st-bonifatius/']}
   title="Kita St. Bonifatius Frankfurt – Katholische Kindertagesstätte in Sachsenhausen"
   description="Die Kita St. Bonifatius in Frankfurt-Sachsenhausen: 100 Kinder, Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Mo–Fr 7:30–17:00 Uhr. Anmeldung über Kindernet Frankfurt."
 >
-  <KboHero />
+  <KboHero showAktuelles={Boolean(aktuelles)} />
+  <KboAktuelles page={aktuelles} />
   <KboStrip />
   <KboContent />
   <KboKontakt />

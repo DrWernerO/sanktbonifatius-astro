@@ -1,0 +1,124 @@
+---
+// Downloads-Unterseite der Kita St. Bonifatius (Wunsch Frank Neumann, 27.08.2026):
+// schlichte Liste aller Eltern-Dokumente. Neue PDFs unten in DOKUMENTE ergänzen —
+// Dateien liegen lokal unter public/uploads/ oder (Alt-Bestand) auf cms.sanktbonifatius.de.
+import Base from '../../../layouts/Base.astro';
+
+const DOKUMENTE = [
+  {
+    titel: 'Schlie&szlig;tage 2026',
+    hinweis: 'Alle Schlie&szlig;- und Br&uuml;ckentage im &Uuml;berblick.',
+    url: 'https://cms.sanktbonifatius.de/wp-content/uploads/2025/10/2026-Kita-St-Bonifatius-Schliesstage.pdf',
+  },
+];
+---
+<Base
+  title="Downloads – Kita St. Bonifatius Frankfurt"
+  description="Nützliche Dokumente der Kita St. Bonifatius in Frankfurt-Sachsenhausen zum Herunterladen: Schließtage, Konzeption und weitere Unterlagen für Eltern."
+>
+  <div class="astro-kbdl-wrap">
+    <p class="astro-kbdl-eyebrow">Kita St. Bonifatius</p>
+    <h1 class="astro-kbdl-h1">N&uuml;tzliche Dokumente</h1>
+    <p class="astro-kbdl-lead">Hier finden Sie alle Unterlagen der Kita St. Bonifatius zum Herunterladen. Die Liste w&auml;chst nach und nach &ndash; schauen Sie gerne wieder vorbei.</p>
+
+    <ul class="astro-kbdl-list">
+      {DOKUMENTE.map((d) => (
+        <li class="astro-kbdl-item">
+          <a href={d.url} target="_blank" rel="noopener" class="astro-kbdl-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span set:html={d.titel} />
+          </a>
+          <span class="astro-kbdl-hint" set:html={d.hinweis} />
+        </li>
+      ))}
+      <li class="astro-kbdl-item astro-kbdl-item--soon">
+        <span class="astro-kbdl-soon-titel">Unsere Konzeption</span>
+        <span class="astro-kbdl-hint">Wird derzeit &uuml;berarbeitet und folgt in K&uuml;rze.</span>
+      </li>
+    </ul>
+
+    <a href="/kitas/st-bonifatius/" class="astro-kbdl-back">&#8592; Zur&uuml;ck zur Kita St. Bonifatius</a>
+  </div>
+</Base>
+
+<style is:global>
+.astro-kbdl-wrap {
+  --bf-bg: #f7f3ef;
+  --bf-ink: #1e1512;
+  --bf-ink-60: #6b5c52;
+  --bf-accent: #9a2d2d;
+  --bf-border: #e0d8cf;
+  --bf-radius: 14px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+.astro-kbdl-eyebrow {
+  font-family: 'Futura LT W01 Book', Futura, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--bf-accent);
+  margin: 0 0 12px;
+}
+.astro-kbdl-h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: var(--bf-ink);
+  margin: 0 0 16px;
+}
+.astro-kbdl-lead {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--bf-ink-60);
+  margin: 0 0 36px;
+}
+.astro-kbdl-list {
+  list-style: none;
+  margin: 0 0 40px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.astro-kbdl-item {
+  background: var(--bf-bg);
+  border: 1px solid var(--bf-border);
+  border-radius: var(--bf-radius);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.astro-kbdl-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 16.5px;
+  color: var(--bf-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.astro-kbdl-link:hover { color: #7a2424; }
+.astro-kbdl-hint {
+  font-size: 14px;
+  color: var(--bf-ink-60);
+  line-height: 1.5;
+}
+.astro-kbdl-item--soon { opacity: .75; }
+.astro-kbdl-soon-titel {
+  font-weight: 700;
+  font-size: 16.5px;
+  color: var(--bf-ink);
+}
+.astro-kbdl-back {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--bf-ink-60);
+  text-decoration: none;
+}
+.astro-kbdl-back:hover { color: var(--bf-accent); }
+</style>

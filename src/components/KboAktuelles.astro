@@ -1,0 +1,53 @@
+---
+// „Aktuelles" der Kita St. Bonifatius — von der Kita SELBST schaltbar (Wunsch Frank
+// Neumann, Telefonat 27.08.2026). Inhalt kommt aus der WP-Seite mit Slug
+// `kita-st-bonifatius-aktuelles`:
+//   - WP-Seite auf „Veröffentlicht" → Sektion und Quicknav-Punkt erscheinen
+//   - WP-Seite auf „Entwurf" zurückstellen → beides verschwindet
+// Veröffentlichen/Zurückstellen einer SEITE löst den Netlify-Rebuild-Webhook aus
+// (Handbuch 1c), die Änderung ist also ohne weiteres Zutun nach wenigen Minuten live.
+// Die Seite wird in st-bonifatius.astro geladen und hierher durchgereicht.
+const { page } = Astro.props;
+---
+{page && (
+  <section class="astro-kb-aktuell astro-kb-sec" id="astro-kb-aktuell">
+    <div class="astro-kb-aktuell__in">
+      <p class="astro-kb-eyebrow">Aktuelles aus der Kita</p>
+      <div class="astro-kb-aktuell__content" set:html={page.content.rendered} />
+    </div>
+  </section>
+)}
+
+<style is:global>
+.astro-kb-aktuell {
+  background: rgba(184,138,58,.08);
+  border-top: 3px solid var(--bf-gold);
+  border-bottom: 1px solid var(--bf-border);
+  padding: 40px 24px;
+}
+.astro-kb-aktuell__in {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.astro-kb-aktuell__content {
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: var(--bf-ink);
+}
+.astro-kb-aktuell__content h1,
+.astro-kb-aktuell__content h2,
+.astro-kb-aktuell__content h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--bf-ink);
+  margin: 0 0 12px;
+  font-size: clamp(20px, 2.5vw, 26px);
+}
+.astro-kb-aktuell__content p { margin: 0 0 12px; }
+.astro-kb-aktuell__content p:last-child { margin-bottom: 0; }
+.astro-kb-aktuell__content a {
+  color: var(--bf-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+</style>
