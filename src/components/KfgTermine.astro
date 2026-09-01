@@ -1,23 +1,27 @@
 ---
 // Termine „Familiengottesdienste" — Präfix `astro-kfgtermine`.
-// Feste Termine — bei Änderungen hier direkt anpassen.
+// Dynamisch aus der Termindatenbank: clientseitig per Fetch über den WP-Proxy geholt
+// (gleiches Muster wie EventCalendar.astro, Handbuch Abschnitt 7) — bleibt dadurch immer
+// aktuell, ohne dass ein Rebuild nötig ist (Termine lösen laut Handbuch 1c keinen Rebuild
+// aus). Gefiltert auf event-category „BonFamily" (2586) und nach Titel-Stichwort in die
+// drei Formate gruppiert (Bilderbuch-/Kreativ-/Familiengottesdienst).
 const cols = [
   {
+    match: 'bilderbuch',
     title: 'Bilderbuchgottesdienste',
     time: '11:00 Uhr · in der Bücherei',
-    dates: ['So., 05.04.2026', 'So., 03.05.2026', 'So., 07.06.2026'],
     note: 'Nur an Sonntagen außerhalb der Ferien. Änderungen möglich — aktuelle Infos im Pfarrbrief oder auf ChurchDesk.',
   },
   {
+    match: 'kreativ',
     title: 'Kreativgottesdienste',
     time: '11:00 Uhr · im Pfarrsaal / Krypta',
-    dates: ['So., 12.04.2026', 'So., 10.05.2026', 'So., 14.06.2026'],
     note: 'Der genaue Raum (Großer Pfarrsaal oder Krypta) wird kurzfristig bekanntgegeben.',
   },
   {
+    match: 'familien',
     title: 'Familiengottesdienste',
     time: '11:00 Uhr · St. Bonifatius & St. Wendel',
-    dates: ['So., 15.03.2026', 'So., 17.05.2026', 'So., 21.06.2026'],
     note: 'Im Anschluss gemeinsames Kirchcafé oder Familienbrunch — alle willkommen.',
   },
 ];
@@ -26,19 +30,14 @@ const cols = [
   <div class="astro-kfgtermine__inner">
     <h2 class="astro-kfgtermine__title">Aktuelle Termine</h2>
     <div class="astro-kfgtermine__grid">
-      {cols.map(col => (
+      {cols.map((col, i) => (
         <div class="astro-kfgtermine__col">
           <div class="astro-kfgtermine__col-head">
             <h3 class="astro-kfgtermine__col-title">{col.title}</h3>
             <p class="astro-kfgtermine__col-time">{col.time}</p>
           </div>
-          <ul class="astro-kfgtermine__list">
-            {col.dates.map(d => (
-              <li class="astro-kfgtermine__item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                {d}
-              </li>
-            ))}
+          <ul class="astro-kfgtermine__list" id={`astro-kfgtermine-list-${i}`} data-match={col.match}>
+            <li class="astro-kfgtermine__item astro-kfgtermine__item--loading">Termine werden geladen …</li>
           </ul>
           <p class="astro-kfgtermine__note">{col.note}</p>
         </div>
@@ -59,7 +58,83 @@ const cols = [
 .astro-kfgtermine__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;flex:1}
 .astro-kfgtermine__item{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;color:#3d2b1a}
 .astro-kfgtermine__item svg{flex-shrink:0;color:#9a2d2d}
+.astro-kfgtermine__item--loading,.astro-kfgtermine__item--empty{color:#928269;font-style:italic;font-weight:400}
 .astro-kfgtermine__note{font-size:13px;color:#928269;line-height:1.5;font-style:italic;margin:0;border-top:1px solid #e8e0d8;padding-top:14px}
 @media(max-width:860px){.astro-kfgtermine__grid{grid-template-columns:1fr}}
 @media(max-width:600px){.astro-kfgtermine__inner{padding:0 20px}.astro-kfgtermine{padding:52px 0}}
 </style>
+
+<script>
+(function() {
+  // Proxy-Pfad — kein SSL-Problem im Browser (gleiches Muster wie EventCalendar.astro)
+  const WP = '/wp-proxy/wp-json/wp/v2';
+  const CATEGORY_BONFAMILY = 2586;
+  const DAYS = ['So','Mo','Di','Mi','Do','Fr','Sa'];
+  const MATCHERS = {
+    bilderbuch: /bilderbuch/i,
+    kreativ: /kreativ/i,
+    familien: /familiengottesdienst/i,
+  };
+  const CAL_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+
+  function parseDate(str) {
+    return new Date(str.slice(0,4)+'-'+str.slice(4,6)+'-'+str.slice(6,8));
+  }
+  function fmtDate(str) {
+    const d = parseDate(str);
+    const dd = String(d.getDate()).padStart(2,'0');
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    return DAYS[d.getDay()]+'., '+dd+'.'+mm+'.'+d.getFullYear();
+  }
+
+  // WP liefert max. 100 Termine pro Seite — paginiert vorsichtshalber wie EventCalendar/
+  // getMeetnFritesTermine, auch wenn die Kategorie „BonFamily" aktuell weit darunter liegt.
+  async function fetchEvents() {
+    let all = [];
+    for (let page = 1; page <= 5; page++) {
+      const res = await fetch(WP+'/event?event-category='+CATEGORY_BONFAMILY+'&per_page=100&page='+page+'&_fields=id,title,link,event_meta');
+      if (!res.ok) break;
+      const batch = await res.json();
+      all = all.concat(batch);
+      if (batch.length < 100) break;
+    }
+    return all;
+  }
+
+  function renderList(el, events, showLocation) {
+    if (!events.length) {
+      el.innerHTML = '<li class="astro-kfgtermine__item astro-kfgtermine__item--empty">Termine folgen in Kürze.</li>';
+      return;
+    }
+    el.innerHTML = events.map(function(e) {
+      const m = e.event_meta || {};
+      const loc = showLocation && m.location ? ' · '+m.location : '';
+      return '<li class="astro-kfgtermine__item">'+CAL_ICON+fmtDate(m.start_date)+loc+'</li>';
+    }).join('');
+  }
+
+  async function init() {
+    const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
+    const lists = document.querySelectorAll('.astro-kfgtermine__list');
+    try {
+      const all = await fetchEvents();
+      const upcoming = all
+        .filter(function(e){ return e.event_meta && e.event_meta.start_date >= today; })
+        .sort(function(a,b){ return a.event_meta.start_date.localeCompare(b.event_meta.start_date); });
+
+      lists.forEach(function(listEl) {
+        const re = MATCHERS[listEl.dataset.match];
+        const items = re ? upcoming.filter(function(e){ return re.test(e.title.rendered); }).slice(0,3) : [];
+        renderList(listEl, items, listEl.dataset.match === 'familien');
+      });
+    } catch(e) {
+      console.warn('Termine (Familiengottesdienste) konnten nicht geladen werden:', e);
+      lists.forEach(function(listEl) {
+        listEl.innerHTML = '<li class="astro-kfgtermine__item astro-kfgtermine__item--empty">Aktuelle Termine finden Sie im Terminkalender.</li>';
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
