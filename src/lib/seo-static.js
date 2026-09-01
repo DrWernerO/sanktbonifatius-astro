@@ -73,17 +73,17 @@ export const SEO_STATIC = {
 }
 </script>`,
   "/kitas/deutschorden/": `<title>Kita Deutschorden Frankfurt-Sachsenhausen</title>
-<meta name="description" content="Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Gemeindeverband Sankt Bonifatius. Kontakt &amp; Öffnungszeiten.">
+<meta name="description" content="Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Pfarrei Sankt Bonifatius. Kontakt &amp; Öffnungszeiten.">
 <meta property="og:site_name" content="Sankt Bonifatius">
 <meta property="og:locale" content="de_DE">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kita Deutschorden Frankfurt-Sachsenhausen">
-<meta property="og:description" content="Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Gemeindeverband Sankt Bonifatius. Kontakt &amp; Öffnungszeiten.">
+<meta property="og:description" content="Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Pfarrei Sankt Bonifatius. Kontakt &amp; Öffnungszeiten.">
 <meta property="og:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
 <meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kita Deutschorden Frankfurt-Sachsenhausen">
-<meta name="twitter:description" content="Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Gemeindeverband Sankt Bonifatius. Kontakt &amp; Öffnungszeiten.">
+<meta name="twitter:description" content="Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Pfarrei Sankt Bonifatius. Kontakt &amp; Öffnungszeiten.">
 <meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
 <script type="application/ld+json">
 {
@@ -94,7 +94,7 @@ export const SEO_STATIC = {
       "@id": "https://sanktbonifatius.de/kitas/deutschorden/",
       "url": "https://sanktbonifatius.de/kitas/deutschorden/",
       "name": "Kita Deutschorden Frankfurt-Sachsenhausen",
-      "description": "Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Gemeindeverband Sankt Bonifatius.",
+      "description": "Katholische Kita Deutschorden in Frankfurt-Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren, Träger Pfarrei Sankt Bonifatius.",
       "inLanguage": "de-DE",
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -137,17 +137,17 @@ export const SEO_STATIC = {
 }
 </script>`,
   "/kitas/herz-jesu/": `<title>Kita Herz Jesu Frankfurt – Katholische Kita</title>
-<meta name="description" content="Katholische Kita Herz Jesu im südlichen Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
+<meta name="description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
 <meta property="og:site_name" content="Sankt Bonifatius">
 <meta property="og:locale" content="de_DE">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kita Herz Jesu Frankfurt – Katholische Kita">
-<meta property="og:description" content="Katholische Kita Herz Jesu im südlichen Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
+<meta property="og:description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
 <meta property="og:image" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
 <meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kita Herz Jesu Frankfurt – Katholische Kita">
-<meta name="twitter:description" content="Katholische Kita Herz Jesu im südlichen Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
+<meta name="twitter:description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
 <meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
 <script type="application/ld+json">
 {
@@ -158,7 +158,7 @@ export const SEO_STATIC = {
       "@id": "https://sanktbonifatius.de/kitas/herz-jesu/",
       "url": "https://sanktbonifatius.de/kitas/herz-jesu/",
       "name": "Kita Herz Jesu Frankfurt – Katholische Kita",
-      "description": "Katholische Kita Herz Jesu im südlichen Sachsenhausen: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße.",
+      "description": "Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße.",
       "inLanguage": "de-DE",
       "breadcrumb": {
         "@type": "BreadcrumbList",

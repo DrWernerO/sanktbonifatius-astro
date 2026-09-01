@@ -43,15 +43,22 @@ Diese Print-Farben sind in den Vortrag-PDFs verbaut (siehe 08-vortrag-projekt.md
 
 ## 2. Typografie
 
+**Verbindlich für ALLE Seiten und Komponenten — keine Ausnahme für einzelne Bereiche (z. B. Kitas).**
+
 | Element | Font | Beispielstil |
 |---|---|---|
 | H1/H2 | `'Playfair Display', Georgia, serif` | 700, clamp(32px–72px), letter-spacing: -0.01em |
 | H3 | `'Playfair Display', Georgia, serif` | 700, 20–24 px |
-| Eyebrow (kleines Label) | `Playfair Display italic` | 14–17 px, color: `--bf-accent`, letter-spacing: .02em, UPPERCASE — **nur im Hero** (Standort/Kontext-Zeile über H1), **nie** über Section-H2s |
-| Body | System-Stack (Inter/System) | 15–17 px, line-height 1.6 |
+| Eyebrow (kleines Label über H1 im Hero, oder `-eyebrow`/`-eyebrow-sm`-Klassen) | `'Playfair Display', Georgia, serif` + `font-style: italic` | 11–17 px, color: `--bf-accent`/`--bf-gold`, UPPERCASE, letter-spacing .02–.18em — **nur im Hero** (Standort/Kontext-Zeile über H1), **nie** über Section-H2s |
+| Mikro-Labels (Strip-Beschriftung wie „Alter"/„Ort", Card-Tags, Rollen-Bezeichnung unter einem Namen) | kein eigenes `font-family` — erbt Body-Font | 10–13 px, UPPERCASE, letter-spacing .1–.15em, meist `--bf-ink-60` oder `--bf-accent` |
+| Body/Fließtext | `'Source Sans 3', sans-serif` (selbst gehostet, siehe `public/fonts/fonts.css`) | 15–17 px, line-height 1.6 |
 | Links (in Text) | – | `--bf-accent`, underline on hover |
 
-**Regel:** Playfair Display immer für Überschriften. Eyebrows ausschließlich im Hero erlaubt — niemals als Über-Überschrift über Body-Sections (`<h2>`). Niemals für Fließtext.
+**Regeln:**
+- Playfair Display immer für Überschriften (H1–H3) **und** für Eyebrows (kursiv).
+- Mikro-Labels (kleine Großbuchstaben-Beschriftungen unterhalb von Werten/Karten, keine echten Hero-Eyebrows) bekommen **kein** eigenes `font-family` — sie erben automatisch die Body-Schrift Source Sans 3.
+- Eyebrows ausschließlich im Hero erlaubt — niemals als Über-Überschrift über Body-Sections (`<h2>`). Niemals für Fließtext.
+- **Keine weiteren Schriften** (insbesondere kein `Futura`/`Futura LT W01 Book`) — auch nicht für einzelne Seitenbereiche. Grund: Futura ist im Projekt nicht als Webfont selbst gehostet (kein `@font-face`, keine `.woff2`-Datei); der Name funktioniert nur auf Apple-Geräten (macOS/iOS liefern Futura systemseitig mit), auf Windows/Android fällt der Browser unkontrolliert auf eine zufällige Standard-Sans-Serif zurück. Bis 2026-09-02 hatten alle 13 Kita-Komponenten diesen Fehler — wurde auf Playfair Display italic (Eyebrows) bzw. Source Sans 3 (Mikro-Labels) vereinheitlicht.
 
 ---
 
