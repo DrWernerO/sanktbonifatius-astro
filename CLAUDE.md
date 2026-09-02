@@ -21,10 +21,16 @@
 
 0. ⚠️ **Astro holt sich KEINE Seiteninhalte mehr live aus `cms.sanktbonifatius.de`** — einzige
    erlaubte Ausnahmen: **Termine, News/Pins, Beiträge, Tauftermine, Stelleninserate** (echte,
-   laufend wechselnde Daten). Stelleninserate (`/kitas/stellenboerse/`, CPT `jobs` aus dem
-   WP-Plugin „Jobs for WP") seit 2026-08-28 live via `getJobs()`/`getJobBySlug()` in
-   `src/lib/wordpress.js` (Dateneingabe bleibt in WordPress; das Bewerbungsformular selbst läuft
-   eigenständig über `/api/kita-bewerbung`, siehe Schlüsseldateien unten). Alles andere (SEO-Head
+   laufend wechselnde Daten). Stelleninserate (`/kitas/stellenboerse/`) seit 2026-09-02 als PDF
+   aus dem Mediathek-Ordner „Astro-Upload/Stellenanzeigen" (RML-Ordner-ID 204) live via
+   `getJobPdfs()`/`getJobPdfBySlug()` in `src/lib/wordpress.js` — abgelöst das CPT-Plugin
+   „Jobs for WP" (dessen Formular war für die Kita-Koordinatorinnen nicht mehr praktikabel;
+   kurz zuvor am 2026-08-31 wegen eingefrorenem `datePosted` ohnehin schon leergeschaltet).
+   Titel-Feld der Mediendatei = Stellentitel, Beschriftung/Caption-Feld = Einsatzort (für
+   JobPosting-Schema). `datePosted`/`validThrough` kommen automatisch aus dem WP-Upload-Datum
+   (+90 Tage) — zum Verlängern die Datei einfach neu hochladen. (Dateneingabe bleibt in
+   WordPress; das Bewerbungsformular selbst läuft eigenständig über `/api/kita-bewerbung`, siehe
+   Schlüsseldateien unten). Alles andere (SEO-Head
    aller statischen Seiten, der Rechtstext „Reisebedingungen")
    liegt seit 2026-08-20 fest im Repo (`src/lib/seo-static.js`, `src/lib/content/`). Grund: cms
    ist per `.htaccess` auf dem All-inkl-Server (nicht in diesem Repo) als öffentliches Frontend
@@ -66,8 +72,11 @@
 - **Rebuild-Webhook** (WP-Änderung → Netlify-Build): ✅ läuft (Handbuch 1c), end-to-end getestet.
 - **Taufe-Formular**: versendet live über `formular@mail.sanktbonifatius.de` (All-inkl), SMTP als
   Netlify-Env-Vars (Handbuch 13b).
-- **Pfarrbrief/Datei-Cache** (frische PDF trotz gleichem Namen): ✅ umgesetzt via `withVersion()` in
-  `Nav.astro` (Handbuch 1d).
+- **Pfarrbrief/Highlights auf der Hauptdomain**: ✅ umgesetzt (2026-09-02) — stabile Adressen
+  `/downloads/pfarrbrief.pdf` + `/downloads/highlights.pdf` (`src/pages/downloads/*.pdf.ts`,
+  holen die jeweils neueste WP-Datei bei jedem Rebuild), kein `?v=`-Cache-Buster mehr, alte
+  indizierte `wp-content/uploads/…`-Adressen leiten per 301 dorthin (Handbuch 1d). `noindex`
+  auf `cms.sanktbonifatius.de` erst NACH erneutem Google-Crawl der neuen Adressen setzen.
 
 ## Start
 ```bash
@@ -89,6 +98,9 @@ npm run dev   # läuft mit NODE_TLS_REJECT_UNAUTHORIZED=0 auf Port 4321
 - `src/pages/segen-sakramente/taufe.astro` — Taufe-Seite (Page-ID 46566), 100 % eigene `Taufe*`-Komponenten; Anmeldeformular postet an eigene Route `/api/taufe-anmeldung` (Handbuch 13/13b)
 - `src/pages/api/taufe-anmeldung.ts` — API-Route: füllt das amtliche Taufe-PDF + verschickt es als Mail-Anhang (`prerender = false`)
 - `src/lib/taufe/` — `fill-taufe.js` (Formulardaten → PDF) + `taufe-vorlage.pdf` (ausfüllbare Vorlage); Generator: `scripts/build-taufe-vorlage.mjs`
-- `src/pages/kitas/stellenboerse.astro` + `.../stellenboerse/[slug].astro` — Kita-Stellenbörse, Stellen live aus WP (`getJobs()`/`getJobBySlug()`, s. Regel 0); Bewerbungsformular (`KitaBewerbungForm.astro`) postet an eigene Route `/api/kita-bewerbung`
+- `src/pages/kitas/stellenboerse.astro` + `.../stellenboerse/[slug].astro` — Kita-Stellenbörse, Anzeigen als PDF live aus WP-Mediathek (`getJobPdfs()`/`getJobPdfBySlug()`, s. Regel 0); Detailseite bettet das PDF per `<iframe>` ein; Bewerbungsformular (`KitaBewerbungForm.astro`) postet an eigene Route `/api/kita-bewerbung`
 - `src/pages/api/kita-bewerbung.ts` + `src/lib/bewerbung/build-bewerbung-pdf.js` — erzeugt eine PDF-Zusammenfassung der Bewerbung (kein amtliches Formular wie bei Taufe) + verschickt sie inkl. hochgeladener Dateien (Lebenslauf usw., max. 4 MB/Datei) als Mail-Anhang an `bewerbungen-kita@sanktbonifatius.de` (überschreibbar via `BEWERBUNG_TO`)
 - `astro.config.mjs` — Vite-Proxy `/wp-proxy`; Server-Modus via `@astrojs/netlify` (für `/api/*`)
+- `src/pages/downloads/pfarrbrief.pdf.ts` + `.../highlights.pdf.ts` — stabile Download-Adressen
+  auf der Hauptdomain, holen bei jedem Build die aktuelle Datei aus WP via `getLatestDokument()`
+  in `src/lib/wordpress.js` (Handbuch 1d)
