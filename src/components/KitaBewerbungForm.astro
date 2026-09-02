@@ -1,6 +1,7 @@
 ---
 // Bewerbungsformular auf der Stellenanzeige-Detailseite. Eigene Klassen `astro-bwform`.
-// id="bewerben" für den Sprunglink aus dem "Jetzt bewerben"-CTA in [slug].astro.
+// Direkt unter der PDF-Ausschreibung eingebunden (kein separater "Jetzt bewerben"-Sprung-CTA
+// mehr in [slug].astro — war doppelt zur Formular-Überschrift hier, s. Commit 2026-09-02).
 //
 // ÜBERMITTLUNG: sendet die Felder + ggf. hochgeladene Dateien per FormData an die eigene
 // API-Route `/api/kita-bewerbung` (src/pages/api/kita-bewerbung.ts). Diese erzeugt eine
@@ -55,7 +56,7 @@ const { jobTitle, jobSlug } = Astro.props;
 .astro-bwform{background:#f7f3ef;padding:64px 0}
 .astro-bwform__inner{max-width:720px;margin:0 auto;padding:0 24px}
 .astro-bwform__head{text-align:center;margin:0 0 28px}
-.astro-bwform__hl{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,34px);font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-bwform__hl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,40px);font-weight:700;color:#9a2d2d;margin:0 0 10px}
 .astro-bwform__sub{font-size:15px;color:#6b5c52;margin:0}
 .astro-bwform__form{background:#fff;border-radius:14px;box-shadow:0 2px 16px rgba(30,21,18,.07);padding:30px 28px 34px;display:flex;flex-direction:column;gap:18px}
 .astro-bwform__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 18px}
