@@ -24,7 +24,7 @@ const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
               <h3 class="astro-stl-card__title">{job.title}</h3>
               <p class="astro-stl-card__type">
                 {job.location && <span class="astro-stl-card__type-pin" aria-hidden="true" set:html={ICON_PIN} />}
-                {[...job.employment, job.location].filter(Boolean).join(' · ')}
+                {[...(job.employment ?? []), job.location].filter(Boolean).join(' · ')}
               </p>
             </div>
             <span class="astro-stl-card__arrow" aria-hidden="true">Details ansehen &#8594;</span>
