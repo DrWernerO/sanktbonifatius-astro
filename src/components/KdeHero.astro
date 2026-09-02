@@ -6,12 +6,13 @@
   <!-- HERO -->
   <section class="astro-kde-hero">
     <div class="astro-kde-hero__in">
-      <p class="astro-kde-eyebrow">Kita Deutschorden &middot; Frankfurt-Sachsenhausen</p>
-      <h1 class="astro-kde-hero__h1">Gemeinschaft, die tr&auml;gt.</h1>
+      <p class="astro-kde-eyebrow">Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-kde-hero__h1">Kita Deutschorden</h1>
+      <p class="astro-kde-hero__motto">Gemeinschaft, die tr&auml;gt.</p>
       <p class="astro-kde-hero__lead">Katholische Kita f&uuml;r Kinder von 3 bis 6 Jahren im historischen Sachsenhausen, in Tr&auml;gerschaft der Pfarrei Sankt Bonifatius.</p>
       <div class="astro-kde-hero__ctas">
         <a href="#astro-kde-kontakt" class="astro-kde-btn astro-kde-btn--ghost">Kontakt aufnehmen</a>
-        <a href="/kitas/stellenboerse/" class="astro-kde-btn astro-kde-btn--ghost">Stellenb&ouml;rse</a>
+        <a href="/kitas/stellenboerse/" class="astro-kde-btn astro-kde-btn--gold">Stellenb&ouml;rse</a>
       </div>
     </div>
   </section>
@@ -55,8 +56,7 @@
 <section class="astro-kde-coming astro-kde-sec">
   <div class="astro-kde-coming__in">
     <div class="astro-kde-coming__card">
-      <p class="astro-kde-eyebrow-sm">Webauftritt im Aufbau</p>
-      <h2 class="astro-kde-coming__h2">Mehr Informationen folgen in K&uuml;rze</h2>
+      <h2 class="astro-kde-coming__h2">Webauftritt im Aufbau &ndash; mehr folgt in K&uuml;rze</h2>
       <p>Wir bereiten gerade den Webauftritt der Kita Deutschorden vor. Informationen &uuml;ber unser p&auml;dagogisches Konzept, den Tagesablauf und das Anmeldeverfahren folgen in K&uuml;rze. Bis dahin erreichen Sie uns jederzeit direkt.</p>
       <a href="#astro-kde-kontakt" class="astro-kde-btn astro-kde-btn--accent">Jetzt Kontakt aufnehmen</a>
     </div>
@@ -67,7 +67,6 @@
 <section class="astro-kde-kontakt astro-kde-sec" id="astro-kde-kontakt">
   <div class="astro-kde-kontakt__in">
     <div class="astro-kde-kontakt__text">
-      <p class="astro-kde-eyebrow-sm">Kontakt</p>
       <h2 class="astro-kde-kontakt__h2">So erreichen Sie uns</h2>
       <p>Die Kita Deutschorden liegt im s&uuml;dlichen Sachsenhausen. Der Eingang befindet sich in der Elisabethenstra&szlig;e 14, die Postanschrift lautet Br&uuml;ckenstra&szlig;e 3.</p>
     </div>
@@ -118,14 +117,14 @@
   min-height: 480px;
   display: flex;
   align-items: flex-end;
-  background: linear-gradient(135deg, #1a1a3a 0%, #2c3e6e 50%, #1a2d5a 100%);
+  background: url('/uploads/2026/08/kita-deutschorden-spielhof.jpg') center/cover no-repeat;
   position: relative;
 }
 .astro-kde-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background: linear-gradient(to top, rgba(20,10,10,.62) 0%, rgba(26,26,58,.32) 50%, rgba(26,26,58,.08) 100%);
 }
 .astro-kde-hero__in {
   position: relative;
@@ -142,7 +141,8 @@
   font-weight: 700;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--bf-gold);
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 1px 4px rgba(0,0,0,.45);
   margin: 0 0 14px;
 }
 .astro-kde-hero__h1 {
@@ -150,9 +150,17 @@
   font-size: clamp(32px, 5vw, 58px);
   font-weight: 700;
   color: #fff;
-  margin: 0 0 16px;
+  margin: 0 0 10px;
   line-height: 1.15;
   max-width: 700px;
+}
+.astro-kde-hero__motto {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(19px, 2.6vw, 26px);
+  color: #f2b429;
+  text-shadow: 0 1px 4px rgba(0,0,0,.45);
+  margin: 0 0 18px;
 }
 .astro-kde-hero__lead {
   font-size: clamp(15px, 2vw, 18px);
@@ -175,10 +183,11 @@
 }
 .astro-kde-btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
 .astro-kde-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+.astro-kde-btn--gold { background: #f2b429; color: #1a120e; border: 2px solid #f2b429; }
+.astro-kde-btn--gold:hover { background: #e0a520; border-color: #e0a520; }
 .astro-kde-btn--accent { background: var(--bf-accent); color: #fff; border: 2px solid var(--bf-accent); }
 .astro-kde-btn--accent:hover { background: #7a2424; border-color: #7a2424; }
 .astro-kde-sec { width: 100vw; position: relative; left: 50%; margin-left: -50vw; margin-right: -50vw; }
-.astro-kde-eyebrow-sm { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 12px; }
 [id] { scroll-margin-top: 100px; }
 
 /* Strip */

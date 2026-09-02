@@ -5,28 +5,12 @@
 // Seiten. Neue Seiten werden gebaut, aber NICHT automatisch ins Menü aufgenommen. Wer einen
 // Menüpunkt hinzufügen/entfernen will, holt vorher die ausdrückliche Freigabe von Werner ein.
 //
-// Cache-Buster für Download-PDFs (Pfarrbrief etc.).
-// Workflow: Sekretärin ersetzt die Datei in der Mediathek ("Datei ersetzen") → URL bleibt gleich.
-// Hier wird beim Build das "Zuletzt geändert"-Datum der Datei abgefragt und als ?v=<token>
-// an die URL gehängt. Sobald die Datei ersetzt + die Seite neu gebaut wurde, ändert sich der
-// Token → der Browser lädt die neue Datei statt der gecachten alten.
-// Greift erst beim nächsten Build/Deploy (statische Seite), nicht im Moment des Uploads.
-const DOWNLOADS = {
-  pfarrbrief: 'https://cms.sanktbonifatius.de/wp-content/uploads/2026/04/sankt-bonifatius-pfarrbrief.pdf',
-  highlights: 'https://cms.sanktbonifatius.de/wp-content/uploads/2026/06/sankt-bonifatius-highlights.pdf',
-};
-async function withVersion(url) {
-  try {
-    const res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
-    const lm = res.headers.get('last-modified');
-    if (!lm) return url;
-    return `${url}?v=${Date.parse(lm)}`; // ms-Timestamp als kompaktes Versions-Token
-  } catch {
-    return url; // Server nicht erreichbar → unveränderte URL (Build bricht nie ab)
-  }
-}
-const pfarrbriefUrl = await withVersion(DOWNLOADS.pfarrbrief);
-const highlightsUrl = await withVersion(DOWNLOADS.highlights);
+// Pfarrbrief/Highlights: feste eigene Adressen unter der Hauptdomain (Handbuch 1d).
+// src/pages/downloads/*.pdf.ts holt bei jedem Rebuild die aktuelle Datei aus WordPress und
+// legt sie unter dieser stabilen URL ab — kein Cache-Buster-Parameter mehr in der Adresse
+// (schadete der Google-Indexierung: jede Ausgabe fing sonst wieder bei null an).
+const pfarrbriefUrl = '/downloads/pfarrbrief.pdf';
+const highlightsUrl = '/downloads/highlights.pdf';
 ---
 <nav class="bh3a-hdr" aria-label="Hauptnavigation">
   <div class="bh3a-hdr__in">

@@ -6,12 +6,13 @@
 <div class="astro-kwe-root">
   <section class="astro-kwe-hero">
     <div class="astro-kwe-hero__in">
-      <p class="astro-kwe-eyebrow">Kita St. Wendel &middot; Frankfurt-Sachsenhausen</p>
-      <h1 class="astro-kwe-hero__h1">Jedes Kind ist kostbar.</h1>
+      <p class="astro-kwe-eyebrow">Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-kwe-hero__h1">Kita St. Wendel</h1>
+      <p class="astro-kwe-hero__motto">Jedes Kind ist kostbar.</p>
       <p class="astro-kwe-hero__lead">Krippe und Kindergarten im gr&uuml;nen Sachsenh&auml;user Berg. P&auml;dagogisches Konzept nach Situationsansatz und Emmi Pikler.</p>
       <div class="astro-kwe-hero__ctas">
         <a href="#astro-kwe-angebot" class="astro-kwe-btn astro-kwe-btn--ghost">Kita kennenlernen</a>
-        <a href="/kitas/stellenboerse/" class="astro-kwe-btn astro-kwe-btn--ghost">Stellenb&ouml;rse</a>
+        <a href="/kitas/stellenboerse/" class="astro-kwe-btn astro-kwe-btn--gold">Stellenb&ouml;rse</a>
       </div>
     </div>
   </section>
@@ -76,7 +77,8 @@
   font-weight: 700;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--bf-gold);
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 1px 4px rgba(0,0,0,.45);
   margin: 0 0 14px;
 }
 .astro-kwe-hero__h1 {
@@ -84,8 +86,16 @@
   font-size: clamp(34px, 5.5vw, 64px);
   font-weight: 700;
   color: #fff;
-  margin: 0 0 16px;
+  margin: 0 0 10px;
   line-height: 1.1;
+}
+.astro-kwe-hero__motto {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(19px, 2.6vw, 26px);
+  color: #f2b429;
+  text-shadow: 0 1px 4px rgba(0,0,0,.45);
+  margin: 0 0 18px;
 }
 .astro-kwe-hero__lead {
   font-size: clamp(15px, 2vw, 18px);
@@ -109,6 +119,8 @@
 }
 .astro-kwe-btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
 .astro-kwe-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+.astro-kwe-btn--gold { background: #f2b429; color: #1a120e; border: 2px solid #f2b429; }
+.astro-kwe-btn--gold:hover { background: #e0a520; border-color: #e0a520; }
 .astro-kwe-btn--accent { background: var(--bf-accent); color: #fff; }
 .astro-kwe-btn--accent:hover { background: #7a2424; }
 .astro-kwe-btn--outline { background: transparent; color: var(--bf-accent); border: 2px solid var(--bf-accent); padding: 13px 26px; border-radius: 32px; font-weight: 700; font-size: 14.5px; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; transition: all .2s; }
@@ -124,7 +136,6 @@
 /* Shared */
 .astro-kwe-sec { width: 100vw; position: relative; left: 50%; margin-left: -50vw; margin-right: -50vw; }
 .astro-kwe-in { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-.astro-kwe-eyebrow-sm { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 12px; }
 [id] { scroll-margin-top: 100px; }
 
 @media (max-width: 600px) {

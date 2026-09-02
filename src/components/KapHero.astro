@@ -5,13 +5,14 @@
 <div class="astro-kap-root">
   <section class="astro-kap-hero">
     <div class="astro-kap-hero__in">
-      <p class="astro-kap-eyebrow">Kita St. Aposteln &middot; Frankfurt-Sachsenhausen</p>
-      <h1 class="astro-kap-hero__h1">Wo jeder Tag dein Tag ist.</h1>
+      <p class="astro-kap-eyebrow">Frankfurt-Sachsenhausen</p>
+      <h1 class="astro-kap-hero__h1">Kita St. Aposteln</h1>
+      <p class="astro-kap-hero__motto">Wo jeder Tag dein Tag ist.</p>
       <p class="astro-kap-hero__lead">Ein teiloffenes Konzept mit Funktionsr&auml;umen und gro&szlig;em Au&szlig;engel&auml;nde. Seit 1965 in Sachsenhausen.</p>
       <div class="astro-kap-hero__ctas">
         <a href="https://www.kindernetfrankfurt.de" target="_blank" rel="noopener" class="astro-kap-btn astro-kap-btn--primary">Platz anfragen &#8599;</a>
         <a href="#astro-kap-haus" class="astro-kap-btn astro-kap-btn--ghost">Kita kennenlernen</a>
-        <a href="/kitas/stellenboerse/" class="astro-kap-btn astro-kap-btn--ghost">Stellenb&ouml;rse</a>
+        <a href="/kitas/stellenboerse/" class="astro-kap-btn astro-kap-btn--gold">Stellenb&ouml;rse</a>
       </div>
     </div>
   </section>
@@ -104,7 +105,8 @@
   font-weight: 700;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--bf-gold);
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 1px 4px rgba(0,0,0,.45);
   margin: 0 0 14px;
 }
 .astro-kap-hero__h1 {
@@ -112,8 +114,16 @@
   font-size: clamp(34px, 5.5vw, 64px);
   font-weight: 700;
   color: #fff;
-  margin: 0 0 16px;
+  margin: 0 0 10px;
   line-height: 1.1;
+}
+.astro-kap-hero__motto {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(19px, 2.6vw, 26px);
+  color: #f2b429;
+  text-shadow: 0 1px 4px rgba(0,0,0,.45);
+  margin: 0 0 18px;
 }
 .astro-kap-hero__lead {
   font-size: clamp(15px, 2vw, 18px);
@@ -140,6 +150,8 @@
 .astro-kap-btn--primary:hover { background: #f0e8d8; }
 .astro-kap-btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
 .astro-kap-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+.astro-kap-btn--gold { background: #f2b429; color: #1a120e; border: 2px solid #f2b429; }
+.astro-kap-btn--gold:hover { background: #e0a520; border-color: #e0a520; }
 .astro-kap-btn--accent { background: var(--bf-accent); color: #fff; }
 .astro-kap-btn--accent:hover { background: #7a2424; }
 

@@ -160,3 +160,13 @@
 # Das Astro-Auffangnetz fuer echt geloeschte/unbekannte Termine sitzt jetzt direkt in
 # termine/[slug].astro (Astro.redirect, siehe dort) -- pruefti live gegen WordPress statt
 # blind nach Pfadmuster zu greifen.
+
+# --- Pfarrbrief/Highlights: alte, bereits bei Google indexierte PDF-Adressen ---------
+# Vor dem Umzug auf die stabilen Adressen unter /downloads/ (Handbuch 1d) wurden Pfarrbrief
+# und Highlights direkt unter dieser Domain unter dem WP-Upload-Pfad verlinkt (jede neue
+# Ausgabe = neuer Jahr/Monats-Ordner = neue URL, Ranking fing bei Google jedesmal wieder bei
+# null an -- z.B. April-Pfarrbrief mit 55 Klicks in 10 Wochen). Alte, bereits gecrawlte
+# Adressen dieser Form fuehren jetzt dauerhaft auf die neue, stabile Adresse, damit das
+# bisherige Ranking dort weiterlaeuft statt zu verpuffen.
+/wp-content/uploads/:year/:month/sankt-bonifatius-pfarrbrief.pdf   /downloads/pfarrbrief.pdf   301
+/wp-content/uploads/:year/:month/sankt-bonifatius-highlights.pdf   /downloads/highlights.pdf   301

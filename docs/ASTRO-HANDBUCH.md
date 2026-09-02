@@ -197,62 +197,59 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 
 ---
 
-## 1d. Dateien aus WP (z.B. Pfarrbrief-PDF) frisch halten — Cache-Busting
+## 1d. Pfarrbrief/Highlights: stabile Download-Adressen unter der Hauptdomain
 
-**Problem:** Im Download-Menü („Pfarrbrief", „Bonifatius Highlights") verlinken wir feste
-PDF-URLs, z.B.
-`https://dev.sanktbonifatius.de/wp-content/uploads/2026/04/sankt-bonifatius-pfarrbrief.pdf`
-(URL-Pfad fest in [`Nav.astro`](../src/components/Nav.astro), Konstante `DOWNLOADS`).
-Lädt die Sekretärin eine **neue Datei mit gleichem Namen** hoch, sieht der Besucher oft noch
-die **alte** Version — der Browser (und ggf. das CDN) liefert sie aus dem Cache.
+> **Stand: UMGESETZT (2026-09-02).** Pfarrbrief und Bonifatius Highlights liegen nicht mehr
+> direkt auf `cms.sanktbonifatius.de`, sondern unter zwei **eigenen, für immer stabilen**
+> Adressen auf der Hauptdomain: **`/downloads/pfarrbrief.pdf`** und
+> **`/downloads/highlights.pdf`** (`src/pages/downloads/pfarrbrief.pdf.ts` +
+> `.../highlights.pdf.ts`, `prerender = true`). Ersetzt die frühere Lösung aus diesem Abschnitt
+> (feste `DOWNLOADS`-URL + `withVersion()`-Cache-Buster `?v=...` in `Nav.astro`).
 
-> **Stand: UMGESETZT (Cache-Busting, Variante b).** In `Nav.astro` hängt die Funktion
-> `withVersion()` beim Build automatisch `?v=<Last-Modified>` an die Download-URLs.
-> **Workflow-Entscheidung: Option A** — die Sekretärinnen ersetzen die Datei in der Mediathek
-> („Datei ersetzen", gleicher Dateiname → **URL bleibt stabil**). Dadurch ist der aufwändigere
-> Teil (a) — dynamische URL-Ermittlung via Media-API/`getLatestMedia()` — **nicht nötig** und
-> bleibt nur als Option, falls sich Dateinamen doch ändern.
+**Ursprüngliches Problem, zwei Teile:**
+1. Neue Ausgabe → oft neuer Jahr/Monats-Ordner in WP → **neue URL** im Download-Menü. Für
+   Google ist das eine komplett neue Seite: Ranking/Klicks der Vorausgabe gehen verloren, die
+   neue Ausgabe fängt bei null an (z.B. Juni-Highlights nur auf Position 23, obwohl der
+   April-Pfarrbrief zuvor 55 Klicks in 10 Wochen hatte).
+2. Selbst bei gleichbleibendem Dateinamen: Browser/CDN liefern nach einem Datei-Austausch
+   („Datei ersetzen" in der Mediathek) oft noch die alte, gecachte Version aus.
 
-**Zwei Teilprobleme, zwei Lösungen:**
+**Lösung — eigener Endpoint statt fixer Link:**
+- `getLatestDokument(suchwort)` in `src/lib/wordpress.js` holt die letzten Medien-Uploads vom
+  Typ „application" aus WordPress und filtert selbst nach einem Wort im Medientitel (z.B.
+  `'pfarrbrief'`, `'highlights'`) — **kein** `search=`-Parameter (auf dieser WP-Instanz
+  gesperrt, liefert einen 400er, s. Kommentar bei `getMonatsprogramme`). Liefert `source_url`
+  der jeweils neuesten passenden Datei, egal in welchem Ordner sie liegt.
+- `src/pages/downloads/pfarrbrief.pdf.ts` (und `.../highlights.pdf.ts`) ruft das beim Build auf,
+  holt die PDF-Bytes von dort und liefert sie unter der **immer gleichen** eigenen Adresse aus.
+  Da die Route prerendert wird, „friert" jeder Rebuild die dann aktuelle Datei unter dieser
+  Adresse ein.
+- `Nav.astro` verlinkt nur noch die festen Strings `/downloads/pfarrbrief.pdf` /
+  `/downloads/highlights.pdf` — kein `?v=`-Parameter mehr in der Adresse (der hätte Google
+  ohnehin als eigene URL gezählt). Cache-Frische kommt jetzt über den `Cache-Control`-Header
+  der Route (`max-age=3600, must-revalidate`) statt über einen Query-Parameter.
+- Alte, bereits bei Google indexierte Adressen der Form
+  `sanktbonifatius.de/wp-content/uploads/<jahr>/<monat>/sankt-bonifatius-pfarrbrief.pdf`
+  leiten per 301 in `public/_redirects` auf die neue Adresse weiter (Ranking-Signale bleiben
+  erhalten statt zu verpuffen).
+- **Workflow für die Sekretärin bleibt gleich:** neue Datei mit demselben Wort im Titel
+  („Pfarrbrief" / „Highlights") in die Mediathek laden — Ordner/Dateiname sind jetzt egal,
+  `getLatestDokument()` findet immer die neueste passende Datei automatisch. Wirksam nach dem
+  nächsten Rebuild (Webhook bei WP-Änderung, Abschnitt 1c, oder Push).
 
-### a) (OPTIONAL — nur falls Dateinamen wechseln) URL dynamisch aus WP holen
-Statt die PDF-URL fest in `Nav.astro` zu schreiben, beim Build die **aktuelle** Datei aus
-WordPress ermitteln. Möglichkeiten:
-- **Media-API:** `/wp-json/wp/v2/media?search=pfarrbrief&per_page=1&orderby=date&order=desc`
-  → liefert die zuletzt hochgeladene passende Datei inkl. `source_url` und `modified`.
-- **ACF/Optionsfeld:** Ein Feld „Aktueller Pfarrbrief" im WP-Admin, das die Sekretärin setzt;
-  Astro liest die gewählte Datei-URL.
-- Empfehlung: ACF-Optionsfeld — eindeutig, kein Raten über Dateinamen.
-
-So zeigt die Nav nach dem nächsten Build automatisch auf die neue Datei.
-
-### b) Browser-Cache umgehen → Cache-Busting-Parameter an die URL hängen ✅ UMGESETZT
-Auch bei gleichem Dateinamen lässt sich der Browser zum Neuladen zwingen, indem man einen
-**Versions-Parameter** anhängt, der sich bei jeder neuen Datei ändert. Umgesetzt in `Nav.astro`
-ohne Media-API: per **HEAD-Anfrage** wird der `Last-Modified`-Header der Datei gelesen und als
-Token angehängt (funktioniert für jede stabile URL, kein Raten über Dateinamen nötig):
-
-```js
-// Nav.astro (Frontmatter) — tatsächliche Umsetzung
-async function withVersion(url) {
-  try {
-    const res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
-    const lm = res.headers.get('last-modified');
-    if (!lm) return url;
-    return `${url}?v=${Date.parse(lm)}`;   // ms-Timestamp als Versions-Token
-  } catch { return url; }                   // Server weg → unveränderte URL, Build bricht nie ab
-}
-const pfarrbriefUrl = await withVersion(DOWNLOADS.pfarrbrief);
-```
-```astro
-<a href={pfarrbriefUrl} target="_blank" rel="noopener">Pfarrbrief</a>
-```
-Ändert sich die Datei, ändert sich `Last-Modified` → neue `?v=...`-URL → Browser lädt frisch.
-
-> **Hinweis:** Da die Seite statisch gebaut wird, greift das `?v=` erst nach einem **Rebuild**
-> (Abschnitt 1c). Sauberer Ziel-Ablauf, sobald der Webhook steht:
-> Datei ersetzen → Webhook → Rebuild → Nav verlinkt dieselbe URL mit neuem `?v=` → frische Datei.
-> Bis dahin: nach einem Pfarrbrief-Wechsel die Seite neu bauen.
+> **Noch offen (außerhalb dieses Repos):** Erst wenn diese Umstellung live ist und Google die
+> neuen Adressen erneut gecrawlt hat, darf `cms.sanktbonifatius.de` per `X-Robots-Tag: noindex`
+> aus dem Index genommen werden (`.htaccess` auf dem All-inkl-Server, s. Regel 0 in
+> `docs/ASTRO-QUICKREF.md`/`CLAUDE.md` — liegt nicht in diesem Repo). Vorher **nicht** setzen,
+> sonst verschwinden Pfarrbrief/Highlights-Original-URLs, bevor die neuen indexiert sind.
+>
+> **Wichtige Lücke:** Ein reiner Datei-Upload/-Austausch in der Mediathek löst **keinen**
+> Netlify-Rebuild aus — der Webhook aus Abschnitt 1c feuert nur bei Beitrag/Seite. Eine neue
+> Pfarrbrief-Ausgabe erscheint also erst nach dem nächsten Rebuild (Push, Beitrag/Seiten-
+> Änderung oder manuelles „Trigger deploy" in Netlify) unter `/downloads/pfarrbrief.pdf`.
+> Sauberste Lösung: `functions.php` um einen auf „pfarrbrief"/„highlights" im Medientitel
+> gefilterten `add_attachment`/`edit_attachment`-Hook erweitern (Lovis, All-inkl/WP), der
+> denselben Build-Hook wie in Abschnitt 1c anstößt. **Noch nicht umgesetzt.**
 
 ---
 

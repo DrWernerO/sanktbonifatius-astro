@@ -14,7 +14,7 @@ const { showAktuelles = false } = Astro.props;
       <p class="astro-kb-hero__lead">100 Kinder, zwei Krippengruppen und vier Kindergartengruppen &ndash; in modernen, hellen R&auml;umen mit gro&szlig;em Garten in Sachsenhausen.</p>
       <div class="astro-kb-hero__ctas">
         <a href="#astro-kb-haus" class="astro-kb-btn astro-kb-btn--ghost">Kita kennenlernen</a>
-        <a href="/kitas/stellenboerse/" class="astro-kb-btn astro-kb-btn--ghost">Stellenb&ouml;rse</a>
+        <a href="/kitas/stellenboerse/" class="astro-kb-btn astro-kb-btn--gold">Stellenb&ouml;rse</a>
       </div>
     </div>
   </section>
@@ -155,6 +155,8 @@ const { showAktuelles = false } = Astro.props;
   border: 2px solid rgba(255,255,255,.5);
 }
 .astro-kb-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+.astro-kb-btn--gold { background: #f2b429; color: #1a120e; border: 2px solid #f2b429; }
+.astro-kb-btn--gold:hover { background: #e0a520; border-color: #e0a520; }
 .astro-kb-btn--primary {
   background: #fff;
   color: var(--bf-accent);
