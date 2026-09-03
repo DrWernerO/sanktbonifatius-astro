@@ -313,17 +313,25 @@ export async function getMonatsprogramme(ortWort, max = 2, scan = 40) {
   }
 }
 
-// Liefert das neueste Medien-Dokument, dessen Titel `suchwort` enthält (z.B. 'pfarrbrief',
-// 'highlights') — unabhängig davon, in welchem Jahr/Monats-Ordner es in WP gerade liegt.
-// Grundlage für die stabilen Download-Adressen unter der Hauptdomain (Handbuch 1d,
-// src/pages/downloads/*.pdf.ts): die Endpoints holen sich damit bei jedem Rebuild die aktuelle
-// Datei und legen sie unter derselben eigenen URL ab, egal wie WordPress die Quelle intern
-// benennt. KEIN `search=`-Parameter (s. Kommentar bei getMonatsprogramme — auf dieser
-// WP-Instanz gesperrt, liefert einen 400er) — stattdessen wie dort selbst filtern.
+// Die Sekretärin legt Pfarrbrief UND Highlights im Mediathek-Ordner "Astro-Upload" mit der
+// RML-Ordner-ID 198 ab (analog JOB_PDF_FOLDER). Erste Version von getLatestDokument() suchte
+// noch sitewide über alle Medien nach dem Titelwort — dadurch konnte eine ältere, zufällig
+// noch passend betitelte Datei greifen bzw. die echte aktuelle Datei aus den gescannten 40
+// jüngsten Uploads herausfallen (seit 2026-09-02 kommen laufend neue Stellenbörse-PDFs dazu,
+// s. JOB_PDF_FOLDER). Mit `rml_folder` bleibt die Suche auf den richtigen Ordner beschränkt.
+const PFARRBRIEF_HIGHLIGHTS_FOLDER = 198;
+
+// Liefert das neueste Medien-Dokument aus PFARRBRIEF_HIGHLIGHTS_FOLDER, dessen Titel
+// `suchwort` enthält (z.B. 'pfarrbrief', 'highlights'). Grundlage für die stabilen
+// Download-Adressen unter der Hauptdomain (Handbuch 1d, src/pages/downloads/*.pdf.ts): die
+// Endpoints holen sich damit bei jedem Rebuild die aktuelle Datei und legen sie unter
+// derselben eigenen URL ab, egal wie WordPress die Quelle intern benennt. KEIN
+// `search=`-Parameter (s. Kommentar bei getMonatsprogramme — auf dieser WP-Instanz gesperrt,
+// liefert einen 400er) — stattdessen wie dort selbst filtern.
 export async function getLatestDokument(suchwort, scan = 40) {
   try {
     const res = await fetch(
-      `${WP_API}/media?media_type=application&orderby=date&order=desc&per_page=${scan}&_fields=id,title,source_url,modified`,
+      `${WP_API}/media?rml_folder=${PFARRBRIEF_HIGHLIGHTS_FOLDER}&media_type=application&orderby=date&order=desc&per_page=${scan}&_fields=id,title,source_url,modified`,
       { cache: 'no-store' }
     );
     if (!res.ok) return null;
