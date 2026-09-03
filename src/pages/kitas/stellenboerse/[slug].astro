@@ -18,6 +18,12 @@ if (!job) {
 }
 
 const description = `${job.title}${job.location ? '. ' + job.location : ''}. Vollständige Ausschreibung als PDF, jetzt bewerben.`;
+// Eigener Tab-/SEO-Titel (Base title=) hängt den Ort an, auch wenn im WP-Titel-Feld nur die
+// generische Rolle steht (z.B. "Pädagogische Fachkraft (w/m/d)") — sonst wäre bei mehreren
+// gleichzeitig offenen, gleichnamigen Stellen der <title>-Tag identisch (schlecht für Google).
+// Der sichtbare H1 unten bleibt bewusst bei job.title allein, der Ort steht dort schon als
+// eigene Pill darunter — keine Dopplung auf der Seite selbst.
+const pageTitle = job.location ? `${job.title} – ${job.location}` : job.title;
 
 const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
@@ -49,7 +55,7 @@ const jobPostingLd = {
   },
 };
 ---
-<Base title={job.title} description={description}>
+<Base title={pageTitle} description={description}>
   <script type="application/ld+json" set:html={JSON.stringify(jobPostingLd)} />
   <div class="astro-stljob-wrap">
     <a class="astro-stljob-back" href="/kitas/stellenboerse/">&#8592; Zur&uuml;ck zur Stellenb&ouml;rse</a>
