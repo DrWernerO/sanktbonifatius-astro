@@ -79,11 +79,17 @@ Stellen je Programmseite:
 
 1. Diagonaler Farbverlauf/Wash über dem Hero-Foto (CSS-Gradient, kein neu geschnittenes Bild) —
    analog zum Homepage-Teaser-Muster, aber als wiederverwendbares CSS statt fest ins Foto gerendert.
-2. Kleiner Ecken-Akzent (oben rechts) auf dem Abschluss-CTA-Band der Seite.
+2. Kleiner Ecken-Akzent **oben links** auf dem Abschluss-CTA-Band der Seite (`linear-gradient(135deg, ...)`).
 
-Buttons, CTA-Fläche, Fließtext, Karten bleiben **immer** Haus-Bordeaux/Gold — die Rubrik-Farbe
-ersetzt nirgends die Aktionsfarbe der Seite (das war genau der Fehler auf der alten
-Engagement-Seite, siehe unten).
+Buttons und Fließtext bleiben **immer** Haus-Bordeaux/Gold — die Rubrik-Farbe ersetzt nirgends die
+Aktionsfarbe der Seite (das war genau der Fehler auf der alten Engagement-Seite, siehe unten).
+
+**CTA-Hintergrund bewusst warmes Braun, nicht Bordeaux:** Das Abschluss-CTA-Band (`ElCta.astro`,
+`JugendCta.astro`) nutzt den Verlauf `linear-gradient(135deg,#4a2e1a 0%,#3a2315 100%)` — das ist
+ohnehin die häufigere CTA-Hintergrundfarbe im Code (u. a. `SlCta`, `TrCta`), nicht die
+Bordeaux-Variante von `EngagementCta`/`BeratungCta`. Grund: Ein gesättigter Rubrik-Farbton (Lila,
+Grün, …) verläuft auf neutralem warmem Braun harmonisch ineinander: Kontrastkampf zweier
+konkurrierender Farbtöne.
 
 **Umgesetzt:**
 
