@@ -1,7 +1,8 @@
 ---
 // Schnellzugriff-Band der Übersichtsseite „Engagiert Leben" — Präfix `astro-elstrip`.
 // Gestaltung wie die Quick-Leisten der Kirchort-Seiten (ApQuick/HjQuick/SwQuick): weiße
-// Pill-Buttons mit Border + SVG-Icon in der Rubrik-Farbe (Violett), Hover füllt die Pille.
+// Pill-Buttons mit Border + SVG-Icon in der Rubrik-Farbe, Hover füllt die Pille.
+// Rubrik-Farbe = --el-g/--el-gd (definiert in ElHero.astro, Violett) — analog --ap-g in ApHero.astro.
 // Springt zu den Anker-Karten in ElTiles.astro (Handbuch Abschnitt 17).
 const links = [
   { label: 'Hilfenetz', href: '#el-hilfenetz',
@@ -36,8 +37,8 @@ const links = [
 .astro-elstrip__lab{font-weight:700;color:#1e1512;font-size:15px;margin-right:6px}
 .astro-elstrip__row{display:flex;flex-wrap:wrap;gap:10px}
 .astro-elstrip a{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#fff;color:#1e1512;text-decoration:none;font-size:14px;font-weight:700;border:1px solid rgba(0,0,0,.08);transition:all .2s}
-.astro-elstrip a svg{flex-shrink:0;color:#7b2fbe}
-.astro-elstrip a:hover{background:#7b2fbe;color:#fff;border-color:#7b2fbe}
+.astro-elstrip a svg{flex-shrink:0;color:var(--el-g)}
+.astro-elstrip a:hover{background:var(--el-g);color:#fff;border-color:var(--el-g)}
 .astro-elstrip a:hover svg{color:#fff}
 @media(max-width:760px){.astro-elstrip__in{flex-direction:column;align-items:flex-start}}
 @media(max-width:600px){.astro-elstrip__in{padding:0 16px}}
