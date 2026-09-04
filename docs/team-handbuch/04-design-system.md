@@ -39,6 +39,74 @@ C_MUTED  = '#7a6d59'  # Muted Text
 
 Diese Print-Farben sind in den Vortrag-PDFs verbaut (siehe 08-vortrag-projekt.md) und sollen für Print-Materialien wiederverwendet werden.
 
+### Astro-Umsetzung: gedämpfte Text-/Gold-Töne (verbindlich, seit 2026-09-04)
+
+Definiert in `src/layouts/Base.astro`, im `:root`-Block neben `--clr-*`:
+
+```css
+--txt-muted-light:  #746753;  /* gedämpfter Text auf hellem/weißem Hintergrund */
+--txt-muted-dark:   #a19178;  /* gedämpfter Text auf dunklem Hintergrund (z. B. Footer) */
+--txt-gold-label:   #806b3a;  /* kleine Gold-Labels/Eyebrows als echter Text — kontrastgeprüft (≥4.5:1 WCAG AA) */
+--accent-gold-deco: #c5a55a;  /* Gold nur dekorativ: Rand/Icon/Hover/Button-Hintergrund — KEIN Fließtext auf hellem Hintergrund */
+```
+
+**Warum diese Aufteilung:** Vorher hatte jede Komponente ihre eigene fest eingetippte Hex-Farbe für diese Töne (oft identisch, aber unabhängig kopiert) — Kontrast-Bugs mussten dadurch immer wieder einzeln an mehreren Stellen gleichzeitig gesucht und gefixt werden. Die zwei Gold-Varianten sind bewusst getrennt, weil genau ihre Verwechslung mehrfach die Ursache war:
+
+- `--txt-gold-label` ist die dunklere, kontrastgeprüfte Variante für Gold **als Text** auf hellem Hintergrund (z. B. Eyebrow „WAS WIR ANBIETEN" auf Card-Sections, Rollen-Bezeichnung wie „Pfarrer").
+- `--accent-gold-deco` ist der hellere Signature-Gold-Ton — nur für Ränder, Icons, Hover-Zustände und Button-Hintergründe, sowie für Eyebrow-Text **auf dunklem Hintergrund** (Hero mit Foto+Dark-Overlay, dunkle CTA-/Card-Flächen), wo der helle Ton ausreichend Kontrast hat.
+
+**Regel:** Neue Komponenten verwenden ausschließlich diese Variablen statt eigener Hex-Werte für diese Töne. Vor dem Einsatz von `--accent-gold-deco` als Textfarbe immer prüfen, ob der Hintergrund tatsächlich dunkel ist (Kontrast ≥3:1 für kleine/dekorative Textelemente, ≥4.5:1 für normalen Fließtext) — auf hellem Hintergrund gehört Gold-Text zu `--txt-gold-label`.
+
+### Programmsparten-Farben (vorläufig/experimentell, seit 2026-09-05)
+
+**Status: Testweise auf 2 Seiten umgesetzt, noch kein verbindliches System.** Hintergrund: Die
+alte WP-Konzept-PDF „Bonifatius Website" (`Design-System/Bonifatius_Website_PGR_Cut_K.pdf`) hatte
+7 Programmsparten mit je einer eigenen Signalfarbe (Glaube & Leben = Gold, Kinder & Familie = Rot,
+Jugend = Grün, Musik & Kultur = Türkis, Menschen im Stadtteil = Lila, Weltkirche = Dunkelblau,
+Gottesdienst = Hellblau — mittlerweile in „Glaube und Gottesdienst" aufgegangen, Gold). Diese
+Sparten-Struktur existiert in der heutigen Astro-Nav nicht mehr 1:1, aber das Konzept „Programmseite
+hat eine eigene Wiedererkennungsfarbe" lebt bereits an einer Stelle real weiter: die
+Homepage-Foto-Teaser (`Hero.astro`) haben ihre Kategoriefarbe fest ins Foto eingerechnet (z. B.
+`public/uploads/2025/10/SanktBonifatius-Gottesdienst-Glaube-2025-Slider_01A-1380x380.jpg` = Gold,
+`public/uploads/2026/06/teaser-jugend-home-teal.jpg` = Grün).
+
+**Ausprobiert und wieder verworfen:** Die Rubrik-Farbe als Kachel-Akzent (Rand/Titel/Link der
+Angebots-Karten, analog zu `--ko-c` bei den Kirchort-Karten) — passte optisch nicht zum ruhigen
+Editorial-Design, siehe Feedback vom 2026-09-04/05.
+
+**Aktuelles Muster (2 Beispiel-Seiten):** Die Rubrik-Farbe ausschließlich für zwei eng begrenzte
+Stellen je Programmseite:
+
+1. Diagonaler Farbverlauf/Wash über dem Hero-Foto (CSS-Gradient, kein neu geschnittenes Bild) —
+   analog zum Homepage-Teaser-Muster, aber als wiederverwendbares CSS statt fest ins Foto gerendert.
+2. Kleiner Ecken-Akzent (oben rechts) auf dem Abschluss-CTA-Band der Seite.
+
+Buttons, CTA-Fläche, Fließtext, Karten bleiben **immer** Haus-Bordeaux/Gold — die Rubrik-Farbe
+ersetzt nirgends die Aktionsfarbe der Seite (das war genau der Fehler auf der alten
+Engagement-Seite, siehe unten).
+
+**Umgesetzt:**
+
+| Seite | Variable | Wert | Definiert in |
+|---|---|---|---|
+| Engagiert Leben | `--el-g` / `--el-gd` | `#7b2fbe` / `#2d1150` (Lila) | `ElHero.astro` |
+| Jugend | `--ju-g` / `--ju-gd` | `#17886a` / `#0d4f3d` (Grün, aus dem Homepage-Teaserfoto gesampelt) | `JugendHero.astro` |
+
+`--el-g` wird zusätzlich (nur als Icon-Farbe + Hover-Füllung) im Schnellzugriff-Band `ElStrip.astro`
+verwendet — das folgt demselben Muster wie die Kirchort-Schnellzugriffsleisten (`ApQuick.astro` mit
+`--ap-g` usw.).
+
+**Nebenbefund beim Aufräumen:** Auf der alten Engagement/Engagiert-Leben-Seite war WP-Lila
+(`#7b2fbe`) versehentlich an mehreren Stellen als **Aktionsfarbe** stehengeblieben (Buttons, CTA-
+Hintergrund, FAQ-Eyebrow, Karten-Rand/-Link) — obwohl die Code-Kommentare in genau diesen Dateien
+bereits „Hausfarben statt WP-Lila" forderten. Das wurde zurückgebaut; nur der oben beschriebene,
+eng begrenzte Rubrik-Farb-Einsatz bleibt.
+
+**Wenn das auf weitere Programmseiten ausgerollt wird:** gleiches Muster (Hero-Wash + CTA-Ecke),
+Farbe jeweils neu festlegen (ggf. an den alten Sparten-Farben oder den aktuellen Bonifatius-
+Highlights-Farben orientieren, falls die Redaktion Konsistenz zum Print wünscht), Variable analog
+`--<kürzel>-g`/`--<kürzel>-gd` im jeweiligen Hero definieren.
+
 ---
 
 ## 2. Typografie
@@ -428,3 +496,31 @@ Der Skill bringt 50+ Design-Stile, 161 Farbpaletten, 57 Font-Pairings, 161 Produ
 3. Claude erzeugt einen Design-Brief, der mit diesem Handbuch abgeglichen wird
 
 Details zum Einsatz des Skills siehe 09-skills-workflows.md.
+
+---
+
+## 9. Zielgruppen (Notiz, Stand 2026-09-05)
+
+Kein festes Persona-Dokument, sondern eine kurze Einordnung, was für welche Gruppe trägt und wo
+noch Lücken sind — als Referenz für künftige Seiten-/Design-Entscheidungen.
+
+**Jüngere:** Die Jugend-Seite trifft mit „Du bist herzlich eingeladen", informeller Anrede und
+authentischen (nicht gestellten) Fotos schon den richtigen Ton. Die Grundstimmung der Seite (echte
+Fotos, seriöse Typografie statt verspieltem Trend-Look) baut Vertrauen auf, ohne bei Jüngeren
+altbacken zu wirken — das würde ich nicht in Richtung "trendiger" verschieben, das Risiko beim
+Vertrauen anderer Gruppen wiegt schwerer als der Gewinn hier. Der grüne Hero-/CTA-Akzent (siehe
+oben) ist ein leichter Hebel, um „das hier ist ein eigener Raum für euch" zu signalisieren, ohne
+die Seite optisch abzuspalten. Offene Lücke: sichtbarere Kurzformate (Reels/Story-Einbindung),
+Event-Vorfreude (z. B. Countdown zur nächsten Fahrt) statt reiner Terminliste.
+
+**Familien:** BonFamily trifft mit „Familie ist, wenn man füreinander da ist" den richtigen Ton.
+Was Familien beim Entscheiden am meisten brauchen — Alter, Uhrzeit, Kosten — sollte auf
+Familienangebot-Seiten möglichst weit oben stehen, nicht erst im Fließtext erklärt werden. Lohnt
+sich, bei neuen Familienseiten gezielt zu prüfen.
+
+**Mittelalte Singles:** Die am leichtesten übersehene Gruppe in Kirchen-Kommunikation, weil Sprache
+und Bildwelt fast automatisch auf Familien/Paare zielen. Stärke der Seite: Formulierungen wie „Eine
+Pfarrei, die wirklich trägt" sind bewusst nicht familienzentriert. Für diese Gruppe ist oft nicht
+der Gottesdienst der erste Zugang zu Gemeinschaft, sondern das Ehrenamt (Engagiert Leben) — diese
+Seite ist für diese Zielgruppe strategisch wichtiger, als es auf den ersten Blick scheint. Beratung
+& Seelsorge sollte hier bewusst als ernstzunehmendes, nicht bevormundendes Angebot auftreten.
