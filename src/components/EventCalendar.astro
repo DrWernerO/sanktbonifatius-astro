@@ -84,10 +84,10 @@ const {
 .astro-ev-card--highlight{border:3px solid #9a2d2d;box-shadow:0 4px 20px rgba(154,45,45,.25)}
 .astro-ev-card--highlight:hover{box-shadow:0 8px 26px rgba(154,45,45,.32)}
 .astro-ev-card__badge{position:absolute;top:12px;right:12px;z-index:2;background:#9a2d2d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px;box-shadow:0 2px 6px rgba(30,21,18,.25)}
-.astro-ev-card--loading{display:flex;align-items:center;justify-content:center;min-height:240px;color:#746753;font-size:14px}
+.astro-ev-card--loading{display:flex;align-items:center;justify-content:center;min-height:240px;color:var(--txt-muted-light);font-size:14px}
 .astro-ev-card__img{width:100%;aspect-ratio:3/2 !important;height:auto !important;object-fit:cover !important;display:block;background:#ede8e1}
 .astro-ev-card__body{padding:18px 22px 22px}
-.astro-ev-card__meta{font-size:11px;letter-spacing:.06em;color:#746753;margin:0 0 8px;line-height:1.4}
+.astro-ev-card__meta{font-size:11px;letter-spacing:.06em;color:var(--txt-muted-light);margin:0 0 8px;line-height:1.4}
 .astro-ev-card__title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;line-height:1.3;margin:0 0 10px;color:#2c2420}
 .astro-ev-card__sub{font-size:14px;color:#6b5c52;line-height:1.55;margin:0;font-style:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 /* Liste: füllt die volle Spaltenhöhe, Einträge gleichmäßig verteilt (space-between) */
@@ -96,14 +96,14 @@ const {
 .astro-ev-list__items{flex:1;display:flex;flex-direction:column;justify-content:space-between}
 .astro-ev-list__item{display:block;padding:10px 0;border-bottom:1px solid #f0ebe5;text-decoration:none;color:#2c2420}
 .astro-ev-list__item:last-child{border-bottom:none}
-.astro-ev-list__item:hover .astro-ev-list__title{color:#746753}
-.astro-ev-list__date{display:flex;align-items:center;gap:6px;margin:0 0 3px;font-size:12px;color:#746753}
+.astro-ev-list__item:hover .astro-ev-list__title{color:var(--txt-muted-light)}
+.astro-ev-list__date{display:flex;align-items:center;gap:6px;margin:0 0 3px;font-size:12px;color:var(--txt-muted-light)}
 .astro-ev-list__icon{flex-shrink:0;color:#9a2d2d}
 .astro-ev-list__day{font-weight:700;color:#2c2420;letter-spacing:.02em}
-.astro-ev-list__time{color:#746753}
+.astro-ev-list__time{color:var(--txt-muted-light)}
 .astro-ev-list__title{font-size:14px;font-weight:600;color:#2c2420;margin:0;transition:color .2s;line-height:1.3}
 /* Hinweistext in „Weitere Termine", wenn es aktuell keine weiteren Termine gibt */
-.astro-ev-list__empty{flex:1;display:flex;align-items:flex-start;justify-content:flex-start;color:#746753;font-size:14px;line-height:1.6;padding-top:6px}
+.astro-ev-list__empty{flex:1;display:flex;align-items:flex-start;justify-content:flex-start;color:var(--txt-muted-light);font-size:14px;line-height:1.6;padding-top:6px}
 @media(max-width:860px){.astro-ev__grid{grid-template-columns:1fr 1fr}.astro-ev-list{grid-column:1/-1}}
 @media(max-width:600px){.astro-ev__grid{grid-template-columns:1fr}.astro-ev__inner{padding:0 20px}}
 
@@ -124,7 +124,7 @@ const {
 /* Zentrierte Ankuendigungs-Box UEBER dem Termin-Raster (ersetzt keine Kacheln mehr) */
 .astro-ev-announce{max-width:640px;margin:0 auto 28px;text-align:center;border-radius:12px;background:#f0e8d8;border-left:4px solid #9a2d2d;padding:22px 28px;box-shadow:0 2px 12px rgba(30,21,18,.06)}
 .astro-ev-announce__eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9a2d2d;margin:0 0 6px}
-.astro-ev-announce__meta{font-size:12px;letter-spacing:.04em;color:#746753;margin:0 0 4px}
+.astro-ev-announce__meta{font-size:12px;letter-spacing:.04em;color:var(--txt-muted-light);margin:0 0 4px}
 .astro-ev-announce__hl{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 8px;line-height:1.3}
 .astro-ev-announce__txt{font-size:14px;color:#6b5c52;line-height:1.55;margin:0}
 .astro-ev-announce__link{color:#9a2d2d;font-weight:600;text-decoration:underline;text-underline-offset:2px}

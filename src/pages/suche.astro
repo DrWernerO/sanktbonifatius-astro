@@ -71,7 +71,7 @@ const results = q ? await searchSite(q) : [];
     flex: 1; background: #fff; border: 1px solid #d8cdbd; color: #2c2420;
     padding: 13px 18px; border-radius: 8px; font-size: 16px; outline: none;
   }
-  .astro-suche__form input[type="search"]:focus { border-color: #c5a55a; }
+  .astro-suche__form input[type="search"]:focus { border-color: var(--accent-gold-deco); }
   .astro-suche__form button {
     background: #9a2d2d; color: #fff; border: none; padding: 13px 26px;
     border-radius: 8px; font-weight: 600; font-size: 15px; cursor: pointer;
@@ -88,7 +88,7 @@ const results = q ? await searchSite(q) : [];
     transition: transform .15s, box-shadow .15s, border-color .15s;
   }
   .astro-suche__link:hover {
-    transform: translateY(-2px); border-color: #c5a55a;
+    transform: translateY(-2px); border-color: var(--accent-gold-deco);
     box-shadow: 0 6px 18px rgba(44,36,32,.08);
   }
   .astro-suche__badge {
@@ -103,5 +103,5 @@ const results = q ? await searchSite(q) : [];
   .astro-suche__exc {
     display: block; color: #6b5c52; font-size: 14px; line-height: 1.5; margin-top: 6px;
   }
-  .astro-suche__hint { color: #746753; font-size: 14px; margin-top: 18px; }
+  .astro-suche__hint { color: var(--txt-muted-light); font-size: 14px; margin-top: 18px; }
 </style>

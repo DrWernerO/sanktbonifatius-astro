@@ -20,7 +20,7 @@ const cards = [
     {cards.map((c) => (
       <a href={c.href} class="astro-sac-card">
         <div class="astro-sac-card__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#746753" stroke-width="1.5" aria-hidden="true" set:html={c.icon} />
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--txt-muted-light)" stroke-width="1.5" aria-hidden="true" set:html={c.icon} />
         </div>
         <span class="astro-sac-card__label">{c.label}</span>
         <span class="astro-sac-card__sub">{c.sub}</span>

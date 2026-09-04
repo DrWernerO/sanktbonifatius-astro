@@ -117,7 +117,7 @@ const highlightsUrl = '/downloads/highlights.pdf';
     margin-left: auto; margin-right: 20px;
   }
   .bh3a-soc a { color: #d4c9b5; display: flex; align-items: center; transition: color .2s; }
-  .bh3a-soc a:hover { color: #c5a55a; }
+  .bh3a-soc a:hover { color: var(--accent-gold-deco); }
   .bh3a-rnav { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
   .bh3a-dd { position: relative; }
   .bh3a-dd > a {
@@ -135,7 +135,7 @@ const highlightsUrl = '/downloads/highlights.pdf';
     display: block; padding: 9px 18px; font-size: 12px;
     color: #b5a898; text-decoration: none; white-space: nowrap;
   }
-  .bh3a-dd__menu a:hover, .bh3a-dd__menu a:focus-visible { color: #c5a55a; background: rgba(197,165,90,.06); }
+  .bh3a-dd__menu a:hover, .bh3a-dd__menu a:focus-visible { color: var(--accent-gold-deco); background: rgba(197,165,90,.06); }
   /* :focus-within öffnet das Untermenü auch beim Durchtabben per Tastatur (vorher nur :hover —
      Untermenü-Links waren display:none und damit für Tastaturnutzer gar nicht erreichbar). */
   .bh3a-dd:hover .bh3a-dd__menu, .bh3a-dd:focus-within .bh3a-dd__menu { display: block; }
@@ -151,13 +151,13 @@ const highlightsUrl = '/downloads/highlights.pdf';
     color: #c5b9a8; display: inline-flex; align-items: center;
     transition: color .2s; margin-left: 4px;
   }
-  .bh3a-btn-srch:hover, .bh3a-btn-srch[aria-expanded="true"] { color: #c5a55a; }
+  .bh3a-btn-srch:hover, .bh3a-btn-srch[aria-expanded="true"] { color: var(--accent-gold-deco); }
 
   /* Such-Overlay (klappt unter der Nav auf) */
   .bh3a-srch-ov {
     display: none; position: fixed; top: 80px; left: 0; right: 0;
     background: #1a120e; padding: 18px 32px; z-index: 100001;
-    border-bottom: 2px solid #c5a55a;
+    border-bottom: 2px solid var(--accent-gold-deco);
   }
   .bh3a-srch-ov.open { display: block; }
   .bh3a-srch-ov form { max-width: 600px; margin: 0 auto; display: flex; gap: 10px; }
@@ -165,9 +165,9 @@ const highlightsUrl = '/downloads/highlights.pdf';
     flex: 1; background: #2c2420; border: 1px solid #3a2e28; color: #e8dcc8;
     padding: 11px 16px; border-radius: 6px; font-size: 15px; outline: none;
   }
-  .bh3a-srch-ov input[type="search"]:focus { border-color: #c5a55a; }
+  .bh3a-srch-ov input[type="search"]:focus { border-color: var(--accent-gold-deco); }
   .bh3a-srch-ov button[type="submit"] {
-    background: #c5a55a; color: #1a120e; border: none; padding: 11px 22px;
+    background: var(--accent-gold-deco); color: #1a120e; border: none; padding: 11px 22px;
     border-radius: 6px; font-weight: 700; cursor: pointer;
   }
 
@@ -186,7 +186,7 @@ const highlightsUrl = '/downloads/highlights.pdf';
     text-decoration: none; white-space: nowrap;
     display: flex; align-items: center; transition: color .2s;
   }
-  .bh3a-navlink:hover { color: #c5a55a; }
+  .bh3a-navlink:hover { color: var(--accent-gold-deco); }
 
   /* Hamburger-Button */
   .bh3a-hamburger {
