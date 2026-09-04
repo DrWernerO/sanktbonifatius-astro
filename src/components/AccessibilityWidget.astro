@@ -1,0 +1,194 @@
+---
+// Eigenes Bedienelement "Anzeigeoptionen" (Schriftgröße/Kontrast/Lesehilfe) — Ersatz für das
+// frühere WP-Tool „digiAccess". Läuft komplett lokal ohne Fremd-Script (kein KDG-Thema). Die
+// Auswahl wird in localStorage gespeichert; das Anwenden beim Laden passiert schon im <head>
+// von Base.astro (verhindert Flackern beim Seitenwechsel). Eigene Klassen `astro-a11y-*`.
+---
+<div class="astro-a11y">
+  <button
+    type="button"
+    id="astro-a11y-toggle"
+    class="astro-a11y__btn"
+    aria-label="Anzeigeoptionen öffnen"
+    aria-expanded="false"
+    aria-controls="astro-a11y-panel"
+  >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"></circle>
+      <circle cx="12" cy="7.2" r="1.6" fill="currentColor" stroke="none"></circle>
+      <path d="M6.5 9.8c3.6 1.2 7.4 1.2 11 0"></path>
+      <path d="M12 10.8v4.2"></path>
+      <path d="M9.3 20l2.2-5.3M14.7 20l-2.2-5.3"></path>
+    </svg>
+  </button>
+
+  <div id="astro-a11y-panel" class="astro-a11y__panel" hidden role="region" aria-label="Anzeigeoptionen">
+    <p class="astro-a11y__title">Anzeigeoptionen</p>
+
+    <div class="astro-a11y__group">
+      <span class="astro-a11y__label" id="astro-a11y-fontlabel">Schriftgröße</span>
+      <div class="astro-a11y__row" role="group" aria-labelledby="astro-a11y-fontlabel">
+        <button type="button" class="astro-a11y__step" data-a11y-fontstep="-1" aria-label="Schrift verkleinern">A−</button>
+        <span class="astro-a11y__value" id="astro-a11y-fontvalue">100%</span>
+        <button type="button" class="astro-a11y__step" data-a11y-fontstep="1" aria-label="Schrift vergrößern">A+</button>
+      </div>
+    </div>
+
+    <div class="astro-a11y__group">
+      <button type="button" class="astro-a11y__toggle" id="astro-a11y-contrast" aria-pressed="false">
+        Hoher Kontrast
+      </button>
+    </div>
+
+    <div class="astro-a11y__group">
+      <button type="button" class="astro-a11y__toggle" id="astro-a11y-readable" aria-pressed="false">
+        Lesehilfe (mehr Abstand)
+      </button>
+    </div>
+
+    <button type="button" class="astro-a11y__reset" id="astro-a11y-reset">Zurücksetzen</button>
+  </div>
+</div>
+
+<style>
+  .astro-a11y { position: fixed; right: 18px; bottom: 18px; z-index: 9500; }
+  .astro-a11y__btn {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--clr-primary, #1a3a5c); color: #fff; border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    transition: background .2s, transform .15s;
+  }
+  .astro-a11y__btn:hover { background: #142c48; transform: translateY(-2px); }
+  .astro-a11y__btn:focus-visible { outline: 3px solid var(--clr-accent, #c8a84b); outline-offset: 2px; }
+
+  .astro-a11y__panel {
+    position: absolute; right: 0; bottom: 64px;
+    width: 260px; background: #fff; color: #1a1a1a;
+    border-radius: var(--radius, 8px); box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    border: 1px solid #e5e0d8; padding: 18px;
+  }
+  .astro-a11y__panel[hidden] { display: none; }
+  .astro-a11y__title { font-weight: 700; font-size: 15px; margin-bottom: 12px; }
+  .astro-a11y__group { margin-bottom: 14px; }
+  .astro-a11y__label { display: block; font-size: 13px; color: #4a4a4a; margin-bottom: 6px; }
+  .astro-a11y__row { display: flex; align-items: center; gap: 10px; }
+  .astro-a11y__step {
+    width: 36px; height: 36px; border-radius: 6px; border: 1px solid #d8d2c8;
+    background: #f7f3ef; font-weight: 700; cursor: pointer; font-size: 14px; font-family: inherit;
+  }
+  .astro-a11y__step:hover { background: #eee5d8; }
+  .astro-a11y__step:focus-visible, .astro-a11y__toggle:focus-visible, .astro-a11y__reset:focus-visible {
+    outline: 3px solid var(--clr-accent, #c8a84b); outline-offset: 1px;
+  }
+  .astro-a11y__value { min-width: 42px; text-align: center; font-size: 13px; color: #4a4a4a; }
+  .astro-a11y__toggle {
+    width: 100%; text-align: left; padding: 10px 12px; border-radius: 6px;
+    border: 1px solid #d8d2c8; background: #f7f3ef; cursor: pointer; font-size: 14px;
+    font-family: inherit;
+  }
+  .astro-a11y__toggle[aria-pressed="true"] {
+    background: var(--clr-primary, #1a3a5c); color: #fff; border-color: var(--clr-primary, #1a3a5c);
+  }
+  .astro-a11y__reset {
+    width: 100%; text-align: center; padding: 8px; margin-top: 4px;
+    background: none; border: none; color: #9a2d2d; text-decoration: underline;
+    cursor: pointer; font-size: 13px; font-family: inherit;
+  }
+  @media (max-width: 480px) {
+    .astro-a11y { right: 12px; bottom: 12px; }
+    .astro-a11y__panel { width: calc(100vw - 24px); right: -6px; }
+  }
+</style>
+
+<script>
+  (function () {
+    var FONT_KEY = 'a11y-font-step';
+    var CONTRAST_KEY = 'a11y-contrast';
+    var READABLE_KEY = 'a11y-readable';
+    var STEPS = [1, 1.15, 1.3, 1.45];
+
+    var btn = document.getElementById('astro-a11y-toggle');
+    var panel = document.getElementById('astro-a11y-panel');
+    var fontValue = document.getElementById('astro-a11y-fontvalue');
+    var contrastBtn = document.getElementById('astro-a11y-contrast');
+    var readableBtn = document.getElementById('astro-a11y-readable');
+    var resetBtn = document.getElementById('astro-a11y-reset');
+    if (!btn || !panel) return;
+
+    function stepIndex() {
+      var raw = parseInt(localStorage.getItem(FONT_KEY) || '0', 10);
+      return (isNaN(raw) || raw < 0 || raw >= STEPS.length) ? 0 : raw;
+    }
+
+    function setFontStep(index) {
+      var scale = STEPS[index];
+      document.documentElement.style.zoom = scale;
+      if (fontValue) fontValue.textContent = Math.round(scale * 100) + '%';
+      localStorage.setItem(FONT_KEY, String(index));
+    }
+
+    function setContrast(on) {
+      document.documentElement.classList.toggle('astro-a11y-contrast', on);
+      contrastBtn && contrastBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      localStorage.setItem(CONTRAST_KEY, on ? '1' : '0');
+    }
+
+    function setReadable(on) {
+      document.documentElement.classList.toggle('astro-a11y-readable', on);
+      readableBtn && readableBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      localStorage.setItem(READABLE_KEY, on ? '1' : '0');
+    }
+
+    // Anzeige-Werte an die im <head> bereits angewendeten Einstellungen angleichen.
+    if (fontValue) fontValue.textContent = Math.round(STEPS[stepIndex()] * 100) + '%';
+    setContrast(document.documentElement.classList.contains('astro-a11y-contrast'));
+    setReadable(document.documentElement.classList.contains('astro-a11y-readable'));
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var willOpen = panel.hasAttribute('hidden');
+      if (willOpen) { panel.removeAttribute('hidden'); } else { panel.setAttribute('hidden', ''); }
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('[data-a11y-fontstep]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var dir = parseInt(b.getAttribute('data-a11y-fontstep'), 10);
+        var next = stepIndex() + dir;
+        if (next < 0) next = 0;
+        if (next >= STEPS.length) next = STEPS.length - 1;
+        setFontStep(next);
+      });
+    });
+
+    contrastBtn && contrastBtn.addEventListener('click', function () {
+      setContrast(!document.documentElement.classList.contains('astro-a11y-contrast'));
+    });
+
+    readableBtn && readableBtn.addEventListener('click', function () {
+      setReadable(!document.documentElement.classList.contains('astro-a11y-readable'));
+    });
+
+    resetBtn && resetBtn.addEventListener('click', function () {
+      setFontStep(0);
+      setContrast(false);
+      setReadable(false);
+    });
+
+    document.addEventListener('click', function (e) {
+      if (panel.hasAttribute('hidden')) return;
+      if (panel.contains(e.target) || btn.contains(e.target)) return;
+      panel.setAttribute('hidden', '');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hasAttribute('hidden')) {
+        panel.setAttribute('hidden', '');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  })();
+</script>

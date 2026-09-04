@@ -96,7 +96,11 @@ const highlightsUrl = '/downloads/highlights.pdf';
 <style is:global>
   .bh3a-hdr {
     position: fixed; top: 0; z-index: 1000; width: 100%; left: 0;
-    background: rgba(20,10,2,0.55);
+    /* 0.55 war auf Seiten mit hellem Inhalt direkt unter dem fixen Menü (statt dunklem
+       Hero-Foto) zu durchsichtig — Menü-Text fiel dort unter 4,5:1 Kontrast. 0.75 hält
+       auch im hellstmöglichen Fall (weißer Hintergrund dahinter) sicher über der Grenze,
+       unabhängig vom jeweiligen Seiteninhalt hinter dem Menü. */
+    background: rgba(20,10,2,0.75);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   }
   .bh3a-hdr__in {
@@ -131,8 +135,10 @@ const highlightsUrl = '/downloads/highlights.pdf';
     display: block; padding: 9px 18px; font-size: 12px;
     color: #b5a898; text-decoration: none; white-space: nowrap;
   }
-  .bh3a-dd__menu a:hover { color: #c5a55a; background: rgba(197,165,90,.06); }
-  .bh3a-dd:hover .bh3a-dd__menu { display: block; }
+  .bh3a-dd__menu a:hover, .bh3a-dd__menu a:focus-visible { color: #c5a55a; background: rgba(197,165,90,.06); }
+  /* :focus-within öffnet das Untermenü auch beim Durchtabben per Tastatur (vorher nur :hover —
+     Untermenü-Links waren display:none und damit für Tastaturnutzer gar nicht erreichbar). */
+  .bh3a-dd:hover .bh3a-dd__menu, .bh3a-dd:focus-within .bh3a-dd__menu { display: block; }
   .bh3a-dd:last-child .bh3a-dd__menu { left: auto; right: 0; }
   .bh3a-dd__menu::before {
     content: ''; position: absolute; left: 0; right: 0;

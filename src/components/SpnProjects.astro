@@ -71,6 +71,21 @@ function initDonations(){
 if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initDonations); } else { initDonations(); }
 </script>
 
+<script is:inline define:vars={{ PROJEKTE }}>
+  // Wie beim Gottesdienst-Widget: der ChurchDesk-Spenden-iframe entsteht erst client-seitig
+  // ohne title-Attribut — hier pro Projekt-Karte nachträglich setzen, sobald er erscheint.
+  (function () {
+    document.querySelectorAll('.astro-spn-proj__widget').forEach(function (widget, i) {
+      var titel = (PROJEKTE[i] && PROJEKTE[i].titel) || 'Spendenprojekt';
+      var obs = new MutationObserver(function () {
+        var f = widget.querySelector('iframe:not([title])');
+        if (f) f.setAttribute('title', 'Spendenformular: ' + titel);
+      });
+      obs.observe(widget, { childList: true, subtree: true });
+    });
+  })();
+</script>
+
 <style is:global>
 .astro-spn-proj{background:#f7f3ef;padding:80px 0}
 .astro-spn-proj__inner{max-width:1180px;margin:0 auto;padding:0 40px}
@@ -84,7 +99,7 @@ if (document.readyState === 'loading') { document.addEventListener('DOMContentLo
 .astro-spn-proj__card-tx{font-size:15px;color:#6b5c52;line-height:1.65;margin:0 0 20px}
 .astro-spn-proj__widget{background:#f7f3ef;border-radius:10px;min-height:120px;overflow:hidden}
 .astro-spn-proj__widget>div{width:100%}
-.astro-spn-proj__fallback{font-size:13px;color:#928269;line-height:1.55;margin:16px 0 0}
+.astro-spn-proj__fallback{font-size:13px;color:#746753;line-height:1.55;margin:16px 0 0}
 .astro-spn-proj__fallback a{color:#9a2d2d;text-decoration:underline;text-underline-offset:2px}
 @media(max-width:960px){.astro-spn-proj__grid{grid-template-columns:1fr;max-width:620px;margin:0 auto}}
 @media(max-width:600px){.astro-spn-proj{padding:56px 0}.astro-spn-proj__inner{padding:0 20px}}

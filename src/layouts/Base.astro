@@ -2,6 +2,7 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
+import AccessibilityWidget from '../components/AccessibilityWidget.astro';
 import { PUBLIC_SITE } from '../lib/wordpress.js';
 // Google Analytics (Mess-ID der bestehenden GA4-Property, Konto „bonifatiusffm" → wird
 // perspektivisch zu w.otto@sanktbonifatius.de verschoben). Lädt erst nach Einwilligung im
@@ -37,6 +38,20 @@ const canonicalUrl = new URL(Astro.url.pathname, PUBLIC_SITE).href;
        (externe Komponenten intern einbinden). Source Sans 3 = Fließtext, Playfair = Überschriften. -->
   <link rel="icon" href="/uploads/2025/09/sanktbonifatius-favicon.png" type="image/png" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
+  <script is:inline>
+    // Anzeigeoptionen (AccessibilityWidget.astro) VOR dem ersten Rendern anwenden — sonst
+    // flackert die Seite bei jedem Seitenwechsel kurz in der Normalansicht auf.
+    (function () {
+      try {
+        var STEPS = [1, 1.15, 1.3, 1.45];
+        var fi = parseInt(localStorage.getItem('a11y-font-step') || '0', 10);
+        if (isNaN(fi) || fi < 0 || fi >= STEPS.length) fi = 0;
+        document.documentElement.style.zoom = STEPS[fi];
+        if (localStorage.getItem('a11y-contrast') === '1') document.documentElement.classList.add('astro-a11y-contrast');
+        if (localStorage.getItem('a11y-readable') === '1') document.documentElement.classList.add('astro-a11y-readable');
+      } catch (e) {}
+    })();
+  </script>
   <script define:vars={{ GA_ID }}>
     // Google Consent Mode: standardmäßig ABGELEHNT, bis der Nutzer im Cookie-Banner zustimmt.
     // Ohne Zustimmung wird das gtag.js-Skript gar nicht erst nachgeladen (KDG-konformes Opt-in).
@@ -90,17 +105,59 @@ const canonicalUrl = new URL(Astro.url.pathname, PUBLIC_SITE).href;
     }
     img { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
+    /* Links mitten im Fließtext (kein eigenes Button-/Pill-Design, keine class) brauchen ein
+       zweites Merkmal außer Farbe (WCAG 1.4.1) — sonst sind sie für farbenblinde Nutzer:innen
+       nicht als Link erkennbar. Gestylte Buttons/Nav-Links haben immer eine eigene class und
+       bleiben davon unberührt. */
+    p a:not([class]) { text-decoration: underline; text-underline-offset: 2px; }
     html, body { overflow-x: hidden; }
     .page-wrap { min-height: 100vh; }
     html, body { overflow-x: hidden; }
+
+    /* Skip-Link: für Tastatur-Nutzer:innen normal unsichtbar (top:-100px), erscheint erst beim
+       Durchtabben. Ohne das müsste man sich auf JEDER Seite erst durch das komplette Nav-Menü
+       tabben, bevor man beim eigentlichen Inhalt ankommt. */
+    .astro-skip-link {
+      position: absolute; top: -100px; left: 16px; z-index: 100000;
+      background: var(--clr-primary); color: #fff;
+      padding: 12px 20px; border-radius: 6px;
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      transition: top .15s;
+    }
+    .astro-skip-link:focus { top: 16px; }
+
+    /* Anzeigeoptionen (AccessibilityWidget.astro) — Hoher Kontrast per Farbumkehr (invert+hue-rotate)
+       statt erzwungener Hintergrundfarben: die meisten Komponenten haben feste Hex-Farben (kein
+       Farb-Token-System), ein globales "background:#000!important" würde die halbtransparenten
+       Verdunklungs-Overlays über den Hero-Fotos zu 100% blickdicht machen und die Fotos verdecken.
+       Fotos/Videos/SVGs bekommen den gleichen Filter ein zweites Mal — das hebt die Umkehrung für
+       sie wieder auf, sie bleiben in Originalfarben sichtbar. .astro-a11y (das Bedienelement selbst)
+       ebenso, damit sein Panel nicht mit-invertiert wird. */
+    html.astro-a11y-contrast body { filter: invert(1) hue-rotate(180deg); background: #fff; }
+    html.astro-a11y-contrast img,
+    html.astro-a11y-contrast picture,
+    html.astro-a11y-contrast video,
+    html.astro-a11y-contrast svg,
+    html.astro-a11y-contrast iframe,
+    html.astro-a11y-contrast .astro-a11y {
+      filter: invert(1) hue-rotate(180deg);
+    }
+
+    html.astro-a11y-readable body,
+    html.astro-a11y-readable body :not(.astro-a11y):not(.astro-a11y *) {
+      line-height: 1.9 !important;
+      letter-spacing: .02em !important;
+      word-spacing: .04em !important;
+    }
   </style>
 </head>
 <body>
+  <a href="#main-inhalt" class="astro-skip-link">Zum Inhalt springen</a>
   <Nav />
   <!-- 80px = Nav-Höhe -->
-  <div class="page-wrap">
+  <div class="page-wrap" id="main-inhalt" tabindex="-1">
     <slot />
   </div>
   <Footer />
   <CookieConsent />
-</html>
+  <AccessibilityWidget /></html>

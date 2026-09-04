@@ -41,12 +41,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
     }
   }
 
-  return new Response('Passwort erforderlich', {
-    status: 401,
-    headers: {
-      'WWW-Authenticate': 'Basic realm="Raumbuchung Sankt Bonifatius", charset="UTF-8"',
-      'X-Robots-Tag': 'noindex, nofollow',
-      'Content-Type': 'text/plain; charset=utf-8',
-    },
-  });
+  // Echtes HTML-Dokument statt reinem Text: Browser zeigen bei 401 ohnehin ihren eigenen
+  // Basic-Auth-Dialog (dieser Text ist für normale Besucher praktisch unsichtbar) — aber
+  // Screenreader/Crawler, die die Antwort direkt lesen, bekommen so wenigstens eine gültige
+  // Seite mit Titel und lang-Attribut statt nackten Fließtext ohne Struktur.
+  return new Response(
+    '<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Passwort erforderlich | Sankt Bonifatius Frankfurt</title></head><body><p>Passwort erforderlich.</p></body></html>',
+    {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Raumbuchung Sankt Bonifatius", charset="UTF-8"',
+        'X-Robots-Tag': 'noindex, nofollow',
+        'Content-Type': 'text/html; charset=utf-8',
+      },
+    }
+  );
 });

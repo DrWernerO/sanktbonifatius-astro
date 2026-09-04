@@ -14,7 +14,14 @@ export default defineConfig({
   // (z. B. src/pages/api/taufe-anmeldung.ts) laufen server-seitig (auf Netlify als Function).
   // Lokal (`npm run dev`) funktioniert der Adapter ebenfalls; der Vite-Proxy unten greift nur im Dev.
   adapter: netlify(),
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // Passwortgeschützte Seite raumbuchung/ ist bereits per noindex-Header vor Google
+      // geschützt — steht aber ohne diesen Filter trotzdem öffentlich lesbar in der
+      // sitemap.xml (URL damit auffindbar, auch wenn der Inhalt selbst gesperrt bleibt).
+      filter: (page) => !page.includes('/kontakt/raumbuchung'),
+    }),
+  ],
   vite: {
     server: {
       proxy: {

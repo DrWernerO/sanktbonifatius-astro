@@ -27,6 +27,10 @@ const PHOTOS = [
 ];
 ---
 <div class="astro-swmarquee" id="galerie" aria-label="Fotogalerie St. Wendel" role="region">
+  <button type="button" class="astro-swmarquee__pause" aria-label="Bilderlauf pausieren" aria-pressed="false">
+    <svg class="astro-swmarquee__icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+    <svg class="astro-swmarquee__icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M8 5v14l11-7z"></path></svg>
+  </button>
   <div class="astro-swmarquee__track">
     {[...PHOTOS, ...PHOTOS].map((p) => (
       <img src={p.src} alt={p.alt} loading="lazy" />
@@ -37,9 +41,28 @@ const PHOTOS = [
 <style is:global>
 .astro-swmarquee{overflow:hidden;background:#1e1512;padding:6px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
 .astro-swmarquee__track{display:flex;gap:8px;width:max-content;animation:swmarquee 70s linear infinite}
-.astro-swmarquee__track:hover{animation-play-state:paused}
+.astro-swmarquee__track:hover,.astro-swmarquee__track.is-paused{animation-play-state:paused}
 .astro-swmarquee__track img{height:240px;width:auto;object-fit:cover;border-radius:4px;display:block;flex-shrink:0}
 @keyframes swmarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @media(max-width:600px){.astro-swmarquee__track img{height:160px}}
 @media(prefers-reduced-motion:reduce){.astro-swmarquee__track{animation:none}}
+.astro-swmarquee__pause{position:absolute;top:8px;right:12px;z-index:5;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.35);color:#f0e8d8;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.astro-swmarquee__pause:hover{background:rgba(0,0,0,.55)}
+.astro-swmarquee__pause:focus-visible{outline:2px solid #c5a55a;outline-offset:2px}
 </style>
+
+<script>
+  document.querySelectorAll('.astro-swmarquee').forEach(function (wrap) {
+    var btn = wrap.querySelector('.astro-swmarquee__pause');
+    var track = wrap.querySelector('.astro-swmarquee__track');
+    if (!btn || !track || btn.dataset.bound) return;
+    btn.dataset.bound = '1';
+    btn.addEventListener('click', function () {
+      var paused = track.classList.toggle('is-paused');
+      btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      btn.setAttribute('aria-label', paused ? 'Bilderlauf fortsetzen' : 'Bilderlauf pausieren');
+      btn.querySelector('.astro-swmarquee__icon-pause').hidden = paused;
+      btn.querySelector('.astro-swmarquee__icon-play').hidden = !paused;
+    });
+  });
+</script>

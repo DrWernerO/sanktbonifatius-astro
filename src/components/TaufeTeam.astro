@@ -3,13 +3,11 @@
 // Fotos lokal in public/uploads/ (vom WP heruntergeladen, Handbuch 1b). Link zum Pastoralteam.
 const team = [
   { name: 'Dr. Werner Otto',      role: 'Pfarrer',             img: '/uploads/2023/07/Bonifatius_Pastoralteam_Werner-edited-1.jpg' },
-  { name: 'Uwe Michler',          role: 'Gemeindereferent',    img: '/uploads/2023/05/Bonifatius_Pastoralteam_Uwe-edited.jpg' },
-  { name: 'Gaby Geagea',          role: 'Gemeindereferentin',  img: '/uploads/2023/07/Bonifatius_Pastoralteam_Gaby-e1659515837936-edited.jpg' },
-  { name: 'Martin Kestler',       role: 'Diakon',              img: '/uploads/2023/05/Bonifatius_Pastoralteam_Martin-e1659516162716-edited.jpg' },
-  { name: 'Lilian Wykipil',       role: 'Gemeindereferentin',  img: '/uploads/2023/09/lilian-wykipil-1.jpeg' },
-  { name: 'Bettina Rupp',         role: 'Gemeindereferentin',  img: '/uploads/2025/06/DSC00931.jpg' },
+  { name: 'Uwe Michler',          role: 'Pfarrer',             img: '/uploads/2023/05/Bonifatius_Pastoralteam_Uwe-edited.jpg' },
+  { name: 'Gaby Geagea',          role: 'Pfarrer',             img: '/uploads/2023/07/Bonifatius_Pastoralteam_Gaby-e1659515837936-edited.jpg' },
   { name: 'Dorothea Schneider',   role: 'Pastoralreferentin',  img: '/uploads/2025/06/DSC00891.jpg' },
-  { name: 'Sandra Roos-Greulich', role: 'Gemeindereferentin',  img: '/uploads/2023/05/Sandra-Roos-Greulich-edited-1.jpg' },
+  { name: 'Doly Kadavil',         role: 'Pastoralreferentin',  img: '/uploads/2023/08/doly-kadavil.png' },
+  { name: 'Martin Kestler',       role: 'Pastoralreferent',    img: '/uploads/2023/05/Bonifatius_Pastoralteam_Martin-e1659516162716-edited.jpg' },
 ];
 ---
 <section class="astro-tateam">
@@ -39,11 +37,11 @@ const team = [
 .astro-tateam__head{text-align:center;margin:0 0 40px}
 .astro-tateam__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 14px}
 .astro-tateam__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:560px}
-.astro-tateam__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.astro-tateam__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .astro-tateam-card{background:#fff;border-radius:12px;padding:22px 18px;text-align:center;box-shadow:0 2px 12px rgba(30,21,18,.05)}
 .astro-tateam-card__photo{width:104px;height:104px;border-radius:50%;object-fit:cover;margin:0 auto 14px;background:#ede8e1}
 .astro-tateam-card__name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2c2420;margin:0 0 4px}
-.astro-tateam-card__role{font-size:13px;letter-spacing:.03em;color:#928269;margin:0}
+.astro-tateam-card__role{font-size:13px;letter-spacing:.03em;color:#746753;margin:0}
 .astro-tateam__more{text-align:center;margin:36px 0 0}
 .astro-tateam__link{display:inline-block;padding:13px 28px;border-radius:50px;border:1.5px solid #9a2d2d;color:#9a2d2d;font-size:15px;font-weight:600;transition:background .2s,color .2s}
 .astro-tateam__link:hover{background:#9a2d2d;color:#fff}

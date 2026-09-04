@@ -5,7 +5,8 @@
 // Lesbarkeit + würdevollen, ruhigen Ton (sensibles Thema). Genau EINE sichtbare <h1>.
 const HERO = '/uploads/2023/07/beratung-hilfe-stbonifatius.jpg';
 ---
-<section class="astro-ber-hero" role="img" aria-label="Beratung und Hilfe in der Pfarrei Sankt Bonifatius Frankfurt">
+<section class="astro-ber-hero">
+  <div class="astro-ber-hero__bg" role="img" aria-label="Beratung und Hilfe in der Pfarrei Sankt Bonifatius Frankfurt"></div>
   <div class="astro-ber-hero__inner">
     <p class="astro-ber-hero__eyebrow">Pfarrei Sankt Bonifatius &#183; Frankfurt</p>
     <h1 class="astro-ber-hero__title">Beratung und Hilfe</h1>
@@ -21,7 +22,8 @@ const HERO = '/uploads/2023/07/beratung-hilfe-stbonifatius.jpg';
 </section>
 
 <style is:global>
-.astro-ber-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:440px;overflow:hidden;background:linear-gradient(180deg,rgba(33,19,13,.26) 0%,rgba(40,24,16,.38) 55%,rgba(30,21,18,.64) 100%),url('/uploads/2023/07/beratung-hilfe-stbonifatius.jpg') center/cover no-repeat;color:#f3ead9}
+.astro-ber-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:440px;overflow:hidden;color:#f3ead9}
+.astro-ber-hero__bg{position:absolute;inset:0;background:linear-gradient(180deg,rgba(33,19,13,.26) 0%,rgba(40,24,16,.38) 55%,rgba(30,21,18,.64) 100%),url('/uploads/2023/07/beratung-hilfe-stbonifatius.jpg') center/cover no-repeat}
 .astro-ber-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(197,165,90,.12) 0%,transparent 62%)}
 .astro-ber-hero__inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:104px 40px 64px;text-align:center}
 .astro-ber-hero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#f0d79a;margin:0 0 16px;text-shadow:0 1px 10px rgba(0,0,0,.45)}

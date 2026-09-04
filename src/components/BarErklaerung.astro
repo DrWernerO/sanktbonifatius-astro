@@ -1,0 +1,72 @@
+---
+// Erklärung zur Barrierefreiheit DIESER WEBSITE (nicht zu verwechseln mit den übrigen
+// Abschnitten auf dieser Seite, die bauliche Zugänglichkeit der Kirchen behandeln).
+// Auf Wunsch Werners (2026-09-04) auf derselben Seite untergebracht statt als eigene Route.
+// Rechtsgrundlage bewusst vorsichtig formuliert (Prüfung, ob BFSG für die Pfarrei greift, steht
+// noch aus) — als freiwillige Selbstverpflichtung statt als definitive Rechtsbehauptung.
+// TODO Werner: Schlichtungsstelle/Durchsetzungsverfahren-Kontakt nach Rückfrage beim Bistum
+// Limburg ergänzen (Platzhalter unten markiert).
+const MAIL = 'info@sanktbonifatius.de';
+const STAND = '4. September 2026';
+---
+<section class="astro-bar-erkl" id="erklaerung">
+  <div class="astro-bar-erkl__inner">
+    <h2 class="astro-bar-erkl__hl">Erklärung zur Barrierefreiheit dieser Website</h2>
+    <p class="astro-bar-erkl__lead">
+      Die obigen Abschnitte betreffen die bauliche Zugänglichkeit unserer Kirchen. Hier geht es um
+      etwas anderes: die Bedienbarkeit dieser <strong>Website</strong> für Menschen mit
+      Behinderung. Wir sind bemüht, unsere Website in Übereinstimmung mit den gesetzlichen
+      Anforderungen bzw. den Web Content Accessibility Guidelines (WCAG) 2.1, Stufe AA,
+      barrierefrei zu gestalten.
+    </p>
+
+    <h3 class="astro-bar-erkl__h3">Stand der Vereinbarkeit</h3>
+    <p class="astro-bar-erkl__p">
+      Diese Website ist <strong>teilweise</strong> mit den genannten Anforderungen vereinbar.
+      Bereits umgesetzt sind unter anderem:
+    </p>
+    <ul class="astro-bar-erkl__list">
+      <li>Ein Bedienelement zur Anpassung von Schriftgröße, Kontrast und Zeilenabstand (unten rechts auf jeder Seite)</li>
+      <li>Vollständige Tastaturbedienbarkeit von Menü, Formularen und Foto-Galerien</li>
+      <li>Ein „Zum Inhalt springen"-Link für Tastatur- und Screenreader-Nutzung</li>
+      <li>Alternativtexte für Bilder sowie ausreichender Farbkontrast auf den meisten Seiten</li>
+    </ul>
+    <p class="astro-bar-erkl__p">
+      Noch nicht vollständig geprüft bzw. umgesetzt:
+    </p>
+    <ul class="astro-bar-erkl__list">
+      <li>Einzelne Farbkontraste auf wenigen Unterseiten</li>
+      <li>Barrierefreiheit eingebetteter PDF-Dokumente (z. B. Pfarrbrief, Stellenanzeigen)</li>
+      <li>Eine vollständige manuelle Prüfung mit Screenreadern (bislang automatisiert und stichprobenartig getestet)</li>
+    </ul>
+
+    <h3 class="astro-bar-erkl__h3">Barriere entdeckt?</h3>
+    <p class="astro-bar-erkl__p">
+      Wenn Ihnen beim Nutzen dieser Website eine Barriere auffällt, freuen wir uns über eine
+      Nachricht an <a href={`mailto:${MAIL}`}>{MAIL}</a>. Wir bemühen uns, gemeldete Probleme
+      zeitnah zu beheben.
+    </p>
+
+    <h3 class="astro-bar-erkl__h3">Durchsetzungsverfahren</h3>
+    <p class="astro-bar-erkl__p astro-bar-erkl__placeholder">
+      Angaben zur zuständigen Schlichtungs-/Aufsichtsstelle folgen in Kürze.
+    </p>
+
+    <p class="astro-bar-erkl__stand">Stand dieser Erklärung: {STAND}</p>
+  </div>
+</section>
+
+<style is:global>
+.astro-bar-erkl{background:#fff;padding:64px 0 72px;scroll-margin-top:100px}
+.astro-bar-erkl__inner{max-width:760px;margin:0 auto;padding:0 40px}
+.astro-bar-erkl__hl{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,32px);font-weight:700;color:#2c2420;margin:0 0 20px;text-align:center}
+.astro-bar-erkl__lead{font-size:16px;color:#3d3530;line-height:1.7;margin:0 0 32px}
+.astro-bar-erkl__h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#2c2420;margin:28px 0 10px}
+.astro-bar-erkl__p{font-size:15px;color:#3d3530;line-height:1.65;margin:0 0 8px}
+.astro-bar-erkl__p a{color:#9a2d2d;text-decoration:underline;text-underline-offset:2px}
+.astro-bar-erkl__list{margin:0 0 8px;padding-left:22px;color:#3d3530;font-size:15px;line-height:1.7}
+.astro-bar-erkl__list li{margin-bottom:4px}
+.astro-bar-erkl__placeholder{font-style:italic;color:#6b5c52}
+.astro-bar-erkl__stand{font-size:13px;color:#746753;margin-top:28px;padding-top:16px;border-top:1px solid #ede4d5}
+@media(max-width:600px){.astro-bar-erkl__inner{padding:0 20px}}
+</style>
