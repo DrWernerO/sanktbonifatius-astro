@@ -243,13 +243,17 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 > `docs/ASTRO-QUICKREF.md`/`CLAUDE.md` — liegt nicht in diesem Repo). Vorher **nicht** setzen,
 > sonst verschwinden Pfarrbrief/Highlights-Original-URLs, bevor die neuen indexiert sind.
 >
-> **Wichtige Lücke:** Ein reiner Datei-Upload/-Austausch in der Mediathek löst **keinen**
-> Netlify-Rebuild aus — der Webhook aus Abschnitt 1c feuert nur bei Beitrag/Seite. Eine neue
-> Pfarrbrief-Ausgabe erscheint also erst nach dem nächsten Rebuild (Push, Beitrag/Seiten-
-> Änderung oder manuelles „Trigger deploy" in Netlify) unter `/downloads/pfarrbrief.pdf`.
-> Sauberste Lösung: `functions.php` um einen auf „pfarrbrief"/„highlights" im Medientitel
-> gefilterten `add_attachment`/`edit_attachment`-Hook erweitern (Lovis, All-inkl/WP), der
-> denselben Build-Hook wie in Abschnitt 1c anstößt. **Noch nicht umgesetzt.**
+> **Stand 2026-09-03: UMGESETZT.** Ursprünglich löste ein reiner Datei-Upload/-Austausch in der
+> Mediathek **keinen** Netlify-Rebuild aus — der Webhook aus Abschnitt 1c feuert nur bei
+> Beitrag/Seite, eine neue Pfarrbrief-Ausgabe wäre also erst nach dem nächsten ohnehin
+> anstehenden Rebuild (Push, Beitrag/Seiten-Änderung oder manuelles „Trigger deploy" in
+> Netlify) unter `/downloads/pfarrbrief.pdf` erschienen. Werner hat die `functions.php` daher
+> um einen auf „pfarrbrief"/„highlights" im Medientitel gefilterten
+> `add_attachment`/`edit_attachment`-Hook ergänzt, der denselben Build-Hook wie in Abschnitt 1c
+> anstößt (ungefiltert hätte jeder x-beliebige Foto-Upload einen Rebuild ausgelöst). Ein
+> Upload/Ersetzen in RML-Ordner 198 (s.o.) löst damit jetzt automatisch einen Rebuild aus —
+> Astro fragt weiterhin nicht bei jedem Download live nach, sondern bäckt die Datei beim
+> nächsten (jetzt automatisch angestoßenen) Build ein.
 
 ---
 

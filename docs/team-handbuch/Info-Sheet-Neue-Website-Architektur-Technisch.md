@@ -1,5 +1,12 @@
 # Neue Website-Architektur — die technische Version
 
+> ⚠️ **Historisches Planungsdokument (Stand 21.06.2026)** — die „Offenen Punkte" in Abschnitt 7
+> sind inzwischen alle erledigt (Go-Live 03.08.2026), einzelne Details weichen vom tatsächlichen
+> Ergebnis ab (z.B. wurde Netlify gewählt, nicht Vercel/Cloudflare; DigiAccess-Overlay ist entgegen
+> Abschnitt 7 weiterhin im Einsatz). Für den aktuellen, gepflegten Stand siehe
+> [`../ASTRO-HANDBUCH.md`](../ASTRO-HANDBUCH.md) — dieses Dokument bleibt als Erklärung des
+> ursprünglichen Architektur-Konzepts brauchbar.
+
 *Für technisch versierte Leser (Grundkenntnisse Web/Programmieren, ggf. Erfahrung mit Claude).
 Erklärt Build, Hosting, die Rolle von All-inkl und Netlify sowie die Umstellung der Domain.*
 

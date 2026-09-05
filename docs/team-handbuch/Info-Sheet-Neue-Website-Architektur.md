@@ -1,5 +1,10 @@
 # Unsere neue Website — verständlich erklärt
 
+> ⚠️ **Historisches Planungsdokument (Stand 21.06.2026)** — beschreibt die Umstellung noch als
+> *Vorhaben*. Der Go-Live ist seit 03.08.2026 erfolgt; aktueller Stand + Details in
+> [`../ASTRO-HANDBUCH.md`](../ASTRO-HANDBUCH.md). Als allgemeinverständliche Erklärung des
+> Grundprinzips (Lagerhaus/Schaufenster-Bild) weiterhin brauchbar, z.B. fürs Seelsorgeteam.
+
 *Ein Info-Blatt für das Seelsorgeteam zur geplanten Umstellung der Pfarrei-Website*
 
 ---
