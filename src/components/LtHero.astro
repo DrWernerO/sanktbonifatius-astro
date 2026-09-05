@@ -1,21 +1,29 @@
 ---
-// Hero der Seite „Leitung" (WP-Seite 48782). Einfarbiger dunkler Hero + Gold-Akzentlinie
-// (analog Pastoralteam). Eigene Klassen `astro-lthero` (Handbuch 3).
+// Hero der Seite „Leitung" (WP-Seite 48782). Gleiches Muster wie PbHero/PtHero: Full-Bleed-Foto
+// (Gremien-Teamfoto) + sanfter Verlauf (oben hell, nur unten am Text dunkler) + Text direkt im
+// Bild unten. Foto bleibt dadurch fast komplett unabgedunkelt (Wunsch Werner 2026-09-05).
+// Eigene Klassen `astro-lthero` (Handbuch 3). Bild lokal in public/uploads/ (Handbuch 1b).
+const photo = '/uploads/2026/09/gremien-team-2026.jpg';
 ---
 <section class="astro-lthero">
+  <div class="astro-lthero__bg" role="img"
+       aria-label="Mitglieder von Pfarrgemeinderat und Verwaltungsrat der Pfarrei Sankt Bonifatius Frankfurt"
+       style={`background-image:url('${photo}')`}></div>
+  <div class="astro-lthero__overlay"></div>
   <div class="astro-lthero__inner">
     <p class="astro-lthero__eyebrow">Pfarrei Sankt Bonifatius Frankfurt</p>
     <h1 class="astro-lthero__title">Die Leitung der Pfarrei</h1>
-    <p class="astro-lthero__sub">Pfarrer, Pfarrgemeinderat und Verwaltungsrat — gemeinsam tragen sie Verantwortung für das Leben in Sankt Bonifatius Frankfurt.</p>
+    <p class="astro-lthero__sub">Der Pfarrer mit seinem Pastoralteam, der Pfarrgemeinderat und der Verwaltungsrat — gemeinsam tragen sie Verantwortung für das Leben in Sankt Bonifatius Frankfurt.</p>
   </div>
 </section>
 
 <style is:global>
-.astro-lthero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:min(52vh,440px);background:linear-gradient(135deg,#2c2420,#3a2315);display:flex;flex-direction:column;justify-content:flex-end}
-.astro-lthero::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#b88a3a 0%,#d4aa5a 50%,#b88a3a 100%)}
-.astro-lthero__inner{max-width:1140px;width:100%;margin:0 auto;padding:64px 40px;color:#fff}
-.astro-lthero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;color:#d4aa5a;margin:0 0 14px}
-.astro-lthero__title{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#fff;font-size:clamp(34px,5vw,60px);line-height:1.1;margin:0 0 14px}
-.astro-lthero__sub{font-size:18px;color:rgba(255,255,255,.85);line-height:1.6;margin:0;max-width:640px}
-@media(max-width:600px){.astro-lthero{min-height:340px}.astro-lthero__inner{padding:44px 20px}}
+.astro-lthero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;height:min(60vh,520px);min-height:420px;overflow:hidden}
+.astro-lthero__bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.astro-lthero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.05) 0%,rgba(30,21,18,.25) 60%,rgba(30,21,18,.72) 100%)}
+.astro-lthero__inner{position:relative;z-index:2;max-width:1140px;width:100%;margin:0 auto;padding:0 40px 48px;color:#fff}
+.astro-lthero__eyebrow{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;color:#d4aa5a;margin:0 0 14px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.astro-lthero__title{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#fff;font-size:clamp(34px,5vw,60px);line-height:1.1;margin:0 0 14px;text-shadow:0 2px 14px rgba(0,0,0,.45)}
+.astro-lthero__sub{font-size:18px;color:rgba(255,255,255,.92);line-height:1.6;margin:0;max-width:640px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+@media(max-width:600px){.astro-lthero{height:min(58vh,440px)}.astro-lthero__inner{padding:0 20px 40px}}
 </style>
