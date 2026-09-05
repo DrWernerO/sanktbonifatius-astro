@@ -1,0 +1,60 @@
+---
+// Interne Statistik-Seite: zeigt den eigenen, GA4-unabhängigen Download-Zähler für
+// Pfarrbrief/Highlights (Handbuch 1d). Nur für Werner gedacht — daher per Basic-Auth
+// geschützt (src/middleware.ts, Passwort in Netlify-Umgebungsvariable DOWNLOADS_STATS_PASSWORD).
+//
+// `prerender = false` ist zwingend: nur dann läuft die Seite als Netlify-Function und die
+// Middleware greift (analog src/pages/kontakt/raumbuchung.astro).
+export const prerender = false;
+
+import Base from '../../layouts/Base.astro';
+import { leseDownloadZaehler } from '../../lib/download-counter.js';
+
+const zaehler = await leseDownloadZaehler();
+
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+---
+<Base title="Download-Statistik" description="" noindex={true}>
+  <section class="astro-dlstat">
+    <div class="astro-dlstat__in">
+      <h1>Download-Statistik</h1>
+      <p class="astro-dlstat__hinweis">
+        Zählt jeden Klick auf „Pfarrbrief" bzw. „Bonifatius Highlights" im Menü — unabhängig von
+        der Cookie-Einwilligung der Besucher:innen (im Unterschied zu Google Analytics).
+        Zählung läuft seit der Einrichtung dieser Seite.
+      </p>
+      <table class="astro-dlstat__table">
+        <tbody>
+          <tr>
+            <th scope="row">Pfarrbrief</th>
+            <td>{zaehler.pfarrbrief ?? 0}</td>
+          </tr>
+          <tr>
+            <th scope="row">Bonifatius Highlights</th>
+            <td>{zaehler.highlights ?? 0}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .astro-dlstat { padding: 140px 32px 80px; }
+  .astro-dlstat__in { max-width: 560px; margin: 0 auto; }
+  .astro-dlstat h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 36px);
+    margin-bottom: 16px;
+    color: var(--clr-primary);
+  }
+  .astro-dlstat__hinweis { color: var(--clr-muted); margin-bottom: 32px; }
+  .astro-dlstat__table {
+    width: 100%; border-collapse: collapse;
+    font-size: 18px;
+  }
+  .astro-dlstat__table th, .astro-dlstat__table td {
+    text-align: left; padding: 14px 12px; border-bottom: 1px solid #e3dace;
+  }
+  .astro-dlstat__table td { text-align: right; font-weight: 700; }
+</style>

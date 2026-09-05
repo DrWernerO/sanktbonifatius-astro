@@ -70,8 +70,8 @@ const highlightsUrl = '/downloads/highlights.pdf';
       <div class="bh3a-dd">
         <a href="#">Downloads</a>
         <div class="bh3a-dd__menu">
-          <a href={pfarrbriefUrl} target="_blank" rel="noopener">Pfarrbrief</a>
-          <a href={highlightsUrl} target="_blank" rel="noopener">Bonifatius Highlights</a>
+          <a href={pfarrbriefUrl} target="_blank" rel="noopener" data-download-file="pfarrbrief">Pfarrbrief</a>
+          <a href={highlightsUrl} target="_blank" rel="noopener" data-download-file="highlights">Bonifatius Highlights</a>
         </div>
       </div>
       <button type="button" class="bh3a-btn-srch" aria-label="Suche öffnen" aria-expanded="false" aria-controls="bh3aSrch">
@@ -328,6 +328,16 @@ const highlightsUrl = '/downloads/highlights.pdf';
     // ESC-Taste schließt Menü + Suche
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { close(); closeSearch(); }
+    });
+
+    // Eigener, GA4-unabhängiger Download-Zähler (Handbuch 1d): blockiert den Download nicht
+    // (sendBeacon läuft im Hintergrund) und läuft unabhängig von der Cookie-Einwilligung.
+    document.querySelectorAll('[data-download-file]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        try {
+          navigator.sendBeacon('/api/track-download?file=' + a.dataset.downloadFile);
+        } catch (e) {}
+      });
     });
   })();
 </script>

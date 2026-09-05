@@ -16,10 +16,11 @@ export default defineConfig({
   adapter: netlify(),
   integrations: [
     sitemap({
-      // Passwortgeschützte Seite raumbuchung/ ist bereits per noindex-Header vor Google
-      // geschützt — steht aber ohne diesen Filter trotzdem öffentlich lesbar in der
-      // sitemap.xml (URL damit auffindbar, auch wenn der Inhalt selbst gesperrt bleibt).
-      filter: (page) => !page.includes('/kontakt/raumbuchung'),
+      // Passwortgeschützte Seiten (raumbuchung/, downloads/statistik) sind bereits per
+      // noindex-Header vor Google geschützt — stünden aber ohne diesen Filter trotzdem
+      // öffentlich lesbar in der sitemap.xml (URL damit auffindbar, auch wenn der Inhalt
+      // selbst gesperrt bleibt).
+      filter: (page) => !page.includes('/kontakt/raumbuchung') && !page.includes('/downloads/statistik'),
     }),
   ],
   vite: {
