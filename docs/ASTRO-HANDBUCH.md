@@ -255,6 +255,22 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 > Astro fragt weiterhin nicht bei jedem Download live nach, sondern bäckt die Datei beim
 > nächsten (jetzt automatisch angestoßenen) Build ein.
 
+> **Stand 2026-09-05: Eigener, GA4-unabhängiger Download-Zähler ergänzt.** GA4 Enhanced
+> Measurement zählt „Datei-Downloads" bereits automatisch, aber nur bei Besuchern mit
+> Cookie-Einwilligung. Für eine Zählung unabhängig davon:
+> - `src/lib/download-counter.js` — `zaehleDownload(datei)` / `leseDownloadZaehler()`,
+>   Speicher: **Netlify Blobs** (Store `download-counters`, Schlüssel `pfarrbrief`/`highlights`;
+>   im bestehenden Netlify-Konto enthalten, kein Zusatzdienst).
+> - `src/pages/api/track-download.ts` (`prerender = false`) — nimmt den Zähl-Aufruf entgegen.
+> - `Nav.astro` löst beim Klick auf Pfarrbrief/Highlights per `navigator.sendBeacon()` einen
+>   Aufruf dieser Route aus — läuft im Hintergrund, blockiert den eigentlichen Download nicht.
+> - `src/pages/downloads/statistik.astro` (`prerender = false`) — zeigt die beiden Zählerstände
+>   als einfache Tabelle. Passwortgeschützt per HTTP-Basic-Auth (`src/middleware.ts`, analog
+>   Raumbuchung), Passwort in Netlify-Env `DOWNLOADS_STATS_PASSWORD`, `noindex` + Sitemap-Ausschluss.
+> - Lokal (`npm run dev` ohne Netlify-CLI-Kontext) kann `getStore()` je nach Umgebung fehlschlagen
+>   — betrifft nur die Zählung/Statistikseite, nicht den eigentlichen PDF-Download. Produktiv auf
+>   Netlify funktioniert es ohne weitere Einrichtung.
+
 ---
 
 ## 1e. SEO — SEOPress-Head fest eingebaut (headless SEO) ✅ UMGESETZT (seit 2026-08-20 statisch)
