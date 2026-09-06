@@ -528,7 +528,13 @@ function extractSeoTags(html) {
   const push = (re) => { const m = head.match(re); if (m) tags.push(m[0]); };
   push(/<title[^>]*>[\s\S]*?<\/title>/i);
   push(/<meta\s+name=["']description["'][^>]*>/i);
-  push(/<meta\s+name=["']robots["'][^>]*>/i);
+  // KEIN robots-Tag von cms übernehmen: cms.sanktbonifatius.de hat bewusst "Suchmaschinen vom
+  // Indexieren abhalten" aktiv (reines Backend, s. CLAUDE.md Regel 0) — WordPress hängt dadurch
+  // an JEDE dortige Seite ein sitweites noindex,nofollow. Würden wir das mitkopieren, bekämen
+  // Termine/Beiträge auf der echten, öffentlichen Seite fälschlich dasselbe noindex (Bug,
+  // gefunden über Search-Console-Meldung "Durch noindex-Tag ausgeschlossen", 2026-09-06).
+  // Eigene noindex-Fälle (Raumbuchung, Download-Statistik) laufen unabhängig davon über den
+  // `noindex`-Prop in Base.astro.
   for (const m of head.matchAll(/<meta\s+property=["'](?:og:(?!url["'])|article:)[^"']*["'][^>]*>/gi)) tags.push(m[0]);
   for (const m of head.matchAll(/<meta\s+name=["']twitter:[^"']*["'][^>]*>/gi)) tags.push(m[0]);
   // JSON-LD im GANZEN Dokument suchen: SEOPress gibt die ld+json-Blöcke im <body> aus
