@@ -61,6 +61,16 @@ Datumsformat `YYYYMMDD` — direkt lexikografisch sortierbar.
 > (~85 neue + ~9 ergänzte Termine); die Regeln sind das Ergebnis mehrerer Korrekturschleifen
 > mit Werner — bitte genau so einhalten. WP-Zugang/App-Passwort: siehe `02-zugang-wordpress.md`.
 
+### ⚠️ Voraussetzung: Werner muss Claude einloggen (immer zuerst ansprechen!)
+Das WordPress-Backend liegt auf **`cms.sanktbonifatius.de`** (nicht www). Die Terminfelder gehen **nur übers Formular** — dafür muss Claude in einem eingeloggten Browser sein. Claude hat **keinen** eigenen Login (nur das REST-App-Passwort; Passwörter/Captchas darf Claude nicht eintippen).
+
+**Claude sagt Werner ganz zu Beginn:** _„Bitte logg dich im cms in meinem (eingebauten) Browser ein, damit ich Termine hochladen kann."_ Ablauf (verifiziert 2026-09-06):
+1. Claude öffnet die **versteckte Login-Seite** im eingebauten Browser: **`https://cms.sanktbonifatius.de/heimat`** (die normale `wp-login.php` gibt 404 — Login ist durch das Sicherheits-Plugin AIOS verlegt).
+2. **Werner** tippt Benutzername + Passwort und löst die kleine Rechen-Captcha, klickt „Anmelden".
+3. Danach übernimmt Claude im selben Fenster: `post-new.php?post_type=event` öffnen, Felder füllen, veröffentlichen.
+
+Alternativ: Werners echtes Chrome mit der Claude-in-Chrome-Erweiterung (die Erweiterung muss verbunden sein). Test-Ergebnis 2026-09-06: Anlegen/Speichern übers Formular funktioniert einwandfrei (`event_meta` wird korrekt gebaut).
+
 ### Grundregeln
 - **Ein eigener Eintrag pro Datum.** Serientermine (Fiat Lux 5×, Taizé 5×, Ökumene, Familiengottesdienste, St. Martin, Klettertag …) werden je Datum ein eigener Event — der Kalender zeigt/sortiert pro Termin nur *ein* `start_date`.
 - **Direkt veröffentlichen** (Standard). Ausnahme: **kein Datum bekannt → als Entwurf** speichern (`#save-post` statt `#publish`) und auf die Fehlliste.
