@@ -84,6 +84,12 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
+@media (max-width: 860px) {
+  .astro-ap-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .astro-ap-grid { grid-template-columns: 1fr; }
+}
 .astro-ap-card {
   background: #fff;
   border-radius: 12px;
