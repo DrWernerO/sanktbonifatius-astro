@@ -8,9 +8,20 @@
 export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
-import { leseDownloadZaehler } from '../../lib/download-counter.js';
+import { leseWochenZaehler } from '../../lib/download-counter.js';
 
-const zaehler = await leseDownloadZaehler();
+const wochen = await leseWochenZaehler();
+const gesamtPfarrbrief = wochen.reduce((summe, w) => summe + w.pfarrbrief, 0);
+const gesamtHighlights = wochen.reduce((summe, w) => summe + w.highlights, 0);
+
+// "2026-09-01" (Montag) -> "01.09.–07.09.2026"
+function formatWoche(montagIso) {
+  const montag = new Date(montagIso + 'T00:00:00Z');
+  const sonntag = new Date(montag);
+  sonntag.setUTCDate(sonntag.getUTCDate() + 6);
+  const tagMonat = (d) => `${String(d.getUTCDate()).padStart(2, '0')}.${String(d.getUTCMonth() + 1).padStart(2, '0')}.`;
+  return `${tagMonat(montag)}–${tagMonat(sonntag)}${sonntag.getUTCFullYear()}`;
+}
 
 Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
 ---
@@ -21,20 +32,36 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
       <p class="astro-dlstat__hinweis">
         Zählt jeden Klick auf „Pfarrbrief" bzw. „Bonifatius Highlights" im Menü — unabhängig von
         der Cookie-Einwilligung der Besucher:innen (im Unterschied zu Google Analytics).
-        Zählung läuft seit der Einrichtung dieser Seite.
+        Aufgeschlüsselt nach Kalenderwoche (Montag–Sonntag), neueste Woche oben.
       </p>
-      <table class="astro-dlstat__table">
-        <tbody>
-          <tr>
-            <th scope="row">Pfarrbrief</th>
-            <td>{zaehler.pfarrbrief ?? 0}</td>
-          </tr>
-          <tr>
-            <th scope="row">Bonifatius Highlights</th>
-            <td>{zaehler.highlights ?? 0}</td>
-          </tr>
-        </tbody>
-      </table>
+      {wochen.length === 0
+        ? <p class="astro-dlstat__leer">Noch keine Downloads gezählt.</p>
+        : <table class="astro-dlstat__table">
+            <thead>
+              <tr>
+                <th scope="col">Woche</th>
+                <th scope="col">Pfarrbrief</th>
+                <th scope="col">Highlights</th>
+              </tr>
+            </thead>
+            <tbody>
+              {wochen.map((w) => (
+                <tr>
+                  <th scope="row">{formatWoche(w.woche)}</th>
+                  <td>{w.pfarrbrief}</td>
+                  <td>{w.highlights}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Gesamt</th>
+                <td>{gesamtPfarrbrief}</td>
+                <td>{gesamtHighlights}</td>
+              </tr>
+            </tfoot>
+          </table>
+      }
     </div>
   </section>
 </Base>
@@ -49,12 +76,20 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     color: var(--clr-primary);
   }
   .astro-dlstat__hinweis { color: var(--clr-muted); margin-bottom: 32px; }
+  .astro-dlstat__leer { color: var(--clr-muted); }
   .astro-dlstat__table {
     width: 100%; border-collapse: collapse;
-    font-size: 18px;
+    font-size: 17px;
   }
   .astro-dlstat__table th, .astro-dlstat__table td {
-    text-align: left; padding: 14px 12px; border-bottom: 1px solid #e3dace;
+    text-align: left; padding: 12px; border-bottom: 1px solid #e3dace;
+  }
+  .astro-dlstat__table thead th {
+    font-size: 13px; text-transform: uppercase; letter-spacing: .03em;
+    color: var(--clr-muted); font-weight: 600; border-bottom-width: 2px;
   }
   .astro-dlstat__table td { text-align: right; font-weight: 700; }
+  .astro-dlstat__table tfoot th, .astro-dlstat__table tfoot td {
+    border-bottom: none; border-top: 2px solid var(--clr-primary); padding-top: 16px;
+  }
 </style>
