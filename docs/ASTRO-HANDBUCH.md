@@ -270,6 +270,13 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 > - Lokal (`npm run dev` ohne Netlify-CLI-Kontext) kann `getStore()` je nach Umgebung fehlschlagen
 >   — betrifft nur die Zählung/Statistikseite, nicht den eigentlichen PDF-Download. Produktiv auf
 >   Netlify funktioniert es ohne weitere Einrichtung.
+>
+> **Stand 2026-09-07: Zählung wochenweise.** Schlüssel jetzt `<datei>:<Montag der Kalenderwoche>`
+> (z. B. `pfarrbrief:2026-09-07`) statt eines einzigen Gesamtzählers. `leseWochenZaehler()` in
+> `download-counter.js` listet alle Wochen-Schlüssel per `store.list({ prefix })` und migriert
+> beim ersten Aufruf einmalig die alten Gesamtzähler (Stand vor 2026-09-07) in die dann aktuelle
+> Woche, damit die ersten ~2 Tage Zählung nicht verloren gehen. `statistik.astro` zeigt eine
+> Zeile pro Kalenderwoche (Montag–Sonntag), neueste oben, plus Gesamtsumme in der Fußzeile.
 
 ---
 
