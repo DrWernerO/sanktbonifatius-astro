@@ -7,26 +7,33 @@
 
 ## Anmeldung
 
-- **Admin:** https://www.sanktbonifatius.de/wp-admin/
-- **Benutzer:** Frank Hoffmann (`f.hoffmann@sanktbonifatius.de`, WP-Slug `frankh`)
+- **Backend liegt auf `cms.sanktbonifatius.de`** (nicht mehr www — die Hauptdomain zeigt seit
+  dem Go-Live 2026-08-03 auf Netlify/Astro, siehe `CLAUDE.md` Regel 1).
+- **Admin-Login:** https://cms.sanktbonifatius.de/heimat (versteckte Adresse — `wp-login.php`
+  gibt 404, Login ist durch das Sicherheits-Plugin AIOS verlegt; siehe `05-veranstaltungskalender.md`
+  für den Browser-Login-Ablauf mit Claude).
+- **Benutzer für Claude/REST-Arbeit:** `Werner` (Administrator) — **nicht** `f.hoffmann`/Frank
+  Hoffmann, dessen Anwendungspasswort seit dem Domain-Umzug nicht mehr funktioniert
+  (2026-09-07 stundenlang fehlgesucht: es lag **nicht** an der URL oder an `.htaccess`,
+  sondern schlicht am falschen Benutzernamen).
 - **Theme:** „Sankt Bonifatius" (Child-Theme von „Ursprung"), Slug `ursprung-bonifatius`
 
 ## Anwendungspasswort (WordPress Application Password)
 
-- Benutzer-Login: `f.hoffmann@sanktbonifatius.de` (E-Mail-Adresse, nicht Slug!)
+- Benutzer-Login: `Werner`
 - **Das Passwort steht NICHT im Handbuch.** Es liegt lokal in der Datei
   `~/.config/sb-wp/wp_pass` — bewusst **außerhalb** des iCloud-synchronisierten
   `Documents`-Ordners, mit Rechten `chmod 600` (nur der eigene Nutzer kann lesen).
 - Vor REST-/curl-Arbeit einmal pro Terminal-Sitzung laden (gibt das Passwort **nicht** aus):
   ```bash
-  export WP_USER="f.hoffmann@sanktbonifatius.de"
+  export WP_USER="Werner"
   export WP_PASS="$(cat ~/.config/sb-wp/wp_pass)"
   ```
 - Verwendung: HTTP Basic Auth — **immer nur die Variablen** verwenden, das Passwort
   nie wörtlich in einen Befehl schreiben:
   ```bash
   curl -u "$WP_USER:$WP_PASS" \
-    "https://www.sanktbonifatius.de/wp-json/wp/v2/pages/POST_ID?context=edit&_fields=content"
+    "https://cms.sanktbonifatius.de/wp-json/wp/v2/pages/POST_ID?context=edit&_fields=content"
   # Hinweis: Auch Draft-Seiten sind mit diesem Account lesbar (context=edit)
   ```
 - Passwort ändern / Datei neu anlegen:
@@ -35,6 +42,8 @@
   printf '%s\n' 'NEUES ANWENDUNGSPASSWORT' > ~/.config/sb-wp/wp_pass
   chmod 600 ~/.config/sb-wp/wp_pass
   ```
+  Neues Anwendungspasswort erzeugen: im Backend unter `/heimat` einloggen → Profil →
+  Anwendungspasswörter → altes löschen, neues mit Namen (z. B. „Claude") anlegen.
 
 ## Rechte-Einschränkungen
 
@@ -55,7 +64,7 @@
 
 ```bash
 curl -u "$WP_USER:$WP_PASS" \
-  "https://www.sanktbonifatius.de/wp-json/wp/v2/media?slug=BILD-SLUG&_fields=id,slug,source_url"
+  "https://cms.sanktbonifatius.de/wp-json/wp/v2/media?slug=BILD-SLUG&_fields=id,slug,source_url"
 ```
 
 ## Andere Post-Typen (REST)
