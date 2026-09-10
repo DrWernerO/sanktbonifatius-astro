@@ -13,6 +13,7 @@ const data = Object.fromEntries(
     image: n.image,
     gallery: n.gallery,
     video: n.video,
+    orientation: n.orientation,
   }])
 );
 ---
@@ -36,6 +37,7 @@ const data = Object.fromEntries(
 .astro-lb__stage{flex:1;display:flex;align-items:center;justify-content:center;width:100%;max-width:1600px;min-height:0}
 .astro-lb__stage img,.astro-lb__stage video,.astro-lb__stage iframe{max-width:100%;max-height:88vh;width:auto;height:auto;border-radius:6px;display:block;background:#000}
 .astro-lb__stage iframe{width:min(100%,960px);aspect-ratio:16/9;height:auto}
+.astro-lb__stage iframe.astro-lb__stage-video--portrait{width:auto;height:min(88vh,860px);aspect-ratio:9/16;max-width:100%}
 .astro-lb__bar{width:100%;max-width:1280px;text-align:center;color:#f0e8d8;padding:10px 8px 2px}
 .astro-lb__title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin:0 0 4px;color:#fff}
 .astro-lb__caption{font-size:14px;color:rgba(240,232,216,.8);margin:0;line-height:1.5}
@@ -86,8 +88,9 @@ const data = Object.fromEntries(
       var v = current.video;
       var yt = v.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
       var vimeo = v.match(/vimeo\.com\/(\d+)/);
-      if(yt){ stage.innerHTML = '<iframe src="https://www.youtube.com/embed/'+yt[1]+'" allowfullscreen frameborder="0"></iframe>'; }
-      else if(vimeo){ stage.innerHTML = '<iframe src="https://player.vimeo.com/video/'+vimeo[1]+'" allowfullscreen frameborder="0"></iframe>'; }
+      var portraitClass = current.orientation === 'portrait' ? ' astro-lb__stage-video--portrait' : '';
+      if(yt){ stage.innerHTML = '<iframe class="'+portraitClass.trim()+'" src="https://www.youtube.com/embed/'+yt[1]+'" allowfullscreen frameborder="0"></iframe>'; }
+      else if(vimeo){ stage.innerHTML = '<iframe class="'+portraitClass.trim()+'" src="https://player.vimeo.com/video/'+vimeo[1]+'" allowfullscreen frameborder="0"></iframe>'; }
       else { stage.innerHTML = '<video src="'+v+'" controls autoplay></video>'; }
       prevBtn.hidden = true; nextBtn.hidden = true; counterEl.textContent = '';
       capEl.textContent = current.excerpt || '';

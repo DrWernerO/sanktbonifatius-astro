@@ -419,6 +419,22 @@ function youtubeThumbnail(url) {
   return m ? `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg` : null;
 }
 
+// Hoch- oder Querformat eines YouTube-Videos ermitteln (öffentliche oEmbed-Antwort, kein
+// API-Key nötig) — die News-Lightbox braucht das, um Hochkant-Videos ohne schwarze Balken
+// zu zeigen (Standard-iframe-Einbettung ist sonst starr auf 16:9, s. NewsLightbox.astro).
+async function youtubeOrientation(url) {
+  const m = (url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
+  if (!m) return 'landscape';
+  try {
+    const res = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${m[1]}&format=json`);
+    if (!res.ok) return 'landscape';
+    const { width, height } = await res.json();
+    return height > width ? 'portrait' : 'landscape';
+  } catch {
+    return 'landscape';
+  }
+}
+
 // --- "Aktuelles": Beiträge (posts) + News (pin) zusammenführen -----------------------
 // "News" = WP-Custom-Post-Type `pin` (Menü "News" im WP-Admin): Bild, Video oder Fotogalerie.
 // Die ACF-Felder (typ/image/gallery/video/subtitle/description) werden per `pin_data`
@@ -434,11 +450,12 @@ export async function getNewsPins() {
     );
     if (!res.ok) return [];
     const pins = await res.json();
-    return pins.map((p) => {
+    return await Promise.all(pins.map(async (p) => {
       const d = p.pin_data || {};
       const excerpt = d.subtitle || (d.description || '').slice(0, 260);
       // Video-News ohne eigenes Bild: YouTube-Vorschaubild als Kachel-Bild nutzen.
       const image = d.image || (d.typ === 'video' ? youtubeThumbnail(d.video) : null);
+      const orientation = d.typ === 'video' ? await youtubeOrientation(d.video) : 'landscape';
       return {
         id: p.id,
         kind: 'news',
@@ -451,8 +468,9 @@ export async function getNewsPins() {
         galleryCount: Array.isArray(d.gallery) ? d.gallery.length : 0,
         gallery: Array.isArray(d.gallery) ? d.gallery : [], // [{u: Bild-URL, a: Alt-Text}]
         video: d.video || '',
+        orientation, // 'portrait' | 'landscape' — steuert die Video-Box-Größe in der Lightbox
       };
-    });
+    }));
   } catch {
     return [];
   }
