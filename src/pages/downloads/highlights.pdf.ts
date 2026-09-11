@@ -18,7 +18,7 @@ export const GET: APIRoute = async () => {
   return new Response(buf, {
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': 'inline; filename="Sankt Bonifatius Highlights.pdf"',
+      'Content-Disposition': 'attachment; filename="Sankt Bonifatius Highlights.pdf"',
       'Cache-Control': 'public, max-age=3600, must-revalidate',
     },
   });
