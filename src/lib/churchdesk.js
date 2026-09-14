@@ -88,7 +88,10 @@ function normalize(raw) {
 // wie getTaufeTermine() in wordpress.js).
 export async function getGottesdienste({ from, to, itemsNumber = 500 } = {}) {
   const { token, organizationId } = config();
-  if (!token) return [];
+  if (!token) {
+    console.warn('ChurchDesk: CHURCHDESK_API_TOKEN ist nicht gesetzt (process.env und import.meta.env leer).');
+    return [];
+  }
   try {
     const params = new URLSearchParams({
       organizationId,
@@ -101,7 +104,11 @@ export async function getGottesdienste({ from, to, itemsNumber = 500 } = {}) {
       headers: { 'X-API-Key': token, Accept: 'application/json' },
       cache: 'no-store',
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      console.warn(`ChurchDesk-API antwortete mit ${res.status} ${res.statusText}: ${body.slice(0, 300)}`);
+      return [];
+    }
     const raw = await res.json();
     if (!Array.isArray(raw)) return [];
 
