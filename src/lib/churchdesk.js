@@ -83,6 +83,14 @@ function normalize(raw) {
   };
 }
 
+// NUR zur Live-Fehlersuche (2026-09-14, wird danach wieder entfernt): letzter Abruf-Status, als
+// HTML-Kommentar in GdoTermine.astro sichtbar — Netlifys Function-Logs zeigten keine console.warn-
+// Zeile, das ist eindeutiger als das Log-UI.
+let lastDebug = { note: 'getGottesdienste wurde noch nicht aufgerufen' };
+export function getLastDebug() {
+  return lastDebug;
+}
+
 // Holt Gottesdienste zwischen `from` und `to` (Date-Objekte), sortiert nach Startzeit. Bricht der
 // Abruf ab (fehlendes Token, API-Fehler) → [] statt den Seitenbau abzureißen (gleiche Konvention
 // wie getTaufeTermine() in wordpress.js).
@@ -90,6 +98,7 @@ export async function getGottesdienste({ from, to, itemsNumber = 500 } = {}) {
   const { token, organizationId } = config();
   if (!token) {
     console.warn('ChurchDesk: CHURCHDESK_API_TOKEN ist nicht gesetzt (process.env und import.meta.env leer).');
+    lastDebug = { hasToken: false, organizationId };
     return [];
   }
   try {
@@ -107,18 +116,33 @@ export async function getGottesdienste({ from, to, itemsNumber = 500 } = {}) {
     if (!res.ok) {
       const body = await res.text().catch(() => '');
       console.warn(`ChurchDesk-API antwortete mit ${res.status} ${res.statusText}: ${body.slice(0, 300)}`);
+      lastDebug = {
+        hasToken: true, tokenLength: token.length, organizationId,
+        httpStatus: res.status, httpStatusText: res.statusText, body: body.slice(0, 300),
+      };
       return [];
     }
     const raw = await res.json();
-    if (!Array.isArray(raw)) return [];
+    if (!Array.isArray(raw)) {
+      lastDebug = { hasToken: true, organizationId, httpStatus: res.status, rawIsArray: false };
+      return [];
+    }
 
-    return raw
-      .filter((e) => (e.categories || []).some((c) => c.id === GOTTESDIENST_CATEGORY_ID))
+    const gottesdienste = raw.filter((e) => (e.categories || []).some((c) => c.id === GOTTESDIENST_CATEGORY_ID));
+    const result = gottesdienste
       .filter((e) => !AUSGEBLENDETE_TITEL.includes((e.title || '').trim().toLowerCase()))
       .map(normalize)
       .sort((a, b) => a.start - b.start);
+
+    lastDebug = {
+      hasToken: true, tokenLength: token.length, organizationId,
+      httpStatus: res.status, rawCount: raw.length, gottesdiensteCount: gottesdienste.length,
+      resultCount: result.length, from: from?.toISOString(), to: to?.toISOString(),
+    };
+    return result;
   } catch (err) {
     console.warn('ChurchDesk-Gottesdienste konnten nicht geladen werden:', err);
+    lastDebug = { hasToken: true, organizationId, exception: String(err) };
     return [];
   }
 }

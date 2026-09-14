@@ -13,7 +13,7 @@
 // „ENTFÄLLT"-Termine (ChurchDesk-Konvention für ausfallende Messen, s. churchdesk.js) werden
 // bewusst MIT angezeigt, nur optisch gedämpft — sonst wüssten Besucher:innen nicht, dass eine
 // reguläre Messe ausfällt.
-import { getGottesdienste } from '../lib/churchdesk.js';
+import { getGottesdienste, getLastDebug } from '../lib/churchdesk.js';
 
 const now = new Date();
 // Wochentag in Berlin-Zeit (0 = Sonntag … 6 = Samstag), damit ein Serverstandort in anderer
@@ -31,6 +31,7 @@ const sundayAfter = new Date(nextSunday.getTime() + 7 * 24 * 60 * 60 * 1000);
 const bisDatum = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin' }).format(sundayAfter);
 const until = new Date(`${bisDatum}T00:00:00Z`);
 const termine = await getGottesdienste({ from: now, to: until });
+const debugInfo = getLastDebug(); // NUR zur Live-Fehlersuche, s. churchdesk.js — danach entfernen.
 
 // Für die Anzeige nach Tag gruppieren (Reihenfolge bleibt erhalten, da termine bereits sortiert sind).
 const tage = [];
@@ -63,6 +64,7 @@ const jsonLd = termine.map((t) => ({
   },
 }));
 ---
+<div hidden data-churchdesk-debug={JSON.stringify(debugInfo)}></div>
 <section class="astro-gdotermine" id="aktuelle-gottesdiensttermine">
   <div class="astro-gdotermine__inner">
     <h2 class="astro-gdotermine__hl">Aktuelle Gottesdiensttermine</h2>
