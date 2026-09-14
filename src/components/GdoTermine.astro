@@ -1,60 +1,154 @@
 ---
-// „Aktuelle Gottesdiensttermine" — ChurchDesk-Widget-Einbindung.
-// Präfix: astro-gdotermine. Das Widget lädt client-seitig per script-Tag.
-// Widget-ID und Organisations-ID aus dem WP-HTML der Seite 46977 übernommen.
+// „Aktuelle Gottesdiensttermine" — serverseitig aus der ChurchDesk-API (src/lib/churchdesk.js),
+// ersetzt das frühere Cross-Origin-iframe-Widget (2026-09-14). Grund: Das Widget lud den Inhalt
+// erst client-seitig aus einem fremden iframe — Google konnte die Termine nie sehen. Jetzt
+// normales HTML + schema.org/Event-JSON-LD, damit die Gottesdienste in der Google-Suche
+// auftauchen können. Präfix: astro-gdotermine.
 //
-// HINWEIS Datums-Such-Leiste: Das Widget rendert oben eine „Startdatum → Enddatum · Suchen"-
-// Filterleiste. Deren Suchen-Button ist ein ChurchDesk-seitiger Bug (reagiert nicht — betrifft
-// auch die WP-Originalseite, von uns nicht behebbar, da Cross-Origin-iframe). Damit Besucher
-// nicht auf einen toten Button stoßen, wird die Leiste oben weggeschnitten: Der Container hat
-// `overflow:hidden`, das Widget wird per negativem margin-top um die Leistenhöhe hochgezogen
-// (--gdo-clip). Sollte ChurchDesk die Leistenhöhe ändern, hier nachjustieren.
+// Zeigt den Zeitraum bis zum übernächsten Sonntag (Werners Wunsch, 2026-09-14): diese Woche bis
+// Sonntag, plus die komplette Folgewoche bis einschließlich deren Sonntag — wie im klassischen
+// Pfarrbrief "diese und nächste Woche". Ist heute selbst ein Sonntag, zählt der als der "nächste".
+// Darunter Link zur vollständigen Liste (GdoAlleTermine.astro).
+//
+// „ENTFÄLLT"-Termine (ChurchDesk-Konvention für ausfallende Messen, s. churchdesk.js) werden
+// bewusst MIT angezeigt, nur optisch gedämpft — sonst wüssten Besucher:innen nicht, dass eine
+// reguläre Messe ausfällt.
+import { getGottesdienste } from '../lib/churchdesk.js';
+
+const now = new Date();
+// Wochentag in Berlin-Zeit (0 = Sonntag … 6 = Samstag), damit ein Serverstandort in anderer
+// Zeitzone nicht den falschen Tag berechnet.
+const WEEKDAYS_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const weekdayIdx = WEEKDAYS_EN.indexOf(
+  new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Berlin', weekday: 'short' }).format(now)
+);
+const daysToNextSunday = (7 - weekdayIdx) % 7; // 0, wenn heute schon Sonntag ist
+const nextSunday = new Date(now.getTime() + daysToNextSunday * 24 * 60 * 60 * 1000);
+const sundayAfter = new Date(nextSunday.getTime() + 7 * 24 * 60 * 60 * 1000);
+// Berlin-Kalendertag von sundayAfter, als UTC-Mitternacht — ChurchDesk wertet ein reines Datum
+// als "gesamter UTC-Tag", der Berlin-Tag endet immer etwas früher als der UTC-Tag (Berlin liegt
+// vor UTC), der Sonntag bleibt also vollständig eingeschlossen.
+const bisDatum = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin' }).format(sundayAfter);
+const until = new Date(`${bisDatum}T00:00:00Z`);
+const termine = await getGottesdienste({ from: now, to: until });
+
+// Für die Anzeige nach Tag gruppieren (Reihenfolge bleibt erhalten, da termine bereits sortiert sind).
+const tage = [];
+for (const t of termine) {
+  let tag = tage.find((g) => g.dateKey === t.dateKey);
+  if (!tag) { tag = { dateKey: t.dateKey, dayLabel: t.dayLabel, isSunday: t.isSunday, items: [] }; tage.push(tag); }
+  tag.items.push(t);
+}
+
+// schema.org/Event je Termin — für Google, unsichtbar im Seitenbild. ENTFÄLLT-Termine bekommen
+// eventStatus "EventCancelled" statt "EventScheduled" (schema.org-konforme Absage).
+const jsonLd = termine.map((t) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: t.title,
+  startDate: t.startISO,
+  ...(t.endISO ? { endDate: t.endISO } : {}),
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: t.isEntfaellt ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
+  location: {
+    '@type': 'Place',
+    name: t.church,
+    ...(t.address ? { address: t.address } : {}),
+  },
+  ...(t.celebrant ? { performer: { '@type': 'Person', name: t.celebrant } } : {}),
+  organizer: {
+    '@type': 'Organization',
+    name: 'Pfarrei Sankt Bonifatius Frankfurt',
+    url: 'https://sanktbonifatius.de',
+  },
+}));
 ---
 <section class="astro-gdotermine" id="aktuelle-gottesdiensttermine">
   <div class="astro-gdotermine__inner">
     <h2 class="astro-gdotermine__hl">Aktuelle Gottesdiensttermine</h2>
-    <p class="astro-gdotermine__sub">
-      Alle Gottesdienstzeiten in Frankfurt Sachsenhausen und Oberrad — Messen, Andachten und besondere Formate für alle Altersgruppen.
-      Täglich aktualisiert. Kurzfristige Änderungen bitte beim <a href="/kontakt/">Pfarrbüro</a> erfragen.
-    </p>
-    <div class="astro-gdotermine__widget">
-      <div
-        data-churchdesk-widget-id="ZomR3fujIx_V"
-        data-churchdesk-organization-id="5499"
-        data-churchdesk-user-embed="true"
-        data-churchdesk-widget-type="event"
-      ></div>
-      <script is:inline src="https://widget.churchdesk.com/widget-loader.js"></script>
+    <p class="astro-gdotermine__sub">Alle Gottesdienstzeiten in Frankfurt Sachsenhausen und Oberrad.</p>
+
+    {tage.length === 0 ? (
+      <p class="astro-gdotermine__empty">
+        Aktuell sind für diesen Zeitraum keine Gottesdienste hinterlegt.
+        Die vollständige Übersicht finden Sie <a href="/gottesdienst-glaube/alle-gottesdienste/">hier</a>.
+      </p>
+    ) : (
+      <div class="astro-gdotermine__list">
+        {tage.map((tag) => (
+          <div class="astro-gdotermine__day">
+            <h3 class:list={['astro-gdotermine__day-hl', tag.isSunday && 'astro-gdotermine__day-hl--sun']}>
+              {tag.dayLabel}
+            </h3>
+            {tag.items.map((t) => (
+              <div class:list={['astro-gdotermine__ev', t.isEntfaellt && 'astro-gdotermine__ev--entfaellt']}>
+                <div class="astro-gdotermine__ev-time">{t.timeLabel}</div>
+                <div class="astro-gdotermine__ev-main">
+                  <p class="astro-gdotermine__ev-title">{t.title}</p>
+                  {t.celebrant && <p class="astro-gdotermine__ev-celebrant">Zelebrant: {t.celebrant}</p>}
+                </div>
+                {t.church && <div class="astro-gdotermine__ev-church">{t.church}</div>}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    )}
+
+    <div class="astro-gdotermine__more">
+      <a href="/gottesdienst-glaube/alle-gottesdienste/" class="astro-gdotermine__more-btn">
+        Alle Gottesdienste ansehen
+      </a>
     </div>
   </div>
 </section>
 
-<script is:inline>
-  // Das ChurchDesk-Widget erzeugt seinen iframe erst client-seitig ohne title-Attribut
-  // (Screenreader würden nur "Frame" ansagen) — hier nachträglich setzen, sobald er auftaucht.
-  (function () {
-    var container = document.querySelector('.astro-gdotermine__widget');
-    if (!container) return;
-    var obs = new MutationObserver(function () {
-      var f = container.querySelector('iframe:not([title])');
-      if (f) f.setAttribute('title', 'Aktuelle Gottesdiensttermine (ChurchDesk)');
-    });
-    obs.observe(container, { childList: true, subtree: true });
-  })();
-</script>
+{jsonLd.length > 0 && (
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+)}
 
 <style is:global>
 .astro-gdotermine{background:#fff;padding:72px 40px}
-.astro-gdotermine__inner{max-width:960px;margin:0 auto}
+.astro-gdotermine__inner{max-width:720px;margin:0 auto}
 .astro-gdotermine__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,38px);color:#2c2420;margin:0 0 12px;text-align:center}
 .astro-gdotermine__sub{text-align:center;color:var(--txt-muted-light);font-size:16px;line-height:1.65;margin:0 0 40px}
-.astro-gdotermine__sub a{color:#9a2d2d;text-decoration:underline}
-.astro-gdotermine__sub a:hover{color:#7e2424}
-/* --gdo-clip = Höhe der defekten ChurchDesk-Such-Leiste, die oben weggeschnitten wird. */
-.astro-gdotermine__widget{--gdo-clip:84px;border-radius:12px;overflow:hidden;box-shadow:0 2px 16px rgba(44,36,32,.07)}
-.astro-gdotermine__widget [data-churchdesk-widget-id]{display:block;margin-top:calc(-1 * var(--gdo-clip))}
-.astro-gdotermine__widget iframe{width:100%!important;border:0;display:block}
-@media(max-width:860px){.astro-gdotermine{padding:56px 24px}}
-/* Schmale Screens: Such-Leiste bricht um → höher, mehr abschneiden. */
-@media(max-width:560px){.astro-gdotermine__widget{--gdo-clip:150px}}
+.astro-gdotermine__empty{text-align:center;color:var(--txt-muted-light);font-size:15px;padding:24px 0;line-height:1.6}
+.astro-gdotermine__empty a{color:#9a2d2d;text-decoration:underline}
+
+.astro-gdotermine__day{margin:0 0 28px}
+.astro-gdotermine__day-hl{
+  font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2c2420;
+  margin:0 0 10px;padding-bottom:6px;border-bottom:2px solid #e3dace;
+}
+/* Sonntage hervorheben — Gold-Akzent + eigene Unterlinie statt der neutralen Trennlinie. */
+.astro-gdotermine__day-hl--sun{
+  color:#9a2d2d;border-bottom-color:var(--accent-gold-deco);border-bottom-width:3px;
+}
+.astro-gdotermine__ev{
+  display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;
+  padding:9px 0;border-bottom:1px solid #f1ece5;
+}
+.astro-gdotermine__ev:last-child{border-bottom:0}
+.astro-gdotermine__ev-time{font-weight:600;color:#9a2d2d;font-size:14.5px;white-space:nowrap}
+.astro-gdotermine__ev-main{min-width:0}
+.astro-gdotermine__ev-title{font-size:15px;font-weight:600;color:#2c2420;margin:0;line-height:1.35}
+.astro-gdotermine__ev-celebrant{font-size:12.5px;color:var(--txt-muted-light);margin:2px 0 0}
+.astro-gdotermine__ev-church{font-size:13px;color:var(--txt-muted-light);text-align:right;white-space:nowrap;flex-shrink:0}
+/* ENTFÄLLT-Termine bleiben sichtbar (Werners Wunsch), aber optisch gedämpft statt wie ein normaler Termin. */
+.astro-gdotermine__ev--entfaellt .astro-gdotermine__ev-time,
+.astro-gdotermine__ev--entfaellt .astro-gdotermine__ev-title{color:#a89c8f}
+.astro-gdotermine__ev--entfaellt .astro-gdotermine__ev-title{font-style:italic;font-weight:600}
+
+.astro-gdotermine__more{text-align:center;margin:36px 0 0}
+.astro-gdotermine__more-btn{
+  display:inline-block;font-size:14.5px;font-weight:600;color:#fff;background:#9a2d2d;
+  border-radius:8px;padding:12px 26px;transition:background .2s;
+}
+.astro-gdotermine__more-btn:hover{background:#7e2424}
+
+@media(max-width:600px){
+  .astro-gdotermine{padding:56px 20px}
+  .astro-gdotermine__ev{grid-template-columns:56px 1fr;gap:4px 12px}
+  .astro-gdotermine__ev-church{grid-column:2;text-align:left}
+}
 </style>

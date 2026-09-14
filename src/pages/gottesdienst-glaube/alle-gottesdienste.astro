@@ -1,0 +1,29 @@
+---
+// „Alle Gottesdienste" — vollständige, filterbare Liste aus der ChurchDesk-API (neu 2026-09-14).
+// Verlinkt von GdoTermine.astro (Teaser „nächste 7 Tage" auf der Gottesdienstordnung-Seite).
+// Kein WP-Gegenstück, daher kein SEO_STATIC-Eintrag nötig — Base.astro baut Title/Description
+// selbst aus title/description (wie bei terminkalender.astro).
+//
+// `prerender = false`: wie gottesdienstordnung.astro — Termine müssen bei jedem Aufruf frisch
+// aus ChurchDesk kommen, nicht erst beim nächsten Netlify-Build.
+export const prerender = false;
+
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import GdoAlleTermine from '../../components/GdoAlleTermine.astro';
+---
+<Base
+  title="Alle Gottesdienste"
+  description="Alle Gottesdienstzeiten der Pfarrei Sankt Bonifatius Frankfurt — filterbar nach Kirchort und Stichwort."
+>
+  <PageHeader
+    eyebrow="Pfarrei St. Bonifatius · Frankfurt"
+    title="Alle Gottesdienste"
+    sub="Die vollständige Übersicht aller Gottesdienste — filtern nach Kirchort oder nach Stichwort suchen."
+  >
+    <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2v3.2"/><path d="M10.4 3.4h3.2"/><path d="M4 10 12 5l8 5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>
+    </svg>
+  </PageHeader>
+  <GdoAlleTermine />
+</Base>
