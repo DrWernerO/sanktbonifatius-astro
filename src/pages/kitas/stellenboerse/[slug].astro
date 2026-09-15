@@ -101,5 +101,16 @@ const jobPostingLd = {
 .astro-stljob-pdf__fallback:hover { text-decoration: underline; }
 @media (max-width: 600px) {
   .astro-stljob-wrap { padding: 40px 20px 60px; }
+  /* Eingebettete PDFs sind in mobilen Browsern kaum lesbar (winziger Zoom, kein
+     brauchbares Pinch-Zoom in einer verschachtelten Iframe-Scrollfläche) — deshalb hier
+     kein Iframe, sondern direkt der große Button zum Ansehen/Herunterladen. Der Link
+     zeigt auf `cms.sanktbonifatius.de` (anderer Origin als die Seite) — `download` wird
+     bei Cross-Origin-Links vom Browser ignoriert, es öffnet also der native PDF-Viewer. */
+  .astro-stljob-pdf__frame { display: none; }
+  .astro-stljob-pdf__fallback {
+    display: block; margin-top: 0; padding: 16px 24px; text-align: center;
+    background: var(--bf-accent); color: #fff; border-radius: 50px; font-size: 15px;
+  }
+  .astro-stljob-pdf__fallback:hover { text-decoration: none; background: #7e2424; }
 }
 </style>
