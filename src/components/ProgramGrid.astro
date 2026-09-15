@@ -43,6 +43,9 @@ const tiles = [
 .astro-prog__tile--gruen{background:#288C00}
 .astro-prog__tile--violett{background:#6E005A}
 .astro-prog__tile--tuerkis{background:#4D919B}
+/* Test: dunkler Text-Schatten statt Farbwechsel — Gold bleibt Original-Ton. */
+.astro-prog__tile--gold .astro-prog__title,
+.astro-prog__tile--gold .astro-prog__sub{text-shadow:0 1px 3px rgba(0,0,0,.65)}
 .astro-prog__icon{width:34px;height:34px;opacity:.85;margin-bottom:4px}
 .astro-prog__icon svg{width:100%;height:100%}
 .astro-prog__title{font-size:15px;font-weight:700;line-height:1.25;color:#fff}

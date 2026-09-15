@@ -3,6 +3,13 @@
 // Vollständig aus eigenen astro-Komponenten gebaut (kein set:html mit WP-Markup).
 // Nav + Footer kommen global aus Base.astro (Handbuch 4b).
 // SEO-Head fest aus lib/seo-static.js (einmalig aus SEOPress eingefroren, Handbuch 1e).
+//
+// `prerender = false` (seit 2026-09-14, ChurchDesk-Anbindung): GdoTermine zeigt live Gottesdienste
+// aus der ChurchDesk-API (s. src/lib/churchdesk.js). Eine beim Build eingefrorene Seite würde nach
+// ein paar Tagen falsche/leere Termine zeigen, da diese Seite keinen eigenen Rebuild-Trigger hat
+// (anders als /termine/[slug].astro, gleicher Grund dort).
+export const prerender = false;
+
 import Base from '../../layouts/Base.astro';
 import GdoHero from '../../components/GdoHero.astro';
 import GdoIntro from '../../components/GdoIntro.astro';
@@ -15,8 +22,8 @@ const seo = SEO_STATIC['/gottesdienst-glaube/gottesdienstordnung/'];
 ---
 <Base seo={seo} title="Gottesdienstordnung — Pfarrei St. Bonifatius Frankfurt">
   <GdoHero />
-  <GdoIntro />
   <GdoTermine />
+  <GdoIntro />
   <ChurchLocations />
   <GdoOutro />
 </Base>

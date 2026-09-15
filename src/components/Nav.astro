@@ -5,28 +5,12 @@
 // Seiten. Neue Seiten werden gebaut, aber NICHT automatisch ins Menü aufgenommen. Wer einen
 // Menüpunkt hinzufügen/entfernen will, holt vorher die ausdrückliche Freigabe von Werner ein.
 //
-// Cache-Buster für Download-PDFs (Pfarrbrief etc.).
-// Workflow: Sekretärin ersetzt die Datei in der Mediathek ("Datei ersetzen") → URL bleibt gleich.
-// Hier wird beim Build das "Zuletzt geändert"-Datum der Datei abgefragt und als ?v=<token>
-// an die URL gehängt. Sobald die Datei ersetzt + die Seite neu gebaut wurde, ändert sich der
-// Token → der Browser lädt die neue Datei statt der gecachten alten.
-// Greift erst beim nächsten Build/Deploy (statische Seite), nicht im Moment des Uploads.
-const DOWNLOADS = {
-  pfarrbrief: 'https://cms.sanktbonifatius.de/wp-content/uploads/2026/04/sankt-bonifatius-pfarrbrief.pdf',
-  highlights: 'https://cms.sanktbonifatius.de/wp-content/uploads/2026/06/sankt-bonifatius-highlights.pdf',
-};
-async function withVersion(url) {
-  try {
-    const res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
-    const lm = res.headers.get('last-modified');
-    if (!lm) return url;
-    return `${url}?v=${Date.parse(lm)}`; // ms-Timestamp als kompaktes Versions-Token
-  } catch {
-    return url; // Server nicht erreichbar → unveränderte URL (Build bricht nie ab)
-  }
-}
-const pfarrbriefUrl = await withVersion(DOWNLOADS.pfarrbrief);
-const highlightsUrl = await withVersion(DOWNLOADS.highlights);
+// Pfarrbrief/Highlights: feste eigene Adressen unter der Hauptdomain (Handbuch 1d).
+// src/pages/downloads/*.pdf.ts holt bei jedem Rebuild die aktuelle Datei aus WordPress und
+// legt sie unter dieser stabilen URL ab — kein Cache-Buster-Parameter mehr in der Adresse
+// (schadete der Google-Indexierung: jede Ausgabe fing sonst wieder bei null an).
+const pfarrbriefUrl = '/downloads/pfarrbrief.pdf';
+const highlightsUrl = '/downloads/highlights.pdf';
 ---
 <nav class="bh3a-hdr" aria-label="Hauptnavigation">
   <div class="bh3a-hdr__in">
@@ -56,12 +40,23 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
     <!-- Desktop-Navigation (rechts) -->
     <div class="bh3a-rnav">
       <div class="bh3a-dd">
+        <a href="#">Angebote</a>
+        <div class="bh3a-dd__menu">
+          <a href="/gottesdienst-glaube/">Gottesdienst &amp; Glaube</a>
+          <a href="/bonfamily/">BonFamily</a>
+          <a href="/jugend/">Jugend</a>
+          <a href="/engagiert-leben/">Engagiert Leben</a>
+          <a href="/kultur-begegnung/">Kultur &amp; Begegnung</a>
+        </div>
+      </div>
+      <div class="bh3a-dd">
         <a href="/ueberuns/">Über uns</a>
         <div class="bh3a-dd__menu">
           <a href="/ueberuns/">Leitbild &amp; Überblick</a>
           <a href="/ueberuns/gemeinschaft/">Gemeinschaft</a>
           <a href="/ueberuns/pastoralteam/">Pastoralteam</a>
           <a href="/kirchorte/">Kirchorte</a>
+          <a href="/kitas/">Kitas</a>
           <a href="/ueberuns/leitung/">Leitung &amp; Gremien</a>
           <a href="/ueberuns/finanzen/">Finanzen</a>
           <a href="/ueberuns/barrierefreiheit/">Barrierefreiheit</a>
@@ -85,8 +80,8 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
       <div class="bh3a-dd">
         <a href="#">Downloads</a>
         <div class="bh3a-dd__menu">
-          <a href={pfarrbriefUrl} target="_blank" rel="noopener">Pfarrbrief</a>
-          <a href={highlightsUrl} target="_blank" rel="noopener">Bonifatius Highlights</a>
+          <a href={pfarrbriefUrl} data-download-file="pfarrbrief">Pfarrbrief</a>
+          <a href={highlightsUrl} data-download-file="highlights">Bonifatius Highlights</a>
         </div>
       </div>
       <button type="button" class="bh3a-btn-srch" aria-label="Suche öffnen" aria-expanded="false" aria-controls="bh3aSrch">
@@ -111,7 +106,11 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
 <style is:global>
   .bh3a-hdr {
     position: fixed; top: 0; z-index: 1000; width: 100%; left: 0;
-    background: rgba(20,10,2,0.55);
+    /* 0.55 war auf Seiten mit hellem Inhalt direkt unter dem fixen Menü (statt dunklem
+       Hero-Foto) zu durchsichtig — Menü-Text fiel dort unter 4,5:1 Kontrast. 0.75 hält
+       auch im hellstmöglichen Fall (weißer Hintergrund dahinter) sicher über der Grenze,
+       unabhängig vom jeweiligen Seiteninhalt hinter dem Menü. */
+    background: rgba(20,10,2,0.75);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   }
   .bh3a-hdr__in {
@@ -128,7 +127,7 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
     margin-left: auto; margin-right: 20px;
   }
   .bh3a-soc a { color: #d4c9b5; display: flex; align-items: center; transition: color .2s; }
-  .bh3a-soc a:hover { color: #c5a55a; }
+  .bh3a-soc a:hover { color: var(--accent-gold-deco); }
   .bh3a-rnav { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
   .bh3a-dd { position: relative; }
   .bh3a-dd > a {
@@ -146,8 +145,10 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
     display: block; padding: 9px 18px; font-size: 12px;
     color: #b5a898; text-decoration: none; white-space: nowrap;
   }
-  .bh3a-dd__menu a:hover { color: #c5a55a; background: rgba(197,165,90,.06); }
-  .bh3a-dd:hover .bh3a-dd__menu { display: block; }
+  .bh3a-dd__menu a:hover, .bh3a-dd__menu a:focus-visible { color: var(--accent-gold-deco); background: rgba(197,165,90,.06); }
+  /* :focus-within öffnet das Untermenü auch beim Durchtabben per Tastatur (vorher nur :hover —
+     Untermenü-Links waren display:none und damit für Tastaturnutzer gar nicht erreichbar). */
+  .bh3a-dd:hover .bh3a-dd__menu, .bh3a-dd:focus-within .bh3a-dd__menu { display: block; }
   .bh3a-dd:last-child .bh3a-dd__menu { left: auto; right: 0; }
   .bh3a-dd__menu::before {
     content: ''; position: absolute; left: 0; right: 0;
@@ -160,13 +161,13 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
     color: #c5b9a8; display: inline-flex; align-items: center;
     transition: color .2s; margin-left: 4px;
   }
-  .bh3a-btn-srch:hover, .bh3a-btn-srch[aria-expanded="true"] { color: #c5a55a; }
+  .bh3a-btn-srch:hover, .bh3a-btn-srch[aria-expanded="true"] { color: var(--accent-gold-deco); }
 
   /* Such-Overlay (klappt unter der Nav auf) */
   .bh3a-srch-ov {
     display: none; position: fixed; top: 80px; left: 0; right: 0;
     background: #1a120e; padding: 18px 32px; z-index: 100001;
-    border-bottom: 2px solid #c5a55a;
+    border-bottom: 2px solid var(--accent-gold-deco);
   }
   .bh3a-srch-ov.open { display: block; }
   .bh3a-srch-ov form { max-width: 600px; margin: 0 auto; display: flex; gap: 10px; }
@@ -174,9 +175,9 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
     flex: 1; background: #2c2420; border: 1px solid #3a2e28; color: #e8dcc8;
     padding: 11px 16px; border-radius: 6px; font-size: 15px; outline: none;
   }
-  .bh3a-srch-ov input[type="search"]:focus { border-color: #c5a55a; }
+  .bh3a-srch-ov input[type="search"]:focus { border-color: var(--accent-gold-deco); }
   .bh3a-srch-ov button[type="submit"] {
-    background: #c5a55a; color: #1a120e; border: none; padding: 11px 22px;
+    background: var(--accent-gold-deco); color: #1a120e; border: none; padding: 11px 22px;
     border-radius: 6px; font-weight: 700; cursor: pointer;
   }
 
@@ -195,7 +196,7 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
     text-decoration: none; white-space: nowrap;
     display: flex; align-items: center; transition: color .2s;
   }
-  .bh3a-navlink:hover { color: #c5a55a; }
+  .bh3a-navlink:hover { color: var(--accent-gold-deco); }
 
   /* Hamburger-Button */
   .bh3a-hamburger {
@@ -337,6 +338,16 @@ const highlightsUrl = await withVersion(DOWNLOADS.highlights);
     // ESC-Taste schließt Menü + Suche
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { close(); closeSearch(); }
+    });
+
+    // Eigener, GA4-unabhängiger Download-Zähler (Handbuch 1d): blockiert den Download nicht
+    // (sendBeacon läuft im Hintergrund) und läuft unabhängig von der Cookie-Einwilligung.
+    document.querySelectorAll('[data-download-file]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        try {
+          navigator.sendBeacon('/api/track-download?file=' + a.dataset.downloadFile);
+        } catch (e) {}
+      });
     });
   })();
 </script>

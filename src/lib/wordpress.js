@@ -313,6 +313,36 @@ export async function getMonatsprogramme(ortWort, max = 2, scan = 40) {
   }
 }
 
+// Die Sekretärin legt Pfarrbrief UND Highlights im Mediathek-Ordner "Astro-Upload" mit der
+// RML-Ordner-ID 198 ab (analog JOB_PDF_FOLDER). Erste Version von getLatestDokument() suchte
+// noch sitewide über alle Medien nach dem Titelwort — dadurch konnte eine ältere, zufällig
+// noch passend betitelte Datei greifen bzw. die echte aktuelle Datei aus den gescannten 40
+// jüngsten Uploads herausfallen (seit 2026-09-02 kommen laufend neue Stellenbörse-PDFs dazu,
+// s. JOB_PDF_FOLDER). Mit `rml_folder` bleibt die Suche auf den richtigen Ordner beschränkt.
+const PFARRBRIEF_HIGHLIGHTS_FOLDER = 198;
+
+// Liefert das neueste Medien-Dokument aus PFARRBRIEF_HIGHLIGHTS_FOLDER, dessen Titel
+// `suchwort` enthält (z.B. 'pfarrbrief', 'highlights'). Grundlage für die stabilen
+// Download-Adressen unter der Hauptdomain (Handbuch 1d, src/pages/downloads/*.pdf.ts): die
+// Endpoints holen sich damit bei jedem Rebuild die aktuelle Datei und legen sie unter
+// derselben eigenen URL ab, egal wie WordPress die Quelle intern benennt. KEIN
+// `search=`-Parameter (s. Kommentar bei getMonatsprogramme — auf dieser WP-Instanz gesperrt,
+// liefert einen 400er) — stattdessen wie dort selbst filtern.
+export async function getLatestDokument(suchwort, scan = 40) {
+  try {
+    const res = await fetch(
+      `${WP_API}/media?rml_folder=${PFARRBRIEF_HIGHLIGHTS_FOLDER}&media_type=application&orderby=date&order=desc&per_page=${scan}&_fields=id,title,source_url,modified`,
+      { cache: 'no-store' }
+    );
+    if (!res.ok) return null;
+    const items = await res.json();
+    const w = suchwort.toLowerCase();
+    return items.find((item) => decodeEntities(item.title?.rendered ?? '').toLowerCase().includes(w)) ?? null;
+  } catch {
+    return null;
+  }
+}
+
 // EIN Termin per Slug, live vom Server (src/pages/termine/[slug].astro, `prerender = false`).
 // Termine haben keinen Fließtext — alle Infos stehen in `event_meta`. Das Bild ist eine Media-ID.
 //
@@ -389,6 +419,22 @@ function youtubeThumbnail(url) {
   return m ? `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg` : null;
 }
 
+// Hoch- oder Querformat eines YouTube-Videos ermitteln (öffentliche oEmbed-Antwort, kein
+// API-Key nötig) — die News-Lightbox braucht das, um Hochkant-Videos ohne schwarze Balken
+// zu zeigen (Standard-iframe-Einbettung ist sonst starr auf 16:9, s. NewsLightbox.astro).
+async function youtubeOrientation(url) {
+  const m = (url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
+  if (!m) return 'landscape';
+  try {
+    const res = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${m[1]}&format=json`);
+    if (!res.ok) return 'landscape';
+    const { width, height } = await res.json();
+    return height > width ? 'portrait' : 'landscape';
+  } catch {
+    return 'landscape';
+  }
+}
+
 // --- "Aktuelles": Beiträge (posts) + News (pin) zusammenführen -----------------------
 // "News" = WP-Custom-Post-Type `pin` (Menü "News" im WP-Admin): Bild, Video oder Fotogalerie.
 // Die ACF-Felder (typ/image/gallery/video/subtitle/description) werden per `pin_data`
@@ -404,11 +450,12 @@ export async function getNewsPins() {
     );
     if (!res.ok) return [];
     const pins = await res.json();
-    return pins.map((p) => {
+    return await Promise.all(pins.map(async (p) => {
       const d = p.pin_data || {};
       const excerpt = d.subtitle || (d.description || '').slice(0, 260);
       // Video-News ohne eigenes Bild: YouTube-Vorschaubild als Kachel-Bild nutzen.
       const image = d.image || (d.typ === 'video' ? youtubeThumbnail(d.video) : null);
+      const orientation = d.typ === 'video' ? await youtubeOrientation(d.video) : 'landscape';
       return {
         id: p.id,
         kind: 'news',
@@ -421,8 +468,9 @@ export async function getNewsPins() {
         galleryCount: Array.isArray(d.gallery) ? d.gallery.length : 0,
         gallery: Array.isArray(d.gallery) ? d.gallery : [], // [{u: Bild-URL, a: Alt-Text}]
         video: d.video || '',
+        orientation, // 'portrait' | 'landscape' — steuert die Video-Box-Größe in der Lightbox
       };
-    });
+    }));
   } catch {
     return [];
   }
@@ -498,7 +546,13 @@ function extractSeoTags(html) {
   const push = (re) => { const m = head.match(re); if (m) tags.push(m[0]); };
   push(/<title[^>]*>[\s\S]*?<\/title>/i);
   push(/<meta\s+name=["']description["'][^>]*>/i);
-  push(/<meta\s+name=["']robots["'][^>]*>/i);
+  // KEIN robots-Tag von cms übernehmen: cms.sanktbonifatius.de hat bewusst "Suchmaschinen vom
+  // Indexieren abhalten" aktiv (reines Backend, s. CLAUDE.md Regel 0) — WordPress hängt dadurch
+  // an JEDE dortige Seite ein sitweites noindex,nofollow. Würden wir das mitkopieren, bekämen
+  // Termine/Beiträge auf der echten, öffentlichen Seite fälschlich dasselbe noindex (Bug,
+  // gefunden über Search-Console-Meldung "Durch noindex-Tag ausgeschlossen", 2026-09-06).
+  // Eigene noindex-Fälle (Raumbuchung, Download-Statistik) laufen unabhängig davon über den
+  // `noindex`-Prop in Base.astro.
   for (const m of head.matchAll(/<meta\s+property=["'](?:og:(?!url["'])|article:)[^"']*["'][^>]*>/gi)) tags.push(m[0]);
   for (const m of head.matchAll(/<meta\s+name=["']twitter:[^"']*["'][^>]*>/gi)) tags.push(m[0]);
   // JSON-LD im GANZEN Dokument suchen: SEOPress gibt die ld+json-Blöcke im <body> aus
@@ -558,71 +612,58 @@ function extractEventBody(html) {
   return cleaned.join('\n');
 }
 
-// --- Stelleninserate: Plugin "Jobs for WP" (CPT `jobs`) -----------------------------
-// Kita-Koordinatorinnen pflegen die Stellen weiterhin im WP-Backend unter "Stelleninserate".
-// Live abgerufen (kein Build-Time-Freeze wie bei Termine/Events, s. getEventBySlug oben),
-// damit eine neue oder geänderte Stelle sofort online steht statt erst beim nächsten Build.
-const JOB_FIELDS = [
-  'id', 'slug', 'title', 'link', 'date',
-  'position_title', 'position_job_location', 'position_employment_type',
-  'position_description', 'position_responsibilities', 'position_qualifications',
-  'position_job_benefits', 'position_contacts', 'position_valid_through_date',
-].join(',');
+// --- Stelleninserate: PDF-Ausschreibungen aus der Mediathek -------------------------
+// Ab 2026-09-02: Das CPT-Plugin "Jobs for WP" ist aufgegeben (dessen Formular war für die
+// Kita-Koordinatorinnen nicht mehr praktikabel, s. vorheriges TEMP-Abschalten am 2026-08-31
+// wegen eingefrorenem datePosted/fehlendem validThrough). Stattdessen legen die KK die
+// Ausschreibung als fertiges PDF direkt in den Mediathek-Ordner "Astro-Upload/Stellenanzeigen"
+// (RML-Ordner-ID s. JOB_PDF_FOLDER) — kein separates Formular mehr.
+//   - Titel-Feld (WP-Mediathek) = Stellentitel, wie er auf der Website erscheint.
+//   - Beschriftung/Caption-Feld = Einsatzort (z.B. "Kita Herz Jesu, Frankfurt-Oberrad") —
+//     landet als jobLocation im JobPosting-Schema.
+// Live abgerufen (kein Build-Time-Freeze, wie zuvor bei getJobs()), damit eine neu hochgeladene
+// PDF sofort online steht. datePosted = WP-Upload-Datum, validThrough automatisch
+// datePosted + JOB_PDF_VALID_DAYS Tage (behebt das ursprüngliche Google-Jobs-Problem: nie
+// aktualisiertes datePosted ohne Ablaufdatum ließ Google die Anzeigen als abgelaufen einstufen).
+// Auffrischen/verlängern: Datei in der Mediathek löschen und (ggf. unverändert) neu hochladen —
+// das setzt datePosted zurück und verlängert die Frist automatisch um weitere 90 Tage.
+const JOB_PDF_FOLDER = 204;
+const JOB_PDF_VALID_DAYS = 90;
 
-const EMPLOYMENT_LABEL = {
-  FULL_TIME: 'Vollzeit', PART_TIME: 'Teilzeit', CONTRACTOR: 'Freie Mitarbeit',
-  INTERN: 'Praktikum', TEMPORARY: 'Befristet', VOLUNTEER: 'Ehrenamt',
-  PER_DIEM: 'Tageweise', OTHER: 'Sonstiges',
-};
-
-function mapJob(j) {
-  const employmentTypes = Array.isArray(j.position_employment_type) ? j.position_employment_type : [];
-  const validThrough = j.position_valid_through_date;
+function mapJobPdf(item) {
+  const datePosted = item.date || '';
   return {
-    id: j.id,
-    slug: j.slug,
+    id: item.id,
+    slug: item.slug,
     // Titel als reiner Text (decodeEntities): landet u.a. in <title>, Bewerbungs-Mail und
     // dem versteckten Formularfeld — dort würde rohes "&#8211;" sonst doppelt kodiert.
-    title: decodeEntities(j.position_title || j.title?.rendered || ''),
-    location: j.position_job_location || '',
-    employment: employmentTypes.map((e) => EMPLOYMENT_LABEL[e] || e),
-    // Rohe schema.org-Enum-Werte (FULL_TIME/PART_TIME/…) für JobPosting-JSON-LD — nicht die
-    // deutschen Anzeige-Labels oben.
-    employmentTypeSchema: employmentTypes,
-    datePosted: j.date || '',
-    description: j.position_description || '',
-    responsibilities: j.position_responsibilities || '',
-    qualifications: j.position_qualifications || '',
-    benefits: j.position_job_benefits || '',
-    contacts: j.position_contacts || '',
-    // Plugin liefert bei ungesetztem Feld den Unix-Epoch-Default statt eines leeren Strings.
-    validThrough: validThrough && validThrough !== '1970-01-01' ? validThrough : '',
+    title: decodeEntities(item.title?.rendered ?? '').trim(),
+    location: decodeEntities(item.caption?.rendered ?? '').replace(/<[^>]+>/g, '').trim(),
+    url: item.source_url,
+    datePosted,
+    validThrough: datePosted
+      ? new Date(new Date(datePosted).getTime() + JOB_PDF_VALID_DAYS * 86400000).toISOString()
+      : '',
   };
 }
 
-export async function getJobs() {
+export async function getJobPdfs() {
   try {
-    const res = await fetch(`${WP_API}/jobs?per_page=100&_fields=${JOB_FIELDS}`, { cache: 'no-store' });
+    const res = await fetch(
+      `${WP_API}/media?rml_folder=${JOB_PDF_FOLDER}&media_type=application&orderby=date&order=desc&per_page=50&_fields=id,slug,title,caption,source_url,date`,
+      { cache: 'no-store' }
+    );
     if (!res.ok) return [];
-    const jobs = await res.json();
-    return jobs.map(mapJob);
+    const items = await res.json();
+    return items.filter((i) => i.source_url?.toLowerCase().endsWith('.pdf')).map(mapJobPdf);
   } catch {
     return [];
   }
 }
 
-export async function getJobBySlug(slug) {
-  try {
-    const res = await fetch(
-      `${WP_API}/jobs?slug=${encodeURIComponent(slug)}&_fields=${JOB_FIELDS}`,
-      { cache: 'no-store' }
-    );
-    if (!res.ok) return null;
-    const [j] = await res.json();
-    return j ? mapJob(j) : null;
-  } catch {
-    return null;
-  }
+export async function getJobPdfBySlug(slug) {
+  const jobs = await getJobPdfs();
+  return jobs.find((j) => j.slug === slug) ?? null;
 }
 
 export async function getSeoHead(path = '/', origin = WP_RENDER_ORIGIN) {

@@ -23,7 +23,7 @@ import { KF_CARDS } from '../data/kirche.js';
           )}
           <a class="astro-kfc__back" href="#kirchenfuehrer">↑ Zur Übersicht</a>
         </div>
-        <div class="astro-kfc__body">
+        <div class="astro-kfc__body" tabindex="0" role="region" aria-label={`Beschreibung: ${c.title}`}>
           <p class="astro-kfc__num">{c.num}</p>
           <h3 class="astro-kfc__title">{c.title}</h3>
           {c.blocks.map((b) => (

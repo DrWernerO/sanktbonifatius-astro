@@ -160,3 +160,26 @@
 # Das Astro-Auffangnetz fuer echt geloeschte/unbekannte Termine sitzt jetzt direkt in
 # termine/[slug].astro (Astro.redirect, siehe dort) -- pruefti live gegen WordPress statt
 # blind nach Pfadmuster zu greifen.
+
+# --- Pfarrbrief/Highlights: alte, bereits bei Google indexierte PDF-Adressen ---------
+# Vor dem Umzug auf die stabilen Adressen unter /downloads/ (Handbuch 1d) wurden Pfarrbrief
+# und Highlights direkt unter dieser Domain unter dem WP-Upload-Pfad verlinkt (jede neue
+# Ausgabe = neuer Jahr/Monats-Ordner = neue URL, Ranking fing bei Google jedesmal wieder bei
+# null an -- z.B. April-Pfarrbrief mit 55 Klicks in 10 Wochen). Alte, bereits gecrawlte
+# Adressen dieser Form fuehren jetzt dauerhaft auf die neue, stabile Adresse, damit das
+# bisherige Ranking dort weiterlaeuft statt zu verpuffen.
+/wp-content/uploads/:year/:month/sankt-bonifatius-pfarrbrief.pdf   /downloads/pfarrbrief.pdf   301
+/wp-content/uploads/:year/:month/sankt-bonifatius-highlights.pdf   /downloads/highlights.pdf   301
+
+# --- Alle uebrigen alten Mediendateien unter /wp-content/uploads/: WordPress bedient sie ------
+# unveraendert weiter (Live-Check 11.09.2026: cms.sanktbonifatius.de/wp-content/uploads/2026/04/
+# sankt-bonifatius-pfarrbrief.pdf -> 200, Original liegt dort weiterhin am selben Pfad). Auf der
+# Hauptdomain kennt Netlify diesen alten Pfad seit dem Astro-Umzug nicht mehr -> 404, obwohl die
+# Datei existiert. Betrifft ca. 56 bei Google indexierte Dateien (168 Klicks/10 Wochen, siehe
+# website-kontext-kanaele.md 1.5), fuer die es -- anders als Pfarrbrief/Highlights oben -- keine
+# neue, feste Astro-Adresse gibt.
+# Deshalb kein 301 auf eine neue Adresse, sondern ein reiner Proxy (200) auf denselben Pfad am
+# cms-Host: die alte, bereits indexierte Adresse bleibt dadurch woertlich gueltig, kein Ranking-
+# Neuaufbau noetig. MUSS nach den beiden Regeln oben stehen (die haben fuer ihre exakten
+# Dateinamen Vorrang, damit kuenftige Ausgaben weiter auf die stabile /downloads/-Adresse laufen).
+/wp-content/uploads/*   https://cms.sanktbonifatius.de/wp-content/uploads/:splat   200

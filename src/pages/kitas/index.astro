@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 import KitaIndexHero from '../../components/KitaIndexHero.astro';
 import KitaIndexIntro from '../../components/KitaIndexIntro.astro';
 import KitaIndexCards from '../../components/KitaIndexCards.astro';
-import { getJobs } from '../../lib/wordpress.js';
+import { getJobPdfs } from '../../lib/wordpress.js';
 import { SEO_STATIC } from '../../lib/seo-static.js';
 
 // Für die Stellenanzahl im CTA unten live geholt (s. CLAUDE.md Regel 0) — deshalb die ganze
@@ -13,7 +13,7 @@ import { SEO_STATIC } from '../../lib/seo-static.js';
 // Build einfrieren und wieder veralten.
 export const prerender = false;
 
-const jobs = await getJobs();
+const jobs = await getJobPdfs();
 const seo = SEO_STATIC['/kitas/'];
 ---
 <Base

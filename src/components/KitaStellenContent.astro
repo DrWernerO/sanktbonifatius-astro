@@ -1,8 +1,8 @@
 ---
 // Stellenangebote + Warum-Grid + CTA — Kita-Stellenbörse
 // CSS-Präfix: astro-stl-
-// `jobs` kommt live aus WordPress (getJobs() in stellenboerse.astro) — Titel/Ort/Art
-// stehen als Klartext-Felder aus dem Plugin "Jobs for WP" zur Verfügung.
+// `jobs` kommt live aus der WP-Mediathek (getJobPdfs() in stellenboerse.astro) — Titel/Ort
+// stammen aus den Medien-Feldern Titel/Beschriftung der jeweiligen PDF-Ausschreibung.
 const { jobs = [] } = Astro.props;
 const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 ---
@@ -11,7 +11,6 @@ const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 <section class="astro-stl-stellen astro-stl-sec" id="astro-stl-stellen">
   <div class="astro-stl-stellen__in">
     <div class="astro-stl-stellen__head">
-      <p class="astro-stl-eyebrow-sm">Offene Stellen</p>
       <h2 class="astro-stl-stellen__h2">Aktuelle Stellenangebote</h2>
       <p class="astro-stl-stellen__sub">Wir suchen engagierte P&auml;dagog:innen f&uuml;r unsere Kitas in Frankfurt-Sachsenhausen.</p>
       <p class="astro-stl-stellen__invite">Bei uns erwarten Sie kurze Wege, ein Team, das zusammenh&auml;lt, und Arbeit, die jeden Tag sp&uuml;rbar bei den Kindern ankommt &ndash; das macht eine Bewerbung bei uns besonders attraktiv.</p>
@@ -24,7 +23,7 @@ const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
               <h3 class="astro-stl-card__title">{job.title}</h3>
               <p class="astro-stl-card__type">
                 {job.location && <span class="astro-stl-card__type-pin" aria-hidden="true" set:html={ICON_PIN} />}
-                {[...job.employment, job.location].filter(Boolean).join(' · ')}
+                {[...(job.employment ?? []), job.location].filter(Boolean).join(' · ')}
               </p>
             </div>
             <span class="astro-stl-card__arrow" aria-hidden="true">Details ansehen &#8594;</span>
@@ -41,8 +40,7 @@ const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 <section class="astro-stl-warum astro-stl-sec">
   <div class="astro-stl-warum__in">
     <div class="astro-stl-warum__head">
-      <p class="astro-stl-eyebrow-sm">Das spricht f&uuml;r uns</p>
-      <h2 class="astro-stl-warum__h2">Warum bei uns arbeiten?</h2>
+      <h2 class="astro-stl-warum__h2">Das spricht f&uuml;r uns</h2>
       <p class="astro-stl-warum__sub">Als Teil der Pfarrei Sankt Bonifatius sind wir mehr als ein Arbeitgeber.</p>
     </div>
     <div class="astro-stl-warum__grid">

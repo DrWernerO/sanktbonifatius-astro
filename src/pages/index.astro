@@ -22,8 +22,10 @@ import { SEO_STATIC } from '../lib/seo-static.js';
 const seo = SEO_STATIC['/'];
 ---
 <Base seo={seo}>
-  <Hero />
-  <QuickLinks />
+  <div class="astro-home-top">
+    <Hero />
+    <QuickLinks />
+  </div>
   {/* TEMPORÄR (2026-08-22, Werner): EventCalendar direkt hinter den Begrüßungstext
       "Mitten im Leben ..." (Teil von QuickLinks) vorgezogen — Original-Reihenfolge
       (nach Sacraments) siehe Git-Historie dieser Datei. sixpack gilt NUR hier auf
@@ -45,3 +47,30 @@ const seo = SEO_STATIC['/'];
   <CtaBanner />
   <NewsLightbox />
 </Base>
+
+<style>
+  /* Mobil (Designpruefung 11.09.2026, Eingriff 3): Chipreihe "Was bringt Sie zu uns?"
+     (.astro-ql) vor das Buehnenbild (.astro-hero) ziehen, der Intro-Text darunter
+     (.astro-ql-intro) bleibt an seiner Stelle nach dem Buehnenbild. Rein visuell per
+     Flex-order -- Quelltext-Reihenfolge (und damit SEO/Screenreader) bleibt unveraendert,
+     nur was sehende Handy-Nutzer zuerst sehen, dreht sich um. Breakpoint deckt sich mit
+     Hero.astro's eigenem Umbruch auf einspaltig. Auf dem Desktop (>860px) greift hier
+     keine Regel -- normaler Dokumentfluss wie bisher. */
+  @media (max-width: 860px) {
+    .astro-home-top {
+      display: flex;
+      flex-direction: column;
+    }
+    .astro-home-top :global(.astro-hero) { order: 2; }
+    .astro-home-top :global(.astro-ql) {
+      order: 1;
+      /* .astro-ql stand bisher nie als erstes Element auf der Seite -- die fixe Nav
+         (80px hoch) ueberlagert sonst immer das Buehnenbild, dessen Foto absichtlich
+         darunter durchlaeuft. Als erstes Element jetzt eigenen Oberrand freihalten,
+         damit die Chips nicht unter der Nav verschwinden (14px = ihr bestehender
+         Innenabstand oben, unveraendert uebernommen). */
+      padding-top: 94px;
+    }
+    .astro-home-top :global(.astro-ql-intro) { order: 3; }
+  }
+</style>
