@@ -171,6 +171,57 @@
 /wp-content/uploads/:year/:month/sankt-bonifatius-pfarrbrief.pdf   /downloads/pfarrbrief.pdf   301
 /wp-content/uploads/:year/:month/sankt-bonifatius-highlights.pdf   /downloads/highlights.pdf   301
 
+# Aeltere Pfarrbrief-/Highlights-Ausgaben unter alten, uneinheitlichen Dateinamen (vor der
+# Umstellung auf den festen Namen "sankt-bonifatius-pfarrbrief.pdf" oben). Die Original-Dateien
+# sind in WordPress selbst geloescht (Live-Check 16.09.2026: 404 auch direkt auf cms.-Subdomain,
+# der Proxy unten kann hier also nichts mehr ausliefern) -- statt eines 404 auf die aktuelle,
+# stabile Ausgabe verweisen. Trifft konkret die groessten Faelle aus dem GSC-Export (Aufgabe A7):
+/wp-content/uploads/2024/08/St.-Bonifatius-Pfarrbrief.pdf          /downloads/pfarrbrief.pdf   301
+/wp-content/uploads/2024/08/Sankt-Bonifatius-Pfarrbrief.pdf        /downloads/pfarrbrief.pdf   301
+/wp-content/uploads/2026/05/St.-Bonifatius-Pfarrbrief-2026-05-23.pdf   /downloads/pfarrbrief.pdf   301
+/wp-content/uploads/2024/01/Sankt-Bonifatius-Highlights.pdf        /downloads/highlights.pdf   301
+
+# --- Weitere in WordPress geloeschte Einzeldateien (GSC-Export 16.09.2026, Aufgabe A7) --------
+# Wie oben: kein Ranking-Erfolg, echte Suchklicks, Original ist auch auf cms. weg (Live-Check),
+# der Proxy unten liefert dafuer nichts mehr aus. Kein 1:1-Nachfolger vorhanden (abgelaufene
+# Flyer/Protokolle) -- deshalb auf die naechstbeste inhaltlich passende Seite verwiesen statt 404.
+
+# PGR-Sitzungsprotokolle 2023/2024 -> aktuelle Protokoll-Liste.
+/wp-content/uploads/2024/04/Protokoll-PGR-2023-12-14_1.-Konst.-Sitzung.pdf   /ueberuns/leitung/   301
+/wp-content/uploads/2024/04/Protokoll-PGR-2024-01-25_2.-Konst.-Sitzung.pdf   /ueberuns/leitung/   301
+/wp-content/uploads/2024/05/Protokoll-PGR-Sitzung-2024-04-16.pdf             /ueberuns/leitung/   301
+/wp-content/uploads/2024/10/Protokoll-PGR-Sitzung-2024-09-10.pdf             /ueberuns/leitung/   301
+/wp-content/uploads/2025/01/Protokoll-PGR-Sitzung-2024-12-09.pdf             /ueberuns/leitung/   301
+
+# Liedheft Erstkommunion -> Erstkommunion-Seite.
+/wp-content/uploads/2026/04/Liedheft-EK-SB-2026.pdf                          /segen-sakramente/erstkommunion/   301
+
+# Gruppen-Uebersicht St. Bonifatius -> Gruppen-Seite St. Bonifatius.
+/wp-content/uploads/2024/10/Gruppen-und-Treffpunkte-Sankt-Bonifatius.pdf     /kirchorte/st-bonifatius/gruppen/   301
+
+# St.-Aposteln-Monatsflyer/-Plakate (abgelaufen) -> Kirchort-Seite St. Aposteln.
+/wp-content/uploads/2024/12/2024-11-06-Schliesszeiten-2025_Aposteln.pdf      /kirchorte/st-aposteln/   301
+/wp-content/uploads/2025/03/StAposteln_Eroeffnung_Programm.pdf               /kirchorte/st-aposteln/   301
+/wp-content/uploads/2025/09/St.-Aposteln-Angebote-im-September-2025.pdf      /kirchorte/st-aposteln/   301
+/wp-content/uploads/2025/10/St.-Aposteln-Angebote-im-Oktober-2025.pdf        /kirchorte/st-aposteln/   301
+/wp-content/uploads/2025/11/St.-Aposteln-Angebote-im-November-2025.pdf       /kirchorte/st-aposteln/   301
+/wp-content/uploads/2026/02/st-aposteln-besondere-angebote-februar-2026.pdf  /kirchorte/st-aposteln/   301
+/wp-content/uploads/2026/04/plakat-kinderflohmarkt-st-aposteln.pdf           /kirchorte/st-aposteln/   301
+
+# Jugendfreizeiten (abgelaufen) -> Jugend-Freizeiten-Seite.
+/wp-content/uploads/2025/03/JONA-Sommerfreizeit-2025.pdf                     /jugend/kinder-und-jugendfreizeiten/   301
+/wp-content/uploads/2025/03/Jugendfreizeit-Hamburg-2025.pdf                  /jugend/kinder-und-jugendfreizeiten/   301
+
+# St. Wendel Fasching (abgelaufen) -> Kirchort-Seite St. Wendel.
+/wp-content/uploads/2026/01/fasching-in-st-wendel.pdf                        /kirchorte/st-wendel/   301
+
+# Sonstige abgelaufene Einzel-Flyer ohne klaren Kirchort-Bezug -> Terminkalender.
+/wp-content/uploads/2025/03/Herzliche-Einladung-zu-den-besonderen-Angebote-im-April-2025.pdf         /terminkalender/   301
+/wp-content/uploads/2025/05/Herzliche-Einladung-zu-den-besonderen-Angebote-im-Mai-2025-digital.pdf   /terminkalender/   301
+/wp-content/uploads/2025/07/Angebote-im-August-2025.pdf                      /terminkalender/   301
+/wp-content/uploads/2025/09/Pilger-der-Hoffnung-Programmflyer_KF2025.pdf     /terminkalender/   301
+/wp-content/uploads/2026/01/SKG-2025-Plakat-Flyer.pdf                        /terminkalender/   301
+
 # --- Alle uebrigen alten Mediendateien unter /wp-content/uploads/: WordPress bedient sie ------
 # unveraendert weiter (Live-Check 11.09.2026: cms.sanktbonifatius.de/wp-content/uploads/2026/04/
 # sankt-bonifatius-pfarrbrief.pdf -> 200, Original liegt dort weiterhin am selben Pfad). Auf der
