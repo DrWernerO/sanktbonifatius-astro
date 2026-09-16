@@ -1,6 +1,16 @@
 ---
 // Terminkalender — WP-Seite 47024 (/terminkalender), komplett aus eigenen astro-Komponenten.
 // Nav + Footer kommen global aus Base.astro. Termine live aus der WP-API (CalendarOverview).
+//
+// `prerender = false`: wie /termine/[slug].astro und die Gottesdienstseiten — die Seite wird
+// NICHT beim Build vorgefertigt, sondern bei jedem Aufruf serverseitig (Netlify Function) neu
+// aus WordPress geladen. Vorher lud CalendarOverview.astro seine Daten rein client-seitig, die
+// Seite stand deshalb leer im ausgelieferten Quelltext (kein Text, kein Event-Schema für Google,
+// s. Auftragsdokument 2026-09-16, Aufgabe A1). Kein neuer Netlify-Deploy nötig, wenn sich ein
+// Termin ändert — Termine lösen ohnehin keinen Rebuild aus (Handbuch 1c), diese Seite fragt
+// WordPress stattdessen bei jedem Besuch frisch ab.
+export const prerender = false;
+
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CalendarOverview from '../components/CalendarOverview.astro';

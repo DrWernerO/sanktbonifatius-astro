@@ -1,9 +1,10 @@
 ---
 // Vollständige, filterbare Gottesdienst-Übersicht aus der ChurchDesk-API (Präfix astro-gdoalle).
-// Vorbild: CalendarOverview.astro (Terminkalender) — dort aber WP-Termine, client-seitig live
-// nachgeladen (öffentliche REST-API, kein Secret nötig). Hier läuft der Abruf serverseitig
-// (ChurchDesk-Token ist geheim, s. src/lib/churchdesk.js) und wird als fertiges JSON in die
-// Seite eingebettet; gefiltert wird rein client-seitig ohne weiteren Serverkontakt.
+// Verwandt: CalendarOverview.astro (Terminkalender, WP-Termine) — läuft seit 2026-09-16 ebenfalls
+// serverseitig, rendert die Liste dort aber direkt als sichtbares HTML (kein „Termine werden
+// geladen …" ohne JS). Hier läuft der Abruf serverseitig (ChurchDesk-Token ist geheim, s.
+// src/lib/churchdesk.js) und wird als fertiges JSON in die Seite eingebettet; gefiltert wird rein
+// client-seitig ohne weiteren Serverkontakt.
 //
 // HORIZON_DAYS: wie weit im Voraus geladen wird (aktuell 120 Tage ≈ 4 Monate). Bei Bedarf
 // erhöhen — die API liefert bislang alle Termine in einem Request (kein Pagination-Handling

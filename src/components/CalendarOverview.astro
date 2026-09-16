@@ -1,31 +1,170 @@
 ---
-// Volle, filterbare Termin-Übersicht (Präfix astro-cal). Client-seitig über den Vite-Proxy
-// (Browser kann das Dev-SSL nicht direkt — Abschnitt 1/7). Holt alle kommenden Termine,
-// baut Filter (Monat / Kirchort / Kategorie) aus den echten Daten und filtert rein clientseitig.
+// Volle, filterbare Termin-Übersicht (Präfix astro-cal).
+//
+// SEIT 2026-09-16 serverseitig gerendert (terminkalender.astro läuft mit `prerender = false`,
+// wie schon /termine/[slug].astro und die Gottesdienstseiten GdoTermine.astro/GdoAlleTermine.astro).
+// Vorher lud diese Übersicht ihre Daten komplett im Browser über `/wp-proxy/wp-json` — die Seite
+// stand dadurch leer im ausgelieferten Quelltext (kein Text, kein Event-Schema, schlecht für
+// Google). Jetzt liegen alle Termine als sichtbares HTML UND als Event-JSON-LD serverseitig im
+// Quelltext. Gefiltert wird weiterhin rein client-seitig (Monat/Kirchort/Kategorie) — aber per
+// Ein-/Ausblenden der schon vorhandenen Elemente (data-Attribute), ohne eine zweite Kopie aller
+// Termine als JSON-Insel einzubetten (vermeidet unnötig große Seiten, s. Abnahme-Hinweis zu
+// /alle-gottesdienste/).
+//
+// Kein neuer Netlify-Deploy nötig, wenn sich ein Termin ändert: Termine lösen laut Handbuch 1c
+// ohnehin keinen Rebuild aus. Diese Seite fragt WordPress stattdessen bei JEDEM Aufruf frisch ab
+// (kein Build-Time-Fetch) — ein geänderter oder neuer Termin ist sofort sichtbar.
+import { getUpcomingEvents, getEventCategories, decodeEntities } from '../lib/wordpress.js';
+
+const MONTHS_LONG = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const MONTHS_SHORT = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+
+// Kirchort-Kürzel → voller Name (Abschnitt 7). Unbekannte fallen auf den Freitext/Kürzel zurück.
+const CHURCH_NAMES = {
+  bonifatius: 'St. Bonifatius', aposteln: 'St. Aposteln',
+  wendel: 'St. Wendel', herzjesu: 'Herz Jesu', 'herz-jesu': 'Herz Jesu', herz_jesu: 'Herz Jesu',
+  georgen: 'Sankt Georgen', judas: 'St. Judas Thaddäus',
+};
+
+function localPath(u) {
+  try { return new URL(u).pathname; } catch { return u || '#'; }
+}
+
+const [rawEvents, categories] = await Promise.all([
+  getUpcomingEvents(),
+  getEventCategories(),
+]);
+
+const EVENTS = rawEvents.map((e) => {
+  const meta = e.event_meta || {};
+  const sd = meta.start_date || '';
+  const churchKey = (meta.church || '').toLowerCase();
+  const churchName = CHURCH_NAMES[churchKey] || decodeEntities(meta.location || '') || '';
+  const href = localPath(e.link);
+  // Uhrzeit aus dem Freitext (z.B. "15:00-18:30 Uhr") fürs Event-Schema, wenn eindeutig erkennbar
+  // (sonst bleibt es beim reinen Datum — sicherer als bei jedem Freitext zu raten).
+  const timeMatch = /^(\d{1,2}):(\d{2})/.exec(meta.times || '');
+  const isoDate = sd.length >= 8 ? `${sd.slice(0, 4)}-${sd.slice(4, 6)}-${sd.slice(6, 8)}` : '';
+  const startISO = isoDate && timeMatch
+    ? `${isoDate}T${timeMatch[1].padStart(2, '0')}:${timeMatch[2]}:00+02:00`
+    : isoDate;
+  return {
+    id: e.id,
+    title: decodeEntities(e.title?.rendered ?? ''),
+    subtitle: decodeEntities(meta.subtitle || ''),
+    times: decodeEntities(meta.times || ''),
+    href,
+    year: +sd.slice(0, 4), month: +sd.slice(4, 6), day: +sd.slice(6, 8),
+    dateKey: isoDate, // YYYY-MM-DD, für die Schnellfilter "Heute"/"Diese Woche"
+    churchKey, churchName,
+    catIds: e['event-category'] || [],
+    startISO,
+  };
+});
+
+const usedMonths = [...new Set(EVENTS.map((e) => e.month))].sort((a, b) => a - b);
+const usedChurches = [...new Set(EVENTS.map((e) => e.churchKey).filter(Boolean))];
+const usedCatIds = new Set();
+EVENTS.forEach((e) => e.catIds.forEach((id) => usedCatIds.add(id)));
+const usedCats = categories
+  .filter((c) => usedCatIds.has(c.id))
+  .map((c) => ({ id: c.id, name: decodeEntities(c.name) }));
+
+// Für die Anzeige nach Monat gruppieren (Reihenfolge bleibt erhalten, EVENTS ist bereits sortiert).
+const groups = [];
+for (const e of EVENTS) {
+  const key = `${e.year}-${e.month}`;
+  const last = groups[groups.length - 1];
+  if (!last || last.key !== key) {
+    groups.push({ key, label: `${MONTHS_LONG[e.month - 1]} ${e.year}`, items: [e] });
+  } else {
+    last.items.push(e);
+  }
+}
+
+// schema.org/Event je Termin — für Google, unsichtbar im Seitenbild.
+const jsonLd = EVENTS.filter((e) => e.startISO).map((e) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: e.title,
+  startDate: e.startISO,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  location: { '@type': 'Place', name: e.churchName || 'Pfarrei Sankt Bonifatius Frankfurt' },
+  url: `https://sanktbonifatius.de${e.href}`,
+  organizer: { '@type': 'Organization', name: 'Pfarrei Sankt Bonifatius Frankfurt', url: 'https://sanktbonifatius.de' },
+}));
 ---
 <section class="astro-cal">
   <div class="astro-cal__inner">
     <div class="astro-cal__filters" id="astro-cal-filters">
       <label class="astro-cal__field">
         <span class="astro-cal__label">Monat</span>
-        <select class="astro-cal__select" id="astro-cal-month"><option value="*">Alle Monate</option></select>
+        <select class="astro-cal__select" id="astro-cal-month">
+          <option value="*">Alle Monate</option>
+          {usedMonths.map((m) => <option value={m}>{MONTHS_LONG[m - 1]}</option>)}
+        </select>
       </label>
       <label class="astro-cal__field">
         <span class="astro-cal__label">Kirchort</span>
-        <select class="astro-cal__select" id="astro-cal-church"><option value="*">Alle Kirchorte</option></select>
+        <select class="astro-cal__select" id="astro-cal-church">
+          <option value="*">Alle Kirchorte</option>
+          {usedChurches.map((c) => <option value={c}>{CHURCH_NAMES[c] || c}</option>)}
+        </select>
       </label>
       <label class="astro-cal__field">
         <span class="astro-cal__label">Kategorie</span>
-        <select class="astro-cal__select" id="astro-cal-cat"><option value="*">Alle Angebote</option></select>
+        <select class="astro-cal__select" id="astro-cal-cat">
+          <option value="*">Alle Angebote</option>
+          {usedCats.map((c) => <option value={c.id}>{c.name}</option>)}
+        </select>
       </label>
       <button type="button" class="astro-cal__clear" id="astro-cal-clear">Filter zurücksetzen</button>
     </div>
 
+    <div class="astro-cal__quick" id="astro-cal-quick">
+      <button type="button" class="astro-cal__quick-btn" data-range="today">Heute</button>
+      <button type="button" class="astro-cal__quick-btn" data-range="week">Diese Woche</button>
+    </div>
+
     <div class="astro-cal__list" id="astro-cal-list">
-      <p class="astro-cal__status">Termine werden geladen …</p>
+      {groups.length === 0 ? (
+        <p class="astro-cal__empty">Aktuell sind keine Termine hinterlegt.</p>
+      ) : (
+        groups.map((g) => (
+          <Fragment>
+            <h2 class="astro-cal__month-hl">{g.label}</h2>
+            {g.items.map((e) => (
+              <a
+                href={e.href}
+                class="astro-cal-ev"
+                data-month={e.month}
+                data-church={e.churchKey}
+                data-cats={e.catIds.join(',')}
+                data-date={e.dateKey}
+              >
+                <div class="astro-cal-ev__date"><b>{e.day}.</b><span>{MONTHS_SHORT[e.month - 1]}</span></div>
+                <div class="astro-cal-ev__main">
+                  <p class="astro-cal-ev__title">{e.title}</p>
+                  {e.subtitle && <p class="astro-cal-ev__sub">{e.subtitle}</p>}
+                </div>
+                <div class="astro-cal-ev__meta">
+                  {e.times && <b>{e.times}</b>}
+                  {e.churchName && <span>{e.churchName}</span>}
+                </div>
+              </a>
+            ))}
+          </Fragment>
+        ))
+      )}
+      <p class="astro-cal__empty" id="astro-cal-empty-filtered" style="display:none">Keine Termine für diese Auswahl.</p>
     </div>
   </div>
 </section>
+
+{jsonLd.length > 0 && (
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+)}
 
 <style is:global>
 .astro-cal{background:#f7f3ef;padding:56px 0 80px}
@@ -49,6 +188,18 @@
 }
 .astro-cal__clear:hover{background:#9a2d2d;border-color:#9a2d2d;color:#fff}
 .astro-cal__status{color:var(--txt-muted-light);font-size:14px;padding:24px 0;text-align:center}
+
+/* Schnellfilter "Heute"/"Diese Woche" (A2, 2026-09-16): häufigste Suchanfrage laut Auftragsdokument
+   ("katholischer gottesdienst frankfurt heute"), deshalb als eigene, sofort sichtbare Buttons statt
+   im Monats-Dropdown versteckt. */
+.astro-cal__quick{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 28px}
+.astro-cal__quick-btn{
+  font-family:inherit;font-size:13px;font-weight:600;color:#9a2d2d;
+  background:#fff;border:1.5px solid #9a2d2d;border-radius:24px;padding:8px 18px;cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.astro-cal__quick-btn:hover{background:#fbeceb}
+.astro-cal__quick-btn.is-active{background:#9a2d2d;color:#fff}
 
 .astro-cal__list{display:flex;flex-direction:column}
 .astro-cal__month-hl{
@@ -88,124 +239,76 @@
 
 <script>
 (function(){
-  const WP = '/wp-proxy/wp-json/wp/v2';
-  const MONTHS_LONG = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
-  const MONTHS_SHORT = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
-  // Kirchort-Kürzel → voller Name (Abschnitt 7). Unbekannte fallen auf das Kürzel zurück.
-  const CHURCH_NAMES = {
-    bonifatius:'St. Bonifatius', aposteln:'St. Aposteln',
-    wendel:'St. Wendel', herzjesu:'Herz Jesu', 'herz-jesu':'Herz Jesu',
-    georgen:'Sankt Georgen', judas:'St. Judas Thaddäus',
-  };
-
   const listEl   = document.getElementById('astro-cal-list');
   const monthSel = document.getElementById('astro-cal-month');
   const churchSel= document.getElementById('astro-cal-church');
   const catSel   = document.getElementById('astro-cal-cat');
   const clearBtn = document.getElementById('astro-cal-clear');
-  if(!listEl) return;
+  const emptyEl  = document.getElementById('astro-cal-empty-filtered');
+  const quickBtns= Array.prototype.slice.call(document.querySelectorAll('.astro-cal__quick-btn'));
+  if(!listEl || !monthSel || !churchSel || !catSel || !clearBtn) return;
 
-  function md(str){ return { y:+str.slice(0,4), m:+str.slice(4,6), d:+str.slice(6,8) }; }
-  // WP-Termin-URL → interne Astro-Detailseite (/termine/<slug>/)
-  function localPath(u){ try { return new URL(u).pathname; } catch(e){ return u || '#'; } }
-  function opt(sel,val,label){ const o=document.createElement('option'); o.value=val; o.textContent=label; sel.appendChild(o); }
+  // Termine stehen bereits fertig gerendert im HTML (serverseitig, für SEO & ohne JS) — hier wird
+  // nur noch ein-/ausgeblendet, keine zweite Datenkopie und kein erneuter Serverkontakt nötig.
+  const items = Array.prototype.slice.call(listEl.querySelectorAll('.astro-cal-ev'));
+  const headings = Array.prototype.slice.call(listEl.querySelectorAll('.astro-cal__month-hl'));
 
-  let EVENTS = [];
+  // Schnellfilter "Heute"/"Diese Woche" (A2) — kombiniert mit den drei Dropdowns, klingt beim
+  // erneuten Klick wieder ab. Datum wird bei jedem Klick neu bestimmt (Seite kann tagelang offen
+  // im Tab liegen bleiben).
+  let activeRange = null; // null | 'today' | 'week'
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function isoToday(){ const d=new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function isoPlusDays(n){ const d=new Date(); d.setDate(d.getDate()+n); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
 
   function render(){
     const fMonth  = monthSel.value;
     const fChurch = churchSel.value;
     const fCat    = catSel.value;
+    const todayIso = isoToday();
+    const weekEndIso = isoPlusDays(6);
+    let anyVisible = false;
 
-    const shown = EVENTS.filter(function(e){
-      const mOk = fMonth==='*'  || e._month===+fMonth;
-      const cOk = fChurch==='*' || e._church===fChurch;
-      const aOk = fCat==='*'    || (e._cats && e._cats.indexOf(+fCat)>-1);
-      return mOk && cOk && aOk;
+    items.forEach(function(el){
+      const mOk = fMonth==='*'  || el.dataset.month===fMonth;
+      const cOk = fChurch==='*' || el.dataset.church===fChurch;
+      const cats = (el.dataset.cats||'').split(',').filter(Boolean);
+      const aOk = fCat==='*'    || cats.indexOf(fCat)>-1;
+      const d = el.dataset.date || '';
+      const dOk = !activeRange
+        || (activeRange==='today' ? d===todayIso : d>=todayIso && d<=weekEndIso);
+      const show = mOk && cOk && aOk && dOk;
+      el.style.display = show ? '' : 'none';
+      if (show) anyVisible = true;
     });
 
-    if(!shown.length){ listEl.innerHTML='<p class="astro-cal__empty">Keine Termine für diese Auswahl.</p>'; return; }
-
-    let html='', curKey='';
-    shown.forEach(function(e){
-      const key = e._year+'-'+e._month;
-      if(key!==curKey){ curKey=key; html+='<h2 class="astro-cal__month-hl">'+MONTHS_LONG[e._month-1]+' '+e._year+'</h2>'; }
-      const church = CHURCH_NAMES[e._church] || e.event_meta.location || '';
-      html+=''
-        +'<a href="'+localPath(e.link)+'" class="astro-cal-ev">'
-        +  '<div class="astro-cal-ev__date"><b>'+e._day+'.</b><span>'+MONTHS_SHORT[e._month-1]+'</span></div>'
-        +  '<div class="astro-cal-ev__main">'
-        +    '<p class="astro-cal-ev__title">'+e.title.rendered+'</p>'
-        +    (e.event_meta.subtitle ? '<p class="astro-cal-ev__sub">'+e.event_meta.subtitle+'</p>' : '')
-        +  '</div>'
-        +  '<div class="astro-cal-ev__meta">'
-        +    (e.event_meta.times ? '<b>'+e.event_meta.times+'</b>' : '')
-        +    (church ? '<span>'+church+'</span>' : '')
-        +  '</div>'
-        +'</a>';
+    // Monatsüberschrift nur zeigen, wenn darunter mindestens ein sichtbarer Termin steht.
+    headings.forEach(function(hl){
+      let sib = hl.nextElementSibling, hasVisible = false;
+      while (sib && !sib.classList.contains('astro-cal__month-hl')) {
+        if (sib.classList.contains('astro-cal-ev') && sib.style.display !== 'none') { hasVisible = true; break; }
+        sib = sib.nextElementSibling;
+      }
+      hl.style.display = hasVisible ? '' : 'none';
     });
-    listEl.innerHTML=html;
-  }
 
-  // WP liefert max. 100 Termine pro Seite (aktuell >120 Termine insgesamt, Tendenz steigend) -
-  // ohne Paginierung fehlen Termine ab Seite 2 einfach in der Liste.
-  async function fetchAllEvents(){
-    let all=[];
-    for(let page=1; page<=10; page++){
-      const res = await fetch(WP+'/event?per_page=100&page='+page+'&_fields=id,title,link,event_meta,event-category');
-      if(!res.ok) break;
-      const batch = await res.json();
-      all = all.concat(batch);
-      if(batch.length < 100) break;
-    }
-    return all;
-  }
-
-  async function init(){
-    const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
-    try{
-      const [all, catRes] = await Promise.all([
-        fetchAllEvents(),
-        fetch(WP+'/event-category?per_page=50&_fields=id,name'),
-      ]);
-      const cats = catRes.ok ? await catRes.json() : [];
-
-      EVENTS = all
-        .filter(function(e){ return e.event_meta && e.event_meta.start_date && e.event_meta.start_date >= today; })
-        .sort(function(a,b){ return a.event_meta.start_date.localeCompare(b.event_meta.start_date); })
-        .map(function(e){
-          const p = md(e.event_meta.start_date);
-          e._year=p.y; e._month=p.m; e._day=p.d;
-          e._church=(e.event_meta.church||'').toLowerCase();
-          e._cats=e['event-category']||[];
-          return e;
-        });
-
-      // Monatsfilter nur mit tatsächlich belegten Monaten füllen
-      const usedMonths=[...new Set(EVENTS.map(function(e){return e._month;}))].sort(function(a,b){return a-b;});
-      usedMonths.forEach(function(m){ opt(monthSel, String(m), MONTHS_LONG[m-1]); });
-
-      // Kirchorte aus den Daten
-      const usedChurches=[...new Set(EVENTS.map(function(e){return e._church;}).filter(Boolean))];
-      usedChurches.forEach(function(c){ opt(churchSel, c, CHURCH_NAMES[c]||c); });
-
-      // Kategorien: nur die, die auch vorkommen
-      const usedCats=new Set(); EVENTS.forEach(function(e){ e._cats.forEach(function(id){usedCats.add(id);}); });
-      cats.filter(function(c){return usedCats.has(c.id);})
-          .forEach(function(c){ opt(catSel, String(c.id), c.name.replace(/&amp;/g,'&')); });
-
-      render();
-    }catch(err){
-      listEl.innerHTML='<p class="astro-cal__empty">Termine konnten nicht geladen werden.</p>';
-      console.warn('Terminkalender:', err);
-    }
+    if (emptyEl) emptyEl.style.display = (items.length && !anyVisible) ? '' : 'none';
   }
 
   [monthSel,churchSel,catSel].forEach(function(s){ s.addEventListener('change', render); });
-  clearBtn.addEventListener('click', function(){
-    monthSel.value='*'; churchSel.value='*'; catSel.value='*'; render();
+  quickBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const range = btn.dataset.range;
+      activeRange = (activeRange===range) ? null : range; // erneuter Klick schaltet ab
+      quickBtns.forEach(function(b){ b.classList.toggle('is-active', b===btn && activeRange===range); });
+      render();
+    });
   });
-
-  document.addEventListener('DOMContentLoaded', init);
+  clearBtn.addEventListener('click', function(){
+    monthSel.value='*'; churchSel.value='*'; catSel.value='*';
+    activeRange = null;
+    quickBtns.forEach(function(b){ b.classList.remove('is-active'); });
+    render();
+  });
 })();
 </script>

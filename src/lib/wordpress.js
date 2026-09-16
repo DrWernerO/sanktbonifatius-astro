@@ -71,7 +71,7 @@ export async function getTaufeTermine(id = 50101) {
 }
 
 // Minimaler HTML-Entity-Decoder (server-seitig, ohne DOM). Deckt die in WP-Content üblichen ab.
-function decodeEntities(s) {
+export function decodeEntities(s) {
   return s
     .replace(/&amp;/g, '&').replace(/&middot;/g, '·').replace(/&ndash;/g, '–')
     .replace(/&mdash;/g, '—').replace(/&szlig;/g, 'ß').replace(/&uuml;/g, 'ü')
@@ -166,6 +166,36 @@ export async function getEvents(perPage = 30) {
   const res = await fetch(`${WP_API}/event?per_page=${perPage}&_embed`);
   if (!res.ok) return [];
   return res.json();
+}
+
+// Alle künftigen Termine, serverseitig, paginiert (WP `per_page`-Limit ist 100).
+// Für den Terminkalender (CalendarOverview.astro, `prerender = false`, s. terminkalender.astro):
+// bis 2026-09-16 holte die Übersicht ihre Daten rein client-seitig aus `wp-json` — die Seite
+// stand deshalb leer im ausgelieferten Quelltext (kein Text, kein Event-Schema für Google).
+// `cache: 'no-store'` wie bei getEventBySlug()/getMeetnFritesTermine(): Termine ändern sich in
+// WordPress ständig, lösen aber keinen Netlify-Rebuild aus (Handbuch 1c) — jeder Seitenaufruf
+// muss den aktuellen Stand direkt von WordPress holen, kein zwischengespeicherter alter Fetch.
+export async function getUpcomingEvents(perPage = 100, maxPages = 10) {
+  let all = [];
+  for (let page = 1; page <= maxPages; page++) {
+    const res = await fetch(
+      `${WP_API}/event?per_page=${perPage}&page=${page}&_fields=id,title,link,event_meta,event-category`,
+      { cache: 'no-store' }
+    );
+    if (!res.ok) break;
+    const batch = await res.json();
+    all = all.concat(batch);
+    if (batch.length < perPage) break;
+  }
+  const todayKey = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  return all
+    .filter((e) => e.event_meta && e.event_meta.start_date && e.event_meta.start_date >= todayKey)
+    .sort((a, b) => a.event_meta.start_date.localeCompare(b.event_meta.start_date));
+}
+
+export async function getEventCategories() {
+  const res = await fetch(`${WP_API}/event-category?per_page=50&_fields=id,name`, { cache: 'no-store' });
+  return res.ok ? res.json() : [];
 }
 
 // Volltextsuche über den WP-Such-Endpoint (Seiten + Beiträge + Termine).
