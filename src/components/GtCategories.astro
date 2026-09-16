@@ -1,0 +1,326 @@
+---
+// Alle Gruppen & Treffpunkte, nach Bereich (A9, 2026-09-16) — Präfix `astro-gt`.
+// Inhalt 1:1 aus dem Heft „Gruppen und Treffpunkte 2026" der Pfarrei übernommen, mit
+// Sprungadresse je Gruppe (Anker) und Verlinkung zu bestehenden Einzelseiten, wo vorhanden.
+function slugify(s) {
+  return s.toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+const CATEGORIES = [
+  {
+    id: 'gottesdienst-glaube',
+    title: 'Gottesdienst & Glaube',
+    href: '/gottesdienst-glaube/',
+    intro: 'Von leise und meditativ bis laut und lebendig — Zeit und Raum für den eigenen Glauben.',
+    items: [
+      {
+        title: 'Gebet für die Gemeinde',
+        text: 'Zeit für persönliches Gebet, für Stille und für die Anliegen aus dem Fürbittbuch. Eine halbe Stunde, um zur Ruhe zu kommen und das vor Gott zu bringen, was einen bewegt.',
+        schedule: ['Dienstags, 18–18:30 Uhr'],
+        ort: 'St. Bonifatius, Krypta',
+      },
+      {
+        title: 'Die Spätschicht',
+        text: 'Wer sich nach einem gemeinsamen spirituellen Abend sehnt, ist hier herzlich willkommen. Elemente des Abends sind ein spiritueller Impuls, Gebete, Gesang, Stille und Austausch. Im Anschluss sind alle zum gemeinsamen Abendessen im Kleinen Pfarrsaal eingeladen.',
+        schedule: ['Jeden 1. Donnerstag im Monat, 19:30 Uhr'],
+        ort: 'St. Bonifatius, Krypta und Kleiner Pfarrsaal',
+      },
+      {
+        title: 'Frühschichten in Herz Jesu',
+        text: 'Herzlich willkommen, in der Frühe des Morgens gemeinsam Stille zu erleben, zu beten und zu singen. So kann der Tag bewusst und in guter Gemeinschaft beginnen. Im Anschluss ist für ein kleines Frühstück gesorgt.',
+        schedule: ['Jeden 1. Dienstag im Monat, 7:00 Uhr'],
+        ort: 'Herz Jesu, Gemeindehaus',
+      },
+      {
+        title: 'Online-Fürbittbuch',
+        // TODO (2026-09-16): Heft nennt "sanktbonifatius.de/online-gebetbuch" — Adresse existiert
+        // weder in Astro noch in WordPress (geprüft, 404/keine Seite gefunden). Kein Link gesetzt,
+        // bis die richtige Adresse bekannt ist bzw. die Seite gebaut wurde.
+        text: 'Auf unserer Website finden Sie ein Online-Fürbittbuch. Sie haben hier die Möglichkeit, ein Anliegen mitzuteilen, für das Sie sich das unterstützende Gebet anderer wünschen. Menschen aus unserer Pfarrei lesen Ihr Gebetsanliegen und beten dafür gemeinsam.',
+      },
+    ],
+  },
+  {
+    id: 'bonfamily',
+    title: 'BonFamily',
+    href: '/bonfamily/',
+    intro: 'Unser buntes Familienprogramm — für die Kleinsten und ihre Eltern.',
+    items: [
+      {
+        title: 'Baby Lounge',
+        text: 'Eine wunderbar bunte, vielfältige und altersgerechte Spiellandschaft lädt Babys von 0 bis 12 Monaten zum „Weltentdecken" ein. Gemeinsam gesungene Lieder und Fingerspiele gefallen nicht nur den Kleinen, sondern bereiten auch den Eltern viel Freude. Zwischen Spiel und Gesang bleibt genügend Raum für Gespräche, einen Tee oder Kaffee sowie Fragen rund um Kinderthemen.',
+        schedule: ['Freitags (außer in den Ferien), 9:30–11:00 Uhr'],
+        ort: 'St. Bonifatius, Kleiner Pfarrsaal',
+      },
+      {
+        title: 'Familien Lounge',
+        text: 'Kleine Menschen, große Entdeckungen: In unserer Familien-Lounge wartet eine liebevoll gestaltete Spiellandschaft auf Kinder von 1 bis 3 Jahren. Wir singen, spielen und erleben erste Gemeinschaft. Eltern kommen währenddessen entspannt ins Gespräch — über alles, was Familien bewegt.',
+        schedule: ['Freitags (außer in den Ferien), 15:30–17:30 Uhr'],
+        ort: 'St. Bonifatius, Kleiner Pfarrsaal',
+      },
+      {
+        title: 'Miniclub und Maxiclub Herz Jesu',
+        text: 'Das Selbsthilfe- und Nachbarschaftszentrum Ostend e. V. (NBZ), eine von der Stadt Frankfurt geförderte Familienbildungsstätte, bietet in Herz Jesu Spiel und Spaß für Kinder verschiedener Altersgruppen. Eingeladen sind Kinder im Miniclub (0–3 Jahre) und im Maxiclub (1–3 Jahre). Der Eintritt ist frei.',
+        schedule: ['Miniclub: montags, 15–17:00 Uhr', 'Maxiclub: mittwochs, 15:30–17:30 Uhr'],
+        ort: 'Herz Jesu, Gemeindehaus',
+        contact: [{ type: 'mail', value: 'stefanie.kaup@nbz-ostend.de' }],
+      },
+    ],
+  },
+  {
+    id: 'jugend',
+    title: 'Jugend',
+    href: '/jugend/',
+    intro: 'Von der Jugendkirche bis zum Zeltlager — Raum für junge Leute.',
+    items: [
+      {
+        title: 'Jugendkirche JONA',
+        text: 'Unsere Pfarrei ist auch Sitz der Jugendkirche JONA. Jugendliche können das vielfältige Angebot nutzen: spirituelle Tiefgänge und Höhenflüge, Freizeiten mit Sonne, See und Spaßgarantie, Ski- und Snowboard-Fahrten in die „Faultierfarm" in Tirol, Bildungs- und Team-Building-Angebote für Schulklassen und natürlich das Schülercafé ORCA.',
+        more: { href: 'https://www.jugendkirche-jona.de', label: 'jugendkirche-jona.de', external: true },
+      },
+      {
+        title: 'Minis',
+        text: 'Viele Kinder, Jugendliche und junge Erwachsene engagieren sich in unseren Gottesdiensten mit vielfältigen Diensten wie dem Decken des Altars, dem Einsammeln der Kollekte und dem Schwenken des Weihrauchfasses an Festtagen. Dazu gibt es regelmäßige gemeinsame Freizeitaktivitäten in unseren Messdienergruppen. Wer Lust hat mitzumachen, meldet sich einfach im Pfarrbüro.',
+        more: { href: '/kontakt/pfarrbuero/', label: 'Kontakt zum Pfarrbüro' },
+      },
+      {
+        title: 'Pfadfinder St. Bonifatius',
+        text: 'Regelmäßige monatliche Treffen und Wochenendfahrten sowie ein Sommerlager sind Teil unserer Arbeit. Draußensein, Gemeinschaft erleben und Neues ausprobieren gehören dazu. Wir suchen noch Erwachsene jeden Alters, die eine Gruppe mit uns leiten möchten — keine Vorkenntnisse notwendig.',
+        schedule: ['Wölflinge / Jungpfadfinder (8–13 Jahre): monatlich freitags, 14:30–17:30 Uhr', 'Pfadfinder / Rover (14–18 Jahre): monatlich samstags, 10–16 Uhr'],
+        ort: 'St. Bonifatius, Pfadfindergarten, Bischofsweg gegenüber Nr. 32',
+        contact: [{ type: 'tel', value: '0170 8359431' }, { type: 'mail', value: 'pfadfinder@sanktbonifatius.de' }],
+      },
+      {
+        title: 'Pfadfinder Herz Jesu',
+        text: 'Bei den Gruppenstunden treffen sich die Pfadfinder der DPSG Oberrad wöchentlich im Pfarrgarten und in den Kellerräumen des Gemeindehauses von Herz Jesu. Im Frühjahr und in den Sommermonaten geht es auch regelmäßig in den Wald sowie auf Fahrt und Lager.',
+        schedule: ['Freitags, 17:30–19:00 Uhr'],
+        ort: 'Herz Jesu, Gemeindehaus',
+        contact: [{ type: 'tel', value: '0175 6141889', label: 'Esther Niesten' }, { type: 'mail', value: 'info@oberraeder-pfadfinder.de' }],
+      },
+    ],
+  },
+  {
+    id: 'kultur-begegnung',
+    title: 'Kultur & Begegnung',
+    href: '/kultur-begegnung/',
+    intro: 'Kaffee, Kreativität, Chorgesang und Bewegung — Begegnung in vielen Formen.',
+    items: [
+      {
+        title: 'Kirchcafé',
+        text: 'Sich über die Sonntagspredigt unterhalten, bei einer heißen Tasse Kaffee die neuesten Neuigkeiten austauschen oder einfach beisammensitzen: Das bieten unsere Kirchcafés. Für Neue in der Pfarrei sind sie eine ideale Anlaufstelle, um Kontakte zu knüpfen.',
+        schedule: ['An allen Kirchorten nach der Sonntagsmesse'],
+      },
+      {
+        title: 'Meet’n Frites — Schwestern Pommes',
+        text: 'Die Steyler Missionarinnen möchten Menschen zusammenbringen. Und wobei kommt man besser ins Gespräch als bei einem leckeren Essen in entspannter Umgebung? Kommt gerne vorbei, schwätzt und snackt eine Runde mit.',
+        schedule: ['Donnerstags alle 14 Tage, 17–19 Uhr (im Winter 16–18 Uhr)'],
+        ort: 'St. Aposteln',
+        more: { href: '/kirchorte/st-aposteln/meetn-frites/', label: 'Mehr über Meet’n Frites' },
+      },
+      {
+        title: 'Neues aus Alten (Upcycling)',
+        text: 'Im Wohnzimmer von St. Aposteln könnt ihr alte Kleidung in schöne neue Sachen verwandeln, reparieren oder etwas ganz Neues nähen. Ihr braucht keine Erfahrung — nur Spaß am Ausprobieren.',
+        schedule: ['Jeden 1. Dienstag im Monat, 15:30–17:30 Uhr'],
+        ort: 'St. Aposteln',
+      },
+      {
+        title: 'Freestyle-Kochen mit Foodsharing für Frauen',
+        text: 'Wir kochen gemeinsam mit Lebensmitteln von Foodsharing. Dabei entstehen nicht nur leckere Gerichte, sondern oft auch gute Gespräche und neue Begegnungen. Beitrag: 1 €.',
+        schedule: ['Einmal im Monat donnerstags, 17–20 Uhr'],
+        ort: 'St. Aposteln',
+        contact: [{ type: 'tel', value: '0151 58045646', label: 'Anmeldung Sozialpastoral' }],
+      },
+      {
+        title: 'BonCasino 60+',
+        text: 'Skat, Doppelkopf, Kniffel oder „Mensch ärgere dich nicht" — aber die Mitspieler fehlen? Bei BonCasino stehen Spielen, Kommunikation, Spaß und Geselligkeit im Vordergrund. Offen für alle Spielinteressierten ab 60+.',
+        schedule: ['Jeden 1. Mittwoch im Monat, 15–17:30 Uhr'],
+        ort: 'St. Bonifatius, Kleiner Pfarrsaal',
+      },
+      {
+        title: 'BonLadies',
+        text: 'Einmal monatlich treffen sich die BonLadies zum Austausch — Frauen aus verschiedenen Lebenssituationen und Kirchorten, berufstätig, mit oder ohne Kinder, gemeindeverbunden oder neu dazugekommen. Neue Gesichter sind jederzeit herzlich willkommen.',
+        schedule: ['Einmal monatlich an wechselnden Tagen, 19:30–22:00 Uhr'],
+        ort: 'St. Bonifatius, Boni-Lounge (Burnitzstr. 10)',
+        contact: [{ type: 'mail', value: 'martina.laudan@hb37.de' }],
+      },
+      {
+        title: 'Gemeinsam Spielen',
+        text: 'Alle, die gerne spielen, sind herzlich eingeladen — Brett- oder Kartenspiele, altbekannte Spiele oder Neues. Gerne auch das eigene Lieblingsspiel mitbringen und neue Mitspieler:innen finden.',
+        schedule: ['Jeden 1. Montag im Monat, 15:00 Uhr'],
+        ort: 'Herz Jesu, Gemeindehaus',
+      },
+      {
+        title: 'Kreativ-Werkstatt',
+        text: 'Ob häkeln, stricken, nähen oder basteln — in der Kreativ-Werkstatt sind alle willkommen, die Freude daran haben, in der Gruppe kreativ zu sein. Auch Anfänger:innen sind herzlich willkommen.',
+        schedule: ['Mittwochs, 18:30–21:00 Uhr'],
+        ort: 'Herz Jesu, Gemeindehaus',
+        contact: [{ type: 'mail', value: 'kreativ-herz-jesu@web.de' }],
+      },
+      {
+        title: 'Chöre',
+        text: 'Wir proben geistliche und manchmal auch weltliche Werke aus allen Epochen — Vorkenntnisse sind nicht erforderlich. Chor St. Wendel (Leitung Adelheid Müller-Horrig) montags 20:00 Uhr; Vokalensemble St. Wendel (Leitung Alexandra Gockel-Bok) donnerstags 20:00 Uhr, projektweise; Kinderchor „Die Wendelinos" (5–12 Jahre, Leitung Alexandra Gockel-Bok) mittwochs 17:30–18:30 Uhr außerhalb der Ferien.',
+        ort: 'St. Wendel, Gemeindehaus / Bühnenraum',
+        more: { href: '/kultur-begegnung/choere/', label: 'Alle Chöre im Detail' },
+      },
+      {
+        title: 'Seniorenclub St. Wendel',
+        text: 'Herzliche Einladung an Jüngere und Ältere — die Veranstaltungen sind für jedes Alter geeignet. Wir beginnen fast immer mit einer gemütlichen Kaffeerunde und starten dann unser wöchentlich wechselndes Programm.',
+        schedule: ['Donnerstags, 15:00 Uhr'],
+        ort: 'St. Wendel, Bühnenraum',
+        contact: [{ type: 'mail', value: 'wendelbaumert@gmail.com' }],
+      },
+      {
+        title: 'Seniorenturnen',
+        text: 'Im Alter fit und beweglich bleiben — mit einfachen Übungen und unter Anleitung. Einfach vorbeikommen und seniorengerecht mitturnen.',
+        schedule: ['Dienstags, 10–11:00 Uhr'],
+        ort: 'St. Bonifatius, Großer Pfarrsaal',
+      },
+      {
+        title: 'Yoga / Qi Gong',
+        text: 'Die innere Mitte finden und beweglich bleiben, entspannt und beschwingt durch den Alltag gehen. Der Kurs läuft in der Regel halbjährlich.',
+        schedule: ['14-tägig donnerstags, 9–10:30 Uhr'],
+        ort: 'St. Bonifatius, Kleiner Pfarrsaal',
+        contact: [{ type: 'mail', value: 'heidrun.harlander-breth@gmx.de', label: 'Heidrun Harlander-Breth' }],
+      },
+      {
+        title: 'Repaircafé',
+        text: 'Wegwerfen? Denkste. Beim Repaircafé bekommt so manches Gerät ein neues Leben. Wer gern nachhaltig handelt oder Unterstützung bei einer Reparatur sucht, ist herzlich willkommen.',
+        schedule: ['Jeden 1. Dienstag im Monat, 17:30–20:00 Uhr'],
+        ort: 'St. Wendel, Gemeindehaus',
+        more: { href: 'https://www.repaircafefrankfurt.de', label: 'repaircafefrankfurt.de', external: true },
+      },
+      {
+        title: 'Unsere Pfarrbüchereien',
+        text: 'Die katholischen öffentlichen Büchereien sind für alle Kinder und Erwachsene da, die Freude an Büchern haben — von Kinderbüchern bis zum spannenden Krimi.',
+        schedule: ['Sonntags, 10:45–12:30 Uhr, St. Bonifatius', 'Sonntags, 10:30–11:30 Uhr, Herz Jesu', 'Sonntags, 10:30–12:30 Uhr, St. Wendel (auch in den Ferien)', 'Mittwochs, 15:30–18:00 Uhr, St. Wendel (auch in den Ferien)'],
+        more: { href: '/kultur-begegnung/buechereien/', label: 'Alle Büchereien im Detail' },
+      },
+    ],
+  },
+  {
+    id: 'engagiert-leben',
+    title: 'Engagiert Leben',
+    href: '/engagiert-leben/',
+    intro: 'Füreinander da sein — praktische Hilfe und offene Ohren in der Nachbarschaft.',
+    items: [
+      {
+        title: 'Open Fridge — Offener Kühlschrank',
+        text: 'Das Foodsharing-Projekt in unserer Pfarrei: Im Open Fridge können noch haltbare Lebensmittel abgegeben und entnommen werden. Ein einfaches und praktisches Angebot, das Ressourcen schont und Menschen unterstützt.',
+        schedule: ['Täglich, 9–18 Uhr'],
+        ort: 'St. Aposteln, Kirche, Seitenkapelle',
+        more: { href: '/kirchorte/st-aposteln/offener-kuehlschrank/', label: 'Mehr zum Offenen Kühlschrank' },
+      },
+      {
+        title: 'Bücherlounge / Geschenk-Box-Regal',
+        text: 'Gute Bücher weitergeben oder neuen Lesestoff finden: In der Bücherlounge am Taufbecken und im Bücher- und Geschenkschrank in der Seitenkapelle warten lesenswerte Bücher sowie gut erhaltene Haushaltsartikel und Geschenke (bis zu 3 Stück) zum Mitnehmen oder Abgeben.',
+        schedule: ['Täglich, 9–18 Uhr'],
+        ort: 'St. Aposteln, Kirche, Seitenkapelle',
+      },
+      {
+        title: 'Kleidercafé — einmal anders shoppen',
+        text: 'Freitags bei einer Tasse Kaffee und einem Stück Kuchen die Second-Hand-Boutique auf der Orgelbühne besuchen — nur shoppen ist auch mittwochs und donnerstags möglich.',
+        schedule: ['Mittwochs, 14–16:00 Uhr', 'Donnerstags, 18–19:00 Uhr', 'Freitags, 15–17:30 Uhr (17:30 Uhr Abendgebet)'],
+        ort: 'St. Aposteln, Kirche',
+        more: { href: '/kirchorte/st-aposteln/kleider-cafe/', label: 'Mehr zum Kleidercafé' },
+      },
+      {
+        title: 'Gelegenheit zum Gespräch',
+        text: 'In der Gesprächsoase in der Kirche St. Aposteln kann man mit einer Gesprächspartnerin über alles sprechen, was einen bewegt — persönlich und diskret. Terminvereinbarung möglich.',
+        ort: 'St. Aposteln, Kirche',
+        contact: [{ type: 'tel', value: '0151 58045646', label: 'Terminvereinbarung' }],
+      },
+      {
+        title: '„Du darfst nach dir schauen…"',
+        text: 'Selbsthilfegruppe für Angehörige von Suchtkranken. Ein geschützter Raum für Austausch, Unterstützung und neue Kraft. Vorherige Terminvereinbarung erforderlich.',
+        schedule: ['Jeden 1. und 3. Mittwoch im Monat, 18:30–20:00 Uhr'],
+        ort: 'St. Bonifatius, Boni-Lounge (Burnitzstr. 10)',
+        contact: [{ type: 'mail', value: 'd.kadavil@sanktbonifatius.de' }],
+      },
+      {
+        title: 'Nachbarschaftliches Hilfenetz',
+        text: 'Unterstützung bei alltäglichen Arbeiten im Haushalt für ein langes selbstständiges Leben im eigenen Zuhause.',
+        schedule: ['Montags, 8–10:00 Uhr', 'Donnerstags, 16–18:00 Uhr'],
+        contact: [{ type: 'tel', value: '069 29 82 62 70' }, { type: 'mail', value: 'hilfenetz.sachsenhausen@caritas-frankfurt.de' }],
+        more: { href: '/engagiert-leben/nachbarschaftliches-hilfenetz/', label: 'Mehr zum Hilfenetz' },
+      },
+      {
+        title: 'Allgemeine Sozialberatung',
+        text: 'Manchmal wachsen einem Probleme über den Kopf. Im Gespräch versuchen wir, eine erste Klärung der aktuellen Problemlage zu erreichen — offenes Ohr, Unterstützung bei Formularen und im Kontakt mit Behörden, vertraulich und kostenlos.',
+        schedule: ['Mittwochs, 15–17:00 Uhr'],
+        ort: 'Unter den Kastanien 14, 60596 Frankfurt',
+        more: { href: '/kontakt/beratung-und-hilfe/', label: 'Mehr zu Beratung & Hilfe' },
+      },
+    ],
+  },
+];
+---
+{CATEGORIES.map((cat, ci) => (
+  <section class="astro-gt-cat" id={cat.id}>
+    <div class="astro-gt-cat__inner">
+      <div class="astro-gt-cat__head">
+        <h2 class="astro-gt-cat__title">{cat.title}</h2>
+        <p class="astro-gt-cat__intro">{cat.intro}</p>
+        <a href={cat.href} class="astro-gt-cat__link">Zur Bereichsseite {cat.title} &#8594;</a>
+      </div>
+      <div class="astro-gt-cat__grid">
+        {cat.items.map(item => (
+          <article class="astro-gt-card" id={slugify(item.title)}>
+            <h3 class="astro-gt-card__title">{item.title}</h3>
+            <p class="astro-gt-card__text">{item.text}</p>
+            {(item.schedule || item.ort) && (
+              <div class="astro-gt-card__meta">
+                {item.schedule && item.schedule.map(s => <p class="astro-gt-card__sched">{s}</p>)}
+                {item.ort && <p class="astro-gt-card__ort">{item.ort}</p>}
+              </div>
+            )}
+            {item.contact && (
+              <p class="astro-gt-card__contact">
+                {item.contact.map((c, i) => (
+                  <>
+                    {i > 0 && ' · '}
+                    {c.type === 'mail' ? <a href={`mailto:${c.value}`}>{c.label || c.value}</a> :
+                     c.type === 'tel' ? <a href={`tel:${c.value.replace(/\s+/g, '')}`}>{c.label ? `${c.label}: ${c.value}` : c.value}</a> :
+                     c.value}
+                  </>
+                ))}
+              </p>
+            )}
+            {item.more && (
+              <a class="astro-gt-card__more" href={item.more.href} target={item.more.external ? '_blank' : undefined} rel={item.more.external ? 'noopener' : undefined}>
+                {item.more.label} &#8594;
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+))}
+
+<style is:global>
+.astro-gt-cat{padding:56px 0}
+.astro-gt-cat:nth-child(odd){background:#fff}
+.astro-gt-cat:nth-child(even){background:#f7f3ef}
+.astro-gt-cat__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-gt-cat__head{margin:0 0 32px}
+.astro-gt-cat__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,36px);font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-gt-cat__intro{font-size:16px;color:#6b5c52;margin:0 0 10px;max-width:600px}
+.astro-gt-cat__link{font-size:14px;font-weight:600;color:#9a2d2d;text-decoration:none}
+.astro-gt-cat__link:hover{color:#7e2424;text-decoration:underline}
+.astro-gt-cat__grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.astro-gt-card{background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:26px 28px;scroll-margin-top:100px;box-shadow:0 2px 12px rgba(30,21,18,.04)}
+.astro-gt-cat:nth-child(even) .astro-gt-card{background:#fff}
+.astro-gt-card__title{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:#2c2420;margin:0 0 10px}
+.astro-gt-card__text{font-size:14.5px;line-height:1.65;color:#5a4a3a;margin:0 0 14px}
+.astro-gt-card__meta{margin:0 0 10px;padding-top:10px;border-top:1px solid #f0ebe5}
+.astro-gt-card__sched{font-size:13.5px;font-weight:600;color:#9a2d2d;margin:0 0 2px}
+.astro-gt-card__ort{font-size:13.5px;color:#6b5c52;margin:0}
+.astro-gt-card__contact{font-size:13px;color:#6b5c52;margin:0 0 10px}
+.astro-gt-card__contact a{color:#9a2d2d;text-decoration:underline}
+.astro-gt-card__more{display:inline-block;font-size:13.5px;font-weight:600;color:#128C7E;text-decoration:none}
+.astro-gt-card__more:hover{text-decoration:underline}
+@media(max-width:860px){.astro-gt-cat__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-gt-cat__inner{padding:0 20px}.astro-gt-cat{padding:40px 0}}
+</style>

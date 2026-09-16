@@ -1,0 +1,19 @@
+---
+// „Gruppen und Treffpunkte" (A9, 2026-09-16) — /gruppen-und-treffpunkte/.
+// Übersicht über alle Gruppen/Treffpunkte der vier Kirchorte, nach den 5 Angebote-Bereichen
+// gegliedert (Gottesdienst & Glaube, BonFamily, Jugend, Kultur & Begegnung, Engagiert Leben).
+// Inhalt aus dem Heft „Gruppen und Treffpunkte 2026 v4" der Pfarrei übernommen. Kein WP-Vorbild,
+// vollständig aus eigenen Astro-Komponenten (Präfix astro-gt).
+import Base from '../layouts/Base.astro';
+import GtHero from '../components/GtHero.astro';
+import GtIntro from '../components/GtIntro.astro';
+import GtCategories from '../components/GtCategories.astro';
+import { SEO_STATIC } from '../lib/seo-static.js';
+
+const seo = SEO_STATIC['/gruppen-und-treffpunkte/'];
+---
+<Base seo={seo} title="Gruppen & Treffpunkte · St. Bonifatius Frankfurt">
+  <GtHero />
+  <GtIntro />
+  <GtCategories />
+</Base>
