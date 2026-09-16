@@ -1,0 +1,52 @@
+---
+// Was der Kanal bietet — Präfix `astro-pwaben` (A11, 2026-09-16).
+const benefits = [
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    title: 'Immer aktuell',
+    text: 'Kurzfristige Änderungen bei Gottesdiensten, wichtige Termine und Neuigkeiten aus der Pfarrei – Sie erfahren es als Erste:r, nicht erst im nächsten Pfarrbrief.',
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+    title: 'Kein Gruppenchat-Stress',
+    text: 'Ein WhatsApp-Kanal ist keine Gruppe: Nur die Pfarrei postet, es gibt keine Antworten Dritter und keine Nachrichtenflut in Ihrem Chat.',
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+    title: 'Privatsphäre',
+    text: 'Ihre Telefonnummer ist für andere Abonnent:innen – und auch für uns – nicht sichtbar. Anonymes Folgen ist der Standard bei WhatsApp-Kanälen.',
+  },
+];
+---
+<section class="astro-pwaben">
+  <div class="astro-pwaben__inner">
+    <div class="astro-pwaben__head">
+      <h2 class="astro-pwaben__title">Was Sie vom Kanal haben</h2>
+      <p class="astro-pwaben__sub">Der zuverlässigste und am schnellsten wachsende Infoweg der Pfarrei – in drei Punkten.</p>
+    </div>
+    <div class="astro-pwaben__grid">
+      {benefits.map(b => (
+        <div class="astro-pwaben__card">
+          <div class="astro-pwaben__icon" set:html={b.icon} />
+          <h3 class="astro-pwaben__card-title">{b.title}</h3>
+          <p class="astro-pwaben__card-text">{b.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pwaben{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-pwaben__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-pwaben__head{text-align:center;margin-bottom:48px}
+.astro-pwaben__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-pwaben__sub{font-size:17px;color:#6b5c52;margin:0;max-width:520px;margin-inline:auto}
+.astro-pwaben__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.astro-pwaben__card{background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:36px 28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 4px 20px rgba(30,21,18,.05)}
+.astro-pwaben__icon{color:#128C7E;flex-shrink:0}
+.astro-pwaben__card-title{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:700;color:#2c2420;margin:0}
+.astro-pwaben__card-text{font-size:15px;line-height:1.65;color:#6b5c52;margin:0;flex:1}
+@media(max-width:860px){.astro-pwaben__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.astro-pwaben__inner{padding:0 20px}.astro-pwaben{padding:52px 0}}
+</style>

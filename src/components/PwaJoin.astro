@@ -1,0 +1,58 @@
+---
+// "Anmeldung" zum Kanal (A11, 2026-09-16) — Präfix `astro-pwajoin`. WhatsApp-Kanäle haben
+// kein Web-Formular: Abonnieren geht nur direkt in WhatsApp. Der QR-Code hier ist das
+// Äquivalent zum "Anmeldeformular" — zum Abfotografieren mit dem Handy, genau wie im
+// Auftragsdokument (A11) gefordert. Wird serverseitig aus der Kanal-URL erzeugt (Paket
+// "qrcode"), kein externer Bilddienst -> kein Drittanbieter-Aufruf beim Seitenaufruf.
+import QRCode from 'qrcode';
+
+const WA_URL = 'https://whatsapp.com/channel/0029VbB7E1CLikgAZ8cyHk1a';
+const qrSvg = await QRCode.toString(WA_URL, {
+  type: 'svg',
+  margin: 1,
+  color: { dark: '#0a4e44', light: '#ffffffff' },
+});
+---
+<section class="astro-pwajoin">
+  <div class="astro-pwajoin__inner">
+    <div class="astro-pwajoin__box">
+      <div class="astro-pwajoin__qr" set:html={qrSvg} />
+      <div class="astro-pwajoin__text">
+        <span class="astro-pwajoin__eyebrow">So funktioniert die Anmeldung</span>
+        <h2 class="astro-pwajoin__title">In 30 Sekunden dabei</h2>
+        <ol class="astro-pwajoin__steps">
+          <li>QR-Code mit der Handy-Kamera oder direkt in WhatsApp abfotografieren – oder unten auf „Kanal abonnieren" tippen.</li>
+          <li>In WhatsApp auf „Folgen" tippen.</li>
+          <li>Fertig. Sie bekommen ab sofort unsere Beiträge angezeigt.</li>
+        </ol>
+        <a href={WA_URL} target="_blank" rel="noopener" class="astro-pwajoin__btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Kanal abonnieren
+        </a>
+        <p class="astro-pwajoin__hint">Kein WhatsApp? Die wichtigsten Neuigkeiten stehen auch in unserem <a href="/kontakt/newsletter/">Newsletter</a> und im <a href="/downloads/pfarrbrief.pdf">Pfarrbrief</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pwajoin{padding:80px 0;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-pwajoin__inner{max-width:960px;margin:0 auto;padding:0 40px}
+.astro-pwajoin__box{display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:center;background:#f7f3ef;border-radius:20px;padding:48px;box-shadow:0 8px 40px rgba(18,140,126,.1)}
+.astro-pwajoin__qr{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 12px rgba(30,21,18,.08)}
+.astro-pwajoin__qr :global(svg){display:block;width:100%;height:auto}
+.astro-pwajoin__eyebrow{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#128C7E;font-weight:700;margin-bottom:10px}
+.astro-pwajoin__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,32px);font-weight:700;color:#0a4e44;margin:0 0 20px;line-height:1.2}
+.astro-pwajoin__steps{margin:0 0 28px;padding-left:22px;color:#5a4a3a;font-size:15.5px;line-height:1.7;display:flex;flex-direction:column;gap:8px}
+.astro-pwajoin__steps li{padding-left:4px}
+.astro-pwajoin__btn{display:inline-flex;align-items:center;gap:10px;padding:14px 30px;background:#25D366;color:#0a4e44;font-size:15px;font-weight:700;text-decoration:none;border-radius:50px;transition:background .18s,transform .18s;box-shadow:0 4px 18px rgba(37,211,102,.3)}
+.astro-pwajoin__btn:hover{background:#1fb859;transform:translateY(-2px)}
+.astro-pwajoin__hint{margin:20px 0 0;font-size:13.5px;color:#6b5c52;line-height:1.6}
+.astro-pwajoin__hint a{color:#128C7E;text-decoration:underline}
+@media(max-width:700px){
+  .astro-pwajoin__box{grid-template-columns:1fr;text-align:center;padding:36px 28px}
+  .astro-pwajoin__qr{max-width:180px;margin:0 auto}
+  .astro-pwajoin__steps{text-align:left}
+}
+@media(max-width:600px){.astro-pwajoin__inner{padding:0 20px}.astro-pwajoin{padding:56px 0}}
+</style>

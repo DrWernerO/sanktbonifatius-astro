@@ -1,0 +1,67 @@
+---
+// FAQ „WhatsApp-Kanal der Pfarrei" — Präfix `astro-pwafaq` (A11, 2026-09-16). Natives <details>.
+const faqs = [
+  {
+    q: 'Was wird im Kanal gepostet?',
+    a: 'Aktuelles aus der Pfarrei: kurzfristige Änderungen oder Ausfälle bei Gottesdiensten, wichtige Termine, besondere Aktionen und Neuigkeiten aus Sankt Bonifatius Frankfurt.',
+  },
+  {
+    q: 'Sehen andere meine Telefonnummer?',
+    a: 'Nein. Im WhatsApp-Kanal-Format ist Ihre Nummer für andere Abonnent:innen nicht sichtbar – und auch nicht für uns als Betreiber.',
+  },
+  {
+    q: 'Kann ich Nachrichten beantworten oder mitschreiben?',
+    a: 'Nein, ein WhatsApp-Kanal ist ein One-Way-Format: Nur die Pfarrei kann Nachrichten posten. Sie können mit Emojis reagieren, aber nicht selbst schreiben – das verhindert eine Nachrichtenflut.',
+  },
+  {
+    q: 'Wie kann ich den Kanal verlassen oder stummschalten?',
+    a: 'Jederzeit über den Kanal-Eintrag in WhatsApp: Benachrichtigungen stummschalten oder den Kanal ganz verlassen – ohne uns Bescheid geben zu müssen.',
+  },
+  {
+    q: 'Ist das derselbe Kanal wie BonFamily?',
+    a: 'Nein. Dieser Kanal informiert allgemein über die Pfarrei. Für Familien-Themen (Familiengottesdienste, Eltern-Kind-Angebote) gibt es einen eigenen <a href="/bonfamily/whatsapp-kanal/">BonFamily-WhatsApp-Kanal</a>.',
+  },
+  {
+    q: 'Brauche ich WhatsApp dafür?',
+    a: 'Ja, für den Kanal benötigen Sie die WhatsApp-App. Ohne WhatsApp finden Sie die wichtigsten Neuigkeiten auch im <a href="/kontakt/newsletter/">Newsletter</a> oder im <a href="/downloads/pfarrbrief.pdf">Pfarrbrief</a>.',
+  },
+];
+---
+<section class="astro-pwafaq">
+  <div class="astro-pwafaq__inner">
+    <div class="astro-pwafaq__head">
+      <h2 class="astro-pwafaq__title">Häufige Fragen</h2>
+      <p class="astro-pwafaq__sub">Antworten auf die meistgestellten Fragen zum Pfarrei-Kanal.</p>
+    </div>
+    <div class="astro-pwafaq__list">
+      {faqs.map(f => (
+        <details class="astro-pwafaq__item">
+          <summary class="astro-pwafaq__q">
+            {f.q}
+            <svg class="astro-pwafaq__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="astro-pwafaq__a" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pwafaq{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-pwafaq__inner{max-width:860px;margin:0 auto;padding:0 40px}
+.astro-pwafaq__head{text-align:center;margin-bottom:48px}
+.astro-pwafaq__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-pwafaq__sub{font-size:17px;color:#6b5c52;margin:0}
+.astro-pwafaq__list{display:flex;flex-direction:column;gap:10px}
+.astro-pwafaq__item{background:#fff;border:1px solid #e0d8cf;border-radius:12px;overflow:hidden}
+.astro-pwafaq__item[open]{border-color:#128C7E}
+.astro-pwafaq__q{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px;cursor:pointer;font-size:16px;font-weight:600;color:#2c2420;list-style:none;line-height:1.4}
+.astro-pwafaq__q::-webkit-details-marker{display:none}
+.astro-pwafaq__q:hover{background:#f7f3ef}
+.astro-pwafaq__chevron{flex-shrink:0;color:#128C7E;transition:transform .2s}
+.astro-pwafaq__item[open] .astro-pwafaq__chevron{transform:rotate(180deg)}
+.astro-pwafaq__a{padding:0 24px 20px;font-size:15px;line-height:1.7;color:#5a4a3a}
+.astro-pwafaq__a a{color:#128C7E;text-decoration:underline}
+@media(max-width:600px){.astro-pwafaq__inner{padding:0 20px}.astro-pwafaq{padding:52px 0}}
+</style>

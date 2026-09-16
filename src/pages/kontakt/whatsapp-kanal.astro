@@ -1,0 +1,22 @@
+---
+// Seite „WhatsApp-Kanal der Pfarrei" (A11, 2026-09-16) — /kontakt/whatsapp-kanal/.
+// Vollständig aus eigenen Astro-Komponenten (Präfix astro-pwa), nach dem Muster von
+// /bonfamily/whatsapp-kanal/ (Wa*-Komponenten), aber eigener Kanal + eigener Inhalt.
+// Nav + Footer global aus Base.astro. Der Nav-Link „WhatsApp Kanal" unter Kontakt zeigt
+// bislang direkt auf whatsapp.com — ob der Link auf diese neue Seite umgestellt wird,
+// entscheidet Werner (Nav.astro nur auf ausdrückliche Anweisung ändern).
+import Base from '../../layouts/Base.astro';
+import PwaHero from '../../components/PwaHero.astro';
+import PwaBenefits from '../../components/PwaBenefits.astro';
+import PwaJoin from '../../components/PwaJoin.astro';
+import PwaFaq from '../../components/PwaFaq.astro';
+import { SEO_STATIC } from '../../lib/seo-static.js';
+
+const seo = SEO_STATIC['/kontakt/whatsapp-kanal/'];
+---
+<Base seo={seo} title="WhatsApp-Kanal der Pfarrei · St. Bonifatius Frankfurt">
+  <PwaHero />
+  <PwaBenefits />
+  <PwaJoin />
+  <PwaFaq />
+</Base>
