@@ -136,17 +136,17 @@ export const SEO_STATIC = {
   ]
 }
 </script>`,
-  "/kitas/herz-jesu/": `<title>Kita Herz Jesu Frankfurt – Katholische Kita</title>
+  "/kitas/herz-jesu/": `<title>Kita Herz Jesu Oberrad – Kindergarten in Frankfurt</title>
 <meta name="description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
 <meta property="og:site_name" content="Sankt Bonifatius">
 <meta property="og:locale" content="de_DE">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Kita Herz Jesu Frankfurt – Katholische Kita">
+<meta property="og:title" content="Kita Herz Jesu Oberrad – Kindergarten in Frankfurt">
 <meta property="og:description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
 <meta property="og:image" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
 <meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kita Herz Jesu Frankfurt – Katholische Kita">
+<meta name="twitter:title" content="Kita Herz Jesu Oberrad – Kindergarten in Frankfurt">
 <meta name="twitter:description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
 <meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
 <script type="application/ld+json">
@@ -157,7 +157,7 @@ export const SEO_STATIC = {
       "@type": "WebPage",
       "@id": "https://sanktbonifatius.de/kitas/herz-jesu/",
       "url": "https://sanktbonifatius.de/kitas/herz-jesu/",
-      "name": "Kita Herz Jesu Frankfurt – Katholische Kita",
+      "name": "Kita Herz Jesu Oberrad – Kindergarten in Frankfurt",
       "description": "Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße.",
       "inLanguage": "de-DE",
       "breadcrumb": {
@@ -200,17 +200,17 @@ export const SEO_STATIC = {
   ]
 }
 </script>`,
-  "/kitas/st-aposteln/": `<title>Kita St. Aposteln Frankfurt – Teiloffenes Konzept</title>
+  "/kitas/st-aposteln/": `<title>Kita St. Aposteln Sachsenhausen – Kindergarten 3–6 Jahre</title>
 <meta name="description" content="Katholische Kita in Frankfurt-Sachsenhausen: 80 Kinder von 3–6 Jahren, teiloffenes Konzept mit Funktionsräumen, großes Außengelände. Seit 1965 vor Ort.">
 <meta property="og:site_name" content="Sankt Bonifatius">
 <meta property="og:locale" content="de_DE">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Kita St. Aposteln Frankfurt – Teiloffenes Konzept">
+<meta property="og:title" content="Kita St. Aposteln Sachsenhausen – Kindergarten 3–6 Jahre">
 <meta property="og:description" content="Katholische Kita in Frankfurt-Sachsenhausen: 80 Kinder von 3–6 Jahren, teiloffenes Konzept mit Funktionsräumen, großes Außengelände. Seit 1965 vor Ort.">
 <meta property="og:image" content="https://sanktbonifatius.de/uploads/2022/05/kita-staposteln-frankfurt-6.jpg">
 <meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2022/05/kita-staposteln-frankfurt-6.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kita St. Aposteln Frankfurt – Teiloffenes Konzept">
+<meta name="twitter:title" content="Kita St. Aposteln Sachsenhausen – Kindergarten 3–6 Jahre">
 <meta name="twitter:description" content="Katholische Kita in Frankfurt-Sachsenhausen: 80 Kinder von 3–6 Jahren, teiloffenes Konzept mit Funktionsräumen, großes Außengelände. Seit 1965 vor Ort.">
 <meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2022/05/kita-staposteln-frankfurt-6.jpg">
 <script type="application/ld+json">
@@ -221,7 +221,7 @@ export const SEO_STATIC = {
       "@type": "WebPage",
       "@id": "https://sanktbonifatius.de/kitas/st-aposteln/",
       "url": "https://sanktbonifatius.de/kitas/st-aposteln/",
-      "name": "Kita St. Aposteln Frankfurt – Teiloffenes Konzept",
+      "name": "Kita St. Aposteln Sachsenhausen – Kindergarten 3–6 Jahre",
       "description": "Katholische Kita in Frankfurt-Sachsenhausen: 80 Kinder von 3–6 Jahren, teiloffenes Konzept mit Funktionsräumen, großes Außengelände.",
       "inLanguage": "de-DE",
       "breadcrumb": {
@@ -264,17 +264,17 @@ export const SEO_STATIC = {
   ]
 }
 </script>`,
-  "/kitas/st-bonifatius/": `<title>Kita St. Bonifatius Frankfurt – Krippe &amp; Kindergarten</title>
+  "/kitas/st-bonifatius/": `<title>Kita St. Bonifatius Sachsenhausen – Krippe &amp; Kindergarten</title>
 <meta name="description" content="Katholische Kita in Frankfurt-Sachsenhausen: 100 Kinder, 2 Krippen- und 4 Kindergartengruppen, moderne helle Räume mit großem Garten. Mo–Fr 7:30–17 Uhr.">
 <meta property="og:site_name" content="Sankt Bonifatius">
 <meta property="og:locale" content="de_DE">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Kita St. Bonifatius Frankfurt – Krippe &amp; Kindergarten">
+<meta property="og:title" content="Kita St. Bonifatius Sachsenhausen – Krippe &amp; Kindergarten">
 <meta property="og:description" content="Katholische Kita in Frankfurt-Sachsenhausen: 100 Kinder, 2 Krippen- und 4 Kindergartengruppen, moderne helle Räume mit großem Garten. Mo–Fr 7:30–17 Uhr.">
 <meta property="og:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
 <meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kita St. Bonifatius Frankfurt – Krippe &amp; Kindergarten">
+<meta name="twitter:title" content="Kita St. Bonifatius Sachsenhausen – Krippe &amp; Kindergarten">
 <meta name="twitter:description" content="Katholische Kita in Frankfurt-Sachsenhausen: 100 Kinder, 2 Krippen- und 4 Kindergartengruppen, moderne helle Räume mit großem Garten. Mo–Fr 7:30–17 Uhr.">
 <meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg">
 <script type="application/ld+json">
@@ -285,7 +285,7 @@ export const SEO_STATIC = {
       "@type": "WebPage",
       "@id": "https://sanktbonifatius.de/kitas/st-bonifatius/",
       "url": "https://sanktbonifatius.de/kitas/st-bonifatius/",
-      "name": "Kita St. Bonifatius Frankfurt – Krippe & Kindergarten",
+      "name": "Kita St. Bonifatius Sachsenhausen – Krippe & Kindergarten",
       "description": "Katholische Kita in Frankfurt-Sachsenhausen: 100 Kinder, 2 Krippen- und 4 Kindergartengruppen, moderne helle Räume mit großem Garten.",
       "inLanguage": "de-DE",
       "breadcrumb": {
@@ -328,17 +328,17 @@ export const SEO_STATIC = {
   ]
 }
 </script>`,
-  "/kitas/st-wendel/": `<title>Kita St. Wendel Frankfurt – Krippe &amp; Kindergarten</title>
+  "/kitas/st-wendel/": `<title>Kita St. Wendel Sachsenhausen – Krippe &amp; Kindergarten</title>
 <meta name="description" content="Katholische Kita in Frankfurt-Sachsenhausen: Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Situationsansatz &amp; Pikler-Pädagogik, frisches Mittagessen täglich.">
 <meta property="og:site_name" content="Sankt Bonifatius">
 <meta property="og:locale" content="de_DE">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Kita St. Wendel Frankfurt – Krippe &amp; Kindergarten">
+<meta property="og:title" content="Kita St. Wendel Sachsenhausen – Krippe &amp; Kindergarten">
 <meta property="og:description" content="Katholische Kita in Frankfurt-Sachsenhausen: Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Situationsansatz &amp; Pikler-Pädagogik, frisches Mittagessen täglich.">
 <meta property="og:image" content="https://sanktbonifatius.de/uploads/2024/08/KiTa-St-Wendel-Gebaeude.jpg">
 <meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2024/08/KiTa-St-Wendel-Gebaeude.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kita St. Wendel Frankfurt – Krippe &amp; Kindergarten">
+<meta name="twitter:title" content="Kita St. Wendel Sachsenhausen – Krippe &amp; Kindergarten">
 <meta name="twitter:description" content="Katholische Kita in Frankfurt-Sachsenhausen: Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Situationsansatz &amp; Pikler-Pädagogik, frisches Mittagessen täglich.">
 <meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2024/08/KiTa-St-Wendel-Gebaeude.jpg">
 <script type="application/ld+json">
@@ -349,7 +349,7 @@ export const SEO_STATIC = {
       "@type": "WebPage",
       "@id": "https://sanktbonifatius.de/kitas/st-wendel/",
       "url": "https://sanktbonifatius.de/kitas/st-wendel/",
-      "name": "Kita St. Wendel Frankfurt – Krippe & Kindergarten",
+      "name": "Kita St. Wendel Sachsenhausen – Krippe & Kindergarten",
       "description": "Katholische Kita in Frankfurt-Sachsenhausen: Krippe ab 1 Jahr, Kindergarten 3–6 Jahre, Situationsansatz & Pikler-Pädagogik.",
       "inLanguage": "de-DE",
       "breadcrumb": {
