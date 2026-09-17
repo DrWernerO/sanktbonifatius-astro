@@ -1,0 +1,12 @@
+# Netlify liefert prerenderte Astro-Routen (astro build) als normale statische Dateien vom
+# CDN aus — die Response-Header aus dem Code (src/pages/downloads/*.pdf.ts) gelten nur beim
+# einmaligen Build, nicht bei der Auslieferung an Besucher. Deshalb hier explizit erzwingen,
+# damit ein Klick im Downloads-Menü wirklich sofort herunterlädt (statt eine Vorschau zu
+# öffnen) und dabei der schöne Dateiname ankommt (Handbuch 1d).
+/downloads/pfarrbrief.pdf
+  Content-Disposition: attachment; filename="Sankt Bonifatius Pfarrbrief.pdf"
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/downloads/highlights.pdf
+  Content-Disposition: attachment; filename="Sankt Bonifatius Highlights.pdf"
+  Cache-Control: public, max-age=3600, must-revalidate
