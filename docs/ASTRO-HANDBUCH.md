@@ -278,6 +278,25 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 > Woche, damit die ersten ~2 Tage Zählung nicht verloren gehen. `statistik.astro` zeigt eine
 > Zeile pro Kalenderwoche (Montag–Sonntag), neueste oben, plus Gesamtsumme in der Fußzeile.
 
+> **Stand 2026-09-17: Gleiches Prinzip für den Monatsbrief St. Aposteln.** Eigener Ordner
+> „Astro-Upload/Monatsbrief Aposteln" (RML-Ordner-ID 205) — anders als bei Pfarrbrief/Highlights
+> liegt dort immer nur die eine aktuelle Ausgabe, daher **kein** Titel-Filter nötig:
+> `getLatestMonatsbriefAposteln()` in `wordpress.js` holt einfach die neueste Datei aus dem
+> Ordner. Stabile Adresse: **`/downloads/monatsbrief-aposteln.pdf`**
+> (`src/pages/downloads/monatsbrief-aposteln.pdf.ts`, `prerender = true`), ausgelieferter
+> Dateiname immer „Monatsbrief St. Aposteln.pdf". Workflow für die Sekretärin: neue Ausgabe in
+> genau diesen Mediathek-Ordner hochladen — Dateiname egal. Sichtbarer Link als zusätzliche
+> Zeile „Monatsbrief (PDF)" in der bestehenden Monatsprogramm-Kachel auf
+> `/kirchorte/st-aposteln/` (`ApSteyler.astro`, Sektion „Steyler Missionsschwestern &amp;
+> Monatsprogramm") — keine eigene neue Kachel, kein Klick-Zähler (kein Bestandteil der
+> Pfarrbrief/Highlights-Statistik).
+>
+> ⚠️ **Noch offen:** Der `add_attachment`/`edit_attachment`-Hook in der `functions.php` (s.o.)
+> ist bisher nur auf „pfarrbrief"/„highlights" im Medientitel gefiltert. Ein Upload in RML-Ordner
+> 205 löst damit **noch keinen** automatischen Rebuild aus — die neue Ausgabe erscheint erst
+> nach dem nächsten ohnehin anstehenden Build. Muss noch in WordPress (Theme-Editor,
+> außerhalb dieses Repos) ergänzt werden, z. B. um „monatsbrief" als weiteres Filterwort.
+
 ---
 
 ## 1e. SEO — SEOPress-Head fest eingebaut (headless SEO) ✅ UMGESETZT (seit 2026-08-20 statisch)
