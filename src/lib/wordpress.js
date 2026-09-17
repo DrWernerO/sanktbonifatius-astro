@@ -373,6 +373,27 @@ export async function getLatestDokument(suchwort, scan = 40) {
   }
 }
 
+// Eigener Ordner "Astro-Upload/Monatsbrief Aposteln" (RML-Ordner-ID 205) — anders als bei
+// PFARRBRIEF_HIGHLIGHTS_FOLDER liegt hier immer nur die eine aktuelle Ausgabe, darum kein
+// Titel-Filter nötig (analog Konzept in getLatestDokument/Handbuch 1d).
+const MONATSBRIEF_APOSTELN_FOLDER = 205;
+
+// Liefert das neueste Medien-Dokument aus MONATSBRIEF_APOSTELN_FOLDER. Grundlage für die
+// stabile Download-Adresse /downloads/monatsbrief-aposteln.pdf (s. src/pages/downloads/).
+export async function getLatestMonatsbriefAposteln() {
+  try {
+    const res = await fetch(
+      `${WP_API}/media?rml_folder=${MONATSBRIEF_APOSTELN_FOLDER}&media_type=application&orderby=date&order=desc&per_page=1&_fields=id,title,source_url,modified`,
+      { cache: 'no-store' }
+    );
+    if (!res.ok) return null;
+    const [doc] = await res.json();
+    return doc ?? null;
+  } catch {
+    return null;
+  }
+}
+
 // EIN Termin per Slug, live vom Server (src/pages/termine/[slug].astro, `prerender = false`).
 // Termine haben keinen Fließtext — alle Infos stehen in `event_meta`. Das Bild ist eine Media-ID.
 //

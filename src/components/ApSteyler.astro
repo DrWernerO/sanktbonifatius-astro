@@ -32,27 +32,35 @@ const programme = await getMonatsprogramme('aposteln');
         </div>
         <div class="astro-sw-karte__body">
           <p class="astro-sw-karte__text">Alle aktuellen Veranstaltungen und Termine am Kirchort St. Aposteln auf einen Blick — jeden Monat neu zusammengestellt. Auch in der Kirche ausliegend.</p>
-          {programme.length > 0 && (
-            <div class="astro-sw-karte__links">
-              {programme.map((p, i) => (
-                <a
-                  class:list={['astro-sw-karte__linkrow', { 'astro-sw-karte__linkrow--secondary': i > 0 }]}
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <span class="astro-sw-karte__linkrow__icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg>
-                  </span>
-                  <span class="astro-sw-karte__linkrow__txt">
-                    <span class="astro-sw-karte__linkrow__month">{p.label}</span>
-                    <span class="astro-sw-karte__linkrow__tag">{p.tag}</span>
-                  </span>
-                  <span class="astro-sw-karte__linkrow__arrow">→</span>
-                </a>
-              ))}
-            </div>
-          )}
+          <div class="astro-sw-karte__links">
+            {programme.map((p, i) => (
+              <a
+                class:list={['astro-sw-karte__linkrow', { 'astro-sw-karte__linkrow--secondary': i > 0 }]}
+                href={p.url}
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="astro-sw-karte__linkrow__icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg>
+                </span>
+                <span class="astro-sw-karte__linkrow__txt">
+                  <span class="astro-sw-karte__linkrow__month">{p.label}</span>
+                  <span class="astro-sw-karte__linkrow__tag">{p.tag}</span>
+                </span>
+                <span class="astro-sw-karte__linkrow__arrow">→</span>
+              </a>
+            ))}
+            <a class="astro-sw-karte__linkrow astro-sw-karte__linkrow--secondary" href="/downloads/monatsbrief-aposteln.pdf">
+              <span class="astro-sw-karte__linkrow__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v10"></path><path d="M8 10l4 4 4-4"></path><path d="M5 19h14"></path></svg>
+              </span>
+              <span class="astro-sw-karte__linkrow__txt">
+                <span class="astro-sw-karte__linkrow__month">Monatsbrief</span>
+                <span class="astro-sw-karte__linkrow__tag">PDF</span>
+              </span>
+              <span class="astro-sw-karte__linkrow__arrow">→</span>
+            </a>
+          </div>
         </div>
       </div>
 
