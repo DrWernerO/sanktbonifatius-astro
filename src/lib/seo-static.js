@@ -367,7 +367,7 @@ export const SEO_STATIC = {
       "name": "Kita St. Wendel",
       "url": "https://sanktbonifatius.de/kitas/st-wendel/",
       "image": "https://sanktbonifatius.de/uploads/2024/08/KiTa-St-Wendel-Gebaeude.jpg",
-      "telephone": "+4969631983",
+      "telephone": "+4969685994",
       "email": "kita-wendel@sanktbonifatius.de",
       "address": {
         "@type": "PostalAddress",
