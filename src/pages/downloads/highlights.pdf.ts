@@ -1,7 +1,7 @@
 // Stabile Adresse für die Bonifatius Highlights unter der Hauptdomain:
 // /downloads/highlights.pdf — Details siehe pfarrbrief.pdf.ts.
 import type { APIRoute } from 'astro';
-import { getLatestDokument } from '../../lib/wordpress.js';
+import { getLatestDokument, BUILD_UA } from '../../lib/wordpress.js';
 
 export const prerender = true;
 
@@ -10,7 +10,8 @@ export const GET: APIRoute = async () => {
   if (!doc?.source_url) {
     return new Response('Highlights derzeit nicht verfügbar.', { status: 404 });
   }
-  const res = await fetch(doc.source_url);
+  // BUILD_UA zwingend — Begründung siehe pfarrbrief.pdf.ts.
+  const res = await fetch(doc.source_url, { headers: { 'User-Agent': BUILD_UA } });
   if (!res.ok) {
     return new Response('Highlights derzeit nicht verfügbar.', { status: 502 });
   }

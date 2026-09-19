@@ -11,7 +11,7 @@ const WP_API = 'https://cms.sanktbonifatius.de/wp-json/wp/v2';
 // Seiten ab (kein /wp-json) und wuerden sonst im Redirect landen: Der Fetch bekaeme dann
 // die Startseite statt der echten Seite, ohne Fehlermeldung. Kennung nur zusammen mit der
 // .htaccess aendern.
-const BUILD_UA = 'SanktBonifatiusAstroBuild/1.0';
+export const BUILD_UA = 'SanktBonifatiusAstroBuild/1.0';
 
 export async function getPage(slug) {
   const res = await fetch(

@@ -4,7 +4,7 @@
 // die aktuell in WP hinterlegte Datei geholt und unter dieser Adresse "eingefroren", bis zum
 // nächsten Rebuild (Webhook bei WP-Änderung, s. Handbuch 1c).
 import type { APIRoute } from 'astro';
-import { getLatestDokument } from '../../lib/wordpress.js';
+import { getLatestDokument, BUILD_UA } from '../../lib/wordpress.js';
 
 export const prerender = true;
 
@@ -13,7 +13,10 @@ export const GET: APIRoute = async () => {
   if (!doc?.source_url) {
     return new Response('Pfarrbrief derzeit nicht verfügbar.', { status: 404 });
   }
-  const res = await fetch(doc.source_url);
+  // BUILD_UA zwingend: Die .htaccess am cms-Host leitet die alte Pfarrbrief-Adresse per 301
+  // hierher zurück (SEO, Werner 16.09.2026) und nimmt nur diese Kennung aus. Ohne sie holt
+  // sich der Build das eingefrorene PDF des VORHERIGEN Builds — neue Ausgaben kämen nie an.
+  const res = await fetch(doc.source_url, { headers: { 'User-Agent': BUILD_UA } });
   if (!res.ok) {
     return new Response('Pfarrbrief derzeit nicht verfügbar.', { status: 502 });
   }
