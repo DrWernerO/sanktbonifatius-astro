@@ -1,0 +1,457 @@
+---
+// Technischer Prototyp „100 Jahre Sankt Bonifatius" – virtueller Rundgang.
+// Panorama-Bilder: zwei echte Innenraumfotos (Sony a7RM5, Juni 2024, aus „Virtueller Rundgang
+// Boni/St. Bonifatius Innenraum") als Anschauungsmaterial. Es sind normale Weitwinkelfotos
+// (3:2, kein 360°-Rundumbild) – deshalb `haov`/`vaov` unten auf das ungefähre reale Sichtfeld
+// begrenzt, statt sie über eine volle Kugel zu strecken. Für den echten Rundgang später durch
+// gestitchte 360°-Panoramen ersetzen. Heiligentafel/Vasa-Sacra-Inhalte bleiben Platzhalter,
+// bis Personen angefragt bzw. die Schatzkammer fotografiert ist. Bewusst NICHT im Nav.astro
+// verlinkt (Regel: Menü nur auf ausdrückliche Anweisung ändern) und mit noindex, damit
+// Suchmaschinen den Prototyp nicht erfassen. Passwortschutz über src/middleware.ts (gleiche
+// Zugangsdaten wie /downloads/statistik) — braucht deshalb `prerender = false`, sonst würde
+// Netlify die Seite als fertige statische Datei ausliefern, an der Middleware vorbei.
+export const prerender = false;
+import Base from '../../layouts/Base.astro';
+---
+<Base title="100 Jahre Sankt Bonifatius – Rundgang (Prototyp)" noindex={true}>
+  <section class="jub-intro">
+    <p class="jub-badge">Technischer Prototyp – echte Fotos, noch kein 360°-Rundumbild</p>
+    <h1>100 Jahre Sankt Bonifatius – virtueller Rundgang</h1>
+    <p>
+      Mit der Maus (oder dem Finger) im Bild ziehen, um sich umzuschauen. Die goldenen
+      Punkte sind anklickbare Stellen im Kirchenraum. Die Fotos hier sind echte Aufnahmen
+      des Innenraums (Juni 2024) – aber normale Weitwinkelfotos, noch kein 360°-Rundumbild.
+    </p>
+  </section>
+
+  <section class="jub-viewer-wrap">
+    <div id="jub-panorama"></div>
+  </section>
+
+  <!-- Modal: Heiligentafel (Übersicht der Porträts) -->
+  <div id="jub-modal-heilige" class="jub-modal" hidden>
+    <div class="jub-modal-box">
+      <button type="button" class="jub-modal-close" data-close>×</button>
+      <h2>Heilige der Pfarrkirche</h2>
+      <p class="jub-modal-hint">Klicken Sie auf ein Porträt.</p>
+      <div class="jub-portraits">
+        <button type="button" class="jub-portrait" data-person="1">
+          <img class="jub-avatar jub-avatar-foto" src="/uploads/jubilaeum/heiligentafel-platzhalterfoto.jpg" alt="Platzhalterfoto" />
+          <span>Platzhalterfoto</span>
+        </button>
+        <button type="button" class="jub-portrait" data-person="2">
+          <span class="jub-avatar">H S</span>
+          <span>Hans S.</span>
+        </button>
+        <button type="button" class="jub-portrait" data-person="3">
+          <span class="jub-avatar">A B</span>
+          <span>Anna B.</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: einzelne Person (Video oder Text) -->
+  <div id="jub-modal-person" class="jub-modal" hidden>
+    <div class="jub-modal-box">
+      <button type="button" class="jub-modal-close" data-close>×</button>
+      <h2 id="jub-person-name"></h2>
+      <div id="jub-person-inhalt"></div>
+    </div>
+  </div>
+
+  <!-- Modal: Schatzkammer-Objekt -->
+  <div id="jub-modal-objekt" class="jub-modal" hidden>
+    <div class="jub-modal-box">
+      <button type="button" class="jub-modal-close" data-close>×</button>
+      <h2 id="jub-objekt-name"></h2>
+      <p id="jub-objekt-text"></p>
+    </div>
+  </div>
+
+  <section class="jub-geschichte">
+    <h2>Die Geschichte unserer Kirche</h2>
+    <p>
+      <em>Platzhaltertext.</em> Hier entsteht später ein kurzer Abriss der Geschichte von
+      Sankt Bonifatius seit der Grundsteinlegung – wichtige Jahreszahlen, Baugeschichte,
+      besondere Ereignisse der letzten 100 Jahre.
+    </p>
+  </section>
+
+  <section class="jub-gaestebuch">
+    <h2>Gästebuch</h2>
+    <p>Hinterlassen Sie einen Gruß oder eine Erinnerung zum 100-jährigen Jubiläum.</p>
+    <form id="jub-gaestebuch-form">
+      <input type="text" id="jub-gb-name" placeholder="Ihr Name (optional)" maxlength="60" />
+      <textarea id="jub-gb-text" placeholder="Ihr Eintrag" maxlength="800" required></textarea>
+      <button type="submit">Eintragen</button>
+      <p id="jub-gb-status" role="status"></p>
+    </form>
+    <ul id="jub-gaestebuch-liste"></ul>
+  </section>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+  <script is:inline src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  <script is:inline>
+    (function () {
+      var PERSONEN = {
+        '1': {
+          name: 'Platzhalterfoto',
+          html: '<p><em>Platzhaltertext.</em> Hier würde später erzählt, was diese Person in der Kirche besonders erlebt hat – als Video oder zum Lesen.</p>',
+        },
+        '2': {
+          name: 'Hans S.',
+          html: '<p><em>Platzhalter für eine Geschichte.</em> Hier steht später ein kurzer, selbst geschriebener Text von Hans über ein besonderes Erlebnis in Sankt Bonifatius.</p>',
+        },
+        '3': {
+          name: 'Anna B.',
+          html: '<p><em>Platzhalter für ein Video.</em> Hier würde später ein Filmchen mit Anna erscheinen.</p>',
+        },
+      };
+
+      var OBJEKTE = {
+        kelch: { name: 'Kelch', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieses Kelchs.' },
+        monstranz: { name: 'Monstranz', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieser Monstranz.' },
+        ziborium: { name: 'Ziborium', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieses Ziboriums.' },
+      };
+
+      function zeigeModal(id) {
+        document.getElementById(id).hidden = false;
+      }
+      function versteckeModal(id) {
+        document.getElementById(id).hidden = true;
+      }
+      document.querySelectorAll('.jub-modal').forEach(function (modal) {
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal || e.target.hasAttribute('data-close')) {
+            modal.hidden = true;
+          }
+        });
+      });
+
+      document.querySelectorAll('.jub-portrait').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var p = PERSONEN[btn.dataset.person];
+          document.getElementById('jub-person-name').textContent = p.name;
+          document.getElementById('jub-person-inhalt').innerHTML = p.html;
+          verstecheAlleAusserModal('jub-modal-person');
+          zeigeModal('jub-modal-person');
+        });
+      });
+
+      function verstecheAlleAusserModal(offenId) {
+        document.querySelectorAll('.jub-modal').forEach(function (m) {
+          if (m.id !== offenId) m.hidden = true;
+        });
+      }
+
+      window.__jubOpenObjekt = function (id) {
+        var o = OBJEKTE[id];
+        document.getElementById('jub-objekt-name').textContent = o.name;
+        document.getElementById('jub-objekt-text').textContent = o.text;
+        zeigeModal('jub-modal-objekt');
+      };
+
+      window.__jubOpenHeiligentafel = function () {
+        zeigeModal('jub-modal-heilige');
+      };
+
+      // --- Panorama ---
+      // haov/vaov/vOffset: die Fotos sind normale Weitwinkelaufnahmen (kein 360°-Rundumbild),
+      // deshalb wird hier nur der tatsächliche Bildausschnitt der Kugel belegt (Pannellum
+      // zeigt außerhalb davon Schwarz). Werte grob geschätzt (~100°/70° für ein Weitwinkel-
+      // Vollformatfoto) – bei Bedarf nachjustieren, sobald das echte Objektiv bekannt ist.
+      window.pannellum.viewer('jub-panorama', {
+        default: { firstScene: 'hauptschiff', sceneFadeDuration: 800, autoLoad: true },
+        scenes: {
+          hauptschiff: {
+            type: 'equirectangular',
+            panorama: '/uploads/jubilaeum/panorama-hauptschiff-real.jpg',
+            haov: 100,
+            vaov: 70,
+            vOffset: 0,
+            pitch: 0,
+            yaw: 0,
+            hfov: 90,
+            hotSpots: [
+              {
+                pitch: 3,
+                yaw: 24,
+                type: 'custom',
+                cssClass: 'jub-hotspot-foto',
+                createTooltipFunc: function (hotSpotDiv) {
+                  var img = document.createElement('img');
+                  img.src = '/uploads/jubilaeum/heiligentafel-platzhalterfoto.jpg';
+                  img.alt = 'Heiligentafel (Platzhalterfoto)';
+                  hotSpotDiv.appendChild(img);
+                  hotSpotDiv.title = 'Heiligentafel ansehen';
+                  hotSpotDiv.addEventListener('click', window.__jubOpenHeiligentafel);
+                },
+              },
+              {
+                pitch: -4,
+                yaw: -18,
+                type: 'scene',
+                text: 'Zur Schatzkammer',
+                sceneId: 'schatzkammer',
+                cssClass: 'jub-hotspot-tuer',
+              },
+            ],
+          },
+          schatzkammer: {
+            type: 'equirectangular',
+            panorama: '/uploads/jubilaeum/panorama-schatzkammer-real.jpg',
+            haov: 100,
+            vaov: 70,
+            vOffset: 0,
+            pitch: 0,
+            yaw: 0,
+            hfov: 90,
+            hotSpots: [
+              { pitch: -4, yaw: 0, type: 'scene', text: 'Zurück zum Hauptschiff', sceneId: 'hauptschiff', cssClass: 'jub-hotspot-tuer' },
+              { pitch: 6, yaw: 30, type: 'info', text: 'Kelch', cssClass: 'jub-hotspot', clickHandlerFunc: function () { window.__jubOpenObjekt('kelch'); } },
+              { pitch: 6, yaw: -30, type: 'info', text: 'Monstranz', cssClass: 'jub-hotspot', clickHandlerFunc: function () { window.__jubOpenObjekt('monstranz'); } },
+              { pitch: -8, yaw: 15, type: 'info', text: 'Ziborium', cssClass: 'jub-hotspot', clickHandlerFunc: function () { window.__jubOpenObjekt('ziborium'); } },
+            ],
+          },
+        },
+      });
+
+      // --- Gästebuch ---
+      var liste = document.getElementById('jub-gaestebuch-liste');
+      var status = document.getElementById('jub-gb-status');
+
+      function formatDatum(iso) {
+        try {
+          return new Date(iso).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        } catch (e) {
+          return '';
+        }
+      }
+
+      function renderEintraege(eintraege) {
+        liste.innerHTML = '';
+        eintraege.forEach(function (e) {
+          var li = document.createElement('li');
+          var strong = document.createElement('strong');
+          strong.textContent = e.name;
+          var span = document.createElement('span');
+          span.className = 'jub-gb-datum';
+          span.textContent = ' – ' + formatDatum(e.datum);
+          var p = document.createElement('p');
+          p.textContent = e.text;
+          li.appendChild(strong);
+          li.appendChild(span);
+          li.appendChild(p);
+          liste.appendChild(li);
+        });
+      }
+
+      function ladeEintraege() {
+        fetch('/api/jubilaeum-gaestebuch')
+          .then(function (r) { return r.json(); })
+          .then(renderEintraege)
+          .catch(function () {});
+      }
+
+      document.getElementById('jub-gaestebuch-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('jub-gb-name').value;
+        var text = document.getElementById('jub-gb-text').value;
+        status.textContent = 'Wird gespeichert …';
+        fetch('/api/jubilaeum-gaestebuch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, text: text }),
+        })
+          .then(function (r) {
+            if (!r.ok) throw new Error('Fehler');
+            return r.json();
+          })
+          .then(function () {
+            status.textContent = 'Danke für Ihren Eintrag!';
+            document.getElementById('jub-gb-name').value = '';
+            document.getElementById('jub-gb-text').value = '';
+            ladeEintraege();
+          })
+          .catch(function () {
+            status.textContent = 'Das hat leider nicht geklappt. Bitte später erneut versuchen.';
+          });
+      });
+
+      ladeEintraege();
+    })();
+  </script>
+
+  <style>
+    .jub-intro {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 40px 20px 20px;
+      text-align: center;
+    }
+    .jub-badge {
+      display: inline-block;
+      background: var(--accent-gold-deco);
+      color: #2a2311;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .jub-intro h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      color: var(--clr-primary);
+      margin-bottom: 12px;
+    }
+    .jub-intro p { color: var(--txt-muted-light); max-width: 640px; margin: 0 auto; }
+
+    .jub-viewer-wrap {
+      max-width: var(--max-w);
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+    #jub-panorama {
+      width: 100%;
+      height: min(70vh, 600px);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #111;
+    }
+
+    :global(.jub-hotspot) {
+      background: var(--accent-gold-deco);
+      border: 2px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(0,0,0,.5);
+    }
+
+    /* Heiligentafel-Foto als kleiner Bilderrahmen direkt im Kirchenraum. */
+    :global(.jub-hotspot-foto) {
+      width: 74px !important;
+      height: 100px !important;
+      padding: 5px;
+      background: linear-gradient(160deg, #e6cf8e, #8a6d2c);
+      border: 2px solid #6b5320;
+      border-radius: 2px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.65);
+      cursor: pointer;
+    }
+    :global(.jub-hotspot-foto img) {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Goldene Tür zur Schatzkammer. */
+    :global(.jub-hotspot-tuer) {
+      width: 34px !important;
+      height: 78px !important;
+      background: linear-gradient(180deg, #f3e2a0, #c9a227 55%, #8a6d1a) !important;
+      border: 2px solid #6b5320 !important;
+      border-radius: 50% 50% 3px 3px / 25% 25% 3px 3px !important;
+      box-shadow: 0 0 16px rgba(0,0,0,.65), inset 0 0 5px rgba(255,255,255,.6) !important;
+      position: relative;
+      cursor: pointer;
+    }
+    /* Mittelsteg der Tür */
+    :global(.jub-hotspot-tuer)::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 8%;
+      bottom: 6%;
+      width: 2px;
+      background: rgba(107, 83, 32, .8);
+      transform: translateX(-50%);
+    }
+    /* Türgriff */
+    :global(.jub-hotspot-tuer)::after {
+      content: '';
+      position: absolute;
+      right: 5px;
+      top: 55%;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #4a3a0c;
+      transform: translateY(-50%);
+    }
+
+    .jub-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .jub-modal[hidden] { display: none; }
+    .jub-modal-box {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 520px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .jub-modal-box h2 { font-family: 'Playfair Display', serif; color: var(--clr-primary); margin-bottom: 12px; }
+    .jub-modal-hint { color: var(--txt-muted-light); font-size: 14px; margin-bottom: 16px; }
+    .jub-modal-close {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: none; border: none;
+      font-size: 28px; line-height: 1; cursor: pointer;
+      color: var(--clr-muted);
+    }
+
+    .jub-portraits { display: flex; gap: 16px; flex-wrap: wrap; }
+    .jub-portrait {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      background: none; border: none; cursor: pointer; font-family: inherit; color: var(--clr-text);
+    }
+    .jub-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--clr-primary); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 18px;
+    }
+    .jub-avatar-foto { object-fit: cover; }
+
+    .jub-geschichte, .jub-gaestebuch {
+      max-width: 720px;
+      margin: 0 auto 50px;
+      padding: 0 20px;
+    }
+    .jub-geschichte h2, .jub-gaestebuch h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--clr-primary);
+      margin-bottom: 12px;
+    }
+    #jub-gaestebuch-form { display: flex; flex-direction: column; gap: 10px; margin: 16px 0 24px; }
+    #jub-gaestebuch-form input, #jub-gaestebuch-form textarea {
+      font-family: inherit; font-size: 15px; padding: 10px 12px;
+      border: 1px solid #ccc; border-radius: 6px; resize: vertical;
+    }
+    #jub-gaestebuch-form textarea { min-height: 80px; }
+    #jub-gaestebuch-form button {
+      align-self: flex-start;
+      background: var(--clr-primary); color: #fff;
+      border: none; border-radius: 6px;
+      padding: 10px 24px; font-weight: 600; cursor: pointer;
+    }
+    #jub-gb-status { font-size: 14px; color: var(--txt-muted-light); min-height: 20px; }
+    #jub-gaestebuch-liste { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    #jub-gaestebuch-liste li { border-top: 1px solid #eee; padding-top: 12px; }
+    .jub-gb-datum { color: var(--txt-muted-light); font-size: 13px; }
+  </style>
+</Base>

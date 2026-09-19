@@ -21,6 +21,13 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername: string; 
     benutzername: 'statistik',
     realm: 'Download-Statistik Sankt Bonifatius',
   },
+  // Gleiche Zugangsdaten wie die Download-Statistik (Werners Wunsch) — deshalb bewusst dieselbe
+  // Umgebungsvariable, kein eigenes Passwort für diesen Prototyp.
+  '/100-jahre': {
+    envVar: 'DOWNLOADS_STATS_PASSWORD',
+    benutzername: 'statistik',
+    realm: '100 Jahre Sankt Bonifatius (Prototyp)',
+  },
 };
 
 function findeSchutz(pathname: string) {
