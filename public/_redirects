@@ -222,6 +222,64 @@
 /wp-content/uploads/2025/09/Pilger-der-Hoffnung-Programmflyer_KF2025.pdf     /terminkalender/   301
 /wp-content/uploads/2026/01/SKG-2025-Plakat-Flyer.pdf                        /terminkalender/   301
 
+# --- GSC-Check 2026-09-19: weitere Migrations-Altlasten mit echtem Suchtraffic ---------------
+# Gefunden beim Klick-Rueckgang-Check nach dem Astro/Netlify-Umzug (GSC-Vergleich Vor-/Nach-Umbau).
+
+# Weihnachtsgottesdienste: 583 Klicks/6.514 Impressionen im Vorjahreszeitraum, kein 1:1-Nachfolger
+# -> auf die aktuelle Gottesdienstordnung (wie /gottesdienste, /gottesdienstordnung oben).
+/gottesdienst-glaube/weihnachtsgottesdienste     /gottesdienst-glaube/gottesdienstordnung/     301
+/gottesdienst-glaube/weihnachtsgottesdienste/    /gottesdienst-glaube/gottesdienstordnung/     301
+
+# Alte Termine-Übersichtsseite (ohne Slug) -> neue Terminkalender-Seite.
+/termine     /terminkalender/     301
+/termine/    /terminkalender/     301
+
+# Alte Stellenanzeigen-URLs (CPT-Plugin "Jobs for WP", abgeloest seit 2026-09-02) -> Stellenboerse.
+/job/*    /kitas/stellenboerse/    301
+
+# Alte Einzelmeldungen/News-Beiträge ohne Nachfolgeseite -> BoniBlog (Sammel-Uebersicht).
+/erklaerung-der-pfarrei-sankt-bonifatius              /boniblog/    301
+/erklaerung-der-pfarrei-sankt-bonifatius/             /boniblog/    301
+/kirche                                               /boniblog/    301
+/kirche/                                              /boniblog/    301
+/neuer-verwaltungsrat                                 /boniblog/    301
+/neuer-verwaltungsrat/                                /boniblog/    301
+/bauprojekt-sozialpastorales-zentrum-st-aposteln      /boniblog/    301
+/bauprojekt-sozialpastorales-zentrum-st-aposteln/     /boniblog/    301
+/gremien-bericht-juni-2026                            /boniblog/    301
+/gremien-bericht-juni-2026/                           /boniblog/    301
+/der-synodale-weg-geht-weiter                         /boniblog/    301
+/der-synodale-weg-geht-weiter/                        /boniblog/    301
+/fazit-synodaler-weg                                  /boniblog/    301
+/fazit-synodaler-weg/                                 /boniblog/    301
+/10-jahre-styler-missionsschwestern-in-st-aposteln    /boniblog/    301
+/10-jahre-styler-missionsschwestern-in-st-aposteln/   /boniblog/    301
+/aschermittwoch-schulgottesdienst-2026-in-st-bonifatius    /boniblog/    301
+/aschermittwoch-schulgottesdienst-2026-in-st-bonifatius/   /boniblog/    301
+/bericht-ueber-die-pgr-sitzung-am-10-03-2026          /boniblog/    301
+/bericht-ueber-die-pgr-sitzung-am-10-03-2026/         /boniblog/    301
+/bonfamily-sommerwoche-2026                           /boniblog/    301
+/bonfamily-sommerwoche-2026/                          /boniblog/    301
+/bonfamily-sommerwoche                                /boniblog/    301
+/bonfamily-sommerwoche/                               /boniblog/    301
+/gemeinsam-gegen-judenhass                            /boniblog/    301
+/gemeinsam-gegen-judenhass/                           /boniblog/    301
+/stadtradeln-2026                                     /boniblog/    301
+/stadtradeln-2026/                                    /boniblog/    301
+/herz-jesu-sommerfreizeit-nach-daenemark              /boniblog/    301
+/herz-jesu-sommerfreizeit-nach-daenemark/             /boniblog/    301
+/rueckblick-silbernes-priesterjubilaeum               /boniblog/    301
+/rueckblick-silbernes-priesterjubilaeum/              /boniblog/    301
+
+# Alte "Pins" (WP-Kurzmeldungen) -> ebenfalls BoniBlog (gleiche Kategorie wie oben, nur andere
+# URL-Struktur im alten WordPress).
+/pins/60-jahre-bergkirche-in-frankfurt-alles-gute-liebe-nachbarn    /boniblog/    301
+/pins/auftakt-pfarrei-exerzitien                                    /boniblog/    301
+/pins/danke-sr-adelajda                                             /boniblog/    301
+/pins/erstkommunion-2026                                            /boniblog/    301
+/pins/fotogalerie-fronleichnam-st-bonifatius                        /boniblog/    301
+/pins/nachruf-auf-p-hagen-muellers                                  /boniblog/    301
+
 # --- Alle uebrigen alten Mediendateien unter /wp-content/uploads/: WordPress bedient sie ------
 # unveraendert weiter (Live-Check 11.09.2026: cms.sanktbonifatius.de/wp-content/uploads/2026/04/
 # sankt-bonifatius-pfarrbrief.pdf -> 200, Original liegt dort weiterhin am selben Pfad). Auf der
