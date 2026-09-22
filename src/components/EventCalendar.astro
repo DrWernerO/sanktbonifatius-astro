@@ -8,15 +8,24 @@
 //   category – event-category-ID; ist sie gesetzt, zeigt der Block NUR Termine dieser
 //              Kategorie (clientseitig gefiltert). 0/leer = alle Termine.
 //
-// ⚠️ TEMPORÄRE Sonder-Variante NUR für die Startseite (2026-08-22, auf Wunsch Werner):
-//   sixpack – true = „6 Kacheln"-Layout (2 Reihen à 3 Spalten): Reihe 1 = 3 Termine,
-//             Reihe 2 = 2 Termine + Übersicht-Liste (= 5 echte Termine + 1 Vorschau-Kachel).
-//             Kacheln gleiche Foto-/Schriftgroesse wie das Standard-Layout (Abschnitt 7).
+// ⚠️ TEMPORÄRE Sonder-Varianten NUR für die Startseite (auf Wunsch Werner):
+//   sixpack  – true = „6 Kacheln"-Layout (2 Reihen à 3 Spalten, 2026-08-22): Reihe 1 = 3
+//             Termine, Reihe 2 = 2 Termine + Übersicht-Liste (= 5 echte Termine + 1
+//             Vorschau-Kachel). Kacheln gleiche Foto-/Schriftgroesse wie das Standard-Layout.
 //   notice   – { meta, title, text, linkHref, linkLabel, footnote } für die eigene,
 //             zentrierte Ankündigungs-Box ÜBER dem Termin-Raster (nur mit sixpack wirksam).
+//   miniGrid – true = "2x3 Mini-Kacheln + Liste"-Layout (probeweise, 2026-09-22, seit dem
+//             gleichen Tag durch tripleHero abgelöst): links ein 2-Spalten/3-Reihen-Raster
+//             aus 6 kompakten Vorschau-Kacheln, rechts die „Weitere Termine"-Liste mit den
+//             6 (statt 4) nächsten Folgeterminen. Code bleibt erhalten, nicht mehr aktiv.
+//   tripleHero – true = "3 große Vorschau-Kacheln + CTA"-Layout (2026-09-22, auf Wunsch
+//             Werner, ersetzt miniGrid): 3 Kacheln im normalen Standard-Design (kein
+//             Beschreibungstext-Verzicht, keine Liste daneben/darunter), stattdessen darunter
+//             ein auffälliger "Alle Termine ansehen"-Button, der klarmacht, dass es noch
+//             viele weitere Termine gibt.
 // Alle anderen Seiten rufen die Komponente ohne diese Props auf und bleiben unverändert
 // im Original-Layout „2 Kacheln + Übersicht". Zum Zurückstellen der Startseite einfach
-// sixpack/notice in src/pages/index.astro wieder entfernen.
+// sixpack/notice/miniGrid/tripleHero in src/pages/index.astro wieder entfernen.
 const {
   heading = 'Unsere nächsten Veranstaltungen',
   moreHref = '/terminkalender/',
@@ -24,9 +33,11 @@ const {
   categoryLabel = '',
   sixpack = false,
   notice = null,
+  miniGrid = false,
+  tripleHero = false,
 } = Astro.props;
 ---
-<section class:list={['astro-ev', { 'astro-ev--sixpack': sixpack }]} data-category={category} data-category-label={categoryLabel}>
+<section class:list={['astro-ev', { 'astro-ev--sixpack': sixpack, 'astro-ev--minigrid': miniGrid, 'astro-ev--triple': tripleHero }]} data-category={category} data-category-label={categoryLabel}>
   <div class="astro-ev__inner">
     <div class="astro-ev__head">
       <h2 class="astro-ev__hl">{heading}</h2>
@@ -51,9 +62,12 @@ const {
         )}
       </div>
     )}
-    <div class:list={['astro-ev__grid', { 'astro-ev__grid--sixpack': sixpack }]}>
+    <div class:list={['astro-ev__grid', { 'astro-ev__grid--sixpack': sixpack, 'astro-ev__grid--minigrid': miniGrid }]}>
       <div id="astro-ev-card1" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
       <div id="astro-ev-card2" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+      {tripleHero && (
+        <div id="astro-ev-card3" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+      )}
       {sixpack && (
         <>
           <div id="astro-ev-card3" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
@@ -61,15 +75,31 @@ const {
           <div id="astro-ev-card5" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
         </>
       )}
-      <div id="astro-ev-list" class="astro-ev-list">
-        <h3 class="astro-ev-list__hl">Weitere Termine</h3>
-        <div id="astro-ev-list-items" class="astro-ev-list__items">Lädt …</div>
-        {/* Zweiter „Alle Termine"-Link direkt in dieser Kachel (2026-09-16, auf Wunsch Werner):
-            der Link oben im astro-ev__head wird auf der Startseite (sixpack-Layout, Kachel
-            steht in Reihe 2) leicht übersehen — lieber einmal mehr als zu wenig verlinkt. */}
-        <a href={moreHref} class="astro-ev-list__all">Alle Termine →</a>
-      </div>
+      {miniGrid && (
+        <>
+          <div id="astro-ev-card3" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+          <div id="astro-ev-card4" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+          <div id="astro-ev-card5" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+          <div id="astro-ev-card6" class="astro-ev-card astro-ev-card--loading">Lädt …</div>
+        </>
+      )}
+      {!tripleHero && (
+        <div id="astro-ev-list" class="astro-ev-list">
+          <h3 class="astro-ev-list__hl">Weitere Termine</h3>
+          <div id="astro-ev-list-items" class="astro-ev-list__items">Lädt …</div>
+          {/* Zweiter „Alle Termine"-Link direkt in dieser Kachel (2026-09-16, auf Wunsch Werner):
+              der Link oben im astro-ev__head wird auf der Startseite (sixpack-Layout, Kachel
+              steht in Reihe 2) leicht übersehen — lieber einmal mehr als zu wenig verlinkt. */}
+          <a href={moreHref} class="astro-ev-list__all">Alle Termine →</a>
+        </div>
+      )}
     </div>
+    {tripleHero && (
+      <div class="astro-ev-cta">
+        <p class="astro-ev-cta__text">Entdecken Sie noch viele weitere schöne Termine bei uns.</p>
+        <a href={moreHref} class="astro-ev-cta__btn">Alle Termine ansehen →</a>
+      </div>
+    )}
   </div>
 </section>
 
@@ -114,6 +144,18 @@ const {
 @media(max-width:600px){.astro-ev__grid{grid-template-columns:1fr}.astro-ev__inner{padding:0 20px}}
 
 /* ============================================================
+   PROBEWEISE (2026-09-22, auf Wunsch Werner) — "3 Kacheln + CTA" (tripleHero).
+   3 Kacheln im normalen Standard-Design (keine Sonder-CSS nötig, .astro-ev__grid ist schon
+   3-spaltig), darunter statt einer Liste ein auffälliger Button, der auf "Alle Termine"
+   verweist -- macht klar, dass es noch viele weitere Termine gibt.
+   ============================================================ */
+.astro-ev-cta{text-align:center;margin-top:32px}
+.astro-ev-cta__text{font-size:15px;color:#6b5c52;margin:0 0 14px}
+.astro-ev-cta__btn{display:inline-block;background:#9a2d2d;color:#fff;font-weight:600;font-size:15px;letter-spacing:.03em;padding:14px 34px;border-radius:30px;text-decoration:none;box-shadow:0 4px 14px rgba(154,45,45,.25);transition:background .2s,transform .2s,box-shadow .2s}
+.astro-ev-cta__btn:hover{background:#7e2424;transform:translateY(-2px);box-shadow:0 6px 18px rgba(154,45,45,.32)}
+@media(max-width:600px){.astro-ev-cta{margin-top:24px}.astro-ev-cta__btn{width:100%;text-align:center}}
+
+/* ============================================================
    TEMPORÄR — nur aktiv, wenn die Seite `sixpack` übergibt (aktuell nur Startseite).
    Original-Regeln oben bleiben für alle anderen Seiten unangetastet.
    ============================================================ */
@@ -139,6 +181,51 @@ const {
 .astro-ev-announce__footnote{font-size:12.5px;color:#6b5c52;line-height:1.5;margin:8px 0 0}
 .astro-ev-announce__footnote strong{color:#9a2d2d;font-weight:700}
 @media(max-width:600px){.astro-ev-announce{padding:18px 20px}}
+
+/* ============================================================
+   PROBEWEISE (2026-09-22, auf Wunsch Werner) — "2x3 Mini-Kacheln + Liste".
+   Links 2 Spalten x 3 Reihen kompakte Vorschau-Kacheln, rechts die Liste in ihrer
+   bisherigen Breite über die volle Höhe. Reihenfolge im Markup (card1..card6, dann die
+   Liste) wird per grid-template-areas + nth-child auf dieses Raster gemappt.
+   ============================================================ */
+.astro-ev__grid--minigrid{
+  grid-template-columns:1fr 1fr 1.1fr;
+  grid-template-rows:repeat(3,1fr);
+  grid-template-areas:"t1 t2 list" "t3 t4 list" "t5 t6 list";
+  gap:12px;
+  align-items:stretch;
+}
+.astro-ev__grid--minigrid>*:nth-child(1){grid-area:t1}
+.astro-ev__grid--minigrid>*:nth-child(2){grid-area:t2}
+.astro-ev__grid--minigrid>*:nth-child(3){grid-area:t3}
+.astro-ev__grid--minigrid>*:nth-child(4){grid-area:t4}
+.astro-ev__grid--minigrid>*:nth-child(5){grid-area:t5}
+.astro-ev__grid--minigrid>*:nth-child(6){grid-area:t6}
+.astro-ev__grid--minigrid #astro-ev-list{grid-area:list}
+/* Karte füllt ihre Grid-Zelle komplett (kein Leerraum): Foto wächst per flex:1 in die
+   verbleibende Höhe hinein und wird zugeschnitten (object-fit:cover, kein festes
+   Seitenverhältnis mehr) -- der Textblock behält seine natürliche, kompakte Höhe. */
+.astro-ev__grid--minigrid .astro-ev-card{background:#fff;flex-direction:column}
+.astro-ev__grid--minigrid .astro-ev-card__img{flex:1 1 0;min-height:70px;width:100%;height:auto !important;aspect-ratio:auto !important;object-fit:cover !important}
+.astro-ev__grid--minigrid .astro-ev-card__body{flex:0 0 auto;padding:8px 10px 10px;min-width:0}
+.astro-ev__grid--minigrid .astro-ev-card__meta{font-size:10px;margin:0 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.astro-ev__grid--minigrid .astro-ev-card__title{font-size:13px;margin:0 0 3px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.astro-ev__grid--minigrid .astro-ev-card__sub{font-size:11px;line-height:1.35;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.astro-ev__grid--minigrid .astro-ev-card--loading{min-height:0}
+/* Liste kompakter: 6 statt 4 Einträge sollen nicht mehr Gesamthöhe brauchen als die
+   6 kleinen Vorschau-Kacheln daneben -- sonst ziehen sich beide Spalten gegenseitig
+   unnötig in die Höhe (Grid-Zeilen sind gleich hoch, align-items:stretch). */
+.astro-ev__grid--minigrid .astro-ev-list__items{justify-content:flex-start;gap:2px}
+.astro-ev__grid--minigrid .astro-ev-list__item{padding:7px 0}
+.astro-ev__grid--minigrid .astro-ev-list__hl{margin:0 0 4px;padding-bottom:8px}
+.astro-ev__grid--minigrid .astro-ev-list__all{margin-top:6px;padding-top:8px}
+@media(max-width:860px){
+  .astro-ev__grid--minigrid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,auto) auto;grid-template-areas:"t1 t2" "t3 t4" "t5 t6" "list list"}
+}
+@media(max-width:600px){
+  .astro-ev__grid--minigrid{grid-template-columns:1fr;grid-template-areas:"t1" "t2" "t3" "t4" "t5" "t6" "list"}
+  .astro-ev__grid--minigrid .astro-ev-card__img{min-height:120px}
+}
 </style>
 
 <script>
@@ -268,10 +355,12 @@ const {
         upcoming.unshift(upcoming.splice(pinnedIdx, 1)[0]);
       }
 
-      // Kachel-Anzahl aus den vorhandenen Platzhaltern zaehlen (Standard: 2, sixpack: 5).
+      // Kachel-Anzahl aus den vorhandenen Platzhaltern zaehlen (Standard: 2, sixpack: 5,
+      // miniGrid: 6) -- daraus auch das jeweilige Layout ableiten, keine feste Zahl hardcoden.
       let cardCount = 0;
       while (document.getElementById('astro-ev-card' + (cardCount + 1))) cardCount++;
-      const isSixpack = cardCount > 2;
+      const isSixpack = cardCount === 5;
+      const isMiniGrid = cardCount === 6;
 
       for (let i = 0; i < cardCount; i++) {
         const cardEl = document.getElementById('astro-ev-card' + (i + 1));
@@ -288,9 +377,10 @@ const {
       }
 
       // Spalte „Weitere Termine": ab dem ersten Termin nach den Kacheln die Liste der
-      // folgenden Termine (Standard: bis zu 4, sixpack: bis zu 5); sonst ein Hinweistext.
+      // folgenden Termine (Standard: bis zu 4, sixpack: bis zu 5, miniGrid: bis zu 6);
+      // sonst ein Hinweistext.
       const itemsEl = document.getElementById('astro-ev-list-items');
-      const listMax = isSixpack ? 5 : 4;
+      const listMax = isMiniGrid ? 6 : (isSixpack ? 5 : 4);
       if (upcoming.length > cardCount) {
         renderList(upcoming.slice(cardCount, cardCount + listMax));
       } else if (itemsEl) {
@@ -302,9 +392,9 @@ const {
       }
 
       // Spaltenzahl an die tatsächlich sichtbaren Kacheln anpassen (keine leere Lücke) —
-      // nur im Standard-Layout (2 Kacheln + Übersicht), das sixpack-Layout ist fest 3-spaltig.
+      // nur im Standard-Layout (2 Kacheln + Übersicht); sixpack/miniGrid sind fest verrastert.
       const grid = section ? section.querySelector('.astro-ev__grid') : null;
-      if (grid && !isSixpack && !grid.classList.contains('astro-ev__grid--sixpack')) {
+      if (grid && !isSixpack && !isMiniGrid && !grid.classList.contains('astro-ev__grid--sixpack') && !grid.classList.contains('astro-ev__grid--minigrid')) {
         const tiles = grid.children.length;
         if (tiles <= 1) grid.style.gridTemplateColumns = '1fr';
         else if (tiles === 2) grid.style.gridTemplateColumns = '1fr 1fr';
