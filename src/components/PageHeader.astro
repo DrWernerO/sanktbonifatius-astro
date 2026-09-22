@@ -2,8 +2,12 @@
 // Wiederverwendbarer Seiten-Header für Unterseiten (Präfix astro-pghdr).
 // Eigene astro-Klassen → keine Kollision mit WP-Theme (Abschnitt 3).
 // Props: eyebrow (Kicker oben), title (Playfair), sub (Lauftext), icon (optionales SVG via slot).
+// cta (optionaler Slot): Button/Link direkt im Hero, z.B. Download-Button (Bonifatius Highlights,
+// 2026-09-22) — ohne cta-Slot ändert sich für bestehende Seiten (Terminkalender, BoniBlog, Suche,
+// Alle Gottesdienste) nichts.
 const { eyebrow = '', title = '', sub = '' } = Astro.props;
 const hasIcon = Astro.slots.has('icon');
+const hasCta = Astro.slots.has('cta');
 ---
 <header class="astro-pghdr">
   <div class="astro-pghdr__inner">
@@ -12,6 +16,7 @@ const hasIcon = Astro.slots.has('icon');
       {eyebrow && <p class="astro-pghdr__eyebrow">{eyebrow}</p>}
       {title && <h1 class="astro-pghdr__title">{title}</h1>}
       {sub && <p class="astro-pghdr__sub" set:html={sub} />}
+      {hasCta && <div class="astro-pghdr__cta"><slot name="cta" /></div>}
     </div>
   </div>
 </header>
@@ -42,6 +47,13 @@ const hasIcon = Astro.slots.has('icon');
 .astro-pghdr__sub{
   font-size:clamp(15px,1.7vw,18px);color:#d4c9b5;line-height:1.55;margin:14px 0 0;max-width:680px;
 }
+.astro-pghdr__cta{margin:24px 0 0}
+.astro-pghdr__btn{
+  display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:50px;
+  background:#fff;color:#9a2d2d;font-size:15px;font-weight:700;text-decoration:none;
+  transition:background .2s,color .2s;
+}
+.astro-pghdr__btn:hover{background:#f3e7d4;color:#7e2424}
 @media(max-width:600px){
   .astro-pghdr{padding:96px 0 44px}
   .astro-pghdr__inner{padding:0 20px;gap:18px}
