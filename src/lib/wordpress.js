@@ -550,8 +550,12 @@ export async function getNewsPins() {
     return await Promise.all(pins.map(async (p) => {
       const d = p.pin_data || {};
       const excerpt = d.subtitle || (d.description || '').slice(0, 260);
-      // Video-News ohne eigenes Bild: YouTube-Vorschaubild als Kachel-Bild nutzen.
-      const image = d.image || (d.typ === 'video' ? youtubeThumbnail(d.video) : null);
+      // Kachel-Bild: eigenes Bild > YouTube-Vorschaubild (Video) > erstes Galeriefoto (Galerie).
+      // Das ACF-Feld "Bild" ist per Typ-Bedingung nur bei Typ "Bild" sichtbar/pflegbar —
+      // Galerie-Pins haben es deshalb strukturell nie gesetzt.
+      const image = d.image
+        || (d.typ === 'video' ? youtubeThumbnail(d.video) : null)
+        || (d.typ === 'gallery' && Array.isArray(d.gallery) && d.gallery[0] ? d.gallery[0].u : null);
       const orientation = d.typ === 'video' ? await youtubeOrientation(d.video) : 'landscape';
       return {
         id: p.id,
