@@ -1,5 +1,8 @@
 // Stabile Adresse für die Bonifatius Highlights unter der Hauptdomain:
 // /downloads/highlights.pdf — Details siehe pfarrbrief.pdf.ts.
+// X-Robots-Tag: noindex (Auftrag Werner, 2026-09-22) — Google soll die eigene Landingpage
+// /downloads/bonifatius-highlights/ ranken statt dieser PDF direkt. Für Netlify-Auslieferung
+// zusätzlich in public/_headers erzwungen (gilt hier nur lokal im Dev-Server).
 import type { APIRoute } from 'astro';
 import { getLatestDokument, BUILD_UA } from '../../lib/wordpress.js';
 
@@ -21,6 +24,7 @@ export const GET: APIRoute = async () => {
       'Content-Type': 'application/pdf',
       'Content-Disposition': 'attachment; filename="Sankt Bonifatius Highlights.pdf"',
       'Cache-Control': 'public, max-age=3600, must-revalidate',
+      'X-Robots-Tag': 'noindex, nofollow',
     },
   });
 };

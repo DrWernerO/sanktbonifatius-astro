@@ -373,6 +373,52 @@ export async function getLatestDokument(suchwort, scan = 40) {
   }
 }
 
+// Deutsche Monatsnamen, wie sie auf dem Deckblatt der Bonifatius Highlights stehen (GROSS-
+// GESCHRIEBEN, z.B. "AUGUST 2026– FEBRUAR 2027") — Key = Großschreibung ohne Umlaut-Zeichen-
+// Fallstricke, Value = die schön geschriebene Form fürs Label.
+const HIGHLIGHTS_MONATE = {
+  JANUAR: 'Januar', FEBRUAR: 'Februar', MÄRZ: 'März', APRIL: 'April', MAI: 'Mai', JUNI: 'Juni',
+  JULI: 'Juli', AUGUST: 'August', SEPTEMBER: 'September', OKTOBER: 'Oktober',
+  NOVEMBER: 'November', DEZEMBER: 'Dezember',
+};
+const HIGHLIGHTS_ZEITRAUM_REGEX = new RegExp(
+  `(${Object.keys(HIGHLIGHTS_MONATE).join('|')})\\s*(\\d{4})\\s*[–-]\\s*(${Object.keys(HIGHLIGHTS_MONATE).join('|')})\\s*(\\d{4})`,
+  'i'
+);
+
+// Liest den Gültigkeitszeitraum ("August 2026 – Februar 2027") vom Deckblatt (Seite 1) der
+// aktuellen Bonifatius-Highlights-PDF ab — dieser Zeitraum steht NUR im PDF-Layout selbst, nicht
+// in den WP-Medien-Metadaten (Handbuch 1d, Auftrag Werner 2026-09-22). Nutzt dieselbe Quelle wie
+// downloads/highlights.pdf.ts (getLatestDokument + BUILD_UA), damit der Text nie von Hand
+// nachgepflegt werden muss, wenn die Sekretärin eine neue Ausgabe hochlädt. `unpdf` (reines
+// JS/WASM, keine native Abhängigkeit wie pdf-parse/canvas) läuft nur beim Build — läuft der
+// Abruf oder das Parsen schief, liefert die Funktion `null` und die Seite fällt auf einen
+// festen Text zurück (Build bricht nie ab).
+export async function getHighlightsZeitraum() {
+  try {
+    const doc = await getLatestDokument('highlights');
+    if (!doc?.source_url) return null;
+    const res = await fetch(doc.source_url, { headers: { 'User-Agent': BUILD_UA } });
+    if (!res.ok) return null;
+    const buf = new Uint8Array(await res.arrayBuffer());
+
+    const { getDocumentProxy, extractText } = await import('unpdf');
+    const pdf = await getDocumentProxy(buf);
+    const { text } = await extractText(pdf, { mergePages: false });
+    const deckblatt = (text[0] ?? '').replace(/\s+/g, ' ');
+
+    const treffer = deckblatt.match(HIGHLIGHTS_ZEITRAUM_REGEX);
+    if (!treffer) return null;
+    const [, monatVon, jahrVon, monatBis, jahrBis] = treffer;
+    const von = HIGHLIGHTS_MONATE[monatVon.toUpperCase()];
+    const bis = HIGHLIGHTS_MONATE[monatBis.toUpperCase()];
+    if (!von || !bis) return null;
+    return `${von} ${jahrVon} – ${bis} ${jahrBis}`;
+  } catch {
+    return null;
+  }
+}
+
 // Eigener Ordner "Astro-Upload/Monatsbrief Aposteln" (RML-Ordner-ID 205) — anders als bei
 // PFARRBRIEF_HIGHLIGHTS_FOLDER liegt hier immer nur die eine aktuelle Ausgabe, darum kein
 // Titel-Filter nötig (analog Konzept in getLatestDokument/Handbuch 1d).

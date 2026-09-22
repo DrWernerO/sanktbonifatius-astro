@@ -40,6 +40,7 @@ Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen i
 - /leitung/ - Leitung der Pfarrei, Pfarrgemeinderat, Verwaltungsrat
 - /newsletter/ - Pfarrbrief per E-Mail abonnieren
 - /whatsapp-kanal/ - WhatsApp-Kanal der Pfarrei
+- /downloads/bonifatius-highlights/ - Bonifatius Highlights: Halbjahresprogramm der Pfarrei als PDF-Download
 
 ## Kirchorte
 - /kirchorte/ - Uebersicht aller vier Kirchorte

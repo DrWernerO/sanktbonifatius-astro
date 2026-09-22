@@ -3,6 +3,9 @@
 # einmaligen Build, nicht bei der Auslieferung an Besucher. Deshalb hier explizit erzwingen,
 # damit ein Klick im Downloads-Menü wirklich sofort herunterlädt (statt eine Vorschau zu
 # öffnen) und dabei der schöne Dateiname ankommt (Handbuch 1d).
+#
+# Highlights-PDF zusätzlich mit X-Robots-Tag: noindex (Auftrag Werner, 2026-09-22) — Google soll
+# künftig die eigene Landingpage /downloads/bonifatius-highlights/ ranken statt der PDF direkt.
 /downloads/pfarrbrief.pdf
   Content-Disposition: attachment; filename="Sankt Bonifatius Pfarrbrief.pdf"
   Cache-Control: public, max-age=3600, must-revalidate
@@ -10,3 +13,4 @@
 /downloads/highlights.pdf
   Content-Disposition: attachment; filename="Sankt Bonifatius Highlights.pdf"
   Cache-Control: public, max-age=3600, must-revalidate
+  X-Robots-Tag: noindex, nofollow

@@ -1,0 +1,105 @@
+---
+// „Bonifatius Highlights" — eigene Download-Landingpage (Auftrag Werner, ueber Frank
+// weitergegeben, 2026-09-22). Hintergrund: Google rankt eine reine PDF-Adresse schlecht
+// (kein indexierbarer Text) — deshalb bekommt der Download jetzt eine eigene Seite mit
+// Teasertext, die selbst auf /downloads/highlights.pdf verlinkt. Die PDF-Route bekommt im
+// Gegenzug einen `X-Robots-Tag: noindex` (public/_headers + highlights.pdf.ts), damit Google
+// künftig diese Seite statt der PDF direkt rankt. Nav.astro verlinkt „Bonifatius Highlights"
+// seitdem hierher statt direkt auf die PDF.
+//
+// „Aktuelle Ausgabe" zeigt den Gültigkeitszeitraum, wie er auf dem Deckblatt der PDF steht
+// (z.B. „August 2026 – Februar 2027"). Wird beim Build automatisch aus der aktuellen PDF
+// ausgelesen (getHighlightsZeitraum() in wordpress.js, per unpdf) — muss beim Hochladen einer
+// neuen Ausgabe NICHT mehr von Hand gepflegt werden. Klappt das Auslesen ausnahmsweise nicht
+// (WP nicht erreichbar, Deckblatt-Layout geändert), fällt die Seite auf einen festen Text zurück.
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getHighlightsZeitraum } from '../../lib/wordpress.js';
+import { SEO_STATIC } from '../../lib/seo-static.js';
+
+const seo = SEO_STATIC['/downloads/bonifatius-highlights/'];
+
+const zeitraum = await getHighlightsZeitraum();
+
+const bereiche = [
+  { name: 'Gottesdienst & Glaube', href: '/gottesdienst-glaube/' },
+  { name: 'BonFamily', href: '/bonfamily/' },
+  { name: 'Jugend', href: '/jugend/' },
+  { name: 'Engagiert Leben', href: '/engagiert-leben/' },
+  { name: 'Kultur & Begegnung', href: '/kultur-begegnung/' },
+  { name: 'Terminkalender', href: '/terminkalender/' },
+];
+---
+<Base seo={seo} title="Bonifatius Highlights">
+  <PageHeader
+    eyebrow="Pfarrei Sankt Bonifatius · Frankfurt am Main"
+    title="Bonifatius Highlights"
+    sub="Unser Programmheft mit einer Auswahl an Terminen, Gruppen und Angeboten der Pfarrei &ndash; zum kostenlosen Download."
+  >
+    <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+    </svg>
+  </PageHeader>
+
+  <section class="astro-bh-intro">
+    <div class="astro-bh-intro__in">
+      <p>
+        Die <strong>Bonifatius Highlights</strong> sind unser Programmheft für ein halbes Jahr:
+        eine schöne Auswahl unserer Termine, Gruppen und Angebote, kompakt und übersichtlich
+        zusammengestellt. Ob Familiengottesdienst, Jugendtreff, Nachbarschaftshilfe oder
+        Kirchcafé – hier finden Sie einen guten Überblick, was in St. Bonifatius, St. Wendel,
+        Herz Jesu und St. Aposteln los ist. Unser Gemeindeleben ist sogar noch bunter: Alle
+        Termine finden Sie jederzeit aktuell in unserem Terminkalender.
+      </p>
+      <h2>Diese Themenbereiche erwarten Sie</h2>
+      <ul class="astro-bh-tags">
+        {bereiche.map((b) => (
+          <li><a href={b.href}>{b.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="astro-bh-dl">
+    <div class="astro-bh-dl__inner">
+      <div class="astro-bh-dl__card">
+        <div class="astro-bh-dl__icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+        </div>
+        <div class="astro-bh-dl__body">
+          <h3>Bonifatius Highlights herunterladen</h3>
+          <p>{zeitraum ? `Aktuelle Ausgabe · ${zeitraum}` : 'Die aktuelle Ausgabe als PDF'}</p>
+          <a class="astro-bh-dl__btn" href="/downloads/highlights.pdf" data-download-file="highlights">
+            PDF herunterladen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+.astro-bh-intro{background:#fff;padding:64px 0 8px}
+.astro-bh-intro__in{max-width:720px;margin:0 auto;padding:0 40px}
+.astro-bh-intro__in p{font-size:17px;color:#3a322b;line-height:1.7;margin:0 0 36px}
+.astro-bh-intro__in h2{font-family:'Playfair Display',serif;font-size:clamp(20px,2.6vw,26px);font-weight:700;color:#2c2420;margin:0 0 18px}
+.astro-bh-tags{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:0}
+.astro-bh-tags li{margin:0}
+.astro-bh-tags a{display:inline-flex;align-items:center;padding:9px 18px;border-radius:50px;background:#f7f3ef;border:1px solid #e0d8cf;color:#7e2424;font-size:14.5px;font-weight:600;transition:background .2s,border-color .2s}
+.astro-bh-tags a:hover{background:#f3e7d4;border-color:#c5a55a}
+.astro-bh-dl{background:#f7f3ef;padding:48px 0 72px}
+.astro-bh-dl__inner{max-width:720px;margin:0 auto;padding:0 40px}
+.astro-bh-dl__card{display:flex;align-items:flex-start;gap:20px;text-align:left;background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:28px;box-shadow:0 4px 20px rgba(30,21,18,.06)}
+.astro-bh-dl__icon{flex-shrink:0;width:52px;height:52px;border-radius:12px;background:#9a2d2d;color:#fff;display:flex;align-items:center;justify-content:center}
+.astro-bh-dl__body h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2c2420;margin:0 0 8px}
+.astro-bh-dl__body p{font-size:14.5px;color:#6b5c52;margin:0 0 16px}
+.astro-bh-dl__btn{display:inline-flex;align-items:center;padding:11px 24px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:14px;font-weight:600;transition:background .2s}
+.astro-bh-dl__btn:hover{background:#7e2424}
+@media(max-width:600px){
+  .astro-bh-intro{padding:44px 0 4px}
+  .astro-bh-intro__in{padding:0 20px}
+  .astro-bh-dl{padding:36px 0 52px}
+  .astro-bh-dl__inner{padding:0 20px}
+  .astro-bh-dl__card{flex-direction:column;gap:14px;padding:22px}
+}
+</style>

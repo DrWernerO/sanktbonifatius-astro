@@ -10,7 +10,10 @@
 // legt sie unter dieser stabilen URL ab — kein Cache-Buster-Parameter mehr in der Adresse
 // (schadete der Google-Indexierung: jede Ausgabe fing sonst wieder bei null an).
 const pfarrbriefUrl = '/downloads/pfarrbrief.pdf';
-const highlightsUrl = '/downloads/highlights.pdf';
+// Highlights: seit 2026-09-22 (Auftrag Werner) eigene Landingpage statt direktem PDF-Link im
+// Menü — die PDF-Adresse selbst ist jetzt per X-Robots-Tag: noindex von Google ausgenommen
+// (public/_headers), die Landingpage übernimmt das Ranking und verlinkt selbst zur PDF.
+const highlightsUrl = '/downloads/bonifatius-highlights/';
 ---
 <nav class="bh3a-hdr" aria-label="Hauptnavigation">
   <div class="bh3a-hdr__in">
@@ -82,7 +85,7 @@ const highlightsUrl = '/downloads/highlights.pdf';
         <a href="#">Downloads</a>
         <div class="bh3a-dd__menu">
           <a href={pfarrbriefUrl} data-download-file="pfarrbrief">Pfarrbrief</a>
-          <a href={highlightsUrl} data-download-file="highlights">Bonifatius Highlights</a>
+          <a href={highlightsUrl}>Bonifatius Highlights</a>
         </div>
       </div>
       <button type="button" class="bh3a-btn-srch" aria-label="Suche öffnen" aria-expanded="false" aria-controls="bh3aSrch">
