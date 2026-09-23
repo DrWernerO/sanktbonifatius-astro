@@ -48,6 +48,13 @@ const { jobTitle, jobSlug } = Astro.props;
       <p class="astro-bwform__required">* Pflichtfeld</p>
       <button type="submit" class="astro-bwform__submit">Bewerbung absenden</button>
       <div class="astro-bwform__msg" id="astro-bwform-msg" role="status" aria-live="polite" hidden></div>
+
+      <!-- Anti-Spam: Für Menschen unsichtbar (aria-hidden + aus dem Tab-Fluss). Analog zur
+           Taufanmeldung (TaufeForm.astro) — Server verwirft still, siehe kita-bewerbung.ts. -->
+      <div class="astro-bwform__hp" aria-hidden="true">
+        <label>Bitte dieses Feld leer lassen<input type="text" name="webseite" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <input type="hidden" name="astro_ts" id="astro-bwform-ts" value="" />
     </form>
   </div>
 </section>
@@ -74,6 +81,7 @@ const { jobTitle, jobSlug } = Astro.props;
 .astro-bwform__submit:hover{background:#7e2424}
 .astro-bwform__submit:disabled{opacity:.65;cursor:default}
 .astro-bwform__msg{padding:14px 16px;border-radius:8px;font-size:14.5px;line-height:1.5}
+.astro-bwform__hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 @media(max-width:600px){.astro-bwform{padding:48px 0}.astro-bwform__form{padding:24px 18px 28px}.astro-bwform__grid{grid-template-columns:1fr}}
 </style>
 
@@ -85,6 +93,10 @@ const { jobTitle, jobSlug } = Astro.props;
   const btn = form.querySelector('.astro-bwform__submit');
   const ENDPOINT = '/api/kita-bewerbung';
   const MAX_FILE_MB = 4;
+
+  // Anti-Spam: Ladezeitpunkt für den Zeit-Check im Backend (siehe kita-bewerbung.ts).
+  const tsField = document.getElementById('astro-bwform-ts');
+  if (tsField) tsField.value = String(Date.now());
 
   function setMsg(ok, text){
     msg.hidden = false;

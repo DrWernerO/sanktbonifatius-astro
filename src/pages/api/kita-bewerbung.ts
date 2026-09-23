@@ -22,6 +22,18 @@ const MAX_FILE_BYTES = 4 * 1024 * 1024; // 4 MB je Datei
 const MAX_TOTAL_BYTES = 8 * 1024 * 1024; // Netlify-Funktionen haben ein Payload-Limit im Bereich weniger MB
 const ALLOWED_EXT = ['.pdf', '.doc', '.docx', '.jpg', '.jpeg', '.png'];
 
+// Anti-Spam: analog zur Taufanmeldung (siehe taufe-anmeldung.ts) — Honeypot-Feld ("webseite")
+// muss leer bleiben, und zwischen Laden des Formulars (astro_ts, siehe KitaBewerbungForm.astro)
+// und Absenden müssen mind. 3s liegen.
+const MIN_AUSFUELLZEIT_MS = 3000;
+
+function istBot(d: Record<string, string>): boolean {
+  if (d.webseite?.trim()) return true;
+  const ts = Number(d.astro_ts);
+  if (!ts || Date.now() - ts < MIN_AUSFUELLZEIT_MS) return true;
+  return false;
+}
+
 function jsonAntwort(success: boolean, data: string, status = 200) {
   return new Response(JSON.stringify({ success, data }), {
     status,
@@ -64,6 +76,13 @@ export const POST: APIRoute = async ({ request }) => {
     } else {
       d[key] = value;
     }
+  }
+
+  // Anti-Spam-Prüfung: Bots stumm abweisen (Erfolgsmeldung, aber kein PDF/Mailversand),
+  // damit sich automatisierte Skripte nicht auf die Ablehnung "einstellen".
+  if (istBot(d)) {
+    console.warn('[bewerbung] Spam-Verdacht verworfen (Honeypot/Zeit-Check).');
+    return jsonAntwort(true, 'Vielen Dank! Ihre Bewerbung ist eingegangen. Wir melden uns bei Ihnen.');
   }
 
   // Pflichtfeld-Prüfung

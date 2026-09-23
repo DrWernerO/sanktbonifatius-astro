@@ -22,6 +22,18 @@ export const prerender = false;
 const E = process.env;
 const EMPFAENGER_STD = 'n.tadic@sanktbonifatius.de, info@sanktbonifatius.de';
 
+// Anti-Spam: Honeypot-Feld ("webseite") muss leer bleiben, und zwischen Laden des
+// Formulars (astro_ts, siehe TaufeForm.astro) und Absenden müssen mind. 3s liegen —
+// beides für Menschen unmerklich, aber typische Formular-Spambots fallen durch.
+const MIN_AUSFUELLZEIT_MS = 3000;
+
+function istBot(d: Record<string, string>): boolean {
+  if (d.webseite?.trim()) return true;
+  const ts = Number(d.astro_ts);
+  if (!ts || Date.now() - ts < MIN_AUSFUELLZEIT_MS) return true;
+  return false;
+}
+
 function jsonAntwort(success: boolean, data: string, status = 200) {
   return new Response(JSON.stringify({ success, data }), {
     status,
@@ -59,12 +71,19 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonAntwort(false, 'Die Daten konnten nicht gelesen werden.', 400);
   }
 
-  // 2) Pflichtfeld-Prüfung (wie im Formular: Name + Vorname des Täuflings)
+  // 2) Anti-Spam-Prüfung: Bots stumm abweisen (Erfolgsmeldung, aber kein PDF/Mailversand),
+  // damit sich automatisierte Skripte nicht auf die Ablehnung "einstellen".
+  if (istBot(d)) {
+    console.warn('[taufe] Spam-Verdacht verworfen (Honeypot/Zeit-Check).');
+    return jsonAntwort(true, 'Vielen Dank! Ihre Anmeldung ist eingegangen. Wir melden uns bei Ihnen.');
+  }
+
+  // 3) Pflichtfeld-Prüfung (wie im Formular: Name + Vorname des Täuflings)
   if (!d.tauf_name?.trim() || !d.tauf_vorname?.trim()) {
     return jsonAntwort(false, 'Bitte Name und Vornamen des Täuflings angeben.', 400);
   }
 
-  // 3) PDF erzeugen
+  // 4) PDF erzeugen
   let pdfBytes: Uint8Array;
   try {
     pdfBytes = await fillTaufeForm(d);
@@ -75,7 +94,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const dateiname = `Taufanmeldung_${(d.tauf_name || 'kind').replace(/[^\w.-]+/g, '_')}.pdf`;
 
-  // 4a) DEV-Modus: keine SMTP-Konfiguration → PDF lokal ablegen
+  // 5a) DEV-Modus: keine SMTP-Konfiguration → PDF lokal ablegen
   if (!E.SMTP_HOST || !E.SMTP_USER || !E.SMTP_PASS) {
     try {
       const dir = path.resolve(process.cwd(), '.taufe-eingaben');
@@ -90,7 +109,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
   }
 
-  // 4b) Produktiv: Mail mit PDF-Anhang verschicken
+  // 5b) Produktiv: Mail mit PDF-Anhang verschicken
   try {
     const transporter = nodemailer.createTransport({
       host: E.SMTP_HOST,

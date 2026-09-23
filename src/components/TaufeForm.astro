@@ -139,6 +139,14 @@ const paten = [
         <p class="astro-taform__required">* Pflichtfeld</p>
         <button type="submit" class="astro-taform__submit">Anmeldung absenden</button>
         <div class="astro-taform__msg" id="astro-taform-msg" role="status" aria-live="polite" hidden></div>
+
+        <!-- Anti-Spam: Für Menschen unsichtbar (aria-hidden + aus dem Tab-Fluss). Bots, die
+             Formulare blind ausfüllen, tragen hier trotzdem etwas ein → Server verwirft still.
+             Feldname "webseite" ist ein gängiger Honeypot-Köder für Formular-Spambots. -->
+        <div class="astro-taform__hp" aria-hidden="true">
+          <label>Bitte dieses Feld leer lassen<input type="text" name="webseite" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <input type="hidden" name="astro_ts" id="astro-taform-ts" value="" />
       </form>
     </details>
   </div>
@@ -179,6 +187,7 @@ const paten = [
 .astro-taform__submit:hover{background:#7e2424}
 .astro-taform__submit:disabled{opacity:.65;cursor:default}
 .astro-taform__msg{padding:14px 16px;border-radius:8px;margin:16px 0 0;font-size:14.5px;line-height:1.5}
+.astro-taform__hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 @media(max-width:600px){.astro-taform{padding:52px 0}.astro-taform__inner{padding:0 16px}.astro-taform__form{padding:24px 18px 28px}.astro-taform__grid{grid-template-columns:1fr}}
 </style>
 
@@ -189,6 +198,10 @@ const paten = [
   const details = document.getElementById('astro-taform-details');
   const msg  = document.getElementById('astro-taform-msg');
   const btn  = form.querySelector('.astro-taform__submit');
+
+  // Anti-Spam: Ladezeitpunkt für den Zeit-Check im Backend (siehe taufe-anmeldung.ts).
+  const tsField = document.getElementById('astro-taform-ts');
+  if (tsField) tsField.value = String(Date.now());
 
   // Eigene Astro-API-Route: erzeugt das PDF und verschickt es ans Pfarrbüro.
   const ENDPOINT = '/api/taufe-anmeldung';
