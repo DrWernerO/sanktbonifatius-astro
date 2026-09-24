@@ -21,11 +21,9 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername: string; 
     benutzername: 'statistik',
     realm: 'Download-Statistik Sankt Bonifatius',
   },
-  // Gleiche Zugangsdaten wie die Download-Statistik (Werners Wunsch) — deshalb bewusst dieselbe
-  // Umgebungsvariable, kein eigenes Passwort für diesen Prototyp.
   '/100-jahre': {
-    envVar: 'DOWNLOADS_STATS_PASSWORD',
-    benutzername: 'statistik',
+    envVar: 'JUBILAEUM_PASSWORD',
+    benutzername: 'carloacutis',
     realm: '100 Jahre Sankt Bonifatius (Prototyp)',
   },
 };
@@ -44,7 +42,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // process.env statt import.meta.env: Astro 6 friert import.meta.env beim Build ein — für
   // echte Laufzeit-Secrets (Netlify-Umgebungsvariable) braucht es process.env (s. Handbuch/Fix
   // vom 29.08.2026, betraf auch die SMTP-Zugangsdaten in taufe-anmeldung.ts/kita-bewerbung.ts).
-  const sollPasswort = process.env[schutz.envVar];
+  // Lokal in `astro dev` befüllt Vite .env-Werte dagegen NUR in import.meta.env, NICHT in
+  // process.env — deshalb hier als reiner Lokal-Fallback zusätzlich geprüft (in Produktion
+  // liefert process.env ohnehin schon den echten Wert, der Fallback greift dort also nie).
+  const sollPasswort = process.env[schutz.envVar] || import.meta.env[schutz.envVar];
   const authHeader = context.request.headers.get('authorization');
 
   if (sollPasswort && authHeader?.startsWith('Basic ')) {

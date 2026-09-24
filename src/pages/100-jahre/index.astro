@@ -1,26 +1,42 @@
 ---
 // Technischer Prototyp „100 Jahre Sankt Bonifatius" – virtueller Rundgang.
-// Panorama-Bilder: zwei echte Innenraumfotos (Sony a7RM5, Juni 2024, aus „Virtueller Rundgang
-// Boni/St. Bonifatius Innenraum") als Anschauungsmaterial. Es sind normale Weitwinkelfotos
-// (3:2, kein 360°-Rundumbild) – deshalb `haov`/`vaov` unten auf das ungefähre reale Sichtfeld
-// begrenzt, statt sie über eine volle Kugel zu strecken. Für den echten Rundgang später durch
-// gestitchte 360°-Panoramen ersetzen. Heiligentafel/Vasa-Sacra-Inhalte bleiben Platzhalter,
-// bis Personen angefragt bzw. die Schatzkammer fotografiert ist. Bewusst NICHT im Nav.astro
+// Panorama-Bilder: fünf "Vertikal-Pano"-Aufnahmen vom DJI-Handy-Gimbal (23.09.2026, aus
+// „Virtueller Rundgang Boni/3D Fotos"), aufgenommen als Stationen entlang des Mittelgangs
+// (Eingang → Mitte → vor dem Altar → Altarstufen, plus ein Blick zurück zum Eingang von den
+// Altarstufen aus). Reihenfolge der Dateien anhand der sichtbaren Entfernung zum Altar
+// bestimmt (Dateinamen der Kamera geben die Reihenfolge NICHT wieder). Kein echtes
+// equirectangular-Foto (kein GPano-Metadaten, Seitenverhältnis ~4:5 statt 2:1) — trotzdem
+// deutlich mehr Decken-/Bodenanteil und größeres Sichtfeld als normale Fotos, deshalb
+// `haov`/`vaov` unten großzügig (130°/160°). Zwischen den Stationen ein kurzer Hinein-Zoom
+// vor dem Szenenwechsel (gehZuSzene()) statt hartem Schnitt — Werner-Feedback 2026-09-23:
+// ein einzelner Sprung fühlte sich wie Teleportieren an, nicht wie Gehen; mehrere kurze
+// Etappen mit Vor-/Zurück-Pfeilen simulieren das Laufen durch den Raum. Für den echten
+// Rundgang später ggf. durch reine 360°-Kamera-Panoramen ersetzen, dann auch mit mehr
+// Stationen. Heiligentafel = die Wand selbst an den Altarstufen, nicht ein Extra-Dialog
+// (Werner-Feedback 2026-09-24): mehrere Rahmen dicht nebeneinander, „1" mit echtem Foto +
+// Video (Sommerfreizeit 2026), „2"/„3" symbolisch mit Initialen als Platzhalter für weitere
+// Personen. Einzelner Klick auf einen Rahmen führt direkt zu Video/Text, keine Zwischen-
+// Auswahl mehr. Die Schatzkammer ist bewusst KEIN weiterer Panorama-Raum (kein eigenes
+// Raumfoto vorhanden), sondern eine eigene Galerie-Überlagerung mit den echten Vasa-Sacra-
+// Fotos (24.09.2026, „Virtueller Rundgang Boni/Vasa Sacra") — Namen/Erläuterungen der
+// Objekte sind noch Platzhalter, bis die echten Texte vorliegen. Bewusst NICHT im Nav.astro
 // verlinkt (Regel: Menü nur auf ausdrückliche Anweisung ändern) und mit noindex, damit
-// Suchmaschinen den Prototyp nicht erfassen. Passwortschutz über src/middleware.ts (gleiche
-// Zugangsdaten wie /downloads/statistik) — braucht deshalb `prerender = false`, sonst würde
-// Netlify die Seite als fertige statische Datei ausliefern, an der Middleware vorbei.
+// Suchmaschinen den Prototyp nicht erfassen. Passwortschutz über src/middleware.ts, eigene
+// Zugangsdaten (Benutzer „carloacutis", Passwort in Netlify-Umgebungsvariable
+// JUBILAEUM_PASSWORD) — braucht deshalb `prerender = false`, sonst würde Netlify die Seite
+// als fertige statische Datei ausliefern, an der Middleware vorbei.
 export const prerender = false;
 import Base from '../../layouts/Base.astro';
 ---
 <Base title="100 Jahre Sankt Bonifatius – Rundgang (Prototyp)" noindex={true}>
   <section class="jub-intro">
-    <p class="jub-badge">Technischer Prototyp – echte Fotos, noch kein 360°-Rundumbild</p>
+    <p class="jub-badge">Technischer Prototyp – echte Fotos, noch kein vollständiges 360°-Rundumbild</p>
     <h1>100 Jahre Sankt Bonifatius – virtueller Rundgang</h1>
     <p>
-      Mit der Maus (oder dem Finger) im Bild ziehen, um sich umzuschauen. Die goldenen
-      Punkte sind anklickbare Stellen im Kirchenraum. Die Fotos hier sind echte Aufnahmen
-      des Innenraums (Juni 2024) – aber normale Weitwinkelfotos, noch kein 360°-Rundumbild.
+      Mit der Maus (oder dem Finger) im Bild ziehen, um sich umzuschauen. Die grünen Pfeile
+      führen weiter in die Kirche hinein, die blauen zurück. An den Altarstufen können Sie
+      sich außerdem umdrehen und zusätzlich die Heiligentafel und die Schatzkammer-Tür
+      entdecken. Die Fotos hier sind echte Panorama-Aufnahmen des Innenraums (23.09.2026).
     </p>
   </section>
 
@@ -28,30 +44,9 @@ import Base from '../../layouts/Base.astro';
     <div id="jub-panorama"></div>
   </section>
 
-  <!-- Modal: Heiligentafel (Übersicht der Porträts) -->
-  <div id="jub-modal-heilige" class="jub-modal" hidden>
-    <div class="jub-modal-box">
-      <button type="button" class="jub-modal-close" data-close>×</button>
-      <h2>Heilige der Pfarrkirche</h2>
-      <p class="jub-modal-hint">Klicken Sie auf ein Porträt.</p>
-      <div class="jub-portraits">
-        <button type="button" class="jub-portrait" data-person="1">
-          <img class="jub-avatar jub-avatar-foto" src="/uploads/jubilaeum/heiligentafel-platzhalterfoto.jpg" alt="Platzhalterfoto" />
-          <span>Platzhalterfoto</span>
-        </button>
-        <button type="button" class="jub-portrait" data-person="2">
-          <span class="jub-avatar">H S</span>
-          <span>Hans S.</span>
-        </button>
-        <button type="button" class="jub-portrait" data-person="3">
-          <span class="jub-avatar">A B</span>
-          <span>Anna B.</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal: einzelne Person (Video oder Text) -->
+  <!-- Modal: einzelne Person (Video oder Text) — direkt per Klick auf den jeweiligen Rahmen
+       an der Wand erreichbar, keine Zwischen-Auswahl mehr (Werner-Feedback 2026-09-24: die
+       Wand selbst ist die Heiligentafel, kein zusätzlicher Übersichts-Dialog). -->
   <div id="jub-modal-person" class="jub-modal" hidden>
     <div class="jub-modal-box">
       <button type="button" class="jub-modal-close" data-close>×</button>
@@ -60,10 +55,23 @@ import Base from '../../layouts/Base.astro';
     </div>
   </div>
 
+  <!-- Überlagerung: Schatzkammer als museumsähnliche Objekt-Galerie (kein eigenes Raumfoto
+       vorhanden, deshalb bewusst kein Panorama, sondern eine eigene Ausstellungsansicht). -->
+  <div id="jub-schatzkammer" class="jub-modal jub-schatzkammer-overlay" hidden>
+    <div class="jub-schatzkammer-box">
+      <button type="button" class="jub-modal-close" data-close>×</button>
+      <p class="jub-badge">Technischer Prototyp – echte Fotos, Erläuterungen folgen</p>
+      <h2>Schatzkammer</h2>
+      <p class="jub-modal-hint">Die Vasa Sacra unserer Pfarrei. Klicken Sie auf ein Objekt für mehr dazu.</p>
+      <div class="jub-vasa-grid" id="jub-vasa-grid"></div>
+    </div>
+  </div>
+
   <!-- Modal: Schatzkammer-Objekt -->
   <div id="jub-modal-objekt" class="jub-modal" hidden>
     <div class="jub-modal-box">
       <button type="button" class="jub-modal-close" data-close>×</button>
+      <img id="jub-objekt-foto" class="jub-objekt-foto" src="" alt="" />
       <h2 id="jub-objekt-name"></h2>
       <p id="jub-objekt-text"></p>
     </div>
@@ -94,32 +102,46 @@ import Base from '../../layouts/Base.astro';
   <script is:inline src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script is:inline>
     (function () {
+      // Die Wand selbst ist die Heiligentafel: mehrere Rahmen dicht nebeneinander an der
+      // gleichen Wandstelle, jeweils direkt anklickbar (Werner-Feedback 2026-09-24). Nur „1"
+      // hat ein echtes Foto, „2"/„3" sind symbolische Rahmen mit Initialen als Platzhalter,
+      // bis weitere Personen angefragt sind. pitch/yaw = Position auf der Altarstufen-Wand.
       var PERSONEN = {
         '1': {
-          name: 'Platzhalterfoto',
-          html: '<p><em>Platzhaltertext.</em> Hier würde später erzählt, was diese Person in der Kirche besonders erlebt hat – als Video oder zum Lesen.</p>',
+          name: 'Sommerfreizeit 2026',
+          foto: 'heiligentafel-foto-1.jpg',
+          pitch: -5, yaw: 30,
+          html: '<video controls preload="metadata" style="width:100%;border-radius:6px;display:block" src="/uploads/jubilaeum/sommerfreizeit-2026.mp4"></video>',
         },
         '2': {
           name: 'Hans S.',
+          initialen: 'H S',
+          pitch: -5, yaw: 22,
           html: '<p><em>Platzhalter für eine Geschichte.</em> Hier steht später ein kurzer, selbst geschriebener Text von Hans über ein besonderes Erlebnis in Sankt Bonifatius.</p>',
         },
         '3': {
           name: 'Anna B.',
+          initialen: 'A B',
+          pitch: -14, yaw: 26,
           html: '<p><em>Platzhalter für ein Video.</em> Hier würde später ein Filmchen mit Anna erscheinen.</p>',
         },
       };
+      var PERSONEN_REIHENFOLGE = ['1', '2', '3'];
 
+      // Fotos vom 24.09.2026 ("Virtueller Rundgang Boni/Vasa Sacra"). Zuordnung Foto→Objekt
+      // nach Augenschein (Kelch/Ziborium ohne Deckel schwer zu unterscheiden) — Namen/Texte
+      // bewusst als Platzhalter, bis die echten Erläuterungen vorliegen (Werner-Ansage
+      // 2026-09-24: "Erläuterungen folgen").
+      var OBJEKTE_REIHENFOLGE = ['kreuz', 'monstranz', 'kelch', 'ziborium'];
       var OBJEKTE = {
-        kelch: { name: 'Kelch', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieses Kelchs.' },
-        monstranz: { name: 'Monstranz', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieser Monstranz.' },
-        ziborium: { name: 'Ziborium', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieses Ziboriums.' },
+        kreuz: { name: 'Altarkreuz', foto: 'vasa-kreuz.jpg', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieses Kreuzes. Erläuterungen folgen.' },
+        monstranz: { name: 'Monstranz', foto: 'vasa-monstranz.jpg', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieser Monstranz. Erläuterungen folgen.' },
+        kelch: { name: 'Kelch', foto: 'vasa-kelch.jpg', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieses Kelchs. Erläuterungen folgen.' },
+        ziborium: { name: 'Ziborium', foto: 'vasa-ziborium.jpg', text: 'Platzhaltertext: Herkunft, Alter und Bedeutung dieses Ziboriums. Erläuterungen folgen.' },
       };
 
       function zeigeModal(id) {
         document.getElementById(id).hidden = false;
-      }
-      function versteckeModal(id) {
-        document.getElementById(id).hidden = true;
       }
       document.querySelectorAll('.jub-modal').forEach(function (modal) {
         modal.addEventListener('click', function (e) {
@@ -129,31 +151,37 @@ import Base from '../../layouts/Base.astro';
         });
       });
 
-      document.querySelectorAll('.jub-portrait').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var p = PERSONEN[btn.dataset.person];
-          document.getElementById('jub-person-name').textContent = p.name;
-          document.getElementById('jub-person-inhalt').innerHTML = p.html;
-          verstecheAlleAusserModal('jub-modal-person');
-          zeigeModal('jub-modal-person');
-        });
-      });
-
-      function verstecheAlleAusserModal(offenId) {
-        document.querySelectorAll('.jub-modal').forEach(function (m) {
-          if (m.id !== offenId) m.hidden = true;
-        });
-      }
+      window.__jubOpenPerson = function (id) {
+        var p = PERSONEN[id];
+        document.getElementById('jub-person-name').textContent = p.name;
+        document.getElementById('jub-person-inhalt').innerHTML = p.html;
+        zeigeModal('jub-modal-person');
+      };
 
       window.__jubOpenObjekt = function (id) {
         var o = OBJEKTE[id];
+        var foto = document.getElementById('jub-objekt-foto');
+        foto.src = '/uploads/jubilaeum/' + o.foto;
+        foto.alt = o.name + ' (Vasa Sacra, Platzhalterfoto)';
         document.getElementById('jub-objekt-name').textContent = o.name;
         document.getElementById('jub-objekt-text').textContent = o.text;
         zeigeModal('jub-modal-objekt');
       };
 
-      window.__jubOpenHeiligentafel = function () {
-        zeigeModal('jub-modal-heilige');
+      // Schatzkammer-Galerie einmalig aus OBJEKTE aufbauen.
+      var vasaGrid = document.getElementById('jub-vasa-grid');
+      OBJEKTE_REIHENFOLGE.forEach(function (id) {
+        var o = OBJEKTE[id];
+        var karte = document.createElement('button');
+        karte.type = 'button';
+        karte.className = 'jub-vasa-karte';
+        karte.innerHTML = '<img src="/uploads/jubilaeum/' + o.foto + '" alt="' + o.name + '"><span>' + o.name + '</span>';
+        karte.addEventListener('click', function () { window.__jubOpenObjekt(id); });
+        vasaGrid.appendChild(karte);
+      });
+
+      window.__jubOpenSchatzkammer = function () {
+        zeigeModal('jub-schatzkammer');
       };
 
       // --- Panorama ---
@@ -161,59 +189,124 @@ import Base from '../../layouts/Base.astro';
       // deshalb wird hier nur der tatsächliche Bildausschnitt der Kugel belegt (Pannellum
       // zeigt außerhalb davon Schwarz). Werte grob geschätzt (~100°/70° für ein Weitwinkel-
       // Vollformatfoto) – bei Bedarf nachjustieren, sobald das echte Objektiv bekannt ist.
-      window.pannellum.viewer('jub-panorama', {
-        default: { firstScene: 'hauptschiff', sceneFadeDuration: 800, autoLoad: true },
+      // "Hineingehen"-Effekt: kurz reinzoomen, bevor die Szene wechselt, statt hart zu
+      // schneiden — täuscht ein paar Schritte nach vorne an (Werner-Feedback 2026-09-23:
+      // reiner Szenen-Schnitt fühlte sich wie Springen an, nicht wie Laufen). `laeuft`-Sperre
+      // verhindert, dass ein zweiter Klick während der laufenden Animation eine zweite,
+      // überlagerte Zoom-Bewegung anstößt (sah dann aus wie schnelles Rein-/Rauszoomen).
+      var gehZuSzeneLaeuft = false;
+      function gehZuSzene(sceneId, zielPitch, zielYaw) {
+        if (gehZuSzeneLaeuft) return;
+        gehZuSzeneLaeuft = true;
+        var aktuellesHfov = jubViewer.getHfov();
+        jubViewer.setHfov(aktuellesHfov * 0.55, 450);
+        setTimeout(function () {
+          jubViewer.loadScene(sceneId, zielPitch, zielYaw, aktuellesHfov * 0.55);
+          setTimeout(function () {
+            jubViewer.setHfov(90, 500);
+            setTimeout(function () { gehZuSzeneLaeuft = false; }, 500);
+          }, 50);
+        }, 420);
+      }
+
+      // Geh-Pfeile als Pille mit Text statt abstraktem Symbol — ein gefülltes Dreieck im
+      // Kreis sieht sonst wie ein Video-Play-Knopf aus (Werner-Feedback 2026-09-23: "Ich
+      // kann da auf Play drücken", meinte den grünen Weiter-Pfeil).
+      function pfeilHotspot(pitch, yaw, label, art, klickFunc) {
+        return {
+          pitch: pitch,
+          yaw: yaw,
+          type: 'custom',
+          cssClass: 'jub-hotspot-pfeil jub-hotspot-pfeil-' + art,
+          createTooltipFunc: function (hotSpotDiv) {
+            hotSpotDiv.textContent = label;
+            hotSpotDiv.addEventListener('click', klickFunc);
+          },
+        };
+      }
+
+      // Ein Rahmen an der Wand pro Person — echtes Foto, wenn vorhanden, sonst ein
+      // symbolischer Rahmen mit Initialen. Einzelner Klick führt direkt zur Person, keine
+      // Zwischenstation (Werner-Feedback 2026-09-24).
+      function tafelHotspot(id) {
+        var p = PERSONEN[id];
+        return {
+          pitch: p.pitch,
+          yaw: p.yaw,
+          type: 'custom',
+          cssClass: 'jub-hotspot-foto' + (p.foto ? '' : ' jub-hotspot-foto-symbolisch'),
+          createTooltipFunc: function (hotSpotDiv) {
+            if (p.foto) {
+              var img = document.createElement('img');
+              img.src = '/uploads/jubilaeum/' + p.foto;
+              img.alt = p.name;
+              hotSpotDiv.appendChild(img);
+            } else {
+              hotSpotDiv.textContent = p.initialen;
+            }
+            hotSpotDiv.title = p.name;
+            hotSpotDiv.addEventListener('click', function () { window.__jubOpenPerson(id); });
+          },
+        };
+      }
+
+      // Fünf echte Stationen entlang des Mittelgangs (23.09.2026, DJI-Gimbal) statt nur eines
+      // einzigen Punkts — Vor-/Zurück-Pfeile zwischen benachbarten Stationen statt eines
+      // einzelnen großen Sprungs, dazu ein "Umdrehen"-Punkt an den Altarstufen mit Blick
+      // zurück zum Eingang. Heiligentafel + Schatzkammer-Tür hängen an den Altarstufen.
+      var BASIS = { type: 'equirectangular', haov: 130, vaov: 160, vOffset: 0, pitch: 0, yaw: 0, hfov: 90 };
+      var jubViewer = window.pannellum.viewer('jub-panorama', {
+        default: { firstScene: 'eingang', sceneFadeDuration: 800, autoLoad: true },
         scenes: {
-          hauptschiff: {
-            type: 'equirectangular',
-            panorama: '/uploads/jubilaeum/panorama-hauptschiff-real.jpg',
-            haov: 100,
-            vaov: 70,
-            vOffset: 0,
-            pitch: 0,
-            yaw: 0,
-            hfov: 90,
+          eingang: Object.assign({}, BASIS, {
+            panorama: '/uploads/jubilaeum/panorama-1-eingang.jpg',
             hotSpots: [
+              pfeilHotspot(-10, 0, 'Weiter in die Kirche →', 'vor', function () { gehZuSzene('mitte', 0, 0); }),
+            ],
+          }),
+          mitte: Object.assign({}, BASIS, {
+            panorama: '/uploads/jubilaeum/panorama-2-mitte.jpg',
+            hotSpots: [
+              pfeilHotspot(-10, 0, 'Weiter zum Altar →', 'vor', function () { gehZuSzene('vorneAltar', 0, 0); }),
+              pfeilHotspot(-10, 180, '← Zurück zum Eingang', 'zurueck', function () { gehZuSzene('eingang', 0, 0); }),
+            ],
+          }),
+          vorneAltar: Object.assign({}, BASIS, {
+            panorama: '/uploads/jubilaeum/panorama-3-vorm-altar.jpg',
+            hotSpots: [
+              pfeilHotspot(-10, 0, 'Weiter zu den Altarstufen →', 'vor', function () { gehZuSzene('altarstufen', 0, 0); }),
+              pfeilHotspot(-10, 180, '← Zurück', 'zurueck', function () { gehZuSzene('mitte', 0, 0); }),
+            ],
+          }),
+          altarstufen: Object.assign({}, BASIS, {
+            panorama: '/uploads/jubilaeum/panorama-4-altarstufen.jpg',
+            hotSpots: [
+              pfeilHotspot(-10, 180, '← Zurück', 'zurueck', function () { gehZuSzene('vorneAltar', 0, 0); }),
+              pfeilHotspot(0, 90, '↻ Umdrehen', 'umdrehen', function () { gehZuSzene('blickZurueck', 0, 0); }),
+              tafelHotspot('1'),
+              tafelHotspot('2'),
+              tafelHotspot('3'),
               {
-                pitch: 3,
-                yaw: 24,
+                pitch: -18,
+                yaw: -30,
                 type: 'custom',
-                cssClass: 'jub-hotspot-foto',
+                cssClass: 'jub-hotspot-tuer',
                 createTooltipFunc: function (hotSpotDiv) {
-                  var img = document.createElement('img');
-                  img.src = '/uploads/jubilaeum/heiligentafel-platzhalterfoto.jpg';
-                  img.alt = 'Heiligentafel (Platzhalterfoto)';
-                  hotSpotDiv.appendChild(img);
-                  hotSpotDiv.title = 'Heiligentafel ansehen';
-                  hotSpotDiv.addEventListener('click', window.__jubOpenHeiligentafel);
+                  var griff = document.createElement('span');
+                  griff.className = 'jub-tuer-griff';
+                  hotSpotDiv.appendChild(griff);
+                  hotSpotDiv.title = 'Zur Schatzkammer';
+                  hotSpotDiv.addEventListener('click', function () { window.__jubOpenSchatzkammer(); });
                 },
               },
-              {
-                pitch: -4,
-                yaw: -18,
-                type: 'scene',
-                text: 'Zur Schatzkammer',
-                sceneId: 'schatzkammer',
-                cssClass: 'jub-hotspot-tuer',
-              },
             ],
-          },
-          schatzkammer: {
-            type: 'equirectangular',
-            panorama: '/uploads/jubilaeum/panorama-schatzkammer-real.jpg',
-            haov: 100,
-            vaov: 70,
-            vOffset: 0,
-            pitch: 0,
-            yaw: 0,
-            hfov: 90,
+          }),
+          blickZurueck: Object.assign({}, BASIS, {
+            panorama: '/uploads/jubilaeum/panorama-5-blick-zurueck.jpg',
             hotSpots: [
-              { pitch: -4, yaw: 0, type: 'scene', text: 'Zurück zum Hauptschiff', sceneId: 'hauptschiff', cssClass: 'jub-hotspot-tuer' },
-              { pitch: 6, yaw: 30, type: 'info', text: 'Kelch', cssClass: 'jub-hotspot', clickHandlerFunc: function () { window.__jubOpenObjekt('kelch'); } },
-              { pitch: 6, yaw: -30, type: 'info', text: 'Monstranz', cssClass: 'jub-hotspot', clickHandlerFunc: function () { window.__jubOpenObjekt('monstranz'); } },
-              { pitch: -8, yaw: 15, type: 'info', text: 'Ziborium', cssClass: 'jub-hotspot', clickHandlerFunc: function () { window.__jubOpenObjekt('ziborium'); } },
+              pfeilHotspot(-10, 0, '← Zurück zu den Altarstufen', 'zurueck', function () { gehZuSzene('altarstufen', 0, 0); }),
             ],
-          },
+          }),
         },
       });
 
@@ -330,7 +423,29 @@ import Base from '../../layouts/Base.astro';
       box-shadow: 0 0 12px rgba(0,0,0,.5);
     }
 
-    /* Heiligentafel-Foto als kleiner Bilderrahmen direkt im Kirchenraum. */
+    /* Geh-Pfeile zwischen den Stationen: Textpille statt Symbol — ein gefülltes Dreieck im
+       Kreis sieht wie ein Video-Play-Knopf aus und wurde genau so missverstanden (Werner-
+       Feedback 2026-09-23). Grün = weiter, blau = zurück, lila = umdrehen. */
+    :global(.jub-hotspot-pfeil) {
+      width: auto !important;
+      height: auto !important;
+      white-space: nowrap;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,.55);
+      cursor: pointer;
+      color: #fff;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    :global(.jub-hotspot-pfeil-vor) { background: #2e9e3f; }
+    :global(.jub-hotspot-pfeil-zurueck) { background: #2a6fc9; }
+    :global(.jub-hotspot-pfeil-umdrehen) { background: #7a3fb5; }
+
+    /* Heiligentafel-Rahmen: mehrere davon dicht nebeneinander bilden zusammen mit der Wand
+       die "Tafel". Echtes Foto = Bilderrahmen; ohne Foto = symbolischer Rahmen mit Initialen. */
     :global(.jub-hotspot-foto) {
       width: 74px !important;
       height: 100px !important;
@@ -347,37 +462,57 @@ import Base from '../../layouts/Base.astro';
       object-fit: cover;
       display: block;
     }
-
-    /* Goldene Tür zur Schatzkammer. */
-    :global(.jub-hotspot-tuer) {
-      width: 34px !important;
+    :global(.jub-hotspot-foto-symbolisch) {
+      width: 58px !important;
       height: 78px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4a3a12;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(160deg, #d9c58f, #a48a4f);
+    }
+
+    /* Goldene Tür zur Schatzkammer: lebensgroß und bodenständig, kein schwebendes Symbol
+       mehr (Werner-Feedback 2026-09-24). Pannellum positioniert die Rahmenmitte am
+       pitch/yaw-Punkt (setzt sein eigenes `transform` inline) — die Unterkante auf den
+       sichtbaren Boden zu bekommen ist daher reine pitch-Feinjustierung, kein CSS-Trick. */
+    :global(.jub-hotspot-tuer) {
+      width: 70px !important;
+      height: 190px !important;
       background: linear-gradient(180deg, #f3e2a0, #c9a227 55%, #8a6d1a) !important;
-      border: 2px solid #6b5320 !important;
-      border-radius: 50% 50% 3px 3px / 25% 25% 3px 3px !important;
-      box-shadow: 0 0 16px rgba(0,0,0,.65), inset 0 0 5px rgba(255,255,255,.6) !important;
+      border: 3px solid #6b5320 !important;
+      border-radius: 35px 35px 4px 4px !important;
+      box-shadow: 0 0 20px rgba(0,0,0,.7), inset 0 0 8px rgba(255,255,255,.55) !important;
       position: relative;
       cursor: pointer;
     }
-    /* Mittelsteg der Tür */
+    /* Türfüllungen (zwei Kassetten) */
     :global(.jub-hotspot-tuer)::before {
       content: '';
       position: absolute;
-      left: 50%;
-      top: 8%;
-      bottom: 6%;
-      width: 2px;
-      background: rgba(107, 83, 32, .8);
-      transform: translateX(-50%);
+      left: 10px; right: 10px;
+      top: 18%; height: 32%;
+      border: 2px solid rgba(107, 83, 32, .75);
+      border-radius: 4px;
     }
-    /* Türgriff */
     :global(.jub-hotspot-tuer)::after {
       content: '';
       position: absolute;
-      right: 5px;
-      top: 55%;
-      width: 5px;
-      height: 5px;
+      left: 10px; right: 10px;
+      top: 55%; height: 32%;
+      border: 2px solid rgba(107, 83, 32, .75);
+      border-radius: 4px;
+    }
+    /* Türgriff (als Kind-Element statt Pseudo, die beiden Kassetten belegen ::before/::after) */
+    :global(.jub-tuer-griff) {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #4a3a0c;
       transform: translateY(-50%);
@@ -414,18 +549,51 @@ import Base from '../../layouts/Base.astro';
       color: var(--clr-muted);
     }
 
-    .jub-portraits { display: flex; gap: 16px; flex-wrap: wrap; }
-    .jub-portrait {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      background: none; border: none; cursor: pointer; font-family: inherit; color: var(--clr-text);
+    /* Schatzkammer als eigene, museumsähnliche Ausstellungsansicht (dunkler Hintergrund,
+       Objekte wie in Vitrinen) statt eines weiteren Panorama-Raums, für den kein echtes
+       Foto existiert. */
+    .jub-schatzkammer-overlay { background: rgba(8, 6, 3, 0.92); }
+    .jub-schatzkammer-box {
+      background: linear-gradient(180deg, #1c1712, #0f0c09);
+      color: #f0e8d8;
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 760px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      border: 1px solid rgba(197, 165, 90, .4);
     }
-    .jub-avatar {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: var(--clr-primary); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 18px;
+    .jub-schatzkammer-box h2 { font-family: 'Playfair Display', serif; color: var(--accent-gold-deco); margin-bottom: 8px; }
+    .jub-schatzkammer-box .jub-modal-hint { color: #cdbfa0; }
+    .jub-schatzkammer-box .jub-modal-close { color: #f0e8d8; }
+    .jub-vasa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
     }
-    .jub-avatar-foto { object-fit: cover; }
+    .jub-vasa-karte {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(197, 165, 90, .35);
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      display: flex; flex-direction: column; gap: 8px; align-items: center;
+      font-family: inherit;
+    }
+    .jub-vasa-karte img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 4px;
+      box-shadow: 0 0 16px rgba(0,0,0,.5);
+    }
+    .jub-vasa-karte span { color: #f0e8d8; font-weight: 600; font-size: 14px; }
+
+    .jub-objekt-foto {
+      width: 100%; max-height: 320px; object-fit: contain;
+      background: #0f0c09; border-radius: 6px; margin-bottom: 16px;
+    }
+
 
     .jub-geschichte, .jub-gaestebuch {
       max-width: 720px;
