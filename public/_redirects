@@ -58,6 +58,12 @@
 /whatsapp-kanal     /bonfamily/whatsapp-kanal/                        301
 /whatsapp-kanal/    /bonfamily/whatsapp-kanal/                        301
 
+# --- Gruppen & Treffpunkte: Adresse gekuerzt (27.09.2026, Werners Wunsch) -----------------
+# Seite war seit 16.09.2026 unter /gruppen-und-treffpunkte/ live, jetzt kurze Adresse
+# /treffpunkte/. Alte Adresse war erst 11 Tage live, aber ggf. schon verlinkt/gebookmarkt.
+/gruppen-und-treffpunkte    /treffpunkte/                             301
+/gruppen-und-treffpunkte/   /treffpunkte/                             301
+
 # --- Digitaler Kirchenfuehrer St. Bonifatius (QR-Codes in der Kirche) ---
 # Die QR-Codes an den Objekten verlinken auf die alten WP-URLs
 # (/ueberuns/kirchorte/st-bonifatius/kirche/<objekt>/) -- diese Aufkleber haengen und werden
