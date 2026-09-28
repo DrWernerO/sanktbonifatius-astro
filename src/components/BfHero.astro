@@ -46,5 +46,11 @@ const bg = '/uploads/2026/09/Spielmobiltag2026-17.jpg';
 .astro-bfhero__btn--primary:hover{background:#7e2424;border-color:#7e2424}
 .astro-bfhero__btn--outline{background:rgba(255,255,255,.12);color:#fff;border:2px solid rgba(255,255,255,.5);backdrop-filter:blur(4px)}
 .astro-bfhero__btn--outline:hover{background:rgba(255,255,255,.22);border-color:#fff}
+/* Mittlere Breiten: Bildfläche nach rechts über den Rand verlängern → Motiv (Kinder) rutscht
+   nach rechts neben den Text statt darunter (Wunsch Frank, 2026-09-28). Unterzeile schmaler, damit sie nicht über das Motiv läuft. */
+@media(min-width:601px){.astro-bfhero__sub{max-width:480px}}
+@media(min-width:1100px) and (max-width:1599px){.astro-bfhero__bg{right:-25%}}
+@media(min-width:1600px){.astro-bfhero__bg{right:-35%;background-position:center 45%}}
+@media(min-width:601px) and (max-width:1099px){.astro-bfhero__bg{right:-60%}}
 @media(max-width:600px){.astro-bfhero{min-height:500px}.astro-bfhero__inner{padding:0 20px 44px}.astro-bfhero__btns{flex-direction:column;gap:10px}.astro-bfhero__btn{justify-content:center}}
 </style>
