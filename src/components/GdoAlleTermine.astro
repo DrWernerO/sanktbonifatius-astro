@@ -41,10 +41,11 @@ const items = termine.map((t) => ({
 
 const churches = [...new Set(items.map((i) => i.church).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'de'));
 
-const jsonLd = items.map((t) => ({
+const jsonLd = items.filter((t) => t.startISO).map((t) => ({
   '@context': 'https://schema.org',
   '@type': 'Event',
   name: t.title,
+  description: t.summary || `${t.title} in ${t.church}`,
   startDate: t.startISO,
   ...(t.endISO ? { endDate: t.endISO } : {}),
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',

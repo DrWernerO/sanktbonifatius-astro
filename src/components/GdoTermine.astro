@@ -42,10 +42,11 @@ for (const t of termine) {
 
 // schema.org/Event je Termin — für Google, unsichtbar im Seitenbild. ENTFÄLLT-Termine bekommen
 // eventStatus "EventCancelled" statt "EventScheduled" (schema.org-konforme Absage).
-const jsonLd = termine.map((t) => ({
+const jsonLd = termine.filter((t) => t.startISO).map((t) => ({
   '@context': 'https://schema.org',
   '@type': 'Event',
   name: t.title,
+  description: t.summary || `${t.title} in ${t.church}`,
   startDate: t.startISO,
   ...(t.endISO ? { endDate: t.endISO } : {}),
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
