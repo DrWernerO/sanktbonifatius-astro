@@ -32,7 +32,7 @@ const bg = '/uploads/2026/09/Spielmobiltag2026-17.jpg';
 </section>
 
 <style is:global>
-.astro-bfhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:580px;display:flex;align-items:flex-end;overflow:hidden}
+.astro-bfhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:580px;display:flex;align-items:flex-end;overflow:hidden;padding-top:120px;box-sizing:border-box}
 .astro-bfhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 30%}
 .astro-bfhero__overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,21,18,.72) 0%,rgba(30,21,18,.4) 38%,rgba(30,21,18,0) 62%),linear-gradient(180deg,rgba(30,21,18,.08) 0%,rgba(30,21,18,.45) 55%,rgba(30,21,18,.88) 100%)}
 .astro-bfhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 64px;color:#f0e8d8}
@@ -46,11 +46,16 @@ const bg = '/uploads/2026/09/Spielmobiltag2026-17.jpg';
 .astro-bfhero__btn--primary:hover{background:#7e2424;border-color:#7e2424}
 .astro-bfhero__btn--outline{background:rgba(255,255,255,.12);color:#fff;border:2px solid rgba(255,255,255,.5);backdrop-filter:blur(4px)}
 .astro-bfhero__btn--outline:hover{background:rgba(255,255,255,.22);border-color:#fff}
-/* Mittlere Breiten: Bildfläche nach rechts über den Rand verlängern → Motiv (Kinder) rutscht
-   nach rechts neben den Text statt darunter (Wunsch Frank, 2026-09-28). Unterzeile schmaler, damit sie nicht über das Motiv läuft. */
+/* Motiv (Kinder) soll nie unter dem Text liegen (Wunsch Frank, 2026-09-28):
+   - 601–1099px: Bildfläche nach rechts über den Rand verlängern → Kinder rutschen nach rechts.
+   - ab 1100px: Foto füllt nur den rechten Teil (kein Zoom, Köpfe bleiben ganz) und läuft per
+     Maske weich in den dunklen Hero-Grund aus; der Text steht links auf ruhigem Grund. */
 @media(min-width:601px){.astro-bfhero__sub{max-width:480px}}
-@media(min-width:1100px) and (max-width:1599px){.astro-bfhero__bg{right:-25%}}
-@media(min-width:1600px){.astro-bfhero__bg{right:-35%;background-position:center 45%}}
 @media(min-width:601px) and (max-width:1099px){.astro-bfhero__bg{right:-60%}}
-@media(max-width:600px){.astro-bfhero{min-height:500px}.astro-bfhero__inner{padding:0 20px 44px}.astro-bfhero__btns{flex-direction:column;gap:10px}.astro-bfhero__btn{justify-content:center}}
+@media(min-width:1100px){
+  .astro-bfhero{background:#1e1512}
+  .astro-bfhero__bg{left:35%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}
+}
+@media(min-width:1600px){.astro-bfhero__bg{left:40%}}
+@media(max-width:600px){.astro-bfhero{min-height:500px;padding-top:100px}.astro-bfhero__inner{padding:0 20px 44px}.astro-bfhero__btns{flex-direction:column;gap:10px}.astro-bfhero__btn{justify-content:center}}
 </style>
