@@ -2,11 +2,12 @@
 // Hero der Seite „BonFamily" — WP-Seite 45898 (/bonfamily/).
 // Eigene Klassen `astro-bfhero` (goldene Regel — niemals WP-Klassen `bf-hero`).
 // Full-Bleed-Bild + Verlauf-Overlay + H1 + 2 Buttons. Bild lokal unter public/uploads/.
-const bg = '/uploads/2026/04/bonfamily-hero.jpg';
+// Seit 2026-09-28 Foto vom Spielmobiltag 2026 (Wunsch Frank), vorher 2026/04/bonfamily-hero.jpg.
+const bg = '/uploads/2026/09/Spielmobiltag2026-17.jpg';
 ---
 <section class="astro-bfhero">
   <div class="astro-bfhero__bg" role="img"
-       aria-label="Familien und Kinder beim BonFamily-Programm der Pfarrei Sankt Bonifatius"
+       aria-label="Zwei lachende Kinder beim Spielmobiltag 2026 der Pfarrei Sankt Bonifatius"
        style={`background-image:url('${bg}')`}></div>
   <div class="astro-bfhero__overlay"></div>
   <div class="astro-bfhero__inner">
@@ -32,8 +33,8 @@ const bg = '/uploads/2026/04/bonfamily-hero.jpg';
 
 <style is:global>
 .astro-bfhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:580px;display:flex;align-items:flex-end;overflow:hidden}
-.astro-bfhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
-.astro-bfhero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.08) 0%,rgba(30,21,18,.45) 55%,rgba(30,21,18,.88) 100%)}
+.astro-bfhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 30%}
+.astro-bfhero__overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,21,18,.72) 0%,rgba(30,21,18,.4) 38%,rgba(30,21,18,0) 62%),linear-gradient(180deg,rgba(30,21,18,.08) 0%,rgba(30,21,18,.45) 55%,rgba(30,21,18,.88) 100%)}
 .astro-bfhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 64px;color:#f0e8d8}
 .astro-bfhero__badge{display:inline-block;background:#9a2d2d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin:0 0 20px}
 .astro-bfhero__accent{color:#9a2d2d}
