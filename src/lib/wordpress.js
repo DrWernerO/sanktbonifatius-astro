@@ -419,6 +419,27 @@ export async function getHighlightsZeitraum() {
   }
 }
 
+// Liefert das Deckblatt-Vorschaubild der aktuellen Bonifatius-Highlights-PDF als
+// { url, width, height } (oder null). WordPress erzeugt dieses JPG beim PDF-Upload automatisch
+// (Imagick/Ghostscript auf All-inkl, media_details.sizes.full — z.B.
+// sankt-bonifatius-highlights-pdf.jpg). Grundlage für /downloads/highlights-cover.jpg und das
+// Cover im Hero der Landingpage /downloads/bonifatius-highlights/ (Auftrag Frank, 2026-09-28) —
+// neue Ausgabe hochladen genügt, das Cover wechselt beim nächsten Rebuild mit.
+export async function getHighlightsCover() {
+  try {
+    const doc = await getLatestDokument('highlights');
+    if (!doc?.id) return null;
+    const res = await fetch(`${WP_API}/media/${doc.id}?_fields=media_details`, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const { media_details } = await res.json();
+    const size = media_details?.sizes?.full ?? media_details?.sizes?.large;
+    if (!size?.source_url) return null;
+    return { url: size.source_url, width: size.width, height: size.height };
+  } catch {
+    return null;
+  }
+}
+
 // Eigener Ordner "Astro-Upload/Monatsbrief Aposteln" (RML-Ordner-ID 205) — anders als bei
 // PFARRBRIEF_HIGHLIGHTS_FOLDER liegt hier immer nur die eine aktuelle Ausgabe, darum kein
 // Titel-Filter nötig (analog Konzept in getLatestDokument/Handbuch 1d).

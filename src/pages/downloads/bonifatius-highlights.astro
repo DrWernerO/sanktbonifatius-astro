@@ -14,21 +14,18 @@
 // (WP nicht erreichbar, Deckblatt-Layout geändert), fällt die Seite auf einen festen Text zurück.
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
-import { getHighlightsZeitraum } from '../../lib/wordpress.js';
+import { getHighlightsZeitraum, getHighlightsCover } from '../../lib/wordpress.js';
 import { SEO_STATIC } from '../../lib/seo-static.js';
 
 const seo = SEO_STATIC['/downloads/bonifatius-highlights/'];
 
 const zeitraum = await getHighlightsZeitraum();
 
-const bereiche = [
-  { name: 'Gottesdienst & Glaube', href: '/gottesdienst-glaube/' },
-  { name: 'BonFamily', href: '/bonfamily/' },
-  { name: 'Jugend', href: '/jugend/' },
-  { name: 'Engagiert Leben', href: '/engagiert-leben/' },
-  { name: 'Kultur & Begegnung', href: '/kultur-begegnung/' },
-  { name: 'Terminkalender', href: '/terminkalender/' },
-];
+// Cover der aktuellen Ausgabe als Hero-Bild (2026-09-28): WordPress erzeugt beim PDF-Upload
+// automatisch ein Deckblatt-JPG, das /downloads/highlights-cover.jpg beim Build einfriert.
+// Fehlt es (WP nicht erreichbar, kein Vorschaubild), bleibt der Hero einfach ohne Bild.
+const cover = await getHighlightsCover();
+
 ---
 <Base seo={seo} title="Bonifatius Highlights">
   <PageHeader
@@ -45,6 +42,17 @@ const bereiche = [
       </svg>
       PDF direkt herunterladen
     </a>
+    {cover && (
+      <a slot="media" href="/downloads/highlights.pdf" data-download-file="highlights" aria-label="Bonifatius Highlights als PDF herunterladen">
+        <img
+          src="/downloads/highlights-cover.jpg"
+          width={cover.width}
+          height={cover.height}
+          alt={zeitraum ? `Titelseite der Bonifatius Highlights ${zeitraum}` : 'Titelseite der aktuellen Bonifatius Highlights'}
+          fetchpriority="high"
+        />
+      </a>
+    )}
   </PageHeader>
 
   <section class="astro-bh-intro">
@@ -55,14 +63,9 @@ const bereiche = [
         zusammengestellt. Ob Familiengottesdienst, Jugendtreff, Nachbarschaftshilfe oder
         Kirchcafé – hier finden Sie einen guten Überblick, was in St. Bonifatius, St. Wendel,
         Herz Jesu und St. Aposteln los ist. Unser Gemeindeleben ist sogar noch bunter: Alle
-        Termine finden Sie jederzeit aktuell in unserem Terminkalender.
+        Termine finden Sie jederzeit aktuell in unserem
+        <a href="/terminkalender/">Terminkalender</a>.
       </p>
-      <h2>Diese Themenbereiche erwarten Sie</h2>
-      <ul class="astro-bh-tags">
-        {bereiche.map((b) => (
-          <li><a href={b.href}>{b.name}</a></li>
-        ))}
-      </ul>
     </div>
   </section>
 
@@ -88,11 +91,8 @@ const bereiche = [
 .astro-bh-intro{background:#fff;padding:64px 0 8px}
 .astro-bh-intro__in{max-width:720px;margin:0 auto;padding:0 40px}
 .astro-bh-intro__in p{font-size:17px;color:#3a322b;line-height:1.7;margin:0 0 36px}
-.astro-bh-intro__in h2{font-family:'Playfair Display',serif;font-size:clamp(20px,2.6vw,26px);font-weight:700;color:#2c2420;margin:0 0 18px}
-.astro-bh-tags{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:0}
-.astro-bh-tags li{margin:0}
-.astro-bh-tags a{display:inline-flex;align-items:center;padding:9px 18px;border-radius:50px;background:#f7f3ef;border:1px solid #e0d8cf;color:#7e2424;font-size:14.5px;font-weight:600;transition:background .2s,border-color .2s}
-.astro-bh-tags a:hover{background:#f3e7d4;border-color:#c5a55a}
+.astro-bh-intro__in p a{color:#9a2d2d;font-weight:600;text-decoration:underline;text-decoration-color:rgba(154,45,45,.35);text-underline-offset:3px;transition:text-decoration-color .2s}
+.astro-bh-intro__in p a:hover{text-decoration-color:#9a2d2d}
 .astro-bh-dl{background:#f7f3ef;padding:48px 0 72px}
 .astro-bh-dl__inner{max-width:720px;margin:0 auto;padding:0 40px}
 .astro-bh-dl__card{display:flex;align-items:flex-start;gap:20px;text-align:left;background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:28px;box-shadow:0 4px 20px rgba(30,21,18,.06)}
