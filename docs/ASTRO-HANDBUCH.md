@@ -278,6 +278,17 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 > Woche, damit die ersten ~2 Tage Zählung nicht verloren gehen. `statistik.astro` zeigt eine
 > Zeile pro Kalenderwoche (Montag–Sonntag), neueste oben, plus Gesamtsumme in der Fußzeile.
 
+> **Stand 2026-09-28: Highlights-Cover automatisch als Hero-Bild.** Die Landingpage
+> `/downloads/bonifatius-highlights/` zeigt rechts im Hero das Deckblatt der aktuellen Ausgabe.
+> Quelle: das JPG, das WordPress beim PDF-Upload **selbst** aus Seite 1 erzeugt
+> (`media_details.sizes.full`, z. B. `sankt-bonifatius-highlights-pdf.jpg`).
+> `getHighlightsCover()` in `wordpress.js` liefert `{url,width,height}`; die Route
+> `src/pages/downloads/highlights-cover.jpg.ts` (`prerender = true`) friert das Bild beim Build
+> unter **`/downloads/highlights-cover.jpg`** auf der Hauptdomain ein (keine WP-Bild-URL im
+> Frontend, Abschnitt 1g). Eingebunden über den neuen optionalen `media`-Slot in
+> `PageHeader.astro`. Kein Extra-Aufwand für die Sekretärin: neue Ausgabe hochladen → Rebuild
+> (Hook oben) → neues Cover. Fehlt das Vorschaubild, bleibt der Hero einfach ohne Bild.
+
 > **Stand 2026-09-17: Gleiches Prinzip für den Monatsbrief St. Aposteln.** Eigener Ordner
 > „Astro-Upload/Monatsbrief Aposteln" (RML-Ordner-ID 205) — anders als bei Pfarrbrief/Highlights
 > liegt dort immer nur die eine aktuelle Ausgabe, daher **kein** Titel-Filter nötig:
