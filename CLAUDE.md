@@ -104,6 +104,10 @@ npm run dev   # läuft mit NODE_TLS_REJECT_UNAUTHORIZED=0 auf Port 4321
 - `src/pages/downloads/pfarrbrief.pdf.ts` + `.../highlights.pdf.ts` — stabile Download-Adressen
   auf der Hauptdomain, holen bei jedem Build die aktuelle Datei aus WP via `getLatestDokument()`
   in `src/lib/wordpress.js` (Handbuch 1d)
+- `src/pages/go/[name].ts` + `src/lib/qr-links.js` + `src/lib/qr-counter.js` — QR-Kurzlinks
+  `/go/<name>`: zählt jeden Scan (Netlify Blobs, cookiefrei) und leitet per 302 mit UTM-Etiketten
+  weiter; Liste der Kurzlinks in `QR_LINKS`, Quelle ist Franks Excel-Linkverzeichnis; Auswertung
+  auf `/downloads/statistik` (Handbuch 1h)
 - `src/pages/downloads/monatsbrief-aposteln.pdf.ts` — analoge stabile Adresse für den Monatsbrief
   St. Aposteln, holt die aktuelle Ausgabe aus RML-Ordner 205 via `getLatestMonatsbriefAposteln()`
   in `src/lib/wordpress.js` (Handbuch 1d); verlinkt als Zeile „Monatsbrief (PDF)" in der

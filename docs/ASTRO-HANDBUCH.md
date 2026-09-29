@@ -467,6 +467,44 @@ lokalisiert). Übrig bleiben nur PDF-Links (bewusst, siehe oben).
 
 ---
 
+## 1h. QR-Kurzlinks `/go/<name>` mit eigener Scan-Zählung — ✅ seit 2026-09-29
+
+> **Zweck (Franks Projekt):** Am Jahresende ablesen können, über welchen QR-Code wie viele
+> Menschen auf die Seite kamen (Schaukasten, Pfarrbrief, Weinflaschen-Etikett …). Quelle der
+> Wahrheit ist Franks Excel-Tabelle **`qr-linkverzeichnis-sankt-bonifatius.xlsx`** (OneDrive,
+> Pastoralteam/Social Media) — Blätter „So funktioniert's", „Linkverzeichnis", „Vokabular".
+
+### Wie es funktioniert
+- **[`src/lib/qr-links.js`](../src/lib/qr-links.js)** — `QR_LINKS`: pro Kurzlink-Name `ziel`
+  (Astro-Pfad), `quelle` (= Excel „Quelle komplett"), `kampagne`, `titel`, optional `medium`
+  (Standard `qr`). Zuordnung der Excel-Spalten steht oben in der Datei.
+- **[`src/pages/go/[name].ts`](../src/pages/go/[name].ts)** (`prerender = false`) — zählt den
+  Scan und leitet per **302** (nicht 301: Ziel soll änderbar bleiben) auf `ziel` +
+  `utm_source/utm_medium/utm_campaign` weiter. Name wird kleingeschrieben verglichen.
+  **Unbekannter Name → Startseite** (kein 404; gedruckte Codes bleiben jahrelang im Umlauf).
+- **[`src/lib/qr-counter.js`](../src/lib/qr-counter.js)** — Zähler wie `download-counter.js`
+  (Abschnitt 1d), Netlify Blobs Store **`qr-scans`**, Schlüssel `<name>:<YYYY-MM>`. Zählt nur
+  Namen aus `QR_LINKS` (keine beliebigen Schlüssel von außen). Kein Personenbezug, keine Cookies.
+- **Auswertung:** Tabelle „QR-Scans" auf `/downloads/statistik` (Basic-Auth, Abschnitt 1d),
+  eine Spalte pro Jahr + Gesamt. GA4 bekommt die UTM-Etiketten zusätzlich, sieht aber nur
+  Besucher mit Cookie-Zustimmung → **maßgeblich ist die eigene Zählung.**
+
+### Warum nicht WordPress-Plugin „Redirection" (wie ursprünglich in der Excel-Anleitung)?
+`sanktbonifatius.de` ist Astro/Netlify, WP auf `cms.` ist nach außen gesperrt (Regel 0) — ein
+WP-Plugin würde für `/go/…` nie greifen. Die Liste liegt deshalb bewusst im Repo, nicht live in WP.
+
+### Neuen Kurzlink anlegen
+1. Frank legt die Zeile(n) in der Excel an und gibt Bescheid.
+2. Eintrag in `QR_LINKS` ergänzen; **Zielseite vorher prüfen** (existiert der Pfad/Termin?).
+3. Lokal testen: `curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" http://localhost:4321/go/<name>`.
+4. Commit + Push → Netlify baut, Kurzlink ist live. In der Excel „Weiterleitung eingerichtet? = ja".
+5. **Einträge nie löschen oder umbenennen** (gedruckte Codes!) — nur `ziel` anpassen.
+
+> `www.sanktbonifatius.de/go/…` leitet samt Pfad/Parametern auf die Hauptdomain weiter — alte
+> `www`-Codes funktionieren also auch. Für neue Codes trotzdem ohne `www` (kürzer → einfacherer Code).
+
+---
+
 ## 2. WordPress-Anbindung (`src/lib/wordpress.js`)
 
 Zentrale Datei für alle WP-Zugriffe. Wichtige Bausteine:
