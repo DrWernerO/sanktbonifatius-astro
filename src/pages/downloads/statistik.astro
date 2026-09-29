@@ -1,7 +1,7 @@
 ---
 // Interne Statistik-Seite: zeigt den eigenen, GA4-unabhängigen Download-Zähler für
-// Pfarrbrief/Highlights (Handbuch 1d). Nur für Werner gedacht — daher per Basic-Auth
-// geschützt (src/middleware.ts, Passwort in Netlify-Umgebungsvariable DOWNLOADS_STATS_PASSWORD).
+// Pfarrbrief/Highlights (Handbuch 1d) und die QR-Kurzlink-Scans /go/… (Handbuch 1h). Nur
+// intern gedacht — daher per Basic-Auth geschützt (src/middleware.ts, Passwort in Netlify-Umgebungsvariable DOWNLOADS_STATS_PASSWORD).
 //
 // `prerender = false` ist zwingend: nur dann läuft die Seite als Netlify-Function und die
 // Middleware greift (analog src/pages/kontakt/raumbuchung.astro).
@@ -9,10 +9,16 @@ export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
 import { leseWochenZaehler } from '../../lib/download-counter.js';
+import { leseQrZaehler } from '../../lib/qr-counter.js';
 
 const wochen = await leseWochenZaehler();
 const gesamtPfarrbrief = wochen.reduce((summe, w) => summe + w.pfarrbrief, 0);
 const gesamtHighlights = wochen.reduce((summe, w) => summe + w.highlights, 0);
+
+const qrZeilen = (await leseQrZaehler()).sort(
+  (a, b) => a.kampagne.localeCompare(b.kampagne) || a.quelle.localeCompare(b.quelle)
+);
+const qrJahre = [...new Set(qrZeilen.flatMap((z) => Object.keys(z.jahre)))].sort().reverse();
 
 // "2026-09-01" (Montag) -> "01.09.–07.09.2026"
 function formatWoche(montagIso) {
@@ -25,7 +31,7 @@ function formatWoche(montagIso) {
 
 Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
 ---
-<Base title="Download-Statistik" description="" noindex={true}>
+<Base title="Statistik" description="" noindex={true}>
   <section class="astro-dlstat">
     <div class="astro-dlstat__in">
       <h1>Download-Statistik</h1>
@@ -62,13 +68,42 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
             </tfoot>
           </table>
       }
+
+      <h2 id="qr">QR-Scans</h2>
+      <p class="astro-dlstat__hinweis">
+        Zählt jeden Aufruf eines Kurzlinks sanktbonifatius.de/go/… (also jeden Scan eines
+        QR-Codes), ebenfalls unabhängig von der Cookie-Einwilligung. Eine Zeile pro Code,
+        sortiert nach Kampagne.
+      </p>
+      <div class="astro-dlstat__scroll">
+        <table class="astro-dlstat__table">
+          <thead>
+            <tr>
+              <th scope="col">Kampagne</th>
+              <th scope="col">Quelle</th>
+              {qrJahre.map((j) => <th scope="col">{j}</th>)}
+              <th scope="col">Gesamt</th>
+            </tr>
+          </thead>
+          <tbody>
+            {qrZeilen.map((z) => (
+              <tr>
+                <th scope="row" title={z.name}>{z.titel}<span class="astro-dlstat__sub">{z.kampagne}</span></th>
+                <td class="astro-dlstat__txt">{z.quelle}</td>
+                {qrJahre.map((j) => <td>{z.jahre[j] || 0}</td>)}
+                <td>{z.gesamt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
   .astro-dlstat { padding: 140px 32px 80px; }
-  .astro-dlstat__in { max-width: 560px; margin: 0 auto; }
+  .astro-dlstat__in { max-width: 720px; margin: 0 auto; }
   .astro-dlstat h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(28px, 3vw, 36px);
@@ -77,6 +112,16 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
   .astro-dlstat__hinweis { color: var(--clr-muted); margin-bottom: 32px; }
   .astro-dlstat__leer { color: var(--clr-muted); }
+  .astro-dlstat h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 2.4vw, 28px);
+    margin: 56px 0 12px;
+    color: var(--clr-primary);
+    scroll-margin-top: 110px;
+  }
+  .astro-dlstat__scroll { overflow-x: auto; }
+  .astro-dlstat__sub { display: block; font-size: 13px; font-weight: 400; color: var(--clr-muted); }
+  .astro-dlstat__table td.astro-dlstat__txt { text-align: left; font-weight: 400; }
   .astro-dlstat__table {
     width: 100%; border-collapse: collapse;
     font-size: 17px;
