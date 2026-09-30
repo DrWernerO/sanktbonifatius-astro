@@ -4,12 +4,13 @@
 // PfsMaterial: Datei unter genau diesem Namen ablegen + pushen.
 //   public/uploads/2027/02/pause-fuer-die-seele-2027-leitfaden.pdf
 //   public/uploads/2027/02/pause-fuer-die-seele-2027-gespraech-woche-<nr>.pdf
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+// Liste der vorhandenen PDFs kommt beim Build aus astro.config.mjs (__PFS_PDFS__), weil die
+// Seite als Netlify-Function läuft (Passwortschutz) und dort kein public/ zum Prüfen existiert.
+const PDFS = new Set(__PFS_PDFS__);
+const vorhanden = (href) => PDFS.has(href.split('/').pop());
 
 const { wochen = [] } = Astro.props;
 const DIR = '/uploads/2027/02/';
-const vorhanden = (href) => existsSync(join(process.cwd(), 'public', href));
 
 const leitfaden = { href: `${DIR}pause-fuer-die-seele-2027-leitfaden.pdf` };
 leitfaden.da = vorhanden(leitfaden.href);

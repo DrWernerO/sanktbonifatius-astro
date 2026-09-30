@@ -1,4 +1,5 @@
-// Passwortschutz für nicht-öffentliche Seiten (Raumbuchung, Download-Statistik).
+// Passwortschutz für nicht-öffentliche Seiten (Raumbuchung, Download-Statistik,
+// 100 Jahre, Pause für die Seele).
 // Läuft als Netlify-Function (HTTP-Basic-Auth), NICHT nur clientseitig — dadurch bekommt
 // Google/jeder Crawler ohne Zugangsdaten grundsätzlich nur ein 401, nie den Seiteninhalt.
 // Betroffene Route muss `export const prerender = false` setzen (sonst liefert Netlify die
@@ -20,6 +21,11 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername: string; 
     envVar: 'DOWNLOADS_STATS_PASSWORD',
     benutzername: 'statistik',
     realm: 'Download-Statistik Sankt Bonifatius',
+  },
+  '/gottesdienst-glaube/pause-fuer-die-seele': {
+    envVar: 'PAUSE_FUER_DIE_SEELE_PASSWORD',
+    benutzername: 'exerzitien',
+    realm: 'Pause fuer die Seele 2027',
   },
   '/100-jahre': {
     envVar: 'JUBILAEUM_PASSWORD',
@@ -49,11 +55,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const authHeader = context.request.headers.get('authorization');
 
   if (sollPasswort && authHeader?.startsWith('Basic ')) {
-    const eingabe = atob(authHeader.slice(6));
+    // Basic-Auth kommt Base64-kodiert; moderne Browser schicken die Zugangsdaten als UTF-8
+    // (wir fordern charset="UTF-8" an). atob() liefert aber nur Einzelbytes — ohne das
+    // Zurückdekodieren würden Passwörter mit Umlaut (z. B. „ü") nie passen. Fällt die
+    // UTF-8-Dekodierung durch (alter Browser mit Latin-1), bleibt der atob()-Wert stehen.
+    const roh = atob(authHeader.slice(6));
+    let eingabe = roh;
+    try {
+      eingabe = new TextDecoder('utf-8', { fatal: true }).decode(Uint8Array.from(roh, (c) => c.charCodeAt(0)));
+    } catch {}
     const trennstelle = eingabe.indexOf(':');
     const eingabeBenutzername = eingabe.slice(0, trennstelle);
     const eingabePasswort = eingabe.slice(trennstelle + 1);
-    if (eingabeBenutzername.toLowerCase() === schutz.benutzername && eingabePasswort === sollPasswort) {
+    if (eingabeBenutzername.toLowerCase() === schutz.benutzername && eingabePasswort.normalize('NFC') === sollPasswort.normalize('NFC')) {
       const response = await next();
       response.headers.set('X-Robots-Tag', 'noindex, nofollow');
       return response;

@@ -9,6 +9,15 @@
 // Farb-/Radius-Tokens des Design-Systems (team-handbuch/04-design-system.md, --bf-*) werden am
 // Wrapper .astro-pfs gesetzt; die Pfs*-Komponenten nutzen ausschließlich diese Variablen plus
 // die globalen Tokens aus Base.astro (--txt-*, --accent-gold-deco).
+//
+// PASSWORTSCHUTZ (Werner, 30.09.2026 — Seite vorerst nicht öffentlich): HTTP-Basic-Auth über
+// src/middleware.ts (Benutzer „Exerzitien", Passwort in Netlify-Env PAUSE_FUER_DIE_SEELE_PASSWORD).
+// `prerender = false` ist dafür zwingend — als statische Datei würde Netlify die Seite an der
+// Middleware vorbei ausliefern. Zusätzlich noindex (Meta + Header), robots.txt-Disallow, raus aus
+// Sitemap und llms.txt. Zum Freischalten: Eintrag in middleware.ts entfernen, prerender-Zeile +
+// noindex löschen, robots.txt/Sitemap-Filter zurücknehmen, llms.txt-Zeile wieder aufnehmen.
+export const prerender = false;
+
 import Base from '../../layouts/Base.astro';
 import PfsHero from '../../components/PfsHero.astro';
 import PfsIntro from '../../components/PfsIntro.astro';
@@ -25,6 +34,7 @@ import PfsKontakt from '../../components/PfsKontakt.astro';
 import { SEO_STATIC } from '../../lib/seo-static.js';
 
 const seo = SEO_STATIC['/gottesdienst-glaube/pause-fuer-die-seele/'];
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
 
 // Die sechs Wochen (Quelle: OneNote „Sankt Bonifatius" › Exerzitien 2027 › TP A Begleitmaterial).
 // ⚠️ VORLÄUFIG: Evangelien nach der kath. Leseordnung, Lesejahr A (2026/27); Titel als
@@ -40,7 +50,7 @@ const wochen = [
   { nr: 6, sonntag: 'Palmsonntag · Palmarum',         datum: '21.03.2027', stelle: 'Mt 21,1–11', titel: 'Einzug in Jerusalem',                erscheint: 'Sa, 20.03.' },
 ];
 ---
-<Base seo={seo}>
+<Base seo={seo} noindex={true}>
   <div class="astro-pfs">
     <PfsHero />
     <PfsIntro />

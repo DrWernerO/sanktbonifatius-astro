@@ -2,17 +2,19 @@
 // „Material" (id="material") — je Woche eine Karte mit PDF-Download (Sonntagsimpuls + Tagesimpulse).
 // Eigene Klassen `astro-pfs-mat` (Handbuch 3). PDFs lokal (Handbuch 1g).
 //
-// FREISCHALTEN einer Woche = PDF unter genau diesem Namen ablegen + pushen (statische Seite):
+// FREISCHALTEN einer Woche = PDF unter genau diesem Namen ablegen + pushen (Netlify baut neu):
 //   public/uploads/2027/02/pause-fuer-die-seele-2027-woche-<nr>.pdf
-// Beim Build wird geprüft, ob die Datei existiert; fehlt sie, zeigt die Karte „erscheint am …".
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+// Beim Build wird geprüft, ob die Datei existiert (lokal: Dev-Server neu starten); fehlt sie, zeigt die Karte „erscheint am …".
+// Liste der vorhandenen PDFs kommt beim Build aus astro.config.mjs (__PFS_PDFS__), weil die
+// Seite als Netlify-Function läuft (Passwortschutz) und dort kein public/ zum Prüfen existiert.
+const PDFS = new Set(__PFS_PDFS__);
+const vorhanden = (href) => PDFS.has(href.split('/').pop());
 
 const { wochen = [] } = Astro.props;
 const DIR = '/uploads/2027/02/';
 const karten = wochen.map((w) => {
   const href = `${DIR}pause-fuer-die-seele-2027-woche-${w.nr}.pdf`;
-  return { ...w, href, da: existsSync(join(process.cwd(), 'public', href)) };
+  return { ...w, href, da: vorhanden(href) };
 });
 ---
 <section class="astro-pfs-sec astro-pfs-mat" id="material">

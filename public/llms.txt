@@ -28,7 +28,6 @@ Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen i
 - /gottesdienste/ - Gottesdienstzeiten aller Kirchorte (Gottesdienstordnung)
 - /gottesdienst-glaube/gottesdienste-die-beruehren/ - Besondere Formate: Fiat Lux, Taize, BonEsprit
 - /familiengottesdienste/ - Familiengottesdienste jeden 1. und 3. Sonntag
-- /pause/ - Pause fuer die Seele: oekumenische Exerzitien im Alltag in der Fastenzeit 2027 (14.02.-27.03.2027), taegliche Impulse als PDF, Kleingruppen, Anmeldung; gemeinsam mit Dreikoenigsgemeinde, Maria-Magdalena-Gemeinde und Erloesergemeinde Oberrad
 
 ## Gemeinschaft und Engagement
 - /gemeinschaft/ - Gruppen und Kreise: BonFamily, Jugend, Senioren, Choere
