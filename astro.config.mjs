@@ -25,12 +25,12 @@ export default defineConfig({
   adapter: netlify(),
   integrations: [
     sitemap({
-      // Passwortgeschützte Seiten (raumbuchung/, downloads/statistik, pause-fuer-die-seele/) sind bereits per
+      // Passwortgeschützte Seiten (raumbuchung/, downloads/statistik, exerzitien2027/) sind bereits per
       // noindex-Header vor Google geschützt — stünden aber ohne diesen Filter trotzdem
       // öffentlich lesbar in der sitemap.xml (URL damit auffindbar, auch wenn der Inhalt
       // selbst gesperrt bleibt).
       filter: (page) => !page.includes('/kontakt/raumbuchung') && !page.includes('/downloads/statistik')
-        && !page.includes('/gottesdienst-glaube/pause-fuer-die-seele'),
+        && !page.includes('/exerzitien2027'),
     }),
   ],
   vite: {

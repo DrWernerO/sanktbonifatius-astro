@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /kontakt/raumbuchung
 Disallow: /raumbuchung
-Disallow: /gottesdienst-glaube/pause-fuer-die-seele
+Disallow: /exerzitien2027
 
 Sitemap: https://sanktbonifatius.de/sitemap-index.xml
 Sitemap: https://sanktbonifatius.de/sitemap-jobs.xml

@@ -1,6 +1,7 @@
 ---
 // Seite „Pause für die Seele" — Ökumenische Exerzitien im Alltag, Fastenzeit 2027
-// (/gottesdienst-glaube/pause-fuer-die-seele/, neue Seite ohne WP-Vorlage). Vollständig aus
+// (/exerzitien2027/ — Adresse auf Werners Wunsch vom 30.09.2026; bis dahin
+// /gottesdienst-glaube/pause-fuer-die-seele/, leitet per 301 hierher). Neue Seite ohne WP-Vorlage. Vollständig aus
 // eigenen astro-pfs-Komponenten (Präfix astro-pfs, Handbuch 3). Nav + Footer kommen global aus
 // Base.astro (Handbuch 4b) — hier NICHT erneut einbinden. SEO fest aus lib/seo-static.js
 // (Handbuch 1e, keine Live-Abfrage bei cms). Kurz-URLs /pause/ und /exerzitien/ in
@@ -18,22 +19,22 @@
 // noindex löschen, robots.txt/Sitemap-Filter zurücknehmen, llms.txt-Zeile wieder aufnehmen.
 export const prerender = false;
 
-import Base from '../../layouts/Base.astro';
-import PfsHero from '../../components/PfsHero.astro';
-import PfsIntro from '../../components/PfsIntro.astro';
-import PfsAblauf from '../../components/PfsAblauf.astro';
-import PfsWochen from '../../components/PfsWochen.astro';
-import PfsFuerWen from '../../components/PfsFuerWen.astro';
-import PfsTermine from '../../components/PfsTermine.astro';
-import PfsAnmeldung from '../../components/PfsAnmeldung.astro';
-import PfsMaterial from '../../components/PfsMaterial.astro';
-import PfsGruppenleitung from '../../components/PfsGruppenleitung.astro';
-import PfsPartner from '../../components/PfsPartner.astro';
-import PfsFaq from '../../components/PfsFaq.astro';
-import PfsKontakt from '../../components/PfsKontakt.astro';
-import { SEO_STATIC } from '../../lib/seo-static.js';
+import Base from '../layouts/Base.astro';
+import PfsHero from '../components/PfsHero.astro';
+import PfsIntro from '../components/PfsIntro.astro';
+import PfsAblauf from '../components/PfsAblauf.astro';
+import PfsWochen from '../components/PfsWochen.astro';
+import PfsFuerWen from '../components/PfsFuerWen.astro';
+import PfsTermine from '../components/PfsTermine.astro';
+import PfsAnmeldung from '../components/PfsAnmeldung.astro';
+import PfsMaterial from '../components/PfsMaterial.astro';
+import PfsGruppenleitung from '../components/PfsGruppenleitung.astro';
+import PfsPartner from '../components/PfsPartner.astro';
+import PfsFaq from '../components/PfsFaq.astro';
+import PfsKontakt from '../components/PfsKontakt.astro';
+import { SEO_STATIC } from '../lib/seo-static.js';
 
-const seo = SEO_STATIC['/gottesdienst-glaube/pause-fuer-die-seele/'];
+const seo = SEO_STATIC['/exerzitien2027/'];
 Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
 
 // Die sechs Wochen (Quelle: OneNote „Sankt Bonifatius" › Exerzitien 2027 › TP A Begleitmaterial).

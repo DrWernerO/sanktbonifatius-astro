@@ -103,10 +103,13 @@
 
 # --- Pause für die Seele (Ökumenische Exerzitien im Alltag 2027) ---
 # /exerzitien zeigte bis 30.09.2026 auf /gottesdienst-glaube/ (Altlast), jetzt auf die neue Seite.
-/pause                  /gottesdienst-glaube/pause-fuer-die-seele/    301
-/pause/                 /gottesdienst-glaube/pause-fuer-die-seele/    301
-/exerzitien             /gottesdienst-glaube/pause-fuer-die-seele/    301
-/exerzitien/            /gottesdienst-glaube/pause-fuer-die-seele/    301
+# Seite liegt seit 30.09.2026 unter /exerzitien2027/ (vorher kurz /gottesdienst-glaube/pause-fuer-die-seele/).
+/gottesdienst-glaube/pause-fuer-die-seele   /exerzitien2027/             301
+/gottesdienst-glaube/pause-fuer-die-seele/  /exerzitien2027/             301
+/pause                  /exerzitien2027/                             301
+/pause/                 /exerzitien2027/                             301
+/exerzitien             /exerzitien2027/                             301
+/exerzitien/            /exerzitien2027/                             301
 
 # --- Migrations-Altlasten: alte WordPress-Pfade -> neue Astro-Struktur ---
 # Diese Pfade waren bei Google jahrelang indexiert und bringen echten Suchtraffic

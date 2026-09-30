@@ -22,7 +22,7 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername: string; 
     benutzername: 'statistik',
     realm: 'Download-Statistik Sankt Bonifatius',
   },
-  '/gottesdienst-glaube/pause-fuer-die-seele': {
+  '/exerzitien2027': {
     envVar: 'PAUSE_FUER_DIE_SEELE_PASSWORD',
     benutzername: 'exerzitien',
     realm: 'Pause fuer die Seele 2027',
