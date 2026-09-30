@@ -1,0 +1,71 @@
+---
+// „Für Gruppenleitungen" — Leitfaden + wöchentliche Gesprächsimpulse als PDF.
+// Eigene Klassen `astro-pfs-gl` (Handbuch 3). PDFs lokal (Handbuch 1g), Freischalten wie bei
+// PfsMaterial: Datei unter genau diesem Namen ablegen + pushen.
+//   public/uploads/2027/02/pause-fuer-die-seele-2027-leitfaden.pdf
+//   public/uploads/2027/02/pause-fuer-die-seele-2027-gespraech-woche-<nr>.pdf
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+const { wochen = [] } = Astro.props;
+const DIR = '/uploads/2027/02/';
+const vorhanden = (href) => existsSync(join(process.cwd(), 'public', href));
+
+const leitfaden = { href: `${DIR}pause-fuer-die-seele-2027-leitfaden.pdf` };
+leitfaden.da = vorhanden(leitfaden.href);
+
+const gespraeche = wochen.map((w) => {
+  const href = `${DIR}pause-fuer-die-seele-2027-gespraech-woche-${w.nr}.pdf`;
+  return { nr: w.nr, datum: w.datum, erscheint: w.erscheint, href, da: vorhanden(href) };
+});
+---
+<section class="astro-pfs-sec astro-pfs-gl" id="gruppenleitung">
+  <div class="astro-pfs-wrap">
+    <div class="astro-pfs-head">
+      <h2 class="astro-pfs-hl">Für Gruppenleitungen</h2>
+      <p class="astro-pfs-sub">
+        Sie begleiten eine Kleingruppe? Hier finden Sie den Leitfaden und für jede Woche einen
+        Vorschlag für das Gruppengespräch.
+      </p>
+    </div>
+    <div class="astro-pfs-gl__layout">
+      <div class="astro-pfs-gl__main">
+        <h3 class="astro-pfs-gl__title">Leitfaden für Gruppenleitungen</h3>
+        <p class="astro-pfs-gl__text">
+          Ablauf eines Treffens, Hinweise zur Gesprächsführung und alles Organisatorische auf einen Blick.
+        </p>
+        {leitfaden.da
+          ? <a class="astro-pfs-btn astro-pfs-btn--primary" href={leitfaden.href} download>Leitfaden (PDF)</a>
+          : <p class="astro-pfs-gl__soon">Der Leitfaden erscheint vor dem Startup.</p>}
+      </div>
+      <ul class="astro-pfs-gl__list" aria-label="Gesprächsimpulse je Woche">
+        {gespraeche.map((g) => (
+          <li class="astro-pfs-gl__row">
+            <span class="astro-pfs-gl__wk">Gesprächsimpuls Woche {g.nr}</span>
+            {g.da
+              ? <a class="astro-pfs-gl__link" href={g.href} download>PDF<span class="astro-pfs-sr"> – Gesprächsimpuls Woche {g.nr}</span></a>
+              : <span class="astro-pfs-gl__pending">erscheint am {g.erscheint}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pfs-gl{background:var(--bf-bg-alt)}
+.astro-pfs-gl__layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:start}
+.astro-pfs-gl__main{background:#fff;border-radius:var(--bf-radius);border:1px solid var(--bf-border);box-shadow:var(--bf-shadow);padding:32px}
+.astro-pfs-gl__title{font-family:var(--pfs-serif);font-size:22px;font-weight:700;color:var(--bf-ink);margin:0 0 10px}
+.astro-pfs-gl__text{font-size:15.5px;line-height:1.65;color:var(--txt-muted-light);margin:0 0 20px}
+.astro-pfs-gl__soon{font-size:14.5px;font-style:italic;color:var(--txt-muted-light);margin:0}
+.astro-pfs-gl__list{list-style:none;margin:0;padding:0;background:#fff;border-radius:var(--bf-radius);border:1px solid var(--bf-border)}
+.astro-pfs-gl__row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:15px 22px;border-bottom:1px solid var(--bf-border)}
+.astro-pfs-gl__row:last-child{border-bottom:0}
+.astro-pfs-gl__wk{font-size:15.5px;font-weight:600;color:var(--bf-ink)}
+.astro-pfs-gl__link{font-size:14px;font-weight:700;color:var(--bf-accent);border:2px solid var(--bf-accent);border-radius:50px;padding:5px 16px;text-decoration:none}
+.astro-pfs-gl__link:hover{background:var(--bf-accent);color:#fff}
+.astro-pfs-gl__pending{font-size:14px;font-style:italic;color:var(--txt-muted-light);white-space:nowrap}
+@media(max-width:860px){.astro-pfs-gl__layout{grid-template-columns:1fr}.astro-pfs-gl__main{padding:24px}}
+@media(max-width:420px){.astro-pfs-gl__row{flex-direction:column;align-items:flex-start;gap:4px}}
+</style>

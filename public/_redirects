@@ -101,6 +101,13 @@
 /gottesdienstordnung    /gottesdienst-glaube/gottesdienstordnung/     301
 /gottesdienstordnung/   /gottesdienst-glaube/gottesdienstordnung/     301
 
+# --- Pause für die Seele (Ökumenische Exerzitien im Alltag 2027) ---
+# /exerzitien zeigte bis 30.09.2026 auf /gottesdienst-glaube/ (Altlast), jetzt auf die neue Seite.
+/pause                  /gottesdienst-glaube/pause-fuer-die-seele/    301
+/pause/                 /gottesdienst-glaube/pause-fuer-die-seele/    301
+/exerzitien             /gottesdienst-glaube/pause-fuer-die-seele/    301
+/exerzitien/            /gottesdienst-glaube/pause-fuer-die-seele/    301
+
 # --- Migrations-Altlasten: alte WordPress-Pfade -> neue Astro-Struktur ---
 # Diese Pfade waren bei Google jahrelang indexiert und bringen echten Suchtraffic
 # (siehe SEO-Check 2026-08-14, GA/GSC-Export). Ohne Weiterleitung liefern sie seit
@@ -146,8 +153,6 @@
 /kontakt/links/                     /kontakt/                                     301
 /ueberuns/pfarrer-dr-werner-otto    /ueberuns/pastoralteam/                       301
 /ueberuns/pfarrer-dr-werner-otto/   /ueberuns/pastoralteam/                       301
-/exerzitien                         /gottesdienst-glaube/                         301
-/exerzitien/                        /gottesdienst-glaube/                         301
 /kultur-begegnung/buechereien/koeb-st-bonifatius    /kultur-begegnung/buechereien/  301
 /kultur-begegnung/buechereien/koeb-st-bonifatius/   /kultur-begegnung/buechereien/  301
 /kultur-begegnung/buechereien/koeb-st-bonifatius-2  /kultur-begegnung/buechereien/  301

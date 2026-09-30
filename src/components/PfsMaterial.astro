@@ -1,0 +1,58 @@
+---
+// „Material" (id="material") — je Woche eine Karte mit PDF-Download (Sonntagsimpuls + Tagesimpulse).
+// Eigene Klassen `astro-pfs-mat` (Handbuch 3). PDFs lokal (Handbuch 1g).
+//
+// FREISCHALTEN einer Woche = PDF unter genau diesem Namen ablegen + pushen (statische Seite):
+//   public/uploads/2027/02/pause-fuer-die-seele-2027-woche-<nr>.pdf
+// Beim Build wird geprüft, ob die Datei existiert; fehlt sie, zeigt die Karte „erscheint am …".
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+const { wochen = [] } = Astro.props;
+const DIR = '/uploads/2027/02/';
+const karten = wochen.map((w) => {
+  const href = `${DIR}pause-fuer-die-seele-2027-woche-${w.nr}.pdf`;
+  return { ...w, href, da: existsSync(join(process.cwd(), 'public', href)) };
+});
+---
+<section class="astro-pfs-sec astro-pfs-mat" id="material">
+  <div class="astro-pfs-wrap">
+    <div class="astro-pfs-head">
+      <h2 class="astro-pfs-hl">Material zum Herunterladen</h2>
+      <p class="astro-pfs-sub">
+        Das Heft jeder Woche enthält den Sonntagsimpuls und die sechs Tagesimpulse. Es erscheint
+        jeweils am Samstag davor.
+      </p>
+    </div>
+    <ul class="astro-pfs-mat__grid">
+      {karten.map((k) => (
+        <li class={`astro-pfs-mat__card${k.da ? '' : ' is-pending'}`}>
+          <p class="astro-pfs-mat__meta">Woche {k.nr} &middot; ab {k.datum}</p>
+          <h3 class="astro-pfs-mat__title">{k.titel}</h3>
+          <p class="astro-pfs-mat__stelle">{k.stelle}</p>
+          {k.da
+            ? <a class="astro-pfs-btn astro-pfs-btn--primary astro-pfs-mat__btn" href={k.href} download>
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+                PDF herunterladen<span class="astro-pfs-sr"> – Woche {k.nr}</span>
+              </a>
+            : <p class="astro-pfs-mat__soon">erscheint am {k.erscheint}</p>}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-pfs-mat{background:#fff;scroll-margin-top:90px}
+.astro-pfs-mat__grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.astro-pfs-mat__card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--bf-border);border-radius:var(--bf-radius);box-shadow:var(--bf-shadow);padding:26px}
+.astro-pfs-mat__card.is-pending{background:var(--bf-bg);box-shadow:none}
+.astro-pfs-mat__meta{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--txt-gold-label);margin:0 0 8px}
+.astro-pfs-mat__title{font-family:var(--pfs-serif);font-size:20px;font-weight:700;line-height:1.25;color:var(--bf-ink);margin:0 0 4px}
+.astro-pfs-mat__stelle{font-size:14.5px;color:var(--txt-muted-light);margin:0 0 20px}
+.astro-pfs-mat__btn{margin-top:auto;align-self:flex-start;padding:10px 20px;font-size:14px}
+.astro-pfs-mat__soon{margin:auto 0 0;font-size:14.5px;font-style:italic;color:var(--txt-muted-light);border-top:1px dashed var(--bf-border);padding-top:14px}
+.astro-pfs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:900px){.astro-pfs-mat__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.astro-pfs-mat__grid{grid-template-columns:1fr}}
+</style>

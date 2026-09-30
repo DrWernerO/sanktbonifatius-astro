@@ -1,0 +1,45 @@
+---
+// Einleitung „Pause für die Seele" — Einladungstext + die vier einladenden Gemeinden.
+// Eigene Klassen `astro-pfs-intro` (Handbuch 3). Gemeindenamen in voller Form (Werners Vorgabe
+// vom 30.09.2026).
+const absender = [
+  'Kath. Pfarrei Sankt Bonifatius Frankfurt',
+  'Evang. Dreikönigsgemeinde Frankfurt',
+  'Evang. Maria-Magdalena-Gemeinde Frankfurt',
+  'Evang. Erlösergemeinde Frankfurt-Oberrad',
+];
+---
+<section class="astro-pfs-sec astro-pfs-intro">
+  <div class="astro-pfs-wrap astro-pfs-wrap--narrow">
+    <h2 class="astro-pfs-hl">Herzlich eingeladen</h2>
+    <p class="astro-pfs-intro__lead">
+      Sechs Wochen lang, mitten im Alltag, innehalten: Die Fastenzeit 2027 lädt dazu ein, sich
+      täglich ein paar Minuten Zeit für Gott und für sich selbst zu nehmen – mit einem kurzen
+      Impuls, einem Bibelwort, einer Frage für den Tag. Einmal in der Woche teilen Sie Ihre
+      Erfahrungen in einer kleinen Gruppe.
+    </p>
+    <p class="astro-pfs-intro__text">
+      Nach den guten Erfahrungen der Fastenzeit 2026 gehen wir diesen Weg 2027 gemeinsam
+      als Gemeinden – katholisch und evangelisch, in Sachsenhausen und Oberrad. Es braucht keine
+      Vorkenntnisse, nur die Bereitschaft, sich auf etwas einzulassen.
+      <a href="/blog/pause-fuer-die-seele-wirkungsbericht/">Rückblick auf 2026 lesen</a>
+    </p>
+    <div class="astro-pfs-intro__from">
+      <p class="astro-pfs-intro__label">Es laden ein</p>
+      <ul class="astro-pfs-intro__list">
+        {absender.map((a) => <li>{a}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pfs-intro{background:#fff;text-align:center}
+.astro-pfs-intro__lead{font-family:var(--pfs-serif);font-size:clamp(19px,2.2vw,23px);line-height:1.55;color:var(--bf-ink);margin:0 0 18px}
+.astro-pfs-intro__text{font-size:17px;line-height:1.7;color:var(--txt-muted-light);margin:0 0 36px}
+.astro-pfs-intro__from{border-top:1px solid var(--bf-border);padding-top:28px}
+.astro-pfs-intro__label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-gold-label);font-weight:600;margin:0 0 14px}
+.astro-pfs-intro__list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
+.astro-pfs-intro__list li{font-size:15.5px;font-weight:600;color:var(--bf-ink);line-height:1.4}
+@media(max-width:600px){.astro-pfs-intro{text-align:left}.astro-pfs-intro__lead{font-size:18px}.astro-pfs-intro__list{grid-template-columns:1fr}}
+</style>

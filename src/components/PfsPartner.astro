@@ -1,0 +1,45 @@
+---
+// „Partner" — vier Gemeinden gleichberechtigt (gleiche Kachelgröße, alphabetisch nach
+// Gemeindename, keine Hervorhebung der eigenen Pfarrei). Eigene Klassen `astro-pfs-par`.
+// ⚠️ LOGOS + URLs NOCH OFFEN: Logos lokal nach public/uploads/2027/01/ legen und `logo` setzen;
+// `href` eintragen. Ohne Logo erscheint der Name als Textkachel, ohne href ohne Link.
+const partner = [
+  { name: 'Evang. Dreikönigsgemeinde Frankfurt',        logo: '', href: '' },
+  { name: 'Evang. Erlösergemeinde Frankfurt-Oberrad',   logo: '', href: '' },
+  { name: 'Evang. Maria-Magdalena-Gemeinde Frankfurt',  logo: '', href: '' },
+  { name: 'Kath. Pfarrei Sankt Bonifatius Frankfurt',   logo: '', href: '/' },
+];
+---
+<section class="astro-pfs-sec astro-pfs-par">
+  <div class="astro-pfs-wrap">
+    <div class="astro-pfs-head">
+      <h2 class="astro-pfs-hl">Gemeinsam unterwegs</h2>
+      <p class="astro-pfs-sub">„Pause für die Seele" ist ein Angebot von vier Gemeinden in Sachsenhausen und Oberrad.</p>
+    </div>
+    <ul class="astro-pfs-par__grid">
+      {partner.map((p) => {
+        const inner = p.logo
+          ? <img class="astro-pfs-par__logo" src={p.logo} alt={p.name} loading="lazy" />
+          : <span class="astro-pfs-par__name">{p.name}</span>;
+        return (
+          <li class="astro-pfs-par__item">
+            {p.href
+              ? <a class="astro-pfs-par__card" href={p.href}>{inner}</a>
+              : <div class="astro-pfs-par__card">{inner}</div>}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-pfs-par{background:#fff}
+.astro-pfs-par__grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.astro-pfs-par__card{display:flex;align-items:center;justify-content:center;text-align:center;height:100%;min-height:140px;padding:24px 20px;border:1px solid var(--bf-border);border-radius:var(--bf-radius);background:var(--bf-bg);text-decoration:none;transition:border-color .2s,box-shadow .2s}
+a.astro-pfs-par__card:hover{border-color:var(--accent-gold-deco);box-shadow:var(--bf-shadow)}
+.astro-pfs-par__logo{max-width:100%;max-height:84px;object-fit:contain}
+.astro-pfs-par__name{font-family:var(--pfs-serif);font-size:17px;font-weight:700;line-height:1.35;color:var(--bf-ink)}
+@media(max-width:900px){.astro-pfs-par__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.astro-pfs-par__grid{grid-template-columns:1fr}}
+</style>

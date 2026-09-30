@@ -1,0 +1,91 @@
+---
+// Seite „Pause für die Seele" — Ökumenische Exerzitien im Alltag, Fastenzeit 2027
+// (/gottesdienst-glaube/pause-fuer-die-seele/, neue Seite ohne WP-Vorlage). Vollständig aus
+// eigenen astro-pfs-Komponenten (Präfix astro-pfs, Handbuch 3). Nav + Footer kommen global aus
+// Base.astro (Handbuch 4b) — hier NICHT erneut einbinden. SEO fest aus lib/seo-static.js
+// (Handbuch 1e, keine Live-Abfrage bei cms). Kurz-URLs /pause/ und /exerzitien/ in
+// public/_redirects (Handbuch 1f).
+//
+// Farb-/Radius-Tokens des Design-Systems (team-handbuch/04-design-system.md, --bf-*) werden am
+// Wrapper .astro-pfs gesetzt; die Pfs*-Komponenten nutzen ausschließlich diese Variablen plus
+// die globalen Tokens aus Base.astro (--txt-*, --accent-gold-deco).
+import Base from '../../layouts/Base.astro';
+import PfsHero from '../../components/PfsHero.astro';
+import PfsIntro from '../../components/PfsIntro.astro';
+import PfsAblauf from '../../components/PfsAblauf.astro';
+import PfsWochen from '../../components/PfsWochen.astro';
+import PfsFuerWen from '../../components/PfsFuerWen.astro';
+import PfsTermine from '../../components/PfsTermine.astro';
+import PfsAnmeldung from '../../components/PfsAnmeldung.astro';
+import PfsMaterial from '../../components/PfsMaterial.astro';
+import PfsGruppenleitung from '../../components/PfsGruppenleitung.astro';
+import PfsPartner from '../../components/PfsPartner.astro';
+import PfsFaq from '../../components/PfsFaq.astro';
+import PfsKontakt from '../../components/PfsKontakt.astro';
+import { SEO_STATIC } from '../../lib/seo-static.js';
+
+const seo = SEO_STATIC['/gottesdienst-glaube/pause-fuer-die-seele/'];
+
+// Die sechs Wochen (Quelle: OneNote „Sankt Bonifatius" › Exerzitien 2027 › TP A Begleitmaterial).
+// ⚠️ VORLÄUFIG: Evangelien nach der kath. Leseordnung, Lesejahr A (2026/27); Titel als
+// Arbeitstitel — vor Go-Live mit TP A abgleichen.
+// `erscheint` = Samstag vor dem Wochen-Sonntag: an diesem Tag wird das Wochen-PDF hochgeladen.
+// PDF-Dateinamen: public/uploads/2027/02/pause-fuer-die-seele-2027-woche-<nr>.pdf (PfsMaterial).
+const wochen = [
+  { nr: 1, sonntag: '1. Fastensonntag · Invokavit', datum: '14.02.2027', stelle: 'Mt 4,1–11',  titel: 'Versuchung in der Wüste',            erscheint: 'Sa, 13.02.' },
+  { nr: 2, sonntag: '2. Fastensonntag · Reminiszere', datum: '21.02.2027', stelle: 'Mt 17,1–9',  titel: 'Verklärung auf dem Berg',            erscheint: 'Sa, 20.02.' },
+  { nr: 3, sonntag: '3. Fastensonntag · Okuli',       datum: '28.02.2027', stelle: 'Joh 4,5–42', titel: 'Die Frau am Jakobsbrunnen',          erscheint: 'Sa, 27.02.' },
+  { nr: 4, sonntag: '4. Fastensonntag · Lätare',      datum: '07.03.2027', stelle: 'Joh 9,1–41', titel: 'Die Heilung des Blindgeborenen',     erscheint: 'Sa, 06.03.' },
+  { nr: 5, sonntag: '5. Fastensonntag · Judika',      datum: '14.03.2027', stelle: 'Joh 11,1–45', titel: 'Die Auferweckung des Lazarus',      erscheint: 'Sa, 13.03.' },
+  { nr: 6, sonntag: 'Palmsonntag · Palmarum',         datum: '21.03.2027', stelle: 'Mt 21,1–11', titel: 'Einzug in Jerusalem',                erscheint: 'Sa, 20.03.' },
+];
+---
+<Base seo={seo}>
+  <div class="astro-pfs">
+    <PfsHero />
+    <PfsIntro />
+    <PfsAblauf />
+    <PfsWochen wochen={wochen} />
+    <PfsFuerWen />
+    <PfsTermine />
+    <PfsAnmeldung />
+    <PfsMaterial wochen={wochen} />
+    <PfsGruppenleitung wochen={wochen} />
+    <PfsPartner />
+    <PfsFaq />
+    <PfsKontakt />
+  </div>
+</Base>
+
+<style is:global>
+.astro-pfs{
+  --bf-bg:#f7f3ef;
+  --bf-bg-alt:#ede4d5;
+  --bf-ink:#1e1512;
+  --bf-ink-60:#6b5c52;
+  --bf-accent:#9a2d2d;
+  --bf-gold:#b88a3a;
+  --bf-border:#e0d8cf;
+  --bf-radius:14px;
+  --bf-shadow:0 4px 20px rgba(30,21,18,.06);
+  --bf-shadow-lg:0 10px 32px rgba(30,21,18,.1);
+  --pfs-serif:'Playfair Display',Georgia,serif;
+  color:var(--bf-ink);
+}
+/* Gemeinsame Bausteine aller Pfs-Sektionen (Überschrift, Unterzeile, Container, Buttons) */
+.astro-pfs-sec{padding:72px 0}
+.astro-pfs-wrap{max-width:1120px;margin:0 auto;padding:0 40px}
+.astro-pfs-wrap--narrow{max-width:820px}
+.astro-pfs-head{text-align:center;margin:0 auto 36px;max-width:720px}
+.astro-pfs-hl{font-family:var(--pfs-serif);font-size:clamp(26px,3.6vw,38px);font-weight:700;line-height:1.15;letter-spacing:-.01em;color:var(--bf-ink);margin:0 0 10px}
+.astro-pfs-sub{font-size:16px;line-height:1.6;color:var(--txt-muted-light);margin:0}
+.astro-pfs-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.astro-pfs-btn--primary{background:var(--bf-accent);color:#fff;border:2px solid var(--bf-accent)}
+.astro-pfs-btn--primary:hover{transform:translateY(-1px);box-shadow:var(--bf-shadow-lg)}
+.astro-pfs-btn--ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
+.astro-pfs-btn--ghost:hover{background:#fff;color:var(--bf-ink);border-color:#fff}
+.astro-pfs-btn--outline{background:transparent;color:var(--bf-accent);border:2px solid var(--bf-accent)}
+.astro-pfs-btn--outline:hover{background:var(--bf-accent);color:#fff}
+.astro-pfs-btn:focus-visible{outline:3px solid var(--accent-gold-deco);outline-offset:3px}
+@media(max-width:760px){.astro-pfs-sec{padding:52px 0}.astro-pfs-wrap{padding:0 20px}}
+</style>

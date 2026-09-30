@@ -1,0 +1,35 @@
+---
+// Hero der Seite „Pause für die Seele" (/gottesdienst-glaube/pause-fuer-die-seele/).
+// Eigene Klassen `astro-pfs-hero` (Handbuch 3). Full-Bleed-Foto + Verlauf-Overlay (Muster
+// SegenHero). Genau EINE sichtbare <h1> der Seite.
+// ⚠️ PLATZHALTER-FOTO: Auftakt 2026 im Pfarrsaal (erkennbare Personen) — durch das von Werner
+// gelieferte Bild ersetzen (gleicher Dateiname unter public/uploads/2027/01/ genügt).
+const bg = '/uploads/2027/01/pause-fuer-die-seele-2027-hero.jpg';
+---
+<section class="astro-pfs-hero">
+  <div class="astro-pfs-hero__bg" role="img"
+       aria-label="Viele Teilnehmende beim gemeinsamen Auftakt der Exerzitien im Alltag im Pfarrsaal"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-pfs-hero__overlay"></div>
+  <div class="astro-pfs-hero__inner">
+    <p class="astro-pfs-hero__eyebrow">Sachsenhausen &amp; Oberrad</p>
+    <h1 class="astro-pfs-hero__title">Pause für die Seele</h1>
+    <p class="astro-pfs-hero__sub">Ökumenische Exerzitien im Alltag &middot; Fastenzeit 2027</p>
+    <div class="astro-pfs-hero__cta">
+      <a class="astro-pfs-btn astro-pfs-btn--primary" href="#anmeldung">Jetzt anmelden</a>
+      <a class="astro-pfs-btn astro-pfs-btn--ghost" href="#material">Zu den Materialien</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pfs-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:min(74vh,620px);min-height:460px;display:flex;align-items:flex-end;overflow:hidden;background:var(--bf-ink)}
+.astro-pfs-hero__bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
+.astro-pfs-hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,21,18,.40) 0%,rgba(30,21,18,.62) 45%,rgba(30,21,18,.92) 100%)}
+.astro-pfs-hero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 60px;color:#fff}
+.astro-pfs-hero__eyebrow{font-family:var(--pfs-serif);font-style:italic;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-gold-deco);margin:0 0 14px}
+.astro-pfs-hero__title{font-family:var(--pfs-serif);font-size:clamp(40px,6vw,72px);font-weight:700;line-height:1.05;letter-spacing:-.01em;color:#fff;margin:0 0 14px}
+.astro-pfs-hero__sub{font-size:clamp(17px,2vw,22px);color:rgba(255,255,255,.9);margin:0 0 28px;max-width:640px;line-height:1.45}
+.astro-pfs-hero__cta{display:flex;flex-wrap:wrap;gap:12px}
+@media(max-width:600px){.astro-pfs-hero{height:auto;min-height:520px}.astro-pfs-hero__inner{padding:120px 20px 40px}.astro-pfs-hero__eyebrow{font-size:13px}.astro-pfs-hero__cta .astro-pfs-btn{flex:1 1 100%;justify-content:center}}
+</style>

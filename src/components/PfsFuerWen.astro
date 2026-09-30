@@ -1,0 +1,35 @@
+---
+// „Für wen?" — kurze Liste. Eigene Klassen `astro-pfs-fw` (Handbuch 3).
+// ⚠️ VORLÄUFIGER TEXT: Die Vorlage (WP-Seite „Exerzitien" 2026, Page-ID 38766) ist nicht
+// öffentlich abrufbar (REST-API 401). Punkte hier neu formuliert — mit dem Originaltext abgleichen.
+const punkte = [
+  'für alle, die in der Fastenzeit bewusst innehalten und ihren Alltag unterbrechen möchten',
+  'für Menschen, die ihren Glauben vertiefen – oder ihm neu auf die Spur kommen wollen',
+  'für Einsteigerinnen und Einsteiger ebenso wie für Exerzitien-Erfahrene',
+  'für alle, die das Gespräch über Glauben und Leben in einer kleinen Gruppe suchen',
+  'für Mitglieder aller vier Gemeinden und für alle, die (noch) nirgends dazugehören',
+];
+---
+<section class="astro-pfs-sec astro-pfs-fw">
+  <div class="astro-pfs-wrap astro-pfs-wrap--narrow">
+    <div class="astro-pfs-head">
+      <h2 class="astro-pfs-hl">Für wen?</h2>
+      <p class="astro-pfs-sub">Die Exerzitien im Alltag sind offen für alle – unabhängig von Konfession und Vorerfahrung.</p>
+    </div>
+    <ul class="astro-pfs-fw__list">
+      {punkte.map((p) => (
+        <li>
+          <svg class="astro-pfs-fw__check" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          <span>{p.charAt(0).toUpperCase() + p.slice(1)}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-pfs-fw{background:var(--bf-bg-alt)}
+.astro-pfs-fw__list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.astro-pfs-fw__list li{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:12px;padding:16px 20px;border:1px solid var(--bf-border);font-size:16px;line-height:1.55;color:var(--bf-ink)}
+.astro-pfs-fw__check{flex-shrink:0;color:var(--bf-accent);margin-top:1px}
+</style>

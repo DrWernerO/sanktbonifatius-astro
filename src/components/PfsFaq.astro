@@ -1,0 +1,52 @@
+---
+// „Häufige Fragen" — Akkordeon mit nativem <details>/<summary> (Muster ChurchDeskFaq.astro,
+// Design-System 4.8). Eigene Klassen `astro-pfs-faq` (Handbuch 3).
+const faqs = [
+  {
+    q: 'Was sind Exerzitien im Alltag?',
+    a: 'Exerzitien sind „geistliche Übungen": eine Zeit, in der man bewusst auf Gott und das eigene Leben schaut. Im Alltag heißt: Sie fahren nicht weg, sondern bleiben in Ihrem gewohnten Leben mit Beruf, Familie und Terminen. Ein täglicher Impuls von etwa 15 Minuten und das wöchentliche Gruppentreffen geben der Fastenzeit einen roten Faden.',
+  },
+  {
+    q: 'Brauche ich Vorkenntnisse?',
+    a: 'Nein. Die Impulse sind so geschrieben, dass sie ohne Vorwissen verständlich sind. Sie müssen weder bibelfest sein noch schon einmal Exerzitien gemacht haben – Neugier genügt.',
+  },
+  {
+    q: 'Muss ich in eine Gruppe?',
+    a: 'Die Kleingruppe ist ein wichtiger Teil – viele erleben gerade das Gespräch mit anderen als das Wertvollste. Wir empfehlen sie daher sehr. Wer die Impulse lieber allein für sich nutzen möchte, kann das Material aber selbstverständlich auch ohne Gruppe verwenden.',
+  },
+  {
+    q: 'Was, wenn ich einmal nicht kann?',
+    a: 'Das ist kein Problem. Wenn ein Tagesimpuls liegen bleibt oder Sie ein Gruppentreffen verpassen, steigen Sie einfach beim nächsten Mal wieder ein. Es geht nicht um Leistung, sondern um eine Einladung.',
+  },
+  {
+    q: 'Kostet es etwas?',
+    a: 'Nein, die Teilnahme ist kostenlos. Das Material steht auf dieser Seite zum Herunterladen bereit.',
+  },
+];
+---
+<section class="astro-pfs-sec astro-pfs-faq">
+  <div class="astro-pfs-wrap astro-pfs-wrap--narrow">
+    <div class="astro-pfs-head">
+      <h2 class="astro-pfs-hl">Häufige Fragen</h2>
+    </div>
+    {faqs.map((f) => (
+      <details class="astro-pfs-faq__item">
+        <summary>{f.q}</summary>
+        <div class="astro-pfs-faq__a"><p>{f.a}</p></div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-pfs-faq{background:var(--bf-bg)}
+.astro-pfs-faq__item{background:#fff;border-radius:10px;margin-bottom:12px;border:1px solid var(--bf-border);overflow:hidden}
+.astro-pfs-faq__item summary{list-style:none;cursor:pointer;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:var(--pfs-serif);font-size:17px;font-weight:700;color:var(--bf-ink);line-height:1.4}
+.astro-pfs-faq__item summary::-webkit-details-marker{display:none}
+.astro-pfs-faq__item summary::after{content:'+';font-size:26px;color:var(--accent-gold-deco);font-weight:300;flex-shrink:0;transition:transform .25s}
+.astro-pfs-faq__item[open] summary::after{transform:rotate(45deg)}
+.astro-pfs-faq__item summary:focus-visible{outline:3px solid var(--accent-gold-deco);outline-offset:-3px}
+.astro-pfs-faq__a{padding:16px 24px 20px;border-top:1px solid var(--bf-border)}
+.astro-pfs-faq__a p{font-size:15.5px;color:var(--txt-muted-light);line-height:1.7;margin:0}
+@media(max-width:600px){.astro-pfs-faq__item summary{padding:16px 18px;font-size:16px}.astro-pfs-faq__a{padding:14px 18px 18px}}
+</style>

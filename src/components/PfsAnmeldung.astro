@@ -1,0 +1,66 @@
+---
+// „Anmeldung" (id="anmeldung") — ChurchDesk-Embed nach dem Muster ChurchDeskForm.astro
+// (iframe + postMessage-Resize-Script). Eigene Klassen `astro-pfs-anm` (Handbuch 3).
+// ⚠️ FORMULAR NOCH OFFEN: Formular-URL + Form-ID aus TP D hier eintragen. Beides steht im
+// ChurchDesk-Einbettungscode: <div id="form__<FORM_ID>"> … <iframe src="<FORM_URL>/embed">.
+// Solange FORM_URL leer ist, zeigt die Sektion einen Hinweis statt des Formulars.
+const FORM_URL = '';   // z. B. 'https://forms.churchdesk.com/f/XXXXXXXX/embed'
+const FORM_ID = '';    // z. B. '63e6ce65963b630007d9c535'
+
+const embed = FORM_URL
+  ? `<div id="form__${FORM_ID}" class="astro-pfs-anm__embed">
+  <iframe src="${FORM_URL}" title="Anmeldeformular Pause für die Seele 2027" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>`
+  : '';
+---
+<section class="astro-pfs-sec astro-pfs-anm" id="anmeldung">
+  <div class="astro-pfs-wrap astro-pfs-wrap--narrow">
+    <div class="astro-pfs-head">
+      <h2 class="astro-pfs-hl">Anmeldung</h2>
+      <p class="astro-pfs-sub">
+        Melden Sie sich bitte online an – wir ordnen Sie einer Kleingruppe zu und melden uns vor dem
+        Start bei Ihnen.
+      </p>
+    </div>
+    <div class="astro-pfs-anm__box">
+      {embed
+        ? <Fragment set:html={embed} />
+        : <p class="astro-pfs-anm__soon">Das Anmeldeformular wird hier in Kürze freigeschaltet.</p>}
+    </div>
+    <p class="astro-pfs-anm__phone">
+      Lieber telefonisch? Sie können sich auch im Pfarrbüro anmelden:
+      <a href="tel:+4969695975850">069 69597585-0</a>
+    </p>
+  </div>
+</section>
+
+<script is:inline>
+// Aus ChurchDeskForm.astro übernommen: passt die ChurchDesk-iframe-Höhe an, sobald das
+// eingebettete Formular per postMessage (FORM_RESIZE_HEIGHT) seine Höhe meldet.
+(function(){
+  var e = window.addEventListener ? 'addEventListener' : 'attachEvent';
+  if (window.cdFormEventHandlersRegistered) return;
+  window[e](e === 'attachEvent' ? 'onmessage' : 'message', function(ev){
+    if (ev.data && ev.data.source === 'cdFormEmbed' && ev.data.action === 'FORM_RESIZE_HEIGHT') {
+      var t = ev.data.formId;
+      var d = document.getElementById(t);
+      if (d) {
+        var n = ev.data.height + 40;
+        d.style.height = n + 'px';
+      }
+    }
+  }, false);
+  window.cdFormEventHandlersRegistered = true;
+})();
+</script>
+
+<style is:global>
+.astro-pfs-anm{background:var(--bf-bg);scroll-margin-top:90px}
+.astro-pfs-anm__box{background:#fff;border-radius:var(--bf-radius);padding:32px;box-shadow:var(--bf-shadow);border:1px solid var(--bf-border)}
+.astro-pfs-anm__embed{position:relative;overflow:hidden;max-width:100%;border-radius:8px}
+.astro-pfs-anm__embed iframe{position:relative;top:0;left:0;width:100%;border:0;min-height:680px}
+.astro-pfs-anm__soon{margin:0;text-align:center;font-family:var(--pfs-serif);font-style:italic;font-size:18px;color:var(--txt-muted-light);padding:28px 0}
+.astro-pfs-anm__phone{text-align:center;font-size:15.5px;color:var(--txt-muted-light);margin:22px 0 0;line-height:1.6}
+.astro-pfs-anm__phone a{color:var(--bf-accent);font-weight:600;white-space:nowrap}
+@media(max-width:600px){.astro-pfs-anm__box{padding:20px}}
+</style>

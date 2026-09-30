@@ -1,0 +1,45 @@
+---
+// „Termine im Überblick" — Zeitraum der Impulse + gemeinsame Meilensteine.
+// Eigene Klassen `astro-pfs-ter` (Handbuch 3). Offene Angaben stehen als `offen`-Text —
+// sobald Uhrzeit/Ort feststehen, hier eintragen (statische Seite → Push).
+const termine = [
+  { tag: '14.02.–27.03.', jahr: '2027', titel: 'Tägliche Impulse', info: 'Sechs Wochen, von Sonntag bis Samstag – jeweils ein Sonntagsimpuls und sechs Tagesimpulse.' },
+  { tag: 'Sa 13.02.', jahr: '2027', titel: 'Startup – gemeinsamer Beginn', info: '', offen: 'Uhrzeit und Ort werden noch bekannt gegeben.' },
+  { tag: 'So 07.03.', jahr: '2027', titel: 'Bergfest zur Halbzeit', info: '', offen: 'Uhrzeit und Ort werden noch bekannt gegeben.' },
+  { tag: 'Termin folgt', jahr: '', titel: 'Abschluss', info: '' },
+];
+---
+<section class="astro-pfs-sec astro-pfs-ter" id="termine">
+  <div class="astro-pfs-wrap astro-pfs-wrap--narrow">
+    <div class="astro-pfs-head">
+      <h2 class="astro-pfs-hl">Termine im Überblick</h2>
+    </div>
+    <ul class="astro-pfs-ter__list">
+      {termine.map((t) => (
+        <li class="astro-pfs-ter__item">
+          <div class="astro-pfs-ter__date">
+            <span class="astro-pfs-ter__tag">{t.tag}</span>
+            {t.jahr && <span class="astro-pfs-ter__jahr">{t.jahr}</span>}
+          </div>
+          <div class="astro-pfs-ter__body">
+            <h3 class="astro-pfs-ter__title">{t.titel}</h3>
+            {t.info && <p class="astro-pfs-ter__info">{t.info}</p>}
+            {t.offen && <p class="astro-pfs-ter__offen">{t.offen}</p>}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-pfs-ter{background:#fff}
+.astro-pfs-ter__list{list-style:none;margin:0;padding:0;border-top:1px solid var(--bf-border)}
+.astro-pfs-ter__item{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--bf-border);align-items:baseline}
+.astro-pfs-ter__tag{display:block;font-family:var(--pfs-serif);font-size:21px;font-weight:700;color:var(--bf-accent);line-height:1.2}
+.astro-pfs-ter__jahr{display:block;font-size:13px;color:var(--txt-muted-light);margin-top:2px}
+.astro-pfs-ter__title{font-family:var(--pfs-serif);font-size:19px;font-weight:700;color:var(--bf-ink);margin:0 0 4px}
+.astro-pfs-ter__info,.astro-pfs-ter__offen{font-size:15.5px;line-height:1.6;color:var(--txt-muted-light);margin:0}
+.astro-pfs-ter__offen{font-style:italic}
+@media(max-width:560px){.astro-pfs-ter__item{grid-template-columns:1fr;gap:6px}}
+</style>

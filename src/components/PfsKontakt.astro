@@ -1,0 +1,59 @@
+---
+// „Kontakt" — Ansprechpersonen je Gemeinde + Pfarrbüro Sankt Bonifatius.
+// Eigene Klassen `astro-pfs-kon` (Handbuch 3). Abschluss-Band in warmem Braun
+// (Design-System 5: CTA-Verlauf #4a2e1a → #3a2315 statt Near-Black).
+// ⚠️ ANSPRECHPERSONEN NOCH OFFEN: je Gemeinde `person`, `tel` (Anzeige), `telHref`, `mail` eintragen.
+// Leere Felder werden nicht angezeigt; ohne Person erscheint „Ansprechperson folgt".
+const kontakte = [
+  { gemeinde: 'Kath. Pfarrei Sankt Bonifatius Frankfurt',  person: '', tel: '', telHref: '', mail: '' },
+  { gemeinde: 'Evang. Dreikönigsgemeinde Frankfurt',       person: '', tel: '', telHref: '', mail: '' },
+  { gemeinde: 'Evang. Maria-Magdalena-Gemeinde Frankfurt', person: '', tel: '', telHref: '', mail: '' },
+  { gemeinde: 'Evang. Erlösergemeinde Frankfurt-Oberrad',  person: '', tel: '', telHref: '', mail: '' },
+];
+---
+<section class="astro-pfs-sec astro-pfs-kon" id="kontakt">
+  <div class="astro-pfs-wrap">
+    <div class="astro-pfs-head">
+      <h2 class="astro-pfs-hl astro-pfs-kon__hl">Fragen? Sprechen Sie uns an</h2>
+    </div>
+    <ul class="astro-pfs-kon__grid">
+      {kontakte.map((k) => (
+        <li class="astro-pfs-kon__card">
+          <p class="astro-pfs-kon__gem">{k.gemeinde}</p>
+          {k.person
+            ? <p class="astro-pfs-kon__name">{k.person}</p>
+            : <p class="astro-pfs-kon__tbd">Ansprechperson folgt</p>}
+          {k.tel && <a class="astro-pfs-kon__line" href={`tel:${k.telHref}`}>{k.tel}</a>}
+          {k.mail && <a class="astro-pfs-kon__line" href={`mailto:${k.mail}`}>{k.mail}</a>}
+        </li>
+      ))}
+    </ul>
+    <div class="astro-pfs-kon__buero">
+      <p class="astro-pfs-kon__buero-hl">Pfarrbüro Sankt Bonifatius</p>
+      <p class="astro-pfs-kon__buero-line">
+        <a href="tel:+4969695975850">069 69597585-0</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="mailto:info@sanktbonifatius.de">info@sanktbonifatius.de</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-pfs-kon{position:relative;background:linear-gradient(135deg,#4a2e1a 0%,#3a2315 100%);color:#fff}
+.astro-pfs-kon .astro-pfs-hl{color:#fff}
+.astro-pfs-kon__grid{list-style:none;margin:0 0 36px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.astro-pfs-kon__card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--bf-radius);padding:22px}
+.astro-pfs-kon__gem{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--accent-gold-deco);margin:0 0 10px;line-height:1.45}
+.astro-pfs-kon__name{font-family:var(--pfs-serif);font-size:18px;font-weight:700;margin:0 0 8px}
+.astro-pfs-kon__tbd{font-size:15px;font-style:italic;color:var(--txt-muted-dark);margin:0}
+.astro-pfs-kon__line{display:block;font-size:14.5px;color:rgba(255,255,255,.9);text-decoration:none;margin-top:4px;word-break:break-word}
+.astro-pfs-kon__line:hover{color:var(--accent-gold-deco)}
+.astro-pfs-kon__buero{text-align:center;border-top:1px solid rgba(255,255,255,.14);padding-top:28px}
+.astro-pfs-kon__buero-hl{font-family:var(--pfs-serif);font-size:21px;font-weight:700;margin:0 0 8px}
+.astro-pfs-kon__buero-line{font-size:16px;margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 12px;color:var(--txt-muted-dark)}
+.astro-pfs-kon__buero-line a{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.astro-pfs-kon__buero-line a:hover{color:var(--accent-gold-deco)}
+@media(max-width:960px){.astro-pfs-kon__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.astro-pfs-kon__grid{grid-template-columns:1fr}}
+</style>
