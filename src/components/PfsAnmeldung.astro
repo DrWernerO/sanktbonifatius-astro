@@ -1,6 +1,7 @@
 ---
 // „Anmeldung" (id="anmeldung") — ChurchDesk-Embed nach dem Muster ChurchDeskForm.astro
-// (iframe + postMessage-Resize-Script). Eigene Klassen `astro-pfs-anm` (Handbuch 3).
+// (iframe + postMessage-Resize-Script), auf Werners Wunsch als aufklappbares <details> (spart
+// Platz). Links auf #anmeldung (z. B. Hero-Button) klappen das Formular automatisch auf. Eigene Klassen `astro-pfs-anm` (Handbuch 3).
 // Formular „Pause für die Seele 2027" (forms.churchdesk.com/f/SPn9jBpbbJ, von Werner am 30.09.2026).
 // Die interne ChurchDesk-Form-ID (für das Resize-Script, sonst aus dem Einbettungscode
 // <div id="form__<ID>">) ist nicht bekannt — das Script passt deshalb notfalls den Rahmen
@@ -23,11 +24,16 @@ const embed = FORM_URL
         Start bei Ihnen.
       </p>
     </div>
-    <div class="astro-pfs-anm__box">
-      {embed
-        ? <Fragment set:html={embed} />
-        : <p class="astro-pfs-anm__soon">Das Anmeldeformular wird hier in Kürze freigeschaltet.</p>}
-    </div>
+    {embed
+      ? <details class="astro-pfs-anm__box" id="anmeldung-formular">
+          <summary class="astro-pfs-anm__toggle">
+            <span class="astro-pfs-anm__zu">Anmeldeformular öffnen</span>
+            <span class="astro-pfs-anm__auf">Anmeldeformular schließen</span>
+            <span class="astro-pfs-anm__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="astro-pfs-anm__form"><Fragment set:html={embed} /></div>
+        </details>
+      : <div class="astro-pfs-anm__box"><p class="astro-pfs-anm__soon">Das Anmeldeformular wird hier in Kürze freigeschaltet.</p></div>}
     <p class="astro-pfs-anm__phone">
       Lieber telefonisch? Sie können sich auch im Pfarrbüro anmelden:
       <a href="tel:+4969695975850">069 69597585-0</a>
@@ -48,16 +54,37 @@ const embed = FORM_URL
     }
   }, false);
   window.pfsFormResizeRegistered = true;
+
+  // „Jetzt anmelden"-Links (#anmeldung) und direkter Aufruf mit #anmeldung klappen das Formular auf.
+  function oeffnen(){ var f = document.getElementById('anmeldung-formular'); if (f) f.open = true; }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href="#anmeldung"]');
+    if (a) oeffnen();
+  });
+  if (location.hash === '#anmeldung') oeffnen();
 })();
 </script>
 
 <style is:global>
 .astro-pfs-anm{background:var(--bf-bg);scroll-margin-top:90px}
-.astro-pfs-anm__box{background:#fff;border-radius:var(--bf-radius);padding:32px;box-shadow:var(--bf-shadow);border:1px solid var(--bf-border)}
+.astro-pfs-anm__box{background:#fff;border-radius:var(--bf-radius);box-shadow:var(--bf-shadow);border:1px solid var(--bf-border);overflow:hidden}
+.astro-pfs-anm__toggle{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:14px;padding:20px 24px;font-size:16px;font-weight:600;color:#fff;background:var(--bf-accent);transition:background .2s}
+.astro-pfs-anm__toggle::-webkit-details-marker{display:none}
+.astro-pfs-anm__toggle:hover{filter:brightness(1.08)}
+.astro-pfs-anm__toggle:focus-visible{outline:3px solid var(--accent-gold-deco);outline-offset:-3px}
+.astro-pfs-anm__icon{position:relative;width:14px;height:14px;flex-shrink:0}
+.astro-pfs-anm__icon::before,.astro-pfs-anm__icon::after{content:"";position:absolute;left:0;top:6px;width:14px;height:2px;background:currentColor;transition:transform .25s}
+.astro-pfs-anm__icon::after{transform:rotate(90deg)}
+.astro-pfs-anm__box[open] .astro-pfs-anm__icon::after{transform:rotate(0)}
+.astro-pfs-anm__box[open] > .astro-pfs-anm__toggle{background:var(--bf-ink)}
+.astro-pfs-anm__auf{display:none}
+.astro-pfs-anm__box[open] .astro-pfs-anm__zu{display:none}
+.astro-pfs-anm__box[open] .astro-pfs-anm__auf{display:inline}
+.astro-pfs-anm__form{padding:28px 32px 32px}
 .astro-pfs-anm__embed{position:relative;overflow:hidden;max-width:100%;border-radius:8px}
 .astro-pfs-anm__embed iframe{position:relative;top:0;left:0;width:100%;height:100%;border:0;min-height:680px}
-.astro-pfs-anm__soon{margin:0;text-align:center;font-family:var(--pfs-serif);font-style:italic;font-size:18px;color:var(--txt-muted-light);padding:28px 0}
+.astro-pfs-anm__soon{margin:0;text-align:center;font-family:var(--pfs-serif);font-style:italic;font-size:18px;color:var(--txt-muted-light);padding:40px 24px}
 .astro-pfs-anm__phone{text-align:center;font-size:15.5px;color:var(--txt-muted-light);margin:22px 0 0;line-height:1.6}
 .astro-pfs-anm__phone a{color:var(--bf-accent);font-weight:600;white-space:nowrap}
-@media(max-width:600px){.astro-pfs-anm__box{padding:20px}}
+@media(max-width:600px){.astro-pfs-anm__form{padding:16px 14px 20px}}
 </style>
