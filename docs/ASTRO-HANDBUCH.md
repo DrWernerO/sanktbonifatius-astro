@@ -420,8 +420,8 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 | `/whatsapp-kanal/` | `/bonfamily/whatsapp-kanal/` |
 | `/gottesdienste/` | `/gottesdienst-glaube/gottesdienstordnung/` |
 | `/gottesdienstordnung/` | `/gottesdienst-glaube/gottesdienstordnung/` |
-| `/pause/` | `/gottesdienst-glaube/pause-fuer-die-seele/` |
-| `/exerzitien/` | `/gottesdienst-glaube/pause-fuer-die-seele/` (bis 30.09.2026: `/gottesdienst-glaube/`) |
+| `/pause/` | `/exerzitien2027/` |
+| `/exerzitien/` | `/exerzitien2027/` (bis 30.09.2026: `/gottesdienst-glaube/`) |
 
 - **Bewusst KEINE Kurz-URL:** `/gottesdienste-die-beruehren/` (über die Navigation gut
   erreichbar), `/kontakt/` und `/ueberuns/` (sind bereits Top-Level-Adressen).
