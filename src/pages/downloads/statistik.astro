@@ -18,10 +18,25 @@ const gesamtHighlights = wochen.reduce((summe, w) => summe + w.highlights, 0);
 const qrZeilen = (await leseQrZaehler()).sort(
   (a, b) => a.kampagne.localeCompare(b.kampagne) || a.quelle.localeCompare(b.quelle)
 );
-const qrJahre = [...new Set(qrZeilen.flatMap((z) => Object.keys(z.jahre)))].sort().reverse();
-// Monatsübersicht (Wunsch Werner, 2026-10-01): eine Zeile pro Monat mit Scans, neuester oben,
-// eine Spalte pro Kurzlink.
-const qrMonate = [...new Set(qrZeilen.flatMap((z) => Object.keys(z.monate)))].sort().reverse();
+// Aufteilung (Wunsch Werner, 2026-10-01): oben nur die wirklich eingeführten Codes (`aktiv: true`
+// in qr-links.js), alle übrigen darunter unter „Mögliche weitere QR-Scans". Je Gruppe eine
+// Jahrestabelle und eine Monatsübersicht (neuester Monat oben, eine Spalte pro Code).
+const qrGruppen = [
+  {
+    id: 'qr', ueberschrift: 'QR-Scans',
+    hinweis: 'Zählt jeden Aufruf eines Kurzlinks sanktbonifatius.de/go/… (also jeden Scan eines QR-Codes), ebenfalls unabhängig von der Cookie-Einwilligung. Hier stehen nur die QR-Codes, die bereits im Umlauf sind.',
+    zeilen: qrZeilen.filter((z) => z.aktiv),
+  },
+  {
+    id: 'qr-weitere', ueberschrift: 'Mögliche weitere QR-Scans',
+    hinweis: 'Eingerichtete Kurzlinks, deren QR-Code noch nicht (oder nicht mehr) im Umlauf ist. Zählt genauso; Aufrufe hier stammen meist von Tests.',
+    zeilen: qrZeilen.filter((z) => !z.aktiv),
+  },
+].map((g) => ({
+  ...g,
+  jahre: [...new Set(g.zeilen.flatMap((z) => Object.keys(z.jahre)))].sort().reverse(),
+  monate: [...new Set(g.zeilen.flatMap((z) => Object.keys(z.monate)))].sort().reverse(),
+}));
 const MONATSNAMEN = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August',
   'September', 'Oktober', 'November', 'Dezember'];
 // "2026-10" -> "Oktober 2026"
@@ -79,60 +94,64 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
           </table>
       }
 
-      <h2 id="qr">QR-Scans</h2>
-      <p class="astro-dlstat__hinweis">
-        Zählt jeden Aufruf eines Kurzlinks sanktbonifatius.de/go/… (also jeden Scan eines
-        QR-Codes), ebenfalls unabhängig von der Cookie-Einwilligung. Eine Zeile pro Code,
-        sortiert nach Kampagne.
-      </p>
-      <div class="astro-dlstat__scroll">
-        <table class="astro-dlstat__table">
-          <thead>
-            <tr>
-              <th scope="col">Kampagne</th>
-              <th scope="col">Quelle</th>
-              {qrJahre.map((j) => <th scope="col">{j}</th>)}
-              <th scope="col">Gesamt</th>
-            </tr>
-          </thead>
-          <tbody>
-            {qrZeilen.map((z) => (
-              <tr>
-                <th scope="row" title={z.name}>{z.titel}<span class="astro-dlstat__sub">{z.kampagne}</span></th>
-                <td class="astro-dlstat__txt">{z.quelle}</td>
-                {qrJahre.map((j) => <td>{z.jahre[j] || 0}</td>)}
-                <td>{z.gesamt}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {qrGruppen.map((g) => (
+        <>
+          <h2 id={g.id}>{g.ueberschrift}</h2>
+          <p class="astro-dlstat__hinweis">{g.hinweis}</p>
+          {g.zeilen.length === 0
+            ? <p class="astro-dlstat__leer">Keine Einträge.</p>
+            : <>
+                <div class="astro-dlstat__scroll">
+                  <table class="astro-dlstat__table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Kampagne</th>
+                        <th scope="col">Quelle</th>
+                        {g.jahre.map((j) => <th scope="col">{j}</th>)}
+                        <th scope="col">Gesamt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {g.zeilen.map((z) => (
+                        <tr>
+                          <th scope="row" title={z.name}>{z.titel}<span class="astro-dlstat__sub">{z.kampagne}</span></th>
+                          <td class="astro-dlstat__txt">{z.quelle}</td>
+                          {g.jahre.map((j) => <td>{z.jahre[j] || 0}</td>)}
+                          <td>{z.gesamt}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
 
-      <h3 id="qr-monate">QR-Scans nach Monat</h3>
-      <p class="astro-dlstat__hinweis">Neuester Monat oben, eine Spalte pro Code.</p>
-      {qrMonate.length === 0
-        ? <p class="astro-dlstat__leer">Noch keine Scans gezählt.</p>
-        : <div class="astro-dlstat__scroll">
-            <table class="astro-dlstat__table">
-              <thead>
-                <tr>
-                  <th scope="col">Monat</th>
-                  {qrZeilen.map((z) => (
-                    <th scope="col" title={z.name}>{z.titel}<span class="astro-dlstat__sub">{z.quelle}</span></th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {qrMonate.map((m) => (
-                  <tr>
-                    <th scope="row">{formatMonat(m)}</th>
-                    {qrZeilen.map((z) => <td>{z.monate[m] || 0}</td>)}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-      }
+                <h3 id={`${g.id}-monate`}>{g.ueberschrift} nach Monat</h3>
+                {g.monate.length === 0
+                  ? <p class="astro-dlstat__leer">Noch keine Scans gezählt.</p>
+                  : <div class="astro-dlstat__scroll">
+                      <table class="astro-dlstat__table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Monat</th>
+                            {g.zeilen.map((z) => (
+                              <th scope="col" title={z.name}>{z.titel}<span class="astro-dlstat__sub">{z.quelle}</span></th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {g.monate.map((m) => (
+                            <tr>
+                              <th scope="row">{formatMonat(m)}</th>
+                              {g.zeilen.map((z) => <td>{z.monate[m] || 0}</td>)}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                }
+              </>
+          }
+        </>
+      ))}
     </div>
   </section>
 </Base>

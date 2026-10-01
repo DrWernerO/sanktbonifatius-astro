@@ -30,7 +30,7 @@ export async function leseQrZaehler() {
   const zeilen = new Map(
     Object.entries(QR_LINKS).map(([name, e]) => [
       name,
-      { name, titel: e.titel, quelle: e.quelle, kampagne: e.kampagne, jahre: {}, monate: {}, gesamt: 0 },
+      { name, titel: e.titel, quelle: e.quelle, kampagne: e.kampagne, aktiv: !!e.aktiv, jahre: {}, monate: {}, gesamt: 0 },
     ])
   );
   for (const blob of blobs) {

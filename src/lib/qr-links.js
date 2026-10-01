@@ -10,6 +10,8 @@
 //   „Medium"                        → medium   (utm_medium, optional, Standard 'qr')
 //   „Kampagne"                      → kampagne (utm_campaign)
 //   „Veranstaltung / Zweck"         → titel    (nur für die Statistikseite)
+//   aktiv: true                     → Code ist wirklich gedruckt/im Umlauf; nur diese stehen oben in
+//                                     der Statistik, alle anderen unter „Mögliche weitere QR-Scans"
 //
 // Gedruckte Codes lassen sich nicht mehr ändern → Einträge NIE löschen oder umbenennen, nur
 // `ziel` anpassen, wenn sich die Zielseite ändert. Unbekannte Namen landen auf der Startseite.
@@ -38,6 +40,7 @@ export const QR_LINKS = {
   // TODO: Zeile in Franks Excel nachtragen.
   'boniwein-whatsapp': {
     titel: 'Boni Wein – WhatsApp-Kanal',
+    aktiv: true, // Werner, 2026-10-01: einziger bereits eingeführter QR-Code
     ziel: 'https://whatsapp.com/channel/0029VbB7E1CLikgAZ8cyHk1a',
     quelle: 'weinflasche',
     kampagne: 'boni-wein-2026-10',
