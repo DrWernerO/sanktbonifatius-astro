@@ -31,6 +31,15 @@ export const QR_LINKS = {
     quelle: 'weinflasche',
     kampagne: 'boni-wein-2026-10',
   },
+  // Brief mit QR-Code zum Flyer „Herzlich willkommen in Sankt Bonifatius" für Neuzugezogene
+  // (Auftrag Werner, 2026-10-01). Ziel ist die versteckte Landingpage (Handbuch 18). Bewusst kurzer
+  // Name, weil die Adresse auch abgetippt wird. TODO: Zeile in Franks Excel nachtragen.
+  'willkommen': {
+    titel: 'Willkommensbrief Neuzugezogene',
+    ziel: '/willkommen/',
+    quelle: 'brief-willkommensflyer',
+    kampagne: 'willkommen-neuzugezogene-2026',
+  },
 };
 
 // Vollständige Weiterleitungs-Adresse (relativ) inkl. UTM-Etiketten für GA4.

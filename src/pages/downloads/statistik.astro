@@ -19,6 +19,16 @@ const qrZeilen = (await leseQrZaehler()).sort(
   (a, b) => a.kampagne.localeCompare(b.kampagne) || a.quelle.localeCompare(b.quelle)
 );
 const qrJahre = [...new Set(qrZeilen.flatMap((z) => Object.keys(z.jahre)))].sort().reverse();
+// Monatsübersicht (Wunsch Werner, 2026-10-01): eine Zeile pro Monat mit Scans, neuester oben,
+// eine Spalte pro Kurzlink.
+const qrMonate = [...new Set(qrZeilen.flatMap((z) => Object.keys(z.monate)))].sort().reverse();
+const MONATSNAMEN = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August',
+  'September', 'Oktober', 'November', 'Dezember'];
+// "2026-10" -> "Oktober 2026"
+function formatMonat(m) {
+  const [j, mm] = m.split('-');
+  return `${MONATSNAMEN[Number(mm) - 1]} ${j}`;
+}
 
 // "2026-09-01" (Montag) -> "01.09.–07.09.2026"
 function formatWoche(montagIso) {
@@ -97,6 +107,32 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
           </tbody>
         </table>
       </div>
+
+      <h3 id="qr-monate">QR-Scans nach Monat</h3>
+      <p class="astro-dlstat__hinweis">Neuester Monat oben, eine Spalte pro Code.</p>
+      {qrMonate.length === 0
+        ? <p class="astro-dlstat__leer">Noch keine Scans gezählt.</p>
+        : <div class="astro-dlstat__scroll">
+            <table class="astro-dlstat__table">
+              <thead>
+                <tr>
+                  <th scope="col">Monat</th>
+                  {qrZeilen.map((z) => (
+                    <th scope="col" title={z.name}>{z.titel}<span class="astro-dlstat__sub">{z.quelle}</span></th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {qrMonate.map((m) => (
+                  <tr>
+                    <th scope="row">{formatMonat(m)}</th>
+                    {qrZeilen.map((z) => <td>{z.monate[m] || 0}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+      }
     </div>
   </section>
 </Base>
@@ -119,6 +155,14 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     color: var(--clr-primary);
     scroll-margin-top: 110px;
   }
+  .astro-dlstat h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(19px, 2vw, 22px);
+    margin: 40px 0 8px;
+    color: var(--clr-primary);
+    scroll-margin-top: 110px;
+  }
+  .astro-dlstat__table thead th .astro-dlstat__sub { text-transform: none; letter-spacing: 0; }
   .astro-dlstat__scroll { overflow-x: auto; }
   .astro-dlstat__sub { display: block; font-size: 13px; font-weight: 400; color: var(--clr-muted); }
   .astro-dlstat__table td.astro-dlstat__txt { text-align: left; font-weight: 400; }
