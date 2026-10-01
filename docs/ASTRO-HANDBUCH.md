@@ -487,7 +487,9 @@ lokalisiert). Übrig bleiben nur PDF-Links (bewusst, siehe oben).
   (Abschnitt 1d), Netlify Blobs Store **`qr-scans`**, Schlüssel `<name>:<YYYY-MM>`. Zählt nur
   Namen aus `QR_LINKS` (keine beliebigen Schlüssel von außen). Kein Personenbezug, keine Cookies.
 - **Auswertung:** Tabelle „QR-Scans" (Jahre) + „QR-Scans nach Monat" (seit 2026-10-01) auf `/downloads/statistik` (Basic-Auth, Abschnitt 1d),
-  eine Spalte pro Jahr + Gesamt. GA4 bekommt die UTM-Etiketten zusätzlich, sieht aber nur
+  oben nur Codes mit `aktiv: true` (wirklich im Umlauf), alle übrigen unter „Mögliche weitere
+  QR-Scans" (seit 2026-10-01). Wird ein Code gedruckt/eingeführt → `aktiv: true` setzen.
+  Jahrestabellen: eine Spalte pro Jahr + Gesamt. GA4 bekommt die UTM-Etiketten zusätzlich, sieht aber nur
   Besucher mit Cookie-Zustimmung → **maßgeblich ist die eigene Zählung.**
 
 ### Externe Ziele (z. B. WhatsApp-Kanal)
