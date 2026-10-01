@@ -1,45 +1,71 @@
 ---
-// „Tauftermine 2026" (WP-Block `ta-termine`). Eigene Klassen `astro-tatermine`.
+// „Tauftermine" (WP-Block `ta-termine`). Eigene Klassen `astro-tatermine`.
 // id="termine" für die Hero-Sprungmarke.
 //
-// Termine kommen aus der WP-Seite 50101 (/segen-sakramente/taufe/tauftermine/), im normalen
-// WP-Editor pflegbar (Handbuch 13c): H3 = Kirche, Absatz = Adresse, Liste = Termine. So können
-// die Sekretärinnen vergangene Termine löschen und neue ergänzen, ohne Code. Fällt WP aus,
-// greift die feste FALLBACK-Liste → der Build bricht nie ab und die Sektion ist nie leer.
-import { getTaufeTermine } from '../lib/wordpress.js';
+// Termine kommen aus einer Word-Datei im Mediathek-Ordner „Astro Upload/Tauftermine"
+// (RML 206, Handbuch 13c): Kirchenname als Zeile, darunter ein Termin pro Aufzählungspunkt,
+// z.B. „SA. 17.10.2026, 11 Uhr" oder „SO. 07.02.2027, 11 Uhr in der Sonntagsmesse".
+// Uhrzeit frei, Zusatz optional, vergangene Termine fallen automatisch weg. Fällt WP aus,
+// greift die FALLBACK-Liste (gleiches Format) → der Build bricht nie ab.
+import { getTaufeTermine, parseTaufText, TAUF_KIRCHEN } from '../lib/wordpress.js';
 
-const FALLBACK = [
-  { name: 'St. Bonifatius', adresse: 'Holbeinstr. 70 · 60596 Frankfurt-Sachsenhausen',
-    termine: ['22. August 2026','12. September 2026','17. Oktober 2026','7. November 2026','5. Dezember 2026'] },
-  { name: 'St. Wendel', adresse: 'Altes Schützenhüttengäßchen 4–6 · 60599 Frankfurt-Sachsenhausen',
-    termine: ['20. Juni 2026','15. August 2026','19. September 2026','17. Oktober 2026','14. November 2026','19. Dezember 2026'] },
-  { name: 'Herz Jesu', adresse: 'Mathildenstr. 32 · 60599 Frankfurt-Oberrad',
-    termine: ['29. August 2026','24. Oktober 2026'] },
-];
+const ADRESSEN = {
+  'St. Bonifatius': 'Holbeinstr. 70 · 60596 Frankfurt-Sachsenhausen',
+  'St. Wendel': 'Altes Schützenhüttengäßchen 4–6 · 60599 Frankfurt-Sachsenhausen',
+  'Herz Jesu': 'Mathildenstr. 32 · 60599 Frankfurt-Oberrad',
+};
+const FALLBACK = `
+St. Bonifatius
+SA. 17.10.2026, 11 Uhr
+SA. 07.11.2026, 11 Uhr
+SA. 05.12.2026, 11 Uhr
+SO. 07.02.2027, 11 Uhr in der Sonntagsmesse
+St. Wendel
+SA. 17.10.2026, 11 Uhr
+SA. 14.11.2026, 11 Uhr
+SA. 19.12.2026, 11 Uhr
+Herz Jesu
+SA. 24.10.2026, 11 Uhr
+`;
 const fromWp = await getTaufeTermine();
-const kirchen = fromWp.length ? fromWp : FALLBACK;
+const geladen = fromWp.length ? fromWp : parseTaufText(FALLBACK);
+// Immer alle drei Kirchen in fester Reihenfolge zeigen, auch wenn eine gerade keine Termine hat.
+const kirchen = TAUF_KIRCHEN.map((name) => ({
+  name,
+  adresse: ADRESSEN[name],
+  termine: geladen.find((k) => k.name === name)?.termine ?? [],
+}));
 ---
 <section class="astro-tatermine" id="termine">
   <div class="astro-tatermine__inner">
     <div class="astro-tatermine__head">
-      <h2 class="astro-tatermine__hl">Tauftermine 2026</h2>
-      <p class="astro-tatermine__sub">Wählen Sie eine unserer drei Kirchen. Alle Gottesdienste beginnen um 11 Uhr.</p>
+      <h2 class="astro-tatermine__hl">Tauftermine</h2>
+      <p class="astro-tatermine__sub">Wählen Sie eine unserer drei Kirchen. Wir taufen samstags in einem eigenen Taufgottesdienst oder sonntags in der Messe.</p>
     </div>
     <div class="astro-tatermine__grid">
       {kirchen.map((k) => (
         <article class="astro-tatermine-card">
           <div class="astro-tatermine-card__head">
             <h3 class="astro-tatermine-card__name">{k.name}</h3>
-            <p class="astro-tatermine-card__adr" set:html={k.adresse} />
+            <p class="astro-tatermine-card__adr">{k.adresse}</p>
           </div>
-          <ul class="astro-tatermine-card__dates">
-            {k.termine.map((t) => (<li>{t}</li>))}
-          </ul>
+          {k.termine.length ? (
+            <ul class="astro-tatermine-card__dates">
+              {k.termine.map((t) => (
+                <li>
+                  <time datetime={t.iso}>{t.datum}</time>{t.uhrzeit && <span class="astro-tatermine-card__time"> · {t.uhrzeit}</span>}
+                  {t.zusatz && <span class="astro-tatermine-card__extra">{t.zusatz}</span>}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="astro-tatermine-card__empty">Neue Termine folgen in Kürze.</p>
+          )}
         </article>
       ))}
     </div>
     <p class="astro-tatermine__note">
-      Alle Gottesdienste beginnen um 11 Uhr. Anmeldung bitte über das Formular weiter unten oder telefonisch.
+      Die Uhrzeit steht jeweils beim Termin. Anmeldung bitte über das Formular weiter unten oder telefonisch.
     </p>
   </div>
 </section>
@@ -59,6 +85,9 @@ const kirchen = fromWp.length ? fromWp : FALLBACK;
 .astro-tatermine-card__dates li{font-size:15px;color:#3d3530;padding:7px 0 7px 22px;position:relative;border-bottom:1px solid #efe7dd}
 .astro-tatermine-card__dates li:last-child{border-bottom:none}
 .astro-tatermine-card__dates li::before{content:"";position:absolute;left:2px;top:14px;width:7px;height:7px;border-radius:50%;background:var(--accent-gold-deco)}
+.astro-tatermine-card__time{color:#6b5c52}
+.astro-tatermine-card__extra{display:block;font-size:13px;color:#9a2d2d;margin-top:2px}
+.astro-tatermine-card__empty{font-size:14.5px;color:var(--txt-muted-light);margin:0}
 .astro-tatermine__note{text-align:center;font-size:14px;color:var(--txt-muted-light);margin:36px 0 0}
 @media(max-width:920px){.astro-tatermine__grid{grid-template-columns:1fr;gap:16px}.astro-tatermine-card__head{min-height:0}}
 @media(max-width:600px){.astro-tatermine{padding:52px 0}.astro-tatermine__inner{padding:0 20px}}

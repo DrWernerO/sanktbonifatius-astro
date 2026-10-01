@@ -34,37 +34,72 @@ export async function getPageById(id) {
   return page;
 }
 
-// Tauftermine aus einer einfachen WP-Seite ziehen (Default: Page 50101, /segen-sakramente/taufe/tauftermine/).
-// Konvention der WP-Seite (im normalen Editor pflegbar, Handbuch 13c): pro Kirche eine
-// Überschrift H3 (= Kirchenname), darunter EIN Absatz (= Adresse), dann eine Liste (= Termine,
-// ein Datum pro Listenpunkt). Liefert [{ name, adresse, termine[] }]. Fällt WP aus → [] (der
-// Aufrufer nutzt dann eine feste Fallback-Liste, der Build bricht nie ab).
-export async function getTaufeTermine(id = 50101) {
+// Tauftermine kommen seit 2026-10-01 aus einer Word-Datei im Mediathek-Ordner
+// "Astro Upload/Tauftermine" (RML-Ordner-ID 206) statt aus WP-Seite 50101 (Handbuch 13c).
+// Wie beim Monatsbrief zählt einfach die neueste Datei im Ordner.
+const TAUFTERMINE_FOLDER = 206;
+export const TAUF_KIRCHEN = ['St. Bonifatius', 'St. Wendel', 'Herz Jesu'];
+
+const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August',
+  'September', 'Oktober', 'November', 'Dezember'];
+const WOCHENTAGE = ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'];
+const normName = (s) => s.toLowerCase().replace(/[^a-zäöüß]/g, '');
+
+// Eine Termin-Zeile aus Word ("SA. 17.10.2026, 11 Uhr in der Sonntagsmesse") zerlegen in
+// { datum: 'Sa., 17. Oktober 2026', uhrzeit: '11 Uhr', zusatz: 'in der Sonntagsmesse', iso }.
+// Der Wochentag wird aus dem Datum berechnet (ein Tippfehler beim Wochentag stört so nicht).
+// Ohne erkennbares Datum → null.
+export function parseTaufZeile(zeile) {
+  const m = zeile.match(/(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})/);
+  if (!m) return null;
+  const [, t, mo, j] = m.map(Number);
+  const d = new Date(Date.UTC(j, mo - 1, t));
+  if (d.getUTCMonth() !== mo - 1) return null;
+  const rest = zeile.slice(m.index + m[0].length).replace(/^[\s,;–-]+/, '').trim();
+  const zeit = rest.match(/^(\d{1,2}(?:[.:]\d{2})?\s*Uhr)\s*(.*)$/i);
+  return {
+    iso: d.toISOString().slice(0, 10),
+    datum: `${WOCHENTAGE[d.getUTCDay()]}, ${t}. ${MONATE[mo - 1]} ${j}`,
+    uhrzeit: zeit ? zeit[1].replace(/\s+/g, ' ') : '',
+    zusatz: (zeit ? zeit[2] : rest).replace(/^[\s,;–-]+/, '').trim(),
+  };
+}
+
+// Text der Word-Datei → [{ name, termine[] }]. Kirchenname = Zeile, die genau einem Eintrag
+// aus TAUF_KIRCHEN entspricht; danach jede Zeile mit Datum ein Termin. Alles andere (z.B. der
+// Pflege-Hinweis oben in der Datei) wird ignoriert. Vergangene Termine fallen heraus.
+export function parseTaufText(text, heute = new Date().toISOString().slice(0, 10)) {
+  const kirchen = [];
+  let aktuell = null;
+  for (const zeile of text.split(/\n+/).map((z) => z.trim()).filter(Boolean)) {
+    const name = TAUF_KIRCHEN.find((k) => normName(k) === normName(zeile));
+    if (name) {
+      aktuell = { name, termine: [] };
+      kirchen.push(aktuell);
+      continue;
+    }
+    const termin = aktuell && parseTaufZeile(zeile);
+    if (termin && termin.iso >= heute) aktuell.termine.push(termin);
+  }
+  return kirchen;
+}
+
+// Liefert [{ name, termine[] }] aus der neuesten Word-Datei im TAUFTERMINE_FOLDER. Fällt WP aus
+// oder ist die Datei unlesbar → [] (der Aufrufer nutzt dann seine Fallback-Liste).
+export async function getTaufeTermine() {
   try {
     const res = await fetch(
-      `${WP_API}/pages/${id}?_fields=content`,
-      { headers: { Accept: 'application/json' }, cache: 'no-store' }
+      `${WP_API}/media?rml_folder=${TAUFTERMINE_FOLDER}&media_type=application&orderby=date&order=desc&per_page=1&_fields=id,source_url,mime_type`,
+      { cache: 'no-store' }
     );
     if (!res.ok) return [];
-    const page = await res.json();
-    const html = page?.content?.rendered ?? '';
-    if (!html) return [];
-
-    const strip = (s) => decodeEntities(s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
-    const kirchen = [];
-    // An H3-Überschriften aufteilen; jeder Abschnitt: erster <p> = Adresse, alle <li> = Termine.
-    const parts = html.split(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
-    for (let i = 1; i < parts.length; i += 2) {
-      const name = strip(parts[i]);
-      const rest = parts[i + 1] ?? '';
-      const adrMatch = rest.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
-      const adresse = adrMatch ? strip(adrMatch[1]) : '';
-      const termine = [...rest.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)]
-        .map((m) => strip(m[1]))
-        .filter(Boolean);
-      if (name) kirchen.push({ name, adresse, termine });
-    }
-    return kirchen;
+    const [doc] = await res.json();
+    if (!doc?.source_url || !doc.source_url.toLowerCase().endsWith('.docx')) return [];
+    const file = await fetch(doc.source_url, { headers: { 'User-Agent': BUILD_UA } });
+    if (!file.ok) return [];
+    const { default: mammoth } = await import('mammoth');
+    const { value } = await mammoth.extractRawText({ buffer: Buffer.from(await file.arrayBuffer()) });
+    return parseTaufText(value);
   } catch {
     return [];
   }

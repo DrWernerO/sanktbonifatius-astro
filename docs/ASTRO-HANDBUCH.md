@@ -1022,7 +1022,7 @@ bestehenden WordPress-Handler — siehe Abschnitt 13b.
 <Base seo={await getSeoHead('/segen-sakramente/taufe/')}>
   <TaufeHero />        <!-- astro-tahero   : H1 + 2 Buttons (#anmeldung, #termine), dunkler Verlauf -->
   <TaufeStrip />       <!-- astro-tastrip  : 3 Vorteile (Bordeaux-Band), SVG-Icons -->
-  <TaufeTermine />     <!-- astro-tatermine: „Tauftermine 2026", 3 Kirchen-Karten, id="termine" -->
+  <TaufeTermine />     <!-- astro-tatermine: „Tauftermine", 3 Kirchen-Karten aus Word-Datei (13c), id="termine" -->
   <TaufeSteps />       <!-- astro-tasteps  : „So läuft die Anmeldung", 4 Schritte + 2 CTAs -->
   <TaufeUnterlagen />  <!-- astro-taunter  : „Unterlagen & Taufpaten", 2 Infokarten -->
   <TaufeFest />        <!-- astro-tafest   : „Ein Fest…", Foto-Galerie + Lightbox (34 Fotos) -->
@@ -1098,48 +1098,41 @@ Absender ist **`formular@mail.sanktbonifatius.de`** (Postfach bei **All-inkl** /
 
 ---
 
-## 13c. Tauftermine aus WordPress pflegen (Page 50101) ✅
+## 13c. Tauftermine aus einer Word-Datei in der Mediathek ✅
 
-**Stand: UMGESETZT (2026-06-15).** Die Termine in [`TaufeTermine.astro`](../src/components/TaufeTermine.astro)
-sind **nicht mehr fest im Code**, sondern kommen aus einer eigenen WordPress-Seite, die die
-Sekretärinnen im normalen Editor pflegen — **ohne Code, ohne Plugin**.
+**Stand: UMGESETZT (2026-10-01).** Die Termine in [`TaufeTermine.astro`](../src/components/TaufeTermine.astro)
+kommen aus einer **Word-Datei** im Mediathek-Ordner **„Astro Upload › Tauftermine"
+(RML-Ordner-ID 206)**. Abgelöst die frühere WP-Seite 50101 (H3/Absatz/Liste-Konvention, Juni 2026),
+weil Uhrzeiten jetzt flexibel sind und auch sonntags in der Messe getauft wird.
 
 ### Datenquelle
-- **WP-Seite 50101**, veröffentlicht unter `/segen-sakramente/taufe/tauftermine/`
-  (Titel „Tauftermine"). **Muss `publish` sein** — `getPageById`/`getTaufeTermine` lesen ohne
-  Auth, eine `draft`-Seite liefert die öffentliche REST-API nicht aus.
-- Gelesen von **`getTaufeTermine(id = 50101)`** in [`wordpress.js`](../src/lib/wordpress.js):
-  holt `content.rendered`, parst es und gibt `[{ name, adresse, termine[] }]` zurück.
-  Fällt WP aus → `[]`, dann nutzt die Komponente eine feste **FALLBACK**-Liste (Build bricht nie ab,
-  Sektion nie leer).
+- **`getTaufeTermine()`** in [`wordpress.js`](../src/lib/wordpress.js) holt die **neueste** `.docx`
+  aus Ordner 206 (wie beim Monatsbrief: kein Titel-Filter, Dateiname egal), liest den Text mit
+  **`mammoth`** (`extractRawText`) und zerlegt ihn mit `parseTaufText()` →
+  `[{ name, termine: [{ iso, datum, uhrzeit, zusatz }] }]`.
+- Fällt WP aus / Datei unlesbar → `[]`, dann greift die **FALLBACK**-Liste in der Komponente
+  (gleiches Zeilenformat). Build bricht nie ab.
+- Adressen stehen fest in der Komponente (`ADRESSEN`), nicht in der Word-Datei. Es werden immer
+  alle drei Kirchen gezeigt (`TAUF_KIRCHEN`); ohne Termine erscheint „Neue Termine folgen in Kürze."
 
-### Pflege-Konvention der WP-Seite (genau einhalten!)
-Pro Kirche **ein Block aus drei Teilen** im Gutenberg-Editor:
-1. **Überschrift H3** = Kirchenname (`St. Bonifatius`)
-2. **ein Absatz** direkt darunter = Adresse (`Holbeinstr. 70 · 60596 Frankfurt-Sachsenhausen`)
-3. **eine Liste** = Termine, **ein Datum pro Listenpunkt** (`22. August 2026`)
+### Aufbau der Word-Datei (Vorlage = aktuelle Datei in Ordner 206)
+- Pflege-Hinweis oben → wird ignoriert.
+- Kirchenname als eigene Zeile, **exakt** einer aus `TAUF_KIRCHEN` (`St. Bonifatius`,
+  `St. Wendel`, `Herz Jesu`; Groß-/Kleinschreibung und Satzzeichen egal).
+- Darunter ein Termin pro Aufzählungspunkt: `SA. 17.10.2026, 11 Uhr` bzw.
+  `SO. 07.02.2027, 11 Uhr in der Sonntagsmesse`.
+  - Datum **TT.MM.JJJJ** (Pflicht, sonst wird die Zeile ignoriert).
+  - Wochentag wird aus dem Datum **berechnet** (Tippfehler beim Wochentag schaden nicht).
+  - Uhrzeit frei (`11 Uhr`, `11.30 Uhr`, `12:15 Uhr`), danach optionaler Zusatz → wird auf der
+    Website als kleine rote Zeile unter dem Termin angezeigt.
+- **Vergangene Termine werden beim Build automatisch ausgeblendet.**
 
-→ Vergangene Termine einfach als Listenpunkt **löschen**, neue als Listenpunkt **ergänzen**.
-Neue Kirche = neuer H3-Block. Der Parser teilt an `<h3>`, nimmt den ersten `<p>` als Adresse und
-alle `<li>` als Termine.
+> **Rebuild:** Die Seite ist statisch. Damit ein Upload sofort einen Netlify-Build auslöst, muss der
+> `add_attachment`/`edit_attachment`-Hook in der WP-`functions.php` (Abschnitt 1d) zusätzlich auf
+> „tauftermine" im Medientitel reagieren. ⚠️ **Noch offen** (außerhalb dieses Repos) — bis dahin
+> erscheint eine neue Datei erst beim nächsten ohnehin anstehenden Build.
 
-> **Datum-Filter:** Es wird angezeigt, was in der Liste steht — vergangene Termine werden **nicht
-> automatisch** ausgeblendet (bewusst einfach gehalten: löschen statt Logik). Beim Eintragen die
-> abgelaufenen Zeilen entfernen.
-
-> **Statisch (Netlify):** Änderung erscheint erst nach **Rebuild** (Webhook, Abschnitt 1c).
-> Im Dev (`npm run dev`) sofort, da pro Aufruf frisch geladen.
-
-### Bearbeiten per Anwendungspasswort (Claude/CLI)
-```bash
-# Lesen
-curl -sk -u "Werner:<APP-PW>" \
-  "https://dev.sanktbonifatius.de.w021941a.kasserver.com/wp-json/wp/v2/pages/50101?context=edit&_fields=content"
-# Schreiben: POST mit {"content": "<gutenberg-html>", "status":"publish"}
-```
-App-Passwort: Team-Handbuch `02-zugang-wordpress.md`. Content-Muster (H3 + Absatz + Liste) siehe
-oben; Umlaute/Sonderzeichen als HTML-Entities (`&uuml;`, `&middot;`, `&ndash;`) sind ok — der
-Parser dekodiert sie (`decodeEntities` in `wordpress.js`).
+> WP-Seite 50101 wird nicht mehr gelesen und kann auf Entwurf gesetzt oder gelöscht werden.
 
 ---
 
