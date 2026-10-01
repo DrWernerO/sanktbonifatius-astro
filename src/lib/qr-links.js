@@ -4,7 +4,8 @@
 //
 // Spalten-Zuordnung Excel → Eintrag:
 //   „Kurzlink-Name"                → Schlüssel
-//   „Zielseite"                     → ziel     (Astro-Pfad, z. B. '/termine/<slug>/')
+//   „Zielseite"                     → ziel     (Astro-Pfad, z. B. '/termine/<slug>/', oder externe
+//                                               https-Adresse, z. B. WhatsApp-Kanal — dann ohne UTM)
 //   „Quelle komplett"               → quelle   (utm_source, inkl. Ort, z. B. 'schaukasten-kirche')
 //   „Medium"                        → medium   (utm_medium, optional, Standard 'qr')
 //   „Kampagne"                      → kampagne (utm_campaign)
@@ -31,6 +32,16 @@ export const QR_LINKS = {
     quelle: 'weinflasche',
     kampagne: 'boni-wein-2026-10',
   },
+  // Weinflaschen-Etikett, nächste Druckauflage (Auftrag Werner, 2026-10-01): direkt zum
+  // WhatsApp-Kanal der Pfarrei (wie /kontakt/whatsapp-kanal/). Externes Ziel → keine UTM-Etiketten,
+  // GA4 sieht diese Scans nicht; maßgeblich ist allein der eigene Zähler.
+  // TODO: Zeile in Franks Excel nachtragen.
+  'boniwein-whatsapp': {
+    titel: 'Boni Wein – WhatsApp-Kanal',
+    ziel: 'https://whatsapp.com/channel/0029VbB7E1CLikgAZ8cyHk1a',
+    quelle: 'weinflasche',
+    kampagne: 'boni-wein-2026-10',
+  },
   // Brief mit QR-Code zum Flyer „Herzlich willkommen in Sankt Bonifatius" für Neuzugezogene
   // (Auftrag Werner, 2026-10-01). Ziel ist die versteckte Landingpage (Handbuch 18). Bewusst kurzer
   // Name, weil die Adresse auch abgetippt wird. TODO: Zeile in Franks Excel nachtragen.
@@ -43,7 +54,9 @@ export const QR_LINKS = {
 };
 
 // Vollständige Weiterleitungs-Adresse (relativ) inkl. UTM-Etiketten für GA4.
+// Externe Ziele (WhatsApp o. Ä.) bleiben unverändert — UTM-Etiketten nützen dort nichts.
 export function qrZiel(eintrag) {
+  if (/^https?:\/\//i.test(eintrag.ziel)) return eintrag.ziel;
   const [pfad, vorhandeneParameter = ''] = eintrag.ziel.split('?');
   const params = new URLSearchParams(vorhandeneParameter);
   params.set('utm_source', eintrag.quelle);
