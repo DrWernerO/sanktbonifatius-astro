@@ -1130,7 +1130,7 @@ weil Uhrzeiten jetzt flexibel sind und auch sonntags in der Messe getauft wird.
 > (Abschnitt 1d, `sb_trigger_netlify_build_for_download`) löst seit 2026-10-01 auch bei Uploads in
 > RML-Ordner 206 bzw. bei „tauftermin" im Medientitel einen Netlify-Build aus.
 
-> WP-Seite 50101 wird nicht mehr gelesen und kann auf Entwurf gesetzt oder gelöscht werden.
+> WP-Seite 50101 wurde am 2026-10-01 gelöscht.
 
 ---
 
