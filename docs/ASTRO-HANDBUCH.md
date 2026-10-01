@@ -302,11 +302,10 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 > Monatsprogramm") — keine eigene neue Kachel, kein Klick-Zähler (kein Bestandteil der
 > Pfarrbrief/Highlights-Statistik).
 >
-> ⚠️ **Noch offen:** Der `add_attachment`/`edit_attachment`-Hook in der `functions.php` (s.o.)
-> ist bisher nur auf „pfarrbrief"/„highlights" im Medientitel gefiltert. Ein Upload in RML-Ordner
-> 205 löst damit **noch keinen** automatischen Rebuild aus — die neue Ausgabe erscheint erst
-> nach dem nächsten ohnehin anstehenden Build. Muss noch in WordPress (Theme-Editor,
-> außerhalb dieses Repos) ergänzt werden, z. B. um „monatsbrief" als weiteres Filterwort.
+> ✅ Der `add_attachment`/`edit_attachment`-Hook in der `functions.php` prüft zusätzlich per
+> `sb_attachment_in_rml_folder($post_id, 205)`, ob die Datei in RML-Ordner 205 liegt — ein Upload
+> dort löst also ebenfalls einen Rebuild aus (seit 2026-10-01 genauso für Ordner 206, Tauftermine,
+> Abschnitt 13c).
 
 ---
 
@@ -1127,10 +1126,9 @@ weil Uhrzeiten jetzt flexibel sind und auch sonntags in der Messe getauft wird.
     Website als kleine rote Zeile unter dem Termin angezeigt.
 - **Vergangene Termine werden beim Build automatisch ausgeblendet.**
 
-> **Rebuild:** Die Seite ist statisch. Damit ein Upload sofort einen Netlify-Build auslöst, muss der
-> `add_attachment`/`edit_attachment`-Hook in der WP-`functions.php` (Abschnitt 1d) zusätzlich auf
-> „tauftermine" im Medientitel reagieren. ⚠️ **Noch offen** (außerhalb dieses Repos) — bis dahin
-> erscheint eine neue Datei erst beim nächsten ohnehin anstehenden Build.
+> **Rebuild:** ✅ Der `add_attachment`/`edit_attachment`-Hook in der WP-`functions.php`
+> (Abschnitt 1d, `sb_trigger_netlify_build_for_download`) löst seit 2026-10-01 auch bei Uploads in
+> RML-Ordner 206 bzw. bei „tauftermin" im Medientitel einen Netlify-Build aus.
 
 > WP-Seite 50101 wird nicht mehr gelesen und kann auf Entwurf gesetzt oder gelöscht werden.
 
