@@ -1,0 +1,156 @@
+---
+// Einheitlicher Seitenabschluss der Kita-Seiten (Wunsch Jeannine, 01.10.2026: „den Abschluss
+// aller Kita-Seiten so wie bei der Kita Bonifatius"): Ihr Team (Foto, Funktion, Telefon,
+// E-Mail) → Kita-Koordination der Pfarrei (Foto, Bezeichnung, E-Mail) → Interesse an einem
+// Platz mit Kontaktbox (Daten, Google Maps, Stellenbörse).
+// Optik 1:1 nach KboContent/KboKontakt, eigenes Präfix astro-kteam-.
+// Fehlt ein Foto, steht dort ein neutrales Personen-Symbol (wie bei Deutschorden) — nie ein
+// Platzhalterfoto. Kita-Koordination laut Vorgabe nur mit E-Mail, ohne Telefon.
+interface Person {
+  name: string;
+  role: string;
+  photo?: string;
+}
+interface Props {
+  id: string;
+  team: Person[];
+  teamIntro?: string;
+  tel: string;
+  telHref: string;
+  email: string;
+  adresse: string;
+  mapsQuery: string;
+  platzText: string;
+  extraRows?: { label: string; html: string }[];
+}
+const { id, team, teamIntro, tel, telHref, email, adresse, mapsQuery, platzText, extraRows = [] } = Astro.props;
+const mapsUrl = `https://maps.google.com/?q=${encodeURIComponent(mapsQuery).replace(/%20/g, '+')}`;
+---
+<section class="astro-kteam astro-kteam-sec" id={id}>
+  <div class="astro-kteam__in">
+    <h2 class="astro-kteam__h2">Ihr Team &ndash; Ansprechpersonen</h2>
+    {teamIntro && <p class="astro-kteam__intro" set:html={teamIntro} />}
+
+    <div class={`astro-kteam__team${team.length === 1 ? ' astro-kteam__team--single' : ''}`}>
+      {team.map((p) => (
+        <div class="astro-kteam__person">
+          {p.photo ? (
+            <img src={p.photo} alt={`${p.name}, ${p.role}`} class="astro-kteam__photo" loading="lazy" />
+          ) : (
+            <div class="astro-kteam__photo astro-kteam__photo--none" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+          )}
+          <p class="astro-kteam__role">{p.role}</p>
+          <p class="astro-kteam__name">{p.name}</p>
+          <p class="astro-kteam__info">Tel: <a href={`tel:${telHref}`}>{tel}</a></p>
+          <p class="astro-kteam__info"><a href={`mailto:${email}`}>{email}</a></p>
+        </div>
+      ))}
+    </div>
+
+    <div class="astro-kteam__koord-head">
+      <h3 class="astro-kteam__koord-title">Kita-Koordination der Pfarrei</h3>
+    </div>
+    <div class="astro-kteam__koord">
+      <div class="astro-kteam__koord-card">
+        <img src="/uploads/2026/07/Sandra-Roos-Greulich-2026.jpg" alt="Sandra Roos-Greulich" class="astro-kteam__koord-photo" loading="lazy" />
+        <p class="astro-kteam__koord-role">Kita-Koordinatorin</p>
+        <p class="astro-kteam__koord-name">Sandra Roos-Greulich</p>
+        <a href="mailto:s.roos-greulich@sanktbonifatius.de">s.roos-greulich@sanktbonifatius.de</a>
+      </div>
+      <div class="astro-kteam__koord-card">
+        <img src="/uploads/2026/07/Jeannine-Douverne-2026.jpg" alt="Jeannine Douverne" class="astro-kteam__koord-photo" loading="lazy" />
+        <p class="astro-kteam__koord-role">Referentin Kita-Koordination</p>
+        <p class="astro-kteam__koord-name">Jeannine Douverne</p>
+        <a href="mailto:j.douverne@sanktbonifatius.de">j.douverne@sanktbonifatius.de</a>
+      </div>
+    </div>
+
+    <hr class="astro-kteam__divider" />
+
+    <div class="astro-kteam__addr">
+      <div class="astro-kteam__addr-text">
+        <h2 class="astro-kteam__addr-head">Interesse an einem Platz?</h2>
+        <p set:html={platzText} />
+        <a href="https://www.kindernetfrankfurt.de" target="_blank" rel="noopener" class="astro-kteam__btn">Anmeldung &uuml;ber Kindernet Frankfurt &#8599;</a>
+      </div>
+      <div class="astro-kteam__addr-info">
+        <div class="astro-kteam__row"><strong>Adresse</strong><span set:html={adresse} /></div>
+        <div class="astro-kteam__row"><strong>Telefon</strong><span><a href={`tel:${telHref}`}>{tel}</a></span></div>
+        <div class="astro-kteam__row"><strong>E-Mail</strong><span><a href={`mailto:${email}`}>{email}</a></span></div>
+        {extraRows.map((r) => (
+          <div class="astro-kteam__row"><strong>{r.label}</strong><span set:html={r.html} /></div>
+        ))}
+        <div class="astro-kteam__row"><strong>Jobs</strong><span><a href="/kitas/stellenboerse/" class="astro-kteam__accent">Kita-Stellenb&ouml;rse &rarr;</a></span></div>
+        <div class="astro-kteam__row astro-kteam__row--full"><a href={mapsUrl} target="_blank" rel="noopener">In Google Maps &ouml;ffnen &rarr;</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-kteam-sec {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.astro-kteam { background: var(--bf-bg); padding: 80px 24px; }
+.astro-kteam__in { max-width: 1100px; margin: 0 auto; }
+.astro-kteam__h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 700;
+  color: var(--bf-ink);
+  margin: 0 0 40px;
+  text-align: center;
+}
+.astro-kteam__intro { font-size: 16px; line-height: 1.7; color: var(--bf-ink-60); text-align: center; max-width: 640px; margin: -24px auto 36px; }
+
+/* Team */
+.astro-kteam__team { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 680px; margin: 0 auto 48px; }
+.astro-kteam__team--single { grid-template-columns: 1fr; max-width: 330px; }
+.astro-kteam__person { text-align: center; background: #fff; border-radius: var(--bf-radius); padding: 28px 20px; border: 1px solid var(--bf-border); }
+.astro-kteam__photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: top; border: 3px solid var(--bf-border); margin: 0 auto 16px; display: block; }
+.astro-kteam__photo--none { display: flex; align-items: center; justify-content: center; background: var(--bf-bg); color: var(--bf-ink-60); }
+.astro-kteam__role { font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 4px; }
+.astro-kteam__name { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 700; color: var(--bf-ink); margin: 0 0 10px; }
+.astro-kteam__info { font-size: 14px; color: var(--bf-ink-60); margin: 4px 0; }
+.astro-kteam__info a { color: var(--bf-ink-60); text-decoration: none; word-break: break-word; }
+.astro-kteam__info a:hover { color: var(--bf-accent); }
+
+/* Koordination */
+.astro-kteam__koord-head { text-align: center; margin-bottom: 20px; }
+.astro-kteam__koord-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(20px, 2.2vw, 28px); font-weight: 700; color: var(--bf-ink); margin: 0; }
+.astro-kteam__koord { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+.astro-kteam__koord-card { background: #fff; border-radius: var(--bf-radius); padding: 28px 32px; border: 1px solid var(--bf-border); text-align: center; min-width: 220px; max-width: 280px; }
+.astro-kteam__koord-photo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: top; border: 2px solid var(--bf-border); margin: 0 auto 14px; display: block; }
+.astro-kteam__koord-role { font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 6px; }
+.astro-kteam__koord-name { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 700; color: var(--bf-ink); margin: 0 0 10px; }
+.astro-kteam__koord-card a { font-size: 13px; color: var(--bf-accent); text-decoration: none; word-break: break-all; }
+.astro-kteam__koord-card a:hover { text-decoration: underline; }
+
+.astro-kteam__divider { border: none; border-top: 1px solid var(--bf-border); margin: 0 0 48px; }
+
+/* Interesse / Adresse */
+.astro-kteam__addr { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.astro-kteam__addr-head { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(22px, 2.5vw, 32px); font-weight: 700; color: var(--bf-ink); margin: 0 0 12px; }
+.astro-kteam__addr-text p { font-size: 15px; color: var(--bf-ink-60); line-height: 1.75; margin: 0; }
+.astro-kteam__btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 20px; padding: 13px 26px; border-radius: 32px; font-weight: 700; font-size: 14.5px; text-decoration: none; min-height: 44px; background: var(--bf-accent); color: #fff; transition: background .2s; letter-spacing: .02em; }
+.astro-kteam__btn:hover { background: #7a2424; }
+.astro-kteam__addr-info { background: #fff; border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 28px 32px; }
+.astro-kteam__row { display: grid; grid-template-columns: 80px 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--bf-border); font-size: 14px; color: var(--bf-ink); }
+.astro-kteam__row:last-child { border-bottom: none; }
+.astro-kteam__row--full { grid-template-columns: 1fr; }
+.astro-kteam__row strong { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--bf-accent); padding-top: 2px; }
+.astro-kteam__row a { color: var(--bf-ink-60); text-decoration: none; word-break: break-word; }
+.astro-kteam__row a:hover { color: var(--bf-accent); }
+.astro-kteam__row a.astro-kteam__accent { color: var(--bf-accent); }
+
+@media (max-width: 700px) {
+  .astro-kteam__team { grid-template-columns: 1fr; max-width: 360px; }
+  .astro-kteam__addr { grid-template-columns: 1fr; gap: 28px; }
+}
+</style>

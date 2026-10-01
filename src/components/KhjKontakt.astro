@@ -1,0 +1,82 @@
+---
+// Elternarbeit, FAQ und Seitenabschluss (Team, Kita-Koordination, Kontakt) — Kita Herz Jesu.
+// Kein Film-Block: für Herz Jesu gibt es (noch) keinen Film.
+// FAQ: gleiche Fragen wie St. Aposteln, Antworten aus der Vorlage von Jeannine; die Frage zur
+// Eingewöhnung soll laut Vorlage ausdrücklich NICHT auf die Website.
+// Leitungsfotos fehlen noch — KitaTeamKontakt zeigt dann ein neutrales Personen-Symbol.
+// Telefon laut Jeannine (01.10.2026): 069-652522.
+import KitaTeamKontakt from './KitaTeamKontakt.astro';
+---
+
+<!-- ELTERNARBEIT -->
+<section class="astro-khj-el astro-khj-sec" id="astro-khj-eltern">
+  <div class="astro-khj-el__in">
+    <div class="astro-khj-el__text">
+      <h2 class="astro-khj-el__h2">Unsere Elternarbeit</h2>
+      <p>Die Zusammenarbeit mit den Eltern und dem Elternbeirat ist ein wichtiger Bestandteil unserer Kita-Arbeit. Ein offener und wertsch&auml;tzender Austausch schafft Transparenz und st&auml;rkt die vertrauensvolle Partnerschaft mit den Familien.</p>
+      <p>Der Elternbeirat bringt Anregungen und Ideen ein und unterst&uuml;tzt uns bei der Planung, Durchf&uuml;hrung und Gestaltung gemeinsamer Veranstaltungen.</p>
+    </div>
+    <div class="astro-khj-el__visual">
+      <img src="/uploads/2026/09/kita-herzjesu-atelier-farben.jpg" alt="Farbbecher und Kinderbilder im Atelier der Kita Herz Jesu" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="astro-khj-faq astro-khj-sec">
+  <div class="astro-khj-faq__in">
+    <h2 class="astro-khj-faq__h2">H&auml;ufige Fragen</h2>
+    <details class="astro-khj-faq__item">
+      <summary class="astro-khj-faq__q">Ab welchem Alter werden Kinder aufgenommen?</summary>
+      <p class="astro-khj-faq__a">Wir betreuen Kinder im Alter von 3 bis 6 Jahren.</p>
+    </details>
+    <details class="astro-khj-faq__item">
+      <summary class="astro-khj-faq__q">Wie melde ich mein Kind an?</summary>
+      <p class="astro-khj-faq__a"><strong>kindernetfrankfurt.de</strong> ist das zentrale Vormerksystem f&uuml;r einen Betreuungsplatz in Frankfurt am Main. Eine Vormerkung f&uuml;r den Kindergarten ist bereits ab dem 18. Lebensmonat m&ouml;glich.</p>
+    </details>
+    <details class="astro-khj-faq__item">
+      <summary class="astro-khj-faq__q">Was bedeutet &bdquo;teiloffene Arbeit&ldquo;?</summary>
+      <p class="astro-khj-faq__a">Die Gestaltung unserer Kita mit Funktionsr&auml;umen ist unser Kern. Die Kinder entscheiden mit, wo sie spielen, mit wem sie Zeit verbringen und welchen Interessen sie nachgehen m&ouml;chten.</p>
+    </details>
+    <details class="astro-khj-faq__item">
+      <summary class="astro-khj-faq__q">Wann ist die Kita ge&ouml;ffnet, wann geschlossen?</summary>
+      <p class="astro-khj-faq__a">Wir sind <strong>montags bis freitags von 7:30 bis 17:00 Uhr</strong> ge&ouml;ffnet.</p>
+    </details>
+  </div>
+</section>
+
+<KitaTeamKontakt
+  id="astro-khj-kontakt"
+  team={[
+    { name: 'Dorota Wieckowska', role: 'Leitung' },
+    { name: 'Natalia Sroka', role: 'Stellv. Leitung' },
+  ]}
+  teamIntro="Gemeinsam sind sie Ihre Ansprechpartnerinnen bei Fragen rund um Anmeldung, Betreuung und den Alltag in der Kita."
+  tel="069 . 652522"
+  telHref="+4969652522"
+  email="kita-herzjesu@sanktbonifatius.de"
+  adresse="Mathildenstr. 30a, 60599 Frankfurt am Main"
+  mapsQuery="Mathildenstraße 30a 60599 Frankfurt"
+  platzText="Wenn Sie Fragen haben oder etwas unklar ist: Melden Sie sich einfach."
+/>
+
+<style is:global>
+/* ELTERNARBEIT */
+.astro-khj-el { background: var(--bf-bg-alt); padding: 72px 24px; }
+.astro-khj-el__in { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
+.astro-khj-el__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 16px; }
+.astro-khj-el__text p { font-size: 16px; line-height: 1.75; color: var(--bf-ink-60); margin: 0 0 12px; }
+.astro-khj-el__visual { border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; }
+.astro-khj-el__visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 760px) { .astro-khj-el__in { grid-template-columns: 1fr; } }
+
+/* FAQ */
+.astro-khj-faq { background: #fff; padding: 80px 24px; }
+.astro-khj-faq__in { max-width: 840px; margin: 0 auto; }
+.astro-khj-faq__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(26px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 36px; text-align: center; }
+.astro-khj-faq__item { border: 1px solid var(--bf-border); border-radius: 8px; background: #fff; margin-bottom: 10px; overflow: hidden; }
+.astro-khj-faq__q { font-size: 16px; font-weight: 600; color: var(--bf-ink); padding: 18px 24px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.astro-khj-faq__q::after { content: '+'; font-size: 22px; color: var(--bf-accent); flex-shrink: 0; line-height: 1; }
+.astro-khj-faq__item[open] .astro-khj-faq__q::after { content: '−'; }
+.astro-khj-faq__a { font-size: 15px; color: var(--bf-ink-60); line-height: 1.75; padding: 0 24px 20px; margin: 0; }
+</style>

@@ -1,7 +1,8 @@
 ---
-// Anmeldung, FAQ und Kontakt — Kita St. Wendel
-// Einrichtungsleitung: Kathrin Knocke + Monika Bernatovic (Feedback)
-// Kita-Koordination: Sandra Roos-Greulich + Jeannine Douverne — nur E-Mail (Feedback)
+// Anmeldung, Dokumente, FAQ und Seitenabschluss (Team, Kita-Koordination, Kontakt) — Kita St. Wendel.
+// Abschluss einheitlich für alle Kita-Seiten (Wunsch Jeannine, 01.10.2026), siehe KitaTeamKontakt.
+// Leitungsteam: Kathrin Knoke + Monika Bernatovic. Kita-Koordination nur mit E-Mail.
+import KitaTeamKontakt from './KitaTeamKontakt.astro';
 ---
 
 <!-- ANMELDUNG -->
@@ -113,75 +114,20 @@
   </div>
 </section>
 
-<!-- KONTAKT / TEAM -->
-<section class="astro-kwe-kontakt astro-kwe-sec" id="astro-kwe-kontakt">
-  <div class="astro-kwe-kontakt__in">
-    <div class="astro-kwe-kontakt__head">
-      <h2 class="astro-kwe-kontakt__h2">Ihr Ansprechpartnerteam</h2>
-    </div>
-
-    <!-- Einrichtungsleitung -->
-    <div class="astro-kwe-kontakt__leitung">
-      <h3 class="astro-kwe-kontakt__subtitle">Einrichtungsleitung</h3>
-      <div class="astro-kwe-kontakt__team-grid">
-        <div class="astro-kwe-kontakt__person">
-          <div class="astro-kwe-kontakt__avatar">
-            <img src="/uploads/2026/09/Kathrin-Knoke-Kita-St-Wendel.jpg" alt="Kathrin Knoke" loading="lazy" />
-          </div>
-          <div class="astro-kwe-kontakt__person-info">
-            <p class="astro-kwe-kontakt__person-name">Kathrin Knoke</p>
-            <p class="astro-kwe-kontakt__person-role">Leitungsteam</p>
-          </div>
-        </div>
-        <div class="astro-kwe-kontakt__person">
-          <div class="astro-kwe-kontakt__avatar">
-            <img src="/uploads/2026/09/Monika-Bernatovic-Kita-St-Wendel.jpg" alt="Monika Bernatovic" loading="lazy" />
-          </div>
-          <div class="astro-kwe-kontakt__person-info">
-            <p class="astro-kwe-kontakt__person-name">Monika Bernatovic</p>
-            <p class="astro-kwe-kontakt__person-role">Leitungsteam</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Kita-Koordination -->
-    <div class="astro-kwe-kontakt__koord">
-      <h3 class="astro-kwe-kontakt__subtitle">Kita-Koordination</h3>
-      <div class="astro-kwe-kontakt__koord-grid">
-        <div class="astro-kwe-kontakt__koord-card">
-          <img src="/uploads/2026/07/Sandra-Roos-Greulich-2026.jpg" alt="Sandra Roos-Greulich" class="astro-kwe-kontakt__koord-photo" loading="lazy" />
-          <p class="astro-kwe-kontakt__koord-name">Sandra Roos-Greulich</p>
-          <a href="mailto:s.roos-greulich@sanktbonifatius.de" class="astro-kwe-kontakt__koord-email">s.roos-greulich@sanktbonifatius.de</a>
-        </div>
-        <div class="astro-kwe-kontakt__koord-card">
-          <img src="/uploads/2026/07/Jeannine-Douverne-2026.jpg" alt="Jeannine Douverne" class="astro-kwe-kontakt__koord-photo" loading="lazy" />
-          <p class="astro-kwe-kontakt__koord-name">Jeannine Douverne</p>
-          <a href="mailto:j.douverne@sanktbonifatius.de" class="astro-kwe-kontakt__koord-email">j.douverne@sanktbonifatius.de</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Adresse & Kontakt -->
-    <div class="astro-kwe-kontakt__addr-wrap">
-      <div class="astro-kwe-kontakt__addr-text">
-        <h3 class="astro-kwe-kontakt__subtitle">So erreichen Sie uns</h3>
-        <p>Unsere Kita ist gut erreichbar mit den Buslinien 30, 36, 652 und 653 (Haltestelle S&uuml;dfriedhof West).</p>
-      </div>
-      <address class="astro-kwe-kontakt__addr-card">
-        <p class="astro-kwe-kontakt__addr-name">Kita St. Wendel</p>
-        <p>Altes Sch&uuml;tzh&uuml;tteng&auml;sschen 2<br>60599 Frankfurt am Main</p>
-        <p>
-          <a href="tel:+4969685994">069 685994</a><br>
-          <a href="mailto:kita-wendel@sanktbonifatius.de">kita-wendel@sanktbonifatius.de</a>
-        </p>
-        <p>
-          <a href="https://maps.google.com/?q=Altes+Sch%C3%BCtzh%C3%BCtteng%C3%A4sschen+2+60599+Frankfurt" target="_blank" rel="noopener">In Google Maps &ouml;ffnen &rarr;</a>
-        </p>
-      </address>
-    </div>
-  </div>
-</section>
+<KitaTeamKontakt
+  id="astro-kwe-kontakt"
+  team={[
+    { name: 'Kathrin Knoke', role: 'Leitungsteam', photo: '/uploads/2026/09/Kathrin-Knoke-Kita-St-Wendel.jpg' },
+    { name: 'Monika Bernatovic', role: 'Leitungsteam', photo: '/uploads/2026/09/Monika-Bernatovic-Kita-St-Wendel.jpg' },
+  ]}
+  tel="069 . 685994"
+  telHref="+4969685994"
+  email="kita-wendel@sanktbonifatius.de"
+  adresse="Altes Sch&uuml;tzh&uuml;tteng&auml;sschen 2, 60599 Frankfurt am Main"
+  mapsQuery="Altes Schützhüttengässchen 2 60599 Frankfurt"
+  platzText="Anmeldungen laufen &uuml;ber Kindernet Frankfurt. Bei Fragen zu Betreuungszeiten, freien Pl&auml;tzen oder dem Einrichtungsalltag kontaktieren Sie uns direkt."
+  extraRows={[{ label: 'Anfahrt', html: 'Bus 30, 36, 652 und 653, Haltestelle S&uuml;dfriedhof West' }]}
+/>
 
 <style is:global>
 /* ANMELDUNG */
@@ -210,7 +156,7 @@ a.astro-kwe-docs__card:hover { border-color: var(--bf-accent); box-shadow: 0 2px
 .astro-kwe-docs__card-note { font-size: 13px; color: var(--bf-ink-60); margin: 0; }
 
 /* FAQ */
-.astro-kwe-faq { background: var(--bf-bg); padding: 80px 24px; }
+.astro-kwe-faq { background: #fff; padding: 80px 24px; }
 .astro-kwe-faq__in { max-width: 800px; margin: 0 auto; }
 .astro-kwe-faq__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 40px; }
 .astro-kwe-faq__list { display: flex; flex-direction: column; gap: 4px; }
@@ -223,38 +169,4 @@ a.astro-kwe-docs__card:hover { border-color: var(--bf-accent); box-shadow: 0 2px
 .astro-kwe-faq__a { padding: 0 24px 18px; }
 .astro-kwe-faq__a p { font-size: 15px; color: var(--bf-ink-60); line-height: 1.7; margin: 0; }
 
-/* KONTAKT */
-.astro-kwe-kontakt { background: var(--bf-bg); padding: 80px 24px; }
-.astro-kwe-kontakt__in { max-width: 1000px; margin: 0 auto; }
-.astro-kwe-kontakt__head { text-align: center; margin-bottom: 52px; }
-.astro-kwe-kontakt__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0; }
-.astro-kwe-kontakt__subtitle { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 700; color: var(--bf-ink); margin: 0 0 20px; }
-.astro-kwe-kontakt__leitung { margin-bottom: 48px; }
-.astro-kwe-kontakt__team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 560px; }
-.astro-kwe-kontakt__person { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid var(--bf-border); border-radius: 12px; padding: 18px 20px; }
-.astro-kwe-kontakt__avatar { width: 56px; height: 56px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
-.astro-kwe-kontakt__avatar--placeholder { background: var(--bf-bg); border: 1px solid var(--bf-border); display: flex; align-items: center; justify-content: center; color: var(--bf-ink-60); }
-.astro-kwe-kontakt__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.astro-kwe-kontakt__person-name { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700; color: var(--bf-ink); margin: 0 0 2px; }
-.astro-kwe-kontakt__person-role { font-size: 12.5px; color: var(--bf-ink-60); margin: 0; }
-
-/* Koordination */
-.astro-kwe-kontakt__koord { margin-bottom: 48px; }
-.astro-kwe-kontakt__koord-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; max-width: 560px; }
-.astro-kwe-kontakt__koord-card { background: #fff; border: 1px solid var(--bf-border); border-radius: 12px; padding: 18px 20px; }
-.astro-kwe-kontakt__koord-photo { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: top; border: 2px solid var(--bf-border); margin: 0 auto 12px; display: block; }
-.astro-kwe-kontakt__koord-name { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700; color: var(--bf-ink); margin: 0 0 6px; }
-.astro-kwe-kontakt__koord-email { font-size: 13.5px; color: var(--bf-accent); text-decoration: none; word-break: break-word; }
-.astro-kwe-kontakt__koord-email:hover { text-decoration: underline; }
-
-/* Adresse */
-.astro-kwe-kontakt__addr-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-.astro-kwe-kontakt__addr-text p { font-size: 15px; color: var(--bf-ink-60); line-height: 1.7; margin: 0; }
-.astro-kwe-kontakt__addr-card { font-style: normal; background: #fff; border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 26px 28px; }
-.astro-kwe-kontakt__addr-name { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 16px; color: var(--bf-ink); margin: 0 0 10px; }
-.astro-kwe-kontakt__addr-card p { font-size: 14.5px; color: var(--bf-ink-60); line-height: 1.7; margin: 0 0 8px; }
-.astro-kwe-kontakt__addr-card p:last-child { margin-bottom: 0; }
-.astro-kwe-kontakt__addr-card a { color: var(--bf-accent); text-decoration: none; }
-.astro-kwe-kontakt__addr-card a:hover { text-decoration: underline; }
-@media (max-width: 640px) { .astro-kwe-kontakt__addr-wrap { grid-template-columns: 1fr; gap: 20px; } }
 </style>

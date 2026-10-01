@@ -138,17 +138,17 @@ export const SEO_STATIC = {
 }
 </script>`,
   "/kitas/herz-jesu/": `<title>Kita Herz Jesu Oberrad – Kindergarten in Frankfurt</title>
-<meta name="description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
+<meta name="description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kinder von 3 bis 6 Jahren, teiloffene Arbeit mit Funktionsräumen, Mo–Fr 7:30–17:00 Uhr. Anmeldung &amp; Kontakt.">
 <meta property="og:site_name" content="Sankt Bonifatius">
 <meta property="og:locale" content="de_DE">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kita Herz Jesu Oberrad – Kindergarten in Frankfurt">
-<meta property="og:description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
+<meta property="og:description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kinder von 3 bis 6 Jahren, teiloffene Arbeit mit Funktionsräumen, Mo–Fr 7:30–17:00 Uhr. Anmeldung &amp; Kontakt.">
 <meta property="og:image" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
 <meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kita Herz Jesu Oberrad – Kindergarten in Frankfurt">
-<meta name="twitter:description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße. Kontakt &amp; Öffnungszeiten.">
+<meta name="twitter:description" content="Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kinder von 3 bis 6 Jahren, teiloffene Arbeit mit Funktionsräumen, Mo–Fr 7:30–17:00 Uhr. Anmeldung &amp; Kontakt.">
 <meta name="twitter:image" content="https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg">
 <script type="application/ld+json">
 {
@@ -159,7 +159,7 @@ export const SEO_STATIC = {
       "@id": "https://sanktbonifatius.de/kitas/herz-jesu/",
       "url": "https://sanktbonifatius.de/kitas/herz-jesu/",
       "name": "Kita Herz Jesu Oberrad – Kindergarten in Frankfurt",
-      "description": "Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kindergarten für Kinder von 3 bis 6 Jahren in ruhiger Wohnstraße.",
+      "description": "Katholische Kita Herz Jesu in Frankfurt-Oberrad: Kinder von 3 bis 6 Jahren, teiloffene Arbeit mit Funktionsräumen.",
       "inLanguage": "de-DE",
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -176,7 +176,7 @@ export const SEO_STATIC = {
       "name": "Kita Herz Jesu",
       "url": "https://sanktbonifatius.de/kitas/herz-jesu/",
       "image": "https://sanktbonifatius.de/uploads/2026/08/kita-herzjesu-luftbild.jpg",
-      "telephone": "+49696522522",
+      "telephone": "+4969652522",
       "email": "kita-herzjesu@sanktbonifatius.de",
       "address": {
         "@type": "PostalAddress",

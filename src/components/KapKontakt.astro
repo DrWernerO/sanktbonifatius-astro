@@ -1,5 +1,8 @@
 ---
-// Elternarbeit, Leitung, Film, FAQ und Kontakt — Kita St. Aposteln
+// Elternarbeit, Film, FAQ und Seitenabschluss (Team, Kita-Koordination, Kontakt) — Kita St. Aposteln.
+// Abschluss einheitlich für alle Kita-Seiten (Wunsch Jeannine, 01.10.2026), siehe KitaTeamKontakt.
+// Stellvertretende Leitung möchte kein Foto; ihr Name liegt noch nicht vor, daher nur eine Karte.
+import KitaTeamKontakt from './KitaTeamKontakt.astro';
 ---
 
 <!-- ELTERNARBEIT -->
@@ -11,45 +14,6 @@
     </div>
     <div class="astro-kap-el__visual">
       <img src="/uploads/2022/05/kita-staposteln-frankfurt-5.jpg" alt="Kinder in der Kita St. Aposteln" loading="lazy" />
-    </div>
-  </div>
-</section>
-
-<!-- LEITUNG -->
-<section class="astro-kap-el astro-kap-sec astro-kap-el--alt" id="astro-kap-leitung">
-  <div class="astro-kap-el__in astro-kap-el__in--rev">
-    <div class="astro-kap-el__visual">
-      <img src="/uploads/2022/05/martina-mikulasch.jpg" alt="Martina Mikulasch, Leitung der Kita St. Aposteln" loading="lazy" />
-    </div>
-    <div class="astro-kap-el__text">
-      <h2 class="astro-kap-el__h2">Unsere Leitung</h2>
-      <p><strong>Martina Mikulasch</strong> leitet unsere Kita und ist Ihre erste Ansprechpartnerin bei Fragen rund um Anmeldung, Betreuung und den Alltag in der Kita.</p>
-      <p class="astro-kap-el__contact">
-        Ziegelh&uuml;ttenweg 149, 60598 Frankfurt am Main<br>
-        Telefon: <a href="tel:+4969633927970">069&nbsp;.&nbsp;633927970</a><br>
-        <a href="mailto:kita-aposteln@sanktbonifatius.de">kita-aposteln@sanktbonifatius.de</a>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- KITA-KOORDINATION -->
-<section class="astro-kap-koord astro-kap-sec">
-  <div class="astro-kap-koord__in">
-    <h2 class="astro-kap-koord__h2">Kita-Koordination der Pfarrei</h2>
-    <div class="astro-kap-koord__grid">
-      <div class="astro-kap-koord__card">
-        <img src="/uploads/2026/07/Sandra-Roos-Greulich-2026.jpg" alt="Sandra Roos-Greulich" class="astro-kap-koord__photo" loading="lazy" />
-        <p class="astro-kap-koord__role">Kita-Koordinatorin</p>
-        <p class="astro-kap-koord__name">Sandra Roos-Greulich</p>
-        <a href="mailto:s.roos-greulich@sanktbonifatius.de">s.roos-greulich@sanktbonifatius.de</a>
-      </div>
-      <div class="astro-kap-koord__card">
-        <img src="/uploads/2026/07/Jeannine-Douverne-2026.jpg" alt="Jeannine Douverne" class="astro-kap-koord__photo" loading="lazy" />
-        <p class="astro-kap-koord__role">Referentin Kita-Koordination</p>
-        <p class="astro-kap-koord__name">Jeannine Douverne</p>
-        <a href="mailto:j.douverne@sanktbonifatius.de">j.douverne@sanktbonifatius.de</a>
-      </div>
     </div>
   </div>
 </section>
@@ -93,25 +57,19 @@
   </div>
 </section>
 
-<!-- KONTAKT -->
-<section class="astro-kap-addr astro-kap-sec" id="astro-kap-kontakt">
-  <div class="astro-kap-addr__in">
-    <div class="astro-kap-addr__text">
-      <h2 class="astro-kap-addr__h2">Interesse an einem Platz?</h2>
-      <p>Wir freuen uns &uuml;ber Ihr Interesse. Melden Sie sich gerne direkt bei uns &ndash; wir beantworten Ihre Fragen zu freien Pl&auml;tzen, Betreuungszeiten und dem Einrichtungsalltag.</p>
-      <a href="https://www.kindernetfrankfurt.de" target="_blank" rel="noopener" class="astro-kap-btn astro-kap-btn--accent" style="margin-top:20px;display:inline-flex">Anmeldung &uuml;ber Kindernet Frankfurt &#8599;</a>
-    </div>
-    <div class="astro-kap-addr__info">
-      <div class="astro-kap-addr__row"><strong>Adresse</strong><span>Ziegelh&uuml;ttenweg 149, 60598 Frankfurt am Main</span></div>
-      <div class="astro-kap-addr__row"><strong>Telefon</strong><span><a href="tel:+4969633927970">069 . 633927970</a></span></div>
-      <div class="astro-kap-addr__row"><strong>Leitung</strong><span>Martina Mikulasch</span></div>
-      <div class="astro-kap-addr__row"><strong>E-Mail</strong><span><a href="mailto:kita-aposteln@sanktbonifatius.de">kita-aposteln@sanktbonifatius.de</a></span></div>
-      <div class="astro-kap-addr__row"><strong>Tr&auml;ger</strong><span>Kath. Pfarrgemeinde St. Bonifatius Frankfurt</span></div>
-      <div class="astro-kap-addr__row"><strong>Jobs</strong><span><a href="/kitas/stellenboerse/" style="color:var(--bf-accent)">Kita-Stellenb&ouml;rse &rarr;</a></span></div>
-      <div class="astro-kap-addr__row" style="grid-column:1/-1"><a href="https://maps.google.com/?q=Ziegelhüttenweg+149+Frankfurt" target="_blank" rel="noopener">In Google Maps &ouml;ffnen &rarr;</a></div>
-    </div>
-  </div>
-</section>
+<KitaTeamKontakt
+  id="astro-kap-kontakt"
+  team={[
+    { name: 'Martina Mikulasch', role: 'Leitung', photo: '/uploads/2022/05/martina-mikulasch.jpg' },
+  ]}
+  teamIntro="<strong>Martina Mikulasch</strong> leitet unsere Kita und ist Ihre erste Ansprechpartnerin bei Fragen rund um Anmeldung, Betreuung und den Alltag in der Kita."
+  tel="069 . 633927970"
+  telHref="+4969633927970"
+  email="kita-aposteln@sanktbonifatius.de"
+  adresse="Ziegelh&uuml;ttenweg 149, 60598 Frankfurt am Main"
+  mapsQuery="Ziegelhüttenweg 149 60598 Frankfurt"
+  platzText="Wir freuen uns &uuml;ber Ihr Interesse. Melden Sie sich gerne direkt bei uns &ndash; wir beantworten Ihre Fragen zu freien Pl&auml;tzen, Betreuungszeiten und dem Einrichtungsalltag."
+/>
 
 <style is:global>
 /* ELTERNARBEIT / LEITUNG */
@@ -131,18 +89,6 @@
   .astro-kap-el__in--rev .astro-kap-el__visual { order: -1; }
 }
 
-/* KOORDINATION */
-.astro-kap-koord { background: var(--bf-bg); padding: 56px 24px; }
-.astro-kap-koord__in { max-width: 1100px; margin: 0 auto; text-align: center; }
-.astro-kap-koord__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(22px, 2.5vw, 30px); font-weight: 700; color: var(--bf-ink); margin: 0 0 32px; }
-.astro-kap-koord__grid { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
-.astro-kap-koord__card { background: #fff; border-radius: var(--bf-radius); padding: 28px 32px; border: 1px solid var(--bf-border); text-align: center; min-width: 220px; max-width: 280px; }
-.astro-kap-koord__photo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: top; border: 2px solid var(--bf-border); margin: 0 auto 14px; display: block; }
-.astro-kap-koord__role { font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 6px; }
-.astro-kap-koord__name { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 700; color: var(--bf-ink); margin: 0 0 10px; }
-.astro-kap-koord__card a { font-size: 13px; color: var(--bf-accent); text-decoration: none; word-break: break-all; }
-.astro-kap-koord__card a:hover { text-decoration: underline; }
-
 /* FILM */
 .astro-kap-film { background: linear-gradient(135deg, #2c2420, #1a120e); padding: 80px 24px; text-align: center; }
 .astro-kap-film__in { max-width: 720px; margin: 0 auto; }
@@ -152,7 +98,7 @@
 .astro-kap-film__btn:hover { background: #7a2424; transform: translateY(-2px); }
 
 /* FAQ */
-.astro-kap-faq { background: var(--bf-bg); padding: 80px 24px; }
+.astro-kap-faq { background: #fff; padding: 80px 24px; }
 .astro-kap-faq__in { max-width: 840px; margin: 0 auto; }
 .astro-kap-faq__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(26px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 36px; text-align: center; }
 .astro-kap-faq__item { border: 1px solid var(--bf-border); border-radius: 8px; background: #fff; margin-bottom: 10px; overflow: hidden; }
@@ -161,16 +107,4 @@
 .astro-kap-faq__item[open] .astro-kap-faq__q::after { content: '−'; }
 .astro-kap-faq__a { font-size: 15px; color: var(--bf-ink-60); line-height: 1.75; padding: 0 24px 20px; margin: 0; }
 
-/* KONTAKT / ADRESSE */
-.astro-kap-addr { background: var(--bf-bg-alt); padding: 80px 24px; }
-.astro-kap-addr__in { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-.astro-kap-addr__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(26px, 3vw, 38px); font-weight: 700; color: var(--bf-ink); margin: 0 0 16px; }
-.astro-kap-addr__text p { font-size: 15px; line-height: 1.7; color: var(--bf-ink-60); margin: 0; }
-.astro-kap-addr__info { background: #fff; border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 28px 32px; }
-.astro-kap-addr__row { display: grid; grid-template-columns: 80px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--bf-border); font-size: 14px; color: var(--bf-ink); }
-.astro-kap-addr__row:last-child { border-bottom: none; }
-.astro-kap-addr__row strong { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--bf-accent); padding-top: 2px; }
-.astro-kap-addr__row a { color: var(--bf-ink-60); text-decoration: none; }
-.astro-kap-addr__row a:hover { color: var(--bf-accent); }
-@media (max-width: 760px) { .astro-kap-addr__in { grid-template-columns: 1fr; gap: 32px; } }
 </style>

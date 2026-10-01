@@ -1,0 +1,278 @@
+---
+// Hauptinhalt Kita Herz Jesu — Info-Strip, Angebot, Haus, Tagesablauf, Öffnungszeiten,
+// Anmeldung, Pädagogik. Aufbau wie KapContent, Texte aus der Vorlage von Jeannine (23.09.2026).
+const SCHLIESSZEITEN_PDF = '/uploads/2026/09/Schliesszeiten-Kita-Herz-Jesu-2026.pdf';
+---
+
+<!-- INFO STRIP -->
+<section class="astro-khj-strip astro-khj-sec" id="astro-khj-strip">
+  <div class="astro-khj-strip__in">
+    <div class="astro-khj-strip__item">
+      <div class="astro-khj-strip__icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="astro-khj-strip__label">Alter</div>
+      <div class="astro-khj-strip__value">3 &ndash; 6 Jahre</div>
+    </div>
+    <div class="astro-khj-strip__item">
+      <div class="astro-khj-strip__icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </div>
+      <div class="astro-khj-strip__label">Gruppen</div>
+      <div class="astro-khj-strip__value">Funktionsr&auml;ume</div>
+    </div>
+    <div class="astro-khj-strip__item">
+      <div class="astro-khj-strip__icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="astro-khj-strip__label">Ort</div>
+      <div class="astro-khj-strip__value">Frankfurt-Oberrad</div>
+    </div>
+    <div class="astro-khj-strip__item">
+      <div class="astro-khj-strip__icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="astro-khj-strip__label">Besonderer F&ouml;rderauftrag</div>
+      <div class="astro-khj-strip__value">BeF&ouml; Kita seit 2016 durch F&ouml;rderung der Caritas</div>
+    </div>
+  </div>
+</section>
+
+<!-- BETREUUNGSANGEBOT -->
+<section class="astro-khj-konzept astro-khj-sec" id="astro-khj-angebot">
+  <div class="astro-khj-konzept__in">
+    <div class="astro-khj-konzept__text">
+      <h2 class="astro-khj-konzept__h2">Unser Betreuungsangebot</h2>
+      <p>Unsere p&auml;dagogische Arbeit ist teiloffen. Diese Arbeitsweise bietet den Kindern Freir&auml;ume f&uuml;r selbstbestimmtes Lernen und Spielen und erm&ouml;glicht ihnen, ihre Interessen und Bed&uuml;rfnisse aktiv in den Alltag einzubringen.</p>
+    </div>
+    <div class="astro-khj-konzept__cards">
+      <div class="astro-khj-konzept__card"><h4>Kinder</h4><p>Kinder von 3 bis 6 Jahren.</p></div>
+      <div class="astro-khj-konzept__card"><h4>&Ouml;ffnungszeit</h4><p>Montag bis Freitag 7:30 &ndash; 17:00 Uhr.</p></div>
+      <div class="astro-khj-konzept__card"><h4>Unsere Arbeit</h4><p>In unseren Funktionsr&auml;umen entscheiden die Kinder mit, wo, mit wem und was sie spielen.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- UNSER HAUS -->
+<section class="astro-khj-haus astro-khj-sec" id="astro-khj-haus">
+  <div class="astro-khj-haus__in">
+    <div class="astro-khj-haus__head">
+      <h2 class="astro-khj-haus__h2">Unser Haus &amp; Au&szlig;engel&auml;nde</h2>
+    </div>
+    <div class="astro-khj-haus__grid">
+      <div class="astro-khj-haus__item">
+        <div class="astro-khj-haus__icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+        <div class="astro-khj-haus__title">Rollenspielraum</div>
+        <p class="astro-khj-haus__text">Anregung von Fantasie &ndash; spielerische Auseinandersetzung mit der Welt</p>
+      </div>
+      <div class="astro-khj-haus__item">
+        <div class="astro-khj-haus__icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <div class="astro-khj-haus__title">Atelier / Werkstatt</div>
+        <p class="astro-khj-haus__text">Raum f&uuml;r eigene Ideen und kreativen Ausdruck</p>
+      </div>
+      <div class="astro-khj-haus__item">
+        <div class="astro-khj-haus__icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="astro-khj-haus__title">Bauraum</div>
+        <p class="astro-khj-haus__text">Pl&auml;ne schmieden, bauen und L&ouml;sungen finden</p>
+      </div>
+      <div class="astro-khj-haus__item">
+        <div class="astro-khj-haus__icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg></div>
+        <div class="astro-khj-haus__title">Bewegungsraum</div>
+        <p class="astro-khj-haus__text">Raum f&uuml;r Bewegung und Selbstvertrauen</p>
+      </div>
+      <div class="astro-khj-haus__item">
+        <div class="astro-khj-haus__icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <div class="astro-khj-haus__title">Kinderrestaurant</div>
+        <p class="astro-khj-haus__text">Gemeinsam, selbstst&auml;ndig und entspannt essen</p>
+      </div>
+      <div class="astro-khj-haus__item">
+        <div class="astro-khj-haus__icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+        <div class="astro-khj-haus__title">Garten / Au&szlig;engel&auml;nde</div>
+        <p class="astro-khj-haus__text">Spielen, bewegen, Natur erleben</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAGESABLAUF -->
+<section class="astro-khj-tages astro-khj-sec" id="astro-khj-tagesablauf">
+  <div class="astro-khj-tages__in">
+    <div class="astro-khj-tages__head">
+      <h2 class="astro-khj-tages__h2">Ein Tag bei uns</h2>
+      <p class="astro-khj-tages__sub">In unserer Kita ist jeder Tag von einer klaren Struktur, liebevoller Begleitung und vielf&auml;ltigen M&ouml;glichkeiten zum Entdecken gepr&auml;gt.</p>
+    </div>
+    <div class="astro-khj-tages__panel">
+      <div class="astro-khj-tages__row"><div class="astro-khj-tages__time">7:30 &ndash; 8:50 Uhr</div><div class="astro-khj-tages__act"><strong>Ankommen:</strong> Der Tag startet um 7:30 Uhr ganz entspannt: Die Kinder kommen in Ruhe an und finden sich Schritt f&uuml;r Schritt in ihren Kita-Alltag &ndash; in ihrem eigenen Tempo. Auf eine gegenseitige Begr&uuml;&szlig;ung legen wir sehr viel Wert!</div></div>
+      <div class="astro-khj-tages__row"><div class="astro-khj-tages__time">8:00 &ndash; 10:15 Uhr</div><div class="astro-khj-tages__act"><strong>Fr&uuml;hst&uuml;ck</strong> im Kinderrestaurant &ndash; mit Motto-Tagen und aktiver Kinderbeteiligung</div></div>
+      <div class="astro-khj-tages__row"><div class="astro-khj-tages__time">9:00 &ndash; 9:30 Uhr</div><div class="astro-khj-tages__act"><strong>Morgenkreis &ndash; Morgentreffen:</strong> Hier kommen wir als Gemeinschaft zusammen, begr&uuml;&szlig;en einander, teilen Gedanken, greifen Themen der Kinder auf und schaffen einen gemeinsamen Start in den Tag.</div></div>
+      <div class="astro-khj-tages__row"><div class="astro-khj-tages__time">12:00 &ndash; 13:45 Uhr</div><div class="astro-khj-tages__act"><strong>Mittagessen:</strong> Das Mittagessen bietet Zeit f&uuml;r Ruhe, Austausch und einen achtsamen Moment im Tagesverlauf.</div></div>
+      <div class="astro-khj-tages__row"><div class="astro-khj-tages__time">15:30 &ndash; 16:00 Uhr</div><div class="astro-khj-tages__act"><strong>Nachmittagsimbiss &ndash; Snack:</strong> Der Nachmittagsimbiss rundet den Tag ab.</div></div>
+      <div class="astro-khj-tages__row"><div class="astro-khj-tages__time">17:00 Uhr</div><div class="astro-khj-tages__act">Kita schlie&szlig;t.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ÖFFNUNGSZEITEN -->
+<section class="astro-khj-zeiten astro-khj-sec" id="astro-khj-zeiten">
+  <div class="astro-khj-zeiten__in">
+    <div class="astro-khj-zeiten__text">
+      <h2 class="astro-khj-zeiten__h2">Unsere &Ouml;ffnungs- und Schlie&szlig;zeiten</h2>
+      <p class="astro-khj-zeiten__p">Wir schlie&szlig;en in den letzten drei Wochen der hessischen Sommerferien, zwischen Weihnachten und Neujahr sowie an einzelnen Br&uuml;cken- und Fortbildungstagen. Alle Termine finden Sie in unserem Schlie&szlig;zeitenkalender.</p>
+      <a href={SCHLIESSZEITEN_PDF} target="_blank" rel="noopener" class="astro-khj-zeiten__dl">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Schlie&szlig;zeitenkalender 2026
+      </a>
+    </div>
+    <div class="astro-khj-zeiten__grid">
+      <div class="astro-khj-zeiten__row">
+        <span class="astro-khj-zeiten__day">Montag &ndash; Freitag</span>
+        <span class="astro-khj-zeiten__time">7:30 &ndash; 17:00 Uhr</span>
+      </div>
+      <div class="astro-khj-zeiten__row">
+        <span class="astro-khj-zeiten__day">Samstag &amp; Sonntag</span>
+        <span class="astro-khj-zeiten__time">Geschlossen</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESSE / ANMELDUNG -->
+<section class="astro-khj-anmeld astro-khj-sec" id="astro-khj-anmeld">
+  <div class="astro-khj-anmeld__in">
+    <h2 class="astro-khj-anmeld__h2">Interesse an einem Platz?</h2>
+    <p class="astro-khj-anmeld__lead">Lust auf unsere Kita? So einfach geht die Anmeldung: Die Vormerkung l&auml;uft &uuml;ber Kindernet Frankfurt.</p>
+    <p class="astro-khj-anmeld__lead" style="margin-top:8px">F&uuml;r einen Besichtigungstermin schreiben Sie uns bitte eine Mail an <a href="mailto:kita-herzjesu@sanktbonifatius.de">kita-herzjesu@sanktbonifatius.de</a>.</p>
+    <div class="astro-khj-anmeld__ctas">
+      <a href="https://www.kindernetfrankfurt.de/start?0" target="_blank" rel="noopener" class="astro-khj-btn astro-khj-btn--accent">Anmeldung &uuml;ber Kindernet Frankfurt &#8599;</a>
+      <a href="mailto:kita-herzjesu@sanktbonifatius.de?subject=Besichtigungstermin%20Kita%20Herz%20Jesu" class="astro-khj-btn astro-khj-btn--outline">Besichtigungstermin anfragen</a>
+    </div>
+  </div>
+</section>
+
+<!-- PÄDAGOGIK & DOKUMENTE -->
+<section class="astro-khj-paed astro-khj-sec" id="astro-khj-paed">
+  <div class="astro-khj-paed__in">
+    <div class="astro-khj-paed__head">
+      <h2 class="astro-khj-paed__h2">Unsere p&auml;dagogische Arbeit</h2>
+      <p class="astro-khj-paed__lead">Die Welt, in der Kinder heute aufwachsen, ver&auml;ndert sich stetig &ndash; und mit ihr auch die Bed&uuml;rfnisse von Familien. Deshalb ist es uns ein besonderes Anliegen, Kinder liebevoll zu begleiten, sie in ihrer Einzigartigkeit zu st&auml;rken und gemeinsam mit den Eltern einen vertrauensvollen Weg zu gehen.</p>
+    </div>
+    <div class="astro-khj-paed__grid">
+      <div class="astro-khj-paed__card">
+        <div class="astro-khj-paed__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h3>Unsere Konzeption</h3>
+        <p>Wird derzeit &uuml;berarbeitet.</p>
+      </div>
+      <div class="astro-khj-paed__card">
+        <div class="astro-khj-paed__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3>Leitlinien unserer Arbeit</h3>
+        <p>Werden derzeit erarbeitet und folgen in K&uuml;rze.</p>
+      </div>
+      <div class="astro-khj-paed__card">
+        <div class="astro-khj-paed__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Schlie&szlig;zeiten 2026</h3>
+        <a href={SCHLIESSZEITEN_PDF} target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          PDF herunterladen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+/* STRIP */
+.astro-khj-strip { background: var(--bf-bg); padding: 48px 24px; }
+.astro-khj-strip__in {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+}
+.astro-khj-strip__item { text-align: center; background: #fff; border-radius: 10px; padding: 20px 14px; border: 1px solid var(--bf-border); }
+.astro-khj-strip__icon { color: var(--bf-accent); margin-bottom: 8px; display: flex; justify-content: center; }
+.astro-khj-strip__label { font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--bf-ink-60); margin-bottom: 6px; }
+.astro-khj-strip__value { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; color: var(--bf-ink); line-height: 1.4; font-weight: 700; }
+
+/* KONZEPT */
+.astro-khj-konzept { background: var(--bf-bg); padding: 80px 24px; }
+.astro-khj-konzept__in { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.astro-khj-konzept__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 16px; }
+.astro-khj-konzept__text p { font-size: 15.5px; line-height: 1.75; color: var(--bf-ink-60); }
+.astro-khj-konzept__cards { display: flex; flex-direction: column; gap: 14px; }
+.astro-khj-konzept__card { background: #fff; border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 18px 22px; border-left: 3px solid var(--bf-accent); }
+.astro-khj-konzept__card h4 { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700; color: var(--bf-ink); margin: 0 0 4px; }
+.astro-khj-konzept__card p { font-size: 14px; line-height: 1.6; color: var(--bf-ink-60); margin: 0; }
+
+/* HAUS */
+.astro-khj-haus { background: #fff; padding: 80px 24px; }
+.astro-khj-haus__in { max-width: 1100px; margin: 0 auto; }
+.astro-khj-haus__head { text-align: center; margin-bottom: 48px; }
+.astro-khj-haus__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 38px); font-weight: 700; color: var(--bf-ink); margin: 0; }
+.astro-khj-haus__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.astro-khj-haus__item { background: var(--bf-bg); border-radius: var(--bf-radius); padding: 24px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.astro-khj-haus__icon { color: var(--bf-accent); margin-bottom: 10px; display: flex; justify-content: center; }
+.astro-khj-haus__title { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700; color: var(--bf-ink); margin: 0 0 6px; }
+.astro-khj-haus__text { font-size: 13px; color: var(--bf-ink-60); line-height: 1.5; margin: 0; }
+@media (max-width: 640px) { .astro-khj-haus__grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* TAGESABLAUF */
+.astro-khj-tages { background: var(--bf-bg); padding: 80px 24px; }
+.astro-khj-tages__in { max-width: 900px; margin: 0 auto; }
+.astro-khj-tages__head { text-align: center; margin-bottom: 40px; }
+.astro-khj-tages__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 10px; }
+.astro-khj-tages__sub { font-size: 15px; color: var(--bf-ink-60); max-width: 640px; margin: 0 auto; line-height: 1.65; }
+.astro-khj-tages__panel { background: #fff; border-radius: var(--bf-radius); border: 1px solid var(--bf-border); overflow: hidden; }
+.astro-khj-tages__row { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 11px 24px; border-bottom: 1px solid var(--bf-border); align-items: start; }
+.astro-khj-tages__row:last-child { border-bottom: none; }
+.astro-khj-tages__time { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; color: var(--bf-accent); font-size: 14px; padding-top: 2px; }
+.astro-khj-tages__act { font-size: 14px; color: var(--bf-ink); line-height: 1.6; }
+@media (max-width: 600px) { .astro-khj-tages__row { grid-template-columns: 1fr; gap: 4px; padding: 14px 20px; } }
+
+/* ÖFFNUNGSZEITEN */
+.astro-khj-zeiten { background: var(--bf-bg-alt); padding: 72px 24px; }
+.astro-khj-zeiten__in { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.astro-khj-zeiten__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: var(--bf-ink); margin: 0 0 14px; line-height: 1.2; }
+.astro-khj-zeiten__p { font-size: 15.5px; color: var(--bf-ink-60); line-height: 1.75; margin: 0 0 20px; }
+.astro-khj-zeiten__dl { display: inline-flex; align-items: center; gap: 7px; padding: 8px 16px; border-radius: 20px; background: var(--bf-accent); color: #fff; font-weight: 600; font-size: 13px; text-decoration: none; min-height: 34px; transition: background .2s; }
+.astro-khj-zeiten__dl:hover { background: #7a2424; }
+.astro-khj-zeiten__grid { background: #fff; border-radius: var(--bf-radius); padding: 24px 28px; border: 1px solid var(--bf-border); }
+.astro-khj-zeiten__row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--bf-border); font-size: 15px; }
+.astro-khj-zeiten__row:last-child { border-bottom: none; }
+.astro-khj-zeiten__day { color: var(--bf-ink); font-weight: 600; }
+.astro-khj-zeiten__time { color: var(--bf-ink-60); }
+@media (max-width: 760px) { .astro-khj-zeiten__in { grid-template-columns: 1fr; gap: 28px; } }
+
+/* ANMELDUNG */
+.astro-khj-anmeld { background: #fff; padding: 80px 24px; }
+.astro-khj-anmeld__in { max-width: 900px; margin: 0 auto; text-align: center; }
+.astro-khj-anmeld__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 16px; line-height: 1.2; }
+.astro-khj-anmeld__lead { font-size: 16px; color: var(--bf-ink-60); max-width: 720px; margin: 0 auto; line-height: 1.75; }
+.astro-khj-anmeld__lead a { color: var(--bf-accent); font-weight: 600; word-break: break-word; }
+.astro-khj-anmeld__ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+.astro-khj-btn--outline { background: transparent; color: var(--bf-accent); border: 2px solid var(--bf-accent); padding: 13px 26px; border-radius: 32px; font-weight: 700; font-size: 14.5px; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; transition: all .2s; }
+.astro-khj-btn--outline:hover { background: var(--bf-accent); color: #fff; }
+
+/* PÄDAGOGIK */
+.astro-khj-paed { background: var(--bf-bg); padding: 80px 24px; }
+.astro-khj-paed__in { max-width: 1000px; margin: 0 auto; }
+.astro-khj-paed__head { text-align: center; margin-bottom: 44px; }
+.astro-khj-paed__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--bf-ink); margin: 0 0 12px; }
+.astro-khj-paed__lead { font-size: 16px; color: var(--bf-ink-60); max-width: 720px; margin: 0 auto; line-height: 1.7; }
+.astro-khj-paed__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.astro-khj-paed__card { background: #fff; border-radius: var(--bf-radius); padding: 32px 24px; border-top: 3px solid var(--bf-accent); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.astro-khj-paed__icon { width: 48px; height: 48px; border-radius: 50%; background: var(--bf-bg); color: var(--bf-accent); display: flex; align-items: center; justify-content: center; border: 1px solid var(--bf-border); }
+.astro-khj-paed__card h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 700; color: var(--bf-ink); margin: 0; }
+.astro-khj-paed__card p { font-size: 14px; color: var(--bf-ink-60); line-height: 1.6; margin: 0; }
+.astro-khj-paed__card a { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 22px; background: var(--bf-accent); color: #fff; font-weight: 600; font-size: 13px; text-decoration: none; min-height: 40px; transition: background .2s; margin-top: auto; }
+.astro-khj-paed__card a:hover { background: #7a2424; }
+@media (max-width: 700px) { .astro-khj-paed__grid { grid-template-columns: 1fr; } }
+
+@media (max-width: 760px) { .astro-khj-konzept__in { grid-template-columns: 1fr; gap: 32px; } }
+</style>
