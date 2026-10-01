@@ -487,7 +487,7 @@ lokalisiert). Übrig bleiben nur PDF-Links (bewusst, siehe oben).
 - **[`src/lib/qr-counter.js`](../src/lib/qr-counter.js)** — Zähler wie `download-counter.js`
   (Abschnitt 1d), Netlify Blobs Store **`qr-scans`**, Schlüssel `<name>:<YYYY-MM>`. Zählt nur
   Namen aus `QR_LINKS` (keine beliebigen Schlüssel von außen). Kein Personenbezug, keine Cookies.
-- **Auswertung:** Tabelle „QR-Scans" auf `/downloads/statistik` (Basic-Auth, Abschnitt 1d),
+- **Auswertung:** Tabelle „QR-Scans" (Jahre) + „QR-Scans nach Monat" (seit 2026-10-01) auf `/downloads/statistik` (Basic-Auth, Abschnitt 1d),
   eine Spalte pro Jahr + Gesamt. GA4 bekommt die UTM-Etiketten zusätzlich, sieht aber nur
   Besucher mit Cookie-Zustimmung → **maßgeblich ist die eigene Zählung.**
 
@@ -1321,3 +1321,44 @@ vor Go-Live (Abschnitt 12) trotzdem gegenprüfen.
 > [`/kirchorte/st-aposteln/offener-kuehlschrank/`](../src/pages/kirchorte/st-aposteln/offener-kuehlschrank.astro)
 > (Page-ID 49509, Abschnitt „Kirchort-Seiten"). Die Kachel in `ElTiles.astro` verlinkt jetzt
 > direkt dorthin, analog zum Kleider Café.
+
+---
+
+## 18. Versteckte QR-Landingpage „Willkommen" (`/willkommen/`) + Rückmeldeformular ✅
+
+**Zweck:** Ziel des QR-Codes im Brief, der dem Flyer „Herzlich willkommen in Sankt Bonifatius"
+für Neuzugezogene beiliegt. Stellt die Pfarrei vor, leitet zu den Angeboten weiter, bittet um
+Rückmeldung zum Flyer und bietet eine Kontaktaufnahme an. Zugriffe zählt GA4 über die eigene
+Adresse — **nur bei Besucher:innen mit Cookie-Einwilligung** (Base.astro, Consent Mode „denied"
+als Standard). **Vollständige Zählung** deshalb über den QR-Kurzlink **`/go/willkommen`**
+(Abschnitt 1h, Eintrag `willkommen` in `src/lib/qr-links.js`): zählt jeden Scan cookiefrei
+(Auswertung `/downloads/statistik`) und leitet mit UTM-Etiketten auf `/willkommen/` weiter.
+Der QR-Code im Brief muss auf `https://sanktbonifatius.de/go/willkommen` zeigen.
+
+### Versteckt halten
+- **Nicht** in `Nav.astro`, **nicht** intern verlinken, `noindex={true}` an `Base` + zusätzlich
+  `X-Robots-Tag: noindex, nofollow` für `/willkommen/*` in `public/_headers`.
+- Sitemap-Ausschluss in `astro.config.mjs` (`!page.includes('/willkommen/')`).
+- **Kein** `robots.txt`-Disallow (würde die Adresse öffentlich machen und Google am Lesen des
+  `noindex` hindern), kein Eintrag in `_redirects`/`llms.txt`.
+
+### Aufbau ([`src/pages/willkommen.astro`](../src/pages/willkommen.astro))
+`WkHero` (Weinprobe-Foto `2026/10/willkommen-hero-weinprobe.jpg`, Rot-Verlauf; „Handschrift"-Zeile = Playfair kursiv, da
+keine weiteren Schriften erlaubt, Team-Handbuch 04) → `WkIntro` → `WkTiles` (3 Kacheln, mehrere
+Links je Kachel) → `EventCalendar heading="Nächste Termine"` → `WkFeedback` → `WkKontakt`.
+
+### Rückmeldeformular
+- [`WkFeedback.astro`](../src/components/WkFeedback.astro) postet an
+  [`src/pages/api/willkommen-rueckmeldung.ts`](../src/pages/api/willkommen-rueckmeldung.ts)
+  (`prerender = false`) — gleiche Lösung wie Kita-Bewerbung/Taufe (13b): `nodemailer` über die
+  SMTP-Env-Vars, **reine Text-Mail, kein PDF**. Empfänger `WILLKOMMEN_TO` (Netlify-Env), Standard
+  `info@sanktbonifatius.de` (Festlegung Werner, 2026-10-01). Ohne SMTP: DEV-Modus, Textdatei unter `./.willkommen-eingaben/`.
+- **Datenschutz:** `method="post"` auch ohne JavaScript (Eingaben nie in der URL → nicht in
+  Server-Logs/GA4-`page_location`); API loggt keine Formularinhalte; Kontaktdaten werden **nur**
+  bei gesetztem Häkchen „Ich freue mich über eine Kontaktaufnahme" übernommen, sonst verworfen.
+- Ohne JavaScript antwortet die API mit 303 auf `/willkommen/#danke` bzw. `#fehler` (per `:target`
+  eingeblendet); mit JavaScript JSON (`Accept: application/json`).
+- Anti-Spam wie Kita-Bewerbung (Honeypot `webseite` + Zeit-Check `astro_ts`).
+- Lokal mit curl testen: Astro verlangt bei Formular-POSTs einen `Origin`-Header
+  (`-H "Origin: http://localhost:4321"`), sonst 403 „Cross-site POST form submissions are forbidden".
+
