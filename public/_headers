@@ -14,3 +14,8 @@
   Content-Disposition: attachment; filename="Sankt Bonifatius Highlights.pdf"
   Cache-Control: public, max-age=3600, must-revalidate
   X-Robots-Tag: noindex, nofollow
+
+# Versteckte QR-Landingpage (Brief zum Willkommens-Flyer): zusätzlich zum <meta name="robots"> auch
+# als HTTP-Header noindex, damit Suchmaschinen sie sicher nicht aufnehmen (Handbuch 18).
+/willkommen/*
+  X-Robots-Tag: noindex, nofollow
