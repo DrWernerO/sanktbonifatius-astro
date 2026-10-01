@@ -490,6 +490,12 @@ lokalisiert). Übrig bleiben nur PDF-Links (bewusst, siehe oben).
   eine Spalte pro Jahr + Gesamt. GA4 bekommt die UTM-Etiketten zusätzlich, sieht aber nur
   Besucher mit Cookie-Zustimmung → **maßgeblich ist die eigene Zählung.**
 
+### Externe Ziele (z. B. WhatsApp-Kanal)
+`ziel` darf auch eine externe `https://`-Adresse sein (seit 2026-10-01, erster Fall
+`boniwein-whatsapp` → WhatsApp-Kanal der Pfarrei, für das Weinflaschen-Etikett). Dann hängt
+`qrZiel()` **keine** UTM-Etiketten an; GA4 sieht solche Scans nicht (niemand besucht unsere
+Seite) — gezählt wird nur über den eigenen Zähler.
+
 ### Warum nicht WordPress-Plugin „Redirection" (wie ursprünglich in der Excel-Anleitung)?
 `sanktbonifatius.de` ist Astro/Netlify, WP auf `cms.` ist nach außen gesperrt (Regel 0) — ein
 WP-Plugin würde für `/go/…` nie greifen. Die Liste liegt deshalb bewusst im Repo, nicht live in WP.
