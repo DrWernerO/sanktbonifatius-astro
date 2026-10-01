@@ -1,0 +1,96 @@
+---
+// Drei Angebots-Kacheln der Landingpage „Willkommen" (/willkommen/). Eigene Klassen `astro-wktiles`.
+// Anders als SegenTiles.astro ist nicht die ganze Kachel ein Link, weil eine Kachel mehrere
+// Ziele hat (BonFamily, Jugendkirche JONA, Gemeinschaft). Texte sinngemäß aus den Zielseiten
+// übernommen (GdbIntro, KbIntro, BfWelcome, GtCategories). Fotos aus dem Startseiten-Bilderlauf.
+const tiles = [
+  {
+    img: '/uploads/2026/06/image-fotos-stbonifatius-00013.jpg',
+    alt: 'Gottesdienst bei Kerzenlicht in der Pfarrkirche St. Bonifatius',
+    title: 'Gottesdienste',
+    label: 'Von lebendig bis meditativ',
+    text: 'Ob meditativ bei Kerzenlicht, mit Taizé-Gesängen oder zeitgemäß mit Band: Bei uns finden Sie ein Format, das Ihr Herz anspricht.',
+    links: [
+      { href: '/gottesdienst-glaube/gottesdienste-die-beruehren/', label: 'Gottesdienste, die berühren' },
+      { href: '/gottesdienst-glaube/gottesdienstordnung/', label: 'Alle Gottesdienstzeiten' },
+    ],
+  },
+  {
+    img: '/uploads/2026/06/image-fotos-stbonifatius-00022.jpg',
+    alt: 'Lachende Frauen bei einem Fest der Pfarrei Sankt Bonifatius',
+    title: 'Begegnung und Kultur',
+    label: 'Gemeinsam erleben',
+    text: 'Beim sonntäglichen Kirchcafé, im Kleider Café, beim Spielenachmittag BonCasino oder in unseren drei Büchereien entsteht Gemeinschaft ganz von selbst.',
+    links: [
+      { href: '/kultur-begegnung/', label: 'Kultur und Begegnung entdecken' },
+    ],
+  },
+  {
+    img: '/uploads/2026/06/image-fotos-stbonifatius-00016.jpg',
+    alt: 'Mütter mit Babys und Kleinkindern bei einem Familientreff der Pfarrei',
+    title: 'Familien und Jugend',
+    label: 'Für Groß und Klein',
+    text: 'BonFamily ist unser Programm für Familien mit Kindern. Jugendliche finden bei der Jugendkirche JONA, die bei uns zu Hause ist, Freizeiten, Gemeinschaft und vieles mehr.',
+    links: [
+      { href: '/bonfamily/', label: 'BonFamily' },
+      { href: 'https://www.jugendkirche-jona.de', label: 'Jugendkirche JONA', external: true },
+      { href: '/ueberuns/gemeinschaft/', label: 'Unsere Gemeinschaft' },
+    ],
+  },
+];
+---
+<section class="astro-wktiles" id="angebote">
+  <div class="astro-wktiles__inner">
+    <div class="astro-wktiles__head">
+      <h2 class="astro-wktiles__hl">Was Sie bei uns erwartet</h2>
+      <p class="astro-wktiles__intro">Schauen Sie einfach mal vorbei – wir freuen uns auf Sie!</p>
+    </div>
+    <ul class="astro-wktiles__grid" role="list">
+      {tiles.map((t) => (
+        <li class="astro-wktile">
+          <img class="astro-wktile__img" src={t.img} alt={t.alt} width="675" height="450" loading="lazy" />
+          <div class="astro-wktile__body">
+            <p class="astro-wktile__label">{t.label}</p>
+            <h3 class="astro-wktile__title">{t.title}</h3>
+            <p class="astro-wktile__text">{t.text}</p>
+            <ul class="astro-wktile__links" role="list">
+              {t.links.map((l) => (
+                <li>
+                  <a class="astro-wktile__link" href={l.href}
+                     {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}>
+                    {l.label}
+                    {l.external
+                      ? <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span class="astro-wk-sr">(öffnet neues Fenster)</span></>
+                      : <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-wktiles{background:#f7f3ef;padding:80px 0;scroll-margin-top:80px}
+.astro-wktiles__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-wktiles__head{text-align:center;margin:0 0 40px}
+.astro-wktiles__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.5vw,42px);font-weight:700;color:#2c2420;margin:0 0 12px;line-height:1.15}
+.astro-wktiles__intro{font-size:clamp(16px,1.8vw,18px);color:#6b5c52;margin:0}
+.astro-wktiles__grid{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.astro-wktile{display:flex;flex-direction:column;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 14px rgba(30,21,18,.07)}
+.astro-wktile__img{width:100%;height:210px;object-fit:cover}
+.astro-wktile__body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
+.astro-wktile__label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 8px}
+.astro-wktile__title{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;color:#2c2420;margin:0 0 12px;line-height:1.2}
+.astro-wktile__text{font-size:15.5px;color:#4a3f37;line-height:1.6;margin:0 0 18px;flex:1}
+.astro-wktile__links{list-style:none;display:flex;flex-direction:column;gap:4px}
+.astro-wktile__link{display:inline-flex;align-items:center;gap:6px;min-height:40px;font-size:15px;font-weight:600;color:#9a2d2d;text-decoration:underline;text-decoration-color:rgba(154,45,45,.35);text-underline-offset:4px}
+.astro-wktile__link:hover{text-decoration-color:#9a2d2d}
+.astro-wktile__link:focus-visible{outline:3px solid #9a2d2d;outline-offset:2px;border-radius:4px}
+.astro-wk-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:960px){.astro-wktiles__grid{grid-template-columns:1fr;max-width:560px;margin:0 auto}}
+@media(max-width:600px){.astro-wktiles{padding:56px 0}.astro-wktiles__inner{padding:0 20px}}
+</style>

@@ -30,7 +30,9 @@ export default defineConfig({
       // öffentlich lesbar in der sitemap.xml (URL damit auffindbar, auch wenn der Inhalt
       // selbst gesperrt bleibt).
       filter: (page) => !page.includes('/kontakt/raumbuchung') && !page.includes('/downloads/statistik')
-        && !page.includes('/exerzitien2027'),
+        && !page.includes('/exerzitien2027')
+        // Versteckte QR-Landingpage (Brief zum Willkommens-Flyer), noindex — siehe src/pages/willkommen.astro
+        && !page.includes('/willkommen/'),
     }),
   ],
   vite: {

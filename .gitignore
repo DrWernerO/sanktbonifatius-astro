@@ -23,6 +23,9 @@ pnpm-debug.log*
 # Kita-Bewerbungen, die im Testmodus (ohne SMTP) lokal gespeichert werden
 .bewerbung-eingaben/
 
+# Rückmeldungen der Willkommens-Seite, die im Testmodus (ohne SMTP) lokal gespeichert werden
+.willkommen-eingaben/
+
 # macOS-specific files
 .DS_Store
 

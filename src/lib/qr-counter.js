@@ -22,24 +22,26 @@ export async function zaehleScan(name) {
   await s.set(schluessel, String((await leseZahl(s, schluessel)) + 1));
 }
 
-// Eine Zeile pro Kurzlink aus QR_LINKS (auch ohne Scans), mit Summe je Jahr:
-// [{ name, titel, quelle, kampagne, jahre: { 2026: 13 }, gesamt: 13 }, ...]
+// Eine Zeile pro Kurzlink aus QR_LINKS (auch ohne Scans), mit Summe je Jahr und je Monat:
+// [{ name, titel, quelle, kampagne, jahre: { 2026: 13 }, monate: { '2026-10': 13 }, gesamt: 13 }, ...]
 export async function leseQrZaehler() {
   const s = store();
   const { blobs } = await s.list();
   const zeilen = new Map(
     Object.entries(QR_LINKS).map(([name, e]) => [
       name,
-      { name, titel: e.titel, quelle: e.quelle, kampagne: e.kampagne, jahre: {}, gesamt: 0 },
+      { name, titel: e.titel, quelle: e.quelle, kampagne: e.kampagne, jahre: {}, monate: {}, gesamt: 0 },
     ])
   );
   for (const blob of blobs) {
     const trenn = blob.key.lastIndexOf(':');
     const zeile = zeilen.get(blob.key.slice(0, trenn));
     if (!zeile) continue;
-    const jahr = blob.key.slice(trenn + 1, trenn + 5);
+    const monat = blob.key.slice(trenn + 1); // "YYYY-MM"
+    const jahr = monat.slice(0, 4);
     const wert = await leseZahl(s, blob.key);
     zeile.jahre[jahr] = (zeile.jahre[jahr] || 0) + wert;
+    zeile.monate[monat] = (zeile.monate[monat] || 0) + wert;
     zeile.gesamt += wert;
   }
   return [...zeilen.values()];

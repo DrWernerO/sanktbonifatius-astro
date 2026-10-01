@@ -1,0 +1,38 @@
+---
+// VERSTECKTE Landingpage „Willkommen" (/willkommen/) — Ziel des QR-Codes im Brief, der dem
+// Flyer „Herzlich willkommen in Sankt Bonifatius" für Neuzugezogene beiliegt.
+// Bewusst: NICHT im Menü, NICHT in der Sitemap (Filter in astro.config.mjs), NICHT intern verlinkt,
+// noindex/nofollow. Kein Eintrag in _redirects/llms.txt/robots.txt (ein Disallow würde die Adresse
+// nur öffentlich machen und Google am Lesen des noindex hindern).
+// Zugriffe zählt das vorhandene GA4 (nur bei Cookie-Einwilligung, siehe Base.astro) — deshalb eine
+// eigene Adresse statt UTM-Parametern.
+// Nav + Footer global aus Base.astro (Handbuch 4b). Kein WP-Inhalt, kein SEO_STATIC-Eintrag nötig.
+import Base from '../layouts/Base.astro';
+import WkHero from '../components/WkHero.astro';
+import WkIntro from '../components/WkIntro.astro';
+import WkTiles from '../components/WkTiles.astro';
+import WkFeedback from '../components/WkFeedback.astro';
+import WkKontakt from '../components/WkKontakt.astro';
+import EventCalendar from '../components/EventCalendar.astro';
+---
+<Base
+  title="Herzlich willkommen"
+  description="Schön, dass Sie da sind! Die Pfarrei Sankt Bonifatius in Frankfurt stellt sich vor."
+  noindex={true}
+>
+  <WkHero />
+  <WkIntro />
+  <WkTiles />
+  <div id="termine" class="astro-wk-termine">
+    <EventCalendar heading="Nächste Termine" moreHref="/terminkalender/" />
+  </div>
+  <WkFeedback />
+  <WkKontakt />
+</Base>
+
+<style is:global>
+.astro-wk-termine{scroll-margin-top:96px}
+.astro-wk-termine .astro-ev__hl,
+.astro-wk-termine .astro-ev-card__title,
+.astro-wk-termine .astro-ev-list__hl { color: #9a2d2d; }
+</style>
