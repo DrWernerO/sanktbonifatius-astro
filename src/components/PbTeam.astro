@@ -2,6 +2,8 @@
 // „Ihr Verwaltungsteam" — 6 Karten (Foto, Name, Rolle, Aufgaben, E-Mail) — WP-Seite 47815
 // (ersetzt WP-Block `pb-team`). Eigene Klassen `astro-pbteam`. Fotos lokal in
 // public/uploads/2026/06 (Handbuch 1b). mailto im Klartext (wartbar). aria-label auf Foto.
+// E-Mail: alle Verwaltungskräfte außer der Verwaltungsleitung nur über info@ (Wunsch Manuela
+// König nach Rücksprache mit Frau Gause, 02.10.2026) — das Büro verteilt intern weiter.
 const IMG = '/uploads/2026/06';
 const TEAM = [
   { name: 'Annette Gause', role: 'Verwaltungsleiterin',
@@ -9,19 +11,19 @@ const TEAM = [
     photo: `${IMG}/Annette-Gause-300x300.jpg`, mail: 'a.gause@sanktbonifatius.de' },
   { name: 'Manuela König', role: 'Koordination & Öffentlichkeitsarbeit',
     task: 'Koordination, Öffentlichkeitsarbeit, Pfarrbrief / Newsletter, Webseite, Erstkommunion, Pfarrgemeinderat, Vermietungen.',
-    photo: `${IMG}/Manuela-Koenig-300x300.jpg`, mail: 'm.koenig@sanktbonifatius.de' },
+    photo: `${IMG}/Manuela-Koenig-300x300.jpg`, mail: 'info@sanktbonifatius.de' },
   { name: 'Ivana Buhac', role: 'Verwaltung & Öffentlichkeitsarbeit',
     task: 'Kirchenaustritte, Jobtickets, Öffentlichkeitsarbeit / Webseite, Verwaltungsrat, Vermietungen, Rekonziliation / Konversion.',
-    photo: `${IMG}/Ivana-Buhac-300x300.jpg`, mail: 'i.buhac@sanktbonifatius.de' },
+    photo: `${IMG}/Ivana-Buhac-300x300.jpg`, mail: 'info@sanktbonifatius.de' },
   { name: 'Andrea Hanselmann', role: 'Buchhaltung & Standesamt',
     task: 'Eheschließung, Kirchenbücher, Todesfälle, Buchhaltung, allg. Verwaltungsarbeiten.',
-    photo: `${IMG}/Andrea-Hanselmann-300x300.jpg`, mail: 'a.hanselmann@sanktbonifatius.de' },
+    photo: `${IMG}/Andrea-Hanselmann-300x300.jpg`, mail: 'info@sanktbonifatius.de' },
   { name: 'Neda Tadic', role: 'Sakramente & Buchhaltung',
     task: 'Taufe, Firmung, allg. Verwaltungsarbeit, Buchhaltung, Lektoren- und Kommunionhelferplan.',
-    photo: `${IMG}/Neda-Tadic-300x300.jpg`, mail: 'n.tadic@sanktbonifatius.de' },
+    photo: `${IMG}/Neda-Tadic-300x300.jpg`, mail: 'info@sanktbonifatius.de' },
   { name: 'Katharina Sattler', role: 'Gottesdienstplanung & Immobilien',
     task: 'Gottesdienstplanung, Immobilienverwaltung.',
-    photo: `${IMG}/Katharina-Sattler-300x300.jpg`, mail: 'k.sattler@sanktbonifatius.de' },
+    photo: `${IMG}/Katharina-Sattler-300x300.jpg`, mail: 'info@sanktbonifatius.de' },
 ];
 ---
 <section class="astro-pbteam">
