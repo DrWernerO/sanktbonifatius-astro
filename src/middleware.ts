@@ -11,15 +11,15 @@
 // Browser-Login-Fenster, daher fest im Code statt in einer Umgebungsvariable.
 import { defineMiddleware } from 'astro:middleware';
 
-const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername: string; realm: string }> = {
+const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername?: string; realm: string }> = {
   '/kontakt/raumbuchung': {
     envVar: 'RAUMBUCHUNG_PASSWORD',
     benutzername: 'anfrage',
     realm: 'Raumbuchung Sankt Bonifatius',
   },
   '/downloads/statistik': {
-    envVar: 'DOWNLOADS_STATS_PASSWORD',
-    benutzername: 'statistik',
+    // Seit 03.10.2026 gemeinsames Passwort mit der Jubiläumsseite, Benutzername egal.
+    envVar: 'JUBILAEUM_SEITE_PASSWORD',
     realm: 'Download-Statistik Sankt Bonifatius',
   },
   '/exerzitien2027': {
@@ -28,13 +28,12 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername: string; 
     realm: 'Pause fuer die Seele 2027',
   },
   '/100-jahre': {
+    // Ohne `benutzername`: Benutzername wird ignoriert, nur das Passwort zählt.
     envVar: 'JUBILAEUM_SEITE_PASSWORD',
-    benutzername: 'jubilaeum',
     realm: '100 Jahre Sankt Bonifatius',
   },
   '/100-jahre/rundgang': {
-    envVar: 'JUBILAEUM_PASSWORD',
-    benutzername: 'carloacutis',
+    envVar: 'JUBILAEUM_SEITE_PASSWORD',
     realm: '100 Jahre Sankt Bonifatius (Prototyp)',
   },
 };
@@ -72,7 +71,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const trennstelle = eingabe.indexOf(':');
     const eingabeBenutzername = eingabe.slice(0, trennstelle);
     const eingabePasswort = eingabe.slice(trennstelle + 1);
-    if (eingabeBenutzername.toLowerCase() === schutz.benutzername && eingabePasswort.normalize('NFC') === sollPasswort.normalize('NFC')) {
+    if ((!schutz.benutzername || eingabeBenutzername.toLowerCase() === schutz.benutzername) && eingabePasswort.normalize('NFC') === sollPasswort.normalize('NFC')) {
       const response = await next();
       response.headers.set('X-Robots-Tag', 'noindex, nofollow');
       return response;
