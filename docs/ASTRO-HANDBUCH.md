@@ -729,6 +729,17 @@ Die Nav ist die wichtigste wiederverwendbare Komponente. Aufbau (Präfix `bh3a-`
   mal leer — deshalb fehlten anfangs alle Beitragsbilder). Bilder daher IMMER über die ID
   (`featured_media`) mit `resolveMediaUrls()` (gebündelter `/media?include=`-Call) auflösen.
   Gilt auch für Termine (`event_meta.image`).
+- **Bild-Fallstrick 2 — Beitragsbild fehlt, obwohl im Editor gesetzt:** Mediendateien erben den
+  Status ihres Eltern-Eintrags (`status: inherit`, Feld `post`). Wurde das Bild in einem Entwurf
+  hochgeladen, der später gelöscht/ersetzt wurde (z. B. Eltern-ID existiert nicht mehr), liefert
+  die öffentliche REST-API `GET /wp-json/wp/v2/media/<id>` **401 `rest_forbidden`** → `resolveMediaUrls()`
+  findet keine URL, der Beitrag erscheint ohne Bild (Hero-Farbverlauf). Prüfen: Media-ID aus
+  `featured_media` öffentlich abrufen (ohne Login). **Fix:** Bild dem veröffentlichten Beitrag
+  zuordnen (WP-Admin: Mediathek → Bild → „Hochgeladen zu" / per REST `POST /wp/v2/media/<id>`
+  mit `{"post": <Beitrags-ID>}`; danach 200). Dann Rebuild auslösen (Zuordnung allein triggert den
+  Webhook nicht — Beitrag neu speichern oder Netlify „Trigger deploy"). **Vorbeugen:** Beitragsbild
+  im Beitrag selbst hochladen, nicht in einem Entwurf, der später verworfen wird.
+  (Fall 03.10.2026: Beitrag „Ihre Meinung zählt!", Media 53310 hing an Eltern-ID 53308.)
 - **News** dagegen haben keine Detailseite (leere WP-Permalinks) → Lightbox (siehe oben).
 
 ---
