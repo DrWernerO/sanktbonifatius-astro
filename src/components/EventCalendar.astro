@@ -239,6 +239,10 @@ const {
   const CHURCH_NAMES = {
     'bonifatius': 'St. Bonifatius',
     'aposteln':   'St. Aposteln',
+    'wendel':     'St. Wendel',
+    'herzjesu':   'Herz Jesu',
+    'herz-jesu':  'Herz Jesu',
+    'herz_jesu':  'Herz Jesu',
     'georgen':    'Sankt Georgen',
     'judas':      'St. Judas Thaddäus',
   };
@@ -252,7 +256,10 @@ const {
     const day  = DAYS[d.getDay()];
     const date = d.getDate()+'. '+MONTHS_LONG[d.getMonth()]+' '+d.getFullYear();
     const time = m.times || '';
-    const church = CHURCH_NAMES[m.church] || m.church || '';
+    // Veranstaltungsort (event_meta.location) hat Vorrang vor dem generischen Kirchort-Namen
+    // (Wunsch Werner, 2026-09-28 — s. CalendarOverview.astro/termine/[slug].astro, jetzt auf
+    // alle Termine ausgeweitet).
+    const church = m.location || CHURCH_NAMES[m.church] || m.church || '';
     const parts = [day+', '+date];
     if (time)   parts.push(time);
     if (church) parts.push(church);

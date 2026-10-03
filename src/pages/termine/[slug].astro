@@ -28,7 +28,7 @@ if (!event) {
 const m = event.meta || {};
 const { seo, description } = await getEventDetail(event.wpPath);
 
-const CHURCH = { bonifatius: 'St. Bonifatius', aposteln: 'St. Aposteln', georgen: 'Sankt Georgen', judas: 'St. Judas Thaddäus' };
+const CHURCH = { bonifatius: 'St. Bonifatius', aposteln: 'St. Aposteln', wendel: 'St. Wendel', herzjesu: 'Herz Jesu', 'herz-jesu': 'Herz Jesu', herz_jesu: 'Herz Jesu', georgen: 'Sankt Georgen', judas: 'St. Judas Thaddäus' };
 const decode = (s) =>
   (s || '')
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
@@ -49,7 +49,8 @@ const startD = parseYmd(m.start_date);
 const endD = parseYmd(m.end_date);
 const dateText = endD && m.end_date !== m.start_date ? `${fmt(startD)} – ${fmt(endD)}` : fmt(startD);
 const church = CHURCH[m.church] || m.church || '';
-// Kirchort nur ergänzen, wenn er nicht schon im Ort-Freitext steckt (sonst Dopplung).
+// Ort-Feld hat Vorrang; Kirchort nur ergänzen, wenn er nicht schon im Ort-Freitext steckt (sonst
+// Dopplung) — Wunsch Werner, 2026-09-28, getestet an ID 50951, jetzt auf alle Termine ausgeweitet.
 const place = [m.location, church && !(m.location || '').includes(church) ? church : ''].filter(Boolean).join(', ');
 const metaParts = [dateText, m.times, place].filter(Boolean); // kompakte Meta-Zeile
 const heroStyle = event.image ? `background-image:url('${event.image}')` : '';

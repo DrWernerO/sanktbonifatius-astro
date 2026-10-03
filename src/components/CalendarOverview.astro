@@ -26,6 +26,10 @@ const CHURCH_NAMES = {
   georgen: 'Sankt Georgen', judas: 'St. Judas Thaddäus',
 };
 
+// Veranstaltungsort (event_meta.location) hat Vorrang vor dem generischen Kirchort-Namen (Wunsch
+// Werner, 2026-09-28 — vorher war es umgekehrt, wodurch das Ort-Feld praktisch nie zur Anzeige kam,
+// sobald ein Kirchort gesetzt war; getestet an ID 50951 "Gedenken an die Brandnacht in Oberrad
+// 1943", jetzt auf alle Termine ausgeweitet). Nur bei leerem Ort-Feld Fallback auf den Kirchort.
 function localPath(u) {
   try { return new URL(u).pathname; } catch { return u || '#'; }
 }
@@ -39,7 +43,7 @@ const EVENTS = rawEvents.map((e) => {
   const meta = e.event_meta || {};
   const sd = meta.start_date || '';
   const churchKey = (meta.church || '').toLowerCase();
-  const churchName = CHURCH_NAMES[churchKey] || decodeEntities(meta.location || '') || '';
+  const churchName = decodeEntities(meta.location || '') || CHURCH_NAMES[churchKey] || '';
   const href = localPath(e.link);
   // Uhrzeit aus dem Freitext (z.B. "15:00-18:30 Uhr") fürs Event-Schema, wenn eindeutig erkennbar
   // (sonst bleibt es beim reinen Datum — sicherer als bei jedem Freitext zu raten).
