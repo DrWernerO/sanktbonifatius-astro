@@ -23,8 +23,8 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername?: string;
     realm: 'Download-Statistik Sankt Bonifatius',
   },
   '/exerzitien2027': {
-    envVar: 'PAUSE_FUER_DIE_SEELE_PASSWORD',
-    benutzername: 'exerzitien',
+    // Seit 03.10.2026 gemeinsames Passwort wie Jubiläum/Statistik, Benutzername egal.
+    envVar: 'JUBILAEUM_SEITE_PASSWORD',
     realm: 'Pause fuer die Seele 2027',
   },
   '/100-jahre': {
