@@ -8,6 +8,11 @@
 // ADRESSE: /100-jahre/ (Kurz-Adresse /100/ in public/_redirects). Der virtuelle Rundgang ist
 // Unterseite /100-jahre/rundgang/ (src/pages/100-jahre/rundgang.astro, Prototyp mit eigenem Passwortschutz).
 //
+// PASSWORTSCHUTZ (Werner, 03.10.2026): HTTP-Basic-Auth über src/middleware.ts (Benutzer
+// „jubilaeum", Passwort in Env JUBILAEUM_SEITE_PASSWORD — lokal .env, produktiv Netlify). Dafür ist
+// `prerender = false` zwingend (sonst liefert Netlify die Seite an der Middleware vorbei aus).
+// Zum Freischalten: Eintrag '/100-jahre' in middleware.ts entfernen, prerender-Zeile löschen.
+//
 // STATUS: noch NICHT öffentlich beworben — noindex, nicht in Sitemap, robots-Disallow, nicht im
 // Nav (Regel: Menü nur auf Werners Freigabe). Zum Freischalten: `noindex` an <Base> entfernen,
 // Filter in astro.config.mjs (/100-jahre/ ohne Rundgang) + Disallow in robots.txt zurücknehmen, llms.txt-Zeile ergänzen.
@@ -16,6 +21,8 @@
 // zeigen „Termin folgt"; neue Items einfach ergänzen), Downloads (`pdf` setzen = Button statt „erscheint …"), Termine (Datum ISO, werden
 // automatisch sortiert; vergangene grau). Hero-Foto: public/uploads/2027/jubilaeum/hero-pfarrkirche.jpg
 // (aktuell Platzhalter). PDFs liegen lokal unter public/uploads/2027/jubilaeum/ (Handbuch 1g).
+export const prerender = false;
+
 import Base from '../../layouts/Base.astro';
 import JubHero from '../../components/JubHero.astro';
 import JubIntro from '../../components/JubIntro.astro';
