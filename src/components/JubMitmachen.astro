@@ -1,10 +1,11 @@
 ---
 // Kleine Mitmach-Abteilung „IHR St. Bonifatius" (Werner, 03.10.2026) — sammelt Erfahrungen und
-// Erinnerungen für die „virtuelle Pfarrkirche" (digitaler Rundweg). Eigene Klassen `astro-jub-mit`
-// (Handbuch 3). Mail-Adresse: w.otto@ (Werner, 03.10.2026), Betreff vorbelegt — bei Bedarf in
-// `mail` anpassen. Ein größerer Mitmach-Bereich ist ausdrücklich noch NICHT geplant.
-const mail = 'w.otto@sanktbonifatius.de';
-const betreff = 'IHR St. Bonifatius – meine Erfahrung mit der Pfarrkirche';
+// Erinnerungen für den „Virtuellen Kirchenführer" (Sparte „Die Kirche mit neuen Augen"). Eigene Klassen `astro-jub-mit`
+// (Handbuch 3). Das Formular klappt auf und sendet per FormData an die eigene API-Route
+// `/api/jubilaeum-erfahrung` (src/pages/api/jubilaeum-erfahrung.ts) — dieselbe Mail-Funktion
+// (nodemailer/SMTP) wie Taufanmeldung und Kita-Bewerbung; Empfänger w.otto@ (Werner).
+// 🔑 Feldnamen sind VERTRAG mit der API-Route: name, email, nachricht, foto, einverstaendnis,
+// webseite (Honeypot), astro_ts. Ein größerer Mitmach-Bereich ist ausdrücklich noch NICHT geplant.
 ---
 <section class="astro-jub-sec astro-jub-mit" id="mitmachen">
   <div class="astro-jub-wrap astro-jub-wrap--narrow">
@@ -12,11 +13,100 @@ const betreff = 'IHR St. Bonifatius – meine Erfahrung mit der Pfarrkirche';
       <p class="astro-jub-mit__label">Mitmachen</p>
       <h2 class="astro-jub-mit__hl">IHR St. Bonifatius</h2>
       <p class="astro-jub-mit__q">Was bedeutet Ihnen die Pfarrkirche? Was haben Sie an diesem Ort erlebt?</p>
-      <p class="astro-jub-mit__text">Schreiben Sie uns! Ihre Erfahrung möchten wir gerne einen Platz in der „virtuellen Pfarrkirche“ geben.</p>
-      <a class="astro-jub-btn astro-jub-btn--primary" href={`mailto:${mail}?subject=${encodeURIComponent(betreff)}`}>Schreiben Sie uns</a>
+      <p class="astro-jub-mit__text">Wir interessieren uns dafür, was Sie mit St. Bonifatius verbinden: welche schönen Momente, welche besonderen Ereignisse in Ihrem Leben. Erzählen Sie uns davon! Ihren Beitrag werden wir dann im „Virtuellen Kirchenführer“ veröffentlichen. Legen Sie auch gerne ein Foto bei, wenn Sie eins haben.</p>
+      <p class="astro-jub-mit__text">Wir sind sehr gespannt, was Sie zu erzählen haben. Vielen herzlichen Dank, dass Sie mitmachen!</p>
+      <details class="astro-jub-mit__more">
+        <summary class="astro-jub-btn astro-jub-btn--primary">Ihre Erfahrung einsenden</summary>
+        <form id="astro-jub-mit-form" class="astro-jub-mit__form" novalidate>
+          <div class="astro-jub-mit__grid">
+            <label class="astro-jub-mit__f">Ihr Name *<input type="text" name="name" autocomplete="name" required /></label>
+            <label class="astro-jub-mit__f">Ihre E-Mail-Adresse *<input type="email" name="email" autocomplete="email" required /></label>
+          </div>
+          <label class="astro-jub-mit__f">Ihre Nachricht *
+            <textarea name="nachricht" rows="6" maxlength="5000" required placeholder="Was verbinden Sie mit St. Bonifatius? Was haben Sie hier erlebt?"></textarea>
+          </label>
+          <label class="astro-jub-mit__f">Foto (optional)
+            <input type="file" name="foto" accept="image/jpeg,image/png,image/webp" />
+            <span class="astro-jub-mit__hint">Bitte nur Fotos, bei denen Sie die Rechte haben und auf denen alle erkennbaren Personen einverstanden sind.</span>
+          </label>
+          <div class="astro-jub-mit__consent">
+            <label><input type="checkbox" name="einverstaendnis" required /><span>Ich bin damit einverstanden, dass mein Beitrag (Text, Name und ggf. Foto) auf der Website der Pfarrei, auch im „Virtuellen Kirchenführer“, veröffentlicht wird. Meine Angaben werden nur dafür verwendet, siehe <a href="/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a>. *</span></label>
+          </div>
+          <p class="astro-jub-mit__required">* Pflichtfeld</p>
+          <button type="submit" class="astro-jub-btn astro-jub-btn--primary astro-jub-mit__submit">Absenden</button>
+          <div class="astro-jub-mit__msg" id="astro-jub-mit-msg" role="status" aria-live="polite" hidden></div>
+          <!-- Anti-Spam wie Taufe/Kita: Honeypot unsichtbar, Server verwirft still -->
+          <div class="astro-jub-mit__hp" aria-hidden="true">
+            <label>Bitte dieses Feld leer lassen<input type="text" name="webseite" tabindex="-1" autocomplete="off" /></label>
+          </div>
+          <input type="hidden" name="astro_ts" id="astro-jub-mit-ts" value="" />
+        </form>
+      </details>
     </div>
   </div>
 </section>
+
+<script is:inline>
+(function () {
+  var form = document.getElementById('astro-jub-mit-form');
+  if (!form) return;
+  var msg = document.getElementById('astro-jub-mit-msg');
+  var btn = form.querySelector('.astro-jub-mit__submit');
+  var MAX_MB = 4;
+  var ts = document.getElementById('astro-jub-mit-ts');
+  if (ts) ts.value = String(Date.now());
+
+  function setMsg(ok, text) {
+    msg.hidden = false;
+    msg.className = 'astro-jub-mit__msg ' + (ok ? 'is-ok' : 'is-err');
+    msg.textContent = (ok ? '✓ ' : '⚠ ') + text;
+  }
+
+  // Handyfotos sind oft 3–8 MB: vor dem Senden auf max. 2000 px / JPEG verkleinern (bleibt das
+  // fehl, geht das Original raus, sofern es klein genug ist).
+  function verkleinern(file) {
+    return new Promise(function (resolve) {
+      if (!file || !/^image\/(jpeg|png|webp)$/.test(file.type)) return resolve(file);
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var scale = Math.min(1, 2000 / Math.max(img.width, img.height));
+        if (scale === 1 && file.size <= 1.5 * 1024 * 1024) { URL.revokeObjectURL(url); return resolve(file); }
+        var c = document.createElement('canvas');
+        c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        c.toBlob(function (blob) {
+          URL.revokeObjectURL(url);
+          if (!blob) return resolve(file);
+          resolve(new File([blob], file.name.replace(/\.\w+$/, '') + '.jpg', { type: 'image/jpeg' }));
+        }, 'image/jpeg', 0.85);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    btn.disabled = true; var alt = btn.textContent; btn.textContent = 'Wird gesendet…';
+    try {
+      var data = new FormData(form);
+      var f = data.get('foto');
+      if (f && f.size) {
+        var klein = await verkleinern(f);
+        if (klein.size > MAX_MB * 1024 * 1024) { setMsg(false, 'Das Foto ist größer als ' + MAX_MB + ' MB. Bitte ein kleineres wählen.'); return; }
+        data.set('foto', klein, klein.name);
+      } else { data.delete('foto'); }
+      var res = await fetch('/api/jubilaeum-erfahrung', { method: 'POST', body: data }).then(function (r) { return r.json(); });
+      if (res && res.success) { setMsg(true, typeof res.data === 'string' ? res.data : 'Vielen Dank! Ihr Beitrag ist angekommen.'); form.reset(); if (ts) ts.value = String(Date.now()); }
+      else setMsg(false, (res && res.data) || 'Fehler beim Senden. Bitte versuchen Sie es erneut.');
+    } catch (err) {
+      setMsg(false, 'Verbindungsfehler. Bitte versuchen Sie es erneut oder schreiben Sie an w.otto@sanktbonifatius.de.');
+    } finally { btn.disabled = false; btn.textContent = alt; }
+  });
+})();
+</script>
 
 <style is:global>
 .astro-jub-mit{background:#fff;padding:12px 0 8px}
@@ -25,5 +115,29 @@ const betreff = 'IHR St. Bonifatius – meine Erfahrung mit der Pfarrkirche';
 .astro-jub-mit__hl{font-family:var(--jub-serif);font-size:clamp(21px,2.6vw,26px);font-weight:700;line-height:1.2;color:var(--bf-ink);margin:0 0 8px}
 .astro-jub-mit__q{font-family:var(--jub-serif);font-size:18px;line-height:1.5;color:var(--bf-ink);margin:0 0 6px}
 .astro-jub-mit__text{font-size:16px;line-height:1.6;color:var(--txt-muted-light);margin:0 0 14px}
-@media(max-width:640px){.astro-jub-mit__box{padding:18px 18px}}
+/* Aufklapp-Knopf = Button-Optik (summary) */
+.astro-jub-mit__more summary{list-style:none;cursor:pointer}
+.astro-jub-mit__more summary::-webkit-details-marker{display:none}
+.astro-jub-mit__more summary::after{content:'+';font-size:20px;line-height:1;font-weight:300;margin-left:2px;transition:transform .25s}
+.astro-jub-mit__more[open] summary::after{transform:rotate(45deg)}
+.astro-jub-mit__form{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.astro-jub-mit__grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.astro-jub-mit__f{display:flex;flex-direction:column;gap:6px;font-size:14.5px;font-weight:600;color:var(--bf-ink)}
+.astro-jub-mit__f input[type=text],.astro-jub-mit__f input[type=email],.astro-jub-mit__f textarea{font-family:inherit;font-size:16px;font-weight:400;color:var(--bf-ink);padding:11px 12px;border:1px solid #cdbfae;border-radius:8px;background:#fff}
+.astro-jub-mit__f input[type=file]{font-size:15px;font-weight:400}
+.astro-jub-mit__f input:focus,.astro-jub-mit__f textarea:focus{outline:3px solid var(--bf-accent);outline-offset:1px;border-color:var(--bf-accent)}
+.astro-jub-mit__f textarea{resize:vertical}
+.astro-jub-mit__hint{font-size:14px;font-weight:400;color:var(--txt-muted-light);line-height:1.5}
+.astro-jub-mit__consent{background:#fff;border:1px solid var(--bf-border);border-radius:10px;padding:14px 16px}
+.astro-jub-mit__consent label{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.55;color:var(--bf-ink)}
+.astro-jub-mit__consent input{margin-top:4px;width:18px;height:18px;flex:0 0 auto;accent-color:var(--bf-accent)}
+.astro-jub-mit__consent a{color:var(--bf-accent);font-weight:600}
+.astro-jub-mit__required{font-size:14px;color:var(--txt-muted-light);margin:0}
+.astro-jub-mit__submit{align-self:flex-start;border:2px solid var(--bf-accent);cursor:pointer;font-family:inherit}
+.astro-jub-mit__submit:disabled{opacity:.65;cursor:default}
+.astro-jub-mit__msg{padding:12px 14px;border-radius:8px;font-size:15px;line-height:1.5}
+.astro-jub-mit__msg.is-ok{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+.astro-jub-mit__msg.is-err{background:#ffebee;border:1px solid #ef9a9a;color:#b71c1c}
+.astro-jub-mit__hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+@media(max-width:640px){.astro-jub-mit__box{padding:18px 18px}.astro-jub-mit__grid{grid-template-columns:1fr}}
 </style>

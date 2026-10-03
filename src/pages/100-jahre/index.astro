@@ -46,7 +46,7 @@ const seo = SEO_STATIC['/100-jahre/'];
 // Zeitkapsel/Mitgebsel (nicht selbsterklärend), Portraits an der Empore, Zeitstrahl-Idee, Jubiläumsfilm.
 const IMG = '/uploads/2027/jubilaeum/';
 const sparten = [
-  { id: 'eroeffnung', kurz: 'Eröffnung', featured: true, label: 'Auftakt', titel: 'Wir läuten das Jahr ein',
+  { id: 'eroeffnung', kurz: 'Eröffnung', featured: true, ohneDetails: true, label: 'Auftakt', titel: 'Wir läuten das Jahr ein',
     teaser: 'Am 24. Januar 2027 fällt der Startschuss: Wir feiern einen festlichen Gottesdienst und stoßen danach beim Neujahrsempfang gemeinsam auf hundert Jahre Pfarrkirche an. Ein Jubiläumsjahr beginnt man am besten in guter Gesellschaft.',
     fotos: [{ src: IMG + 'auftakt.jpg', alt: 'Gottesdienst in St. Bonifatius: Gemeinde, Ministrantinnen und Ministranten stehen im Kreis um den Altar, im Hintergrund die Orgelempore' }], fakten: ['So 24.01.2027 · 11 Uhr'],
     items: [{ datum: 'So 24.01.2027', zeit: '11 Uhr', titel: 'Eröffnungsgottesdienst und Neujahrsempfang', von: '2027-01-24', kurz: 'So 24.01.', text: 'Festlicher Gottesdienst, anschließend Neujahrsempfang.' }] },
@@ -82,8 +82,9 @@ const sparten = [
       { titel: 'Boni-Quiz', text: 'Wie gut kennen Sie unsere Kirche? Ein Quiz zum Mitraten, eventuell beim Sommerfest.' },
     ] },
   { id: 'entdecken', kurz: 'Kirche entdecken', label: 'Entdecken', titel: 'Die Kirche mit neuen Augen',
-    teaser: 'Wir arbeiten an einem digitalen Rundweg, der Ihre Pfarrkirche aus ganz neuen Blickwinkeln zeigt. Lassen Sie sich überraschen.',
-    fotos: [], fakten: ['Digital · in Vorbereitung'], items: [] },
+    teaser: 'Wir arbeiten an einem Virtuellen Kirchenführer, der Ihre Pfarrkirche aus ganz neuen Blickwinkeln zeigt. Lassen Sie sich überraschen.',
+    fotos: [{ src: IMG + 'kirchenfuehrer.jpg', alt: 'Blick in das Kirchenschiff von St. Bonifatius: weit geschwungene graue Gewölbebögen, in der Mitte ein Kronleuchter, vorn der Altarraum', h: 1062, pos: '50% 60%' }],
+    fakten: ['Digital · in Vorbereitung'], items: [] },
   { id: 'familie', kurz: 'Kinder & Familie', label: 'Für Kinder und Familien', titel: 'Auch die Kleinen feiern mit',
     teaser: 'Für Kinder und Familien planen wir eigene Angebote – vom Bonifatius-Musical im Kindergartengottesdienst bis zu weiteren Aktionen für die ganze Familie. Was genau kommt, verraten wir bald.',
     fotos: [{ src: IMG + 'familie-kinder.jpg', alt: 'Ein Kleinkind mit Strohhut läuft lachend mit ausgestreckten Armen auf eine Frau zu' }],
@@ -103,8 +104,8 @@ const sparten = [
     fakten: ['14.02.–27.03.2027', '20 € Teilnahmegebühr'],
     items: [{ datum: '14.02.–27.03.2027', titel: 'Exerzitien im Alltag „Pause für die Seele“', von: '2027-02-14', bis: '2027-03-27', kurz: '14.02.–27.03.', ueb: 'Exerzitien „Pause für die Seele“', text: 'Start am Sa 13.02., Bergfest am So 07.03.2027. Die Teilnahme kostet 20 Euro.' }],
     cta: { href: '/exerzitien2027/', text: 'Zur Projektseite' } },
-  { id: 'abschluss', kurz: 'Abschluss', featured: true, label: 'Höhepunkt', titel: 'Ein Fest, wie es sich gehört',
-    teaser: 'Zum Schluss wird gefeiert: Am 8. August 2027 halten wir das Pontifikalamt mit Bischof Dr. Georg Bätzing und feiern danach ein Sommerfest für alle – unter anderem mit Kirchenfenster-Gestalten für Kinder.',
+  { id: 'abschluss', kurz: 'Abschluss', featured: true, ohneDetails: true, label: 'Höhepunkt', titel: 'Ein Fest, wie es sich gehört',
+    teaser: 'Zum Schluss wird gefeiert: Am 8. August 2027 halten wir das Pontifikalamt mit Bischof Dr. Georg Bätzing und feiern danach ein Sommerfest für alle – unter anderem mit Kirchenfenster-Gestalten für Kinder. Das Programm des Sommerfests folgt.',
     fotos: [{ src: IMG + 'festgottesdienst.jpg', alt: 'Ein lächelnder Bischof mit Mitra und Bischofsstab im Kreis von Gottesdienstbesuchern', h: 795 }], fakten: ['So 08.08.2027 · 11 Uhr'],
     items: [{ datum: 'So 08.08.2027', zeit: '11 Uhr', titel: 'Pontifikalamt mit Bischof Dr. Georg Bätzing', von: '2027-08-08', kurz: 'So 08.08.', ueb: 'Pontifikalamt mit Bischof Dr. Georg Bätzing, danach Sommerfest', text: 'Anschließend Sommerfest für alle.', offen: 'Programm des Sommerfests folgt.' }] },
 ];
@@ -112,7 +113,7 @@ const sparten = [
 // Terminübersicht (vor den FAQ) = alle Items mit `von`, automatisch aus den Sparten; Items ohne
 // Termin erscheinen nur in der Fußzeile „Termin folgt".
 const termine = sparten.flatMap((b) => b.items.filter((i) => i.von).map((i) => ({ ...i, anker: b.id })));
-const termineOffen = ['BonSalon: Der Hl. Bonifatius', 'Sofagespräche', 'Orgel- und Chorkonzerte', 'Beitrag der Jugendkirche', 'Tag am Schweizer Platz', 'digitaler Rundweg'];
+const termineOffen = ['BonSalon: Der Hl. Bonifatius', 'Sofagespräche', 'Orgel- und Chorkonzerte', 'Beitrag der Jugendkirche', 'Tag am Schweizer Platz', 'Virtueller Kirchenführer'];
 
 // PDFs: `pdf: '/uploads/2027/jubilaeum/<datei>.pdf'` eintragen, sobald die Datei vorliegt.
 const downloads = [

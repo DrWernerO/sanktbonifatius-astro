@@ -5,7 +5,7 @@
 // Sparte: id, kurz (Name in der Sprungleiste), label, titel, teaser, fotos[{src,alt}] (leer = Platzhalter
 // „Foto folgt"; Foto mit `contain:true` wird vollständig gezeigt statt beschnitten, `mediaBg` = Hintergrundfarbe
 // dahinter, `w`/`h` = Pixelmaße, `pos` = Bildausschnitt als object-position, z. B. '50% 78%'), fakten[] (kurze Pillen), items[] (aufklappbare Einzeltermine), cta{href,text},
-// featured (braun-goldenes Band). Item: datum (sonst „Termin offen"), zeit, ort, titel, text, href, offen.
+// featured (Band), ohneDetails (kein Aufklappen; `items` bleiben für die Terminübersicht). Item: datum (sonst „Termin offen"), zeit, ort, titel, text, href, offen.
 const { sparten = [] } = Astro.props;
 ---
 <section class="astro-jub-sp" id="programm">
@@ -28,7 +28,7 @@ const { sparten = [] } = Astro.props;
           {b.fakten && b.fakten.length > 0 && (
             <ul class="astro-jub-sp__facts">{b.fakten.map((f) => <li>{f}</li>)}</ul>
           )}
-          {b.items && b.items.length > 0 && (
+          {b.items && b.items.length > 0 && !b.ohneDetails && (
             <details class="astro-jub-sp__more">
               <summary>Alle Termine und Infos</summary>
               <ul class="astro-jub-sp__rows">

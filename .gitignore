@@ -25,6 +25,7 @@ pnpm-debug.log*
 
 # Rückmeldungen der Willkommens-Seite, die im Testmodus (ohne SMTP) lokal gespeichert werden
 .willkommen-eingaben/
+.jubilaeum-eingaben/
 
 # macOS-specific files
 .DS_Store
