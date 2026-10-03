@@ -55,11 +55,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // Lokal in `astro dev` befüllt Vite .env-Werte dagegen NUR in import.meta.env, NICHT in
   // process.env — deshalb hier als reiner Lokal-Fallback zusätzlich geprüft (in Produktion
   // liefert process.env ohnehin schon den echten Wert, der Fallback greift dort also nie).
-  // ÜBERGANG: INTERNE_SEITEN_PASSWORD hieß bis 03.10.2026 JUBILAEUM_SEITE_PASSWORD. Der alte Name
-  // gilt als Fallback, bis die Variable in Netlify umgestellt ist — danach diese Zeile entfernen.
-  const alt = schutz.envVar === 'INTERNE_SEITEN_PASSWORD' ? 'JUBILAEUM_SEITE_PASSWORD' : undefined;
-  const sollPasswort = process.env[schutz.envVar] || import.meta.env[schutz.envVar]
-    || (alt ? process.env[alt] || import.meta.env[alt] : undefined);
+  const sollPasswort = process.env[schutz.envVar] || import.meta.env[schutz.envVar];
   const authHeader = context.request.headers.get('authorization');
 
   if (sollPasswort && authHeader?.startsWith('Basic ')) {
