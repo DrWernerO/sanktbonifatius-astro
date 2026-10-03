@@ -9,7 +9,7 @@
 // Unterseite /100-jahre/rundgang/ (src/pages/100-jahre/rundgang.astro, Prototyp mit eigenem Passwortschutz).
 //
 // PASSWORTSCHUTZ (Werner, 03.10.2026): HTTP-Basic-Auth über src/middleware.ts (Benutzername
-// egal, Passwort in Env JUBILAEUM_SEITE_PASSWORD — lokal .env, produktiv Netlify). Dafür ist
+// egal, Passwort in Env INTERNE_SEITEN_PASSWORD — lokal .env, produktiv Netlify). Dafür ist
 // `prerender = false` zwingend (sonst liefert Netlify die Seite an der Middleware vorbei aus).
 // Zum Freischalten: Eintrag '/100-jahre' in middleware.ts entfernen, prerender-Zeile löschen.
 //

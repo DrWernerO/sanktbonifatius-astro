@@ -24,7 +24,7 @@
 // verlinkt (Regel: Menü nur auf ausdrückliche Anweisung ändern) und mit noindex, damit
 // Suchmaschinen den Prototyp nicht erfassen. Passwortschutz über src/middleware.ts, eigene
 // Zugangsdaten (seit 03.10.2026 wie die Jubiläumsseite: Benutzername egal, Passwort in Netlify-Umgebungsvariable
-// JUBILAEUM_SEITE_PASSWORD) — braucht deshalb `prerender = false`, sonst würde Netlify die Seite
+// INTERNE_SEITEN_PASSWORD) — braucht deshalb `prerender = false`, sonst würde Netlify die Seite
 // als fertige statische Datei ausliefern, an der Middleware vorbei.
 export const prerender = false;
 import Base from '../../layouts/Base.astro';

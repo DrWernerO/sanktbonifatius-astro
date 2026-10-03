@@ -266,7 +266,7 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 >   Aufruf dieser Route aus — läuft im Hintergrund, blockiert den eigentlichen Download nicht.
 > - `src/pages/downloads/statistik.astro` (`prerender = false`) — zeigt die beiden Zählerstände
 >   als einfache Tabelle. Passwortgeschützt per HTTP-Basic-Auth (`src/middleware.ts`, analog
->   Raumbuchung), Passwort in Netlify-Env `JUBILAEUM_SEITE_PASSWORD` (seit 03.10.2026, vorher `DOWNLOADS_STATS_PASSWORD`; Benutzername egal), `noindex` + Sitemap-Ausschluss.
+>   Raumbuchung), Passwort in Netlify-Env `INTERNE_SEITEN_PASSWORD` (seit 03.10.2026, vorher `DOWNLOADS_STATS_PASSWORD`; Benutzername egal), `noindex` + Sitemap-Ausschluss.
 > - Lokal (`npm run dev` ohne Netlify-CLI-Kontext) kann `getStore()` je nach Umgebung fehlschlagen
 >   — betrifft nur die Zählung/Statistikseite, nicht den eigentlichen PDF-Download. Produktiv auf
 >   Netlify funktioniert es ohne weitere Einrichtung.
