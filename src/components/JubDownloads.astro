@@ -9,7 +9,7 @@ const { downloads = [] } = Astro.props;
   <div class="astro-jub-wrap">
     <div class="astro-jub-head">
       <h2 class="astro-jub-hl">Zum Mitnehmen</h2>
-      <p class="astro-jub-sub">Flyer, Programm und Kirchenführer als PDF.</p>
+      <p class="astro-jub-sub">Flyer und Festprogramm als PDF.</p>
     </div>
     <ul class="astro-jub-dl__grid">
       {downloads.map((d) => (
@@ -27,10 +27,10 @@ const { downloads = [] } = Astro.props;
 
 <style is:global>
 .astro-jub-dl{background:var(--bf-bg-alt)}
-.astro-jub-dl__grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.astro-jub-dl__card{display:flex;flex-direction:column;align-items:flex-start;background:#fff;border:1px solid var(--bf-border);border-radius:var(--bf-radius);padding:26px 24px}
-.astro-jub-dl__title{font-family:var(--jub-serif);font-size:20px;font-weight:700;color:var(--bf-ink);margin:0 0 8px}
-.astro-jub-dl__text{font-size:15.5px;line-height:1.6;color:var(--txt-muted-light);margin:0 0 18px;flex:1}
-.astro-jub-dl__soon{font-size:14.5px;font-style:italic;color:var(--txt-muted-light);margin:0;padding:10px 16px;border:1px dashed var(--bf-border);border-radius:50px}
+.astro-jub-dl__grid{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(2,1fr);max-width:720px;gap:16px}
+.astro-jub-dl__card{display:flex;flex-direction:column;align-items:flex-start;background:#fff;border:1px solid var(--bf-border);border-radius:var(--bf-radius);padding:18px 20px}
+.astro-jub-dl__title{font-family:var(--jub-serif);font-size:18px;font-weight:700;color:var(--bf-ink);margin:0 0 6px}
+.astro-jub-dl__text{font-size:16px;line-height:1.55;color:var(--txt-muted-light);margin:0 0 14px;flex:1}
+.astro-jub-dl__soon{font-size:15px;font-style:italic;color:var(--txt-muted-light);margin:0;padding:10px 16px;border:1px dashed var(--bf-border);border-radius:50px}
 @media(max-width:900px){.astro-jub-dl__grid{grid-template-columns:1fr}}
 </style>

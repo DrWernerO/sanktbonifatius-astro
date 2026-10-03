@@ -1,0 +1,131 @@
+---
+// Programmsparten der Jubiläumsseite (Werner, 03.10.2026): je Sparte ein Foto, eine pfiffige
+// Überschrift, ein neugierig machender Teaser — die Einzeltermine klappen per <details> auf.
+// Eigene Klassen `astro-jub-sp` (Handbuch 3). Daten als Prop `sparten` aus dem Seiten-Frontmatter.
+// Sparte: id, kurz (Name in der Sprungleiste), label, titel, teaser, fotos[{src,alt}] (leer = Platzhalter
+// „Foto folgt"; Foto mit `contain:true` wird vollständig gezeigt statt beschnitten, `mediaBg` = Hintergrundfarbe
+// dahinter, `w`/`h` = Pixelmaße, `pos` = Bildausschnitt als object-position, z. B. '50% 78%'), fakten[] (kurze Pillen), items[] (aufklappbare Einzeltermine), cta{href,text},
+// featured (braun-goldenes Band). Item: datum (sonst „Termin offen"), zeit, ort, titel, text, href, offen.
+const { sparten = [] } = Astro.props;
+---
+<section class="astro-jub-sp" id="programm">
+  <div class="astro-jub-wrap">
+    <nav class="astro-jub-sp__nav" aria-label="Programmbereiche">
+      {sparten.map((b) => <a href={`#${b.id}`}>{b.kurz ?? b.titel}</a>)}
+    </nav>
+    <div class="astro-jub-sp__list">
+    {sparten.map((b, n) => (
+      <article class={`astro-jub-sp__card${b.featured ? ' is-featured' : ''}${n % 2 ? ' is-reverse' : ''}`} id={b.id}>
+        <div class={`astro-jub-sp__media${b.fotos && b.fotos.length > 1 ? ' is-multi' : ''}`} style={b.mediaBg ? `background:${b.mediaBg}` : undefined}>
+          {b.fotos && b.fotos.length > 0
+            ? b.fotos.map((f) => <img class={f.contain ? 'is-contain' : ''} src={f.src} alt={f.alt} width={f.w ?? 1400} height={f.h ?? 933} style={f.pos ? `object-position:${f.pos}` : undefined} loading="lazy" decoding="async" />)
+            : <div class="astro-jub-sp__ph"><span>Foto folgt</span></div>}
+        </div>
+        <div class="astro-jub-sp__body">
+          {b.label && <p class="astro-jub-sp__label">{b.label}</p>}
+          <h2 class="astro-jub-sp__hl">{b.titel}</h2>
+          <p class="astro-jub-sp__teaser">{b.teaser}</p>
+          {b.fakten && b.fakten.length > 0 && (
+            <ul class="astro-jub-sp__facts">{b.fakten.map((f) => <li>{f}</li>)}</ul>
+          )}
+          {b.items && b.items.length > 0 && (
+            <details class="astro-jub-sp__more">
+              <summary>Alle Termine und Infos</summary>
+              <ul class="astro-jub-sp__rows">
+                {b.items.map((i) => (
+                  <li class="astro-jub-sp__row">
+                    <div class="astro-jub-sp__when">
+                      <span class={`astro-jub-sp__date${i.datum ? '' : ' is-open'}`}>{i.datum ?? 'Termin offen'}</span>
+                      {(i.zeit || i.ort) && <span class="astro-jub-sp__meta">{[i.zeit, i.ort].filter(Boolean).join(' · ')}</span>}
+                    </div>
+                    <div class="astro-jub-sp__what">
+                      <h3 class="astro-jub-sp__title">{i.href ? <a href={i.href}>{i.titel}</a> : i.titel}</h3>
+                      {i.text && <p class="astro-jub-sp__text">{i.text}</p>}
+                      {i.offen && <p class="astro-jub-sp__open">{i.offen}</p>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
+          {b.cta && <a class="astro-jub-btn astro-jub-btn--primary astro-jub-sp__cta" href={b.cta.href}>{b.cta.text}</a>}
+        </div>
+      </article>
+    ))}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var links = document.querySelectorAll('.astro-jub-sp__nav a');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var byId = {};
+    links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.removeAttribute('aria-current'); });
+        var a = byId[e.target.id]; if (a) a.setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    Object.keys(byId).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  })();
+</script>
+
+<style is:global>
+.astro-jub-sp{background:#fff;padding:28px 0 36px}
+/* Sprungleiste: bleibt unter der fixen Hauptnavigation (80px) stehen; unter 1000px einzeilig scrollbar */
+.astro-jub-sp__nav{position:sticky;top:80px;z-index:20;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 24px;padding:10px 0;background:rgba(255,255,255,.96);border-bottom:1px solid var(--bf-border)}
+.astro-jub-sp__nav a{display:inline-flex;align-items:center;min-height:44px;font-size:14.5px;font-weight:600;color:var(--bf-ink);text-decoration:none;padding:0 14px;border:1px solid var(--bf-border);border-radius:50px;background:var(--bf-bg);transition:background .2s,color .2s,border-color .2s}
+.astro-jub-sp__nav a:hover,.astro-jub-sp__nav a[aria-current=true]{background:var(--bf-accent);border-color:var(--bf-accent);color:#fff}
+.astro-jub-sp__nav a:focus-visible{outline:3px solid var(--bf-accent);outline-offset:2px}
+.astro-jub-sp__list{display:flex;flex-direction:column;gap:28px}
+.astro-jub-sp__card{display:grid;grid-template-columns:5fr 6fr;gap:0;background:var(--bf-bg);border:1px solid var(--bf-border);border-radius:var(--bf-radius);box-shadow:var(--bf-shadow);overflow:hidden;scroll-margin-top:170px}
+.astro-jub-sp__card.is-reverse .astro-jub-sp__media{order:2}
+.astro-jub-sp__media{position:relative;display:grid;gap:3px;min-height:280px;background:var(--bf-bg-alt)}
+.astro-jub-sp__media img{display:block;width:100%;height:100%;object-fit:cover}
+.astro-jub-sp__media img.is-contain{object-fit:contain;height:auto;align-self:center}
+.astro-jub-sp__media.is-multi{grid-template-rows:1fr 1fr}
+.astro-jub-sp__ph{display:flex;align-items:center;justify-content:center;min-height:280px;background:linear-gradient(135deg,#efe7de 0%,#e3d4c6 100%)}
+.astro-jub-sp__ph span{font-size:14.5px;font-style:italic;color:var(--txt-muted-light)}
+.astro-jub-sp__body{padding:30px 32px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.astro-jub-sp__label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--txt-gold-label);margin:0 0 6px}
+.astro-jub-sp__hl{font-family:var(--jub-serif);font-size:clamp(24px,3vw,32px);font-weight:700;line-height:1.15;letter-spacing:-.01em;color:var(--bf-ink);margin:0 0 12px}
+.astro-jub-sp__teaser{font-size:17px;line-height:1.65;color:var(--txt-muted-light);max-width:56ch;margin:0 0 14px}
+.astro-jub-sp__facts{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.astro-jub-sp__facts li{font-size:14.5px;font-weight:600;color:var(--bf-accent);background:#fff;border:1px solid var(--bf-border);border-radius:50px;padding:5px 13px}
+.astro-jub-sp__more{width:100%;margin:2px 0 0}
+.astro-jub-sp__more summary{display:inline-flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;list-style:none;font-weight:700;font-size:15.5px;color:var(--bf-accent)}
+.astro-jub-sp__more summary::-webkit-details-marker{display:none}
+.astro-jub-sp__more summary::after{content:'+';font-size:22px;line-height:1;font-weight:300;transition:transform .25s}
+.astro-jub-sp__more[open] summary::after{transform:rotate(45deg)}
+.astro-jub-sp__more summary:focus-visible{outline:3px solid var(--bf-accent);outline-offset:3px;border-radius:6px}
+.astro-jub-sp__rows{list-style:none;margin:6px 0 0;padding:0}
+.astro-jub-sp__row{display:grid;grid-template-columns:150px 1fr;gap:4px 16px;padding:12px 0;border-top:1px dashed var(--bf-border);align-items:baseline}
+.astro-jub-sp__date{display:block;font-family:var(--jub-serif);font-size:16.5px;font-weight:700;color:var(--bf-accent);line-height:1.3}
+.astro-jub-sp__date.is-open{font-family:inherit;font-size:14.5px;font-weight:600;color:var(--txt-muted-light);font-style:italic}
+.astro-jub-sp__meta{display:block;font-size:14.5px;font-weight:600;color:var(--txt-gold-label);margin-top:2px}
+.astro-jub-sp__title{font-family:var(--jub-serif);font-size:17.5px;font-weight:700;line-height:1.3;color:var(--bf-ink);margin:0}
+.astro-jub-sp__title a{color:inherit;text-decoration:underline;text-decoration-color:var(--accent-gold-deco);text-underline-offset:3px}
+.astro-jub-sp__title a:hover{color:var(--bf-accent)}
+.astro-jub-sp__title a:focus-visible{outline:3px solid var(--bf-accent);outline-offset:3px;border-radius:4px}
+.astro-jub-sp__text{font-size:16px;line-height:1.6;max-width:60ch;color:var(--txt-muted-light);margin:3px 0 0}
+.astro-jub-sp__open{font-size:15px;font-style:italic;max-width:60ch;color:var(--txt-muted-light);margin:3px 0 0}
+.astro-jub-sp__cta{margin-top:6px}
+/* Hervorgehobene Sparten (Eröffnung, Abschluss): warmes helles warmes Braun (Werner: Ocker gefiel nicht, dunkles Braun zu dunkel; 03.10.2026) */
+.astro-jub-sp__card.is-featured{background:linear-gradient(135deg,#94653f 0%,#8a5c3b 100%);border-color:transparent}
+.astro-jub-sp__card.is-featured .astro-jub-sp__label{color:#fff}
+.astro-jub-sp__card.is-featured .astro-jub-sp__hl,.astro-jub-sp__card.is-featured .astro-jub-sp__title{color:#fff}
+.astro-jub-sp__card.is-featured .astro-jub-sp__teaser,.astro-jub-sp__card.is-featured .astro-jub-sp__text{color:#fff}
+.astro-jub-sp__card.is-featured .astro-jub-sp__open,.astro-jub-sp__card.is-featured .astro-jub-sp__ph span{color:rgba(255,255,255,.92)}
+.astro-jub-sp__card.is-featured .astro-jub-sp__date,.astro-jub-sp__card.is-featured .astro-jub-sp__more summary{color:#fff}
+.astro-jub-sp__card.is-featured .astro-jub-sp__meta{color:#fff}
+.astro-jub-sp__card.is-featured .astro-jub-sp__facts li{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff}
+.astro-jub-sp__card.is-featured .astro-jub-sp__row{border-top-color:rgba(255,255,255,.28)}
+.astro-jub-sp__card.is-featured .astro-jub-sp__ph{background:linear-gradient(135deg,#a8795a 0%,#94653f 100%)}
+.astro-jub-sp__card.is-featured a:focus-visible,.astro-jub-sp__card.is-featured summary:focus-visible{outline-color:#fff}
+@media(max-width:1000px){.astro-jub-sp__nav{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;padding:8px 20px;margin-left:-20px;margin-right:-20px;scrollbar-width:thin}.astro-jub-sp__nav a{flex:0 0 auto;white-space:nowrap}}
+@media(max-width:820px){.astro-jub-sp__card{grid-template-columns:1fr}.astro-jub-sp__card.is-reverse .astro-jub-sp__media{order:0}.astro-jub-sp__media,.astro-jub-sp__ph{min-height:220px;max-height:300px}.astro-jub-sp__media.is-multi{grid-template-rows:none;grid-template-columns:1fr 1fr;max-height:200px}.astro-jub-sp__body{padding:22px 20px}.astro-jub-sp__row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.astro-jub-sp__nav a,.astro-jub-sp__more summary::after{transition:none}}
+</style>

@@ -18,17 +18,17 @@
 // Filter in astro.config.mjs (/100-jahre/ ohne Rundgang) + Disallow in robots.txt zurücknehmen, llms.txt-Zeile ergänzen.
 //
 // PFLEGE: Alle Inhalte stehen als Arrays hier im Frontmatter — Programmblöcke `bloecke` (Items mit `href` = Link; Items ohne Datum
-// zeigen „Termin folgt"; neue Items einfach ergänzen), Downloads (`pdf` setzen = Button statt „erscheint …"), Termine (Datum ISO, werden
-// automatisch sortiert; vergangene grau). Hero-Foto: public/uploads/2027/jubilaeum/hero-pfarrkirche.jpg
+// zeigen „Termin folgt"; neue Items einfach ergänzen), Downloads (`pdf` setzen = Button statt „erscheint …"). Hero-Foto: public/uploads/2027/jubilaeum/hero-pfarrkirche.jpg
 // (aktuell Platzhalter). PDFs liegen lokal unter public/uploads/2027/jubilaeum/ (Handbuch 1g).
 export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
 import JubHero from '../../components/JubHero.astro';
 import JubIntro from '../../components/JubIntro.astro';
-import JubProgramm from '../../components/JubProgramm.astro';
+import JubSparten from '../../components/JubSparten.astro';
 import JubDownloads from '../../components/JubDownloads.astro';
 import JubTermine from '../../components/JubTermine.astro';
+import JubMitmachen from '../../components/JubMitmachen.astro';
 import JubFaq from '../../components/JubFaq.astro';
 import { SEO_STATIC } from '../../lib/seo-static.js';
 
@@ -39,80 +39,105 @@ const seo = SEO_STATIC['/100-jahre/'];
 // „Termin folgt" gekennzeichnet, was im Arbeitsstand noch offen oder nur Idee ist.
 // ⚠️ ZEITRAUM: Auftakt So 24.01.2027 bis Abschluss So 08.08.2027 (Briefing sprach von „Festmonat
 // August" — laut Arbeitsstand ist nur der Abschluss im August).
-const bloecke = [
-  { id: 'eroeffnung', variant: 'dark', label: 'Auftakt', titel: 'Feierliche Eröffnung',
-    intro: 'Gemeinsam eröffnen wir das Jubiläumsjahr: mit einem festlichen Gottesdienst und anschließendem Neujahrsempfang.',
-    items: [{ datum: 'Sonntag, 24. Januar 2027', zeit: '11 Uhr', titel: 'Eröffnungsgottesdienst und Neujahrsempfang', text: 'Nach dem Gottesdienst laden wir Sie zum Neujahrsempfang ein.', offen: 'Termin vorbehaltlich der endgültigen Abstimmung.' }] },
-  { id: 'jubilarin', variant: 'light', label: 'Geschichte', titel: 'Die 100-jährige Jubilarin besser kennenlernen',
-    intro: 'Zwei BonSalons laden ein, unsere Pfarrei und ihren Patron neu zu entdecken.',
+// Programmsparten nach Werners Gliederung (03.10.2026): je Sparte Foto, Überschrift, Teaser; die
+// Einzeltermine klappen auf (`items`). Fotos: `fotos: [{src, alt}]` — leer = Platzhalter „Foto folgt"
+// (Fotos liegen lokal unter public/uploads/2027/jubilaeum/, Handbuch 1g). Items ohne `datum` zeigen
+// „Termin offen". Bewusst NICHT auf der Seite: Verantwortliche, Budget, Werbemedien/Presse,
+// Zeitkapsel/Mitgebsel (nicht selbsterklärend), Portraits an der Empore, Zeitstrahl-Idee, Jubiläumsfilm.
+const IMG = '/uploads/2027/jubilaeum/';
+const sparten = [
+  { id: 'eroeffnung', kurz: 'Eröffnung', featured: true, label: 'Auftakt', titel: 'Wir läuten das Jahr ein',
+    teaser: 'Am 24. Januar 2027 fällt der Startschuss: Wir feiern einen festlichen Gottesdienst und stoßen danach beim Neujahrsempfang gemeinsam auf hundert Jahre Pfarrkirche an. Ein Jubiläumsjahr beginnt man am besten in guter Gesellschaft.',
+    fotos: [{ src: IMG + 'auftakt.jpg', alt: 'Gottesdienst in St. Bonifatius: Gemeinde, Ministrantinnen und Ministranten stehen im Kreis um den Altar, im Hintergrund die Orgelempore' }], fakten: ['So 24.01.2027 · 11 Uhr'],
+    items: [{ datum: 'So 24.01.2027', zeit: '11 Uhr', titel: 'Eröffnungsgottesdienst und Neujahrsempfang', von: '2027-01-24', kurz: 'So 24.01.', text: 'Festlicher Gottesdienst, anschließend Neujahrsempfang.' }] },
+  { id: 'jubilarin', kurz: 'Geschichte', label: 'Geschichte', titel: 'Bonifatius – immer noch Vorbild?',
+    teaser: 'Wer war der Namensgeber unserer Kirche, und was hat er uns heute noch zu sagen? Zwei BonSalons und eine Ausstellung in der Kirche laden ein, die 100-jährige Jubilarin und ihren Patron neu kennenzulernen – mit Vorträgen, Gesprächen und einem Zeitstrahl durch ein bewegtes Jahrhundert.',
+    fotos: [], fakten: ['BonSalon Do 25.02.2027', 'Ausstellung ab Ende Januar'],
     items: [
-      { datum: 'Do 25. Februar 2027', zeit: '19:30 Uhr', ort: 'Kleiner Pfarrsaal, Holbeinstraße 70', titel: 'BonSalon: 100 Jahre St. Bonifatius in Frankfurt-Sachsenhausen', text: 'Prof. Dr. Martin Belz (Universität Osnabrück) über Seelsorge, Gemeindeleben und Gottesdienst in einem spannungsvollen Jahrhundert – mit Raum für Fragen und Gespräch.', href: '/termine/bonsalon-100-jahre-st-bonifatius-in-frankfurt-sachsenhausen/', linkText: 'Zur Veranstaltung' },
-      { titel: 'BonSalon: Der Hl. Bonifatius – immer noch Vorbild für uns?', text: 'Ein Professor stellt die schillernde Figur des Pfarrpatrons vor und geht mit Pfr. Werner Otto der Frage nach, was der Heilige den heutigen „Bonifatianern“ zu sagen hätte.', offen: 'Referent und Termin werden noch bekannt gegeben.' },
+      { datum: 'Do 25.02.2027', zeit: '19:30 Uhr', ort: 'Kleiner Pfarrsaal, Holbeinstraße 70', titel: 'BonSalon: 100 Jahre St. Bonifatius in Frankfurt-Sachsenhausen', von: '2027-02-25', kurz: 'Do 25.02.', ueb: 'BonSalon: 100 Jahre St. Bonifatius', href: '/termine/bonsalon-100-jahre-st-bonifatius-in-frankfurt-sachsenhausen/', text: 'Prof. Dr. Martin Belz (Universität Osnabrück) zeigt die Pfarreigeschichte als Spiegel eines Jahrhunderts – mit Diskussion.' },
+      { titel: 'BonSalon: Der Hl. Bonifatius – immer noch Vorbild für uns?', text: 'Ein Professor stellt die schillernde Figur des Pfarrpatrons vor und spricht mit Pfr. Werner Otto darüber, was der Heilige den heutigen „Bonifatianern“ zu sagen hätte.', offen: 'Referent und Termin folgen.' },
+      { datum: 'ab Ende Januar 2027', titel: 'Ausstellung in der Kirche', von: '2027-01-31', kurz: 'ab Ende Januar', text: 'Ein Zeitstrahl ordnet die Geschichte des Hauses ein – von der Stadt- und Bistumsgeschichte bis heute – dazu historische Bilder. Beginn kurz nach der Eröffnung.', offen: 'Genaues Datum folgt.' },
     ] },
-  { id: 'gespraech', variant: 'alt', label: 'Begegnung', titel: 'Bonifatianer im Gespräch',
-    intro: 'Zwei Formate, in denen Menschen aus unserer Gemeinde miteinander ins Gespräch kommen.',
+  { id: 'gespraech', kurz: 'Im Gespräch', label: 'Begegnung', titel: 'Erzählen, zuhören, anstoßen',
+    teaser: 'Beim BonBistro treffen Sie Menschen aus unserer Gemeinde: fünf Freitagabende, an denen jeweils eine andere Gruppe einlädt. Und bei den Sofagesprächen erzählen Zeitzeugen verschiedener Generationen, was ihnen in St. Bonifatius für Leben und Glauben wichtig geworden ist – Pfr. Werner Otto lädt sie ein. Irgendwo im Stadtteil wartet außerdem ein Überraschungstermin.',
+    fotos: [
+      { src: IMG + 'sofagespraeche.jpg', alt: 'Ein grünes Sofa mitten im Kirchraum von St. Bonifatius, im Hintergrund Altar und Fenster', pos: '50% 82%' },
+    ],
+    fakten: ['BonBistro ab Fr 12.02.2027 · 19:30 Uhr'],
     items: [
-      { titel: 'BonBistro', text: 'Lockere Runden zum Austausch und Kennenlernen, über das Jahr verteilt.', offen: 'Terminvorschläge: 12.02., 12.03., 09.04., 14.05. und 11.06.2027 – Uhrzeit und Ort folgen.' },
-      { titel: 'Sofagespräche. Zeitzeugen erzählen', text: 'Pfr. Werner Otto lädt Menschen verschiedener Generationen ein, die in St. Bonifatius für ihr Leben und ihren Glauben wichtige Erfahrungen gemacht haben. Sie erzählen – auf dem Sofa in der Kirche.', offen: 'Termin wird noch bekannt gegeben.' },
+      { datum: 'Fr 12.02.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Jugendliche Firmbewerber', von: '2027-02-12', kurz: 'Fr 12.02.', ueb: 'BonBistro (Firmbewerber)' },
+      { datum: 'Fr 12.03.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Bücherei-Team', von: '2027-03-12', kurz: 'Fr 12.03.', ueb: 'BonBistro (Bücherei-Team)' },
+      { datum: 'Fr 09.04.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Jugendkirche JONA', von: '2027-04-09', kurz: 'Fr 09.04.', ueb: 'BonBistro (Jugendkirche JONA)' },
+      { datum: 'Fr 14.05.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Gottesdienst-Teams', von: '2027-05-14', kurz: 'Fr 14.05.', ueb: 'BonBistro (Gottesdienst-Teams)' },
+      { datum: 'Fr 04.06.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Frauengruppen', von: '2027-06-04', kurz: 'Fr 04.06.', ueb: 'BonBistro (Frauengruppen)', offen: 'Der Ort der BonBistro-Abende wird noch bekannt gegeben.' },
+      { titel: 'Sofagespräche. Zeitzeugen erzählen', text: 'Pfr. Werner Otto lädt Menschen verschiedener Generationen ein, die in St. Bonifatius für ihr Leben und ihren Glauben wichtige Erfahrungen gemacht haben, zu erzählen – an einem Abend, auf dem Sofa in der Kirche.' },
+      { titel: 'Tag am Schweizer Platz', text: 'Ein Überraschungstermin: Wir sind im Stadtteil unterwegs, mit einem Kaffeemobil und kleinen Überraschungen. Mehr verraten wir noch nicht.' },
     ] },
-  { id: 'kultur', variant: 'light', label: 'Kultur', titel: 'Kulturprogramm',
-    intro: 'Konzerte, Musical und mehr – der Kirchraum zum Klingen gebracht.',
+  { id: 'kultur', kurz: 'Kultur', label: 'Kultur', titel: 'Der Kirchraum klingt',
+    teaser: 'Orgel und Chor, weitere Konzerte und ein Quiz für alle, die ihre Kirche wirklich kennen: Das Kulturprogramm nimmt Gestalt an. Die Termine geben wir bekannt, sobald sie feststehen.',
+    fotos: [{ src: IMG + 'kultur.jpg', alt: 'Silberne Orgelpfeifen der Orgel von St. Bonifatius, grün und violett angestrahlt', h: 935 }], fakten: ['Termine folgen'],
     items: [
-      { titel: 'Orgel- und Chorkonzert', offen: 'Termin noch offen.' },
-      { titel: 'Musical und weitere Veranstaltungen', offen: 'Termine noch offen.' },
-      { titel: 'Boni-Quiz', text: 'Wie gut kennen Sie unsere Kirche und ihre Geschichte? Ein Quiz zum Mitraten.', offen: 'Format und Termin noch offen.' },
+      { titel: 'Orgel- und Chorkonzerte' },
+      { titel: 'Weitere Kulturangebote' },
+      { titel: 'Boni-Quiz', text: 'Wie gut kennen Sie unsere Kirche? Ein Quiz zum Mitraten, eventuell beim Sommerfest.' },
     ] },
-  { id: 'entdecken', variant: 'alt', label: 'Entdecken', titel: 'Unsere Pfarrkirche neu entdecken',
-    intro: 'Ein digitaler Rundweg durch unsere Kirche – lassen Sie sich überraschen.',
+  { id: 'entdecken', kurz: 'Kirche entdecken', label: 'Entdecken', titel: 'Die Kirche mit neuen Augen',
+    teaser: 'Wir arbeiten an einem digitalen Rundweg, der Ihre Pfarrkirche aus ganz neuen Blickwinkeln zeigt. Lassen Sie sich überraschen.',
+    fotos: [], fakten: ['Digital · in Vorbereitung'], items: [] },
+  { id: 'familie', kurz: 'Kinder & Familie', label: 'Für Kinder und Familien', titel: 'Auch die Kleinen feiern mit',
+    teaser: 'Für Kinder und Familien planen wir eigene Angebote – vom Bonifatius-Musical im Kindergartengottesdienst bis zu weiteren Aktionen für die ganze Familie. Was genau kommt, verraten wir bald.',
+    fotos: [{ src: IMG + 'familie-kinder.jpg', alt: 'Ein Kleinkind mit Strohhut läuft lachend mit ausgestreckten Armen auf eine Frau zu' }],
+    fakten: ['Termine folgen'],
     items: [
-      { titel: 'Digitaler Rundweg', text: 'Wir arbeiten an einem digitalen Rundweg, der die Kirche aus neuen Blickwinkeln zeigt.', offen: 'Start wird noch bekannt gegeben.' },
-      { titel: 'Ausstellung in der Kirche', text: 'Ein Zeitstrahl ordnet die Geschichte des Hauses ein – von der Stadt- und Bistumsgeschichte bis in unsere Tage – dazu historische Bilder. Sie beginnt kurz nach der Eröffnung.', offen: 'Genaues Datum folgt.' },
+      { datum: '16.05. oder 20.06.2027', titel: 'Bonifatius-Musical', von: '2027-05-16', bis: '2027-06-20', kurz: '16.05. oder 20.06.', text: 'Aufführung im Kindergartengottesdienst.', offen: 'Der genaue Tag wird noch entschieden.' },
+      { titel: 'Angebote für Kinder und Familien', text: 'Wir planen Angebote rund um das Jubiläum.' },
     ] },
-  { id: 'familie', variant: 'light', label: 'Für alle Generationen', titel: 'Programm für Kinder, Jugend und Familie',
-    intro: 'Auch die Jüngsten und ihre Familien feiern mit.', items: [], hinweis: 'Die Veranstaltungen stehen noch nicht fest. Wir ergänzen sie hier, sobald sie geplant sind.' },
-  { id: 'pause', variant: 'alt', label: 'Spirituell', titel: 'Mit Leib und Seele ins Jubiläumsjahr',
-    intro: 'Ökumenische Exerzitien im Alltag in der Fastenzeit: täglich ein kurzer Impuls, einmal pro Woche eine kleine Gruppe. Kostenlos, ohne Vorkenntnisse.',
-    items: [{ datum: '14.02.–27.03.2027', titel: 'Pause für die Seele', text: 'Projektstart ist Samstag, 13. Februar 2027.', href: '/exerzitien2027/', linkText: 'Zur Projektseite' }] },
-  { id: 'abschluss', variant: 'dark', label: 'Höhepunkt', titel: 'Festlicher Abschluss: Pontifikalamt und Sommerfest',
-    intro: 'Zum Abschluss des Jubiläumsjahrs feiern wir das Pontifikalamt mit Bischof Dr. Georg Bätzing – und danach ein Sommerfest für alle.',
-    items: [{ datum: 'Sonntag, 8. August 2027', zeit: '11 Uhr', titel: 'Pontifikalamt mit Bischof Dr. Georg Bätzing und Sommerfest', text: 'Eine Zeitkapsel mit Wünschen für die Zukunft der Gemeinde soll an diesem Tag im Turm versenkt werden.', offen: 'Programm des Sommerfests folgt.' }] },
+  { id: 'jugend', kurz: 'Jugend', label: 'Für Jugendliche', titel: 'Jetzt ist die Jugend dran',
+    teaser: 'Das Jubiläum gehört auch den Jugendlichen: Die Jugendkirche ist für einen Beitrag angefragt. Wie er aussieht und wann er stattfindet, ist noch offen – bleiben Sie gespannt.',
+    fotos: [{ src: IMG + 'jugend-gruppe.jpg', alt: 'Eine Gruppe Jugendlicher liegt lachend im Kreis auf einer Decke im Gras, von oben fotografiert', h: 1050 }],
+    fakten: ['Termin folgt'],
+    items: [{ titel: 'Beitrag der Jugendkirche', offen: 'Format und Termin stehen noch nicht fest.' }] },
+  { id: 'pause', kurz: 'Pause für die Seele', label: 'Spirituell', titel: 'Eine Pause für die Seele',
+    teaser: 'Sechs Wochen in der Fastenzeit innehalten: jeden Tag ein kurzer Impuls, einmal pro Woche eine kleine Gruppe. Ökumenisch, ohne Vorkenntnisse und mitten im Alltag – so begehen Sie das Jubiläum auch spirituell.',
+    fotos: [{ src: IMG + 'pause-40-tage.jpg', alt: 'Pause für die Seele – Vierzig Tage, die gut tun.', contain: true, w: 1400, h: 788 }], mediaBg: '#581c5a',
+    fakten: ['14.02.–27.03.2027', '20 € Teilnahmegebühr'],
+    items: [{ datum: '14.02.–27.03.2027', titel: 'Exerzitien im Alltag „Pause für die Seele“', von: '2027-02-14', bis: '2027-03-27', kurz: '14.02.–27.03.', ueb: 'Exerzitien „Pause für die Seele“', text: 'Start am Sa 13.02., Bergfest am So 07.03.2027. Die Teilnahme kostet 20 Euro.' }],
+    cta: { href: '/exerzitien2027/', text: 'Zur Projektseite' } },
+  { id: 'abschluss', kurz: 'Abschluss', featured: true, label: 'Höhepunkt', titel: 'Ein Fest, wie es sich gehört',
+    teaser: 'Zum Schluss wird gefeiert: Am 8. August 2027 halten wir das Pontifikalamt mit Bischof Dr. Georg Bätzing und feiern danach ein Sommerfest für alle – unter anderem mit Kirchenfenster-Gestalten für Kinder.',
+    fotos: [{ src: IMG + 'festgottesdienst.jpg', alt: 'Ein lächelnder Bischof mit Mitra und Bischofsstab im Kreis von Gottesdienstbesuchern', h: 795 }], fakten: ['So 08.08.2027 · 11 Uhr'],
+    items: [{ datum: 'So 08.08.2027', zeit: '11 Uhr', titel: 'Pontifikalamt mit Bischof Dr. Georg Bätzing', von: '2027-08-08', kurz: 'So 08.08.', ueb: 'Pontifikalamt mit Bischof Dr. Georg Bätzing, danach Sommerfest', text: 'Anschließend Sommerfest für alle.', offen: 'Programm des Sommerfests folgt.' }] },
 ];
+
+// Terminübersicht (vor den FAQ) = alle Items mit `von`, automatisch aus den Sparten; Items ohne
+// Termin erscheinen nur in der Fußzeile „Termin folgt".
+const termine = sparten.flatMap((b) => b.items.filter((i) => i.von).map((i) => ({ ...i, anker: b.id })));
+const termineOffen = ['BonSalon: Der Hl. Bonifatius', 'Sofagespräche', 'Orgel- und Chorkonzerte', 'Beitrag der Jugendkirche', 'Tag am Schweizer Platz', 'digitaler Rundweg'];
 
 // PDFs: `pdf: '/uploads/2027/jubilaeum/<datei>.pdf'` eintragen, sobald die Datei vorliegt.
-// Der digitale Kirchenführer soll später auch als gedruckte Version entstehen (Arbeitsstand B).
 const downloads = [
-  { titel: 'Flyer', text: 'Das Jubiläum auf einen Blick – zum Ausdrucken und Weitergeben. Ein eigener Flyer mit den Highlight-Terminen ist zu Weihnachten geplant.', pdf: '', erscheint: 'im Laufe des Jahres 2027' },
+  { titel: 'Flyer', text: 'Das Jubiläum auf einen Blick – zum Ausdrucken und Weitergeben.', pdf: '', erscheint: 'im Laufe des Jahres 2027' },
   { titel: 'Festprogramm', text: 'Alle Veranstaltungen des Jubiläumsjahrs.', pdf: '', erscheint: 'vor der Eröffnung' },
-  { titel: 'Kirchenführer', text: 'Ein Rundgang durch unsere Kirche und ihre Geschichte.', pdf: '', erscheint: 'im Laufe des Jahres 2027' },
 ];
 
-// Termine: `von`/`bis` als ISO-Datum (für Sortierung + „vorbei"); bei ungefähren Angaben ein
-// Näherungsdatum setzen, `anzeige` zeigt den Text. `offen` = Hinweis für unfertige Angaben.
-const termine = [
-  { von: '2027-01-24', anzeige: 'So 24.01.', jahr: '2027', uhrzeit: '11 Uhr', titel: 'Eröffnungsgottesdienst und Neujahrsempfang', text: 'Auftakt des Jubiläumsjahrs.', offen: 'Termin vorbehaltlich der endgültigen Abstimmung.' },
-  { von: '2027-01-31', anzeige: 'Ende Januar', jahr: '2027', titel: 'Start der Ausstellung in der Kirche', offen: 'Genaues Datum folgt.' },
-  { von: '2027-02-12', anzeige: 'Fr 12.02.', jahr: '2027', titel: 'BonBistro', offen: 'Terminvorschlag, weitere: 12.03., 09.04., 14.05., 11.06. – Uhrzeit und Ort folgen.' },
-  { von: '2027-02-13', anzeige: 'Sa 13.02.', jahr: '2027', titel: 'Startup „Pause für die Seele“', href: '/exerzitien2027/', offen: 'Uhrzeit und Ort werden noch bekannt gegeben.' },
-  { von: '2027-02-14', bis: '2027-03-27', anzeige: '14.02.–27.03.', jahr: '2027', titel: 'Exerzitien im Alltag „Pause für die Seele“', href: '/exerzitien2027/', text: 'Sechs Wochen, täglich ein Impuls, einmal pro Woche eine kleine Gruppe. Ökumenisch und kostenlos.' },
-  { von: '2027-03-07', anzeige: 'So 07.03.', jahr: '2027', titel: 'Bergfest (Laetare)', href: '/exerzitien2027/', offen: 'Uhrzeit und Ort werden noch bekannt gegeben.' },
-  { von: '2027-02-25', anzeige: 'Do 25.02.', jahr: '2027', uhrzeit: '19:30 Uhr', ort: 'Kleiner Pfarrsaal, Holbeinstraße 70', titel: 'BonSalon: 100 Jahre St. Bonifatius in Frankfurt-Sachsenhausen', href: '/termine/bonsalon-100-jahre-st-bonifatius-in-frankfurt-sachsenhausen/', text: 'Vortrag von Prof. Dr. Martin Belz (Universität Osnabrück) über Seelsorge, Gemeindeleben und Gottesdienst in einem spannungsvollen Jahrhundert – mit Fragen und Gespräch.' },
-  { von: '2027-06-15', anzeige: 'Termin offen', jahr: '2027', titel: 'BonSalon: Der Hl. Bonifatius – immer noch Vorbild für uns?', text: 'Ein Professor stellt die schillernde Figur des Pfarrpatrons vor und geht mit Pfr. Werner Otto der Frage nach, was der Heilige den heutigen „Bonifatianern“ zu sagen hätte.', offen: 'Referent und Termin werden noch bekannt gegeben.' },
-  { von: '2027-08-08', anzeige: 'So 08.08.', jahr: '2027', uhrzeit: '11 Uhr', titel: 'Pontifikalamt mit Bischof Dr. Georg Bätzing und Sommerfest', text: 'Festlicher Abschluss des Jubiläumsjahrs.' },
-  { von: '2027-12-31', anzeige: 'Termin folgt', jahr: '', titel: 'Kulturprogramm, Sofagespräche, Programm für Kinder, Jugend und Familie, digitaler Rundweg', offen: 'Die Termine stehen noch nicht fest.' },
-];
 ---
 <Base seo={seo} noindex={true}>
   <div class="astro-jub">
     <JubHero />
     <JubIntro />
-    <JubProgramm bloecke={bloecke} />
+    <JubSparten sparten={sparten} />
+    <JubMitmachen />
     <JubDownloads downloads={downloads} />
-    <JubTermine termine={termine} />
+    <JubTermine termine={termine} offen={termineOffen} />
     <JubFaq />
   </div>
 </Base>
 
 <style is:global>
+/* Base.astro setzt body{overflow-x:hidden} — das macht body zum Scroll-Container und bricht
+   position:sticky der Sprungleiste. `clip` schneidet ebenfalls ab (100vw-Hero), erzeugt aber
+   keinen Scroll-Container. Gilt nur auf dieser Seite. */
+body{overflow-x:clip}
 .astro-jub{
   --bf-bg:#f7f3ef;
   --bf-bg-alt:#ede4d5;
@@ -128,18 +153,21 @@ const termine = [
   color:var(--bf-ink);
 }
 /* Gemeinsame Bausteine aller Jub-Sektionen (Überschrift, Unterzeile, Container, Buttons) */
-.astro-jub-sec{padding:72px 0}
+.astro-jub-sec{padding:40px 0}
 .astro-jub-wrap{max-width:1120px;margin:0 auto;padding:0 40px}
 .astro-jub-wrap--narrow{max-width:820px}
-.astro-jub-head{text-align:center;margin:0 auto 36px;max-width:720px}
-.astro-jub-hl{font-family:var(--jub-serif);font-size:clamp(26px,3.6vw,38px);font-weight:700;line-height:1.15;letter-spacing:-.01em;color:var(--bf-ink);margin:0 0 10px}
-.astro-jub-sub{font-size:16px;line-height:1.6;color:var(--txt-muted-light);margin:0}
-.astro-jub-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.astro-jub-head{text-align:center;margin:0 auto 22px;max-width:720px}
+.astro-jub-hl{font-family:var(--jub-serif);font-size:clamp(22px,2.8vw,28px);font-weight:700;line-height:1.2;letter-spacing:-.01em;color:var(--bf-ink);margin:0 0 6px}
+.astro-jub-sub{font-size:16.5px;line-height:1.6;color:var(--txt-muted-light);margin:0}
+.astro-jub-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s,color .2s,border-color .2s,transform .2s}
 .astro-jub-btn--primary{background:var(--bf-accent);color:#fff;border:2px solid var(--bf-accent)}
 .astro-jub-btn--primary:hover{transform:translateY(-1px);box-shadow:var(--bf-shadow-lg)}
+/* Bewegung reduzieren: keine Hover-Bewegung/Übergänge */
+@media(prefers-reduced-motion:reduce){.astro-jub-btn,.astro-jub-sp__nav a,.astro-jub-faq__item summary::after{transition:none}.astro-jub-btn--primary:hover{transform:none}}
 .astro-jub-btn--ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
 .astro-jub-btn--ghost:hover{background:#fff;color:var(--bf-ink);border-color:#fff}
-.astro-jub-btn:focus-visible{outline:3px solid var(--accent-gold-deco);outline-offset:3px}
+.astro-jub-btn:focus-visible{outline:3px solid var(--bf-accent);outline-offset:3px}
+.astro-jub-hero .astro-jub-btn:focus-visible{outline-color:#fff}
 .astro-jub-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0;padding:0}
-@media(max-width:760px){.astro-jub-sec{padding:52px 0}.astro-jub-wrap{padding:0 20px}}
+@media(max-width:760px){.astro-jub-sec{padding:32px 0}.astro-jub-wrap{padding:0 20px}}
 </style>
