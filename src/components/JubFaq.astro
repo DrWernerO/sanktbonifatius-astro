@@ -1,0 +1,50 @@
+---
+// „Häufige Fragen" — Akkordeon mit nativem <details>/<summary> (Muster PfsFaq/ChurchDeskFaq,
+// tastaturbedienbar ohne JS). Eigene Klassen `astro-jub-faq` (Handbuch 3).
+// ⚠️ Antworten mit [Platzhalter] sind von Werner zu ergänzen.
+const faqs = [
+  { q: 'Wann ist das Jubiläum, und was wird gefeiert?',
+    a: 'Wir feiern 100 Jahre Pfarrkirche St. Bonifatius. Das Jubiläumsjahr beginnt am 24. Januar 2027 mit einem Eröffnungsgottesdienst und Neujahrsempfang und endet am 8. August 2027 mit der Pontifikalamt mit Bischof Dr. Georg Bätzing und einem Sommerfest. Dazwischen gibt es Ausstellung, Vorträge, Musik, Begegnungen und Angebote für Kinder und Jugendliche. Weitere Termine tragen wir im Bereich „Termine im Überblick“ ein, sobald sie feststehen.' },
+  { q: 'Muss ich mich anmelden?',
+    a: 'Das ist je Veranstaltung verschieden. Wo eine Anmeldung nötig ist, steht das direkt beim jeweiligen Angebot. Für die Exerzitien „Pause für die Seele“ melden Sie sich über die zugehörige Seite an.' },
+  { q: 'Was kostet die Teilnahme?',
+    a: '[Platzhalter – von Werner zu ergänzen.] Die Exerzitien „Pause für die Seele“ sind kostenlos.' },
+  { q: 'Ist die Kirche barrierefrei zugänglich?',
+    a: '[Platzhalter – von Werner zu ergänzen: Zugänge, Rampe, Sitzplätze, Hörschleife.]' },
+  { q: 'Wo finde ich das Programm und den Flyer?',
+    a: 'Im Bereich „Zum Mitnehmen“ weiter oben. Sobald Flyer, Festprogramm und Kirchenführer fertig sind, können Sie sie dort als PDF herunterladen.', link: { href: '#downloads', text: 'Zu den Downloads' } },
+  { q: 'Wen kann ich bei Fragen ansprechen?',
+    a: '[Platzhalter – Ansprechperson bzw. Pfarrbüro von Werner zu ergänzen.] Allgemeine Kontaktmöglichkeiten finden Sie auf der Kontaktseite.', link: { href: '/kontakt/', text: 'Zur Kontaktseite' } },
+];
+---
+<section class="astro-jub-sec astro-jub-faq" id="faq">
+  <div class="astro-jub-wrap astro-jub-wrap--narrow">
+    <div class="astro-jub-head">
+      <h2 class="astro-jub-hl">Häufige Fragen</h2>
+    </div>
+    {faqs.map((f) => (
+      <details class="astro-jub-faq__item">
+        <summary>{f.q}</summary>
+        <div class="astro-jub-faq__a">
+          <p>{f.a}</p>
+          {f.link && <p><a href={f.link.href}>{f.link.text}</a></p>}
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.astro-jub-faq{background:var(--bf-bg)}
+.astro-jub-faq__item{background:#fff;border-radius:10px;margin-bottom:12px;border:1px solid var(--bf-border);overflow:hidden}
+.astro-jub-faq__item summary{list-style:none;cursor:pointer;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:var(--jub-serif);font-size:17px;font-weight:700;color:var(--bf-ink);line-height:1.4}
+.astro-jub-faq__item summary::-webkit-details-marker{display:none}
+.astro-jub-faq__item summary::after{content:'+';font-size:26px;color:var(--accent-gold-deco);font-weight:300;flex-shrink:0;transition:transform .25s}
+.astro-jub-faq__item[open] summary::after{transform:rotate(45deg)}
+.astro-jub-faq__item summary:focus-visible{outline:3px solid var(--accent-gold-deco);outline-offset:-3px}
+.astro-jub-faq__a{padding:16px 24px 20px;border-top:1px solid var(--bf-border)}
+.astro-jub-faq__a p{font-size:15.5px;color:var(--txt-muted-light);line-height:1.7;margin:0 0 8px}
+.astro-jub-faq__a p:last-child{margin-bottom:0}
+.astro-jub-faq__a a{color:var(--bf-accent);font-weight:600}
+@media(max-width:600px){.astro-jub-faq__item summary{padding:16px 18px;font-size:16px}.astro-jub-faq__a{padding:14px 18px 18px}}
+</style>

@@ -1,4 +1,4 @@
-// Gästebuch für die 100-Jahr-Rundgang-Seite (/100-jahre/) — Prototyp.
+// Gästebuch für die 100-Jahr-Rundgang-Seite (/100-jahre/rundgang/) — Prototyp.
 // Speicher: Netlify Blobs, gleiches Prinzip wie der Download-Zähler (download-counter.js).
 import { getStore } from '@netlify/blobs';
 

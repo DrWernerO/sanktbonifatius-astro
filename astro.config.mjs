@@ -31,6 +31,7 @@ export default defineConfig({
       // selbst gesperrt bleibt).
       filter: (page) => !page.includes('/kontakt/raumbuchung') && !page.includes('/downloads/statistik')
         && !page.includes('/exerzitien2027')
+        && !page.includes('/100-jahre')
         // Versteckte QR-Landingpage (Brief zum Willkommens-Flyer), noindex — siehe src/pages/willkommen.astro
         && !page.includes('/willkommen/'),
     }),

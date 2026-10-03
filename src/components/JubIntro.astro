@@ -1,0 +1,18 @@
+---
+// Begrüßungstext der Jubiläumsseite. Eigene Klassen `astro-jub-intro` (Handbuch 3).
+// ⚠️ Entwurf aus dem Briefing — von Werner zu prüfen.
+---
+<section class="astro-jub-sec astro-jub-intro">
+  <div class="astro-jub-wrap astro-jub-wrap--narrow">
+    <p class="astro-jub-intro__lead">
+      Seit einem Jahrhundert beten, feiern und begegnen sich Menschen in unserer Kirche. Von Januar bis August 2027
+      feiern wir das mit Ihnen: mit Gottesdiensten, Musik, Begegnungen und Einblicken in die Geschichte
+      des Hauses. Schauen Sie zurück, feiern Sie mit und gehen Sie mit uns ins nächste Jahrhundert.
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.astro-jub-intro{background:var(--bf-bg)}
+.astro-jub-intro__lead{font-family:var(--jub-serif);font-size:clamp(20px,2.6vw,27px);line-height:1.55;color:var(--bf-ink);text-align:center;margin:0}
+</style>

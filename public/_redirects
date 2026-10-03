@@ -306,3 +306,7 @@
 # Neuaufbau noetig. MUSS nach den beiden Regeln oben stehen (die haben fuer ihre exakten
 # Dateinamen Vorrang, damit kuenftige Ausgaben weiter auf die stabile /downloads/-Adresse laufen).
 /wp-content/uploads/*   https://cms.sanktbonifatius.de/wp-content/uploads/:splat   200
+
+# Jubiläumsseite 100 Jahre Pfarrkirche (Briefing: Kurzadresse /100). Rundgang-Prototyp liegt unter /100-jahre/rundgang/.
+/100                   /100-jahre/                                  301
+/100/                  /100-jahre/                                  301

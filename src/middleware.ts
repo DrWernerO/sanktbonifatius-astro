@@ -27,7 +27,7 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername: string; 
     benutzername: 'exerzitien',
     realm: 'Pause fuer die Seele 2027',
   },
-  '/100-jahre': {
+  '/100-jahre/rundgang': {
     envVar: 'JUBILAEUM_PASSWORD',
     benutzername: 'carloacutis',
     realm: '100 Jahre Sankt Bonifatius (Prototyp)',

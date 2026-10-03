@@ -3,6 +3,7 @@ Allow: /
 Disallow: /kontakt/raumbuchung
 Disallow: /raumbuchung
 Disallow: /exerzitien2027
+Disallow: /100-jahre
 
 Sitemap: https://sanktbonifatius.de/sitemap-index.xml
 Sitemap: https://sanktbonifatius.de/sitemap-jobs.xml

@@ -1,0 +1,36 @@
+---
+// Download-Bereich (id="downloads"). Eigene Klassen `astro-jub-dl` (Handbuch 3).
+// Daten als Prop `downloads` aus dem Seiten-Frontmatter. Freischalten = `pdf` eintragen, PDF nach
+// public/uploads/2027/jubilaeum/ legen, Push. Ohne `pdf` zeigt die Karte „erscheint <erscheint>"
+// und hat keinen Link (Muster PfsMaterial).
+const { downloads = [] } = Astro.props;
+---
+<section class="astro-jub-sec astro-jub-dl" id="downloads">
+  <div class="astro-jub-wrap">
+    <div class="astro-jub-head">
+      <h2 class="astro-jub-hl">Zum Mitnehmen</h2>
+      <p class="astro-jub-sub">Flyer, Programm und Kirchenführer als PDF.</p>
+    </div>
+    <ul class="astro-jub-dl__grid">
+      {downloads.map((d) => (
+        <li class="astro-jub-dl__card">
+          <h3 class="astro-jub-dl__title">{d.titel}</h3>
+          <p class="astro-jub-dl__text">{d.text}</p>
+          {d.pdf
+            ? <a class="astro-jub-btn astro-jub-btn--primary" href={d.pdf} download>PDF herunterladen<span class="astro-jub-sr"> – {d.titel}</span></a>
+            : <p class="astro-jub-dl__soon">Erscheint {d.erscheint ?? 'in Kürze'}</p>}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-jub-dl{background:var(--bf-bg-alt)}
+.astro-jub-dl__grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.astro-jub-dl__card{display:flex;flex-direction:column;align-items:flex-start;background:#fff;border:1px solid var(--bf-border);border-radius:var(--bf-radius);padding:26px 24px}
+.astro-jub-dl__title{font-family:var(--jub-serif);font-size:20px;font-weight:700;color:var(--bf-ink);margin:0 0 8px}
+.astro-jub-dl__text{font-size:15.5px;line-height:1.6;color:var(--txt-muted-light);margin:0 0 18px;flex:1}
+.astro-jub-dl__soon{font-size:14.5px;font-style:italic;color:var(--txt-muted-light);margin:0;padding:10px 16px;border:1px dashed var(--bf-border);border-radius:50px}
+@media(max-width:900px){.astro-jub-dl__grid{grid-template-columns:1fr}}
+</style>
