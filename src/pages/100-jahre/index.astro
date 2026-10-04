@@ -60,18 +60,18 @@ const sparten = [
       { datum: 'ab Ende Januar 2027', titel: 'Ausstellung in der Kirche', von: '2027-01-31', kurz: 'ab Ende Januar', text: 'Ein Zeitstrahl ordnet die Geschichte des Hauses ein – von der Stadt- und Bistumsgeschichte bis heute – dazu historische Bilder. Beginn kurz nach der Eröffnung.', offen: 'Genaues Datum folgt.' },
     ] },
   { id: 'gespraech', kurz: 'Im Gespräch', label: 'Begegnung', titel: 'Erzählen, zuhören, anstoßen',
-    teaser: 'Beim BonBistro treffen Sie Menschen aus unserer Gemeinde: fünf Freitagabende, an denen jeweils eine andere Gruppe einlädt. Und bei den Sofagesprächen erzählen Zeitzeugen verschiedener Generationen, was ihnen in St. Bonifatius für Leben und Glauben wichtig geworden ist – Pfr. Werner Otto lädt sie ein. Irgendwo im Stadtteil wartet außerdem ein Überraschungstermin.',
+    teaser: 'Beim BonBistro treffen Sie Menschen aus unserer Gemeinde: fünf Freitagabende, an denen jeweils eine andere Gruppe einlädt. Und bei den Sofagesprächen erzählen Zeitzeugen verschiedener Generationen, was ihnen in St. Bonifatius für Leben und Glauben wichtig geworden ist – Pfr. Werner Otto lädt sie ein, der erste Abend ist am 13. April. Irgendwo im Stadtteil wartet außerdem ein Überraschungstermin.',
     fotos: [
       { src: IMG + 'sofagespraeche.jpg', alt: 'Ein grünes Sofa mitten im Kirchraum von St. Bonifatius, im Hintergrund Altar und Fenster', pos: '50% 82%' },
     ],
-    fakten: ['BonBistro ab Fr 12.02.2027 · 19:30 Uhr'],
+    fakten: ['BonBistro ab Fr 12.02.2027 · 19:30 Uhr', 'Sofagespräch Di 13.04.2027 · 19:30 Uhr'],
     items: [
       { datum: 'Fr 12.02.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Jugendliche Firmbewerber', von: '2027-02-12', kurz: 'Fr 12.02.', ueb: 'BonBistro (Firmbewerber)' },
       { datum: 'Fr 12.03.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Bücherei-Team', von: '2027-03-12', kurz: 'Fr 12.03.', ueb: 'BonBistro (Bücherei-Team)' },
       { datum: 'Fr 09.04.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Jugendkirche JONA', von: '2027-04-09', kurz: 'Fr 09.04.', ueb: 'BonBistro (Jugendkirche JONA)' },
       { datum: 'Fr 14.05.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Gottesdienst-Teams', von: '2027-05-14', kurz: 'Fr 14.05.', ueb: 'BonBistro (Gottesdienst-Teams)' },
       { datum: 'Fr 04.06.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Frauengruppen', von: '2027-06-04', kurz: 'Fr 04.06.', ueb: 'BonBistro (Frauengruppen)', offen: 'Der Ort der BonBistro-Abende wird noch bekannt gegeben.' },
-      { titel: 'Sofagespräche. Zeitzeugen erzählen', text: 'Pfr. Werner Otto lädt Menschen verschiedener Generationen ein, die in St. Bonifatius für ihr Leben und ihren Glauben wichtige Erfahrungen gemacht haben, zu erzählen – an einem Abend, auf dem Sofa in der Kirche.' },
+      { datum: 'Di 13.04.2027', zeit: '19:30 Uhr', ort: 'Kirche St. Bonifatius', von: '2027-04-13', kurz: 'Di 13.04.', ueb: 'Sofagespräche: erster Abend', titel: 'Sofagespräche. Zeitzeugen erzählen – erster Abend', text: 'Pfr. Werner Otto lädt Menschen verschiedener Generationen ein, die in St. Bonifatius für ihr Leben und ihren Glauben wichtige Erfahrungen gemacht haben, zu erzählen – auf dem Sofa in der Kirche. Weitere Abende folgen.' },
       { titel: 'Tag am Schweizer Platz', text: 'Ein Überraschungstermin: Wir sind im Stadtteil unterwegs, mit einem Kaffeemobil und kleinen Überraschungen. Mehr verraten wir noch nicht.' },
     ] },
   { id: 'kultur', kurz: 'Kultur', label: 'Kultur', titel: 'Der Kirchraum klingt',
@@ -114,7 +114,7 @@ const sparten = [
 // Terminübersicht (vor den FAQ) = alle Items mit `von`, automatisch aus den Sparten; Items ohne
 // Termin erscheinen nur in der Fußzeile „Termin folgt".
 const termine = sparten.flatMap((b) => b.items.filter((i) => i.von).map((i) => ({ ...i, anker: b.id })));
-const termineOffen = ['BonSalon: Der Hl. Bonifatius', 'Sofagespräche', 'Orgel- und Chorkonzerte', 'Beitrag der Jugendkirche', 'Tag am Schweizer Platz', 'Virtueller Kirchenführer'];
+const termineOffen = ['BonSalon: Der Hl. Bonifatius', 'Sofagespräche (weitere Abende)', 'Orgel- und Chorkonzerte', 'Beitrag der Jugendkirche', 'Tag am Schweizer Platz', 'Virtueller Kirchenführer'];
 
 // PDFs: `pdf: '/uploads/2027/jubilaeum/<datei>.pdf'` eintragen, sobald die Datei vorliegt.
 const downloads = [
