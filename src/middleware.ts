@@ -11,7 +11,7 @@
 // Browser-Login-Fenster, daher fest im Code statt in einer Umgebungsvariable.
 import { defineMiddleware } from 'astro:middleware';
 
-const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername?: string; realm: string }> = {
+const GESCHUETZTE_PFADE: Record<string, { envVar: string; zusatzEnvVar?: string; benutzername?: string; realm: string }> = {
   '/kontakt/raumbuchung': {
     envVar: 'RAUMBUCHUNG_PASSWORD',
     benutzername: 'anfrage',
@@ -30,6 +30,11 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; benutzername?: string;
   '/100-jahre': {
     // Ohne `benutzername`: Benutzername wird ignoriert, nur das Passwort zählt.
     envVar: 'INTERNE_SEITEN_PASSWORD',
+    // Vorübergehendes ZWEITES Passwort (04.10.2026), damit Werner die Seite einer Gruppe zeigen kann,
+    // ohne das interne Passwort herauszugeben. Gilt NUR für diese Seite (nicht für /rundgang, Statistik
+    // usw.). Zurückziehen: Variable in Netlify löschen (kein Code nötig) — ist sie nicht gesetzt, wird
+    // sie ignoriert.
+    zusatzEnvVar: 'JUBILAEUM_GRUPPE_PASSWORD',
     realm: '100 Jahre Sankt Bonifatius',
   },
   '/100-jahre/rundgang': {
@@ -56,9 +61,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // process.env — deshalb hier als reiner Lokal-Fallback zusätzlich geprüft (in Produktion
   // liefert process.env ohnehin schon den echten Wert, der Fallback greift dort also nie).
   const sollPasswort = process.env[schutz.envVar] || import.meta.env[schutz.envVar];
+  const zusatzPasswort = schutz.zusatzEnvVar ? process.env[schutz.zusatzEnvVar] || import.meta.env[schutz.zusatzEnvVar] : undefined;
+  const gueltige = [sollPasswort, zusatzPasswort].filter((p): p is string => !!p).map((p) => p.normalize('NFC'));
   const authHeader = context.request.headers.get('authorization');
 
-  if (sollPasswort && authHeader?.startsWith('Basic ')) {
+  if (gueltige.length > 0 && authHeader?.startsWith('Basic ')) {
     // Basic-Auth kommt Base64-kodiert; moderne Browser schicken die Zugangsdaten als UTF-8
     // (wir fordern charset="UTF-8" an). atob() liefert aber nur Einzelbytes — ohne das
     // Zurückdekodieren würden Passwörter mit Umlaut (z. B. „ü") nie passen. Fällt die
@@ -71,7 +78,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const trennstelle = eingabe.indexOf(':');
     const eingabeBenutzername = eingabe.slice(0, trennstelle);
     const eingabePasswort = eingabe.slice(trennstelle + 1);
-    if ((!schutz.benutzername || eingabeBenutzername.toLowerCase() === schutz.benutzername) && eingabePasswort.normalize('NFC') === sollPasswort.normalize('NFC')) {
+    if ((!schutz.benutzername || eingabeBenutzername.toLowerCase() === schutz.benutzername) && gueltige.includes(eingabePasswort.normalize('NFC'))) {
       const response = await next();
       response.headers.set('X-Robots-Tag', 'noindex, nofollow');
       return response;

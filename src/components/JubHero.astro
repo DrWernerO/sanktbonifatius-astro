@@ -2,16 +2,16 @@
 // Hero der Jubiläumsseite „100 Jahre Pfarrkirche St. Bonifatius" (/100-jahre/).
 // Eigene Klassen `astro-jub-hero` (Handbuch 3). Foto als echtes <img> (Alt-Text, Größe, hohe
 // Priorität — Bild-SEO/LCP, SEO-Review 03.10.2026) mit Verlauf-Overlay per ::before.
-// ⚠️ PLATZHALTER-FOTO: public/uploads/2027/jubilaeum/hero-pfarrkirche.jpg ist vorerst ein
-// Außenfoto von 2020 — Werner liefert das Jubiläumsfoto, einfach unter gleichem Namen ersetzen
-// (Bildrechte klären, Alt-Text und Maße unten ggf. anpassen).
+// Foto: Luftbild der Kirche (Werner, 04.10.2026; Bildrechte bei St. Bonifatius), lokal unter
+// public/uploads/2027/jubilaeum/hero-pfarrkirche.jpg. Ersetzen = Datei unter gleichem Namen
+// austauschen, Alt-Text und Maße unten ggf. anpassen.
 // H1: „100 Jahre Pfarrkirche St. Bonifatius – feiern Sie mit" (Briefing-Varianten: „Ein Haus für
 // alle. Seit 100 Jahren." / „100 Jahre. Eine Kirche. Viele Geschichten.").
 const bg = '/uploads/2027/jubilaeum/hero-pfarrkirche.jpg';
 ---
 <section class="astro-jub-hero">
-  <img class="astro-jub-hero__img" src={bg} width="1380" height="1035" fetchpriority="high"
-       alt="Backsteinfassade der Pfarrkirche St. Bonifatius in Frankfurt-Sachsenhausen mit Heiligenfigur" />
+  <img class="astro-jub-hero__img" src={bg} width="2200" height="1063" fetchpriority="high"
+       alt="Luftbild der Pfarrkirche St. Bonifatius mit Backsteinturm in Frankfurt-Sachsenhausen, im Hintergrund die Frankfurter Skyline" />
   <div class="astro-jub-hero__inner">
     <p class="astro-jub-hero__eyebrow">Jubiläumsjahr 2027</p>
     <h1 class="astro-jub-hero__title">100 Jahre Pfarrkirche St. Bonifatius – feiern Sie mit</h1>
@@ -25,12 +25,12 @@ const bg = '/uploads/2027/jubilaeum/hero-pfarrkirche.jpg';
 
 <style is:global>
 .astro-jub-hero{position:relative;overflow:hidden;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:min(54vh,460px);display:flex;align-items:flex-end;color:#fff;background:#3a2315;padding:100px 0 40px}
-.astro-jub-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
-.astro-jub-hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(30,21,18,.35) 0%,rgba(30,21,18,.78) 100%)}
+.astro-jub-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 72%;filter:brightness(1.18) saturate(1.06)}
+.astro-jub-hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(30,21,18,.58) 0%,rgba(30,21,18,.28) 38%,rgba(30,21,18,0) 70%),linear-gradient(90deg,rgba(30,21,18,.32) 0%,rgba(30,21,18,0) 62%)}
 .astro-jub-hero__inner{position:relative;z-index:2;max-width:1120px;width:100%;margin:0 auto;padding:0 40px}
-.astro-jub-hero__eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--accent-gold-deco);margin:0 0 14px}
-.astro-jub-hero__title{font-family:var(--jub-serif);font-size:clamp(30px,4.6vw,48px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 10px;max-width:22ch}
-.astro-jub-hero__sub{font-size:clamp(15px,1.8vw,18px);line-height:1.5;color:rgba(255,255,255,.92);margin:0 0 20px}
+.astro-jub-hero__eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#fff;margin:0 0 14px;text-shadow:0 1px 6px rgba(0,0,0,.45)}
+.astro-jub-hero__title{font-family:var(--jub-serif);font-size:clamp(30px,4.6vw,48px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 10px;max-width:22ch;text-shadow:0 2px 14px rgba(20,12,8,.55)}
+.astro-jub-hero__sub{font-size:clamp(15px,1.8vw,18px);line-height:1.5;color:#fff;margin:0 0 20px;text-shadow:0 1px 10px rgba(20,12,8,.6)}
 .astro-jub-hero__cta{display:flex;flex-wrap:wrap;gap:12px}
 @media(max-width:600px){.astro-jub-hero{padding:90px 0 30px}.astro-jub-hero__inner{padding:0 20px}.astro-jub-hero__cta .astro-jub-btn{flex:1 1 100%;justify-content:center}}
 </style>
