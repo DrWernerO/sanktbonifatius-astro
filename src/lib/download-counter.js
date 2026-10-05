@@ -12,8 +12,11 @@ import { getStore } from '@netlify/blobs';
 
 export const ZAEHLBARE_DATEIEN = ['pfarrbrief', 'highlights'];
 
+// consistency 'strong': Netlify Blobs liest standardmäßig "eventually consistent" (bis ~60 s
+// veraltet) — Zählen (lesen+1+schreiben) würde dabei Klicks verschlucken und die Statistikseite
+// direkt nach einem Download noch den alten Stand zeigen.
 function store() {
-  return getStore('download-counters');
+  return getStore({ name: 'download-counters', consistency: 'strong' });
 }
 
 // Montag (UTC) der Kalenderwoche von `datum`, als "YYYY-MM-DD".
