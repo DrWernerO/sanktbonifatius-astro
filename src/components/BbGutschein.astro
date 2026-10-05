@@ -1,0 +1,43 @@
+---
+// Gutscheinheft-Block der Landingpage „Baby" (/baby/). Eigene Klassen `astro-bbgs`.
+// ⚠️ Zum Gutscheinheft gibt es auf der Website NICHTS (Stand 2026-10-05): Inhalt des Hefts, Einlöse-
+// Weg, Gültigkeit und Ansprechperson sind als sichtbare Platzhalter [..] gesetzt und müssen vom
+// Team geliefert werden. Nichts erfinden — Platzhalter erst ersetzen, wenn Angaben vorliegen.
+const schritte = [
+  { n: '1', t: 'Gutschein aussuchen', d: '[Kurz beschreiben, welche Gutscheine im Heft sind – vom Team einzutragen]' },
+  { n: '2', t: 'Einlösen', d: '[Wo und wie werden die Gutscheine eingelöst? – vom Team einzutragen]' },
+  { n: '3', t: 'Genießen', d: '[Gültigkeit / Hinweise zum Heft – vom Team einzutragen]' },
+];
+---
+<section class="astro-bbgs" id="gutschein">
+  <div class="astro-bbgs__inner">
+    <h2 class="astro-bbgs__hl">So lösen Sie Ihre Gutscheine ein</h2>
+    <p class="astro-bbgs__lead">Das Gutscheinheft ist unser kleines Willkommensgeschenk für Sie und Ihr Baby. Und so einfach geht es:</p>
+    <ol class="astro-bbgs__steps" role="list">
+      {schritte.map((s) => (
+        <li class="astro-bbgs__step">
+          <span class="astro-bbgs__num" aria-hidden="true">{s.n}</span>
+          <div>
+            <h3 class="astro-bbgs__t">{s.t}</h3>
+            <p class="astro-bbgs__d"><mark class="astro-bb-ph">{s.d}</mark></p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style is:global>
+.astro-bbgs{background:#fff;padding:72px 0;scroll-margin-top:80px}
+.astro-bbgs__inner{max-width:900px;margin:0 auto;padding:0 40px}
+.astro-bbgs__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.4vw,40px);font-weight:700;color:#9a2d2d;margin:0 0 14px;line-height:1.15}
+.astro-bbgs__lead{font-size:clamp(17px,1.9vw,19px);line-height:1.65;color:#2c2420;margin:0 0 30px}
+.astro-bbgs__steps{list-style:none;display:flex;flex-direction:column;gap:16px;padding:0;margin:0}
+.astro-bbgs__step{display:flex;gap:18px;align-items:flex-start;background:#f7f3ef;border-radius:14px;padding:20px 22px}
+.astro-bbgs__num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.astro-bbgs__t{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:700;color:#2c2420;margin:0 0 4px}
+.astro-bbgs__d{font-size:16px;line-height:1.55;color:#4a3f37;margin:0}
+/* Gut sichtbarer Platzhalter — wird vor Go-Live durch echte Angaben ersetzt */
+.astro-bb-ph{background:#fff3b0;color:#3d2f00;padding:1px 6px;border-radius:4px;font-weight:600}
+@media(max-width:600px){.astro-bbgs{padding:52px 0}.astro-bbgs__inner{padding:0 20px}.astro-bbgs__step{padding:16px}}
+</style>

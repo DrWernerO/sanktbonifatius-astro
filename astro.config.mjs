@@ -25,15 +25,17 @@ export default defineConfig({
   adapter: netlify(),
   integrations: [
     sitemap({
-      // Passwortgeschützte Seiten (raumbuchung/, downloads/statistik, exerzitien2027/) sind bereits per
+      // Passwortgeschützte Seiten (raumbuchung/, statistik, exerzitien2027/) sind bereits per
       // noindex-Header vor Google geschützt — stünden aber ohne diesen Filter trotzdem
       // öffentlich lesbar in der sitemap.xml (URL damit auffindbar, auch wenn der Inhalt
       // selbst gesperrt bleibt).
-      filter: (page) => !page.includes('/kontakt/raumbuchung') && !page.includes('/downloads/statistik')
+      filter: (page) => !page.includes('/kontakt/raumbuchung') && !page.includes('/statistik')
         && !page.includes('/exerzitien2027')
         && !page.includes('/100-jahre')
         // Versteckte QR-Landingpage (Brief zum Willkommens-Flyer), noindex — siehe src/pages/willkommen.astro
-        && !page.includes('/willkommen/'),
+        && !page.includes('/willkommen/')
+        // Versteckte QR-Landingpage (Brief zum Gutscheinheft), noindex — siehe src/pages/baby.astro
+        && !page.includes('/baby/'),
     }),
   ],
   vite: {

@@ -17,7 +17,7 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; zusatzEnvVar?: string;
     benutzername: 'anfrage',
     realm: 'Raumbuchung Sankt Bonifatius',
   },
-  '/downloads/statistik': {
+  '/statistik': {
     // Seit 03.10.2026 gemeinsames Passwort mit der Jubiläumsseite, Benutzername egal.
     envVar: 'INTERNE_SEITEN_PASSWORD',
     realm: 'Download-Statistik Sankt Bonifatius',

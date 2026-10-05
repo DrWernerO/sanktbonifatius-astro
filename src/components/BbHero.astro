@@ -1,0 +1,44 @@
+---
+// Hero der versteckten Landingpage „Baby" (/baby/, Ziel des QR-Codes im Brief zum Gutscheinheft für
+// Eltern nach der Geburt). Eigene Klassen `astro-bbhero`, Aufbau wie WkHero.astro (Willkommen).
+// Foto: Baby-Lounge St. Bonifatius (Original Babylounge_hires-0689.jpg, auf 2400px verkleinert).
+const bg = '/uploads/2026/10/baby-hero-babylounge.jpg';
+---
+<section class="astro-bbhero">
+  <div class="astro-bbhero__bg" role="img"
+       aria-label="Babys und ihre Eltern sitzen auf einer grünen Spieldecke in der Baby-Lounge der Pfarrei Sankt Bonifatius, ein Baby schaut Seifenblasen nach"
+       style={`background-image:url('${bg}')`}></div>
+  <div class="astro-bbhero__overlay"></div>
+  <div class="astro-bbhero__inner">
+    <p class="astro-bbhero__script">Willkommen im Leben, kleiner Mensch</p>
+    <h1 class="astro-bbhero__title">Herzlichen Glückwunsch!</h1>
+    <p class="astro-bbhero__sub">Schön, dass es Sie jetzt zu dritt, zu viert oder noch mehr gibt. Wir von der Pfarrei Sankt Bonifatius freuen uns mit Ihnen.</p>
+    <div class="astro-bbhero__btns">
+      <a href="#gutschein" class="astro-bbhero__btn astro-bbhero__btn--primary">Ihr Gutscheinheft</a>
+      <a href="#rueckmeldung" class="astro-bbhero__btn astro-bbhero__btn--outline">Rückmeldung geben</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bbhero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:560px;display:flex;align-items:flex-end;overflow:hidden;padding-top:120px;box-sizing:border-box;background:#6e1e1e}
+.astro-bbhero__bg{position:absolute;inset:0;background-size:cover;background-position:center 60%}
+.astro-bbhero__overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(122,28,28,.72) 0%,rgba(154,45,45,.34) 42%,rgba(154,45,45,0) 70%),linear-gradient(180deg,rgba(30,21,18,0) 55%,rgba(60,18,18,.4) 100%)}
+.astro-bbhero__inner{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 64px;color:#fff}
+.astro-bbhero__script{text-shadow:0 1px 10px rgba(40,10,10,.7);font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(20px,2.6vw,30px);color:#f3e2b8;margin:0 0 10px;line-height:1.25}
+.astro-bbhero__title{text-shadow:0 2px 18px rgba(40,10,10,.65);font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5.4vw,68px);font-weight:700;color:#fff;margin:0 0 16px;line-height:1.08;max-width:760px}
+.astro-bbhero__sub{text-shadow:0 1px 10px rgba(40,10,10,.7);font-size:clamp(17px,1.9vw,20px);line-height:1.55;margin:0 0 28px;max-width:560px}
+.astro-bbhero__btns{display:flex;gap:12px;flex-wrap:wrap}
+.astro-bbhero__btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 26px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .18s,color .18s,border-color .18s}
+.astro-bbhero__btn--primary{background:#fff;color:#9a2d2d;border:2px solid #fff}
+.astro-bbhero__btn--primary:hover{background:#f3e7d4;border-color:#f3e7d4;color:#7e2424}
+.astro-bbhero__btn--outline{background:rgba(255,255,255,.12);color:#fff;border:2px solid rgba(255,255,255,.6)}
+.astro-bbhero__btn--outline:hover{background:rgba(255,255,255,.22);border-color:#fff}
+.astro-bbhero__btn:focus-visible{outline:3px solid #f3e2b8;outline-offset:3px}
+@media(max-width:600px){
+  .astro-bbhero{min-height:480px;padding-top:100px}
+  .astro-bbhero__overlay{background:linear-gradient(180deg,rgba(122,28,28,0) 0%,rgba(122,28,28,.25) 35%,rgba(122,28,28,.55) 65%,rgba(110,26,26,.85) 100%)}
+  .astro-bbhero__inner{padding:0 20px 40px}
+  .astro-bbhero__btns{flex-direction:column}
+}
+</style>

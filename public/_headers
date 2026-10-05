@@ -19,3 +19,13 @@
 # als HTTP-Header noindex, damit Suchmaschinen sie sicher nicht aufnehmen (Handbuch 18).
 /willkommen/*
   X-Robots-Tag: noindex, nofollow
+
+# Versteckte QR-Landingpage (Brief zum Gutscheinheft): wie /willkommen/ zusätzlich noindex per Header (Handbuch 19).
+/baby/*
+  X-Robots-Tag: noindex, nofollow
+
+# Interne Statistikseite (Passwortschutz per Middleware): zusätzlich noindex per Header, wie /baby/ und /willkommen/.
+/statistik/*
+  X-Robots-Tag: noindex, nofollow
+/statistik
+  X-Robots-Tag: noindex, nofollow

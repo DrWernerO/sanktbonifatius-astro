@@ -1,0 +1,28 @@
+---
+// Dezenter Hinweis auf Taufe und Segnung (ohne Druck) auf der Landingpage „Baby" (/baby/).
+// Eigene Klassen `astro-bbtaufe`. Link auf die bestehende Taufe-Seite. Zu einer eigenen
+// „Segnung" gibt es auf der Website keine Seite — hier nur als Wort im Fließtext, keine Zusagen.
+---
+<section class="astro-bbtaufe" aria-labelledby="astro-bbtaufe-hl">
+  <div class="astro-bbtaufe__inner">
+    <h2 class="astro-bbtaufe__hl" id="astro-bbtaufe-hl">Taufe und Segnung</h2>
+    <p class="astro-bbtaufe__text">
+      Wenn Sie Fragen zur Taufe oder zu einer Segnung Ihres Kindes haben, sprechen Sie uns gern an.
+      Ganz unverbindlich – ob mit oder ohne Kirchenmitgliedschaft, Sie sind bei uns willkommen.
+    </p>
+    <a class="astro-bbtaufe__link" href="/segen-sakramente/taufe/">
+      Mehr zur Taufe
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<style is:global>
+.astro-bbtaufe{background:#f7f3ef;padding:56px 0}
+.astro-bbtaufe__inner{max-width:720px;margin:0 auto;padding:0 24px;text-align:center}
+.astro-bbtaufe__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,32px);font-weight:700;color:#2c2420;margin:0 0 12px}
+.astro-bbtaufe__text{font-size:clamp(16px,1.8vw,18px);line-height:1.65;color:#4a3f37;margin:0 0 12px}
+.astro-bbtaufe__link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:16px;font-weight:600;color:#9a2d2d;text-decoration:underline;text-decoration-color:rgba(154,45,45,.35);text-underline-offset:4px}
+.astro-bbtaufe__link:hover{text-decoration-color:#9a2d2d}
+.astro-bbtaufe__link:focus-visible{outline:3px solid #9a2d2d;outline-offset:2px;border-radius:4px}
+</style>

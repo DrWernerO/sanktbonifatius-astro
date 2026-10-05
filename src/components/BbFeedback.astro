@@ -1,0 +1,206 @@
+---
+// Rückmeldeblock der Landingpage „Baby" (/baby/). Eigene Klassen `astro-bbfb`.
+//
+// ÜBERMITTLUNG: wie Kita-Bewerbung/Taufe (Handbuch 13b) an eine eigene API-Route
+// `/api/baby-rueckmeldung` (src/pages/api/baby-rueckmeldung.ts), die die Angaben per
+// SMTP (formular@mail.sanktbonifatius.de) als reine Text-Mail ans Pfarrbüro (info@) schickt.
+// Datenschutz: method="post" auch ohne JavaScript — Eingaben landen so NIE in der URL (und damit
+// weder in Server-Logs noch als page_location in Google Analytics). Die API schreibt keine
+// Formularinhalte in Logs.
+//
+// 🔑 Feldnamen sind VERTRAG mit der API-Route — NICHT umbenennen.
+---
+<section class="astro-bbfb" id="rueckmeldung">
+  <div class="astro-bbfb__inner">
+    <div class="astro-bbfb__head">
+      <h2 class="astro-bbfb__hl">Wir würden uns sehr über eine Rückmeldung freuen!</h2>
+      <p class="astro-bbfb__sub">Das dauert nicht einmal eine Minute. Alle Angaben sind freiwillig.</p>
+    </div>
+
+    <div class="astro-bbfb__done" id="danke" tabindex="-1">
+      <p class="astro-bbfb__done-hl">Herzlichen Dank für Ihre Rückmeldung!</p>
+      <p>Wenn Sie sich einen Rückruf gewünscht haben, rufen wir Sie gern zurück.</p>
+    </div>
+    <div class="astro-bbfb__fail" id="fehler" tabindex="-1">
+      <p>Das hat leider nicht geklappt. Bitte versuchen Sie es noch einmal oder schreiben Sie uns an <a href="mailto:info@sanktbonifatius.de">info@sanktbonifatius.de</a>.</p>
+    </div>
+
+    <form id="astro-bbfb-form" class="astro-bbfb__form" method="post" action="/api/baby-rueckmeldung" novalidate>
+      <fieldset class="astro-bbfb__group">
+        <legend class="astro-bbfb__legend">Wie war das Heft für Sie?</legend>
+        <div class="astro-bbfb__choices">
+          <label class="astro-bbfb__choice"><input type="radio" name="bb_heft" value="Sehr gut" /><span>Sehr gut</span></label>
+          <label class="astro-bbfb__choice"><input type="radio" name="bb_heft" value="Ganz gut" /><span>Ganz gut</span></label>
+          <label class="astro-bbfb__choice"><input type="radio" name="bb_heft" value="Eher nicht" /><span>Eher nicht</span></label>
+        </div>
+      </fieldset>
+
+      <label class="astro-bbfb__f">
+        <span>Möchten Sie uns noch etwas sagen? <span class="astro-bbfb__opt">(freiwillig)</span></span>
+        <textarea name="bb_nachricht" rows="3" maxlength="2000"></textarea>
+      </label>
+
+      <div class="astro-bbfb__contact">
+        <label class="astro-bbfb__check">
+          <input type="checkbox" name="bb_rueckruf" value="ja" id="astro-bbfb-kontakt" aria-controls="astro-bbfb-kontaktfelder" />
+          <span>
+            <strong>Bitte rufen Sie mich zurück.</strong><br />
+            Dafür darf die Pfarrei Sankt Bonifatius meine Angaben unten verwenden.
+          </span>
+        </label>
+
+        <div class="astro-bbfb__fields" id="astro-bbfb-kontaktfelder">
+          <fieldset class="astro-bbfb__group astro-bbfb__thema">
+            <legend class="astro-bbfb__hint">Worum geht es? (freiwillig)</legend>
+            <div class="astro-bbfb__choices">
+              <label class="astro-bbfb__choice"><input type="radio" name="bb_thema" value="Familienangebote" /><span>Familienangebote</span></label>
+              <label class="astro-bbfb__choice"><input type="radio" name="bb_thema" value="Taufe" /><span>Taufe</span></label>
+              <label class="astro-bbfb__choice"><input type="radio" name="bb_thema" value="Etwas anderes" /><span>Etwas anderes</span></label>
+            </div>
+          </fieldset>
+          <div class="astro-bbfb__grid">
+            <label class="astro-bbfb__f">Name<input type="text" name="bb_name" autocomplete="name" maxlength="120" /></label>
+            <label class="astro-bbfb__f">Telefon<input type="tel" name="bb_telefon" autocomplete="tel" maxlength="40" /></label>
+          </div>
+        </div>
+      </div>
+
+      <p class="astro-bbfb__privacy">
+        <strong>Datenschutz:</strong> Wir nutzen Ihre Angaben nur für diesen Vorgang.
+        Mehr in unserer <a href="/datenschutz/">Datenschutzerklärung</a>.
+      </p>
+
+      <button type="submit" class="astro-bbfb__submit">Rückmeldung senden</button>
+      <div class="astro-bbfb__msg" id="astro-bbfb-msg" role="status" aria-live="polite"></div>
+
+      <!-- Anti-Spam wie Kita-Bewerbung/Taufe: Honeypot + Zeit-Check (Server verwirft still). -->
+      <div class="astro-bbfb__hp" aria-hidden="true">
+        <label>Bitte dieses Feld leer lassen<input type="text" name="webseite" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <input type="hidden" name="astro_ts" id="astro-bbfb-ts" value="" />
+    </form>
+  </div>
+</section>
+
+<style is:global>
+.astro-bbfb{background:#fff;padding:80px 0;scroll-margin-top:80px}
+.astro-bbfb__inner{max-width:720px;margin:0 auto;padding:0 24px}
+.astro-bbfb__head{text-align:center;margin:0 0 28px}
+.astro-bbfb__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 10px;line-height:1.2}
+.astro-bbfb__sub{font-size:16px;color:#6b5c52;margin:0}
+.astro-bbfb__form{background:#f7f3ef;border-radius:14px;padding:30px 28px 32px;display:flex;flex-direction:column;gap:22px}
+.astro-bbfb__group{border:0;padding:0;margin:0}
+.astro-bbfb__legend{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:700;color:#2c2420;margin:0 0 14px;padding:0}
+.astro-bbfb__choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.astro-bbfb__choice{position:relative;display:block;cursor:pointer}
+.astro-bbfb__choice input{position:absolute;opacity:0;width:100%;height:100%;inset:0;margin:0;cursor:pointer}
+.astro-bbfb__choice span{display:flex;align-items:center;justify-content:center;min-height:52px;padding:10px 12px;border:2px solid #d9cfc2;border-radius:50px;background:#fff;font-size:16px;font-weight:600;color:#2c2420;text-align:center;transition:background .15s,border-color .15s,color .15s}
+.astro-bbfb__choice input:checked + span{background:#9a2d2d;border-color:#9a2d2d;color:#fff}
+.astro-bbfb__choice input:focus-visible + span{outline:3px solid #9a2d2d;outline-offset:3px}
+.astro-bbfb__choice:hover span{border-color:#9a2d2d}
+.astro-bbfb__f{display:flex;flex-direction:column;font-size:15px;font-weight:600;color:#3d3530;gap:6px}
+.astro-bbfb__opt{font-weight:400;color:var(--txt-muted-light)}
+.astro-bbfb__f input,.astro-bbfb__f textarea{font-family:inherit;font-size:16px;font-weight:400;color:#2c2420;padding:12px;border:1px solid #b9ab99;border-radius:8px;background:#fff;min-height:48px}
+.astro-bbfb__f textarea{resize:vertical}
+.astro-bbfb__f input:focus,.astro-bbfb__f textarea:focus{outline:none;border-color:#9a2d2d;box-shadow:0 0 0 3px rgba(154,45,45,.18)}
+.astro-bbfb__contact{background:#fff;border-radius:10px;padding:18px 18px 20px;border:1px solid #e0d8cf}
+.astro-bbfb__check{display:flex;align-items:flex-start;gap:12px;font-size:15.5px;color:#2c2420;line-height:1.5;cursor:pointer}
+.astro-bbfb__check input{width:22px;height:22px;margin-top:2px;flex-shrink:0;accent-color:#9a2d2d}
+.astro-bbfb__fields{margin-top:16px}
+.astro-bbfb__fields[hidden]{display:none}
+.astro-bbfb__hint{font-size:14.5px;color:#6b5c52;margin:0 0 12px}
+.astro-bbfb__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 16px}
+.astro-bbfb__thema{margin:0 0 16px}
+.astro-bbfb__thema .astro-bbfb__hint{padding:0;margin:0 0 10px}
+.astro-bbfb__f--wide{grid-column:1 / -1}
+.astro-bbfb__privacy{font-size:14px;line-height:1.55;color:#4a3f37;margin:0}
+.astro-bbfb__privacy a{color:#9a2d2d;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.astro-bbfb__submit{display:block;width:100%;min-height:54px;padding:16px;border:none;border-radius:50px;background:#9a2d2d;color:#fff;font-family:inherit;font-size:17px;font-weight:600;cursor:pointer;transition:background .2s}
+.astro-bbfb__submit:hover{background:#7e2424}
+.astro-bbfb__submit:focus-visible{outline:3px solid #2c2420;outline-offset:3px}
+.astro-bbfb__submit:disabled{opacity:.65;cursor:default}
+.astro-bbfb__msg:empty{display:none}
+.astro-bbfb__msg{padding:14px 16px;border-radius:8px;font-size:15px;line-height:1.5}
+.astro-bbfb__msg--ok{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+.astro-bbfb__msg--err{background:#ffebee;border:1px solid #ef9a9a;color:#b71c1c}
+/* Rückmeldung ohne JavaScript: API leitet auf #danke bzw. #fehler zurück → per :target einblenden. */
+.astro-bbfb__done,.astro-bbfb__fail{display:none;border-radius:12px;padding:20px 22px;margin:0 0 20px;font-size:16px;line-height:1.5;scroll-margin-top:100px}
+.astro-bbfb__done{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+.astro-bbfb__fail{background:#ffebee;border:1px solid #ef9a9a;color:#b71c1c}
+.astro-bbfb__fail a{color:inherit;font-weight:600;text-decoration:underline}
+.astro-bbfb__done:target,.astro-bbfb__fail:target{display:block}
+.astro-bbfb__done-hl{font-weight:700;margin:0 0 4px}
+.astro-bbfb__done:target ~ .astro-bbfb__form{display:none}
+.astro-bbfb__hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+@media(max-width:600px){
+  .astro-bbfb{padding:56px 0}
+  .astro-bbfb__inner{padding:0 16px}
+  .astro-bbfb__form{padding:22px 16px 24px}
+  .astro-bbfb__choices{grid-template-columns:1fr}
+  .astro-bbfb__grid{grid-template-columns:1fr}
+}
+</style>
+
+<script>
+(function () {
+  const form = document.getElementById('astro-bbfb-form') as HTMLFormElement | null;
+  if (!form) return;
+  const msg = document.getElementById('astro-bbfb-msg') as HTMLElement;
+  const btn = form.querySelector('.astro-bbfb__submit') as HTMLButtonElement;
+  const kontakt = document.getElementById('astro-bbfb-kontakt') as HTMLInputElement;
+  const fields = document.getElementById('astro-bbfb-kontaktfelder') as HTMLElement;
+  const ts = document.getElementById('astro-bbfb-ts') as HTMLInputElement;
+  if (ts) ts.value = String(Date.now());
+
+  // Kontaktfelder erst nach Häkchen zeigen (ohne JS bleiben sie immer sichtbar).
+  function syncFields() {
+    fields.hidden = !kontakt.checked;
+    kontakt.setAttribute('aria-expanded', String(kontakt.checked));
+  }
+  kontakt.addEventListener('change', syncFields);
+  syncFields();
+
+  function setMsg(ok: boolean, text: string) {
+    msg.className = 'astro-bbfb__msg ' + (ok ? 'astro-bbfb__msg--ok' : 'astro-bbfb__msg--err');
+    msg.textContent = text;
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    const hatEtwas = data.get('bb_heft') || String(data.get('bb_nachricht') || '').trim() || kontakt.checked;
+    if (!hatEtwas) {
+      setMsg(false, 'Bitte wählen Sie eine Antwort aus oder schreiben Sie uns ein paar Worte.');
+      return;
+    }
+    if (kontakt.checked && !String(data.get('bb_telefon') || '').trim()) {
+      setMsg(false, 'Damit wir Sie zurückrufen können, geben Sie bitte Ihre Telefonnummer an.');
+      (form.querySelector('[name="bb_telefon"]') as HTMLInputElement)?.focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet …';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      }).then((r) => r.json());
+      if (res && res.success) {
+        setMsg(true, res.data || 'Herzlichen Dank für Ihre Rückmeldung!');
+        form.reset();
+        syncFields();
+        if (ts) ts.value = String(Date.now());
+      } else {
+        setMsg(false, (res && res.data) || 'Das hat leider nicht geklappt. Bitte versuchen Sie es noch einmal.');
+      }
+    } catch {
+      setMsg(false, 'Verbindungsfehler. Bitte versuchen Sie es noch einmal oder schreiben Sie uns an info@sanktbonifatius.de.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Rückmeldung senden';
+    }
+  });
+})();
+</script>

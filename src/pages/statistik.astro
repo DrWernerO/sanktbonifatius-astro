@@ -7,9 +7,9 @@
 // Middleware greift (analog src/pages/kontakt/raumbuchung.astro).
 export const prerender = false;
 
-import Base from '../../layouts/Base.astro';
-import { leseWochenZaehler } from '../../lib/download-counter.js';
-import { leseQrZaehler } from '../../lib/qr-counter.js';
+import Base from '../layouts/Base.astro';
+import { leseWochenZaehler } from '../lib/download-counter.js';
+import { leseQrZaehler } from '../lib/qr-counter.js';
 
 const wochen = await leseWochenZaehler();
 const gesamtPfarrbrief = wochen.reduce((summe, w) => summe + w.pfarrbrief, 0);

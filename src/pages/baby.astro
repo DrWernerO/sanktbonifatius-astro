@@ -1,0 +1,39 @@
+---
+// VERSTECKTE Landingpage „Baby" (/baby/) — Ziel des QR-Codes im Brief, der dem Gutscheinheft für
+// Eltern nach der Geburt eines Kindes beiliegt. Schwesterseite von /willkommen/ (Handbuch 18).
+// Bewusst: NICHT im Menü, NICHT in der Sitemap (Filter in astro.config.mjs), NICHT intern verlinkt,
+// noindex/nofollow (+ X-Robots-Tag in public/_headers). Kein Eintrag in _redirects/llms.txt/robots.txt.
+// Zählung: QR-Kurzlink /go/baby (jeder Scan, cookiefrei) + GA4 nur mit Cookie-Einwilligung (Base.astro).
+// Nav + Footer global aus Base.astro. Kein WP-Inhalt, kein SEO_STATIC-Eintrag nötig.
+// ⚠️ Offene Platzhalter [..] (Gutscheinheft) siehe BbGutschein.astro.
+import Base from '../layouts/Base.astro';
+import BbHero from '../components/BbHero.astro';
+import BbGutschein from '../components/BbGutschein.astro';
+import BbBonfamily from '../components/BbBonfamily.astro';
+import BbTaufe from '../components/BbTaufe.astro';
+import BbFeedback from '../components/BbFeedback.astro';
+import WkKontakt from '../components/WkKontakt.astro';
+import EventCalendar from '../components/EventCalendar.astro';
+---
+<Base
+  title="Herzlichen Glückwunsch"
+  description="Herzlichen Glückwunsch zur Geburt! Die Pfarrei Sankt Bonifatius in Frankfurt stellt sich Eltern mit Babys vor."
+  noindex={true}
+>
+  <BbHero />
+  <BbGutschein />
+  <BbBonfamily />
+  <div id="termine" class="astro-bb-termine">
+    <EventCalendar heading="Nächste Termine für Familien" moreHref="/terminkalender/" category={2586} categoryLabel="BonFamily" />
+  </div>
+  <BbTaufe />
+  <BbFeedback />
+  <WkKontakt />
+</Base>
+
+<style is:global>
+.astro-bb-termine{scroll-margin-top:96px}
+.astro-bb-termine .astro-ev__hl,
+.astro-bb-termine .astro-ev-card__title,
+.astro-bb-termine .astro-ev-list__hl { color: #9a2d2d; }
+</style>

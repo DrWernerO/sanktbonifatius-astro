@@ -50,9 +50,20 @@ export const QR_LINKS = {
   // Name, weil die Adresse auch abgetippt wird. TODO: Zeile in Franks Excel nachtragen.
   'willkommen': {
     titel: 'Willkommensbrief Neuzugezogene',
+    aktiv: true, // Werner, 2026-10-05: Brief ist im Umlauf bzw. wird gedruckt
     ziel: '/willkommen/',
     quelle: 'brief-willkommensflyer',
     kampagne: 'willkommen-neuzugezogene-2026',
+  },
+  // Brief mit QR-Code zum Gutscheinheft für Eltern nach der Geburt (Auftrag Werner, 2026-10-05).
+  // Ziel ist die versteckte Landingpage /baby/ (Handbuch 19). Kurzer Name, weil die Adresse auch
+  // abgetippt wird. TODO: Zeile in Franks Excel nachtragen.
+  'baby': {
+    titel: 'Brief zum Gutscheinheft (Eltern nach der Geburt)',
+    aktiv: true, // Werner, 2026-10-05
+    ziel: '/baby/',
+    quelle: 'brief-gutscheinheft',
+    kampagne: 'baby-eltern-2026',
   },
 };
 

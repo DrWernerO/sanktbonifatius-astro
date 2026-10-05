@@ -1,0 +1,148 @@
+---
+// BonFamily-Block der Landingpage „Baby" (/baby/): zeigt, dass die Pfarrei mit BonFamily ein starkes
+// Familienprogramm für Kinder jeden Alters hat. Eigene Klassen `astro-bbbf`.
+// Oben die zwei Treffpunkte für die Kleinsten mit Foto (Zeiten/Orte aus FmGrid.astro / BfLounge.astro),
+// darunter „Wenn Ihr Kind größer wird" mit Angeboten für alle Altersstufen (Texte aus BfKitas,
+// FmQuick, BfGottesdienste, ChoCards; Jugendkirche JONA wie WkTiles). NICHTS erfunden.
+// Eltern-Kind-Gruppe St. Wendel und Kaffeemobil bewusst NICHT mehr dabei (Werner, 2026-10-05).
+const lounges = [
+  {
+    img: '/uploads/2023/04/babylounge-stbonifatius-frankfurt-37-1024x767.jpg', w: 1024, h: 767,
+    alt: 'Eltern mit ihren Babys in der Baby-Lounge im Kleinen Pfarrsaal St. Bonifatius',
+    label: 'Für Babys bis 12 Monate',
+    title: 'Baby-Lounge',
+    text: 'Eine liebevoll gestaltete Spiellandschaft für die Kleinsten. Eltern kommen entspannt miteinander ins Gespräch, während die Babys spielen und die Welt entdecken.',
+    facts: ['Freitags, 9.30–11.30 Uhr (außer Brückentagen und hessischen Schulferien)', 'Kleiner Pfarrsaal St. Bonifatius, Zugang Achenbachstraße', 'Kostenlos, keine Anmeldung nötig'],
+  },
+  {
+    img: '/uploads/2026/06/image-fotos-stbonifatius-00016.jpg', w: 675, h: 450,
+    alt: 'Mütter mit Babys und Kleinkindern bei einem Familientreff der Pfarrei',
+    label: 'Für Kinder von 1–3 Jahren',
+    title: 'Familien-Lounge',
+    text: 'Toben, spielen, lachen – und die Eltern können sich dabei entspannen und austauschen. Ein offener Treffpunkt für Familien im Alltag.',
+    facts: ['Freitags, 15.30–17.30 Uhr (außer Brückentagen und hessischen Schulferien)', 'Kleiner Pfarrsaal St. Bonifatius, Zugang Achenbachstraße', 'Kostenlos, einfach vorbeikommen'],
+  },
+];
+const spaeter = [
+  {
+    title: 'Kindertagesstätten',
+    text: 'Fünf Kitas in der Pfarrei, mit herzlicher Betreuung, christlichen Werten und viel Raum zum Spielen, Lernen und Wachsen. Für Kinder von 0 bis 6 Jahren.',
+    links: [{ href: '/kitas/', label: 'Zu den Kitas' }],
+    icon: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  },
+  {
+    title: 'Kinder- und Familiengottesdienste',
+    text: 'Bilderbuch- und Kreativgottesdienste und Familiengottesdienste: fröhlich, bunt und abwechslungsreich, jeden 1. und 3. Sonntag. Ihr Baby ist selbstverständlich willkommen.',
+    links: [{ href: '/bonfamily/familiengottesdienste/', label: 'Zu den Gottesdiensten' }],
+    icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  },
+  {
+    title: 'Singen und Musizieren',
+    text: 'Vom Kinderprojektchor „Die Wendelinos“ bis zum Vokalensemble: Wer gern singt, findet bei uns einen Chor.',
+    links: [{ href: '/kultur-begegnung/choere/', label: 'Unsere Chöre' }],
+    icon: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+  },
+  {
+    title: 'Jugend und Freizeiten',
+    text: 'Wenn aus Ihrem Baby ein Teenager geworden ist: Die Jugendkirche JONA ist bei uns zu Hause, dazu gibt es Kinder- und Jugendfreizeiten.',
+    links: [
+      { href: '/jugend/kinder-und-jugendfreizeiten/', label: 'Kinder- und Jugendfreizeiten' },
+      { href: 'https://www.jugendkirche-jona.de', label: 'Jugendkirche JONA', external: true },
+    ],
+    icon: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+  },
+];
+---
+<section class="astro-bbbf" id="angebote">
+  <div class="astro-bbbf__inner">
+    <div class="astro-bbbf__head">
+      <p class="astro-bbbf__eyebrow">BonFamily</p>
+      <h2 class="astro-bbbf__hl">Ein starkes Familienprogramm, von Anfang an</h2>
+      <p class="astro-bbbf__intro">
+        BonFamily ist das Familienprogramm der Pfarrei Sankt Bonifatius. Wir haben viele tolle Angebote
+        für Kinder jeden Alters, vom Baby bis zum Teenager, und für Sie als Eltern. Hier ist jede Familie
+        willkommen, mit oder ohne Kirchenbindung. Kommen Sie einfach vorbei, ganz ohne Verpflichtung.
+      </p>
+    </div>
+
+    <h3 class="astro-bbbf__sub">Für den Start: Treffpunkte für Babys und Eltern</h3>
+    <ul class="astro-bbbf__grid astro-bbbf__grid--2" role="list">
+      {lounges.map((t) => (
+        <li class="astro-bbtile">
+          <img class="astro-bbtile__img" src={t.img} alt={t.alt} width={t.w} height={t.h} loading="lazy" />
+          <div class="astro-bbtile__body">
+            <p class="astro-bbtile__label">{t.label}</p>
+            <h4 class="astro-bbtile__title">{t.title}</h4>
+            <p class="astro-bbtile__text">{t.text}</p>
+            <ul class="astro-bbtile__facts" role="list">
+              {t.facts.map((f) => <li>{f}</li>)}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <h3 class="astro-bbbf__sub">Und wenn Ihr Kind größer wird</h3>
+    <ul class="astro-bbbf__grid astro-bbbf__grid--4" role="list">
+      {spaeter.map((s) => (
+        <li class="astro-bbcard">
+          <svg class="astro-bbcard__icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#9a2d2d" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={s.icon} />
+          <h4 class="astro-bbcard__title">{s.title}</h4>
+          <p class="astro-bbcard__text">{s.text}</p>
+          <ul class="astro-bbcard__links" role="list">
+            {s.links.map((l) => (
+              <li>
+                <a class="astro-bbcard__link" href={l.href} {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}>
+                  {l.label}
+                  {l.external && <span class="astro-wk-sr">(öffnet neues Fenster)</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+
+    <div class="astro-bbbf__cta">
+      <a class="astro-bbbf__btn" href="/bonfamily/">Alle BonFamily-Angebote entdecken</a>
+      <a class="astro-bbbf__btn astro-bbbf__btn--ghost" href="/bonfamily/whatsapp-kanal/">BonFamily-WhatsApp-Kanal</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-bbbf{background:#f7f3ef;padding:80px 0;scroll-margin-top:80px}
+.astro-bbbf__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-bbbf__head{text-align:center;max-width:760px;margin:0 auto 44px}
+.astro-bbbf__eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9a2d2d;font-weight:700;margin:0 0 10px}
+.astro-bbbf__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.5vw,42px);font-weight:700;color:#2c2420;margin:0 0 16px;line-height:1.15;text-wrap:balance}
+.astro-bbbf__intro{font-size:clamp(16px,1.8vw,18.5px);line-height:1.65;color:#4a3f37;margin:0}
+.astro-bbbf__sub{font-family:'Playfair Display',Georgia,serif;font-size:clamp(21px,2.4vw,26px);font-weight:700;color:#9a2d2d;margin:0 0 18px}
+.astro-bbbf__grid{list-style:none;display:grid;gap:24px;padding:0;margin:0 0 48px}
+.astro-bbbf__grid--2{grid-template-columns:repeat(2,1fr)}
+.astro-bbbf__grid--4{grid-template-columns:repeat(2,1fr);gap:20px}
+.astro-bbtile{display:flex;flex-direction:column;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 14px rgba(30,21,18,.07)}
+.astro-bbtile__img{width:100%;height:220px;object-fit:cover}
+.astro-bbtile__body{padding:24px 26px 26px}
+.astro-bbtile__label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 8px}
+.astro-bbtile__title{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;color:#2c2420;margin:0 0 12px;line-height:1.2}
+.astro-bbtile__text{font-size:15.5px;color:#4a3f37;line-height:1.6;margin:0 0 14px}
+.astro-bbtile__facts{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.45;color:#3d3530}
+.astro-bbtile__facts li{padding-left:18px;position:relative}
+.astro-bbtile__facts li::before{content:'';position:absolute;left:2px;top:.55em;width:7px;height:7px;border-radius:50%;background:#9a2d2d}
+.astro-bbcard{background:#fff;border-radius:14px;padding:24px 26px;box-shadow:0 2px 14px rgba(30,21,18,.07);display:flex;flex-direction:column}
+.astro-bbcard__icon{margin:0 0 12px}
+.astro-bbcard__title{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:700;color:#2c2420;margin:0 0 8px;line-height:1.25}
+.astro-bbcard__text{font-size:15.5px;color:#4a3f37;line-height:1.6;margin:0 0 12px;flex:1}
+.astro-bbcard__links{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px}
+.astro-bbcard__link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:600;color:#9a2d2d;text-decoration:underline;text-decoration-color:rgba(154,45,45,.35);text-underline-offset:4px}
+.astro-bbcard__link:hover{text-decoration-color:#9a2d2d}
+.astro-bbcard__link:focus-visible,.astro-bbbf__btn:focus-visible{outline:3px solid #9a2d2d;outline-offset:2px;border-radius:4px}
+.astro-bbbf__cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.astro-bbbf__btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:12px 28px;border-radius:50px;background:#9a2d2d;color:#fff;border:2px solid #9a2d2d;font-size:16px;font-weight:600;text-decoration:none;transition:background .18s}
+.astro-bbbf__btn:hover{background:#7e2424;border-color:#7e2424}
+.astro-bbbf__btn--ghost{background:transparent;color:#9a2d2d}
+.astro-bbbf__btn--ghost:hover{background:#fff;color:#7e2424}
+@media(max-width:860px){.astro-bbbf__grid--2,.astro-bbbf__grid--4{grid-template-columns:1fr;max-width:560px;margin-left:auto;margin-right:auto}}
+@media(max-width:600px){.astro-bbbf{padding:56px 0}.astro-bbbf__inner{padding:0 20px}.astro-bbbf__btn{width:100%}.astro-bbbf__grid{margin-bottom:36px}}
+</style>
