@@ -264,7 +264,7 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 > - `src/pages/api/track-download.ts` (`prerender = false`) — nimmt den Zähl-Aufruf entgegen.
 > - `Nav.astro` löst beim Klick auf Pfarrbrief/Highlights per `navigator.sendBeacon()` einen
 >   Aufruf dieser Route aus — läuft im Hintergrund, blockiert den eigentlichen Download nicht.
-> - `src/pages/downloads/statistik.astro` (`prerender = false`) — zeigt die beiden Zählerstände
+> - `src/pages/statistik.astro` (`prerender = false`) — zeigt die beiden Zählerstände
 >   als einfache Tabelle. Passwortgeschützt per HTTP-Basic-Auth (`src/middleware.ts`, analog
 >   Raumbuchung), Passwort in Netlify-Env `INTERNE_SEITEN_PASSWORD` (seit 03.10.2026, vorher `DOWNLOADS_STATS_PASSWORD`; Benutzername egal), `noindex` + Sitemap-Ausschluss.
 > - Lokal (`npm run dev` ohne Netlify-CLI-Kontext) kann `getStore()` je nach Umgebung fehlschlagen
@@ -486,7 +486,7 @@ lokalisiert). Übrig bleiben nur PDF-Links (bewusst, siehe oben).
 - **[`src/lib/qr-counter.js`](../src/lib/qr-counter.js)** — Zähler wie `download-counter.js`
   (Abschnitt 1d), Netlify Blobs Store **`qr-scans`**, Schlüssel `<name>:<YYYY-MM>`. Zählt nur
   Namen aus `QR_LINKS` (keine beliebigen Schlüssel von außen). Kein Personenbezug, keine Cookies.
-- **Auswertung:** Tabelle „QR-Scans" (Jahre) + „QR-Scans nach Monat" (seit 2026-10-01) auf `/downloads/statistik` (Basic-Auth, Abschnitt 1d),
+- **Auswertung:** Tabelle „QR-Scans" (Jahre) + „QR-Scans nach Monat" (seit 2026-10-01) auf `/statistik` (Basic-Auth, Abschnitt 1d),
   oben nur Codes mit `aktiv: true` (wirklich im Umlauf), alle übrigen unter „Mögliche weitere
   QR-Scans" (seit 2026-10-01). Wird ein Code gedruckt/eingeführt → `aktiv: true` setzen.
   Jahrestabellen: eine Spalte pro Jahr + Gesamt. GA4 bekommt die UTM-Etiketten zusätzlich, sieht aber nur
@@ -1342,7 +1342,7 @@ Rückmeldung zum Flyer und bietet eine Kontaktaufnahme an. Zugriffe zählt GA4 �
 Adresse — **nur bei Besucher:innen mit Cookie-Einwilligung** (Base.astro, Consent Mode „denied"
 als Standard). **Vollständige Zählung** deshalb über den QR-Kurzlink **`/go/willkommen`**
 (Abschnitt 1h, Eintrag `willkommen` in `src/lib/qr-links.js`): zählt jeden Scan cookiefrei
-(Auswertung `/downloads/statistik`) und leitet mit UTM-Etiketten auf `/willkommen/` weiter.
+(Auswertung `/statistik`) und leitet mit UTM-Etiketten auf `/willkommen/` weiter.
 Der QR-Code im Brief muss auf `https://sanktbonifatius.de/go/willkommen` zeigen.
 
 ### Versteckt halten
@@ -1362,7 +1362,7 @@ Links je Kachel) → `EventCalendar heading="Nächste Termine"` → `WkFeedback`
   [`src/pages/api/willkommen-rueckmeldung.ts`](../src/pages/api/willkommen-rueckmeldung.ts)
   (`prerender = false`) — gleiche Lösung wie Kita-Bewerbung/Taufe (13b): `nodemailer` über die
   SMTP-Env-Vars, **reine Text-Mail, kein PDF**. Empfänger `WILLKOMMEN_TO` (Netlify-Env), Standard
-  `info@sanktbonifatius.de` (Festlegung Werner, 2026-10-01). Ohne SMTP: DEV-Modus, Textdatei unter `./.willkommen-eingaben/`.
+  `w.otto@sanktbonifatius.de` (Festlegung Werner, 2026-10-05, bis auf Weiteres; vorher `info@`). Ohne SMTP: DEV-Modus, Textdatei unter `./.willkommen-eingaben/`.
 - **Datenschutz:** `method="post"` auch ohne JavaScript (Eingaben nie in der URL → nicht in
   Server-Logs/GA4-`page_location`); API loggt keine Formularinhalte; Kontaktdaten werden **nur**
   bei gesetztem Häkchen „Ich freue mich über eine Kontaktaufnahme" übernommen, sonst verworfen.
@@ -1372,3 +1372,26 @@ Links je Kachel) → `EventCalendar heading="Nächste Termine"` → `WkFeedback`
 - Lokal mit curl testen: Astro verlangt bei Formular-POSTs einen `Origin`-Header
   (`-H "Origin: http://localhost:4321"`), sonst 403 „Cross-site POST form submissions are forbidden".
 
+
+## 19. Versteckte QR-Landingpage „Baby" (`/baby/`) + Rückruf-Formular ✅ (Entwurf, Stand 2026-10-05)
+
+**Zweck:** Ziel des QR-Codes im Brief, der dem **Gutscheinheft für Eltern nach der Geburt** beiliegt.
+Schwesterseite von `/willkommen/` (Abschnitt 18) — gleiche Technik, eigene Adresse, damit GA4 und
+Scan-Zähler beide Briefe getrennt zählen. QR-Code im Brief → `https://sanktbonifatius.de/go/baby`
+(Eintrag `baby` in `src/lib/qr-links.js`, UTM `brief-gutscheinheft` / `baby-eltern-2026`).
+
+- **Versteckt:** nicht im Nav, nicht intern verlinkt, `noindex={true}`, `X-Robots-Tag` für `/baby/*` in
+  `public/_headers`, Sitemap-Ausschluss in `astro.config.mjs` (`!page.includes('/baby/')`).
+- **Aufbau** ([`src/pages/baby.astro`](../src/pages/baby.astro)): `BbHero` (Baby-Lounge-Foto
+  `2026/10/baby-hero-babylounge.jpg`) → `BbGutschein` (3 Schritte) → `BbBonfamily` (Werbung für das
+  BonFamily-Familienprogramm: Baby-Lounge + Familien-Lounge mit Foto, darunter Kitas, Kinder-/Familiengottesdienste,
+  Chöre, Jugend/Freizeiten — Texte aus `FmGrid`/`BfLounge`/`BfKitas`/`FmQuick`/`ChoCards`) → `EventCalendar` (Kategorie BonFamily 2586) →
+  `BbTaufe` (dezenter Hinweis, Link auf `/segen-sakramente/taufe/`) → `BbFeedback` → `WkKontakt` (wiederverwendet).
+- **Offener Platzhalter** (gelb markiert, Klasse `astro-bb-ph`): Gutscheinheft (3 Schritte in `BbGutschein.astro`) —
+  steht nirgends auf der Website. Vor Go-Live ersetzen. Eltern-Kind-Gruppe St. Wendel und Kaffeemobil sind
+  bewusst nicht auf der Seite (gibt es nicht mehr bzw. nicht belegt).
+- **Formular:** `BbFeedback.astro` → `src/pages/api/baby-rueckmeldung.ts`, gleiche Lösung wie Willkommen
+  (nodemailer/SMTP, Text-Mail, `method="post"` auch ohne JS, keine Inhalte in Logs/GA4). Empfänger
+  `BABY_TO` (Netlify-Env), Standard `w.otto@sanktbonifatius.de` (bis auf Weiteres, wie Willkommen). Rückruf: Häkchen „Bitte rufen Sie mich zurück",
+  Thema (Familienangebote / Taufe / Etwas anderes), Name, Telefon (Pflicht bei Häkchen); Daten nur mit
+  Häkchen übernommen. DEV-Modus ohne SMTP: Textdatei in `./.baby-eingaben/` (gitignored).
