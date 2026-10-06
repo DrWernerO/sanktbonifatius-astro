@@ -1,5 +1,5 @@
 ---
-// „Die sechs Wochen" — sechs Kacheln (Woche, Sonntag + Datum, Evangelium mit Stelle und Titel).
+// „Die sechs Wochen" — sechs Kacheln (Woche, Sonntag + Datum, je ein Text der evangelischen und der katholischen Reihe).
 // Eigene Klassen `astro-pfs-wochen` (Handbuch 3). Daten kommen als Array aus dem Frontmatter
 // der Seite (pause-fuer-die-seele.astro), damit PfsMaterial/PfsGruppenleitung dieselbe Quelle nutzen.
 const { wochen = [] } = Astro.props;
@@ -8,7 +8,7 @@ const { wochen = [] } = Astro.props;
   <div class="astro-pfs-wrap">
     <div class="astro-pfs-head">
       <h2 class="astro-pfs-hl">Die sechs Wochen</h2>
-      <p class="astro-pfs-sub">Jede Woche steht unter dem Evangelium ihres Sonntags.</p>
+      <p class="astro-pfs-sub">Jede Woche steht unter dem Sonntagstext. In dieser Fastenzeit stehen die Texte beider Kirchen nebeneinander; welche Reihe wir lesen, geben wir rechtzeitig bekannt.</p>
     </div>
     <ol class="astro-pfs-wochen__grid">
       {wochen.map((w) => (
@@ -16,8 +16,8 @@ const { wochen = [] } = Astro.props;
           <span class="astro-pfs-wochen__nr" aria-hidden="true">{w.nr}</span>
           <p class="astro-pfs-wochen__meta">Woche {w.nr} &middot; {w.datum}</p>
           <p class="astro-pfs-wochen__sonntag">{w.sonntag}</p>
-          <h3 class="astro-pfs-wochen__title">{w.titel}</h3>
-          <p class="astro-pfs-wochen__stelle">{w.stelle}</p>
+          <p class="astro-pfs-wochen__text"><span class="astro-pfs-wochen__reihe">Evangelisch:</span> <span class="astro-pfs-wochen__stelle">{w.ev.stelle}</span> &middot; {w.ev.titel}</p>
+          <p class="astro-pfs-wochen__text"><span class="astro-pfs-wochen__reihe">Katholisch:</span> <span class="astro-pfs-wochen__stelle">{w.kath.stelle}</span> &middot; {w.kath.titel}</p>
         </li>
       ))}
     </ol>
@@ -32,8 +32,9 @@ const { wochen = [] } = Astro.props;
 .astro-pfs-wochen__nr{position:absolute;right:18px;top:6px;font-family:var(--pfs-serif);font-size:64px;font-weight:700;line-height:1;color:var(--bf-bg-alt)}
 .astro-pfs-wochen__meta{position:relative;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--txt-gold-label);margin:0 0 6px}
 .astro-pfs-wochen__sonntag{position:relative;font-size:14.5px;color:var(--txt-muted-light);margin:0 0 14px}
-.astro-pfs-wochen__title{position:relative;font-family:var(--pfs-serif);font-size:21px;font-weight:700;line-height:1.25;color:var(--bf-ink);margin:0 0 6px}
-.astro-pfs-wochen__stelle{position:relative;font-size:15px;font-weight:600;color:var(--bf-accent);margin:0}
+.astro-pfs-wochen__text{position:relative;font-size:15px;line-height:1.5;color:var(--bf-ink);margin:0 0 10px;overflow-wrap:anywhere}
+.astro-pfs-wochen__reihe{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--txt-gold-label)}
+.astro-pfs-wochen__stelle{font-weight:700;color:var(--bf-accent)}
 @media(max-width:900px){.astro-pfs-wochen__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.astro-pfs-wochen__grid{grid-template-columns:1fr}}
 </style>
