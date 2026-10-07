@@ -1,0 +1,19 @@
+---
+// VERSTECKTE Seite „Ehevorbereitungsprotokoll" (/evp/) — Formular für die Angaben der Brautleute,
+// die als ausgefülltes amtliches EVP-PDF an die Pfarrei gehen (Handbuch 20). Gleiche Technik wie
+// die versteckten Seiten /willkommen/ und /baby/: NICHT im Menü, NICHT in der Sitemap (Filter in
+// astro.config.mjs), NICHT intern verlinkt, noindex/nofollow (+ X-Robots-Tag in public/_headers).
+// Kein Eintrag in _redirects/llms.txt/robots.txt (ein Disallow würde die Adresse nur öffentlich machen).
+// Nav + Footer global aus Base.astro. Kein WP-Inhalt, kein SEO_STATIC-Eintrag nötig.
+import Base from '../layouts/Base.astro';
+import EvpHero from '../components/EvpHero.astro';
+import EvpForm from '../components/EvpForm.astro';
+---
+<Base
+  title="Ehevorbereitungsprotokoll"
+  description="Angaben für das Ehevorbereitungsprotokoll der Pfarrei Sankt Bonifatius Frankfurt."
+  noindex={true}
+>
+  <EvpHero />
+  <EvpForm />
+</Base>

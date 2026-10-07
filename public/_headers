@@ -24,6 +24,12 @@
 /baby/*
   X-Robots-Tag: noindex, nofollow
 
+# Versteckte Formularseite Ehevorbereitungsprotokoll (/evp/): wie /baby/ zusätzlich noindex per Header (Handbuch 20).
+/evp/*
+  X-Robots-Tag: noindex, nofollow
+/evp
+  X-Robots-Tag: noindex, nofollow
+
 # Interne Statistikseite (Passwortschutz per Middleware): zusätzlich noindex per Header, wie /baby/ und /willkommen/.
 /statistik/*
   X-Robots-Tag: noindex, nofollow

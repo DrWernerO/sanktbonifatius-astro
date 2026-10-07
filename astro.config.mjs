@@ -35,7 +35,9 @@ export default defineConfig({
         // Versteckte QR-Landingpage (Brief zum Willkommens-Flyer), noindex — siehe src/pages/willkommen.astro
         && !page.includes('/willkommen/')
         // Versteckte QR-Landingpage (Brief zum Gutscheinheft), noindex — siehe src/pages/baby.astro
-        && !page.includes('/baby/'),
+        && !page.includes('/baby/')
+        // Versteckte Formularseite Ehevorbereitungsprotokoll, noindex — siehe src/pages/evp.astro
+        && !page.includes('/evp/'),
     }),
   ],
   vite: {

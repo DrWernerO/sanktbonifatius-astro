@@ -1,0 +1,19 @@
+---
+// Kopf der versteckten Seite „Ehevorbereitungsprotokoll" (/evp/). Eigene Klassen `astro-evphero`.
+---
+<section class="astro-evphero">
+  <div class="astro-evphero__inner">
+    <p class="astro-evphero__script">Auf dem Weg zur Trauung</p>
+    <h1 class="astro-evphero__title">Ehevorbereitungsprotokoll</h1>
+    <p class="astro-evphero__sub">Bitte tragen Sie hier die Angaben zu Bräutigam und Braut ein. Sie brauchen dafür etwa zehn Minuten. Was Sie nicht wissen, lassen Sie einfach leer – das klären wir im Traugespräch.</p>
+  </div>
+</section>
+
+<style is:global>
+.astro-evphero{background:linear-gradient(135deg,#7e2424 0%,#9a2d2d 60%,#b0453f 100%);padding:130px 0 56px;color:#fff}
+.astro-evphero__inner{max-width:880px;margin:0 auto;padding:0 40px}
+.astro-evphero__script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(19px,2.4vw,26px);color:#f3e2b8;margin:0 0 8px}
+.astro-evphero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,5vw,54px);font-weight:700;line-height:1.1;margin:0 0 16px;color:#fff}
+.astro-evphero__sub{font-size:clamp(16px,1.8vw,19px);line-height:1.6;margin:0;max-width:640px}
+@media(max-width:600px){.astro-evphero{padding:100px 0 36px}.astro-evphero__inner{padding:0 20px}}
+</style>
