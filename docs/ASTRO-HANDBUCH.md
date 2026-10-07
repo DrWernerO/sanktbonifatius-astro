@@ -1410,10 +1410,12 @@ Technik wie Taufe (Abschnitt 13b), Sichtbarkeit wie `/willkommen/` und `/baby/`.
 - **Aufbau:** [`src/pages/evp.astro`](../src/pages/evp.astro) → `EvpHero` + `EvpForm` (Präfix `astro-evp`).
   Formular in 3 Schritten (Bräutigam → Braut → Kontakt/Absenden), bedingte Felder per `data-if="feld=Wert|Wert2"`
   (ausgeblendete Felder werden deaktiviert und nicht gesendet); ohne JavaScript sind alle Schritte sichtbar.
-- **Teil 1 = Seite 1 des EVP:** Kopf (Familienname nach der Eheschließung je Mann/Frau) und Abschnitt A, Nr. 1–6
-  (Name, Geburt, Konfession, Taufe, Firmung, früher andere Konfession, Kirchenaustritt, Wohnsitz, Soldat, Eltern,
-  Nachweis Ledigenstand) — je Bräutigam und Braut. **Noch nicht im Formular:** Kopf-Angaben (Brautleutekurs, Traugespräch,
-  Aufgebot, Zivil-/kirchliche Trauung, Wohnsitz nach der Ehe) sowie Nr. 7ff (Seiten 2–4). Weitere Teile folgen.
+- **Umfang:** kompletter **Abschnitt A** (Nr. 1–9, je Bräutigam und Braut: Name + Familienname nach der Eheschließung,
+  Geburt, Konfession/Taufe/Firmung, Kirchenaustritt/Wiederaufnahme (nur bei „getauft", „Nein" vorgewählt), Wohnsitz, Eltern,
+  frühere Ehe, Kinder aus früherer Verbindung) plus Schritt 3 „Hochzeit & Absenden" (geplante standesamtliche/kirchliche Trauung, gemeinsame Kinder,
+  Kontakt). Bewusst weggelassen (Werner 2026-10-07): Verpflichtungen Nr. 8a/8b (nur „Kinder aus früherer Verbindung" fließt in 8a), Soldat (im PDF immer „nein"), Nebenwohnsitz, Taufnachweis, Nachweis des
+  Ledigenstandes, „Auf welche Weise" beim Austritt — füllt das Pfarrbüro aus. Weitere Teile (Abschnitt B ff.) folgen beim Traugespräch.
+  Einleitung + große Hinweisbox „Was Sie nicht wissen, lassen Sie leer" in `EvpHero.astro`.
 - **Mail/PDF:** [`src/pages/api/evp-anmeldung.ts`](../src/pages/api/evp-anmeldung.ts) (`prerender = false`) →
   [`src/lib/evp/fill-evp.js`](../src/lib/evp/fill-evp.js). Das amtliche PDF ist bereits **ausfüllbar** (AcroForm);
   es liegt unverändert in `scripts/evp-assets/evp-rohling.pdf` und wird per `node scripts/build-evp-vorlage.mjs`
