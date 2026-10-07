@@ -1395,3 +1395,35 @@ Scan-Zähler beide Briefe getrennt zählen. QR-Code im Brief → `https://sanktb
   `BABY_TO` (Netlify-Env), Standard `w.otto@sanktbonifatius.de` (bis auf Weiteres, wie Willkommen). Rückruf: Häkchen „Bitte rufen Sie mich zurück",
   Thema (Familienangebote / Taufe / Etwas anderes), Name, Telefon (Pflicht bei Häkchen); Daten nur mit
   Häkchen übernommen. DEV-Modus ohne SMTP: Textdatei in `./.baby-eingaben/` (gitignored).
+
+
+---
+
+## 20. Versteckte Formularseite „Ehevorbereitungsprotokoll" (`/evp/`) ✅ (Teil 1, Stand 2026-10-07)
+
+**Zweck:** Brautleute tragen ihre Angaben online ein; daraus entsteht das **ausgefüllte amtliche
+Ehevorbereitungsprotokoll** (Deutsche Bischofskonferenz, Stand 05/2022, 8 Seiten) als PDF-Anhang einer Mail.
+Technik wie Taufe (Abschnitt 13b), Sichtbarkeit wie `/willkommen/` und `/baby/`.
+
+- **Versteckt:** nicht im Nav, nicht intern verlinkt, `noindex={true}`, `X-Robots-Tag` für `/evp` und `/evp/*`
+  in `public/_headers`, Sitemap-Ausschluss in `astro.config.mjs` (`!page.includes('/evp/')`).
+- **Aufbau:** [`src/pages/evp.astro`](../src/pages/evp.astro) → `EvpHero` + `EvpForm` (Präfix `astro-evp`).
+  Formular in 3 Schritten (Bräutigam → Braut → Kontakt/Absenden), bedingte Felder per `data-if="feld=Wert|Wert2"`
+  (ausgeblendete Felder werden deaktiviert und nicht gesendet); ohne JavaScript sind alle Schritte sichtbar.
+- **Teil 1 = Seite 1 des EVP:** Kopf (Familienname nach der Eheschließung je Mann/Frau) und Abschnitt A, Nr. 1–6
+  (Name, Geburt, Konfession, Taufe, Firmung, früher andere Konfession, Kirchenaustritt, Wohnsitz, Soldat, Eltern,
+  Nachweis Ledigenstand) — je Bräutigam und Braut. **Noch nicht im Formular:** Kopf-Angaben (Brautleutekurs, Traugespräch,
+  Aufgebot, Zivil-/kirchliche Trauung, Wohnsitz nach der Ehe) sowie Nr. 7ff (Seiten 2–4). Weitere Teile folgen.
+- **Mail/PDF:** [`src/pages/api/evp-anmeldung.ts`](../src/pages/api/evp-anmeldung.ts) (`prerender = false`) →
+  [`src/lib/evp/fill-evp.js`](../src/lib/evp/fill-evp.js). Das amtliche PDF ist bereits **ausfüllbar** (AcroForm);
+  es liegt unverändert in `scripts/evp-assets/evp-rohling.pdf` und wird per `node scripts/build-evp-vorlage.mjs`
+  als Base64-Modul `src/lib/evp/evp-vorlage.b64.js` eingebettet (host-unabhängig, wie Taufe). Ausgefüllt werden nur
+  die Textfelder, die Kästchen behalten ihr Original-Aussehen (pdf-lib würde sie sonst überschreiben).
+- **Feste Einträge:** „Bistum Limburg" (Feld `01_Dioezese`), Pfarrei-Anschrift (`01_Pfarrei`) und in **allen** „Ort, Datum"-Zeilen
+  (Felder `*Ort_Datum*`, Seiten 2–4) der Text „Frankfurt am Main, " — das Datum wird von Hand ergänzt.
+- **Feldnamen sind Vertrag:** `mann_*` / `frau_*` in `EvpForm.astro` ↔ Mapping in `fill-evp.js` (nicht umbenennen).
+  Rufname wird als „Vornamen (Rufname: X)" eingetragen (Unterstreichen ist in einem Textfeld nicht möglich).
+  Zeichen außerhalb von WinAnsi (z. B. ł) werden auf Grundbuchstaben abgebildet; zu lange Texte verkleinern die Schrift (min. 5 pt).
+- **Versand:** gleiche SMTP-Variablen wie Taufe; Empfänger `EVP_TO` (Netlify-Env), Standard `w.otto@sanktbonifatius.de`
+  (bis auf Weiteres). Anti-Spam wie Taufe (Honeypot + 3-s-Zeitcheck). Pflicht: Namen beider Brautleute + E-Mail für Rückfragen.
+  Inhalte werden nie geloggt. DEV-Modus ohne SMTP: PDF unter `./.evp-eingaben/` (gitignored).
