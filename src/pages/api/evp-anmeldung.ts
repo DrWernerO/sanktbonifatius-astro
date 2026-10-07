@@ -45,7 +45,7 @@ function mailText(d: Record<string, string>): string {
   const z = (label: string, v?: string) => (v && v.trim() ? `${label}: ${v.trim()}\n` : '');
   return (
     'Neue Angaben zum Ehevorbereitungsprotokoll über sanktbonifatius.de/evp\n' +
-    '(Das ausgefüllte amtliche Formular liegt als PDF im Anhang; Teil 1 = Seite 1, Abschnitt A.)\n\n' +
+    '(Das ausgefüllte amtliche Formular liegt als PDF im Anhang; Abschnitt A komplett + geplante Eheschließung.)\n\n' +
     '— Bräutigam —\n' +
     z('Name', nm(d, 'mann')) +
     z('Geboren am', datum(d.mann_geburtsdatum)) +
@@ -54,6 +54,9 @@ function mailText(d: Record<string, string>): string {
     z('Name', nm(d, 'frau')) +
     z('Geboren am', datum(d.frau_geburtsdatum)) +
     z('Nach der Eheschließung', d.frau_ehename) +
+    '\n— Geplante Eheschließung —\n' +
+    z('Standesamt', [datum(d.zivil_datum), d.zivil_ort].filter(Boolean).join(', ')) +
+    z('Kirchliche Trauung', [datum(d.kath_datum), d.kath_uhrzeit, d.kath_ort].filter(Boolean).join(', ')) +
     '\n— Kontakt für Rückfragen —\n' +
     z('Telefon', d.kontakt_telefon) +
     z('E-Mail', d.kontakt_email)

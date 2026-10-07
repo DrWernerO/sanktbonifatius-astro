@@ -1,8 +1,8 @@
 // Füllt das amtliche Ehevorbereitungsprotokoll (evp-vorlage, echte AcroForm-Felder) mit den
 // Angaben aus dem Web-Formular (EvpForm.astro). Reine JS (pdf-lib) — läuft auch serverless.
 //
-// Stand: Teil 1 (Seite 1: Kopf + Abschnitt A, Nr. 1–6, je Bräutigam/Braut). Weitere Teile
-// (Nr. 7ff, Seiten 2–4) folgen — die Feldnamen der Vorlage sind bereits vorhanden.
+// Stand: kompletter Abschnitt A (Nr. 1–9, je Bräutigam/Braut) + geplante Eheschließung im Kopf.
+// Die weiteren Teile (Abschnitt B ff.) werden beim Traugespräch ausgefüllt.
 //
 // Feldnamen des Web-Formulars: `mann_*` / `frau_*` (Vertrag mit EvpForm.astro, NICHT umbenennen).
 import { PDFDocument, StandardFonts } from 'pdf-lib';
@@ -76,7 +76,7 @@ function setze(form, font, name, wert) {
   field.defaultUpdateAppearances(font);
 }
 
-/** Antworten einer Person (Präfix mann_/frau_) → PDF-Feldwerte (Suffix _Mann/_Frau). */
+/** Antworten einer Person (Präfix mann_/frau_) → PDF-Feldwerte (Feldname ohne Suffix _Mann/_Frau). */
 function person(d, p) {
   const g = (k) => t(d[`${p}_${k}`]);
   const vornamen = g('vornamen');
@@ -84,14 +84,8 @@ function person(d, p) {
   const vorname = ruf && ruf !== vornamen && vornamen.split(/\s+/).length > 1
     ? `${vornamen} (Rufname: ${ruf})` : vornamen;
 
-  // Taufe (Datum + Pfarrei mit Anschrift) und Nachweis in einem Feld
-  let taufe = '';
-  if (g('getauft') === 'Nein') taufe = 'nicht getauft';
-  else {
-    const a = join(', ', datum(g('taufdatum')), g('taufpfarrei'));
-    const n = g('taufnachweis') ? `Nachweis: ${g('taufnachweis')}` : '';
-    taufe = join('\n', a, n);
-  }
+  // Taufe (Datum + Pfarrei mit Anschrift). Der Nachweis wird vom Pfarrbüro ergänzt.
+  const taufe = g('getauft') === 'Nein' ? 'nicht getauft' : join(', ', datum(g('taufdatum')), g('taufpfarrei'));
 
   let firmung = '';
   if (g('gefirmt') === 'Ja') firmung = join(', ', datum(g('firmdatum')), g('firmort'));
@@ -101,15 +95,13 @@ function person(d, p) {
   let austritt = '';
   if (g('austritt') === 'Ja') {
     austritt = join('\n',
-      `Austritt: ${join(', ', datum(g('austritt_datum')), g('austritt_ort'), g('austritt_weise'))}`,
+      `Austritt: ${join(', ', datum(g('austritt_datum')), g('austritt_ort'))}`,
       g('wiederaufnahme') === 'Ja'
         ? `Wiederaufnahme: ${join(', ', datum(g('wiederaufnahme_datum')), g('wiederaufnahme_ort'))}`
         : 'Keine Wiederaufnahme');
   }
 
-  const wohnsitz = join('\n',
-    join(', ', join(' ', g('plz'), g('ort')), g('strasse')),
-    g('nebenwohnsitz') ? `Nebenwohnsitz/Aufenthalt im letzten Monat: ${g('nebenwohnsitz')}` : '');
+  const wohnsitz = join(', ', join(' ', g('plz'), g('ort')), g('strasse'));
 
   const elter = (k) => ({
     name: join(' ', g(`${k}_vorname`), g(`${k}_name`)),
@@ -118,26 +110,45 @@ function person(d, p) {
   const v = elter('vater');
   const m = elter('mutter');
 
+  // Nr. 7: frühere Ehe(n)
+  let vorehe = '', voreheTod = '', voreheNichtigkeit = '';
+  if (g('vorehe') === 'Ja') {
+    const ende = g('vorehe_ende');
+    vorehe = g('vorehe_partner');
+    if (ende === 'Scheidung (standesamtlich)') vorehe = join('; ', vorehe, `standesamtlich geschieden${g('vorehe_datum') ? ` am ${datum(g('vorehe_datum'))}` : ''}`);
+    if (ende === 'Tod des Partners' && g('vorehe_datum')) voreheTod = `Sterbedatum: ${datum(g('vorehe_datum'))}`;
+    if (ende === 'Kirchliche Nichtigkeitserklärung') voreheNichtigkeit = g('vorehe_nichtigkeit');
+  } else if (g('vorehe') === 'Nein') vorehe = 'Keine frühere Eheschließung';
+
+  // Nr. 8a: Kinder aus früherer Verbindung (Verpflichtungen/Gefährdung 8a/8b beurteilt das Pfarrbüro)
+  let verp1 = '';
+  if (g('kinder_frueher') === 'Ja') {
+    verp1 = join('; ', ...g('kinder_frueher_liste').split(/\n+/));
+    verp1 = verp1 ? `Kinder aus früherer Verbindung: ${verp1}` : 'Kinder aus früherer Verbindung: ja';
+  }
+
   return {
-    Name: g('familienname'),
-    Geburtsname: g('geburtsname'),
-    Vorname: vorname,
-    Geburtsdatum: datum(g('geburtsdatum')),
-    Geburtsort: join(', ', g('geburtsort'), g('geburtsland')),
-    Staatsangehoerigkeit: g('staatsangehoerigkeit'),
-    Konfession: join(', ', g('konfession'), g('konfession_zusatz')),
-    Taufe: taufe,
-    Firmung: firmung,
-    Religion_Alt: g('frueher_konfession'),
-    Austritt: austritt,
-    Wohnsitz: wohnsitz,
-    Standortpfarrer: g('soldat') === 'Ja' ? g('militaerpfarramt') : '',
-    Vatername: v.name,
-    Vatergeburtsname: v.geb,
-    Muttername: m.name,
-    Muttergeburtsname_: m.geb, // Feld heißt in der Vorlage „01_Muttergeburtsname__Mann" (Doppel-_)
-    Ledigenstand: g('ledigennachweis'),
-    Ehename: g('ehename'),
+    '01_Name': g('familienname'),
+    '01_Geburtsname': g('geburtsname'),
+    '01_Vorname': vorname,
+    '01_Geburtsdatum': datum(g('geburtsdatum')),
+    '01_Geburtsort': join(', ', g('geburtsort'), g('geburtsland')),
+    '01_Staatsangehoerigkeit': g('staatsangehoerigkeit'),
+    '01_Konfession': join(', ', g('konfession'), g('konfession_zusatz')),
+    '01_Taufe': taufe,
+    '01_Firmung': firmung,
+    '01_Religion_Alt': g('frueher_konfession'),
+    '01_Austritt': austritt,
+    '01_Wohnsitz': wohnsitz,
+    '01_Vatername': v.name,
+    '01_Vatergeburtsname': v.geb,
+    '01_Muttername': m.name,
+    '01_Muttergeburtsname_': m.geb, // in der Vorlage „01_Muttergeburtsname__Mann" (Doppel-_)
+    '01_Ehename': g('ehename'),
+    '02_Vorehe': vorehe,
+    '02_Vorehe_Tod': voreheTod,
+    '02_Vorehe_Nichtigkeit': voreheNichtigkeit,
+    '02_Verpflichtung1': verp1,
   };
 }
 
@@ -163,16 +174,23 @@ export async function fillEvpForm(d = {}) {
 
   // Abschnitt A: je Bräutigam / Braut
   for (const [prefix, suffix] of [['mann', 'Mann'], ['frau', 'Frau']]) {
-    const werte = person(d, prefix);
-    for (const [feld, wert] of Object.entries(werte)) {
-      const name = feld === 'Muttergeburtsname_' ? `01_Muttergeburtsname__${suffix}` : `01_${feld}_${suffix}`;
-      setze(form, font, name, wert);
+    for (const [feld, wert] of Object.entries(person(d, prefix))) {
+      setze(form, font, `${feld}_${suffix}`, wert);
     }
-    const soldat = t(d[`${prefix}_soldat`]);
-    if (soldat === 'Ja' || soldat === 'Nein') {
-      try { form.getRadioGroup(`01_Soldat_${suffix}`).select(soldat); } catch { /* ignore */ }
-    }
+    // Soldat/Soldatin: kommt praktisch nicht vor → im Formular immer „nein" angekreuzt
+    try { form.getRadioGroup(`01_Soldat_${suffix}`).select('Nein'); } catch { /* ignore */ }
   }
+
+  // Nr. 9: gemeinsame Kinder (ein Feld für beide)
+  if (t(d.kinder) === 'Ja') setze(form, font, '02_Kinder', join('; ', ...t(d.kinder_liste).split(/\n+/)));
+  else if (t(d.kinder) === 'Nein') setze(form, font, '02_Kinder', 'Nein');
+
+  // Kopf: geplante Eheschließung (soweit bekannt)
+  setze(form, font, '01_Zivilehe_Datum', datum(d.zivil_datum));
+  setze(form, font, '01_Zivilehe_Ort', d.zivil_ort);
+  setze(form, font, '01_Kath_Ehe_Datum', datum(d.kath_datum));
+  setze(form, font, '01_Kath_Ehe_Uhrzeit', d.kath_uhrzeit);
+  setze(form, font, '01_Kath_Ehe_Ort', d.kath_ort);
 
   // Nur die selbst gesetzten Textfelder bekommen neue Darstellungen (oben); die Kästchen/Radios
   // behalten ihr Original-Aussehen (pdf-lib würde sie sonst durch eigene Symbole ersetzen).
