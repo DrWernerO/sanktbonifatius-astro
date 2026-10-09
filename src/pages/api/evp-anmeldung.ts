@@ -12,6 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import nodemailer from 'nodemailer';
 import { fillEvpForm, datum } from '../../lib/evp/fill-evp.js';
+import { makeA3Booklet } from '../../lib/evp/a3-broschuere.js';
 
 export const prerender = false;
 
@@ -40,26 +41,36 @@ function jsonAntwort(success: boolean, data: string, status = 200) {
 const nm = (d: Record<string, string>, p: string) =>
   [d[`${p}_vornamen`], d[`${p}_familienname`]].map((s) => (s || '').trim()).filter(Boolean).join(' ');
 
-/** Lesbarer Mailtext als Zusammenfassung (das vollständige Formular liegt als PDF im Anhang). */
+const j = (...p: (string | undefined)[]) => p.map((x) => (x || '').trim()).filter(Boolean).join(', ');
+
+/** Kurzangaben je Person für den Mailtext: Name, Geburtsdatum, Konfession (+ Hinweis Austritt), Anschrift. */
+function personText(d: Record<string, string>, p: string): string {
+  const z = (label: string, v?: string) => (v && v.trim() ? `${label}: ${v.trim()}\n` : '');
+  let konf = j(d[`${p}_konfession`], d[`${p}_konfession_zusatz`]);
+  if (d[`${p}_austritt`] === 'Ja') {
+    konf += `${konf ? ' ' : ''}(aus der Kirche ausgetreten${d[`${p}_wiederaufnahme`] === 'Ja' ? ', später wiederaufgenommen' : ''})`;
+  }
+  return (
+    z('Name', nm(d, p)) +
+    z('Geboren am', datum(d[`${p}_geburtsdatum`])) +
+    z('Konfession', konf) +
+    z('Anschrift', j(d[`${p}_strasse`], [d[`${p}_plz`], d[`${p}_ort`]].filter(Boolean).join(' ')))
+  );
+}
+
+/** Lesbarer Mailtext als Kurzfassung (das vollständige Formular liegt als PDF im Anhang). */
 function mailText(d: Record<string, string>): string {
   const z = (label: string, v?: string) => (v && v.trim() ? `${label}: ${v.trim()}\n` : '');
   return (
     'Neue Angaben zum Ehevorbereitungsprotokoll über sanktbonifatius.de/evp\n' +
-    '(Das ausgefüllte amtliche Formular liegt als PDF im Anhang; Abschnitt A komplett + geplante Eheschließung.)\n\n' +
-    '— Bräutigam —\n' +
-    z('Name', nm(d, 'mann')) +
-    z('Geboren am', datum(d.mann_geburtsdatum)) +
-    z('Nach der Eheschließung', d.mann_ehename) +
-    '\n— Braut —\n' +
-    z('Name', nm(d, 'frau')) +
-    z('Geboren am', datum(d.frau_geburtsdatum)) +
-    z('Nach der Eheschließung', d.frau_ehename) +
+    '(Im Anhang: das ausgefüllte Formular als A4-PDF und als A3-Broschüre.)\n\n' +
+    '— Bräutigam —\n' + personText(d, 'mann') +
+    '\n— Braut —\n' + personText(d, 'frau') +
     '\n— Geplante Eheschließung —\n' +
-    z('Standesamt', [datum(d.zivil_datum), d.zivil_ort].filter(Boolean).join(', ')) +
-    z('Kirchliche Trauung', [datum(d.kath_datum), d.kath_uhrzeit, d.kath_ort].filter(Boolean).join(', ')) +
-    z('Wohnsitz nach der Eheschließung', ({ Bräutigam: 'Adresse des Bräutigams', Braut: 'Adresse der Braut', Neu: 'neue Adresse' } as Record<string, string>)[d.ehewohnsitz || ''] || '') +
-    z('Trauzeuge/Trauzeugin 1', [d.zeuge1_name, d.zeuge1_anschrift].filter(Boolean).join(', ')) +
-    z('Trauzeuge/Trauzeugin 2', [d.zeuge2_name, d.zeuge2_anschrift].filter(Boolean).join(', ')) +
+    z('Standesamt', j(datum(d.zivil_datum), d.zivil_ort)) +
+    z('Kirchlich', j(datum(d.kath_datum), d.kath_uhrzeit, d.kath_ort)) +
+    '\n— Traugespräch —\n' +
+    z('Gewünscht mit', d.seelsorger) +
     '\n— Kontakt für Rückfragen —\n' +
     z('Telefon', d.kontakt_telefon) +
     z('E-Mail', d.kontakt_email)
@@ -92,15 +103,19 @@ export const POST: APIRoute = async ({ request }) => {
 
   // 4) PDF erzeugen
   let pdfBytes: Uint8Array;
+  let a3Bytes: Uint8Array;
   try {
     pdfBytes = await fillEvpForm(d);
+    a3Bytes = await makeA3Booklet(pdfBytes);
   } catch (err) {
     console.error('[evp] PDF-Erzeugung fehlgeschlagen:', err instanceof Error ? err.message : 'unbekannt');
     return jsonAntwort(false, 'Das PDF konnte nicht erstellt werden.', 500);
   }
 
   const safe = (s: string) => (s || '').replace(/[^\w.-]+/g, '_');
-  const dateiname = `Ehevorbereitungsprotokoll_${safe(d.mann_familienname)}_${safe(d.frau_familienname)}.pdf`;
+  const basis = `Ehevorbereitungsprotokoll_${safe(d.mann_familienname)}_${safe(d.frau_familienname)}`;
+  const dateiname = `${basis}_A4.pdf`;
+  const dateinameA3 = `${basis}_A3-Broschuere.pdf`;
 
   // 5a) DEV-Modus: keine SMTP-Konfiguration → PDF lokal ablegen
   if (!E.SMTP_HOST || !E.SMTP_USER || !E.SMTP_PASS) {
@@ -109,6 +124,7 @@ export const POST: APIRoute = async ({ request }) => {
       fs.mkdirSync(dir, { recursive: true });
       const ziel = path.join(dir, `${Date.now()}_${dateiname}`);
       fs.writeFileSync(ziel, pdfBytes);
+      fs.writeFileSync(path.join(dir, `${Date.now()}_${dateinameA3}`), a3Bytes);
       console.warn('[evp] DEV-Modus: keine SMTP-Daten — PDF gespeichert unter', ziel);
       return jsonAntwort(true, 'Angaben verarbeitet (Testmodus: PDF lokal gespeichert, kein Mailversand).');
     } catch {
@@ -130,7 +146,10 @@ export const POST: APIRoute = async ({ request }) => {
       replyTo: d.kontakt_email.trim(),
       subject: `Ehevorbereitungsprotokoll: ${nm(d, 'mann')} / ${nm(d, 'frau')}`,
       text: mailText(d),
-      attachments: [{ filename: dateiname, content: Buffer.from(pdfBytes), contentType: 'application/pdf' }],
+      attachments: [
+        { filename: dateiname, content: Buffer.from(pdfBytes), contentType: 'application/pdf' },
+        { filename: dateinameA3, content: Buffer.from(a3Bytes), contentType: 'application/pdf' },
+      ],
     });
     return jsonAntwort(true, 'Vielen Dank! Ihre Angaben sind eingegangen. Wir melden uns bei Ihnen.');
   } catch (err) {
