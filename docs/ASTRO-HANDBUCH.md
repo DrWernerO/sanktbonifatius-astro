@@ -1423,6 +1423,12 @@ Technik wie Taufe (Abschnitt 13b), Sichtbarkeit wie `/willkommen/` und `/baby/`.
   die Textfelder, die Kästchen behalten ihr Original-Aussehen (pdf-lib würde sie sonst überschreiben).
 - **Feste Einträge:** „Bistum Limburg" (Feld `01_Dioezese`), Pfarrei-Anschrift (`01_Pfarrei`) und in **allen** „Ort, Datum"-Zeilen
   (Felder `*Ort_Datum*`, Seiten 2–4) der Text „Frankfurt am Main, " — das Datum wird von Hand ergänzt.
+- **A3-Broschüre:** Die Mail enthält zwei PDFs: das ausgefüllte A4-Original (8 Seiten) und `…_A3-Broschuere.pdf`
+  ([`src/lib/evp/a3-broschuere.js`](../src/lib/evp/a3-broschuere.js)): Seiten 1–4 des Formulars auf zwei A3-Querblättern
+  (je zwei A4-Seiten 1:1), Blatt 1 = Seite 4 | Seite 1, Blatt 2 = Seite 2 | Seite 3. Doppelseitig mit Wenden an der kurzen Kante
+  drucken, in der Mitte falten. Die Felder bleiben ausfüllbar (Widgets werden auf die neuen Seiten verschoben).
+- **Mailtext (Kurzfassung):** je Person Name, Geburtsdatum, Konfession (Hinweis „ausgetreten" ohne Datum), Anschrift; dazu geplante
+  Eheschließung, gewünschter Seelsorger fürs Traugespräch (Schritt 3, Feld `seelsorger`, nur in der Mail) und Kontakt.
 - **Feldnamen sind Vertrag:** `mann_*` / `frau_*` in `EvpForm.astro` ↔ Mapping in `fill-evp.js` (nicht umbenennen).
   Rufname wird als „Vornamen (Rufname: X)" eingetragen (Unterstreichen ist in einem Textfeld nicht möglich).
   Eintragsschrift im PDF bis 10 pt (Pfarrei-Kopf 10,5 pt), schrumpft bei Platzmangel bis min. 6 pt. Zeichen außerhalb von WinAnsi (z. B. ł) werden auf Grundbuchstaben abgebildet; zu lange Texte verkleinern die Schrift (min. 5 pt).
