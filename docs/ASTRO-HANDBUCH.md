@@ -1407,13 +1407,13 @@ Technik wie Taufe (Abschnitt 13b), Sichtbarkeit wie `/willkommen/` und `/baby/`.
 
 - **Versteckt:** nicht im Nav, nicht intern verlinkt, `noindex={true}`, `X-Robots-Tag` für `/evp` und `/evp/*`
   in `public/_headers`, Sitemap-Ausschluss in `astro.config.mjs` (`!page.includes('/evp/')`).
-- **Aufbau:** [`src/pages/evp.astro`](../src/pages/evp.astro) → `EvpHero` + `EvpForm` (Präfix `astro-evp`).
+- **Aufbau:** [`src/pages/evp.astro`](../src/pages/evp.astro) → `EvpHero` (Titel) + `EvpWelcome` (Begrüßungsseite: Zweck, Liste der abgefragten Angaben, die man evtl. erst besorgen muss, „Leer lassen / nachreichen", Button „Jetzt mit der Anmeldung beginnen") + `EvpForm` (Präfix `astro-evp`; erscheint erst nach Klick, ohne JavaScript alles sichtbar).
   Formular in 3 Schritten (Bräutigam → Braut → Kontakt/Absenden), bedingte Felder per `data-if="feld=Wert|Wert2"`
   (ausgeblendete Felder werden deaktiviert und nicht gesendet); ohne JavaScript sind alle Schritte sichtbar.
 - **Umfang:** kompletter **Abschnitt A** (Nr. 1–9, je Bräutigam und Braut: Name + Familienname nach der Eheschließung,
   Geburt, Konfession/Taufe/Firmung, Kirchenaustritt/Wiederaufnahme (nur bei „getauft", „Nein" vorgewählt), Wohnsitz, Eltern,
   frühere Ehe, Kinder aus früherer Verbindung) plus Schritt 3 „Gemeinsame Fragen & Versenden" (geplante standesamtliche/kirchliche Trauung, Wohnsitz nach der
-  Eheschließung (Adresse Bräutigam/Braut/neu), gemeinsame Kinder, Kontakt). Firmung wird nur bei „römisch-katholisch" gefragt. Bewusst weggelassen (Werner 2026-10-07): Verpflichtungen Nr. 8a/8b (nur „Kinder aus früherer Verbindung" fließt in 8a), Soldat (im PDF immer „nein"), Nebenwohnsitz, Taufnachweis, Nachweis des
+  Eheschließung (Adresse Bräutigam/Braut/neu), gemeinsame Kinder, Kontakt). Trauzeugen (Name + Anschrift → PDF Seite 4). Firmung wird nur bei „römisch-katholisch" gefragt. Bewusst weggelassen (Werner 2026-10-07): Verpflichtungen Nr. 8a/8b (nur „Kinder aus früherer Verbindung" fließt in 8a), Soldat (im PDF immer „nein"), Nebenwohnsitz, Taufnachweis, Nachweis des
   Ledigenstandes, „Auf welche Weise" beim Austritt — füllt das Pfarrbüro aus. Weitere Teile (Abschnitt B ff.) folgen beim Traugespräch.
   Einleitung + große Hinweisbox „Was Sie nicht wissen, lassen Sie leer" in `EvpHero.astro`.
 - **Mail/PDF:** [`src/pages/api/evp-anmeldung.ts`](../src/pages/api/evp-anmeldung.ts) (`prerender = false`) →
