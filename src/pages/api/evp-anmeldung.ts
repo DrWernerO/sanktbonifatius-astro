@@ -57,6 +57,7 @@ function mailText(d: Record<string, string>): string {
     '\n— Geplante Eheschließung —\n' +
     z('Standesamt', [datum(d.zivil_datum), d.zivil_ort].filter(Boolean).join(', ')) +
     z('Kirchliche Trauung', [datum(d.kath_datum), d.kath_uhrzeit, d.kath_ort].filter(Boolean).join(', ')) +
+    z('Wohnsitz nach der Eheschließung', ({ Bräutigam: 'Adresse des Bräutigams', Braut: 'Adresse der Braut', Neu: 'neue Adresse' } as Record<string, string>)[d.ehewohnsitz || ''] || '') +
     '\n— Kontakt für Rückfragen —\n' +
     z('Telefon', d.kontakt_telefon) +
     z('E-Mail', d.kontakt_email)

@@ -26,7 +26,7 @@ const konfessionen = [
     <ol class="astro-evp__steps" id="astro-evp-steps" aria-label="Fortschritt">
       <li data-step="1"><span>1</span> Bräutigam</li>
       <li data-step="2"><span>2</span> Braut</li>
-      <li data-step="3"><span>3</span> Hochzeit &amp; Absenden</li>
+      <li data-step="3"><span>3</span> Gemeinsames &amp; Versenden</li>
     </ol>
 
     <form id="astro-evp-form" class="astro-evp__form" novalidate>
@@ -79,6 +79,7 @@ const konfessionen = [
               <label class="astro-evp__f">Taufpfarrei<small>Name der Kirche, Ort und möglichst die Anschrift</small><input type="text" name={`${p}_taufpfarrei`} autocomplete="off" /></label>
             </div>
 
+            <div data-if={`${p}_konfession=römisch-katholisch`}>
             <div class="astro-evp__q">
               <span class="astro-evp__qt">Sind Sie gefirmt?</span>
               <span class="astro-evp__radios">
@@ -90,6 +91,7 @@ const konfessionen = [
             <div class="astro-evp__grid" data-if={`${p}_gefirmt=Ja`}>
               <label class="astro-evp__f">Firmdatum<small>soweit bekannt</small><input type="date" name={`${p}_firmdatum`} /></label>
               <label class="astro-evp__f">Firmort<input type="text" name={`${p}_firmort`} autocomplete="off" /></label>
+            </div>
             </div>
 
             <div class="astro-evp__grid">
@@ -187,13 +189,13 @@ const konfessionen = [
 
           <div class="astro-evp__nav">
             {nr > 1 && <button type="button" class="astro-evp__btn astro-evp__btn--ghost" data-go="prev">Zurück</button>}
-            <button type="button" class="astro-evp__btn" data-go="next">Weiter: {nr === 1 ? 'Braut' : 'Hochzeit'}</button>
+            <button type="button" class="astro-evp__btn" data-go="next">Weiter: {nr === 1 ? 'Braut' : 'Gemeinsame Fragen'}</button>
           </div>
         </div>
       ))}
 
       <div class="astro-evp__step" data-step="3">
-        <h2 class="astro-evp__h2">Ihre Hochzeit</h2>
+        <h2 class="astro-evp__h2">Gemeinsame Fragen &amp; Versenden</h2>
 
         <fieldset class="astro-evp__fs">
           <legend class="astro-evp__legend">Geplante Eheschließung</legend>
@@ -207,6 +209,23 @@ const konfessionen = [
               <input type="text" name="kath_ort" list="astro-evp-kirchen" autocomplete="off" />
               <datalist id="astro-evp-kirchen"><option value="St. Bonifatius, Frankfurt"></option><option value="St. Wendel, Frankfurt"></option><option value="Herz Jesu, Frankfurt"></option></datalist>
             </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="astro-evp__fs">
+          <legend class="astro-evp__legend">Wohnsitz nach der Eheschließung</legend>
+          <div class="astro-evp__q">
+            <span class="astro-evp__qt">Wo werden Sie gemeinsam wohnen?</span>
+            <span class="astro-evp__radios">
+              <label><input type="radio" name="ehewohnsitz" value="Bräutigam" /> Adresse des Bräutigams</label>
+              <label><input type="radio" name="ehewohnsitz" value="Braut" /> Adresse der Braut</label>
+              <label><input type="radio" name="ehewohnsitz" value="Neu" /> Neue Adresse</label>
+            </span>
+          </div>
+          <div class="astro-evp__grid" data-if="ehewohnsitz=Neu">
+            <label class="astro-evp__f astro-evp__f--wide">Straße und Hausnummer<input type="text" name="ehewohnsitz_strasse" autocomplete="off" /></label>
+            <label class="astro-evp__f">Postleitzahl<input type="text" name="ehewohnsitz_plz" inputmode="numeric" maxlength="10" autocomplete="off" /></label>
+            <label class="astro-evp__f">Ort<input type="text" name="ehewohnsitz_ort" autocomplete="off" /></label>
           </div>
         </fieldset>
 
@@ -235,7 +254,7 @@ const konfessionen = [
         
         <div class="astro-evp__nav">
           <button type="button" class="astro-evp__btn astro-evp__btn--ghost" data-go="prev">Zurück</button>
-          <button type="submit" class="astro-evp__btn astro-evp__submit">Angaben absenden</button>
+          <button type="submit" class="astro-evp__btn astro-evp__submit">Angaben versenden</button>
         </div>
         <div class="astro-evp__msg" id="astro-evp-msg" role="status" aria-live="polite" hidden></div>
       </div>
@@ -270,6 +289,7 @@ const konfessionen = [
 .astro-evp__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 18px;margin:0 0 16px}
 .astro-evp__f{display:flex;flex-direction:column;font-size:14px;font-weight:600;color:#3d3530;gap:5px}
 .astro-evp__f[hidden]{display:none}
+.astro-evp__f>input,.astro-evp__f>select,.astro-evp__f>textarea{margin-top:auto}
 .astro-evp__f--wide{grid-column:1 / -1}
 .astro-evp small{font-size:12.5px;font-weight:400;color:#6b5c52;line-height:1.4}
 .astro-evp__f input,.astro-evp__f select,.astro-evp__f textarea{font-family:inherit;font-size:16px;font-weight:400;color:#2c2420;padding:11px 12px;border:1px solid #cfc3b4;border-radius:8px;background:#fdfbf8;min-height:46px;transition:border-color .15s,box-shadow .15s}
@@ -402,11 +422,11 @@ const konfessionen = [
         root.scrollIntoView({ block: 'start' });
       } else {
         setMsg(false, (res && res.data) || 'Fehler beim Senden. Bitte versuchen Sie es erneut.');
-        btn.disabled = false; btn.textContent = 'Angaben absenden';
+        btn.disabled = false; btn.textContent = 'Angaben versenden';
       }
     } catch(err) {
       setMsg(false, 'Verbindungsfehler. Bitte versuchen Sie es erneut oder rufen Sie uns an.');
-      btn.disabled = false; btn.textContent = 'Angaben absenden';
+      btn.disabled = false; btn.textContent = 'Angaben versenden';
     }
   });
 

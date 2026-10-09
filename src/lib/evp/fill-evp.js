@@ -12,7 +12,7 @@ const TEMPLATE_BYTES = Uint8Array.from(atob(evpVorlageB64), (c) => c.charCodeAt(
 
 const ORT_DATUM = 'Frankfurt am Main, ';
 const BISTUM = 'Bistum Limburg';
-const PFARREI = 'Pfarrei Sankt Bonifatius Frankfurt\nHolbeinstr. 70, 60596 Frankfurt am Main\nTelefon 069 / 6959 7585-0';
+const PFARREI = 'Pfarrei Sankt Bonifatius Frankfurt\nHolbeinstr. 70\n60596 Frankfurt am Main\nTelefon 069 / 6959 7585-0';
 
 const t = (v) => (typeof v === 'string' ? v.trim() : '');
 const join = (sep, ...parts) => parts.map(t).filter(Boolean).join(sep);
@@ -53,8 +53,8 @@ function zeilen(text, font, size, maxW) {
   return n;
 }
 
-/** Text setzen; Schrift (max. 8 pt) verkleinern, bis er ins Feld passt. */
-function setze(form, font, name, wert) {
+/** Text setzen; Schrift (max. `max` pt, Standard 10) verkleinern, bis er ins Feld passt. */
+function setze(form, font, name, wert, max = 10) {
   const text = sanitize(t(wert), font);
   if (!text) return;
   let field;
@@ -62,12 +62,12 @@ function setze(form, font, name, wert) {
   const w = field.acroField.getWidgets()[0].getRectangle();
   const multi = field.isMultiline();
   const maxW = w.width - 4;
-  let size = 8;
-  while (size > 5) {
+  let size = max;
+  while (size > 6) {
     const lh = size * 1.15;
     const passt = multi
       ? zeilen(text, font, size, maxW) * lh <= w.height - 2
-      : font.widthOfTextAtSize(text, size) <= maxW;
+      : font.widthOfTextAtSize(text, size) <= maxW && size * 1.2 <= w.height;
     if (passt) break;
     size -= 0.5;
   }
@@ -163,7 +163,7 @@ export async function fillEvpForm(d = {}) {
 
   // Kopf: Bistum + Pfarrei, „Ort, Datum"-Zeilen (Datum handschriftlich ergänzen)
   setze(form, font, '01_Dioezese', BISTUM);
-  setze(form, font, '01_Pfarrei', PFARREI);
+  setze(form, font, '01_Pfarrei', PFARREI, 10.5);
   for (const f of form.getFields()) {
     if (f.getName().includes('Ort_Datum')) {
       const tf = form.getTextField(f.getName());
@@ -184,6 +184,20 @@ export async function fillEvpForm(d = {}) {
   // Nr. 9: gemeinsame Kinder (ein Feld für beide)
   if (t(d.kinder) === 'Ja') setze(form, font, '02_Kinder', join('; ', ...t(d.kinder_liste).split(/\n+/)));
   else if (t(d.kinder) === 'Nein') setze(form, font, '02_Kinder', 'Nein');
+
+  // Kopf: Wohnsitz nach der Eheschließung (Adresse + Telefon)
+  const adresse = (p) => join(', ', t(d[`${p}_strasse`]), join(' ', d[`${p}_plz`], d[`${p}_ort`]));
+  const wohnsitz = t(d.ehewohnsitz) === 'Bräutigam' ? adresse('mann')
+    : t(d.ehewohnsitz) === 'Braut' ? adresse('frau')
+    : t(d.ehewohnsitz) === 'Neu' ? join(', ', d.ehewohnsitz_strasse, join(' ', d.ehewohnsitz_plz, d.ehewohnsitz_ort)) : '';
+  // Das Feld der Vorlage überdeckt auch die gedruckte Beschriftung: auf eine einzeilige Fläche über der
+  // ersten Schreiblinie zurechtgestutzt, Adresse und Telefon in einer Zeile.
+  if (wohnsitz) {
+    const f = form.getTextField('01_Ehewohnsitz');
+    f.disableMultiline();
+    f.acroField.getWidgets()[0].setRectangle({ x: 58, y: 554, width: 246, height: 11.5 });
+    setze(form, font, '01_Ehewohnsitz', join(', ', wohnsitz, t(d.kontakt_telefon) ? `Tel. ${t(d.kontakt_telefon)}` : ''), 9);
+  }
 
   // Kopf: geplante Eheschließung (soweit bekannt)
   setze(form, font, '01_Zivilehe_Datum', datum(d.zivil_datum));
