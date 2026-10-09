@@ -1,0 +1,58 @@
+---
+// Begrüßungsseite der versteckten Seite /evp/: erklärt, wozu die Angaben dienen, nennt die Daten, die man
+// sich evtl. erst besorgen muss, und führt per Button in das Formular (EvpForm.astro blendet sich dann ein).
+// Ohne JavaScript bleibt alles untereinander sichtbar. Eigene Klassen `astro-evpw`.
+const liste = [
+  'Taufdatum und Taufkirche (stehen z. B. im Familienstammbuch oder auf der Taufurkunde)',
+  'Firmdatum und Firmort, falls Sie katholisch sind',
+  'Datum und Ort eines Kirchenaustritts und einer eventuellen Wiederaufnahme, falls zutreffend',
+  'Namen, Geburtsnamen und Konfession Ihrer Eltern',
+  'Angaben zu früheren Ehen: Name des früheren Partners bzw. der Partnerin sowie Datum von Scheidung oder Tod',
+  'Kinder aus früheren Verbindungen und gemeinsame Kinder: Name, Alter und Konfession',
+  'Geplante Termine und Orte der standesamtlichen und der kirchlichen Trauung, soweit schon bekannt',
+  'Ihre gemeinsame Anschrift nach der Hochzeit und Ihr Familienname nach der Eheschließung',
+  'Namen und Anschriften der beiden Trauzeugen',
+];
+---
+<section class="astro-evpw" id="astro-evp-welcome">
+  <div class="astro-evpw__inner">
+    <p class="astro-evpw__lead">Herzlichen Glückwunsch zur Verlobung! Wir freuen uns sehr, dass Sie kirchlich heiraten möchten, und begleiten Sie gern auf diesem Weg.</p>
+    <p class="astro-evpw__txt">Die Angaben, die Sie hier machen, dienen dazu, die Anmeldung zur Trauung zu vereinfachen. Sie fließen in das amtliche Ehevorbereitungsprotokoll ein, das wir beim Traugespräch gemeinsam durchgehen. Das Ausfüllen dauert etwa zehn Minuten.</p>
+
+    <div class="astro-evpw__card">
+      <h2 class="astro-evpw__h2">Das wird unter anderem abgefragt</h2>
+      <p class="astro-evpw__sub">Name, Geburtsdaten und Anschrift kennen Sie natürlich. Bei diesen Angaben müssen Sie vielleicht erst nachschauen:</p>
+      <ul class="astro-evpw__list">
+        {liste.map((l) => <li>{l}</li>)}
+      </ul>
+    </div>
+
+    <div class="astro-evpw__hint">
+      <p class="astro-evpw__hl">Sie wissen etwas (noch) nicht?</p>
+      <p class="astro-evpw__ht">Lassen Sie das Feld dann einfach leer. Je genauer Sie das Formular ausfüllen, desto einfacher gestaltet sich die Anmeldung im Gespräch mit dem Seelsorger oder der Seelsorgerin. Sie können Angaben aber auch nachreichen. Pflichtfelder sind mit einem Stern (*) markiert.</p>
+    </div>
+
+    <button type="button" class="astro-evpw__btn" id="astro-evp-start">Jetzt mit der Anmeldung beginnen</button>
+  </div>
+</section>
+
+<style is:global>
+.astro-evpw{background:#f7f3ef;padding:44px 0 8px}
+.astro-evpw__inner{max-width:880px;margin:0 auto;padding:0 40px}
+.astro-evpw__lead{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,2.8vw,30px);font-weight:700;color:#7e2424;line-height:1.3;margin:0 0 14px}
+.astro-evpw__txt{font-size:clamp(16px,1.8vw,19px);color:#3d3530;line-height:1.65;margin:0 0 26px}
+.astro-evpw__card{background:#fff;border-radius:14px;box-shadow:0 2px 16px rgba(30,21,18,.07);padding:26px 28px;margin:0 0 24px}
+.astro-evpw__h2{font-family:'Playfair Display',serif;font-size:clamp(20px,2.4vw,25px);font-weight:700;color:#9a2d2d;margin:0 0 8px}
+.astro-evpw__sub{font-size:15.5px;color:#6b5c52;line-height:1.55;margin:0 0 14px}
+.astro-evpw__list{margin:0;padding:0 0 0 22px;color:#2c2420;font-size:16px;line-height:1.55}
+.astro-evpw__list li{margin:0 0 8px;padding-left:4px}
+.astro-evpw__list li::marker{color:#9a2d2d}
+.astro-evpw__hint{background:#f3e2b8;border-radius:14px;padding:24px 28px;text-align:center;margin:0 0 28px}
+.astro-evpw__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,32px);font-weight:700;color:#7e2424;margin:0 0 8px;line-height:1.25}
+.astro-evpw__ht{font-size:clamp(16px,1.8vw,18px);color:#3d3530;margin:0;line-height:1.55}
+.astro-evpw__btn{display:block;margin:0 auto;min-height:56px;padding:14px 36px;border:none;border-radius:50px;background:#9a2d2d;color:#fff;font-family:inherit;font-size:18px;font-weight:600;cursor:pointer;transition:background .2s}
+.astro-evpw__btn:hover{background:#7e2424}
+.astro-evpw__btn:focus-visible{outline:3px solid #f3b8b8;outline-offset:3px}
+.astro-evpw[hidden]{display:none}
+@media(max-width:600px){.astro-evpw{padding:28px 0 4px}.astro-evpw__inner{padding:0 16px}.astro-evpw__card{padding:20px 16px}.astro-evpw__hint{padding:18px 16px}.astro-evpw__btn{width:100%;padding:14px 16px}}
+</style>

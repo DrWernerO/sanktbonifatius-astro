@@ -7,6 +7,7 @@
 // Nav + Footer global aus Base.astro. Kein WP-Inhalt, kein SEO_STATIC-Eintrag nötig.
 import Base from '../layouts/Base.astro';
 import EvpHero from '../components/EvpHero.astro';
+import EvpWelcome from '../components/EvpWelcome.astro';
 import EvpForm from '../components/EvpForm.astro';
 ---
 <Base
@@ -15,5 +16,6 @@ import EvpForm from '../components/EvpForm.astro';
   noindex={true}
 >
   <EvpHero />
+  <EvpWelcome />
   <EvpForm />
 </Base>

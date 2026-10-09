@@ -199,6 +199,12 @@ export async function fillEvpForm(d = {}) {
     setze(form, font, '01_Ehewohnsitz', join(', ', wohnsitz, t(d.kontakt_telefon) ? `Tel. ${t(d.kontakt_telefon)}` : ''), 9);
   }
 
+  // Seite 4: Trauzeugen (Name + Anschrift)
+  setze(form, font, '04_Trauzeuge1a', d.zeuge1_name);
+  setze(form, font, '04_Trauzeuge1b', d.zeuge1_anschrift);
+  setze(form, font, '04_Trauzeuge2a', d.zeuge2_name);
+  setze(form, font, '04_Trauzeuge2b', d.zeuge2_anschrift);
+
   // Kopf: geplante Eheschließung (soweit bekannt)
   setze(form, font, '01_Zivilehe_Datum', datum(d.zivil_datum));
   setze(form, font, '01_Zivilehe_Ort', d.zivil_ort);

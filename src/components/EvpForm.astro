@@ -23,6 +23,7 @@ const konfessionen = [
 ---
 <section class="astro-evp" id="evp">
   <div class="astro-evp__inner">
+    <p class="astro-evp__tip">Sie wissen etwas (noch) nicht? <strong>Lassen Sie das Feld einfach leer</strong> – Sie können es nachreichen.</p>
     <ol class="astro-evp__steps" id="astro-evp-steps" aria-label="Fortschritt">
       <li data-step="1"><span>1</span> Bräutigam</li>
       <li data-step="2"><span>2</span> Braut</li>
@@ -230,6 +231,20 @@ const konfessionen = [
         </fieldset>
 
         <fieldset class="astro-evp__fs">
+          <legend class="astro-evp__legend">Trauzeugen</legend>
+          <p class="astro-evp__hint">Falls schon bekannt.</p>
+          {[1, 2].map((n) => (
+            <div class="astro-evp__group">
+              <p class="astro-evp__gt">{n}. Trauzeuge bzw. Trauzeugin</p>
+              <div class="astro-evp__grid">
+                <label class="astro-evp__f">Vor- und Familienname<input type="text" name={`zeuge${n}_name`} autocomplete="off" /></label>
+                <label class="astro-evp__f">Anschrift<small>Straße, Hausnummer, PLZ, Ort</small><input type="text" name={`zeuge${n}_anschrift`} autocomplete="off" /></label>
+              </div>
+            </div>
+          ))}
+        </fieldset>
+
+        <fieldset class="astro-evp__fs">
           <legend class="astro-evp__legend">Gemeinsame Kinder</legend>
           <div class="astro-evp__q">
             <span class="astro-evp__qt">Haben Sie gemeinsame Kinder?</span>
@@ -276,6 +291,8 @@ const konfessionen = [
 <style is:global>
 .astro-evp{background:#f7f3ef;padding:40px 0 72px;scroll-margin-top:80px}
 .astro-evp__inner{max-width:880px;margin:0 auto;padding:0 40px}
+.astro-evp__tip{background:#f3e2b8;color:#3d3530;border-radius:10px;padding:12px 16px;margin:0 0 16px;font-size:15px;text-align:center}
+.astro-evp--js.astro-evp--wait{display:none}
 .astro-evp__steps{list-style:none;display:flex;gap:8px;margin:0 0 24px;padding:0}
 .astro-evp__steps li{flex:1;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:#ece3d8;color:#6b5c52;font-size:14.5px;font-weight:600}
 .astro-evp__steps li span{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;color:#9a2d2d;font-size:13px;flex:none}
@@ -342,6 +359,18 @@ const konfessionen = [
   const form = document.getElementById('astro-evp-form');
   if(!root || !form) return;
   root.classList.add('astro-evp--js');
+
+  // Begrüßungsseite: Formular erst nach Klick auf „Jetzt beginnen" zeigen
+  const welcome = document.getElementById('astro-evp-welcome');
+  const start = document.getElementById('astro-evp-start');
+  if(welcome && start){
+    root.classList.add('astro-evp--wait');
+    start.addEventListener('click', function(){
+      welcome.hidden = true;
+      root.classList.remove('astro-evp--wait');
+      root.scrollIntoView({ block: 'start' });
+    });
+  }
 
   const steps = Array.from(form.querySelectorAll('.astro-evp__step'));
   const dots  = Array.from(document.querySelectorAll('#astro-evp-steps li'));
