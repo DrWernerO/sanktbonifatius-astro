@@ -1412,8 +1412,8 @@ Technik wie Taufe (Abschnitt 13b), Sichtbarkeit wie `/willkommen/` und `/baby/`.
   (ausgeblendete Felder werden deaktiviert und nicht gesendet); ohne JavaScript sind alle Schritte sichtbar.
 - **Umfang:** kompletter **Abschnitt A** (Nr. 1–9, je Bräutigam und Braut: Name + Familienname nach der Eheschließung,
   Geburt, Konfession/Taufe/Firmung, Kirchenaustritt/Wiederaufnahme (nur bei „getauft", „Nein" vorgewählt), Wohnsitz, Eltern,
-  frühere Ehe, Kinder aus früherer Verbindung) plus Schritt 3 „Hochzeit & Absenden" (geplante standesamtliche/kirchliche Trauung, gemeinsame Kinder,
-  Kontakt). Bewusst weggelassen (Werner 2026-10-07): Verpflichtungen Nr. 8a/8b (nur „Kinder aus früherer Verbindung" fließt in 8a), Soldat (im PDF immer „nein"), Nebenwohnsitz, Taufnachweis, Nachweis des
+  frühere Ehe, Kinder aus früherer Verbindung) plus Schritt 3 „Gemeinsame Fragen & Versenden" (geplante standesamtliche/kirchliche Trauung, Wohnsitz nach der
+  Eheschließung (Adresse Bräutigam/Braut/neu), gemeinsame Kinder, Kontakt). Firmung wird nur bei „römisch-katholisch" gefragt. Bewusst weggelassen (Werner 2026-10-07): Verpflichtungen Nr. 8a/8b (nur „Kinder aus früherer Verbindung" fließt in 8a), Soldat (im PDF immer „nein"), Nebenwohnsitz, Taufnachweis, Nachweis des
   Ledigenstandes, „Auf welche Weise" beim Austritt — füllt das Pfarrbüro aus. Weitere Teile (Abschnitt B ff.) folgen beim Traugespräch.
   Einleitung + große Hinweisbox „Was Sie nicht wissen, lassen Sie leer" in `EvpHero.astro`.
 - **Mail/PDF:** [`src/pages/api/evp-anmeldung.ts`](../src/pages/api/evp-anmeldung.ts) (`prerender = false`) →
@@ -1425,7 +1425,7 @@ Technik wie Taufe (Abschnitt 13b), Sichtbarkeit wie `/willkommen/` und `/baby/`.
   (Felder `*Ort_Datum*`, Seiten 2–4) der Text „Frankfurt am Main, " — das Datum wird von Hand ergänzt.
 - **Feldnamen sind Vertrag:** `mann_*` / `frau_*` in `EvpForm.astro` ↔ Mapping in `fill-evp.js` (nicht umbenennen).
   Rufname wird als „Vornamen (Rufname: X)" eingetragen (Unterstreichen ist in einem Textfeld nicht möglich).
-  Zeichen außerhalb von WinAnsi (z. B. ł) werden auf Grundbuchstaben abgebildet; zu lange Texte verkleinern die Schrift (min. 5 pt).
+  Eintragsschrift im PDF bis 10 pt (Pfarrei-Kopf 10,5 pt), schrumpft bei Platzmangel bis min. 6 pt. Zeichen außerhalb von WinAnsi (z. B. ł) werden auf Grundbuchstaben abgebildet; zu lange Texte verkleinern die Schrift (min. 5 pt).
 - **Versand:** gleiche SMTP-Variablen wie Taufe; Empfänger `EVP_TO` (Netlify-Env), Standard `w.otto@sanktbonifatius.de`
   (bis auf Weiteres). Anti-Spam wie Taufe (Honeypot + 3-s-Zeitcheck). Pflicht: Namen beider Brautleute + E-Mail für Rückfragen.
   Inhalte werden nie geloggt. DEV-Modus ohne SMTP: PDF unter `./.evp-eingaben/` (gitignored).
