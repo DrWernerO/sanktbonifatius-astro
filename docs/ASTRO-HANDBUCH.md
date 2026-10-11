@@ -691,8 +691,11 @@ Die Nav ist die wichtigste wiederverwendbare Komponente. Aufbau (Präfix `bh3a-`
   Beiträge bleiben.
 
 ### Darstellung
-- **`NewsGrid.astro`** (`astro-news`/`astro-nc`) — Startseiten-Teaser, `getAktuelles(3)`,
-  3-Spalten-Grid.
+- **`NewsGrid.astro`** (`astro-news`/`astro-nc`) — Startseiten-Teaser, seit 2026-10-11 **bis auf
+  Weiteres 6 Beiträge** (`limit = 6`), 3-Spalten-Grid. Dazu **angepinnter Beitrag** oben links
+  (Konstante `PIN_SLUG` in `NewsGrid.astro` = `ihre-meinung-zaehlt`, Kommunikationsumfrage): roter
+  Rahmen + Badge „Umfrage – jetzt mitmachen"; `getAktuelles(limit, pinSlug)` holt ihn an Position 1.
+  **Beenden:** `PIN_SLUG = ''` und `limit` zurück auf 3.
 - **`BlogGrid.astro`** (`astro-blog`/`astro-bc`) — BoniBlog-Seite, `getAktuelles()` (alle ~33),
   erste 9 sichtbar, „Mehr anzeigen" blendet weitere **bereits gerenderte** Karten ein
   (kein Client-Nachladen/-Mischen mehr nötig).
@@ -740,6 +743,14 @@ Die Nav ist die wichtigste wiederverwendbare Komponente. Aufbau (Präfix `bh3a-`
   Webhook nicht — Beitrag neu speichern oder Netlify „Trigger deploy"). **Vorbeugen:** Beitragsbild
   im Beitrag selbst hochladen, nicht in einem Entwurf, der später verworfen wird.
   (Fall 03.10.2026: Beitrag „Ihre Meinung zählt!", Media 53310 hing an Eltern-ID 53308.)
+  **Wiederkehrender Fall „Termin ohne Vorschaubild" (Fiat Lux, 11.10.2026):** Termine werden oft per
+  „Duplizieren" angelegt; das Bild hängt dann am **ersten** Termin. Wird dieser gelöscht (Papierkorb),
+  verliert das Bild den öffentlichen Status → 401 → alle Kopien ohne Bild (Media 50889 hing an Termin
+  50908 im Papierkorb). Gilt für Termine wie Beiträge. **Nie den Original-Termin löschen**, solange Kopien
+  existieren; Fix wie oben (Bild per REST einem veröffentlichten Termin zuordnen; am 2026-10-11 für
+  alle 9 betroffenen Bilder erfolgt). Vorbeugen: Bild nicht am Termin hochladen, sondern aus der
+  Mediathek (Ordner „Termine") wählen — Details Team-Handbuch 05. Technische Absicherung: WP-Hook
+  `sb_release_attachments` (`docs/wordpress-hooks/medien-freigeben.php`, seit 2026-10-11 in WP aktiv).
 - **News** dagegen haben keine Detailseite (leere WP-Permalinks) → Lightbox (siehe oben).
 
 ---

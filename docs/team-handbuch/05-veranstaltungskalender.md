@@ -143,6 +143,24 @@ Pro Event **ein `browser_batch`** mit `navigate → wait(2s) → javascript(fül
 - Nach `#publish` landet der Tab auf `post-new.php?…wp-post-new-reload=true` → für den nächsten Event neu zu `post-new.php` navigieren.
 - wysiwyg: **Textarea setzen UND** `tinymce.get(id).setContent(...); .save()` (sonst überschreibt der leere Editor beim Submit).
 
+### ⚠️ Bild-Regel: Bilder NIE direkt am Termin hochladen — immer über die Mediathek (Ordner „Termine")
+(Erkenntnis 2026-10-11, Fall „Fiat Lux": 4 Termine ohne Vorschaubild.)
+Ein Bild, das **im Termin-Formular** hochgeladen wird, hängt als Anhang an **diesem** Termin und erbt
+dessen Status. Termine werden oft dupliziert (Serien); das Bild wandert mit. Löscht jemand später den
+Original-Termin (Papierkorb), wird das Bild öffentlich **gesperrt (REST 401)** — alle Kopien erscheinen
+auf der Website ohne Vorschaubild (im Admin sieht man es trotzdem, weil man eingeloggt ist).
+**Vorgehen bei jedem Termin:**
+1. Bild **zuerst in die Mediathek** hochladen (per REST wie unten — dann hängt es an keinem Termin) und in den RML-Ordner **„Termine" (98)** legen.
+2. Im Termin-Formular im Feld **„Bild"** das Bild **aus der Mediathek auswählen** (nicht „Hochladen" im Termin).
+3. Kontrolle: `GET /wp-json/wp/v2/media/<ID>` **ohne Login** muss 200 liefern.
+4. Serien-Originale nicht löschen, solange Kopien existieren.
+**Reparatur, falls es doch passiert:** Bild per REST einem veröffentlichten Termin zuordnen:
+`POST /wp/v2/media/<ID>` mit `{"post": <ID eines veröffentlichten Termins>}` → danach öffentlich 200.
+**Prüfung aller Termin-/Beitragsbilder:** je Bild-ID öffentlich (ohne Login) abrufen; alles ≠ 200 reparieren.
+**Technische Absicherung:** WP-Hook `sb_release_attachments` (Code: `docs/wordpress-hooks/medien-freigeben.php`,
+gehört ans Ende der WP-`functions.php`) löst Anhänge vom Eltern-Eintrag, sobald dieser den Status
+„veröffentlicht" verlässt oder gelöscht wird. **Stand: seit 2026-10-11 aktiv** (in `functions.php` eingespielt, Test: Bild bleibt nach Papierkorb öffentlich 200). Bilder, die schon vor dem Hook am gelöschten Eltern-Eintrag hingen, wurden einmalig per REST repariert. Die Mediathek-Regel oben bleibt trotzdem die Standardvorgehensweise.
+
 ### Foto-Upload (REST — Browser-Upload ist gesperrt)
 Die Claude-in-Chrome-Erweiterung erlaubt kein Hochladen lokaler Dateien über den „Bild hinzufügen"-Dialog (nur an den Chat angehängte Dateien). Daher **Foto per REST hochladen** und danach im Bild-Feld die Attachment-ID setzen:
 ```bash
