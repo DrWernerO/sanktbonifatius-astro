@@ -2,8 +2,12 @@
 // "Aktuelles" auf der Startseite: Beiträge (posts) + News (pin) gemischt, nach Datum.
 // Daten via getAktuelles(); Galerie/Video bekommen ein SVG-Badge (kein Emoji, UI-Regel).
 import { getAktuelles } from '../lib/wordpress.js';
-const { limit = 3 } = Astro.props;
-const items = await getAktuelles(limit);
+// BIS AUF WEITERES (2026-10-11, Werner): 6 statt 3 Beiträge, Kommunikationsumfrage
+// ("Ihre Meinung zählt!") oben links angepinnt + hervorgehoben. Zum Beenden: PIN_SLUG
+// auf '' setzen (und ggf. limit zurück auf 3).
+const PIN_SLUG = 'ihre-meinung-zaehlt';
+const { limit = 6 } = Astro.props;
+const items = await getAktuelles(limit, PIN_SLUG);
 const fmt = (iso) => new Date(iso).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 
@@ -16,11 +20,17 @@ const fmt = (iso) => new Date(iso).toLocaleDateString('de-DE', { day: 'numeric',
     </div>
     <div class="astro-news__grid">
       {items.map((it) => (
-        <a href={it.link} class="astro-nc" data-news-id={it.kind === 'news' ? it.id : undefined}>
+        <a href={it.link} class={'astro-nc' + (it.pinned ? ' astro-nc--pinned' : '')} data-news-id={it.kind === 'news' ? it.id : undefined}>
           <div class="astro-nc__media">
             {it.image
               ? <img class="astro-nc__img" src={it.image} alt={it.title} loading="lazy" />
               : <div class="astro-nc__img astro-nc__img--placeholder"></div>}
+            {it.pinned && (
+              <span class="astro-nc__pin">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17v5"/><path d="M9 3h6l-1 7 3 3v2H7v-2l3-3z"/></svg>
+                Umfrage – jetzt mitmachen
+              </span>
+            )}
             {it.type === 'video' && (
               <span class="astro-nc__badge" aria-label="Video">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -59,6 +69,8 @@ const fmt = (iso) => new Date(iso).toLocaleDateString('de-DE', { day: 'numeric',
 .astro-nc__media{position:relative}
 .astro-nc__img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
 .astro-nc__img--placeholder{background:#ede8e1}
+.astro-nc--pinned{box-shadow:0 0 0 3px #9a2d2d,0 6px 20px rgba(154,45,45,.22)}
+.astro-nc__pin{position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:6px;background:#9a2d2d;color:#fff;font-size:12px;font-weight:700;letter-spacing:.02em;padding:5px 11px;border-radius:50px}
 .astro-nc__badge{position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:5px;background:rgba(44,36,32,.82);color:#fff;font-size:11px;font-weight:600;letter-spacing:.02em;padding:4px 9px;border-radius:50px;backdrop-filter:blur(2px)}
 .astro-nc__badge svg{display:block}
 .astro-nc__body{padding:20px 22px}

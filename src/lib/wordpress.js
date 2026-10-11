@@ -683,11 +683,20 @@ export async function getPosts() {
 }
 
 // Beiträge + News gemischt, nach Erscheinungsdatum absteigend. limit=0 → alle.
-export async function getAktuelles(limit = 0) {
+// pinSlug: Beitrag mit diesem Slug wird an Position 1 geholt (`pinned: true`) und zählt
+// innerhalb von `limit` mit. Existiert er nicht (mehr), passiert nichts.
+export async function getAktuelles(limit = 0, pinSlug = '') {
   const [beitraege, news] = await Promise.all([getAllPosts(), getNewsPins()]);
-  const merged = [...beitraege, ...news]
+  let merged = [...beitraege, ...news]
     .filter((x) => x.date)
     .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  if (pinSlug) {
+    const idx = merged.findIndex((x) => x.kind === 'beitrag' && x.slug === pinSlug);
+    if (idx >= 0) {
+      const [pinned] = merged.splice(idx, 1);
+      merged = [{ ...pinned, pinned: true }, ...merged];
+    }
+  }
   return limit > 0 ? merged.slice(0, limit) : merged;
 }
 
