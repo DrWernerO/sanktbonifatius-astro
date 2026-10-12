@@ -95,6 +95,8 @@ Alternativ zum eingebauten Browser: Werners echtes Chrome mit der Claude-in-Chro
 - **SEO**: Titel + Meta-Description (150–160 Zeichen) füllen.
 - Redaktionsnotizen der Quelle (z. B. „(fehlt hier noch!!!)", „(MKö)") **nicht** übernehmen → auf die Fehlliste.
 
+> **Geplant (Stand 2026-10-12):** Das Snippet [`../wordpress-hooks/termine-rest-schreiben.php`](../wordpress-hooks/termine-rest-schreiben.php) macht die Terminfelder per REST schreibbar (Feld `event_input`). **Noch nicht in WP eingespielt/getestet** — bis dahin gilt der Formular-Weg unten.
+
 ### ⚠️ Kritisch: `event_meta` ist per REST nur LESBAR
 Die Terminfelder liegen im ACF-Meta bzw. in `event_meta`. Ein `POST` auf `event_meta` (oder die ACF-`meta`) via REST wird mit HTTP 200 quittiert, aber **nicht gespeichert** (kommt leer zurück). Die Terminfelder **müssen über das Admin-Formular** (ACF-Metabox „Termine") gespeichert werden — erst der Formular-Speichervorgang baut `event_meta` korrekt auf. REST/curl nur für **Foto-Upload, Verschieben, Kategorie und Verifikation** nutzen.
 

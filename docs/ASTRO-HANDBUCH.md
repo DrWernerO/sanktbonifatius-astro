@@ -682,13 +682,12 @@ Die Nav ist die wichtigste wiederverwendbare Komponente. Aufbau (Präfix `bh3a-`
 - Holt alle Beiträge (`posts?per_page=100&_embed`) **und** alle News, normalisiert beide auf
   `{kind, type, date, title, link, excerpt, image, galleryCount}`, mischt + sortiert **nach
   `date` absteigend**. `getAktuelles(limit)` schneidet auf `limit` zu (0 = alle).
-- **WICHTIG / Fallstrick:** Der `pin`-REST-Endpunkt liefert **kein Bild, keinen Typ, kein
-  Excerpt** (ACF leer, kein `featured_media`). Diese Daten stehen **nur** im Theme-Datenblob
-  **`window.__BONI_PINS`** auf der Startseite (Page 45758). `getNewsPins()` parst diesen Blob
-  (Felder: `d`/Datum, `t`/Titel, `l`/Link, `e`/Excerpt, `i`/Bild, `ty`/Typ, `g`/Galerie).
-  → Hängt also daran, dass die Startseite die News-Sektion (mit allen News) ausgibt.
-  Aktuell vollständig (`X-WP-Total` pin = Blob-Anzahl). Bricht der Blob weg → News fehlen,
-  Beiträge bleiben.
+- **Stand seit 2026-08-25:** Die ACF-Felder der News (Typ, Bild, Untertitel, Beschreibung,
+  Video, Galerie) liefert WordPress per `register_rest_field` (`functions.php`) als Feld
+  **`pin_data`** direkt über `/wp/v2/pin` — `getNewsPins()` liest es von dort. Der frühere
+  Umweg über den Datenblock `window.__BONI_PINS` der Startseite ist **abgelöst**.
+  Fehlt `pin_data` (z. B. nach einem WP-Theme-Wechsel, der die `functions.php` ersetzt),
+  erscheinen News ohne Bild/Typ; Beiträge bleiben unberührt.
 
 ### Darstellung
 - **`NewsGrid.astro`** (`astro-news`/`astro-nc`) — Startseiten-Teaser, seit 2026-10-11 **bis auf

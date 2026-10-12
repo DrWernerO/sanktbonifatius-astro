@@ -1,0 +1,12 @@
+
+/* ===== Benutzerliste der REST-API nur für Angemeldete (2026-10-12) =============
+ * Ohne Anmeldung war /wp-json/wp/v2/users öffentlich lesbar und verriet die Login-Namen.
+ * Angemeldete (Admin, Anwendungspasswort) sehen die Liste weiterhin. Astro braucht sie nicht.
+ * Rückgängig: diesen ganzen Block wieder löschen.
+ * ========================================================================== */
+add_filter( 'rest_endpoints', function ( $endpoints ) {
+    if ( ! is_user_logged_in() ) {
+        unset( $endpoints['/wp/v2/users'], $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+    }
+    return $endpoints;
+} );
