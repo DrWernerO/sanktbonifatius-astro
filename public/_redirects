@@ -111,6 +111,225 @@
 /exerzitien             /exerzitien2027/                             301
 /exerzitien/            /exerzitien2027/                             301
 
+# --- GA/GSC-Check 2026-10-12: weitere 404-Altlasten + QR-Codes Willkommen-Stele ----------------
+# Quelle: GA4-Seitenaufrufe 9.8.-11.10.2025 + GSC-Bericht "Nicht gefunden (404)", jede alte Adresse
+# live geprueft (404) und jedes Ziel live geprueft (200). MUSS vor den Wildcards
+# /ueberuns/kirchorte/* und /gottesdienst-glaube/segen-sakramente/* stehen -- die wuerden sonst
+# z.B. .../herz-jesu/jubilaeum auf das nicht existierende /kirchorte/herz-jesu/jubilaeum schicken.
+
+# QR-Codes Willkommen-Stele: Domain bonifatius-ffm.de reicht Pfade 1:1 an diese Domain durch
+/qr/geschichte                                                  /kirchorte/st-bonifatius/kirche/                    301
+/qr/geschichte/                                                 /kirchorte/st-bonifatius/kirche/                    301
+/seelsorger                                                     /ueberuns/pastoralteam/                             301
+/seelsorger/                                                    /ueberuns/pastoralteam/                             301
+
+# Ältere QR-Codes Kirchenführer (/qr/...)
+/qr                                                             /kirchorte/st-bonifatius/kirche/                    301
+/qr/                                                            /kirchorte/st-bonifatius/kirche/                    301
+/qr/taufstein                                                   /kirchorte/st-bonifatius/kirche/#taufstein          301
+/qr/taufstein/                                                  /kirchorte/st-bonifatius/kirche/#taufstein          301
+/qr/marienbild                                                  /kirchorte/st-bonifatius/kirche/#mariengemaelde     301
+/qr/marienbild/                                                 /kirchorte/st-bonifatius/kirche/#mariengemaelde     301
+/qr/osterkerze                                                  /kirchorte/st-bonifatius/kirche/#osterkerze         301
+/qr/osterkerze/                                                 /kirchorte/st-bonifatius/kirche/#osterkerze         301
+/qr/madonna                                                     /kirchorte/st-bonifatius/kirche/#madonna            301
+/qr/madonna/                                                    /kirchorte/st-bonifatius/kirche/#madonna            301
+/qr/chorraum                                                    /kirchorte/st-bonifatius/kirche/#chorraum           301
+/qr/chorraum/                                                   /kirchorte/st-bonifatius/kirche/#chorraum           301
+/qr/engelbilder                                                 /kirchorte/st-bonifatius/kirche/#engelbilder        301
+/qr/engelbilder/                                                /kirchorte/st-bonifatius/kirche/#engelbilder        301
+/qr/beleuchtung                                                 /kirchorte/st-bonifatius/kirche/#beleuchtung        301
+/qr/beleuchtung/                                                /kirchorte/st-bonifatius/kirche/#beleuchtung        301
+
+# Hohe Priorität (2025 viel besucht)
+/ichbleibe                                                      /ich-bleibe/                                        301
+/ichbleibe/                                                     /ich-bleibe/                                        301
+/ichbleibe/mitmachen                                            /ich-bleibe/                                        301
+/ichbleibe/mitmachen/                                           /ich-bleibe/                                        301
+/sankt-bonifatius-pfarrbrief                                    /downloads/pfarrbrief.pdf                           301
+/sankt-bonifatius-pfarrbrief/                                   /downloads/pfarrbrief.pdf                           301
+/pfarrbrief                                                     /downloads/pfarrbrief.pdf                           301
+/pfarrbrief/                                                    /downloads/pfarrbrief.pdf                           301
+/ueberuns/kirchorte/herz-jesu/jubilaeum                         /kirchorte/herz-jesu/                               301
+/ueberuns/kirchorte/herz-jesu/jubilaeum/                        /kirchorte/herz-jesu/                               301
+/ueberuns/fotos                                                 /boniblog/                                          301
+/ueberuns/fotos/                                                /boniblog/                                          301
+/gottesdienst-glaube/online-gebetbuch                           /gottesdienst-glaube/                               301
+/gottesdienst-glaube/online-gebetbuch/                          /gottesdienst-glaube/                               301
+/gottesdienst-glaube/familiengottesdienste                      /bonfamily/familiengottesdienste/                   301
+/gottesdienst-glaube/familiengottesdienste/                     /bonfamily/familiengottesdienste/                   301
+/weihnachtsgottesdienste-fuer-familien                          /bonfamily/familiengottesdienste/                   301
+/weihnachtsgottesdienste-fuer-familien/                         /bonfamily/familiengottesdienste/                   301
+/gottesdienste-fuer-familien-in-der-heiligen-woche              /bonfamily/familiengottesdienste/                   301
+/gottesdienste-fuer-familien-in-der-heiligen-woche/             /bonfamily/familiengottesdienste/                   301
+/gottesdienste-in-der-heiligen-woche                            /gottesdienst-glaube/alle-gottesdienste/            301
+/gottesdienste-in-der-heiligen-woche/                           /gottesdienst-glaube/alle-gottesdienste/            301
+
+# Engagiert leben
+/engagiert-leben/offener-kuehlschrank                           /kirchorte/st-aposteln/offener-kuehlschrank/        301
+/engagiert-leben/offener-kuehlschrank/                          /kirchorte/st-aposteln/offener-kuehlschrank/        301
+/engagiert-leben-2/offener-kuehlschrank                         /kirchorte/st-aposteln/offener-kuehlschrank/        301
+/engagiert-leben-2/offener-kuehlschrank/                        /kirchorte/st-aposteln/offener-kuehlschrank/        301
+/engagiert-leben-2/nachbarschaftliches-hilfenetz                /engagiert-leben/nachbarschaftliches-hilfenetz/     301
+/engagiert-leben-2/nachbarschaftliches-hilfenetz/               /engagiert-leben/nachbarschaftliches-hilfenetz/     301
+/engagiert-leben-2/*                                            /engagiert-leben/                                   301
+/engagiert-leben-2                                              /engagiert-leben/                                   301
+/engagiert-leben-2/                                             /engagiert-leben/                                   301
+/engagiert-leben/weltkirche                                     /engagiert-leben/                                   301
+/engagiert-leben/weltkirche/                                    /engagiert-leben/                                   301
+/engagiert-leben/arbeitsgruppe-inklusion-in-sankt-bonifatius    /engagiert-leben/                                   301
+/engagiert-leben/arbeitsgruppe-inklusion-in-sankt-bonifatius/   /engagiert-leben/                                   301
+
+# Jugend, Familie, Musik
+/oberraeder-pfadfinder                                          /jugend/                                            301
+/oberraeder-pfadfinder/                                         /jugend/                                            301
+/pfadfinder-st-wendel-2                                         /jugend/                                            301
+/pfadfinder-st-wendel-2/                                        /jugend/                                            301
+/jona-und-jugend                                                /jugend/                                            301
+/jona-und-jugend/                                               /jugend/                                            301
+/sommer-sonne-lago-maggiore                                     /jugend/kinder-und-jugendfreizeiten/                301
+/sommer-sonne-lago-maggiore/                                    /jugend/kinder-und-jugendfreizeiten/                301
+/kinderyoga                                                     /bonfamily/                                         301
+/kinderyoga/                                                    /bonfamily/                                         301
+/bonfamily/newsletter                                           /kontakt/newsletter/                                301
+/bonfamily/newsletter/                                          /kontakt/newsletter/                                301
+/bonfamily/treffpunkte                                          /bonfamily/familientreffpunkte/                     301
+/bonfamily/treffpunkte/                                         /bonfamily/familientreffpunkte/                     301
+/diechoere                                                      /kultur-begegnung/choere/                           301
+/diechoere/                                                     /kultur-begegnung/choere/                           301
+/das-vokalensemble                                              /kultur-begegnung/choere/                           301
+/das-vokalensemble/                                             /kultur-begegnung/choere/                           301
+/eintracht-gottesdienst-in-st-aposteln                          /kirchorte/st-aposteln/                             301
+/eintracht-gottesdienst-in-st-aposteln/                         /kirchorte/st-aposteln/                             301
+
+# Segen & Sakramente
+/gottesdienst-glaube/segen-sakramente/eucharistie               /segen-sakramente/erstkommunion/                    301
+/gottesdienst-glaube/segen-sakramente/eucharistie/              /segen-sakramente/erstkommunion/                    301
+/gottesdienst-glaube/segen-sakramente/erstkommunion-2           /segen-sakramente/erstkommunion/                    301
+/gottesdienst-glaube/segen-sakramente/erstkommunion-2/          /segen-sakramente/erstkommunion/                    301
+/gottesdienst-glaube/segen-sakramente/versoehnung               /segen-sakramente/beichte/                          301
+/gottesdienst-glaube/segen-sakramente/versoehnung/              /segen-sakramente/beichte/                          301
+/gottesdienst-glaube/segen-sakramente/beichte-2                 /segen-sakramente/beichte/                          301
+/gottesdienst-glaube/segen-sakramente/beichte-2/                /segen-sakramente/beichte/                          301
+/gottesdienst-glaube/segen-sakramente/taufe3                    /segen-sakramente/taufe/                            301
+/gottesdienst-glaube/segen-sakramente/taufe3/                   /segen-sakramente/taufe/                            301
+/gottesdienst-glaube/segen-sakramente/taufe-neu                 /segen-sakramente/taufe/                            301
+/gottesdienst-glaube/segen-sakramente/taufe-neu/                /segen-sakramente/taufe/                            301
+/gottesdienst-glaube/taufanmeldung                              /segen-sakramente/taufe/                            301
+/gottesdienst-glaube/taufanmeldung/                             /segen-sakramente/taufe/                            301
+/segen-sakramente/taufe/tauftermine                             /segen-sakramente/taufe/                            301
+/segen-sakramente/taufe/tauftermine/                            /segen-sakramente/taufe/                            301
+/krankensalbung-2                                               /segen-sakramente/krankensalbung/                   301
+/krankensalbung-2/                                              /segen-sakramente/krankensalbung/                   301
+/kirchliche-hochzeit                                            /segen-sakramente/trauung/                          301
+/kirchliche-hochzeit/                                           /segen-sakramente/trauung/                          301
+/angebote-der-ehe-und-paarbegleitung                            /segen-sakramente/trauung/                          301
+/angebote-der-ehe-und-paarbegleitung/                           /segen-sakramente/trauung/                          301
+/firmung-frankfurt                                              /segen-sakramente/firmung/                          301
+/firmung-frankfurt/                                             /segen-sakramente/firmung/                          301
+/gottesdienst-glaube/beerdigung                                 /kontakt/trauerfall/                                301
+/gottesdienst-glaube/beerdigung/                                /kontakt/trauerfall/                                301
+/gottesdienst-glaube/gottesdienst-teams                         /gottesdienst-glaube/                               301
+/gottesdienst-glaube/gottesdienst-teams/                        /gottesdienst-glaube/                               301
+/gottesdienst-teams                                             /gottesdienst-glaube/                               301
+/gottesdienst-teams/                                            /gottesdienst-glaube/                               301
+/unseren-glauben-verstehen                                      /gottesdienst-glaube/                               301
+/unseren-glauben-verstehen/                                     /gottesdienst-glaube/                               301
+/pins/gottesdienste-die-beruehren                               /gottesdienst-glaube/gottesdienste-die-beruehren/   301
+/pins/gottesdienste-die-beruehren/                              /gottesdienst-glaube/gottesdienste-die-beruehren/   301
+
+# Kontakt & Über uns
+/kontakt/anfahrt                                                /kontakt/pfarrbuero/                                301
+/kontakt/anfahrt/                                               /kontakt/pfarrbuero/                                301
+/kontakt/whatsapp                                               /kontakt/whatsapp-kanal/                            301
+/kontakt/whatsapp/                                              /kontakt/whatsapp-kanal/                            301
+/kontakt/katholischwerden                                       /kontakt/katholisch-werden/                         301
+/kontakt/katholischwerden/                                      /kontakt/katholisch-werden/                         301
+/kontakt/mitmachen                                              /kontakt/engagement/                                301
+/kontakt/mitmachen/                                             /kontakt/engagement/                                301
+/beratung-und-hilfe                                             /kontakt/beratung-und-hilfe/                        301
+/beratung-und-hilfe/                                            /kontakt/beratung-und-hilfe/                        301
+/links                                                          /kontakt/                                           301
+/links/                                                         /kontakt/                                           301
+/ueberuns/leitung/churchdesk-registrierung                      /ueberuns/churchdesk-registrierung/                 301
+/ueberuns/leitung/churchdesk-registrierung/                     /ueberuns/churchdesk-registrierung/                 301
+/ueberuns/leitung/verwaltungsratsarbeit                         /ueberuns/leitung/                                  301
+/ueberuns/leitung/verwaltungsratsarbeit/                        /ueberuns/leitung/                                  301
+/ueberuns/leitung-gremien                                       /ueberuns/leitung/                                  301
+/ueberuns/leitung-gremien/                                      /ueberuns/leitung/                                  301
+/leitung-gremien                                                /ueberuns/leitung/                                  301
+/leitung-gremien/                                               /ueberuns/leitung/                                  301
+
+# Kirchorte (alte Unterseiten)
+/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius       /kirchorte/st-bonifatius/buecherei/                 301
+/ueberuns/kirchorte/st-bonifatius/buecherei-st-bonifatius/      /kirchorte/st-bonifatius/buecherei/                 301
+/ueberuns/kirchorte/st-bonifatius/gruppen-st-bonifatius         /kirchorte/st-bonifatius/gruppen/                   301
+/ueberuns/kirchorte/st-bonifatius/gruppen-st-bonifatius/        /kirchorte/st-bonifatius/gruppen/                   301
+/ueberuns/kirchorte/herz-jesu/herz-jesu-kirchortrat             /kirchorte/herz-jesu/kirchortrat/                   301
+/ueberuns/kirchorte/herz-jesu/herz-jesu-kirchortrat/            /kirchorte/herz-jesu/kirchortrat/                   301
+/ueberuns/kirchorte/st-aposteln/eroeffnung                      /kirchorte/st-aposteln/                             301
+/ueberuns/kirchorte/st-aposteln/eroeffnung/                     /kirchorte/st-aposteln/                             301
+/buechereien/koeb-bonifatius                                    /kirchorte/st-bonifatius/buecherei/                 301
+/buechereien/koeb-bonifatius/                                   /kirchorte/st-bonifatius/buecherei/                 301
+
+# Kitas
+/kitas/st-aposteln/kita-st-apostel-elternarbeit                 /kitas/st-aposteln/                                 301
+/kitas/st-aposteln/kita-st-apostel-elternarbeit/                /kitas/st-aposteln/                                 301
+/kitas/st-bonifatius/kita-st-bonifatius-paedagogik              /kitas/st-bonifatius/                               301
+/kitas/st-bonifatius/kita-st-bonifatius-paedagogik/             /kitas/st-bonifatius/                               301
+/kitas/st-bonifatius/kita-st-bonifatius-downloads               /kitas/st-bonifatius/downloads/                     301
+/kitas/st-bonifatius/kita-st-bonifatius-downloads/              /kitas/st-bonifatius/downloads/                     301
+/wp-content/uploads/2026/03/Gewaltschutzkonzept_Kita-St-Bonifatius.pdf   /kitas/st-bonifatius/downloads/                     301
+
+# Downloads & News
+/sankt-bonifatius-highlights                                    /downloads/bonifatius-highlights/                   301
+/sankt-bonifatius-highlights/                                   /downloads/bonifatius-highlights/                   301
+/highlights-2025                                                /downloads/bonifatius-highlights/                   301
+/highlights-2025/                                               /downloads/bonifatius-highlights/                   301
+/wp-content/uploads/2026/05/Sankt-Bonifatius-Highlights-2026-1.pdf   /downloads/bonifatius-highlights/                   301
+/aktuelles                                                      /boniblog/                                          301
+/aktuelles/                                                     /boniblog/                                          301
+/die-neue-website                                               /boniblog/                                          301
+/die-neue-website/                                              /boniblog/                                          301
+/news-aktualisieren                                             /boniblog/                                          301
+/news-aktualisieren/                                            /boniblog/                                          301
+/bonmot                                                         /boniblog/                                          301
+/bonmot/                                                        /boniblog/                                          301
+/bonsalon                                                       /terminkalender/                                    301
+/bonsalon/                                                      /terminkalender/                                    301
+
+# Alte WordPress-Entwurfsseiten
+/home5                                                          /                                                   301
+/home5/                                                         /                                                   301
+/home6                                                          /                                                   301
+/home6/                                                         /                                                   301
+/home7                                                          /                                                   301
+/home7/                                                         /                                                   301
+/home8                                                          /                                                   301
+/home8/                                                         /                                                   301
+/homeneu                                                        /                                                   301
+/homeneu/                                                       /                                                   301
+/homeneu2                                                       /                                                   301
+/homeneu2/                                                      /                                                   301
+/homeneu3                                                       /                                                   301
+/homeneu3/                                                      /                                                   301
+/homeneu3a                                                      /                                                   301
+/homeneu3a/                                                     /                                                   301
+/homeneu4                                                       /                                                   301
+/homeneu4/                                                      /                                                   301
+/ueber-uns2                                                     /ueberuns/                                          301
+/ueber-uns2/                                                    /ueberuns/                                          301
+/kontakt2                                                       /kontakt/                                           301
+/kontakt2/                                                      /kontakt/                                           301
+/gottesdienst-glaube2                                           /gottesdienst-glaube/                               301
+/gottesdienst-glaube2/                                          /gottesdienst-glaube/                               301
+/gottesdienst-und-glaube                                        /gottesdienst-glaube/                               301
+/gottesdienst-und-glaube/                                       /gottesdienst-glaube/                               301
+/gottesdienst-glaube/gottesdienstordnung2                       /gottesdienst-glaube/gottesdienstordnung/           301
+/gottesdienst-glaube/gottesdienstordnung2/                      /gottesdienst-glaube/gottesdienstordnung/           301
+/jugend2                                                        /jugend/                                            301
+/jugend2/                                                       /jugend/                                            301
+
 # --- Migrations-Altlasten: alte WordPress-Pfade -> neue Astro-Struktur ---
 # Diese Pfade waren bei Google jahrelang indexiert und bringen echten Suchtraffic
 # (siehe SEO-Check 2026-08-14, GA/GSC-Export). Ohne Weiterleitung liefern sie seit
@@ -123,6 +342,7 @@
 /ueberuns/unsere-vier-kirchorte/*              /kirchorte/:splat                  301
 /home-alt/st-aposteln              /kirchorte/st-aposteln/                        301
 /home-alt/st-aposteln/             /kirchorte/st-aposteln/                        301
+/home-alt/*                        /                                              301
 
 # Segen & Sakramente: eine Ebene hoch, von /gottesdienst-glaube/segen-sakramente/...
 # nach /segen-sakramente/... (inkl. Unterseiten wie taufe, firmung, trauung ...).
