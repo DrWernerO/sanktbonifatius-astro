@@ -1,5 +1,5 @@
 // Passwortschutz für nicht-öffentliche Seiten (Raumbuchung, Download-Statistik,
-// 100 Jahre, Pause für die Seele).
+// 100 Jahre, Pause für die Seele) + Schlussstrich-Weiterleitung für Function-Seiten (unten).
 // Läuft als Netlify-Function (HTTP-Basic-Auth), NICHT nur clientseitig — dadurch bekommt
 // Google/jeder Crawler ohne Zugangsdaten grundsätzlich nur ein 401, nie den Seiteninhalt.
 // Betroffene Route muss `export const prerender = false` setzen (sonst liefert Netlify die
@@ -48,7 +48,28 @@ function findeSchutz(pathname: string) {
   return GESCHUETZTE_PFADE[ohneSlash];
 }
 
+// Schlussstrich für serverseitig gerenderte Seiten (`prerender = false`, z. B. /kitas,
+// /terminkalender): Bei statischen Seiten leitet Netlify /pfad selbst per 301 auf /pfad/ um,
+// bei Function-Seiten nicht -- dort lieferte /kitas bisher 200 und Google sah zwei Adressen
+// für dieselbe Seite (GSC "Umleitungsfehler", 12.10.2026). In _redirects nicht lösbar, weil
+// Netlify /pfad und /pfad/ beim Abgleich gleich behandelt (Regel würde sich selbst treffen).
+// Ausgenommen: API-Routen, QR-Kurzlinks /go/..., interne /_...-Pfade und Dateien mit Endung.
+function brauchtSchlussstrich(pathname: string) {
+  return (
+    !pathname.endsWith('/') &&
+    !pathname.startsWith('/api/') &&
+    !pathname.startsWith('/go/') &&
+    !pathname.startsWith('/_') &&
+    !/\.[a-z0-9]+$/i.test(pathname)
+  );
+}
+
 export const onRequest = defineMiddleware(async (context, next) => {
+  const method = context.request.method;
+  if (!context.isPrerendered && (method === 'GET' || method === 'HEAD') && brauchtSchlussstrich(context.url.pathname)) {
+    return context.redirect(context.url.pathname + '/' + context.url.search, 301);
+  }
+
   const schutz = findeSchutz(context.url.pathname);
   if (!schutz) {
     return next();
