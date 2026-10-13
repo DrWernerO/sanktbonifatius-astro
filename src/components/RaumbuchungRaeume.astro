@@ -1,15 +1,13 @@
 ---
 // Raumbuchung — vier Kirchorte untereinander (feste Reihenfolge, von Werner vorgegeben:
-// St. Bonifatius, St. Wendel, Herz Jesu, St. Aposteln), darunter je Kirchort eine Kachel
-// pro Raum. Das ChurchDesk-Buchungswidget (viele Uhrzeiten, sehr hoch) steckt in einem
-// nativen <details>-Element und ist standardmäßig zugeklappt — man sieht nur die schlanke
-// Kachel, keine Eingabemaske, bis man draufklickt.
+// St. Bonifatius, St. Wendel, Herz Jesu, St. Aposteln). Pro Kirchort stehen die Räume als
+// farbige Buttons nebeneinander; ein Klick klappt darunter das ChurchDesk-Buchungswidget
+// dieses Raums auf (erneuter Klick oder anderer Raum klappt es wieder zu bzw. um).
 //
-// WICHTIG: Das Widget-Div + sein Loader-Script müssen beim Seitenaufruf im HTML stehen
+// WICHTIG: Alle Widget-Divs + das Loader-Script müssen beim Seitenaufruf im HTML stehen
 // (nicht erst per JS beim Klick nachladen!) — ChurchDesks Loader initialisiert nur beim
-// ersten Laden der Seite (reagiert nicht auf nachträglich eingefügte Divs/Scripts). Das
-// <details>-Element blendet den Inhalt bis zum Klick rein optisch aus, das Widget lädt im
-// Hintergrund ganz normal mit.
+// ersten Laden der Seite (reagiert nicht auf nachträglich eingefügte Divs/Scripts). Die
+// Panels sind bis zum Klick per `hidden` ausgeblendet, die Widgets laden im Hintergrund mit.
 //
 // Neue Räume ergänzen: einfach ein weiteres Objekt in das `rooms`-Array des jeweiligen
 // Kirchorts eintragen (widgetId + organizationId kommen direkt vom ChurchDesk-Embed-Code).
@@ -19,30 +17,43 @@ const kirchorte = [
     name: 'St. Bonifatius',
     rooms: [
       { name: 'Großer Pfarrsaal', widgetId: 'sb-grosser-pfarrsaal', organizationId: '5bk90o4fe3' },
+      { name: 'Kleiner Pfarrsaal', widgetId: 'st-bonifatius-kleiner-pfarrsaal', organizationId: '5bk90o4fe3' },
+      { name: 'Boni-Lounge', widgetId: 'boni-lounge', organizationId: '5bk90o4fe3' },
     ],
   },
   { name: 'St. Wendel', rooms: [] },
   { name: 'Herz Jesu', rooms: [] },
   { name: 'St. Aposteln', rooms: [] },
 ];
+const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 ---
 <section class="astro-rb-raeume">
   {kirchorte.map((kirchort) => (
-    <div class="astro-rb-raeume__kirchort" id={kirchort.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>
+    <div class="astro-rb-raeume__kirchort" id={slug(kirchort.name)} data-rb-kirchort>
       <h2 class="astro-rb-raeume__hl">{kirchort.name}</h2>
       {kirchort.rooms.length === 0 ? (
         <p class="astro-rb-raeume__platzhalter">Räume für diesen Kirchort folgen in Kürze.</p>
       ) : (
-        <div class="astro-rb-raeume__kacheln">
-          {kirchort.rooms.map((room) => (
-            <details class="astro-rb-raeume__karte" data-rb-karte>
-              <summary class="astro-rb-raeume__kachel">
-                <span class="astro-rb-raeume__kachel-name">{room.name}</span>
-                <span class="astro-rb-raeume__kachel-cta">
-                  Jetzt buchen
-                  <span class="astro-rb-raeume__chevron" aria-hidden="true">›</span>
+        <>
+          <div class="astro-rb-raeume__buttons">
+            {kirchort.rooms.map((room) => (
+              <button
+                type="button"
+                class="astro-rb-raeume__btn"
+                data-rb-btn
+                aria-expanded="false"
+                aria-controls={`rb-${slug(kirchort.name)}-${room.widgetId}`}
+              >
+                <span class="astro-rb-raeume__btn-name">{room.name}</span>
+                <span class="astro-rb-raeume__btn-cta">
+                  Buchen <span class="astro-rb-raeume__chevron" aria-hidden="true">›</span>
                 </span>
-              </summary>
+              </button>
+            ))}
+          </div>
+          {kirchort.rooms.map((room) => (
+            <div class="astro-rb-raeume__panel" id={`rb-${slug(kirchort.name)}-${room.widgetId}`} hidden>
+              <h3 class="astro-rb-raeume__raumtitel">{room.name}</h3>
               <div class="astro-rb-raeume__widget">
                 <div
                   data-churchdesk-widget-id={room.widgetId}
@@ -51,15 +62,30 @@ const kirchorte = [
                   data-churchdesk-user-embed="true"
                 />
               </div>
-            </details>
+            </div>
           ))}
-        </div>
+        </>
       )}
     </div>
   ))}
 </section>
 
 <script is:inline src="https://widget.churchdesk.com/widget-loader.js"></script>
+<script is:inline>
+  document.querySelectorAll('[data-rb-kirchort]').forEach((kirchort) => {
+    const buttons = kirchort.querySelectorAll('[data-rb-btn]');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const willOpen = btn.getAttribute('aria-expanded') !== 'true';
+        buttons.forEach((b) => {
+          const open = b === btn && willOpen;
+          b.setAttribute('aria-expanded', String(open));
+          document.getElementById(b.getAttribute('aria-controls')).hidden = !open;
+        });
+      });
+    });
+  });
+</script>
 
 <style is:global>
 .astro-rb-raeume{max-width:960px;margin:0 auto;padding:16px 40px 80px}
@@ -67,18 +93,19 @@ const kirchorte = [
 .astro-rb-raeume__kirchort:first-child{border-top:none}
 .astro-rb-raeume__hl{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(24px,3vw,32px);color:#1e1512;margin:0 0 20px}
 .astro-rb-raeume__platzhalter{color:#6b5c52;font-size:15px;font-style:italic;margin:0}
-.astro-rb-raeume__kacheln{display:flex;flex-direction:column;gap:14px}
 
-.astro-rb-raeume__karte{border-radius:14px;background:#fff;box-shadow:0 4px 20px rgba(30,21,18,.08);overflow:hidden;transition:box-shadow .2s}
-.astro-rb-raeume__karte:hover{box-shadow:0 6px 20px rgba(30,21,18,.16)}
-.astro-rb-raeume__kachel{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 26px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:19px;color:#fff;background:linear-gradient(135deg,#b88a3a 0%,#9a2d2d 100%);transition:background .2s}
-.astro-rb-raeume__kachel::-webkit-details-marker{display:none}
-.astro-rb-raeume__kachel:hover{background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%)}
-.astro-rb-raeume__kachel-cta{display:flex;align-items:center;gap:8px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14px;letter-spacing:.02em;text-transform:uppercase;color:#f5e6c8;white-space:nowrap}
-.astro-rb-raeume__chevron{display:inline-block;font-size:18px;transition:transform .2s;color:#f5e6c8}
-.astro-rb-raeume__karte[open] .astro-rb-raeume__chevron{transform:rotate(90deg)}
-.astro-rb-raeume__widget{border-top:1px solid #e0d8cf;padding:8px}
+.astro-rb-raeume__buttons{display:flex;flex-wrap:wrap;gap:14px}
+.astro-rb-raeume__btn{flex:1 1 200px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:20px 22px;border:0;border-radius:14px;cursor:pointer;text-align:left;font-family:'Playfair Display',serif;font-weight:700;font-size:19px;color:#fff;background:linear-gradient(135deg,#b88a3a 0%,#9a2d2d 100%);box-shadow:0 4px 20px rgba(30,21,18,.08);transition:background .2s,box-shadow .2s}
+.astro-rb-raeume__btn:hover,.astro-rb-raeume__btn[aria-expanded="true"]{background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%);box-shadow:0 6px 20px rgba(30,21,18,.16)}
+.astro-rb-raeume__btn:focus-visible{outline:3px solid #1e1512;outline-offset:2px}
+.astro-rb-raeume__btn-cta{display:flex;align-items:center;gap:6px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#f5e6c8}
+.astro-rb-raeume__chevron{display:inline-block;font-size:17px;transition:transform .2s}
+.astro-rb-raeume__btn[aria-expanded="true"] .astro-rb-raeume__chevron{transform:rotate(90deg)}
+
+.astro-rb-raeume__panel{margin-top:20px}
+.astro-rb-raeume__raumtitel{font-family:'Playfair Display',serif;font-weight:700;font-size:19px;color:#1e1512;margin:0 0 14px}
+.astro-rb-raeume__widget{border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 4px 20px rgba(30,21,18,.08);padding:8px}
 .astro-rb-raeume__widget iframe{width:100%!important;border:0;display:block}
-@media(max-width:860px){.astro-rb-raeume{padding:8px 24px 64px}.astro-rb-raeume__kachel{padding:18px 20px}}
-@media(max-width:480px){.astro-rb-raeume__kachel{flex-wrap:wrap}.astro-rb-raeume__kachel-cta{font-size:13px}}
+@media(max-width:860px){.astro-rb-raeume{padding:8px 24px 64px}}
+@media(max-width:480px){.astro-rb-raeume__btn{flex-basis:100%}}
 </style>

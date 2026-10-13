@@ -14,6 +14,8 @@ import { defineMiddleware } from 'astro:middleware';
 const GESCHUETZTE_PFADE: Record<string, { envVar: string; zusatzEnvVar?: string; benutzername?: string; realm: string }> = {
   '/kontakt/raumbuchung': {
     envVar: 'RAUMBUCHUNG_PASSWORD',
+    // Zusätzlich gilt das gemeinsame interne Passwort (wie Statistik/Jubiläum/Exerzitien).
+    zusatzEnvVar: 'INTERNE_SEITEN_PASSWORD',
     benutzername: 'anfrage',
     realm: 'Raumbuchung Sankt Bonifatius',
   },
