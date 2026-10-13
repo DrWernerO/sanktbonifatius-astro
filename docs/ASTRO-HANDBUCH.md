@@ -514,6 +514,62 @@ WP-Plugin würde für `/go/…` nie greifen. Die Liste liegt deshalb bewusst im 
 
 ---
 
+## 1i. Gedruckte QR-Codes in der Kirche (feste Alt-Adressen) — ✅ Stand 2026-10-12
+
+> **Grundsatz:** Die QR-Codes in der Kirche St. Bonifatius sind **fest montiert und werden NICHT
+> ausgetauscht**. Sie zeigen auf Adressen aus der WordPress-Zeit, die es so nicht mehr gibt.
+> Dass sie funktionieren, hängt **allein an Weiterleitungen in
+> [`public/_redirects`](../public/_redirects)**. Diese Einträge **nie löschen oder umbenennen**.
+> (Neue Codes bitte stattdessen über `/go/<name>` anlegen, Abschnitt 1h.)
+
+### Welche Codes es gibt
+| Ort / Schild | Adresse im QR-Code | Ziel heute | Regelblock in `_redirects` |
+|---|---|---|---|
+| **Digitaler Kirchenführer** (lila Schilder an den Objekten, z. B. „Bonifatius-Reliquie") | `www.sanktbonifatius.de/ueberuns/kirchorte/st-bonifatius/kirche/<objekt>/` | `/kirchorte/st-bonifatius/kirche/#<anker>` | „Digitaler Kirchenfuehrer St. Bonifatius" |
+| **Willkommen-Stele** (3 Codes) | `www.bonifatius-ffm.de/qr/geschichte/` | `/kirchorte/st-bonifatius/kirche/` | „GA/GSC-Check 2026-10-12" → „QR-Codes Willkommen-Stele" |
+| | `www.bonifatius-ffm.de/ueberuns` | `/ueberuns/` (existiert, keine Regel nötig) | – |
+| | `www.bonifatius-ffm.de/seelsorger/` | `/ueberuns/pastoralteam/` | wie oben |
+| Ältere Kirchenführer-Codes (Generation vor den lila Schildern, ggf. noch im Umlauf) | `www.sanktbonifatius.de/qr/<objekt>/` | `/kirchorte/st-bonifatius/kirche/#<anker>` | „Ältere QR-Codes Kirchenführer (/qr/...)" |
+
+Die Anker (`#taufstein`, `#reliquie`, `#madonna`, `#mariengemaelde` …) sind die `id`-Attribute auf
+der Kirchen-Seite (`KircheCards.astro` / `kirche.js`). **Anker-ID nie umbenennen**, ohne die
+Regeln mitzuziehen.
+
+### Weiterleitungskette (wichtig für die Fehlersuche)
+```
+www.bonifatius-ffm.de/<pfad>      301  (All-inkl, Domain-Weiterleitung, reicht den Pfad 1:1 durch)
+→ www.sanktbonifatius.de/<pfad>   301  (Netlify, www → ohne www)
+→ sanktbonifatius.de/<pfad>       301  (Regel in public/_redirects)
+→ sanktbonifatius.de/<ziel>       200
+```
+- Die Domain **`bonifatius-ffm.de`** liegt bei **All-inkl** (Nameserver `ns5/ns6.kasserver.com`),
+  nicht bei Netlify. Sie leitet jeden Pfad unverändert weiter. **Ein toter Stelen-Code ist deshalb
+  fast nie ein DNS-Problem**, sondern eine fehlende Regel in `_redirects`. Die Domain muss aber
+  registriert und die Weiterleitung bei All-inkl aktiv bleiben, sonst sind alle drei Stelen-Codes tot.
+- **Reihenfolge in `_redirects` beachten:** Netlify nimmt die **erste** passende Regel. Die
+  Wildcards `/ueberuns/kirchorte/*` und `/gottesdienst-glaube/segen-sakramente/*` würden sonst
+  spezielle Alt-Adressen auf nicht existierende Ziele umleiten. Spezielle Regeln gehören
+  **oberhalb** dieser Wildcards.
+- **Schlussstrich:** Netlify behandelt `/pfad` und `/pfad/` beim Regel-Abgleich gleich (Regeln
+  trotzdem in beiden Schreibweisen eintragen, wie in der ganzen Datei). Für serverseitig
+  gerenderte Seiten (`prerender = false`) ergänzt die Middleware (`src/middleware.ts`) den
+  Schlussstrich per 301.
+
+### Wenn ein Code „nicht funktioniert"
+1. **Foto vom Code machen und entschlüsseln**: Die gedruckte Beschriftung sagt nichts über die
+   Adresse; die Stelen-Codes zeigen z. B. auf eine ganz andere Domain. Auf dem Mac geht das ohne
+   Zusatzsoftware: Foto mit `sips -s format jpeg IMG_1234.HEIC --out qr.jpg` umwandeln, dann
+   mit einem kurzen Swift-Skript über Apples Vision-Framework (`VNDetectBarcodesRequest`,
+   Symbologie `.qr`, `payloadStringValue` ausgeben) auslesen. Alternativ mit der Handy-Kamera
+   den Link anzeigen lassen, ohne ihn zu öffnen.
+2. **Kette prüfen:** `curl -sIL "<adresse-aus-dem-code>" | grep -iE '^(HTTP|location)'`. Endet
+   sie auf 404, fehlt die Regel.
+3. **Regel eintragen** (beide Schreibweisen, oberhalb der Wildcards), Zielseite vorher auf 200
+   prüfen, Commit + Push, nach dem Deploy (~90 s) die Kette erneut mit `curl` prüfen.
+4. Diese Tabelle hier ergänzen.
+
+---
+
 ## 2. WordPress-Anbindung (`src/lib/wordpress.js`)
 
 Zentrale Datei für alle WP-Zugriffe. Wichtige Bausteine:

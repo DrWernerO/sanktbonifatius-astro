@@ -64,6 +64,11 @@ CSS/Client-JS lädt per HMR. Hartnäckiger JS-Cache → privates Browser-Fenster
 
 **Kurz-URLs + llms.txt** sind in `public/_redirects` und `public/llms.txt` **vorbereitet** (greifen automatisch beim Netlify-Deploy, lokal inaktiv). Pflege bei neuen/verschobenen Seiten → Handbuch **Abschnitt 1f**.
 
+⚠️ **QR-Codes in der Kirche** (Kirchenführer-Schilder, Willkommen-Stele über die Domain
+`bonifatius-ffm.de`) zeigen auf alte Adressen und funktionieren **nur über Regeln in
+`public/_redirects`** — nie löschen, spezielle Regeln oberhalb der Wildcards. Übersicht,
+Weiterleitungskette und Fehlersuche → Handbuch **Abschnitt 1i**.
+
 ---
 
 ## Seitenstand (Stand 2026-08-03)
