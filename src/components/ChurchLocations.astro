@@ -15,7 +15,7 @@ const cards = [
     name: 'St. Wendel', desc: 'Kirche in der Nachbarschaft für alle Generationen. Glaube und Gemeinschaft mit Freude gelebt.' },
 ];
 ---
-<div class="astro-kirch">
+<div class="astro-kirch" id="kirchorte">
   <div class="astro-kirch__inner">
     <h2 class="astro-kirch__hl">Unsere vier Kirchorte</h2>
     <p class="astro-kirch__sub">Vier Kirchen, ein Geist — in den Stadtteilen Sachsenhausen und Oberrad.</p>
@@ -37,7 +37,7 @@ const cards = [
 </div>
 
 <style is:global>
-.astro-kirch{margin-top:24px;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#f7f3ef;padding:56px 0}
+.astro-kirch{scroll-margin-top:80px;margin-top:24px;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#f7f3ef;padding:56px 0}
 .astro-kirch__inner{max-width:1200px;margin:0 auto;padding:0 40px}
 .astro-kirch__hl{font-family:'Playfair Display',serif;font-size:30px;color:#2c2420;text-align:center;margin:0 0 10px;font-weight:700}
 .astro-kirch__sub{font-size:15px;color:#7a6d59;text-align:center;margin:0 0 36px}
