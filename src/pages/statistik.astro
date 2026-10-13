@@ -14,6 +14,11 @@ import { leseQrZaehler } from '../lib/qr-counter.js';
 const wochen = await leseWochenZaehler();
 const gesamtPfarrbrief = wochen.reduce((summe, w) => summe + w.pfarrbrief, 0);
 const gesamtHighlights = wochen.reduce((summe, w) => summe + w.highlights, 0);
+// "Sonstige" gibt es erst seit Einführung des Datei-Zählers (Wert null = leer, Woche davor) —
+// die Summe zählt nur Wochen mit Wert.
+const summeSonstige = (feld) => wochen.reduce((summe, w) => summe + (w[feld] ?? 0), 0);
+const gesamtPfarrbriefSonstige = summeSonstige('pfarrbriefSonstige');
+const gesamtHighlightsSonstige = summeSonstige('highlightsSonstige');
 
 const qrZeilen = (await leseQrZaehler()).sort(
   (a, b) => a.kampagne.localeCompare(b.kampagne) || a.quelle.localeCompare(b.quelle)
@@ -61,37 +66,49 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     <div class="astro-dlstat__in">
       <h1>Download-Statistik</h1>
       <p class="astro-dlstat__hinweis">
-        Zählt jeden Klick auf „Pfarrbrief" bzw. „Bonifatius Highlights" im Menü — unabhängig von
-        der Cookie-Einwilligung der Besucher:innen (im Unterschied zu Google Analytics).
-        Aufgeschlüsselt nach Kalenderwoche (Montag–Sonntag), neueste Woche oben.
+        <strong>Via Website:</strong> Klicks auf „Pfarrbrief" bzw. „Bonifatius Highlights" im Menü —
+        unabhängig von der Cookie-Einwilligung der Besucher:innen (im Unterschied zu Google Analytics).
+        <strong>Sonstige:</strong> alle übrigen Abrufe der PDF-Datei (z. B. über Google, einen
+        WhatsApp-Link oder eine alte Adresse), berechnet als Datei-Abrufe minus Website-Klicks.
+        Die Spalte „Sonstige" ist erst ab Einführung des Datei-Zählers (Oktober 2026) befüllt,
+        in der Einführungswoche daher nur teilweise aussagekräftig. Aufgeschlüsselt nach
+        Kalenderwoche (Montag–Sonntag), neueste Woche oben.
       </p>
       {wochen.length === 0
         ? <p class="astro-dlstat__leer">Noch keine Downloads gezählt.</p>
-        : <table class="astro-dlstat__table">
-            <thead>
-              <tr>
-                <th scope="col">Woche</th>
-                <th scope="col">Pfarrbrief</th>
-                <th scope="col">Highlights</th>
-              </tr>
-            </thead>
-            <tbody>
-              {wochen.map((w) => (
+        : <div class="astro-dlstat__scroll">
+            <table class="astro-dlstat__table">
+              <thead>
                 <tr>
-                  <th scope="row">{formatWoche(w.woche)}</th>
-                  <td>{w.pfarrbrief}</td>
-                  <td>{w.highlights}</td>
+                  <th scope="col">Woche</th>
+                  <th scope="col">Pfarrbrief via Website</th>
+                  <th scope="col">Pfarrbrief Sonstige</th>
+                  <th scope="col">Highlights via Website</th>
+                  <th scope="col">Highlights Sonstige</th>
                 </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr>
-                <th scope="row">Gesamt</th>
-                <td>{gesamtPfarrbrief}</td>
-                <td>{gesamtHighlights}</td>
-              </tr>
-            </tfoot>
-          </table>
+              </thead>
+              <tbody>
+                {wochen.map((w) => (
+                  <tr>
+                    <th scope="row">{formatWoche(w.woche)}</th>
+                    <td>{w.pfarrbrief}</td>
+                    <td>{w.pfarrbriefSonstige ?? ''}</td>
+                    <td>{w.highlights}</td>
+                    <td>{w.highlightsSonstige ?? ''}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="row">Gesamt</th>
+                  <td>{gesamtPfarrbrief}</td>
+                  <td>{gesamtPfarrbriefSonstige}</td>
+                  <td>{gesamtHighlights}</td>
+                  <td>{gesamtHighlightsSonstige}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
       }
 
       {qrGruppen.map((g) => (
@@ -158,7 +175,7 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
 
 <style>
   .astro-dlstat { padding: 140px 32px 80px; }
-  .astro-dlstat__in { max-width: 720px; margin: 0 auto; }
+  .astro-dlstat__in { max-width: 860px; margin: 0 auto; }
   .astro-dlstat h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(28px, 3vw, 36px);

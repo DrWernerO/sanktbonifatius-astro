@@ -44,6 +44,23 @@ export async function zaehleDownload(datei) {
   await s.set(schluessel, String(aktuell + 1));
 }
 
+// Zweiter Zähler (seit 2026-10): jeder Abruf der PDF-DATEI selbst, egal woher der Besucher
+// kommt (Website-Klick, Google, WhatsApp-Link, alte Adresse). Wird von der Netlify Edge
+// Function netlify/edge-functions/count-download.ts über /api/track-abruf angestoßen.
+// Eigene Schlüssel "abruf-<datei>:<Montag>" — beginnen bewusst NICHT mit "<datei>:", damit sie
+// von leseWochenZaehler() (Website-Klicks) und der Migration nicht verwechselt werden.
+function abrufSchluessel(datei, datum) {
+  return `abruf-${wochenSchluessel(datei, datum)}`;
+}
+
+export async function zaehleAbruf(datei) {
+  if (!ZAEHLBARE_DATEIEN.includes(datei)) return;
+  const s = store();
+  const schluessel = abrufSchluessel(datei);
+  const aktuell = await leseZahl(s, schluessel);
+  await s.set(schluessel, String(aktuell + 1));
+}
+
 // Einmalige Migration von den alten Gesamtzählern (Schlüssel ohne Wochen-Suffix, Stand vor
 // 2026-09-07) in die aktuelle Woche. Läuft bei jedem Aufruf von leseWochenZaehler(), hat aber
 // nach dem ersten Mal nichts mehr zu tun (Gesamtzähler wird danach gelöscht).
@@ -60,19 +77,41 @@ async function migriereAlteGesamtzaehler(s) {
 }
 
 // Liefert ein Array, eine Zeile pro Kalenderwoche mit mindestens einem Download, neueste
-// Woche zuerst: [{ woche: "2026-09-01", pfarrbrief: 3, highlights: 1 }, ...]
+// Woche zuerst:
+//   { woche: "2026-09-01", pfarrbrief: 3, highlights: 1,          <- Klicks über die Website
+//     pfarrbriefSonstige: 2 | null, highlightsSonstige: 0 | null } <- Datei-Abrufe minus Website
+// "Sonstige" = Abrufe der PDF-Datei insgesamt MINUS Website-Klicks (nie negativ, z. B. wenn die
+// Datei aus dem Browser-Cache kam und nur der Klick, nicht der Abruf gezählt wurde). Für Wochen
+// vor Einführung des Datei-Zählers (kein Abruf-Schlüssel vorhanden) ist der Wert null (= leer).
 export async function leseWochenZaehler() {
   const s = store();
   await migriereAlteGesamtzaehler(s);
 
   const wochen = new Map();
+  const zeile = (woche) => {
+    if (!wochen.has(woche)) {
+      wochen.set(woche, { woche, pfarrbrief: 0, highlights: 0, pfarrbriefSonstige: null, highlightsSonstige: null });
+    }
+    return wochen.get(woche);
+  };
+  const abrufe = {};
   for (const datei of ZAEHLBARE_DATEIEN) {
     const { blobs } = await s.list({ prefix: `${datei}:` });
     for (const blob of blobs) {
-      const woche = blob.key.slice(datei.length + 1);
-      const wert = await leseZahl(s, blob.key);
-      if (!wochen.has(woche)) wochen.set(woche, { woche, pfarrbrief: 0, highlights: 0 });
-      wochen.get(woche)[datei] = wert;
+      zeile(blob.key.slice(datei.length + 1))[datei] = await leseZahl(s, blob.key);
+    }
+    const abrufPrefix = `abruf-${datei}:`;
+    const { blobs: abrufBlobs } = await s.list({ prefix: abrufPrefix });
+    for (const blob of abrufBlobs) {
+      const woche = blob.key.slice(abrufPrefix.length);
+      zeile(woche);
+      abrufe[`${datei}:${woche}`] = await leseZahl(s, blob.key);
+    }
+  }
+  for (const z of wochen.values()) {
+    for (const datei of ZAEHLBARE_DATEIEN) {
+      const abruf = abrufe[`${datei}:${z.woche}`];
+      if (abruf !== undefined) z[`${datei}Sonstige`] = Math.max(0, abruf - z[datei]);
     }
   }
   return [...wochen.values()].sort((a, b) => b.woche.localeCompare(a.woche));
