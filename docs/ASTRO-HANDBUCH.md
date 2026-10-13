@@ -278,6 +278,20 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 > Woche, damit die ersten ~2 Tage Zählung nicht verloren gehen. `statistik.astro` zeigt eine
 > Zeile pro Kalenderwoche (Montag–Sonntag), neueste oben, plus Gesamtsumme in der Fußzeile.
 
+> **Stand 2026-10-13: Zweiter Zähler „Sonstige" (Datei-Abrufe).** `/statistik` zeigt je Woche
+> vier Spalten: Pfarrbrief/Highlights **via Website** (Klick-Zähler wie bisher) und
+> **Sonstige** (= alle Abrufe der PDF-Datei, egal woher — Google, WhatsApp-Link, alte Adresse —
+> **minus** Website-Klicks, nie negativ). Technik: Netlify Edge Function
+> `netlify/edge-functions/count-download.ts` läuft vor `/downloads/pfarrbrief.pdf` und
+> `/downloads/highlights.pdf` und ruft per POST `src/pages/api/track-abruf.ts` auf
+> (`zaehleAbruf()` in `download-counter.js`, Blobs-Schlüssel `abruf-<datei>:<Montag>`). Die Edge
+> Function liefert die PDF in jedem Fall aus; Bots/HEAD/Range-Folgeanfragen zählt sie nicht. Ob
+> eine Zählung geklappt hat, steht im Antwort-Header `X-Download-Counted` (`1` = gezählt,
+> `0-bot`, `0-fehler` …). Wochen vor dem 2026-10-13 haben keine Abruf-Zahl → Feld „Sonstige"
+> bleibt leer; die Einführungswoche ist nur teilweise aussagekräftig. Auswertung geplant nach
+> einigen Wochen Laufzeit (Entscheidung Werner), danach ggf. Klick-Zähler vs. Datei-Zähler
+> vereinfachen.
+>
 > **Stand 2026-09-28: Highlights-Cover automatisch als Hero-Bild.** Die Landingpage
 > `/downloads/bonifatius-highlights/` zeigt rechts im Hero das Deckblatt der aktuellen Ausgabe.
 > Quelle: das JPG, das WordPress beim PDF-Upload **selbst** aus Seite 1 erzeugt
