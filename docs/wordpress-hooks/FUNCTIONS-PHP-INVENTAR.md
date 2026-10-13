@@ -60,6 +60,7 @@ Gespeichert wurde jeweils von Werner im Theme-Editor (Skript-Speichern wird von 
 | 2026-10-12 | 2a | `SB-STILLGELEGT-2`: Social-Leiste · `SB-STILLGELEGT-3`: Core Web Vitals, bh3a-Skripte, Panel, Fancybox, Dropdown-Fix, reCAPTCHA | ✅ API/Admin/Website ok |
 | 2026-10-12 | 2b | `SB-STILLGELEGT-4`: robots.txt/llms.txt von cms · `-5`: digiaccess-Skripte + Downloads-Menü (altes Frontend) · `-6`: Kurz-URL-Weiterleitungen auf cms | ✅ API/Admin/Website ok (Datei jetzt 75.703 Zeichen) |
 | 2026-10-12 | 3 | `SB-STILLGELEGT-7`: Template-Hooks `single.php`/`single-event.php` (nur altes Frontend) | ✅ API/Admin/Website ok (Datei 75.921 Zeichen) |
+| 2026-10-13 | 4 | `SB-STILLGELEGT-8`: `/termine/`- + Pfarrbrief-Weiterleitung · `-9`: QR-Weiterleitungen `/qr/…` (alle 9 live über Netlify geprüft; Reliquie + Orgel am 13.10. in `_redirects` ergänzt, Commit 853332b) | ✅ API/Admin/Website ok (Datei 76.392 Zeichen) |
 
 Nach der Stilllegung der Frontend-Hooks gilt: in 2–4 Wochen ohne Auffälligkeiten dürfen die stillgelegten Blöcke endgültig gelöscht werden.
 
@@ -67,8 +68,7 @@ Nach der Stilllegung der Frontend-Hooks gilt: in 2–4 Wochen ohne Auffälligkei
 Plugin-Versuch → „Cannot redeclare" → API/Admin ~15 Min. down; behoben über phpMyAdmin (`active_plugins`). Siehe `sb-headless/README.md`.
 
 ### Noch nicht stillgelegt (bewusst, Stand 2026-10-12)
-QR-Weiterleitungen `/qr/…` (Zeile ~1090; evtl. gedruckte Codes), `/termine/`-404-Weiterleitung + Pfarrbrief-Redirect (~750),
-`rest-nonce`-AJAX, Stylesheet-/Script-Einbindung, Menü-Setup + Nav-Walker,
+`rest-nonce`-AJAX (`wp_ajax_rest-nonce`, Zweck unklar), Stylesheet-/Script-Einbindung, Menü-Setup + Nav-Walker,
 Block-Registrierung, Login-Stil. Vorgehen wie bisher: Block für Block, Schalter, Prüfung.
 **Geklärt (Werner, 2026-10-12):** digiaccess wird nicht mehr gebraucht — Astro hat ein eigenes Barrierefreiheitstool.
 
