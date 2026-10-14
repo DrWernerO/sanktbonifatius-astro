@@ -124,6 +124,13 @@ export default defineConfig({
 > Netlify **Pro** (vorübergehend gebucht; Rückstufung auf kostenlos geplant, sobald sich der Andrang
 > nach dem Go-Live legt). Der sparsamere Webhook soll das kostenlose Kontingent künftig reichen lassen.
 
+> **Update 2026-10-14 — News (`pin`) lösen ebenfalls einen Rebuild aus.** Seit der Auslagerung in das
+> Plugin `sb-headless` (`docs/wordpress-hooks/sb-headless/sb-headless.php`, Abschnitt 4) feuert der
+> Hook bei **Beitrag, Seite und News (`pin`)** — Termine weiterhin nicht. Praxis-Test: News
+> „Warum meine Kirche geiler ist als deine" (Video) veröffentlicht → Kachel war ohne manuelles
+> „Trigger deploy" auf der Startseite. Der Code-Block in Schritt 2 unten zeigt noch den älteren
+> Stand (nur `post`/`page`) und gilt nur für die alte `functions.php`-Variante.
+
 ### Warum überhaupt ein Webhook?
 Auf Netlify ist die Seite statisch: WP-Inhalte werden **zum Build-Zeitpunkt** abgefragt und
 in fertiges HTML gegossen. Ein neuer Termin/Beitrag im WP wird also **erst nach einem neuen
@@ -782,7 +789,14 @@ Die Nav ist die wichtigste wiederverwendbare Komponente. Aufbau (Präfix `bh3a-`
   ab (`preventDefault`) und öffnet eine **Lightbox**:
   - **Galerie** → alle Bilder aus `gallery` (`g`) mit Blättern (‹ ›, Pfeiltasten), Zähler „n / N".
   - **Bild** → Einzelbild + Excerpt als Untertitel.
-  - **Video** → `<video>` bzw. YouTube/Vimeo-`<iframe>` (derzeit keine Video-Pins vorhanden).
+  - **Video** → `<video>` bzw. YouTube/Vimeo-`<iframe>`. **Empfohlen: YouTube-Link** — nur dann
+    kommen Kachel-Vorschaubild und Hoch-/Querformat automatisch (`youtubeThumbnail()`,
+    `youtubeOrientation()` in `wordpress.js`); bei einer direkt hochgeladenen MP4 bliebe die Kachel
+    ohne Bild, weil das Feld „Bild" nur bei Typ „Bild" pflegbar ist. Videos für die News im
+    **Querformat** (16:9) aufbereiten; Hochkant-Material mit unscharfem Hintergrund auffüllen.
+    Erster Video-Pin: „Warum meine Kirche geiler ist als deine" (Weintasting-Reel, 2026-10-14).
+    Anlegen: WP **News → Neu**, Typ „Video", Link im Feld „Video", Untertitel = Kachel-Kurztext;
+    Veröffentlichen löst den Rebuild aus (Abschnitt 1c).
   - Schließen per ✕, Hintergrundklick, ESC. Daten als JSON (`#astro-news-data`) aus `getNewsPins()`.
 - `<NewsLightbox />` wird **einmal pro Seite** eingebunden (Startseite + BoniBlog).
 
