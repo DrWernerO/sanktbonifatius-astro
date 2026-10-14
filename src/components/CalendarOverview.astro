@@ -14,7 +14,19 @@
 // Kein neuer Netlify-Deploy nötig, wenn sich ein Termin ändert: Termine lösen laut Handbuch 1c
 // ohnehin keinen Rebuild aus. Diese Seite fragt WordPress stattdessen bei JEDEM Aufruf frisch ab
 // (kein Build-Time-Fetch) — ein geänderter oder neuer Termin ist sofort sichtbar.
-import { getUpcomingEvents, getEventCategories, decodeEntities } from '../lib/wordpress.js';
+import { getUpcomingEvents, getEventCategories, getWeitereTermine, decodeEntities } from '../lib/wordpress.js';
+import { getGottesdienste } from '../lib/churchdesk.js';
+
+// ANSICHTEN (2026-10-14, Auftrag Werner): drei Buttons oben.
+//   highlights = nur die Highlights als Karten (wie bisher, mit Filtern)
+//   alle       = Tabelle: Highlights + Weitere Termine (aus dem Pfarrbrief, getWeitereTermine())
+//   alle-gd    = dieselbe Tabelle plus Gottesdienste aus ChurchDesk (nur die nächsten GD_TAGE Tage,
+//                damit die Seite nicht unnötig groß wird)
+// Alle Daten stehen serverseitig im HTML; der Button schaltet nur um. Startansicht per ?ansicht=...
+const GD_TAGE = 60;
+const VIEWS = ['highlights', 'alle', 'alle-gd'];
+const reqView = Astro.url.searchParams.get('ansicht');
+const view = VIEWS.includes(reqView) ? reqView : 'highlights';
 
 const MONTHS_LONG = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
 const MONTHS_SHORT = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
@@ -34,9 +46,11 @@ function localPath(u) {
   try { return new URL(u).pathname; } catch { return u || '#'; }
 }
 
-const [rawEvents, categories] = await Promise.all([
+const [rawEvents, categories, weitere, gottesdienste] = await Promise.all([
   getUpcomingEvents(),
   getEventCategories(),
+  getWeitereTermine(),
+  getGottesdienste({ from: new Date(), to: new Date(Date.now() + GD_TAGE * 24 * 60 * 60 * 1000) }),
 ]);
 
 const EVENTS = rawEvents.map((e) => {
@@ -74,6 +88,33 @@ const usedCats = categories
   .filter((c) => usedCatIds.has(c.id))
   .map((c) => ({ id: c.id, name: decodeEntities(c.name) }));
 
+// Tabellen-Zeilen für die Ansichten "alle" / "alle-gd": drei Quellen, ein Format.
+const WD = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+const timeKey = (t) => { const m = /(\d{1,2})[:.](\d{2})/.exec(t || ''); return m ? m[1].padStart(2, '0') + ':' + m[2] : '99:99'; };
+const ROWS = [
+  ...EVENTS.filter((e) => e.dateKey).map((e) => ({
+    kind: 'highlight', dateKey: e.dateKey, time: e.times, title: e.title, sub: e.subtitle, ort: e.churchName, href: e.href,
+  })),
+  ...weitere.map((w) => ({
+    kind: 'weitere', dateKey: w.iso, time: w.uhrzeit, title: w.gruppe, sub: w.thema, ort: w.ort, href: '',
+  })),
+  ...gottesdienste.map((g) => ({
+    kind: 'gd', dateKey: g.dateKey, time: g.timeLabel, title: g.title,
+    sub: g.celebrant ? 'Zelebrant: ' + g.celebrant : g.summary, ort: g.church, href: '', entfaellt: g.isEntfaellt,
+  })),
+].sort((a, b) => a.dateKey.localeCompare(b.dateKey) || timeKey(a.time).localeCompare(timeKey(b.time)));
+const tblGroups = [];
+for (const r of ROWS) {
+  const [y, m, d] = r.dateKey.split('-').map(Number);
+  r.day = d; r.month = m; r.wd = WD[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+  const key = `${y}-${m}`;
+  const last = tblGroups[tblGroups.length - 1];
+  if (!last || last.key !== key) tblGroups.push({ key, label: `${MONTHS_LONG[m - 1]} ${y}`, items: [r] });
+  else last.items.push(r);
+}
+
+const tblMonths = [...new Set(ROWS.map((r) => r.month))];
+
 // Für die Anzeige nach Monat gruppieren (Reihenfolge bleibt erhalten, EVENTS ist bereits sortiert).
 const groups = [];
 for (const e of EVENTS) {
@@ -100,8 +141,15 @@ const jsonLd = EVENTS.filter((e) => e.startISO).map((e) => ({
   organizer: { '@type': 'Organization', name: 'Pfarrei Sankt Bonifatius Frankfurt', url: 'https://sanktbonifatius.de' },
 }));
 ---
-<section class="astro-cal">
+<section class="astro-cal" data-view={view}>
   <div class="astro-cal__inner">
+    <div class="astro-cal__views" role="group" aria-label="Ansicht">
+      <button type="button" class:list={['astro-cal__view', { 'is-active': view === 'highlights' }]} data-view="highlights" aria-pressed={view === 'highlights'}>Highlights</button>
+      <button type="button" class:list={['astro-cal__view', { 'is-active': view === 'alle' }]} data-view="alle" aria-pressed={view === 'alle'}>Alle Termine</button>
+      <button type="button" class:list={['astro-cal__view', { 'is-active': view === 'alle-gd' }]} data-view="alle-gd" aria-pressed={view === 'alle-gd'}>Alle Termine mit Gottesdiensten</button>
+    </div>
+
+    <div class="astro-cal__pane astro-cal__pane--hl" id="astro-cal-pane-hl" hidden={view !== 'highlights'}>
     <div class="astro-cal__filters" id="astro-cal-filters">
       <label class="astro-cal__field">
         <span class="astro-cal__label">Monat</span>
@@ -163,6 +211,51 @@ const jsonLd = EVENTS.filter((e) => e.startISO).map((e) => ({
         ))
       )}
       <p class="astro-cal__empty" id="astro-cal-empty-filtered" style="display:none">Keine Termine für diese Auswahl.</p>
+    </div>
+    </div>
+
+    <div class="astro-cal__pane astro-cal__pane--tbl" id="astro-cal-pane-tbl" hidden={view === 'highlights'}>
+      <div class="astro-cal__filters" id="astro-tbl-filters">
+        <label class="astro-cal__field">
+          <span class="astro-cal__label">Monat</span>
+          <select class="astro-cal__select" id="astro-tbl-month">
+            <option value="*">Alle Monate</option>
+            {tblMonths.map((m) => <option value={m}>{MONTHS_LONG[m - 1]}</option>)}
+          </select>
+        </label>
+        <button type="button" class="astro-cal__clear" id="astro-tbl-clear">Filter zurücksetzen</button>
+      </div>
+      <div class="astro-cal__quick" id="astro-tbl-quick">
+        <button type="button" class="astro-cal__quick-btn" data-range="today">Heute</button>
+        <button type="button" class="astro-cal__quick-btn" data-range="week">Diese Woche</button>
+        <button type="button" class="astro-cal__quick-btn" data-range="month30">Nächste 30 Tage</button>
+      </div>
+      <p class="astro-cal__note" id="astro-cal-tbl-note">
+        Highlights und weitere Termine aus dem Pfarrbrief<span class="astro-cal__note-gd"> – dazu die Gottesdienste der nächsten {GD_TAGE} Tage</span>.
+        Weitere Termine sind oft kurzfristig; bitte bei Bedarf beim Veranstalter nachfragen.
+      </p>
+      <div class="astro-cal__tblwrap">
+        <table class="astro-cal-tbl" id="astro-cal-tbl">
+          <thead><tr><th>Datum</th><th>Uhrzeit</th><th>Termin</th><th>Ort</th></tr></thead>
+          {tblGroups.map((g) => (
+            <tbody class="astro-cal-tbl__grp">
+              <tr class="astro-cal-tbl__month"><th colspan="4">{g.label}</th></tr>
+              {g.items.map((r) => (
+                <tr class:list={['astro-cal-tbl__row', `astro-cal-tbl__row--${r.kind}`, { 'is-entfaellt': r.entfaellt }]} data-kind={r.kind} data-date={r.dateKey} data-month={r.month}>
+                  <td class="astro-cal-tbl__date" data-label="Datum"><b>{r.wd}, {r.day}.{r.month}.</b></td>
+                  <td class="astro-cal-tbl__time" data-label="Uhrzeit">{r.time}</td>
+                  <td class="astro-cal-tbl__main" data-label="Termin">
+                    {r.href ? <a href={r.href} class="astro-cal-tbl__title">{r.title}</a> : <span class="astro-cal-tbl__title">{r.title}</span>}
+                    {r.sub && <span class="astro-cal-tbl__sub">{r.sub}</span>}
+                  </td>
+                  <td class="astro-cal-tbl__ort" data-label="Ort">{r.ort}</td>
+                </tr>
+              ))}
+            </tbody>
+          ))}
+        </table>
+      </div>
+      <p class="astro-cal__empty" id="astro-cal-tbl-empty" style="display:none">Aktuell sind keine Termine hinterlegt.</p>
     </div>
   </div>
 </section>
@@ -234,6 +327,52 @@ const jsonLd = EVENTS.filter((e) => e.startISO).map((e) => ({
 .astro-cal-ev__meta b{display:block;color:#2c2420;font-weight:600}
 .astro-cal__empty{color:var(--txt-muted-light);font-size:14px;padding:32px 0;text-align:center}
 
+/* Ansichts-Buttons (Highlights / Alle Termine / Alle Termine mit Gottesdiensten) */
+.astro-cal__views{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 28px}
+.astro-cal__view{
+  font-family:inherit;font-size:14px;font-weight:600;color:#9a2d2d;background:#fff;
+  border:1.5px solid #9a2d2d;border-radius:24px;padding:10px 22px;cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.astro-cal__view:hover{background:#fbeceb}
+.astro-cal__view.is-active{background:#9a2d2d;color:#fff}
+.astro-cal__pane[hidden]{display:none}
+.astro-cal__note{font-size:13px;color:#6b5c52;line-height:1.5;margin:0 0 16px}
+.astro-cal[data-view="alle"] .astro-cal__note-gd{display:none}
+
+/* Tabelle der Ansichten "alle" / "alle-gd" */
+.astro-cal__tblwrap{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(30,21,18,.06);overflow:hidden}
+.astro-cal-tbl{width:100%;border-collapse:collapse;font-size:14px;color:#2c2420}
+.astro-cal-tbl thead th{
+  text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  color:var(--txt-muted-light);padding:12px 16px;border-bottom:2px solid #e3dace;
+}
+.astro-cal-tbl__month th{
+  text-align:left;font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2c2420;
+  background:#f7f3ef;padding:12px 16px;border-top:1px solid #e3dace;border-bottom:1px solid #e3dace;
+}
+.astro-cal-tbl td{padding:11px 16px;vertical-align:top;border-bottom:1px solid #f0e9e0}
+.astro-cal-tbl__date{white-space:nowrap;color:#9a2d2d;width:1%}
+.astro-cal-tbl__time{white-space:nowrap;width:1%}
+.astro-cal-tbl__main{min-width:0}
+.astro-cal-tbl__title{display:block;font-family:'Playfair Display',serif;font-size:17px;font-weight:700;line-height:1.3;color:#2c2420;text-decoration:none}
+a.astro-cal-tbl__title:hover{color:#9a2d2d;text-decoration:underline}
+.astro-cal-tbl__sub{display:block;font-size:13px;color:#6b5c52;margin-top:3px}
+.astro-cal-tbl__ort{color:#6b5c52}
+.astro-cal-tbl__row.is-entfaellt .astro-cal-tbl__title{color:#a89c8f;font-style:italic}
+/* Ansicht "alle": Gottesdienst-Zeilen ausblenden (Monatsüberschriften ohne Zeilen blendet das Script aus) */
+.astro-cal[data-view="alle"] .astro-cal-tbl__row--gd{display:none}
+
+@media(max-width:640px){
+  .astro-cal-tbl thead{display:none}
+  .astro-cal-tbl__row{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;padding:10px 14px;border-bottom:1px solid #f0e9e0}
+  .astro-cal-tbl__row td{display:block;padding:0;border:0;width:auto}
+  .astro-cal-tbl__date{grid-row:1}
+  .astro-cal-tbl__time{grid-row:1}
+  .astro-cal-tbl__main,.astro-cal-tbl__ort{grid-column:1 / -1}
+  .astro-cal-tbl__time{text-align:right}
+  .astro-cal__view{font-size:13px;padding:9px 16px}
+}
 @media(max-width:640px){
   .astro-cal__inner{padding:0 20px}
   .astro-cal-ev{grid-template-columns:64px 1fr;gap:14px;padding:14px 16px}
@@ -244,13 +383,86 @@ const jsonLd = EVENTS.filter((e) => e.startISO).map((e) => ({
 
 <script>
 (function(){
+  // Ansichts-Buttons: nur Ein-/Ausblenden der serverseitig gerenderten Bereiche.
+  const root = document.querySelector('.astro-cal');
+  const viewBtns = Array.prototype.slice.call(document.querySelectorAll('.astro-cal__view'));
+  const paneHl = document.getElementById('astro-cal-pane-hl');
+  const paneTbl = document.getElementById('astro-cal-pane-tbl');
+  // Filter der Tabellenansichten: nur Zeiträume (Monat, Heute, Diese Woche, Nächste 30 Tage) — die
+  // weiteren Termine haben keine Kategorie, nach der sich filtern ließe.
+  const tMonth = document.getElementById('astro-tbl-month');
+  const tClear = document.getElementById('astro-tbl-clear');
+  const tQuick = Array.prototype.slice.call(document.querySelectorAll('#astro-tbl-quick .astro-cal__quick-btn'));
+  let tRange = null;
+  function p2(n){ return String(n).padStart(2,'0'); }
+  function isoPlus(n){ const d=new Date(); d.setDate(d.getDate()+n); return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate()); }
+  function applyTbl(){
+    if (!root) return;
+    const v = root.dataset.view;
+    const m = tMonth ? tMonth.value : '*';
+    const t0 = isoPlus(0);
+    const t1 = tRange==='today' ? t0 : tRange==='week' ? isoPlus(6) : tRange==='month30' ? isoPlus(30) : '';
+    let any = false;
+    document.querySelectorAll('.astro-cal-tbl__grp').forEach(function(g){
+      let vis = false;
+      g.querySelectorAll('.astro-cal-tbl__row').forEach(function(r){
+        const d = r.dataset.date || '';
+        const ok = (v !== 'alle' || r.dataset.kind !== 'gd')
+          && (m==='*' || r.dataset.month===m)
+          && (!t1 || (d>=t0 && d<=t1));
+        r.style.display = ok ? '' : 'none';
+        if (ok) vis = true;
+      });
+      g.style.display = vis ? '' : 'none';
+      if (vis) any = true;
+    });
+    const tbl = document.getElementById('astro-cal-tbl'), emp = document.getElementById('astro-cal-tbl-empty');
+    if (tbl) tbl.style.display = any ? '' : 'none';
+    if (emp) emp.style.display = (v !== 'highlights' && !any) ? '' : 'none';
+  }
+  if (tMonth) tMonth.addEventListener('change', applyTbl);
+  tQuick.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tRange = (tRange===btn.dataset.range) ? null : btn.dataset.range;
+      tQuick.forEach(function(b){ b.classList.toggle('is-active', b===btn && tRange!==null); });
+      applyTbl();
+    });
+  });
+  if (tClear) tClear.addEventListener('click', function(){
+    if (tMonth) tMonth.value='*';
+    tRange = null; tQuick.forEach(function(b){ b.classList.remove('is-active'); });
+    applyTbl();
+  });
+
+  function setView(v, push){
+    if (!root || !paneHl || !paneTbl) return;
+    root.dataset.view = v;
+    paneHl.hidden = v !== 'highlights';
+    paneTbl.hidden = v === 'highlights';
+    viewBtns.forEach(function(b){
+      const on = b.dataset.view === v;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    applyTbl();
+    if (push) {
+      try {
+        const u = new URL(location.href);
+        if (v === 'highlights') u.searchParams.delete('ansicht'); else u.searchParams.set('ansicht', v);
+        history.replaceState(null, '', u);
+      } catch(e) {}
+    }
+  }
+  viewBtns.forEach(function(b){ b.addEventListener('click', function(){ setView(b.dataset.view, true); }); });
+  if (root) setView(root.dataset.view || 'highlights', false);
+
   const listEl   = document.getElementById('astro-cal-list');
   const monthSel = document.getElementById('astro-cal-month');
   const churchSel= document.getElementById('astro-cal-church');
   const catSel   = document.getElementById('astro-cal-cat');
   const clearBtn = document.getElementById('astro-cal-clear');
   const emptyEl  = document.getElementById('astro-cal-empty-filtered');
-  const quickBtns= Array.prototype.slice.call(document.querySelectorAll('.astro-cal__quick-btn'));
+  const quickBtns= Array.prototype.slice.call(document.querySelectorAll('#astro-cal-pane-hl .astro-cal__quick-btn'));
   if(!listEl || !monthSel || !churchSel || !catSel || !clearBtn) return;
 
   // Termine stehen bereits fertig gerendert im HTML (serverseitig, für SEO & ohne JS) — hier wird

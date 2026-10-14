@@ -105,6 +105,59 @@ export async function getTaufeTermine() {
   }
 }
 
+// ── Weitere Termine aus dem Pfarrbrief ────────────────────────────────────────────────────────
+// Quelle: die Word-Datei des Pfarrbriefs (Cowork-Projekt "Pfarrbrief", Dateiname
+// "Pfarrbrief_Word_<von>-<bis>.docx"), von der Sekretärin in die WP-Mediathek geladen. Gelesen wird
+// nur die Tabelle aus "Teil II – Weitere Angebote an den Kirchorten" mit den Spalten
+// DATUM | UHRZEIT | GRUPPE/TREFFPUNKT | THEMA | KIRCHORT/ORT. Alles andere in der Datei wird ignoriert.
+const stripTags = (s) => decodeEntities(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+
+// HTML der Word-Datei → [{ iso, uhrzeit, gruppe, thema, ort }] (nur Termine ab `heute`).
+// Die Tabelle wird an der Kopfzeile erkannt (DATUM + UHRZEIT), nicht an ihrer Position.
+export function parseWeitereTermineHtml(html, heute = new Date().toISOString().slice(0, 10)) {
+  const out = [];
+  for (const tbl of html.match(/<table[\s\S]*?<\/table>/gi) || []) {
+    const rows = (tbl.match(/<tr[\s\S]*?<\/tr>/gi) || []).map((r) =>
+      (r.match(/<t[dh][\s\S]*?<\/t[dh]>/gi) || []).map(stripTags)
+    );
+    const head = rows[0]?.join(' ').toUpperCase() || '';
+    if (!head.includes('DATUM') || !head.includes('UHRZEIT')) continue;
+    for (const [datum, uhrzeit, gruppe, thema, ort] of rows.slice(1)) {
+      const m = (datum || '').match(/(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})/);
+      if (!m || !gruppe) continue;
+      const [t, mo, j] = [m[1], m[2], m[3]].map(Number);
+      const d = new Date(Date.UTC(j, mo - 1, t));
+      if (d.getUTCMonth() !== mo - 1) continue;
+      const iso = d.toISOString().slice(0, 10);
+      if (iso < heute) continue;
+      out.push({ iso, uhrzeit: uhrzeit || '', gruppe, thema: thema || '', ort: ort || '' });
+    }
+  }
+  return out.sort((a, b) => a.iso.localeCompare(b.iso) || a.uhrzeit.localeCompare(b.uhrzeit));
+}
+
+// Neueste Pfarrbrief-Word-Datei der Mediathek → Weitere Termine. Kein Ordner-Filter nötig (Ordner-ID
+// ist per REST nicht ablesbar): unter den jüngsten Dokument-Uploads zählt die neueste .docx, deren
+// Dateiname "pfarrbrief" enthält. Fällt WP aus / Datei fehlt / unlesbar → [] (Build/Seite bricht nie ab).
+export async function getWeitereTermine(scan = 40) {
+  try {
+    const res = await fetch(
+      `${WP_API}/media?media_type=application&orderby=date&order=desc&per_page=${scan}&_fields=id,title,source_url`,
+      { cache: 'no-store' }
+    );
+    if (!res.ok) return [];
+    const doc = (await res.json()).find((m) => /pfarrbrief[^/]*\.docx$/i.test(m.source_url || ''));
+    if (!doc) return [];
+    const file = await fetch(doc.source_url, { headers: { 'User-Agent': BUILD_UA }, cache: 'no-store' });
+    if (!file.ok) return [];
+    const { default: mammoth } = await import('mammoth');
+    const { value } = await mammoth.convertToHtml({ buffer: Buffer.from(await file.arrayBuffer()) });
+    return parseWeitereTermineHtml(value);
+  } catch {
+    return [];
+  }
+}
+
 // Minimaler HTML-Entity-Decoder (server-seitig, ohne DOM). Deckt die in WP-Content üblichen ab.
 export function decodeEntities(s) {
   return s
