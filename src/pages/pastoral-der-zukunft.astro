@@ -1,0 +1,102 @@
+---
+// „Pastoral der Zukunft" — reine Bildseite: ein Foto im Oval, dessen Ränder fließend in einen
+// hellgelben, strahlenden Heiligenschein-Rand übergehen. Kein WP-Bezug, kein Text außer
+// (visuell versteckter) Überschrift für Screenreader/SEO. Eigenes Präfix `astro-pdz` (Handbuch 3).
+// Versteckte Seite: noindex (Meta + X-Robots-Tag in public/_headers), keine Meta-Description,
+// nicht in der Sitemap (astro.config.mjs-Filter), nicht im Menü (Nav.astro nur auf Anweisung).
+import Base from '../layouts/Base.astro';
+---
+<Base title="Pastoral der Zukunft" noindex={true}>
+  <section class="astro-pdz">
+    <h1 class="astro-pdz-sr">Pastoral der Zukunft</h1>
+    <div class="astro-pdz-stage">
+      <div class="astro-pdz-rays" aria-hidden="true"></div>
+      <div class="astro-pdz-glow" aria-hidden="true"></div>
+      <img
+        class="astro-pdz-img"
+        src="/uploads/2026/10/pastoral-der-zukunft.jpg"
+        width="1222"
+        height="1400"
+        alt="Fronleichnamsprozession in Frankfurt: Der Priester trägt die goldene Monstranz unter dem Baldachin, dahinter Ministranten und Gemeinde."
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .astro-pdz {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px);
+    padding: 7rem 1rem;
+    overflow: hidden;
+    background: radial-gradient(ellipse at center, #2a2218 0%, #17130d 70%, #0f0c08 100%);
+  }
+  .astro-pdz-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .astro-pdz-stage {
+    position: relative;
+    width: min(88vw, 600px);
+    aspect-ratio: 4 / 5;
+  }
+  /* Weicher Lichtschein weit um das Oval */
+  .astro-pdz-glow {
+    position: absolute;
+    inset: -22%;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      rgba(255, 249, 200, 1) 0%,
+      rgba(255, 243, 170, 1) 52%,
+      rgba(255, 233, 130, 0.9) 66%,
+      rgba(255, 222, 100, 0.45) 82%,
+      rgba(255, 210, 90, 0) 100%
+    );
+    filter: blur(14px);
+    animation: astro-pdz-pulse 7s ease-in-out infinite;
+  }
+  /* Feine Strahlen, nach außen ausblendend */
+  .astro-pdz-rays {
+    position: absolute;
+    inset: -45%;
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+      from 0deg,
+      rgba(255, 238, 140, 0.30) 0deg 2deg,
+      rgba(255, 238, 140, 0) 2deg 7.5deg
+    );
+    filter: blur(2px);
+    -webkit-mask-image: radial-gradient(circle, #000 28%, transparent 68%);
+    mask-image: radial-gradient(circle, #000 28%, transparent 68%);
+    animation: astro-pdz-turn 120s linear infinite;
+  }
+  /* Foto im Oval: Rand löst sich fließend ins Licht auf */
+  .astro-pdz-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 46%, rgba(0, 0, 0, 0.7) 62%, rgba(0, 0, 0, 0.25) 78%, transparent 92%);
+    mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 46%, rgba(0, 0, 0, 0.7) 62%, rgba(0, 0, 0, 0.25) 78%, transparent 92%);
+    filter: saturate(1.05) brightness(1.03);
+  }
+  @keyframes astro-pdz-pulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.04); }
+  }
+  @keyframes astro-pdz-turn {
+    to { transform: rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .astro-pdz-glow, .astro-pdz-rays { animation: none; }
+  }
+</style>

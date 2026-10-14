@@ -24,6 +24,10 @@
 /baby/*
   X-Robots-Tag: noindex, nofollow
 
+# Versteckte Bildseite (/pastoral-der-zukunft/): noindex per Header, nicht in der Sitemap.
+/pastoral-der-zukunft/*
+  X-Robots-Tag: noindex, nofollow
+
 # Versteckte Formularseite Ehevorbereitungsprotokoll (/evp/): wie /baby/ zusätzlich noindex per Header (Handbuch 20).
 /evp/*
   X-Robots-Tag: noindex, nofollow

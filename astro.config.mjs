@@ -36,6 +36,8 @@ export default defineConfig({
         && !page.includes('/willkommen/')
         // Versteckte QR-Landingpage (Brief zum Gutscheinheft), noindex — siehe src/pages/baby.astro
         && !page.includes('/baby/')
+        // Versteckte Bildseite, noindex — siehe src/pages/pastoral-der-zukunft.astro
+        && !page.includes('/pastoral-der-zukunft/')
         // Versteckte Formularseite Ehevorbereitungsprotokoll, noindex — siehe src/pages/evp.astro
         && !page.includes('/evp/'),
     }),
