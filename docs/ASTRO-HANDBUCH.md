@@ -908,6 +908,32 @@ sich automatisch der Zahl sichtbarer Kacheln an. Umgesetzt im Client-Script von 
   client-seitig; sie setzen den Karten-`href` jetzt via `localPath(event.link)` =
   **Pfad der WP-URL** (`/termine/<slug>/`) → interne Astro-Detailseite statt alter WP-Seite.
 
+### Terminkalender `/terminkalender/` — drei Ansichten (seit 2026-10-14)
+Drei Terminarten, drei Quellen, **ein** Kalender (`CalendarOverview.astro`, SSR, `prerender = false`):
+
+| Art | Quelle | Funktion |
+|-----|--------|----------|
+| Highlights (inkl. Fiat Lux …) | WordPress-Termine (`event`) | `getUpcomingEvents()` |
+| Weitere Termine (Gruppentreffen, kurzfristig) | **Pfarrbrief-Word-Datei** in der WP-Mediathek | `getWeitereTermine()` in `wordpress.js` |
+| Gottesdienste | ChurchDesk | `getGottesdienste()` in `churchdesk.js` (nur nächste 60 Tage) |
+
+- **Buttons oben:** *Highlights* (Karten + Filter, wie bisher) · *Alle Termine* (Tabelle: Highlights + Weitere) ·
+  *Alle Termine mit Gottesdiensten* (Tabelle + ChurchDesk). Alles steht serverseitig im HTML, der Button
+  schaltet nur um; Startansicht per `?ansicht=highlights|alle|alle-gd` (Standard: Highlights).
+- **Darstellung Tabelle:** keine Kennzeichnung „Highlight/Weiterer Termin/Gottesdienst" (Wunsch Werner,
+  2026-10-14), stattdessen hervorgehobene Titel (Playfair, fett). **Filter in allen Ansichten:** Highlights
+  wie bisher (Monat, Kirchort, Kategorie, Heute/Diese Woche); Tabellen nur nach **Zeiträumen** (Monat,
+  Heute, Diese Woche, Nächste 30 Tage), weil Weitere Termine keine Kategorie haben.
+- **Startseite:** unverändert — drei Highlight-Kacheln, „Alle Termine" führt nach `/terminkalender/`.
+- **Pfarrbrief-Datei:** `getWeitereTermine()` nimmt unter den 40 jüngsten Dokument-Uploads die neueste
+  `.docx`, deren Dateiname „pfarrbrief" enthält (z. B. `Pfarrbrief_Word_17.10-01.11.2026.docx`), und liest
+  per `mammoth` **nur die Tabelle in „Teil II"** (Kopfzeile `DATUM | UHRZEIT | GRUPPE/TREFFPUNKT | THEMA |
+  KIRCHORT/ORT`, erkannt an der Kopfzeile, nicht an der Position). Vergangene Termine fallen heraus; WP
+  down / Datei fehlt → leere Liste, Seite bricht nie ab. **Workflow:** neuen Pfarrbrief (Word) in die
+  Mediathek hochladen, Dateiname mit „Pfarrbrief" — sofort live, **kein Rebuild nötig** (Seite fragt bei
+  jedem Aufruf frisch ab). Ordner-ID ist per REST nicht ablesbar, daher kein `rml_folder`-Filter.
+- **Lokal** zeigt Ansicht 3 keine Gottesdienste, solange `CHURCHDESK_API_TOKEN` in `.env` fehlt.
+
 > **Muster (gilt für Beiträge UND Termine):** WP liefert die Liste; eine `[slug].astro`-Route
 > baut die Detailseiten automatisch. Neue Inhalte erscheinen beim nächsten Build von selbst.
 
