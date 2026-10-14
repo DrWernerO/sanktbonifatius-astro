@@ -1,6 +1,6 @@
 ---
-// Raumbuchung — vier Kirchorte untereinander (feste Reihenfolge, von Werner vorgegeben:
-// St. Bonifatius, St. Wendel, Herz Jesu, St. Aposteln). Pro Kirchort stehen die Räume als
+// Raumbuchung — Kirchorte untereinander (feste Reihenfolge, von Werner vorgegeben:
+// St. Bonifatius, St. Wendel, Herz Jesu; St. Aposteln folgt später). Pro Kirchort stehen die Räume als
 // farbige Buttons nebeneinander; ein Klick klappt darunter das ChurchDesk-Buchungswidget
 // dieses Raums auf (erneuter Klick oder anderer Raum klappt es wieder zu bzw. um).
 //
@@ -19,11 +19,28 @@ const kirchorte = [
       { name: 'Großer Pfarrsaal', widgetId: 'sb-grosser-pfarrsaal', organizationId: '5bk90o4fe3' },
       { name: 'Kleiner Pfarrsaal', widgetId: 'st-bonifatius-kleiner-pfarrsaal', organizationId: '5bk90o4fe3' },
       { name: 'Boni-Lounge', widgetId: 'boni-lounge', organizationId: '5bk90o4fe3' },
+      { name: 'Schülercafé Orca', widgetId: 'st-bonifatius-schulercafe-orca', organizationId: '5bk90o4fe3' },
     ],
   },
-  { name: 'St. Wendel', rooms: [] },
-  { name: 'Herz Jesu', rooms: [] },
-  { name: 'St. Aposteln', rooms: [] },
+  {
+    name: 'St. Wendel',
+    rooms: [
+      { name: 'Gemeindesaal (oben)', widgetId: 'st-wendel-gemeindesaal-oben', organizationId: '5bk90o4fe3' },
+      { name: 'Küche (oben)', widgetId: 'st-wendel-kuche-oben', organizationId: '5bk90o4fe3' },
+      { name: 'Bühnenraum', widgetId: 'st-wendel-buhnenraum', organizationId: '5bk90o4fe3' },
+      { name: 'Gartenzimmer', widgetId: 'st-wendel-gartenzimmer', organizationId: '5bk90o4fe3' },
+      { name: 'Kirche', widgetId: 'st-wendel-kirche', organizationId: '5bk90o4fe3' },
+    ],
+  },
+  {
+    name: 'Herz Jesu',
+    rooms: [
+      { name: 'Gemeindesaal', widgetId: 'herz-jesu-gemeindesaal', organizationId: '5bk90o4fe3' },
+      { name: 'Konferenzraum', widgetId: 'herz-jesu-konferenzraum', organizationId: '5bk90o4fe3' },
+    ],
+  },
+  // St. Aposteln: bis auf Weiteres ausgeblendet (Werner, 2026-10-14) — bei Bedarf hier wieder
+  // als { name: 'St. Aposteln', rooms: [...] } einfügen.
 ];
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 ---
@@ -94,8 +111,8 @@ const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 .astro-rb-raeume__hl{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(24px,3vw,32px);color:#1e1512;margin:0 0 20px}
 .astro-rb-raeume__platzhalter{color:#6b5c52;font-size:15px;font-style:italic;margin:0}
 
-.astro-rb-raeume__buttons{display:flex;flex-wrap:wrap;gap:14px}
-.astro-rb-raeume__btn{flex:1 1 200px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:20px 22px;border:0;border-radius:14px;cursor:pointer;text-align:left;font-family:'Playfair Display',serif;font-weight:700;font-size:19px;color:#fff;background:linear-gradient(135deg,#b88a3a 0%,#9a2d2d 100%);box-shadow:0 4px 20px rgba(30,21,18,.08);transition:background .2s,box-shadow .2s}
+.astro-rb-raeume__buttons{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.astro-rb-raeume__btn{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:20px 22px;border:0;border-radius:14px;cursor:pointer;text-align:left;font-family:'Playfair Display',serif;font-weight:700;font-size:19px;color:#fff;background:linear-gradient(135deg,#b88a3a 0%,#9a2d2d 100%);box-shadow:0 4px 20px rgba(30,21,18,.08);transition:background .2s,box-shadow .2s}
 .astro-rb-raeume__btn:hover,.astro-rb-raeume__btn[aria-expanded="true"]{background:linear-gradient(135deg,#9a2d2d 0%,#7e2424 100%);box-shadow:0 6px 20px rgba(30,21,18,.16)}
 .astro-rb-raeume__btn:focus-visible{outline:3px solid #1e1512;outline-offset:2px}
 .astro-rb-raeume__btn-cta{display:flex;align-items:center;gap:6px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#f5e6c8}
@@ -107,5 +124,4 @@ const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 .astro-rb-raeume__widget{border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 4px 20px rgba(30,21,18,.08);padding:8px}
 .astro-rb-raeume__widget iframe{width:100%!important;border:0;display:block}
 @media(max-width:860px){.astro-rb-raeume{padding:8px 24px 64px}}
-@media(max-width:480px){.astro-rb-raeume__btn{flex-basis:100%}}
 </style>
