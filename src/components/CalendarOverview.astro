@@ -91,11 +91,16 @@ const usedCats = categories
 // Tabellen-Zeilen für die Ansichten "alle" / "alle-gd": drei Quellen, ein Format.
 const WD = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 const timeKey = (t) => { const m = /(\d{1,2})[:.](\d{2})/.exec(t || ''); return m ? m[1].padStart(2, '0') + ':' + m[2] : '99:99'; };
+const normT = (t) => t.toLowerCase().replace(/[^a-zäöüß0-9]/g, '');
+const sameTitle = (a, b) => { const x = normT(a), y = normT(b); return !!x && !!y && (x.includes(y) || y.includes(x)); };
 const ROWS = [
   ...EVENTS.filter((e) => e.dateKey).map((e) => ({
     kind: 'highlight', dateKey: e.dateKey, time: e.times, title: e.title, sub: e.subtitle, ort: e.churchName, href: e.href,
   })),
-  ...weitere.map((w) => ({
+  // Steht ein Termin sowohl als Highlight (WP) als auch im Pfarrbrief (z. B. BonLadies), zählt nur das
+  // Highlight: gleiches Datum + Titel gleich bzw. einer im anderen enthalten (Groß-/Kleinschreibung,
+  // Satzzeichen egal).
+  ...weitere.filter((w) => !EVENTS.some((e) => e.dateKey === w.iso && sameTitle(e.title, w.gruppe))).map((w) => ({
     kind: 'weitere', dateKey: w.iso, time: w.uhrzeit, title: w.gruppe, sub: w.thema, ort: w.ort, href: '',
   })),
   ...gottesdienste.map((g) => ({
