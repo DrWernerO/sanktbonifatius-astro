@@ -12,6 +12,8 @@
 // Bedingte Felder: Attribut data-if="feldname=Wert|Wert2" (per Skript ein-/ausgeblendet; ausgeblendete
 // Felder sind deaktiviert und werden nicht übertragen).
 
+import EvpMitbringen from './EvpMitbringen.astro';
+
 const personen = [
   { p: 'mann', titel: 'Bräutigam', nr: 1 },
   { p: 'frau', titel: 'Braut', nr: 2 },
@@ -291,6 +293,7 @@ const konfessionen = [
     <div class="astro-evp__done" id="astro-evp-done" hidden>
       <h2 class="astro-evp__h2">Vielen Dank!</h2>
       <p>Ihre Angaben sind bei uns eingegangen. Wir melden uns bei Ihnen.</p>
+      <div class="astro-evp__done-mb"><EvpMitbringen /></div>
     </div>
   </div>
 </section>
@@ -341,6 +344,8 @@ const konfessionen = [
 .astro-evp__req{font-size:13px;color:#6b5c52;margin:14px 0 0}
 .astro-evp__msg{padding:14px 16px;border-radius:8px;margin:16px 0 0;font-size:15px;line-height:1.5}
 .astro-evp__done{background:#fff;border-radius:14px;padding:40px 28px;text-align:center;box-shadow:0 2px 16px rgba(30,21,18,.07)}
+.astro-evp__done-mb{margin:26px 0 0;border:1px solid #ece3d8;border-radius:14px}
+.astro-evp__done-mb .astro-evpm{box-shadow:none}
 .astro-evp__done p{font-size:17px;color:#3d3530;margin:10px 0 0}
 .astro-evp__hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 /* Mit Skript: nur der aktuelle Schritt ist sichtbar */

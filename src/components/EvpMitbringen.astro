@@ -1,0 +1,43 @@
+---
+// Liste der mitzubringenden Dokumente — steht nur auf der Dankeseite nach dem Versenden (EvpForm);
+// auf der Begrüßungsseite bewusst nicht (wirkt dort erschlagend). Eigene Klassen `astro-evpm`.
+---
+<div class="astro-evpm">
+  <h2 class="astro-evpm__h2">Bitte bringen Sie zum Traugespräch folgende Dokumente mit.</h2>
+  <p class="astro-evpm__intro">Wenn die Unterlagen Ihnen noch nicht vorliegen, können sie auch nachgereicht werden.</p>
+
+  <h3 class="astro-evpm__h3">Für alle</h3>
+  <ul class="astro-evpm__list">
+    <li>Nachweis der standesamtlichen Trauung (Heiratsurkunde oder Familienstammbuch), sobald sie stattgefunden hat</li>
+  </ul>
+
+  <h3 class="astro-evpm__h3">Wenn Sie katholisch getauft sind</h3>
+  <ul class="astro-evpm__list">
+    <li>Ein Auszug aus dem Taufbuch, nicht älter als sechs Monate. Den stellt das Pfarramt Ihrer Taufkirche aus.</li>
+    <li>Nachweis der Firmung, falls vorhanden (Firmurkunde oder Eintrag im Taufbuch)</li>
+  </ul>
+
+  <h3 class="astro-evpm__h3">Wenn Sie nicht katholisch sind</h3>
+  <ul class="astro-evpm__list">
+    <li>Eine Bescheinigung über Ihre Taufe, z. B. von Ihrer evangelischen oder orthodoxen Kirchengemeinde</li>
+  </ul>
+
+  <h3 class="astro-evpm__h3">Wenn Sie aus der Kirche ausgetreten und wieder aufgenommen worden sind</h3>
+  <ul class="astro-evpm__list">
+    <li>Bescheinigung über die Wiederaufnahme, falls vorhanden</li>
+  </ul>
+
+  <p class="astro-evpm__foot">Wenn Ihnen etwas fehlt oder Sie unsicher sind, welche Unterlagen Sie brauchen, sprechen Sie uns einfach an. Wir helfen Ihnen gern.</p>
+</div>
+
+<style is:global>
+.astro-evpm{background:#fff;border-radius:14px;box-shadow:0 2px 16px rgba(30,21,18,.07);padding:26px 28px;text-align:left}
+.astro-evpm__h2{font-family:'Playfair Display',serif;font-size:clamp(20px,2.4vw,25px);font-weight:700;color:#9a2d2d;margin:0 0 8px}
+.astro-evpm__intro{font-size:15.5px;color:#6b5c52;line-height:1.55;margin:0 0 6px}
+.astro-evpm__h3{font-size:16px;font-weight:700;color:#2c2420;margin:18px 0 6px}
+.astro-evpm__list{margin:0;padding:0 0 0 22px;color:#2c2420;font-size:16px;line-height:1.55}
+.astro-evpm__list li{margin:0 0 6px;padding-left:4px}
+.astro-evpm__list li::marker{color:#9a2d2d}
+.astro-evpm__foot{font-size:15.5px;color:#3d3530;line-height:1.55;margin:20px 0 0}
+@media(max-width:600px){.astro-evpm{padding:20px 16px}}
+</style>
