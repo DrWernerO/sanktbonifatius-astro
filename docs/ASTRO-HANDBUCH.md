@@ -1547,6 +1547,7 @@ Technik wie Taufe (Abschnitt 13b), Sichtbarkeit wie `/willkommen/` und `/baby/`.
   ([`src/lib/evp/a3-broschuere.js`](../src/lib/evp/a3-broschuere.js)): Seiten 1–4 des Formulars auf zwei A3-Querblättern
   (je zwei A4-Seiten 1:1), Blatt 1 = Seite 4 | Seite 1, Blatt 2 = Seite 2 | Seite 3. Doppelseitig mit Wenden an der kurzen Kante
   drucken, in der Mitte falten. Die Felder bleiben ausfüllbar (Widgets werden auf die neuen Seiten verschoben).
+- **Dankeseite:** Nach dem Versenden zeigt `EvpMitbringen.astro` die Liste der zum Traugespräch mitzubringenden Dokumente (Heiratsurkunde/Familienstammbuch; Auszug aus dem Taufbuch + Firmnachweis bei Katholiken; Taufbescheinigung bei Nichtkatholiken; Wiederaufnahme). Bewusst nur dort, nicht auf der Begrüßungsseite (wirkt sonst erschlagend).
 - **Mailtext (Kurzfassung):** je Person Name, Geburtsdatum, Konfession (Hinweis „ausgetreten" ohne Datum), Anschrift; dazu geplante
   Eheschließung, gewünschter Seelsorger fürs Traugespräch (Schritt 3, Feld `seelsorger`, nur in der Mail) und Kontakt.
 - **Feldnamen sind Vertrag:** `mann_*` / `frau_*` in `EvpForm.astro` ↔ Mapping in `fill-evp.js` (nicht umbenennen).
