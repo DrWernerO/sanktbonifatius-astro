@@ -243,6 +243,10 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
   („Pfarrbrief" / „Highlights") in die Mediathek laden — Ordner/Dateiname sind jetzt egal,
   `getLatestDokument()` findet immer die neueste passende Datei automatisch. Wirksam nach dem
   nächsten Rebuild (Webhook bei WP-Änderung, Abschnitt 1c, oder Push).
+- **Nur PDFs (Fix 2026-10-16):** `getLatestDokument()` ignoriert alles, was kein PDF ist (`mime_type` `application/pdf` bzw. `.pdf`).
+  Grund: Die Pfarrbrief-**Word**-Datei (`Pfarrbrief_Word_….docx`, Quelle für „Weitere Termine“, Abschnitt Terminkalender)
+  liegt im selben RML-Ordner und hat „Pfarrbrief“ im Titel — sie wurde sonst als `/downloads/pfarrbrief.pdf` ausgeliefert.
+  **Regel für Uploads:** PDF = Titel `sankt-bonifatius-pfarrbrief` → Download; Word = Dateiname `Pfarrbrief_Word_…docx` → nur Terminkalender.
 
 > **Noch offen (außerhalb dieses Repos):** Erst wenn diese Umstellung live ist und Google die
 > neuen Adressen erneut gecrawlt hat, darf `cms.sanktbonifatius.de` per `X-Robots-Tag: noindex`
