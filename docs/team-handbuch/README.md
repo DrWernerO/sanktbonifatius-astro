@@ -40,6 +40,7 @@ Es beschreibt:
 | 5 | [05-veranstaltungskalender.md](05-veranstaltungskalender.md) | **technisch Aktive** – Event-Kategorie-IDs für `EventCalendar.astro` |
 | 6 | [07-seiten-inventar.md](07-seiten-inventar.md) | **alle** – WordPress-Post-IDs und Status aller Seiten (Content-Quelle für Astro) |
 | 7 | [09-skills-workflows.md](09-skills-workflows.md) | **Claude-Nutzer:innen** – `/ui-ux-pro-max`, Prompts, Vorgehen |
+| 8 | [10-churchdesk-verwaltung.md](10-churchdesk-verwaltung.md) | **technisch Aktive** – ChurchDesk-Admin: Termine, Anfrage-Seiten, Formulare, Kontaktfelder |
 
 > Für alles Astro-Technische (Komponenten, Build, Hosting, Deployment) gilt
 > [`../ASTRO-HANDBUCH.md`](../ASTRO-HANDBUCH.md) und [`../ASTRO-QUICKREF.md`](../ASTRO-QUICKREF.md)
