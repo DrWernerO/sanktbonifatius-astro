@@ -449,13 +449,17 @@ const PFARRBRIEF_HIGHLIGHTS_FOLDER = 198;
 export async function getLatestDokument(suchwort, scan = 40) {
   try {
     const res = await fetch(
-      `${WP_API}/media?rml_folder=${PFARRBRIEF_HIGHLIGHTS_FOLDER}&media_type=application&orderby=date&order=desc&per_page=${scan}&_fields=id,title,source_url,modified`,
+      `${WP_API}/media?rml_folder=${PFARRBRIEF_HIGHLIGHTS_FOLDER}&media_type=application&orderby=date&order=desc&per_page=${scan}&_fields=id,title,source_url,modified,mime_type`,
       { cache: 'no-store' }
     );
     if (!res.ok) return null;
     const items = await res.json();
     const w = suchwort.toLowerCase();
-    return items.find((item) => decodeEntities(item.title?.rendered ?? '').toLowerCase().includes(w)) ?? null;
+    // NUR PDFs: Im selben RML-Ordner liegt auch die Pfarrbrief-Word-Datei (Terminkalender,
+    // getWeitereTermine) mit "Pfarrbrief" im Titel — ohne diesen Filter würde sie als
+    // /downloads/pfarrbrief.pdf ausgeliefert (Fehler 2026-10-16).
+    const istPdf = (item) => item.mime_type === 'application/pdf' || /\.pdf$/i.test(item.source_url || '');
+    return items.find((item) => istPdf(item) && decodeEntities(item.title?.rendered ?? '').toLowerCase().includes(w)) ?? null;
   } catch {
     return null;
   }
