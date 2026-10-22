@@ -1,0 +1,60 @@
+---
+// Werbe-Band „Herz-Jesu-Sommerfreizeit 2027" auf der Kirchortseite Herz Jesu.
+// Kein WP-Pendant (Text von Frank, Flyer als Bild lokal). Eigene Klassen `astro-hjsom`.
+// Rotes Band zwischen HjCards (weiß) und HjTeam (creme) — Bänder-Prinzip.
+// Blendet sich nach dem Ende der Freizeit beim nächsten Build automatisch aus.
+const FLYER = '/uploads/2026/10/herz-jesu-sommerfreizeit-2027-flyer.jpg';
+const MAIL = 'sommerfreizeit.herz.jesu@gmx.de';
+const show = new Date() < new Date('2027-07-18T00:00:00+02:00');
+---
+{show && (
+<section class="astro-hjsom" id="sommerfreizeit" aria-labelledby="astro-hjsom-h2">
+  <div class="astro-hjsom__in">
+    <a class="astro-hjsom__flyer" href={FLYER} target="_blank" rel="noopener">
+      <img src={FLYER} width="1179" height="820" loading="lazy"
+           alt="Flyer der Herz-Jesu-Sommerfreizeit 2027 nach Dänemark: 02.–17. Juli 2027, Lynggaarden, für Kinder und Jugendliche von 8 bis 17 Jahren, Anmeldeschluss 30. April 2027" />
+      <span class="astro-hjsom__zoom">Flyer vergrößern</span>
+    </a>
+    <div class="astro-hjsom__body">
+      <span class="astro-hjsom__eyebrow">Herz-Jesu-Sommerfreizeit 2027</span>
+      <h2 class="astro-hjsom__h2" id="astro-hjsom-h2">Raus aus der Schule, rein ins Abenteuer!</h2>
+      <p class="astro-hjsom__lead">Zwei Wochen Dänemark, neue Freundschaften und unzählige schöne Erinnerungen!</p>
+      <ul class="astro-hjsom__facts">
+        <li><strong>02.–17. Juli 2027</strong><span>Dänemark</span></li>
+        <li><strong>8–17 Jahre</strong><span>Kinder &amp; Jugendliche</span></li>
+        <li><strong>30. April 2027</strong><span>Anmeldeschluss</span></li>
+      </ul>
+      <p>Endlich Ferien! Zeit für spannende Entdeckungen und jede Menge Spaß! Ob Fahrradtour, Spiele, Ausflüge, Lagerfeuer oder entspannte Stunden am Strand: Bei der Herz-Jesu-Sommerfreizeit 2027 gibt es viel zu erleben! Neue Leute kennenlernen, Freundschaften schließen, gemeinsam lachen und über sich hinauswachsen.</p>
+      <p>Ein erfahrenes Betreuerteam freut sich auf zwei unvergessliche Wochen mit euch! Neugierig geworden? Alle weiteren Informationen und die Anmeldung findet ihr in unserem Flyer.</p>
+      <div class="astro-hjsom__btns">
+        <a class="astro-hjsom__btn" href={FLYER} target="_blank" rel="noopener">Zum Flyer</a>
+        <a class="astro-hjsom__btn is-ghost" href={`mailto:${MAIL}`}>Fragen? Schreibt uns</a>
+      </div>
+    </div>
+  </div>
+</section>
+)}
+
+<style is:global>
+.astro-hjsom{padding:64px 0;background:#9a2d2d;color:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:90px}
+.astro-hjsom__in{max-width:1280px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:48px;align-items:center}
+.astro-hjsom__flyer{display:block;position:relative;border-radius:12px;overflow:hidden;box-shadow:0 14px 36px rgba(0,0,0,.28);background:#fff;transition:transform .25s}
+.astro-hjsom__flyer:hover{transform:translateY(-4px)}
+.astro-hjsom__flyer img{display:block;width:100%;height:auto}
+.astro-hjsom__zoom{position:absolute;right:12px;bottom:12px;background:rgba(30,21,18,.78);color:#fff;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:7px 12px;border-radius:999px}
+.astro-hjsom__eyebrow{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#f3d9c9;margin-bottom:10px}
+.astro-hjsom__h2{font-family:'Playfair Display',Georgia,serif;font-size:36px;line-height:1.15;color:#fff;margin:0 0 12px}
+.astro-hjsom__lead{font-size:19px;line-height:1.5;font-weight:600;margin:0 0 22px;color:#fff}
+.astro-hjsom__body p{font-size:16px;line-height:1.65;margin:0 0 14px;color:#f7ece6}
+.astro-hjsom__facts{list-style:none;margin:0 0 22px;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.astro-hjsom__facts li{background:rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.astro-hjsom__facts strong{font-size:15px;color:#fff}
+.astro-hjsom__facts span{font-size:13px;color:#f3d9c9}
+.astro-hjsom__btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.astro-hjsom__btn{display:inline-flex;align-items:center;padding:14px 28px;border-radius:999px;background:#fff;color:#9a2d2d;text-decoration:none;font-weight:600;font-size:15px;transition:all .2s;border:2px solid #fff}
+.astro-hjsom__btn:hover{background:#f0ebe0;border-color:#f0ebe0}
+.astro-hjsom__btn.is-ghost{background:transparent;color:#fff}
+.astro-hjsom__btn.is-ghost:hover{background:rgba(255,255,255,.12)}
+@media(max-width:900px){.astro-hjsom__in{grid-template-columns:1fr;gap:32px}.astro-hjsom__h2{font-size:30px}}
+@media(max-width:600px){.astro-hjsom{padding:48px 0}.astro-hjsom__in{padding:0 16px}.astro-hjsom__h2{font-size:26px}.astro-hjsom__facts{grid-template-columns:1fr}}
+</style>
