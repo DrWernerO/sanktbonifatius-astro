@@ -22,7 +22,14 @@ export default defineConfig({
   // Seiten bleiben statisch; nur Routen mit `export const prerender = false`
   // (z. B. src/pages/api/taufe-anmeldung.ts) laufen server-seitig (auf Netlify als Function).
   // Lokal (`npm run dev`) funktioniert der Adapter ebenfalls; der Vite-Proxy unten greift nur im Dev.
-  adapter: netlify(),
+  // imageCDN: false → getImage() lädt Fremdbilder beim Build herunter und legt sie als eigene
+  // Dateien unter /_astro/ ab (statt sie zur Laufzeit über /.netlify/images zu holen).
+  // Genutzt für die YouTube-Vorschaubilder (wordpress.js, youtubeThumbnail): Besucher laden
+  // sie dann von sanktbonifatius.de, nicht von img.youtube.com.
+  adapter: netlify({ imageCDN: false }),
+  image: {
+    domains: ['img.youtube.com'],
+  },
   integrations: [
     sitemap({
       // Passwortgeschützte Seiten (raumbuchung/, statistik, exerzitien2027/) sind bereits per

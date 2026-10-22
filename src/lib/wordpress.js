@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { getImage } from 'astro:assets';
 
 // Server-seitig: direkt zur LIVE-Seite (www, gültiges Zertifikat). Frühere Quelle war der
 // Dev-Server; seit 2026-06-22 ist www die aktuelle Inhalts-Quelle (Handbuch Abschnitt 1).
@@ -624,9 +625,24 @@ export async function getMeetnFritesTermine(max = 3) {
 
 // YouTube-Vorschaubild aus der Video-URL ableiten (funktioniert ohne API-Key, öffentliche
 // Bild-Adresse pro Video-ID). Deckt watch?v=, youtu.be/ und embed/-Links ab.
-function youtubeThumbnail(url) {
+// Datenschutz: Das Bild wird beim Build heruntergeladen und von sanktbonifatius.de ausgeliefert
+// (astro:assets, img.youtube.com in astro.config.mjs freigegeben). Besucher bauen so keine
+// Verbindung zu Google auf, bevor sie ein Video starten (Datenschutzerklärung C.6).
+// Schlägt der Download fehl, gibt es lieber kein Bild als einen direkten YouTube-Link.
+async function youtubeThumbnail(url) {
   const m = (url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
-  return m ? `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg` : null;
+  if (!m) return null;
+  try {
+    const bild = await getImage({
+      src: `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg`,
+      width: 480,
+      height: 360,
+      format: 'webp',
+    });
+    return bild.src;
+  } catch {
+    return null;
+  }
 }
 
 // Hoch- oder Querformat eines YouTube-Videos ermitteln (öffentliche oEmbed-Antwort, kein
@@ -667,7 +683,7 @@ export async function getNewsPins() {
       // Das ACF-Feld "Bild" ist per Typ-Bedingung nur bei Typ "Bild" sichtbar/pflegbar —
       // Galerie-Pins haben es deshalb strukturell nie gesetzt.
       const image = d.image
-        || (d.typ === 'video' ? youtubeThumbnail(d.video) : null)
+        || (d.typ === 'video' ? await youtubeThumbnail(d.video) : null)
         || (d.typ === 'gallery' && Array.isArray(d.gallery) && d.gallery[0] ? d.gallery[0].u : null);
       const orientation = d.typ === 'video' ? await youtubeOrientation(d.video) : 'landscape';
       return {
