@@ -42,6 +42,9 @@ const highlightsUrl = '/downloads/bonifatius-highlights/';
 
     <!-- Desktop-Navigation (rechts) -->
     <div class="bh3a-rnav">
+      <div class="bh3a-dd bh3a-dd--plain">
+        <a href="/gottesdienst-glaube/gottesdienstordnung/">Gottesdienste</a>
+      </div>
       <div class="bh3a-dd">
         <a href="#">Angebote</a>
         <div class="bh3a-dd__menu">
@@ -70,12 +73,12 @@ const highlightsUrl = '/downloads/bonifatius-highlights/';
         <a href="/kontakt/">Kontakt</a>
         <div class="bh3a-dd__menu">
           <a href="/kontakt/">Kontakt aufnehmen</a>
+          <a href="/kontakt/seelsorge/">Seelsorge</a>
           <a href="/kontakt/pfarrbuero/">Pfarrbüro</a>
           <a href="/kontakt/pfarrbuero/">Anfahrt &amp; Adresse</a>
           <a href="/kontakt/whatsapp-kanal/">WhatsApp Kanal</a>
           <a href="/kontakt/engagement/">Mitmachen</a>
           <a href="/kontakt/beratung-und-hilfe/">Beratung &amp; Hilfe</a>
-          <a href="/kontakt/seelsorge/">Seelsorge</a>
           <a href="/kontakt/trauerfall/">Trauerfall</a>
           <a href="/kontakt/katholisch-werden/">Katholisch werden</a>
           <a href="/kontakt/newsletter/">Newsletter</a>
@@ -140,6 +143,7 @@ const highlightsUrl = '/downloads/bonifatius-highlights/';
     text-decoration: none; white-space: nowrap;
   }
   .bh3a-dd > a::after { content: '▾'; font-size: 8px; opacity: .5; }
+  .bh3a-dd--plain > a::after { content: none; }
   .bh3a-dd__menu {
     display: none; position: absolute; top: 100%; left: 0;
     background: #4a3020; border: 1px solid #5c3d28;
