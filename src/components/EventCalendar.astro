@@ -41,7 +41,14 @@ const {
   <div class="astro-ev__inner">
     <div class="astro-ev__head">
       <h2 class="astro-ev__hl">{heading}</h2>
-      <a href={moreHref} class="astro-ev__more">Alle Termine →</a>
+      {tripleHero ? (
+        <div class="astro-ev__btns">
+          <a href="/gottesdienst-glaube/gottesdienstordnung/" class="astro-ev__btn astro-ev__btn--gold">Gottesdienstordnung</a>
+          <a href={moreHref} class="astro-ev__btn astro-ev__btn--red">Alle Termine</a>
+        </div>
+      ) : (
+        <a href={moreHref} class="astro-ev__more">Alle Termine →</a>
+      )}
     </div>
     {sixpack && notice && (
       <div class="astro-ev-announce">
@@ -94,12 +101,6 @@ const {
         </div>
       )}
     </div>
-    {tripleHero && (
-      <div class="astro-ev-cta">
-        <p class="astro-ev-cta__text">Entdecken Sie noch viele weitere schöne Termine bei uns.</p>
-        <a href={moreHref} class="astro-ev-cta__btn">Alle Termine ansehen →</a>
-      </div>
-    )}
   </div>
 </section>
 
@@ -110,6 +111,16 @@ const {
 .astro-ev__hl{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#2c2420}
 .astro-ev__more{font-size:15px;font-weight:600;color:#9a2d2d;text-decoration:none;letter-spacing:.05em}
 .astro-ev__more:hover{color:#7e2424}
+/* Startseite (tripleHero): zwei Buttons rechts neben der Überschrift, gleiche Höhe */
+.astro-ev__btns{display:flex;gap:12px;align-items:center}
+.astro-ev__btn{display:inline-block;font-weight:600;font-size:14px;letter-spacing:.03em;padding:11px 24px;border-radius:30px;text-decoration:none;white-space:nowrap;transition:background .2s,transform .2s}
+.astro-ev__btn:hover{transform:translateY(-2px)}
+.astro-ev__btn--gold{background:var(--accent-gold-deco);color:#2c2420;box-shadow:0 2px 10px rgba(197,165,90,.4)}
+.astro-ev__btn--gold:hover{background:#b3913f;color:#fff}
+.astro-ev__btn--red{background:#9a2d2d;color:#fff;box-shadow:0 2px 10px rgba(154,45,45,.25)}
+.astro-ev__btn--red:hover{background:#7e2424}
+.astro-ev--triple .astro-ev__head{align-items:center}
+@media(max-width:600px){.astro-ev--triple .astro-ev__head{flex-direction:column;align-items:stretch;gap:14px}.astro-ev__btns{flex-direction:column;align-items:stretch}.astro-ev__btn{text-align:center}}
 /* align-items:stretch → alle drei Spalten gleich hoch */
 .astro-ev__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:stretch}
 .astro-ev-card{position:relative;box-sizing:border-box;border-radius:10px;overflow:hidden;background:#f7f3ef;box-shadow:0 2px 12px rgba(30,21,18,.06);text-decoration:none;color:#2c2420;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
