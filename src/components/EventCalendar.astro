@@ -35,9 +35,10 @@ const {
   notice = null,
   miniGrid = false,
   tripleHero = false,
+  anchorId = undefined,
 } = Astro.props;
 ---
-<section class:list={['astro-ev', { 'astro-ev--sixpack': sixpack, 'astro-ev--minigrid': miniGrid, 'astro-ev--triple': tripleHero }]} data-category={category} data-category-label={categoryLabel}>
+<section id={anchorId} class:list={['astro-ev', { 'astro-ev--sixpack': sixpack, 'astro-ev--minigrid': miniGrid, 'astro-ev--triple': tripleHero }]} data-category={category} data-category-label={categoryLabel}>
   <div class="astro-ev__inner">
     <div class="astro-ev__head">
       <h2 class="astro-ev__hl">{heading}</h2>
@@ -106,6 +107,7 @@ const {
 
 <style is:global>
 .astro-ev{background:#f7f3ef;padding:28px 0;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-ev{scroll-margin-top:80px}
 .astro-ev__inner{max-width:1200px;margin:0 auto;padding:0 40px}
 .astro-ev__head{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 32px}
 .astro-ev__hl{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#2c2420}
