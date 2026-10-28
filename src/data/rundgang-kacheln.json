@@ -1,0 +1,72 @@
+{
+  "taufstein": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "mittelgang-empore": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "mittelgang-pult": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "vor-dem-altar": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "hinter-dem-altar": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "vor-der-treppe": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "hochaltar": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "tabernakel": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "reliquie": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "jona-nischen": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "nischen-krypta": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "trauer-madonna": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "marienbild": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "empore": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  }
+}

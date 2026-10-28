@@ -37,3 +37,7 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# 360°-Rundgang: alter lokaler Kachel-Ordner in voller Auflösung (nur Entwicklung, nicht ins Projekt).
+# Die veröffentlichten Kacheln (halbe Auflösung) liegen unter public/rundgang/kacheln/ und SIND im Projekt.
+public/rundgang-kacheln.nosync/

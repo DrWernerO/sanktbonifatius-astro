@@ -2,7 +2,8 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import netlify from '@astrojs/netlify';
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, createReadStream, statSync } from 'node:fs';
+import { join, normalize } from 'node:path';
 
 // https://astro.build/config
 // Inhalts-Quelle: LIVE-Seite (www, gültiges Zertifikat). Früher Dev-Server (Handbuch 1).
@@ -15,6 +16,27 @@ const WP_LIVE = 'https://cms.sanktbonifatius.de';
 // (Netlify baut neu) bzw. lokal Dev-Server neu starten. Genutzt in PfsMaterial/PfsGruppenleitung.
 const PFS_PDF_DIR = 'public/uploads/2027/02';
 const PFS_PDFS = existsSync(PFS_PDF_DIR) ? readdirSync(PFS_PDF_DIR).filter((f) => f.endsWith('.pdf')) : [];
+
+// 360°-Rundgang, NUR lokal (`npm run dev`): Die tausenden Panorama-Kacheln direkt ausliefern, bevor
+// die Netlify-Nachbildung jede Anfrage durch ihren Edge-Function-Prüfer (Deno) schickt — der stürzt
+// bei hunderten Kachel-Anfragen mit „Too many open files“ ab (28.10.2026). Auf Netlify selbst ohne
+// Bedeutung (configureServer gilt nur im Dev-Server).
+const RUNDGANG_KACHELN = 'public/rundgang/kacheln';
+const rundgangKachelnDirekt = {
+  name: 'rundgang-kacheln-direkt',
+  enforce: /** @type {const} */ ('pre'),
+  configureServer(server) {
+    server.middlewares.use('/rundgang/kacheln', (req, res, next) => {
+      const pfad = normalize(decodeURIComponent((req.url || '').split('?')[0]));
+      const datei = join(RUNDGANG_KACHELN, pfad);
+      if (pfad.includes('..') || !datei.endsWith('.jpg') || !existsSync(datei)) return next();
+      res.setHeader('Content-Type', 'image/jpeg');
+      res.setHeader('Content-Length', statSync(datei).size);
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+      createReadStream(datei).pipe(res);
+    });
+  },
+};
 
 export default defineConfig({
   // Produktive Frontend-Domain (Handbuch 1b). Basis für sitemap + canonical-URLs.
@@ -43,6 +65,7 @@ export default defineConfig({
     }),
   ],
   vite: {
+    plugins: [rundgangKachelnDirekt],
     define: {
       __PFS_PDFS__: JSON.stringify(PFS_PDFS),
     },

@@ -1,0 +1,658 @@
+---
+// Virtueller 360°-Rundgang durch die Kirche St. Bonifatius (100 Jahre).
+// Alle Inhalte (Stationen, Verbindungen, Infopunkte, Geschichten, Führungsreihenfolge) stehen in
+// src/data/rundgang.json — Anleitung zum Pflegen: docs/rundgang-anleitung.md.
+// Viewer: Pannellum 2.5.6, SELBST gehostet unter /vendor/pannellum/ (kein CDN, Datenschutz).
+// Panoramen als Multires-Kacheln (scripts/rundgang-kacheln.py), Kennwerte in rundgang-kacheln.json.
+// Pfeile und Infopunkte werden aus den Grundriss-Positionen berechnet (Richtung = Himmelsrichtung
+// zum Ziel minus Blickrichtung der Bildmitte), damit neue Stationen ohne Rechnen eingetragen werden.
+import daten from '../data/rundgang.json';
+import kacheln from '../data/rundgang-kacheln.json';
+
+const stationen = daten.stationen.filter((s) => kacheln[s.id]);
+const infoProStation = Object.fromEntries(
+  stationen.map((s) => [s.id, daten.infopunkte.filter((i) => i.sichtbarVon.includes(s.id))]),
+);
+const geschichtenProStation = Object.fromEntries(
+  stationen.map((s) => [s.id, daten.geschichten.filter((g) => g.station === s.id)]),
+);
+const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
+---
+<link rel="stylesheet" href="/vendor/pannellum/pannellum.css" />
+<script is:inline src="/vendor/pannellum/pannellum.js"></script>
+
+<section class="astro-rg" aria-labelledby="astro-rg-titel">
+  <h2 id="astro-rg-titel" class="astro-rg-sr">Virtueller Rundgang durch die Kirche</h2>
+
+  <div class="astro-rg-buehne" id="astro-rg-buehne">
+    <div id="astro-rg-viewer" class="astro-rg-viewer" aria-label="360-Grad-Ansicht der Kirche. Mit Maus, Finger oder Pfeiltasten umschauen."></div>
+
+    <p class="astro-rg-ort" id="astro-rg-ort" aria-live="polite"></p>
+
+    <div class="astro-rg-werkzeuge">
+      <button type="button" class="astro-rg-rund" id="astro-rg-karte-knopf" aria-expanded="false" aria-controls="astro-rg-karte" title="Grundriss">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6z M9 4v14 M15 6v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span class="astro-rg-sr">Grundriss anzeigen</span>
+      </button>
+      <button type="button" class="astro-rg-rund" id="astro-rg-vollbild" title="Vollbild" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5 M20 9V4h-5 M4 15v5h5 M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="astro-rg-sr">Vollbild ein- oder ausschalten</span>
+      </button>
+    </div>
+
+    <div class="astro-rg-karte" id="astro-rg-karte" hidden>
+      <div class="astro-rg-karte-kopf">
+        <strong>Grundriss</strong>
+        <span>Station anklicken, um dorthin zu springen</span>
+      </div>
+      <div class="astro-rg-karte-bild">
+        <img src={daten.grundriss.bild} alt="" width="1350" height="540" />
+        <svg class="astro-rg-kegel" id="astro-rg-kegel" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+        {stationen.map((s) => (
+          <button
+            type="button"
+            class:list={['astro-rg-punkt', { 'astro-rg-punkt-empore': s.ebene === 'Empore' }]}
+            style={`left:${s.position.x}%;top:${s.position.y}%`}
+            data-station={s.id}
+            aria-label={`Station ${s.nr}: ${s.titel}${s.ebene ? ` (${s.ebene})` : ''}`}
+            title={`${s.nr} · ${s.titel}`}
+          >{s.nr}</button>
+        ))}
+      </div>
+      <p class="astro-rg-karte-hinweis">Station 14 liegt oben auf der Orgelempore.</p>
+    </div>
+  </div>
+
+  <div class="astro-rg-leiste">
+    <div class="astro-rg-leiste-start" id="astro-rg-start-bereich">
+      <button type="button" class="astro-rg-knopf astro-rg-knopf-rot" id="astro-rg-start">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>
+        Rundgang starten
+      </button>
+      <span class="astro-rg-leiste-text">oder frei umschauen: Pfeile im Bild führen weiter.</span>
+    </div>
+    <span class="astro-rg-schalter">
+      <input type="checkbox" id="astro-rg-geschichten-an" checked />
+      <label for="astro-rg-geschichten-an">Geschichten anzeigen</label>
+    </span>
+  </div>
+
+  <div class="astro-rg-fuehrung" id="astro-rg-fuehrung" hidden>
+    <p class="astro-rg-fuehrung-nr" id="astro-rg-fuehrung-nr"></p>
+    <h3 id="astro-rg-fuehrung-titel" tabindex="-1"></h3>
+    <p id="astro-rg-fuehrung-text"></p>
+    <div class="astro-rg-fuehrung-knoepfe">
+      <button type="button" class="astro-rg-knopf" id="astro-rg-zurueck">← Zurück</button>
+      <button type="button" class="astro-rg-knopf astro-rg-knopf-rot" id="astro-rg-weiter">Weiter →</button>
+      <button type="button" class="astro-rg-knopf astro-rg-knopf-leise" id="astro-rg-ende">Rundgang beenden</button>
+    </div>
+  </div>
+
+  <details class="astro-rg-hilfe">
+    <summary>So funktioniert der Rundgang</summary>
+    <ul>
+      <li>Mit gedrückter Maustaste oder dem Finger im Bild ziehen, um sich umzuschauen.</li>
+      <li>Zoomen mit dem Mausrad oder mit zwei Fingern.</li>
+      <li>Die dunklen Pfeile auf dem Boden führen zum nächsten Standpunkt.</li>
+      <li>Runde Punkte mit „i“ erklären besondere Orte, runde Bilder erzählen Geschichten von Menschen.</li>
+      <li>Mit der Tastatur: Pfeiltasten drehen, Plus und Minus zoomen, mit der Tabulatortaste erreichen Sie Pfeile und Punkte.</li>
+      <li>Über den Grundriss oben rechts oder die Liste unten springen Sie direkt zu jedem Ort.</li>
+    </ul>
+  </details>
+
+  <div class="astro-rg-orte">
+    <h2>Alle Orte im Überblick</h2>
+    <p class="astro-rg-orte-intro">Die Stationen des Rundgangs als Liste – zum Lesen oder um direkt zu einem Ort zu springen.</p>
+    <ol>
+      {stationen.map((s) => (
+        <li class="astro-rg-ort-karte" id={`astro-rg-ort-${s.id}`}>
+          <img src={`${daten.vorschauBasis}/${s.id}.jpg`} alt={`Blick: ${s.titel}`} loading="lazy" width="960" height="600" />
+          <div class="astro-rg-ort-text">
+            <h3><span class="astro-rg-ort-nr">{s.nr}</span> {s.titel}</h3>
+            <p class="astro-rg-ort-lage">{s.ort}</p>
+            <p>{s.begleittext}</p>
+            {(infoProStation[s.id].length > 0 || geschichtenProStation[s.id].length > 0) && (
+              <ul class="astro-rg-ort-details">
+                {infoProStation[s.id].map((i) => <li>{i.titel}{!i.text && <em> – Infotext folgt</em>}</li>)}
+                {geschichtenProStation[s.id].map((g) => <li>Geschichte: {g.titel}{g.beispiel && <em> (Beispiel)</em>}</li>)}
+              </ul>
+            )}
+            <button type="button" class="astro-rg-knopf" data-station={s.id}>Hier umschauen</button>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <dialog class="astro-rg-dialog" id="astro-rg-dialog" aria-labelledby="astro-rg-dialog-titel">
+    <div class="astro-rg-dialog-box">
+      <button type="button" class="astro-rg-dialog-zu" id="astro-rg-dialog-zu" aria-label="Schließen">×</button>
+      <div id="astro-rg-dialog-inhalt"></div>
+    </div>
+  </dialog>
+
+  <script type="application/json" id="astro-rg-daten" set:html={clientDaten}></script>
+</section>
+
+<script>
+  type Pos = { x: number; y: number };
+  type Station = {
+    nr: number; id: string; titel: string; ort: string; position: Pos; blickrichtung: number;
+    boden?: number; ebene?: string; startblick: { yaw: number; pitch: number };
+    verbindungen: (string | { ziel: string; yaw?: number; pitch?: number; label?: string })[];
+    begleittext: string;
+  };
+
+  const daten = JSON.parse(document.getElementById('astro-rg-daten')!.textContent!);
+  const stationen: Record<string, Station> = Object.fromEntries(daten.stationen.map((s: Station) => [s.id, s]));
+  const reihenfolge: string[] = daten.fuehrung.filter((id: string) => stationen[id]);
+  const W = daten.grundriss.breiteMeter, H = daten.grundriss.hoeheMeter, KAMERA = daten.kamerahoeheMeter;
+  const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const grad = (r: number) => (r * 180) / Math.PI;
+  const wrap = (a: number) => ((((a + 180) % 360) + 360) % 360) - 180;
+
+  // Richtung und Neigung von einer Station zu einem Punkt im Grundriss.
+  function richtung(von: Station, nach: Pos, zielBoden = 0, zielHoehe = 0) {
+    const dx = ((nach.x - von.position.x) / 100) * W;
+    const dy = ((nach.y - von.position.y) / 100) * H;
+    const abstand = Math.max(0.5, Math.hypot(dx, dy));
+    const yaw = wrap(grad(Math.atan2(dy, dx)) - von.blickrichtung);
+    const pitch = grad(Math.atan2(zielBoden + zielHoehe - ((von.boden || 0) + KAMERA), abstand));
+    return { yaw, pitch, abstand };
+  }
+
+  const ICON: Record<string, string> = {
+    pfeil: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    video: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2" fill="currentColor"/><path d="M17 10l4-2v8l-4-2z" fill="currentColor"/></svg>',
+    audio: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0116 0v2" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="3" y="13" width="4" height="7" rx="1.5" fill="currentColor"/><rect x="17" y="13" width="4" height="7" rx="1.5" fill="currentColor"/></svg>',
+    text: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>',
+    galerie: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l8-5 8 5v11z M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+  };
+  const MEDIUM: Record<string, string> = { video: 'Video', audio: 'Tonaufnahme', text: 'Text' };
+
+  function knopf(div: HTMLElement, klasse: string, html: string, label: string, aktion: () => void) {
+    div.classList.add('astro-rg-hs');
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = klasse;
+    b.innerHTML = html;
+    b.setAttribute('aria-label', label);
+    b.addEventListener('click', (e) => { e.stopPropagation(); aktion(); });
+    b.addEventListener('pointerdown', (e) => e.stopPropagation());
+    div.appendChild(b);
+  }
+
+  function hotspots(s: Station) {
+    const liste: any[] = [];
+    for (const v of s.verbindungen) {
+      const ziel = typeof v === 'string' ? v : v.ziel;
+      const z = stationen[ziel];
+      if (!z) continue;
+      const r = richtung(s, z.position, z.boden || 0, 0);
+      const yaw = typeof v === 'object' && v.yaw !== undefined ? v.yaw : r.yaw;
+      const pitch = typeof v === 'object' && v.pitch !== undefined ? v.pitch : Math.max(-40, Math.min(-6, r.pitch));
+      const label = (typeof v === 'object' && v.label) || z.titel;
+      liste.push({
+        yaw, pitch, type: 'custom', cssClass: 'astro-rg-hs-weg',
+        createTooltipFunc: (div: HTMLElement) =>
+          knopf(div, 'astro-rg-weg', `${ICON.pfeil}<span>${label}</span>`, `Weitergehen: ${label}`, () => gehZu(ziel, { ueber: yaw })),
+      });
+    }
+    for (const i of daten.infopunkte.filter((p: any) => p.sichtbarVon.includes(s.id))) {
+      const r = richtung(s, i.position, i.boden || 0, i.hoehe ?? 1.5);
+      liste.push({
+        yaw: r.yaw, pitch: r.pitch, type: 'custom', cssClass: 'astro-rg-hs-info',
+        createTooltipFunc: (div: HTMLElement) =>
+          knopf(div, 'astro-rg-info', `<span aria-hidden="true">i</span><span class="astro-rg-hs-label">${i.titel}</span>`, `Info: ${i.titel}`, () => zeigeInfo(i)),
+      });
+    }
+    for (const g of daten.geschichten.filter((x: any) => x.station === s.id)) {
+      const bild = g.vorschaubild
+        ? `<img src="${g.vorschaubild}" alt="">`
+        : `<span class="astro-rg-initialen">${(g.person || g.titel).split(/\s+/).map((w: string) => w[0]).join('').slice(0, 2)}</span>`;
+      liste.push({
+        yaw: g.yaw, pitch: g.pitch, type: 'custom', cssClass: 'astro-rg-hs-geschichte',
+        createTooltipFunc: (div: HTMLElement) =>
+          knopf(div, 'astro-rg-geschichte', `<span class="astro-rg-portrait">${bild}<span class="astro-rg-medium">${ICON[g.medium] || ''}</span></span><span class="astro-rg-hs-label">${g.titel} · ${g.jahr}</span>`,
+            `Geschichte: ${g.titel}, ${g.jahr} (${MEDIUM[g.medium] || ''})`, () => zeigeGeschichte(g)),
+      });
+    }
+    for (const gal of daten.galerien.filter((x: any) => x.station === s.id)) {
+      liste.push({
+        yaw: gal.yaw, pitch: gal.pitch, type: 'custom', cssClass: 'astro-rg-hs-weg',
+        createTooltipFunc: (div: HTMLElement) =>
+          knopf(div, 'astro-rg-weg astro-rg-weg-rot', `${ICON.galerie}<span>${gal.titel}</span>`, `${gal.titel} öffnen`, () => zeigeGalerie(gal)),
+      });
+    }
+    return liste;
+  }
+
+  // ---------- Viewer ----------
+  const szenen: Record<string, any> = {};
+  for (const s of Object.values(stationen)) {
+    const k = daten.kacheln[s.id];
+    szenen[s.id] = {
+      type: 'multires',
+      multiRes: { basePath: `${daten.kachelBasis}/${s.id}`, path: '/%l/%s%y_%x', extension: 'jpg', tileResolution: k.tileResolution, maxLevel: k.maxLevel, cubeResolution: k.cubeResolution },
+      yaw: s.startblick.yaw, pitch: s.startblick.pitch, hfov: 100,
+      hotSpots: hotspots(s),
+    };
+  }
+  const ausAdresse = decodeURIComponent(location.hash.slice(1));
+  const erste = stationen[ausAdresse] ? ausAdresse : daten.start;
+
+  const viewer = (window as any).pannellum.viewer('astro-rg-viewer', {
+    default: {
+      firstScene: erste, sceneFadeDuration: ruhig ? 0 : 900, autoLoad: true,
+      showFullscreenCtrl: false, showZoomCtrl: true, keyboardZoom: true, compass: false,
+      minHfov: 30, maxHfov: 120, hfov: 100,
+      strings: {
+        loadButtonLabel: 'Rundgang laden', loadingLabel: 'Wird geladen …', bylineLabel: '',
+        noPanoramaError: 'Kein Panorama gefunden.', fileAccessError: 'Die Datei %s konnte nicht geladen werden.',
+        malformedURLError: 'Die Adresse des Panoramas ist fehlerhaft.',
+        iOS8WebGLError: 'Ihr Gerät kann diese Ansicht leider nicht darstellen.',
+        genericWebGLError: 'Ihr Browser unterstützt die nötige Grafikfunktion (WebGL) nicht. Bitte nutzen Sie die Liste der Orte unten.',
+        textureSizeError: 'Dieses Panorama ist zu groß für Ihr Gerät.', unknownError: 'Unbekannter Fehler – bitte die Seite neu laden.',
+      },
+    },
+    scenes: szenen,
+  });
+
+  // Gehen: kurz in Laufrichtung hineinzoomen, dann überblenden (Werner-Feedback 2026-09-23: sonst
+  // fühlt sich der Wechsel wie Teleportieren an). Ankunft mit Blick in Laufrichtung.
+  let laeuft = false;
+  let fuehrungAktiv = false;
+  let fuehrungIndex = 0;
+  function gehZu(id: string, opt: { ueber?: number; startblick?: boolean } = {}) {
+    if (laeuft || !stationen[id] || viewer.getScene() === id) return;
+    const von = stationen[viewer.getScene()];
+    const ziel = stationen[id];
+    let yaw = ziel.startblick.yaw, pitch = ziel.startblick.pitch;
+    if (!opt.startblick && von) {
+      const r = richtung(von, ziel.position);
+      const lauf = r.yaw + von.blickrichtung;            // Himmelsrichtung der Bewegung
+      yaw = wrap(lauf - ziel.blickrichtung); pitch = 0;
+      if (ziel.ebene === 'Empore' || von.ebene === 'Empore') { yaw = ziel.startblick.yaw; pitch = ziel.startblick.pitch; }
+    }
+    if (ruhig || opt.ueber === undefined) {
+      viewer.loadScene(id, pitch, yaw, 100);
+      return;
+    }
+    laeuft = true;
+    const hf = viewer.getHfov();
+    viewer.lookAt(viewer.getPitch(), opt.ueber, hf * 0.6, 450);
+    setTimeout(() => {
+      viewer.loadScene(id, pitch, yaw, hf * 0.6);
+      viewer.on('load', function zurueck() {
+        viewer.off('load', zurueck);
+        viewer.setHfov(100, 600);
+        setTimeout(() => (laeuft = false), 600);
+      });
+    }, 460);
+  }
+
+  // ---------- Anzeige der aktuellen Station ----------
+  const ortEl = document.getElementById('astro-rg-ort')!;
+  const punkte = document.querySelectorAll<HTMLButtonElement>('.astro-rg-punkt');
+  function aktualisiere(id: string) {
+    const s = stationen[id];
+    ortEl.textContent = `${s.nr} · ${s.titel}`;
+    punkte.forEach((p) => p.classList.toggle('astro-rg-punkt-aktiv', p.dataset.station === id));
+    history.replaceState(null, '', `#${id}`);
+    if (fuehrungAktiv) zeigeFuehrung(id);
+    vorladen(s);
+  }
+  viewer.on('scenechange', aktualisiere);
+
+  // Nachbarstationen in grober Auflösung vorladen (Stufe 1 und 2), damit das Weitergehen flott ist.
+  // Bewusst in einer Warteschlange mit wenigen gleichzeitigen Anfragen – schont Handy-Verbindungen
+  // (und den lokalen Netlify-Entwicklungsserver, der bei hunderten parallelen Anfragen aussteigt).
+  const vorgeladen = new Set<string>();
+  const warteschlange: string[] = [];
+  let aktiv = 0;
+  function naechste() {
+    while (aktiv < 3 && warteschlange.length) {
+      aktiv++;
+      const bild = new Image();
+      bild.onload = bild.onerror = () => { aktiv--; naechste(); };
+      bild.src = warteschlange.shift()!;
+    }
+  }
+  function vorladen(s: Station) {
+    const nachbarn = s.verbindungen.map((v) => (typeof v === 'string' ? v : v.ziel)).filter((id) => stationen[id] && !vorgeladen.has(id));
+    const los = () => {
+      for (const id of nachbarn) {
+        vorgeladen.add(id);
+        const k = daten.kacheln[id];
+        let groesse = k.cubeResolution;
+        const groessen: number[] = [];
+        for (let l = k.maxLevel; l >= 1; l--) { groessen[l] = groesse; groesse = Math.floor(groesse / 2); }
+        for (const l of [1, 2]) {
+          const n = Math.ceil(groessen[l] / k.tileResolution);
+          for (const f of 'fbudlr') for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+            warteschlange.push(`${daten.kachelBasis}/${id}/${l}/${f}${i}_${j}.jpg`);
+          }
+        }
+      }
+      naechste();
+    };
+    setTimeout(los, 2500); // erst nachdem die aktuelle Station sichtbar ist
+  }
+
+  // ---------- Grundriss ----------
+  const karte = document.getElementById('astro-rg-karte')!;
+  const karteKnopf = document.getElementById('astro-rg-karte-knopf')!;
+  const kegel = document.getElementById('astro-rg-kegel')!;
+  let kegelLauf = 0;
+  function zeichneKegel() {
+    const s = stationen[viewer.getScene()];
+    if (s) {
+      const blick = viewer.getYaw() + s.blickrichtung;
+      const breite = viewer.getHfov() / 2;
+      const r = 9; // Länge in Prozent der Kartenbreite
+      const pkt = (w: number) => {
+        const a = ((blick + w) * Math.PI) / 180;
+        return `${s.position.x + r * Math.cos(a)},${s.position.y + r * (W / H) * Math.sin(a)}`;
+      };
+      kegel.innerHTML = `<polygon points="${s.position.x},${s.position.y} ${pkt(-breite)} ${pkt(breite)}" />`;
+    }
+    kegelLauf = requestAnimationFrame(zeichneKegel);
+  }
+  function karteZeigen(offen: boolean) {
+    karte.hidden = !offen;
+    karteKnopf.setAttribute('aria-expanded', String(offen));
+    cancelAnimationFrame(kegelLauf);
+    if (offen) zeichneKegel();
+  }
+  karteKnopf.addEventListener('click', () => karteZeigen(karte.hidden));
+  // Nach dem Sprung schließt sich der Grundriss, damit er den neuen Ort nicht verdeckt.
+  punkte.forEach((p) => p.addEventListener('click', () => {
+    karteZeigen(false);
+    karteKnopf.focus();
+    gehZu(p.dataset.station!, { startblick: true });
+  }));
+
+  // ---------- Vollbild (Bühne inkl. Bedienelemente) ----------
+  const buehne = document.getElementById('astro-rg-buehne')!;
+  const vollbild = document.getElementById('astro-rg-vollbild')!;
+  if (buehne.requestFullscreen) {
+    vollbild.hidden = false;
+    vollbild.addEventListener('click', () => (document.fullscreenElement ? document.exitFullscreen() : buehne.requestFullscreen()));
+    document.addEventListener('fullscreenchange', () => setTimeout(() => viewer.resize(), 50));
+  }
+
+  // ---------- Geführter Rundgang ----------
+  const fuehrung = document.getElementById('astro-rg-fuehrung')!;
+  const startBereich = document.getElementById('astro-rg-start-bereich')!;
+  function zeigeFuehrung(id: string) {
+    const idx = reihenfolge.indexOf(id);
+    if (idx >= 0) fuehrungIndex = idx;
+    const s = stationen[id];
+    document.getElementById('astro-rg-fuehrung-nr')!.textContent = idx >= 0 ? `Station ${idx + 1} von ${reihenfolge.length}` : 'Abstecher – „Weiter“ führt zurück auf den Weg';
+    document.getElementById('astro-rg-fuehrung-titel')!.textContent = s.titel;
+    document.getElementById('astro-rg-fuehrung-text')!.textContent = s.begleittext;
+    (document.getElementById('astro-rg-zurueck') as HTMLButtonElement).disabled = idx === 0;
+    document.getElementById('astro-rg-weiter')!.textContent = idx === reihenfolge.length - 1 ? 'Rundgang beenden' : 'Weiter →';
+  }
+  function fuehrungZu(idx: number) {
+    fuehrungIndex = Math.max(0, Math.min(reihenfolge.length - 1, idx));
+    const id = reihenfolge[fuehrungIndex];
+    if (viewer.getScene() === id) zeigeFuehrung(id); else gehZu(id, { startblick: true });
+  }
+  // Während der Führung wird der Viewer etwas niedriger, damit Bild und Begleittext samt
+  // „Weiter“ gemeinsam auf einen Laptop-Bildschirm passen.
+  const rgSektion = document.querySelector('.astro-rg') as HTMLElement;
+  function fuehrungsModus(an: boolean) {
+    rgSektion.classList.toggle('astro-rg-fuehrung-aktiv', an);
+    if (typeof viewer.resize === 'function') viewer.resize();
+  }
+  document.getElementById('astro-rg-start')!.addEventListener('click', () => {
+    fuehrungAktiv = true;
+    fuehrung.hidden = false;
+    startBereich.hidden = true;
+    fuehrungsModus(true);
+    fuehrungZu(0);
+    zeigeFuehrung(reihenfolge[0]);
+    buehne.scrollIntoView({ behavior: ruhig ? 'auto' : 'smooth', block: 'start' });
+  });
+  function beende() {
+    fuehrungAktiv = false;
+    fuehrung.hidden = true;
+    startBereich.hidden = false;
+    fuehrungsModus(false);
+    (document.getElementById('astro-rg-start') as HTMLButtonElement).focus();
+  }
+  document.getElementById('astro-rg-weiter')!.addEventListener('click', () => {
+    const aktuell = reihenfolge.indexOf(viewer.getScene());
+    if (aktuell === reihenfolge.length - 1) return beende();
+    fuehrungZu((aktuell >= 0 ? aktuell : fuehrungIndex) + 1);
+  });
+  document.getElementById('astro-rg-zurueck')!.addEventListener('click', () => {
+    const aktuell = reihenfolge.indexOf(viewer.getScene());
+    fuehrungZu((aktuell >= 0 ? aktuell : fuehrungIndex + 1) - 1);
+  });
+  document.getElementById('astro-rg-ende')!.addEventListener('click', beende);
+
+  // ---------- Geschichten ein/aus ----------
+  const viewerEl = document.getElementById('astro-rg-viewer')!;
+  document.getElementById('astro-rg-geschichten-an')!.addEventListener('change', (e) => {
+    viewerEl.classList.toggle('astro-rg-ohne-geschichten', !(e.target as HTMLInputElement).checked);
+  });
+
+  // ---------- Liste der Orte ----------
+  document.querySelectorAll<HTMLButtonElement>('.astro-rg-ort-karte button[data-station]').forEach((b) =>
+    b.addEventListener('click', () => {
+      buehne.scrollIntoView({ behavior: ruhig ? 'auto' : 'smooth', block: 'start' });
+      gehZu(b.dataset.station!, { startblick: true });
+    }),
+  );
+
+  // ---------- Dialoge ----------
+  const dialog = document.getElementById('astro-rg-dialog') as HTMLDialogElement;
+  const inhalt = document.getElementById('astro-rg-dialog-inhalt')!;
+  document.getElementById('astro-rg-dialog-zu')!.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => { inhalt.querySelectorAll('video,audio').forEach((m) => (m as HTMLMediaElement).pause()); });
+
+  function el(tag: string, text?: string, klasse?: string) {
+    const e = document.createElement(tag);
+    if (text) e.textContent = text;
+    if (klasse) e.className = klasse;
+    return e;
+  }
+  function oeffne(titel: string, teile: HTMLElement[], vorzeile?: string) {
+    inhalt.replaceChildren();
+    if (vorzeile) inhalt.appendChild(el('p', vorzeile, 'astro-rg-dialog-vorzeile'));
+    const h = el('h2', titel); h.id = 'astro-rg-dialog-titel';
+    inhalt.appendChild(h);
+    teile.forEach((t) => inhalt.appendChild(t));
+    if (!dialog.open) dialog.showModal();
+  }
+  function zeigeInfo(i: any) {
+    const teile: HTMLElement[] = [];
+    if (i.foto) { const img = el('img') as HTMLImageElement; img.src = i.foto; img.alt = i.titel; teile.push(img); }
+    teile.push(el('p', i.text || 'Infotext und Detailfoto folgen.', i.text ? '' : 'astro-rg-platzhalter'));
+    oeffne(i.titel, teile, 'Infopunkt');
+  }
+  function zeigeGeschichte(g: any) {
+    const teile: HTMLElement[] = [];
+    if (g.beispiel) teile.push(el('p', 'Beispiel – hier steht später eine echte Geschichte.', 'astro-rg-platzhalter'));
+    if (g.medium === 'video' && g.datei) {
+      const v = el('video') as HTMLVideoElement; v.controls = true; v.preload = 'metadata'; v.src = g.datei; teile.push(v);
+    } else if (g.medium === 'audio' && g.datei) {
+      const a = el('audio') as HTMLAudioElement; a.controls = true; a.preload = 'metadata'; a.src = g.datei; teile.push(a);
+    }
+    if (g.text) {
+      if (g.medium === 'text') teile.push(el('p', g.text));
+      else { const d = el('details'); d.appendChild(el('summary', 'Abschrift')); d.appendChild(el('p', g.text)); teile.push(d); }
+    }
+    oeffne(g.titel, teile, `${g.person} · ${g.jahr} · ${MEDIUM[g.medium] || ''}`);
+  }
+  function zeigeGalerie(gal: any) {
+    const raster = el('div', '', 'astro-rg-galerie');
+    gal.objekte.forEach((o: any) => {
+      const b = el('button', '', 'astro-rg-galerie-objekt') as HTMLButtonElement;
+      b.type = 'button';
+      const img = el('img') as HTMLImageElement; img.src = o.foto; img.alt = '';
+      b.append(img, el('span', o.titel));
+      b.addEventListener('click', () => {
+        const zurueck = el('button', '← Zurück zur Übersicht', 'astro-rg-knopf') as HTMLButtonElement;
+        zurueck.type = 'button';
+        zurueck.addEventListener('click', () => zeigeGalerie(gal));
+        const bild = el('img') as HTMLImageElement; bild.src = o.foto; bild.alt = o.titel; bild.className = 'astro-rg-galerie-gross';
+        oeffne(o.titel, [bild, el('p', o.text, 'astro-rg-platzhalter'), zurueck], gal.titel);
+      });
+      raster.appendChild(b);
+    });
+    oeffne(gal.titel, [el('p', gal.hinweis), raster]);
+  }
+
+  aktualisiere(erste);
+  if (import.meta.env.DEV) (window as any).__rgViewer = viewer; // nur für Tests in der lokalen Entwicklung
+</script>
+
+<style is:global>
+  .astro-rg { --rg-creme: #f5f3ef; --rg-schwarz: #1a1a1a; --rg-rot: #e2001a; max-width: var(--max-w, 1200px); margin: 0 auto 48px; padding: 0 20px; }
+  .astro-rg-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* scroll-margin: beim Hinscrollen („Rundgang starten“, „Hier umschauen“) nicht unter der festen Navigation verschwinden */
+  .astro-rg-buehne { position: relative; border-radius: var(--radius, 8px); overflow: hidden; background: var(--rg-schwarz); scroll-margin-top: 96px; }
+  .astro-rg-buehne:fullscreen { border-radius: 0; }
+  /* doppelte Klasse: schlägt .pnlm-container { height: 100% } aus pannellum.css */
+  .astro-rg .astro-rg-viewer { width: 100%; height: min(72vh, 640px); min-height: 360px; }
+  .astro-rg-fuehrung-aktiv .astro-rg-viewer { height: min(50vh, 520px) !important; min-height: 300px; }
+  .astro-rg .astro-rg-buehne:fullscreen .astro-rg-viewer { height: 100vh !important; }
+  .astro-rg-viewer:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: -3px; }
+
+  .astro-rg-ort { position: absolute; left: 12px; bottom: 12px; margin: 0; padding: 6px 14px; border-radius: 999px;
+    background: rgba(26, 26, 26, 0.78); color: var(--rg-creme); font-weight: 700; font-size: 15px; pointer-events: none; }
+  .astro-rg-werkzeuge { position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; }
+  .astro-rg-rund { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rg-creme); background: rgba(26, 26, 26, 0.78);
+    color: var(--rg-creme); display: grid; place-items: center; cursor: pointer; }
+  .astro-rg-rund svg { width: 22px; height: 22px; }
+  .astro-rg-rund:hover, .astro-rg-rund[aria-expanded='true'] { background: var(--rg-rot); }
+  .astro-rg-rund:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+  /* Grundriss */
+  .astro-rg-karte { position: absolute; top: 62px; right: 10px; width: min(560px, calc(100% - 20px)); background: var(--rg-creme);
+    border-radius: 10px; padding: 12px 14px 10px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45); }
+  .astro-rg-karte[hidden] { display: none; }
+  .astro-rg-karte-kopf { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--rg-schwarz); margin-bottom: 6px; }
+  .astro-rg-karte-kopf span { color: #5c5c5c; }
+  .astro-rg-karte-bild { position: relative; }
+  .astro-rg-karte-bild img { width: 100%; height: auto; display: block; }
+  .astro-rg-kegel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .astro-rg-kegel polygon { fill: rgba(226, 0, 26, 0.28); stroke: rgba(226, 0, 26, 0.6); stroke-width: 0.25; vector-effect: non-scaling-stroke; }
+  .astro-rg-punkt { position: absolute; transform: translate(-50%, -50%); width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff;
+    background: var(--rg-schwarz); color: #fff; font: 700 11px/1 'Source Sans 3', sans-serif; display: grid; place-items: center; cursor: pointer; padding: 0; }
+  .astro-rg-punkt-empore { border-style: dashed; background: #6b6b6b; }
+  .astro-rg-punkt:hover, .astro-rg-punkt:focus-visible { background: var(--rg-rot); outline: none; transform: translate(-50%, -50%) scale(1.15); }
+  .astro-rg-punkt-aktiv { background: var(--rg-rot); box-shadow: 0 0 0 4px rgba(226, 0, 26, 0.3); }
+  .astro-rg-karte-hinweis { margin: 6px 0 0; font-size: 13px; color: #5c5c5c; }
+
+  /* Hotspots im Panorama (von Pannellum positioniert) */
+  .astro-rg-hs { position: absolute; }
+  .astro-rg-hs button { font-family: 'Source Sans 3', sans-serif; cursor: pointer; }
+  .astro-rg-weg { display: inline-flex; align-items: center; gap: 6px; transform: translate(-50%, -50%); white-space: nowrap; padding: 8px 14px 8px 10px;
+    border-radius: 999px; border: 2px solid var(--rg-creme); background: rgba(26, 26, 26, 0.8); color: var(--rg-creme); font-weight: 700; font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); }
+  .astro-rg-weg svg { width: 18px; height: 18px; }
+  .astro-rg-weg-rot { background: var(--rg-rot); }
+  .astro-rg-weg:hover, .astro-rg-weg:focus-visible { background: var(--rg-rot); outline: none; transform: translate(-50%, -50%) scale(1.06); }
+
+  .astro-rg-info { position: relative; transform: translate(-50%, -50%); width: 38px; height: 38px; border-radius: 50%; padding: 0;
+    border: 3px solid var(--rg-rot); background: var(--rg-creme); color: var(--rg-schwarz); font: 700 20px/1 Georgia, serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); display: grid; place-items: center; }
+  .astro-rg-hs-label { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 4px 10px;
+    border-radius: 999px; background: var(--rg-creme); color: var(--rg-schwarz); font: 600 13px/1.2 'Source Sans 3', sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35); opacity: 0; pointer-events: none; transition: opacity 0.15s; }
+  .astro-rg-info:hover .astro-rg-hs-label, .astro-rg-info:focus-visible .astro-rg-hs-label { opacity: 1; }
+  .astro-rg-info:hover, .astro-rg-info:focus-visible { background: var(--rg-rot); color: #fff; outline: none; }
+
+  .astro-rg-geschichte { position: relative; transform: translate(-50%, -50%); background: none; border: 0; padding: 0; }
+  .astro-rg-portrait { position: relative; display: block; width: 64px; height: 64px; border-radius: 50%; background: var(--rg-creme);
+    border: 5px solid var(--rg-creme); box-shadow: 0 0 0 2px var(--rg-rot), 0 4px 14px rgba(0, 0, 0, 0.55); }
+  .astro-rg-portrait img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+  .astro-rg-initialen { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: #e3ddd2;
+    color: var(--rg-schwarz); font: 700 18px/1 'Playfair Display', serif; }
+  .astro-rg-medium { position: absolute; right: -8px; bottom: -8px; width: 26px; height: 26px; border-radius: 50%; background: var(--rg-rot);
+    border: 2px solid #fff; color: #fff; display: grid; place-items: center; }
+  .astro-rg-medium svg { width: 14px; height: 14px; }
+  .astro-rg-geschichte .astro-rg-hs-label { opacity: 1; top: calc(100% + 10px); }
+  .astro-rg-geschichte:hover .astro-rg-portrait, .astro-rg-geschichte:focus-visible .astro-rg-portrait { box-shadow: 0 0 0 4px var(--rg-rot), 0 4px 14px rgba(0, 0, 0, 0.55); }
+  .astro-rg-geschichte:focus-visible { outline: none; }
+  .astro-rg-ohne-geschichten .astro-rg-hs-geschichte { display: none; }
+
+  /* Leiste unter dem Viewer */
+  .astro-rg-leiste { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+  .astro-rg-leiste-start { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .astro-rg-leiste-start[hidden] { display: none; }
+  .astro-rg-leiste-text { color: #5c5c5c; font-size: 15px; }
+  .astro-rg-knopf { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 999px; border: 2px solid var(--rg-schwarz);
+    background: #fff; color: var(--rg-schwarz); font: 700 15px/1.2 'Source Sans 3', sans-serif; cursor: pointer; }
+  .astro-rg-knopf svg { width: 16px; height: 16px; }
+  .astro-rg-knopf:hover { background: var(--rg-schwarz); color: #fff; }
+  .astro-rg-knopf:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: 2px; }
+  .astro-rg-knopf:disabled { opacity: 0.4; cursor: default; background: #fff; color: var(--rg-schwarz); }
+  .astro-rg-knopf-rot { background: var(--rg-rot); border-color: var(--rg-rot); color: #fff; }
+  .astro-rg-knopf-rot:hover { background: #b80015; border-color: #b80015; }
+  .astro-rg-knopf-leise { border-color: transparent; text-decoration: underline; }
+  .astro-rg-schalter { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; }
+  .astro-rg-schalter label { cursor: pointer; }
+  .astro-rg-schalter input { width: 18px; height: 18px; accent-color: var(--rg-rot); }
+
+  .astro-rg-fuehrung { background: var(--rg-creme); border-left: 5px solid var(--rg-rot); border-radius: 0 var(--radius, 8px) var(--radius, 8px) 0; padding: 18px 22px; margin-bottom: 16px; }
+  .astro-rg-fuehrung[hidden] { display: none; }
+  .astro-rg-fuehrung-nr { margin: 0 0 4px; color: var(--rg-rot); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .astro-rg-fuehrung h3 { margin: 0 0 6px; font-family: 'Playfair Display', serif; font-size: 24px; color: var(--rg-schwarz); }
+  .astro-rg-fuehrung h3:focus { outline: none; }
+  .astro-rg-fuehrung p { margin: 0 0 12px; max-width: 70ch; }
+  .astro-rg-fuehrung-knoepfe { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .astro-rg-hilfe { margin: 0 0 32px; font-size: 15px; }
+  .astro-rg-hilfe summary { cursor: pointer; font-weight: 700; }
+  .astro-rg-hilfe ul { margin: 8px 0 0; padding-left: 20px; }
+
+  /* Liste der Orte */
+  .astro-rg-orte h2 { font-family: 'Playfair Display', serif; color: var(--rg-schwarz); margin: 0 0 6px; }
+  .astro-rg-orte-intro { margin: 0 0 18px; color: #5c5c5c; }
+  .astro-rg-orte ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+  .astro-rg-ort-karte { background: var(--rg-creme); border-radius: var(--radius, 8px); overflow: hidden; display: flex; flex-direction: column; }
+  .astro-rg-ort-karte img { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; display: block; }
+  .astro-rg-ort-text { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .astro-rg-ort-text h3 { margin: 0; font-size: 18px; display: flex; gap: 8px; align-items: center; }
+  .astro-rg-ort-nr { flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--rg-rot); color: #fff; font-size: 13px; display: grid; place-items: center; }
+  .astro-rg-ort-text p { margin: 0; font-size: 15px; }
+  .astro-rg-ort-lage { color: #5c5c5c; font-size: 14px !important; }
+  .astro-rg-ort-details { margin: 2px 0 4px; padding-left: 18px; font-size: 14px; }
+  .astro-rg-ort-details em { color: #6b6b6b; }
+  .astro-rg-ort-text .astro-rg-knopf { align-self: flex-start; margin-top: auto; }
+
+  /* Dialog */
+  /* margin:auto zentriert das Fenster (das globale Stylesheet setzt margin:0 für alles) */
+  .astro-rg-dialog { margin: auto; border: 0; border-radius: 12px; padding: 0; width: min(640px, calc(100% - 32px)); max-height: 86vh; background: #fff; color: var(--rg-schwarz); }
+  .astro-rg-dialog::backdrop { background: rgba(10, 10, 10, 0.7); }
+  .astro-rg-dialog-box { position: relative; padding: 28px 28px 24px; }
+  .astro-rg-dialog-zu { position: absolute; top: 10px; right: 12px; width: 40px; height: 40px; border: 0; background: none; font-size: 30px; line-height: 1; cursor: pointer; color: #555; }
+  .astro-rg-dialog-zu:focus-visible { outline: 3px solid var(--rg-rot); border-radius: 50%; }
+  .astro-rg-dialog h2 { font-family: 'Playfair Display', serif; margin: 0 0 12px; padding-right: 36px; }
+  .astro-rg-dialog img, .astro-rg-dialog video { width: 100%; border-radius: 8px; display: block; margin-bottom: 12px; background: #111; }
+  .astro-rg-dialog audio { width: 100%; margin-bottom: 12px; }
+  .astro-rg-dialog-vorzeile { margin: 0 0 4px; color: var(--rg-rot); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .astro-rg-platzhalter { color: #6b6b6b; font-style: italic; }
+  .astro-rg-galerie { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin-top: 12px; }
+  .astro-rg-galerie-objekt { border: 1px solid #ddd; border-radius: 8px; background: var(--rg-creme); padding: 8px; cursor: pointer; display: flex; flex-direction: column; gap: 6px; font: 600 14px 'Source Sans 3', sans-serif; }
+  .astro-rg-galerie-objekt img { aspect-ratio: 3 / 4; object-fit: cover; margin: 0; }
+  .astro-rg-galerie-objekt:hover, .astro-rg-galerie-objekt:focus-visible { border-color: var(--rg-rot); outline: none; }
+  .astro-rg-galerie-gross { max-height: 50vh; object-fit: contain; }
+
+  @media (max-width: 640px) {
+    .astro-rg { padding: 0 12px; }
+    .astro-rg .astro-rg-viewer { height: 68vh; }
+    .astro-rg-weg { font-size: 13px; padding: 7px 12px 7px 8px; }
+    .astro-rg-portrait { width: 52px; height: 52px; }
+    .astro-rg-punkt { width: 20px; height: 20px; font-size: 10px; border-width: 1.5px; }
+    .astro-rg-karte { padding: 10px; }
+    .astro-rg-dialog-box { padding: 24px 18px 18px; }
+  }
+</style>

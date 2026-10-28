@@ -1,0 +1,190 @@
+{
+  "_hinweis": "Zentrale Datei für den 360°-Rundgang (100 Jahre). Anleitung: docs/rundgang-anleitung.md. Positionen in Prozent des Grundrisses (x = von links/Westen, y = von oben/Norden). blickrichtung = Himmelsrichtung der Bildmitte des Panoramas (0 = Osten/Altar, 90 = Süden, -90 = Norden, 180 = Westen).",
+  "kachelBasis": "/rundgang/kacheln",
+  "vorschauBasis": "/rundgang/vorschau",
+  "grundriss": { "bild": "/rundgang/grundriss.png", "breiteMeter": 73.65, "hoeheMeter": 29.46 },
+  "kamerahoeheMeter": 1.5,
+  "start": "taufstein",
+  "fuehrung": [
+    "taufstein", "mittelgang-empore", "marienbild", "trauer-madonna", "mittelgang-pult", "vor-dem-altar",
+    "jona-nischen", "reliquie", "hinter-dem-altar", "nischen-krypta", "vor-der-treppe", "hochaltar",
+    "tabernakel", "empore"
+  ],
+  "stationen": [
+    {
+      "nr": 1, "id": "taufstein", "titel": "Am Taufstein",
+      "ort": "Vorhalle unter der Orgelempore",
+      "datei": "Station 1 Taufstein.jpg",
+      "position": { "x": 27.35, "y": 49.97 }, "blickrichtung": 0,
+      "startblick": { "yaw": 0, "pitch": -8 },
+      "verbindungen": ["mittelgang-empore", { "ziel": "empore", "yaw": -150, "pitch": -4, "label": "Hinauf zur Empore" }],
+      "begleittext": "Willkommen in Sankt Bonifatius! Gleich hinter dem Eingang steht der Taufstein mit seiner goldglänzenden Kuppel. Hier werden Kinder und Erwachsene getauft – für viele beginnt der Weg mit dieser Kirche genau an dieser Stelle."
+    },
+    {
+      "nr": 2, "id": "mittelgang-empore", "titel": "Mittelgang vor der Empore",
+      "ort": "Übergang von der Vorhalle in den Kirchenraum",
+      "datei": "Station 2 Mittelgang vor Empore.jpg",
+      "position": { "x": 36.05, "y": 49.97 }, "blickrichtung": 0,
+      "startblick": { "yaw": 0, "pitch": 0 },
+      "verbindungen": ["taufstein", "mittelgang-pult", "marienbild"],
+      "begleittext": "Von hier öffnet sich der hohe, helle Kirchenraum mit seinen spitzen Bögen. Die Stühle stehen im Halbrund um die Mitte – so sieht man sich beim Gottesdienst gegenseitig."
+    },
+    {
+      "nr": 3, "id": "mittelgang-pult", "titel": "Mittelgang vor dem Pult",
+      "ort": "Mittelgang, hinterer Teil",
+      "datei": "Station 3 Mittelgang vor Pult.jpg",
+      "position": { "x": 41.85, "y": 49.97 }, "blickrichtung": 0,
+      "startblick": { "yaw": 0, "pitch": -4 },
+      "verbindungen": ["mittelgang-empore", "vor-dem-altar"],
+      "begleittext": "Auf dem Mittelweg steht ein Pult mit einem aufgeschlagenen Buch. Dahinter sieht man schon den Altar – er steht nicht vorne, sondern mitten im Raum."
+    },
+    {
+      "nr": 4, "id": "vor-dem-altar", "titel": "Vor dem Altar",
+      "ort": "Mittelgang, westlich vom Altar",
+      "datei": "Station 4 Mittelgang vor Altar.jpg",
+      "position": { "x": 46.14, "y": 49.97 }, "blickrichtung": 0,
+      "startblick": { "yaw": 0, "pitch": -6 },
+      "verbindungen": ["mittelgang-pult", "jona-nischen", "trauer-madonna"],
+      "begleittext": "Der Altar steht in der Mitte der Kirche. So versammeln sich alle rundherum – wie um einen großen gemeinsamen Tisch."
+    },
+    {
+      "nr": 5, "id": "hinter-dem-altar", "titel": "Hinter dem Altar",
+      "ort": "Mittelgang, östlich vom Altar",
+      "datei": "Station 5 Mittelgang hinter Altar.jpg",
+      "position": { "x": 55.16, "y": 49.97 }, "blickrichtung": 0,
+      "startblick": { "yaw": 0, "pitch": 0 },
+      "verbindungen": ["vor-der-treppe", "reliquie", "jona-nischen", "nischen-krypta"],
+      "begleittext": "Hinter dem Altar geht der Blick nach vorne: zur breiten Treppe und zum Chorraum mit seinen bunten Fenstern."
+    },
+    {
+      "nr": 6, "id": "vor-der-treppe", "titel": "Vor der Treppe",
+      "ort": "Vor der Treppe zum Chorraum",
+      "datei": "Station 6 vor Treppe.jpg",
+      "position": { "x": 72.28, "y": 49.97 }, "blickrichtung": 0,
+      "startblick": { "yaw": 0, "pitch": 4 },
+      "verbindungen": ["hinter-dem-altar", "hochaltar", "reliquie", "nischen-krypta"],
+      "begleittext": "Eine breite Treppe führt hinauf in den Chorraum. Links und rechts an der Wand hängen zwei goldene Engelbilder."
+    },
+    {
+      "nr": 7, "id": "hochaltar", "titel": "Vor dem Hochaltar",
+      "ort": "Chorraum (+1,50 m)",
+      "datei": "Station 7 vor Hochaltar.jpg",
+      "position": { "x": 81.24, "y": 49.97 }, "blickrichtung": 0, "boden": 1.5,
+      "startblick": { "yaw": 0, "pitch": 6 },
+      "verbindungen": ["vor-der-treppe", "tabernakel"],
+      "begleittext": "Oben im Chorraum steht der alte Hochaltar vor den farbigen Fenstern. Links steht die Osterkerze, rechts eine Marienfigur."
+    },
+    {
+      "nr": 8, "id": "tabernakel", "titel": "Vor dem Tabernakel",
+      "ort": "Chorraum, ganz vorne",
+      "datei": "Station 8 vor Tabernakel.jpg",
+      "position": { "x": 86.07, "y": 49.97 }, "blickrichtung": 0, "boden": 1.5,
+      "startblick": { "yaw": 0, "pitch": 4 },
+      "verbindungen": ["hochaltar"],
+      "begleittext": "Ganz vorne steht der Tabernakel, ein kleiner goldener Schrank. Darin wird das geweihte Brot aus dem Gottesdienst aufbewahrt."
+    },
+    {
+      "nr": 9, "id": "reliquie", "titel": "Vor der Reliquie",
+      "ort": "Nordseite, vorderer Teil",
+      "datei": "Station 9 vor Reliquie.jpg",
+      "position": { "x": 62.78, "y": 23.53 }, "blickrichtung": -90,
+      "startblick": { "yaw": 0, "pitch": -4 },
+      "verbindungen": ["hinter-dem-altar", "vor-der-treppe", "jona-nischen"],
+      "begleittext": "In dieser Nische wird eine Reliquie des heiligen Bonifatius aufbewahrt – ein kleines Erinnerungsstück an den Mann, nach dem unsere Kirche benannt ist."
+    },
+    {
+      "nr": 10, "id": "jona-nischen", "titel": "Vor den JONA-Nischen",
+      "ort": "Nordseite",
+      "datei": "Station 10 vor JONA Nischen.jpg",
+      "position": { "x": 44.5, "y": 26.75 }, "blickrichtung": -74,
+      "startblick": { "yaw": 0, "pitch": 0 },
+      "verbindungen": ["vor-dem-altar", "hinter-dem-altar", "reliquie"],
+      "begleittext": "An der Nordseite liegt das JONA-Wohnzimmer mit Sofa, daneben das „Fenster zum Himmel“ – ein Ort zum Ankommen, Ausruhen und Reden."
+    },
+    {
+      "nr": 11, "id": "nischen-krypta", "titel": "Nischen vor der Krypta",
+      "ort": "Südseite, vorderer Teil",
+      "datei": "Station 11 Nischen vor Krypta.jpg",
+      "position": { "x": 58.16, "y": 78.69 }, "blickrichtung": 90,
+      "startblick": { "yaw": 0, "pitch": 0 },
+      "verbindungen": ["hinter-dem-altar", "vor-der-treppe", "trauer-madonna"],
+      "begleittext": "Auch an der Südseite gibt es stille Nischen zwischen den Pfeilern. Von hier aus geht es zur Krypta."
+    },
+    {
+      "nr": 12, "id": "trauer-madonna", "titel": "Trauernische und Madonna",
+      "ort": "Südseite",
+      "datei": "Station 12 Nischen Trauer+Madonna.jpg",
+      "position": { "x": 41.15, "y": 74.66 }, "blickrichtung": 90,
+      "startblick": { "yaw": 0, "pitch": 0 },
+      "verbindungen": ["vor-dem-altar", "nischen-krypta", "marienbild"],
+      "begleittext": "In dieser Nische ist Platz für Trauer und Erinnerung an Menschen, die uns fehlen. Gleich daneben steht eine Figur der Madonna mit dem Kind."
+    },
+    {
+      "nr": 13, "id": "marienbild", "titel": "Am Marienbild",
+      "ort": "Südseite, unter der Empore",
+      "datei": "Station 13 Marienbild.jpg",
+      "position": { "x": 30.68, "y": 74.66 }, "blickrichtung": 90,
+      "startblick": { "yaw": 0, "pitch": 2 },
+      "verbindungen": ["mittelgang-empore", "trauer-madonna"],
+      "begleittext": "Unter der Empore hängt ein Gemälde von Maria mit dem Kind. Ein ruhiger Ort für einen Moment der Stille."
+    },
+    {
+      "nr": 14, "id": "empore", "titel": "Ausblick von der Empore",
+      "ort": "Orgelempore (2. OG)",
+      "datei": "Station 14 Ausblick Empore.jpg",
+      "position": { "x": 31.86, "y": 59.76 }, "blickrichtung": 180, "boden": 5.04, "ebene": "Empore",
+      "startblick": { "yaw": 180, "pitch": -14 },
+      "vorschauFlaeche": "b",
+      "verbindungen": [{ "ziel": "taufstein", "yaw": 41, "pitch": -35, "label": "Hinunter zum Taufstein" }],
+      "begleittext": "Zum Schluss der Blick von der Orgelempore: Von hier oben sieht man den ganzen Raum – mit dem Altar in der Mitte und den Stühlen rundherum."
+    }
+  ],
+  "infopunkte": [
+    { "id": "A", "titel": "Taufstein", "position": { "x": 29.4, "y": 49.97 }, "hoehe": 0.9, "sichtbarVon": ["taufstein", "mittelgang-empore"], "text": null, "foto": null },
+    { "id": "B", "titel": "Mariengemälde", "position": { "x": 30.3, "y": 89.5 }, "hoehe": 2.0, "sichtbarVon": ["marienbild", "trauer-madonna"], "text": null, "foto": null },
+    { "id": "C", "titel": "Madonna", "position": { "x": 40.0, "y": 90.5 }, "hoehe": 1.6, "sichtbarVon": ["trauer-madonna", "marienbild"], "text": null, "foto": null },
+    { "id": "D", "titel": "Trauernische", "position": { "x": 42.49, "y": 89.29 }, "hoehe": 1.1, "sichtbarVon": ["trauer-madonna", "marienbild"], "text": null, "foto": null },
+    { "id": "E", "titel": "JONA-Wohnzimmer", "position": { "x": 42.6, "y": 13.47 }, "hoehe": 0.8, "sichtbarVon": ["jona-nischen"], "text": null, "foto": null },
+    { "id": "F", "titel": "Fenster zum Himmel", "position": { "x": 49.15, "y": 12.8 }, "hoehe": 1.6, "sichtbarVon": ["jona-nischen"], "text": null, "foto": null },
+    { "id": "G", "titel": "Altar", "position": { "x": 50.0, "y": 49.7 }, "hoehe": 1.0, "sichtbarVon": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "jona-nischen", "trauer-madonna"], "text": null, "foto": null },
+    { "id": "H", "titel": "Ambo", "position": { "x": 50.6, "y": 58.0 }, "hoehe": 1.2, "sichtbarVon": ["vor-dem-altar", "hinter-dem-altar", "trauer-madonna"], "text": null, "foto": null },
+    { "id": "I", "titel": "Bonifatiusreliquie", "position": { "x": 62.78, "y": 13.5 }, "hoehe": 1.2, "sichtbarVon": ["reliquie"], "text": null, "foto": null },
+    { "id": "J", "titel": "Engelbild Nord", "position": { "x": 74.43, "y": 17.76 }, "hoehe": 2.0, "sichtbarVon": ["vor-der-treppe", "hochaltar"], "text": null, "foto": null },
+    { "id": "K", "titel": "Engelbild Süd", "position": { "x": 74.0, "y": 84.19 }, "hoehe": 2.0, "sichtbarVon": ["vor-der-treppe", "hochaltar"], "text": null, "foto": null },
+    { "id": "L", "titel": "Osterkerze", "position": { "x": 82.21, "y": 22.46 }, "hoehe": 2.4, "boden": 1.5, "sichtbarVon": ["hochaltar", "tabernakel"], "text": null, "foto": null },
+    { "id": "M", "titel": "Marienfigur", "position": { "x": 83.39, "y": 78.82 }, "hoehe": 2.4, "boden": 1.5, "sichtbarVon": ["hochaltar", "tabernakel"], "text": null, "foto": null }
+  ],
+  "geschichten": [
+    {
+      "id": "sommerfreizeit-2026", "titel": "Sommerfreizeit", "person": "Jugend", "jahr": "2026",
+      "medium": "video", "station": "jona-nischen", "yaw": -40, "pitch": 6,
+      "vorschaubild": "/uploads/jubilaeum/heiligentafel-foto-1.jpg",
+      "datei": "/uploads/jubilaeum/sommerfreizeit-2026.mp4",
+      "text": "Abschrift folgt.", "beispiel": true
+    },
+    {
+      "id": "beispiel-taufe", "titel": "Meine Taufe hier", "person": "Hans S.", "jahr": "1958",
+      "medium": "text", "station": "taufstein", "yaw": 28, "pitch": 4,
+      "text": "Platzhalter für eine Geschichte. Hier steht später ein kurzer, selbst geschriebener Text über ein besonderes Erlebnis in Sankt Bonifatius.",
+      "beispiel": true
+    },
+    {
+      "id": "beispiel-hochzeit", "titel": "Unsere Hochzeit", "person": "Anna B.", "jahr": "1987",
+      "medium": "audio", "station": "vor-dem-altar", "yaw": -42, "pitch": 12,
+      "text": "Platzhalter für eine Tonaufnahme mit Abschrift.",
+      "beispiel": true
+    }
+  ],
+  "galerien": [
+    {
+      "id": "schatzkammer", "titel": "Schatzkammer", "station": "tabernakel", "yaw": -73, "pitch": 2,
+      "hinweis": "Die Vasa Sacra unserer Pfarrei. Erläuterungen folgen.",
+      "objekte": [
+        { "titel": "Altarkreuz", "foto": "/uploads/jubilaeum/vasa-kreuz.jpg", "text": "Erläuterung folgt." },
+        { "titel": "Monstranz", "foto": "/uploads/jubilaeum/vasa-monstranz.jpg", "text": "Erläuterung folgt." },
+        { "titel": "Kelch", "foto": "/uploads/jubilaeum/vasa-kelch.jpg", "text": "Erläuterung folgt." },
+        { "titel": "Ziborium", "foto": "/uploads/jubilaeum/vasa-ziborium.jpg", "text": "Erläuterung folgt." }
+      ]
+    }
+  ]
+}
