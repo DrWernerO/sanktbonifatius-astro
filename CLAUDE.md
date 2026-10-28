@@ -108,6 +108,10 @@ npm run dev   # läuft mit NODE_TLS_REJECT_UNAUTHORIZED=0 auf Port 4321
   `/go/<name>`: zählt jeden Scan (Netlify Blobs, cookiefrei) und leitet per 302 mit UTM-Etiketten
   weiter; Liste der Kurzlinks in `QR_LINKS`, Quelle ist Franks Excel-Linkverzeichnis; Auswertung
   auf `/statistik` (Handbuch 1h)
+- `src/pages/100-jahre/rundgang.astro` + `src/components/Rundgang.astro` — 360°-Kirchenrundgang (Pannellum 2.5.6,
+  selbst gehostet unter `public/vendor/pannellum/`), 14 Panoramen als Kacheln in `public/rundgang/kacheln/`
+  (halbe Auflösung, erzeugt mit `scripts/rundgang-kacheln.py`); ALLE Inhalte (Stationen, Pfeile, Infopunkte,
+  Geschichten, Führung) in `src/data/rundgang.json`; Anleitung `docs/rundgang-anleitung.md`; passwortgeschützt, noindex
 - `src/pages/downloads/monatsbrief-aposteln.pdf.ts` — analoge stabile Adresse für den Monatsbrief
   St. Aposteln, holt die aktuelle Ausgabe aus RML-Ordner 205 via `getLatestMonatsbriefAposteln()`
   in `src/lib/wordpress.js` (Handbuch 1d); verlinkt als Zeile „Monatsbrief (PDF)" in der
