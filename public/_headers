@@ -6,9 +6,13 @@
 #
 # Highlights-PDF zusätzlich mit X-Robots-Tag: noindex (Auftrag Werner, 2026-09-22) — Google soll
 # künftig die eigene Landingpage /downloads/bonifatius-highlights/ ranken statt der PDF direkt.
+#
+# Pfarrbrief mit no-cache (Werner, 2026-10-30): Besucher bekamen nach einer neuen Ausgabe bis zu
+# einer Stunde lang noch den alten aus dem Browser-Cache. no-cache = Browser fragt bei jedem Klick
+# per ETag nach; unverändert → 304 ohne erneuten Download, neu → sofort die neue Ausgabe.
 /downloads/pfarrbrief.pdf
   Content-Disposition: attachment; filename="Sankt Bonifatius Pfarrbrief.pdf"
-  Cache-Control: public, max-age=3600, must-revalidate
+  Cache-Control: public, no-cache
 
 /downloads/highlights.pdf
   Content-Disposition: attachment; filename="Sankt Bonifatius Highlights.pdf"

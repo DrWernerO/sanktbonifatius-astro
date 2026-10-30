@@ -25,7 +25,7 @@ export const GET: APIRoute = async () => {
     headers: {
       'Content-Type': 'application/pdf',
       'Content-Disposition': 'attachment; filename="Sankt Bonifatius Pfarrbrief.pdf"',
-      'Cache-Control': 'public, max-age=3600, must-revalidate',
+      'Cache-Control': 'public, no-cache', // wie public/_headers
     },
   });
 };
