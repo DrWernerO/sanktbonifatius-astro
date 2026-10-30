@@ -10,6 +10,7 @@ export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
 import RaumbuchungHero from '../../components/RaumbuchungHero.astro';
+import RaumbuchungHinweis from '../../components/RaumbuchungHinweis.astro';
 import RaumbuchungRaeume from '../../components/RaumbuchungRaeume.astro';
 
 Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
@@ -20,5 +21,6 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
   noindex={true}
 >
   <RaumbuchungHero />
+  <RaumbuchungHinweis />
   <RaumbuchungRaeume />
 </Base>
