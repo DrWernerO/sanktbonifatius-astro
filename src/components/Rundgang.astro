@@ -358,8 +358,9 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
         const a = linie.kanten[i], b = linie.kanten[i + 1];
         const ecken = [projiziere(a.l, v), projiziere(b.l, v), projiziere(b.r, v), projiziere(a.r, v)];
         if (ecken.includes(null)) continue;
-        // sanft einblenden direkt vor den Füßen, zum Ziel hin leicht ausblenden
-        const deckkraft = Math.min(1, (a.weg - ABSTAND_START) / 0.8 + 0.15) * (a.anteil > 0.75 ? 1 - (a.anteil - 0.75) * 2 : 1);
+        // sanft einblenden direkt vor den Füßen, erst kurz vor dem Wegpunkt leicht ausblenden (Frank 2026-10-30:
+        // die Linie soll sichtbar bis zum Wegpunkt reichen)
+        const deckkraft = Math.min(1, (a.weg - ABSTAND_START) / 0.8 + 0.15) * (a.anteil > 0.9 ? 1 - (a.anteil - 0.9) * 4 : 1);
         svg += `<polygon points="${ecken.join(' ')}" fill-opacity="${deckkraft.toFixed(2)}"/>`;
       }
       svg += '</g>';

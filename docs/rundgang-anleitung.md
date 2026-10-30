@@ -86,6 +86,16 @@ Die Richtung der Wegpunkte und Infopunkte wird aus den Positionen im Grundriss b
 Wegpunkt daneben, lässt er sich bei der Verbindung mit `{ "ziel": "…", "yaw": 40, "pitch": -12 }`
 von Hand festlegen.
 
+## Lage der Stationen (Stand 30.10.2026)
+
+Die Lage der Stationen im Grundriss ist entscheidend: Aus ihr werden Wegpunkte, Bodenlinien und
+Infopunkte berechnet. Am 30.10.2026 präzisiert: Stationen 3, 4, 5 und der Altar nach Franks Plan
+(Inputs/„Rundgang-Stationen-St-Bonifatius präzisiert.pdf“), Ambo, Station 7, 8, 11 und die Empore aus
+den Panoramen nachgemessen. Die Kamera stand bei allen Aufnahmen etwa **1,85 m** über dem Boden
+(`kamerahoeheMeter`), das ergab der Vergleich von Empore, Ambo und Treppe. Sitzt ein Wegpunkt
+daneben, ist meist die Lage der Station ungenau. Dann lieber die Station korrigieren als den
+Wegpunkt von Hand verschieben.
+
 ## Wege und Bodenlinien
 
 Jede Verbindung erscheint im Panorama als weißer Wegpunkt und als schmales Band auf dem Fußboden

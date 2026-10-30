@@ -3,7 +3,7 @@
   "kachelBasis": "/rundgang/kacheln",
   "vorschauBasis": "/rundgang/vorschau",
   "grundriss": { "bild": "/rundgang/grundriss.png", "breiteMeter": 73.65, "hoeheMeter": 29.46 },
-  "kamerahoeheMeter": 1.5,
+  "kamerahoeheMeter": 1.85,
   "start": "taufstein",
   "fuehrung": [
     "taufstein", "mittelgang-empore", "marienbild", "trauer-madonna", "mittelgang-pult", "vor-dem-altar",
@@ -33,7 +33,7 @@
       "nr": 3, "id": "mittelgang-pult", "titel": "Mittelgang vor dem Pult",
       "ort": "Mittelgang, hinterer Teil",
       "datei": "Station 3 Mittelgang vor Pult.jpg",
-      "position": { "x": 41.85, "y": 49.97 }, "blickrichtung": 0,
+      "position": { "x": 47.69, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": -4 },
       "verbindungen": ["mittelgang-empore", "vor-dem-altar"],
       "begleittext": "Auf dem Mittelweg steht ein Pult mit einem aufgeschlagenen Buch. Dahinter sieht man schon den Altar – er steht nicht vorne, sondern mitten im Raum."
@@ -42,18 +42,18 @@
       "nr": 4, "id": "vor-dem-altar", "titel": "Vor dem Altar",
       "ort": "Mittelgang, westlich vom Altar",
       "datei": "Station 4 Mittelgang vor Altar.jpg",
-      "position": { "x": 46.14, "y": 49.97 }, "blickrichtung": 0,
+      "position": { "x": 56.34, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": -6 },
-      "verbindungen": ["mittelgang-pult", { "ziel": "hinter-dem-altar", "ueber": [{ "x": 50.0, "y": 43.0 }], "wegpunkt": "umweg" }, "jona-nischen", "trauer-madonna", "marienbild"],
+      "verbindungen": ["mittelgang-pult", { "ziel": "hinter-dem-altar", "ueber": [{ "x": 61.0, "y": 43.0 }], "wegpunkt": "umweg" }, "jona-nischen", "trauer-madonna", "marienbild"],
       "begleittext": "Der Altar steht in der Mitte der Kirche. So versammeln sich alle rundherum – wie um einen großen gemeinsamen Tisch."
     },
     {
       "nr": 5, "id": "hinter-dem-altar", "titel": "Hinter dem Altar",
       "ort": "Mittelgang, östlich vom Altar",
       "datei": "Station 5 Mittelgang hinter Altar.jpg",
-      "position": { "x": 55.16, "y": 49.97 }, "blickrichtung": 0,
+      "position": { "x": 66.84, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": 0 },
-      "verbindungen": [{ "ziel": "vor-dem-altar", "ueber": [{ "x": 50.0, "y": 43.0 }], "wegpunkt": "umweg" }, "vor-der-treppe", "reliquie", "jona-nischen", "nischen-krypta", { "ziel": "trauer-madonna", "ueber": [{ "x": 53.0, "y": 63.0 }], "wegpunkt": "umweg" }],
+      "verbindungen": [{ "ziel": "vor-dem-altar", "ueber": [{ "x": 61.0, "y": 43.0 }], "wegpunkt": "umweg" }, "vor-der-treppe", "reliquie", "jona-nischen", "nischen-krypta"],
       "begleittext": "Hinter dem Altar geht der Blick nach vorne: zur breiten Treppe und zum Chorraum mit seinen bunten Fenstern."
     },
     {
@@ -69,7 +69,7 @@
       "nr": 7, "id": "hochaltar", "titel": "Vor dem Hochaltar",
       "ort": "Chorraum (+1,50 m)",
       "datei": "Station 7 vor Hochaltar.jpg",
-      "position": { "x": 81.24, "y": 49.97 }, "blickrichtung": 0, "boden": 1.5,
+      "position": { "x": 79.0, "y": 49.97 }, "blickrichtung": 0, "boden": 1.5,
       "startblick": { "yaw": 0, "pitch": 6 },
       "verbindungen": ["vor-der-treppe", "tabernakel"],
       "begleittext": "Oben im Chorraum steht der alte Hochaltar vor den farbigen Fenstern. Links steht die Osterkerze, rechts eine Marienfigur."
@@ -78,7 +78,7 @@
       "nr": 8, "id": "tabernakel", "titel": "Vor dem Tabernakel",
       "ort": "Chorraum, ganz vorne",
       "datei": "Station 8 vor Tabernakel.jpg",
-      "position": { "x": 86.07, "y": 49.97 }, "blickrichtung": 0, "boden": 1.5,
+      "position": { "x": 87.0, "y": 49.97 }, "blickrichtung": 0, "boden": 1.5,
       "startblick": { "yaw": 0, "pitch": 4 },
       "verbindungen": ["hochaltar"],
       "begleittext": "Ganz vorne steht der Tabernakel, ein kleiner goldener Schrank. Darin wird das geweihte Brot aus dem Gottesdienst aufbewahrt."
@@ -105,7 +105,7 @@
       "nr": 11, "id": "nischen-krypta", "titel": "Nischen vor der Krypta",
       "ort": "Südseite, vorderer Teil",
       "datei": "Station 11 Nischen vor Krypta.jpg",
-      "position": { "x": 58.16, "y": 78.69 }, "blickrichtung": 90,
+      "position": { "x": 56.96, "y": 67.75 }, "blickrichtung": 91,
       "startblick": { "yaw": 0, "pitch": 0 },
       "verbindungen": ["hinter-dem-altar", "vor-der-treppe", "trauer-madonna"],
       "begleittext": "Auch an der Südseite gibt es stille Nischen zwischen den Pfeilern. Von hier aus geht es zur Krypta."
@@ -116,7 +116,7 @@
       "datei": "Station 12 Nischen Trauer+Madonna.jpg",
       "position": { "x": 41.15, "y": 74.66 }, "blickrichtung": 90,
       "startblick": { "yaw": 0, "pitch": 0 },
-      "verbindungen": ["mittelgang-empore", "vor-dem-altar", { "ziel": "hinter-dem-altar", "ueber": [{ "x": 53.0, "y": 63.0 }], "wegpunkt": "umweg" }, "nischen-krypta", "marienbild"],
+      "verbindungen": ["mittelgang-empore", "vor-dem-altar", "nischen-krypta", "marienbild"],
       "begleittext": "In dieser Nische ist Platz für Trauer und Erinnerung an Menschen, die uns fehlen. Gleich daneben steht eine Figur der Madonna mit dem Kind."
     },
     {
@@ -132,7 +132,7 @@
       "nr": 14, "id": "empore", "titel": "Ausblick von der Empore",
       "ort": "Orgelempore (2. OG)",
       "datei": "Station 14 Ausblick Empore.jpg",
-      "position": { "x": 29.75, "y": 49.0 }, "karte": { "x": 31.86, "y": 59.76 }, "blickrichtung": 188, "boden": 5.3, "ebene": "Empore",
+      "position": { "x": 32.2, "y": 52.2 }, "karte": { "x": 31.86, "y": 59.76 }, "blickrichtung": 184, "boden": 6.05, "ebene": "Empore",
       "geschichtenVon": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "tabernakel", "reliquie", "jona-nischen", "nischen-krypta", "trauer-madonna"],
       "startblick": { "yaw": 180, "pitch": -14 },
       "vorschauFlaeche": "b",
@@ -147,8 +147,8 @@
     { "id": "D", "titel": "Trauernische", "position": { "x": 42.49, "y": 89.29 }, "hoehe": 1.1, "ansichten": { "empore": { "yaw": -132.8, "pitch": -27.5 } }, "sichtbarVon": ["trauer-madonna", "marienbild", "empore"], "text": null, "foto": null },
     { "id": "E", "titel": "JONA-Wohnzimmer", "position": { "x": 42.6, "y": 13.47 }, "hoehe": 0.8, "sichtbarVon": ["jona-nischen"], "text": null, "foto": null },
     { "id": "F", "titel": "Fenster zum Himmel", "position": { "x": 49.15, "y": 12.8 }, "hoehe": 1.6, "sichtbarVon": ["jona-nischen", "empore"], "text": null, "foto": null },
-    { "id": "G", "titel": "Altar", "position": { "x": 50.0, "y": 49.7 }, "hoehe": 1.0, "sichtbarVon": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "jona-nischen", "trauer-madonna", "empore"], "text": null, "foto": null },
-    { "id": "H", "titel": "Ambo", "position": { "x": 50.6, "y": 58.0 }, "hoehe": 1.2, "sichtbarVon": ["vor-dem-altar", "hinter-dem-altar", "trauer-madonna", "empore"], "text": null, "foto": null },
+    { "id": "G", "titel": "Altar", "position": { "x": 59.55, "y": 49.7 }, "hoehe": 1.0, "sichtbarVon": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "jona-nischen", "trauer-madonna", "empore"], "text": null, "foto": null },
+    { "id": "H", "titel": "Ambo", "position": { "x": 59.95, "y": 57.1 }, "hoehe": 1.2, "sichtbarVon": ["vor-dem-altar", "hinter-dem-altar", "trauer-madonna", "empore"], "text": null, "foto": null },
     { "id": "I", "titel": "Bonifatiusreliquie", "position": { "x": 62.78, "y": 13.5 }, "hoehe": 1.2, "sichtbarVon": ["reliquie", "empore"], "text": null, "foto": null },
     { "id": "J", "titel": "Engelbild Nord", "position": { "x": 74.43, "y": 17.76 }, "hoehe": 2.0, "ansichten": { "empore": { "yaw": 157.1, "pitch": -10.3 } }, "sichtbarVon": ["vor-der-treppe", "hochaltar", "empore"], "text": null, "foto": null },
     { "id": "K", "titel": "Engelbild Süd", "position": { "x": 74.0, "y": 84.19 }, "hoehe": 2.0, "ansichten": { "empore": { "yaw": -166.5, "pitch": -10.3 } }, "sichtbarVon": ["vor-der-treppe", "hochaltar", "empore"], "text": null, "foto": null },
