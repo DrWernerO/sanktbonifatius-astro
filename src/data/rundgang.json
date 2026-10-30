@@ -35,7 +35,7 @@
       "datei": "Station 3 Mittelgang vor Pult.jpg",
       "position": { "x": 47.69, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": -4 },
-      "verbindungen": ["mittelgang-empore", "vor-dem-altar"],
+      "verbindungen": ["mittelgang-empore", "vor-dem-altar", "nischen-krypta"],
       "begleittext": "Auf dem Mittelweg steht ein Pult mit einem aufgeschlagenen Buch. Dahinter sieht man schon den Altar – er steht nicht vorne, sondern mitten im Raum."
     },
     {
@@ -44,7 +44,7 @@
       "datei": "Station 4 Mittelgang vor Altar.jpg",
       "position": { "x": 56.34, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": -6 },
-      "verbindungen": ["mittelgang-pult", { "ziel": "hinter-dem-altar", "ueber": [{ "x": 61.0, "y": 43.0 }], "wegpunkt": "umweg" }, "jona-nischen", "trauer-madonna", "marienbild"],
+      "verbindungen": ["mittelgang-pult", { "ziel": "hinter-dem-altar", "ueber": [{ "x": 61.0, "y": 43.0 }], "wegpunkt": "umweg" }, "jona-nischen", "trauer-madonna", "marienbild", "nischen-krypta"],
       "begleittext": "Der Altar steht in der Mitte der Kirche. So versammeln sich alle rundherum – wie um einen großen gemeinsamen Tisch."
     },
     {
@@ -107,7 +107,7 @@
       "datei": "Station 11 Nischen vor Krypta.jpg",
       "position": { "x": 56.96, "y": 67.75 }, "blickrichtung": 91,
       "startblick": { "yaw": 0, "pitch": 0 },
-      "verbindungen": ["hinter-dem-altar", "vor-der-treppe", "trauer-madonna"],
+      "verbindungen": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "trauer-madonna"],
       "begleittext": "Auch an der Südseite gibt es stille Nischen zwischen den Pfeilern. Von hier aus geht es zur Krypta."
     },
     {
