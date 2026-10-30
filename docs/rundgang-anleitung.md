@@ -1,12 +1,12 @@
 # 360°-Rundgang St. Bonifatius – Anleitung
 
-Stand: 28.10.2026 · Seite: `/100-jahre/rundgang/` (passwortgeschützt, noindex, nicht im Menü)
+Stand: 30.10.2026 · Seite: `/100-jahre/rundgang/` (passwortgeschützt, noindex, nicht im Menü)
 
 ## Wo was liegt
 
 | Was | Datei |
 |-----|-------|
-| Alle Inhalte (Stationen, Pfeile, Infopunkte, Geschichten, Führung, Schatzkammer) | `src/data/rundgang.json` |
+| Alle Inhalte (Stationen, Wege, Infopunkte, Geschichten, Führung, Schatzkammer) | `src/data/rundgang.json` |
 | Der Rundgang selbst (Viewer, Grundriss, Führung, Liste) | `src/components/Rundgang.astro` |
 | Die Seite | `src/pages/100-jahre/rundgang.astro` |
 | Kachel-Werkzeug | `scripts/rundgang-kacheln.py` |
@@ -66,27 +66,47 @@ Unter `geschichten` einen Eintrag nach diesem Muster anlegen:
    erzeugt die volle Auflösung (erst sinnvoll mit eigenem Kachel-Speicher, s. unten).
 4. Lokal prüfen (`npm run dev`, dann `http://localhost:4321/100-jahre/rundgang/`), danach committen und pushen.
 
-Die Richtung der Pfeile und Infopunkte wird aus den Positionen im Grundriss berechnet. Zeigt ein
-Pfeil daneben, lässt er sich bei der Verbindung mit `{ "ziel": "…", "yaw": 40, "pitch": -12 }`
+Die Richtung der Wegpunkte und Infopunkte wird aus den Positionen im Grundriss berechnet. Zeigt ein
+Wegpunkt daneben, lässt er sich bei der Verbindung mit `{ "ziel": "…", "yaw": 40, "pitch": -12 }`
 von Hand festlegen.
+
+## Wege und Bodenlinien
+
+Jede Verbindung erscheint im Panorama als weißer Wegpunkt und als schmales Band auf dem Fußboden
+(seit 30.10.2026). Die Bänder werden aus Grundriss, Kamerahöhe (`kamerahoeheMeter`) und Bodenhöhe
+(`boden`) berechnet. Sie liegen immer obenauf, Möbel verdecken sie also nicht. Liegt ein Hindernis im
+Weg (Altar, Taufstein), führt man das Band mit Zwischenpunkten herum:
+
+```json
+{ "ziel": "hinter-dem-altar", "ueber": [{ "x": 50.0, "y": 43.0 }], "wegpunkt": "umweg" }
+```
+
+- `ueber`: Zwischenpunkte in Grundriss-Prozent, **in Laufrichtung**. In der Gegenrichtung also umgekehrte Reihenfolge.
+- `"wegpunkt": "umweg"`: Der Wegpunkt sitzt am letzten Zwischenpunkt statt am Ziel. Das ist nötig, wenn
+  das Ziel verdeckt ist (hinter dem Altar) oder der Wegpunkt sonst auf einem Infopunkt läge (Ambo, Taufstein).
+- Zur Empore gibt es keine Bänder, weil sie auf einer anderen Ebene liegt.
+
+Farben im Bild: **Wege weiß, Infopunkte rot, Geschichten gold.** Unter dem Bild lassen sich die drei
+Gruppen einzeln ein- und ausblenden.
 
 ## Testcheckliste
 
 **Computer (Chrome, Safari, Firefox, Edge)**
 - [ ] Seite lädt, Taufstein erscheint nach wenigen Sekunden scharf
 - [ ] Ziehen mit der Maus dreht, Mausrad und +/− zoomen
-- [ ] Pfeile führen zur richtigen Station, der Wechsel wirkt wie ein paar Schritte
+- [ ] Wegpunkte führen zur richtigen Station, der Wechsel wirkt wie ein paar Schritte
+- [ ] Bodenlinien liegen auf dem Boden und enden am Wegpunkt; beim Drüberfahren leuchtet die Linie auf
+- [ ] Legende unter dem Bild: Wege, Infopunkte, Geschichten einzeln aus- und einblenden
 - [ ] Grundriss öffnet sich, Klick auf eine Station springt dorthin, Blickkegel dreht mit
 - [ ] „Rundgang starten“: Weiter/Zurück, Station 1 bis 14, „Rundgang beenden“
 - [ ] Infopunkt, Geschichte (Video spielt) und Schatzkammer öffnen und mit × oder Esc schließen
-- [ ] „Geschichten anzeigen“ aus- und einschalten
 - [ ] Vollbild ein und aus
-- [ ] Nur Tastatur: Tab erreicht Pfeile und Punkte, Enter öffnet, Pfeiltasten drehen
+- [ ] Nur Tastatur: Tab erreicht Wegpunkte und Punkte, Enter öffnet, Pfeiltasten drehen
 - [ ] Liste „Alle Orte im Überblick“: „Hier umschauen“ springt zur Station
 
 **Handy (iPhone und Android, hoch und quer)**
 - [ ] Wischen dreht, zwei Finger zoomen, die Seite selbst verrutscht nicht seitlich
-- [ ] Pfeile, Punkte und Knöpfe lassen sich gut antippen
+- [ ] Wegpunkte, Punkte und Knöpfe lassen sich gut antippen
 - [ ] Bewegungssteuerung (Symbol im Viewer, erst auf der echten Website mit https sichtbar):
       iPhone fragt einmal um Erlaubnis, danach folgt das Bild dem Handy
 - [ ] Geführter Rundgang: Begleittext und Weiter-Knopf gut erreichbar

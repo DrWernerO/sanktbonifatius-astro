@@ -17,7 +17,7 @@
       "datei": "Station 1 Taufstein.jpg",
       "position": { "x": 27.35, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": -8 },
-      "verbindungen": ["mittelgang-empore", { "ziel": "empore", "yaw": -150, "pitch": -4, "label": "Hinauf zur Empore" }],
+      "verbindungen": [{ "ziel": "mittelgang-empore", "ueber": [{ "x": 29.4, "y": 44.5 }, { "x": 32.5, "y": 44.5 }], "wegpunkt": "umweg" }, "marienbild", { "ziel": "empore", "yaw": -150, "pitch": -4, "label": "Hinauf zur Empore" }],
       "begleittext": "Willkommen in Sankt Bonifatius! Gleich hinter dem Eingang steht der Taufstein mit seiner goldglänzenden Kuppel. Hier werden Kinder und Erwachsene getauft – für viele beginnt der Weg mit dieser Kirche genau an dieser Stelle."
     },
     {
@@ -26,7 +26,7 @@
       "datei": "Station 2 Mittelgang vor Empore.jpg",
       "position": { "x": 36.05, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": 0 },
-      "verbindungen": ["taufstein", "mittelgang-pult", "marienbild"],
+      "verbindungen": [{ "ziel": "taufstein", "ueber": [{ "x": 32.5, "y": 44.5 }, { "x": 29.4, "y": 44.5 }], "wegpunkt": "umweg" }, "mittelgang-pult", "marienbild", "jona-nischen", "trauer-madonna"],
       "begleittext": "Von hier öffnet sich der hohe, helle Kirchenraum mit seinen spitzen Bögen. Die Stühle stehen im Halbrund um die Mitte – so sieht man sich beim Gottesdienst gegenseitig."
     },
     {
@@ -44,7 +44,7 @@
       "datei": "Station 4 Mittelgang vor Altar.jpg",
       "position": { "x": 46.14, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": -6 },
-      "verbindungen": ["mittelgang-pult", "jona-nischen", "trauer-madonna"],
+      "verbindungen": ["mittelgang-pult", { "ziel": "hinter-dem-altar", "ueber": [{ "x": 50.0, "y": 43.0 }], "wegpunkt": "umweg" }, "jona-nischen", "trauer-madonna", "marienbild"],
       "begleittext": "Der Altar steht in der Mitte der Kirche. So versammeln sich alle rundherum – wie um einen großen gemeinsamen Tisch."
     },
     {
@@ -53,7 +53,7 @@
       "datei": "Station 5 Mittelgang hinter Altar.jpg",
       "position": { "x": 55.16, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": 0 },
-      "verbindungen": ["vor-der-treppe", "reliquie", "jona-nischen", "nischen-krypta"],
+      "verbindungen": [{ "ziel": "vor-dem-altar", "ueber": [{ "x": 50.0, "y": 43.0 }], "wegpunkt": "umweg" }, "vor-der-treppe", "reliquie", "jona-nischen", "nischen-krypta", { "ziel": "trauer-madonna", "ueber": [{ "x": 53.0, "y": 63.0 }], "wegpunkt": "umweg" }],
       "begleittext": "Hinter dem Altar geht der Blick nach vorne: zur breiten Treppe und zum Chorraum mit seinen bunten Fenstern."
     },
     {
@@ -98,7 +98,7 @@
       "datei": "Station 10 vor JONA Nischen.jpg",
       "position": { "x": 44.5, "y": 26.75 }, "blickrichtung": -74,
       "startblick": { "yaw": 0, "pitch": 0 },
-      "verbindungen": ["vor-dem-altar", "hinter-dem-altar", "reliquie"],
+      "verbindungen": ["mittelgang-empore", "vor-dem-altar", "hinter-dem-altar", "reliquie"],
       "begleittext": "An der Nordseite liegt das JONA-Wohnzimmer mit Sofa, daneben das „Fenster zum Himmel“ – ein Ort zum Ankommen, Ausruhen und Reden."
     },
     {
@@ -116,7 +116,7 @@
       "datei": "Station 12 Nischen Trauer+Madonna.jpg",
       "position": { "x": 41.15, "y": 74.66 }, "blickrichtung": 90,
       "startblick": { "yaw": 0, "pitch": 0 },
-      "verbindungen": ["vor-dem-altar", "nischen-krypta", "marienbild"],
+      "verbindungen": ["mittelgang-empore", "vor-dem-altar", { "ziel": "hinter-dem-altar", "ueber": [{ "x": 53.0, "y": 63.0 }], "wegpunkt": "umweg" }, "nischen-krypta", "marienbild"],
       "begleittext": "In dieser Nische ist Platz für Trauer und Erinnerung an Menschen, die uns fehlen. Gleich daneben steht eine Figur der Madonna mit dem Kind."
     },
     {
@@ -125,7 +125,7 @@
       "datei": "Station 13 Marienbild.jpg",
       "position": { "x": 30.68, "y": 74.66 }, "blickrichtung": 90,
       "startblick": { "yaw": 0, "pitch": 2 },
-      "verbindungen": ["mittelgang-empore", "trauer-madonna"],
+      "verbindungen": ["taufstein", "mittelgang-empore", "vor-dem-altar", "trauer-madonna"],
       "begleittext": "Unter der Empore hängt ein Gemälde von Maria mit dem Kind. Ein ruhiger Ort für einen Moment der Stille."
     },
     {
