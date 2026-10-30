@@ -132,7 +132,8 @@
       "nr": 14, "id": "empore", "titel": "Ausblick von der Empore",
       "ort": "Orgelempore (2. OG)",
       "datei": "Station 14 Ausblick Empore.jpg",
-      "position": { "x": 31.86, "y": 59.76 }, "blickrichtung": 180, "boden": 5.04, "ebene": "Empore",
+      "position": { "x": 29.75, "y": 49.0 }, "karte": { "x": 31.86, "y": 59.76 }, "blickrichtung": 188, "boden": 5.3, "ebene": "Empore",
+      "geschichtenVon": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "tabernakel", "reliquie", "jona-nischen", "nischen-krypta", "trauer-madonna"],
       "startblick": { "yaw": 180, "pitch": -14 },
       "vorschauFlaeche": "b",
       "verbindungen": [{ "ziel": "taufstein", "yaw": 41, "pitch": -35, "label": "Hinunter zum Taufstein" }],
@@ -142,17 +143,17 @@
   "infopunkte": [
     { "id": "A", "titel": "Taufstein", "position": { "x": 29.4, "y": 49.97 }, "hoehe": 0.9, "sichtbarVon": ["taufstein", "mittelgang-empore"], "text": null, "foto": null },
     { "id": "B", "titel": "Mariengemälde", "position": { "x": 30.3, "y": 89.5 }, "hoehe": 2.0, "sichtbarVon": ["marienbild", "trauer-madonna"], "text": null, "foto": null },
-    { "id": "C", "titel": "Madonna", "position": { "x": 40.0, "y": 90.5 }, "hoehe": 1.6, "sichtbarVon": ["trauer-madonna", "marienbild"], "text": null, "foto": null },
-    { "id": "D", "titel": "Trauernische", "position": { "x": 42.49, "y": 89.29 }, "hoehe": 1.1, "sichtbarVon": ["trauer-madonna", "marienbild"], "text": null, "foto": null },
+    { "id": "C", "titel": "Madonna", "position": { "x": 40.0, "y": 90.5 }, "hoehe": 1.6, "ansichten": { "empore": { "yaw": -120.0, "pitch": -27.8 } }, "sichtbarVon": ["trauer-madonna", "marienbild", "empore"], "text": null, "foto": null },
+    { "id": "D", "titel": "Trauernische", "position": { "x": 42.49, "y": 89.29 }, "hoehe": 1.1, "ansichten": { "empore": { "yaw": -132.8, "pitch": -27.5 } }, "sichtbarVon": ["trauer-madonna", "marienbild", "empore"], "text": null, "foto": null },
     { "id": "E", "titel": "JONA-Wohnzimmer", "position": { "x": 42.6, "y": 13.47 }, "hoehe": 0.8, "sichtbarVon": ["jona-nischen"], "text": null, "foto": null },
-    { "id": "F", "titel": "Fenster zum Himmel", "position": { "x": 49.15, "y": 12.8 }, "hoehe": 1.6, "sichtbarVon": ["jona-nischen"], "text": null, "foto": null },
-    { "id": "G", "titel": "Altar", "position": { "x": 50.0, "y": 49.7 }, "hoehe": 1.0, "sichtbarVon": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "jona-nischen", "trauer-madonna"], "text": null, "foto": null },
-    { "id": "H", "titel": "Ambo", "position": { "x": 50.6, "y": 58.0 }, "hoehe": 1.2, "sichtbarVon": ["vor-dem-altar", "hinter-dem-altar", "trauer-madonna"], "text": null, "foto": null },
-    { "id": "I", "titel": "Bonifatiusreliquie", "position": { "x": 62.78, "y": 13.5 }, "hoehe": 1.2, "sichtbarVon": ["reliquie"], "text": null, "foto": null },
-    { "id": "J", "titel": "Engelbild Nord", "position": { "x": 74.43, "y": 17.76 }, "hoehe": 2.0, "sichtbarVon": ["vor-der-treppe", "hochaltar"], "text": null, "foto": null },
-    { "id": "K", "titel": "Engelbild Süd", "position": { "x": 74.0, "y": 84.19 }, "hoehe": 2.0, "sichtbarVon": ["vor-der-treppe", "hochaltar"], "text": null, "foto": null },
-    { "id": "L", "titel": "Osterkerze", "position": { "x": 82.21, "y": 22.46 }, "hoehe": 2.4, "boden": 1.5, "sichtbarVon": ["hochaltar", "tabernakel"], "text": null, "foto": null },
-    { "id": "M", "titel": "Marienfigur", "position": { "x": 83.39, "y": 78.82 }, "hoehe": 2.4, "boden": 1.5, "sichtbarVon": ["hochaltar", "tabernakel"], "text": null, "foto": null }
+    { "id": "F", "titel": "Fenster zum Himmel", "position": { "x": 49.15, "y": 12.8 }, "hoehe": 1.6, "sichtbarVon": ["jona-nischen", "empore"], "text": null, "foto": null },
+    { "id": "G", "titel": "Altar", "position": { "x": 50.0, "y": 49.7 }, "hoehe": 1.0, "sichtbarVon": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "jona-nischen", "trauer-madonna", "empore"], "text": null, "foto": null },
+    { "id": "H", "titel": "Ambo", "position": { "x": 50.6, "y": 58.0 }, "hoehe": 1.2, "sichtbarVon": ["vor-dem-altar", "hinter-dem-altar", "trauer-madonna", "empore"], "text": null, "foto": null },
+    { "id": "I", "titel": "Bonifatiusreliquie", "position": { "x": 62.78, "y": 13.5 }, "hoehe": 1.2, "sichtbarVon": ["reliquie", "empore"], "text": null, "foto": null },
+    { "id": "J", "titel": "Engelbild Nord", "position": { "x": 74.43, "y": 17.76 }, "hoehe": 2.0, "ansichten": { "empore": { "yaw": 157.1, "pitch": -10.3 } }, "sichtbarVon": ["vor-der-treppe", "hochaltar", "empore"], "text": null, "foto": null },
+    { "id": "K", "titel": "Engelbild Süd", "position": { "x": 74.0, "y": 84.19 }, "hoehe": 2.0, "ansichten": { "empore": { "yaw": -166.5, "pitch": -10.3 } }, "sichtbarVon": ["vor-der-treppe", "hochaltar", "empore"], "text": null, "foto": null },
+    { "id": "L", "titel": "Osterkerze", "position": { "x": 82.21, "y": 22.46 }, "hoehe": 2.4, "boden": 1.5, "ansichten": { "empore": { "yaw": 162.3, "pitch": -8.0 } }, "sichtbarVon": ["hochaltar", "tabernakel", "empore"], "text": null, "foto": null },
+    { "id": "M", "titel": "Marienfigur", "position": { "x": 83.39, "y": 78.82 }, "hoehe": 2.4, "boden": 1.5, "ansichten": { "empore": { "yaw": -172.7, "pitch": -6.8 } }, "sichtbarVon": ["hochaltar", "tabernakel", "empore"], "text": null, "foto": null }
   ],
   "geschichten": [
     {

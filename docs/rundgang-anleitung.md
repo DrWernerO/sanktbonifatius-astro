@@ -49,6 +49,22 @@ Unter `geschichten` einen Eintrag nach diesem Muster anlegen:
 - `"beispiel": true` nur für Platzhalter – solche Einträge vor der Veröffentlichung löschen.
 - **Vor dem Einstellen:** schriftliche Einwilligung (KDG) der Person, bei Kindern der Eltern.
 
+## Blick von der Empore
+
+Von der Empore (Station 14) sieht man den ganzen Raum. Dort erscheinen deshalb zusätzlich:
+
+- **Infopunkte**, bei denen `"empore"` in `sichtbarVon` steht. Taufstein, Mariengemälde und
+  JONA-Wohnzimmer fehlen, weil sie unter der Empore bzw. hinter der Brüstung liegen. Wo die
+  berechnete Lage von oben nicht genau passt, steht beim Infopunkt eine eigene Lage im Bild:
+  `"ansichten": { "empore": { "yaw": 162.3, "pitch": -8.0 } }`.
+- **Geschichten** aller Stationen, die in `geschichtenVon` der Empore stehen. Sie schweben
+  automatisch über ihrem Standort und müssen nicht eigens eingetragen werden.
+- Wegpunkte gibt es von oben nur zurück zum Taufstein.
+
+Die Kameraposition der Empore (`position`, `boden`, `blickrichtung`) wurde am 30.10.2026 aus Altar,
+Ambo, Treppenfuß und „Fenster zum Himmel“ im Panorama errechnet. Im Grundriss steht der Punkt an der
+Stelle `karte`, damit er nicht auf dem Taufstein liegt.
+
 ## Ein Panorama ersetzen oder eine Station ergänzen
 
 1. In Insta360 Studio als JPG exportieren (Projektion „360°/equirektangulär“, volle Auflösung)
@@ -88,6 +104,9 @@ Weg (Altar, Taufstein), führt man das Band mit Zwischenpunkten herum:
 
 Farben im Bild: **Wege weiß, Infopunkte rot, Geschichten gold.** Unter dem Bild lassen sich die drei
 Gruppen einzeln ein- und ausblenden.
+Alle Punkte werden mit der Entfernung im Raum kleiner (bis ca. 6 m volle Größe, ab ca. 25 m die
+Mindestgröße). Geschichten zeigen nur Bild bzw. Initialen. Der Titel erscheint beim Drüberfahren mit
+der Maus, auf Handy und Tablet beim ersten Antippen. Erst der zweite Tipp öffnet die Geschichte.
 
 ## Testcheckliste
 
@@ -97,7 +116,9 @@ Gruppen einzeln ein- und ausblenden.
 - [ ] Wegpunkte führen zur richtigen Station, der Wechsel wirkt wie ein paar Schritte
 - [ ] Bodenlinien liegen auf dem Boden und enden am Wegpunkt; beim Drüberfahren leuchtet die Linie auf
 - [ ] Legende unter dem Bild: Wege, Infopunkte, Geschichten einzeln aus- und einblenden
+- [ ] Empore: Infopunkte sitzen an ihren Objekten, Geschichten schweben über ihren Orten, beide öffnen sich
 - [ ] Grundriss öffnet sich, Klick auf eine Station springt dorthin, Blickkegel dreht mit
+- [ ] Geschichten: Titel erst beim Drüberfahren; am Handy 1. Tipp Titel, 2. Tipp öffnet
 - [ ] „Rundgang starten“: Weiter/Zurück, Station 1 bis 14, „Rundgang beenden“
 - [ ] Infopunkt, Geschichte (Video spielt) und Schatzkammer öffnen und mit × oder Esc schließen
 - [ ] Vollbild ein und aus

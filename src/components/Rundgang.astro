@@ -52,7 +52,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
           <button
             type="button"
             class:list={['astro-rg-punkt', { 'astro-rg-punkt-empore': s.ebene === 'Empore' }]}
-            style={`left:${s.position.x}%;top:${s.position.y}%`}
+            style={`left:${(s.karte || s.position).x}%;top:${(s.karte || s.position).y}%`}
             data-station={s.id}
             aria-label={`Station ${s.nr}: ${s.titel}${s.ebene ? ` (${s.ebene})` : ''}`}
             title={`${s.nr} · ${s.titel}`}
@@ -146,7 +146,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 <script>
   type Pos = { x: number; y: number };
   type Station = {
-    nr: number; id: string; titel: string; ort: string; position: Pos; blickrichtung: number;
+    nr: number; id: string; titel: string; ort: string; position: Pos; karte?: Pos; blickrichtung: number;
     boden?: number; ebene?: string; startblick: { yaw: number; pitch: number };
     verbindungen: (string | { ziel: string; yaw?: number; pitch?: number; label?: string; ueber?: Pos[]; wegpunkt?: 'umweg' })[];
     begleittext: string;
@@ -166,9 +166,14 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     const dy = ((nach.y - von.position.y) / 100) * H;
     const abstand = Math.max(0.5, Math.hypot(dx, dy));
     const yaw = wrap(grad(Math.atan2(dy, dx)) - von.blickrichtung);
-    const pitch = grad(Math.atan2(zielBoden + zielHoehe - ((von.boden || 0) + KAMERA), abstand));
-    return { yaw, pitch, abstand };
+    const hoehe = zielBoden + zielHoehe - ((von.boden || 0) + KAMERA);
+    const pitch = grad(Math.atan2(hoehe, abstand));
+    return { yaw, pitch, abstand, raum: Math.hypot(abstand, hoehe) };
   }
+
+  // Punkte werden mit der Entfernung im Raum kleiner (Frank 2026-10-30): bis ca. 6 m volle Größe,
+  // ab ca. 25 m die Mindestgröße (bleibt antippbar). Wirkt über die CSS-Variable --rg-gross.
+  const groesse = (meter: number) => Math.max(0.6, Math.min(1, 1.2 - 0.024 * meter)).toFixed(2);
 
   const ICON: Record<string, string> = {
     pfeil: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -179,8 +184,9 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   };
   const MEDIUM: Record<string, string> = { video: 'Video', audio: 'Tonaufnahme', text: 'Text' };
 
-  function knopf(div: HTMLElement, klasse: string, html: string, label: string, aktion: () => void) {
+  function knopf(div: HTMLElement, klasse: string, html: string, label: string, aktion: () => void, meter = 0) {
     div.classList.add('astro-rg-hs');
+    div.style.setProperty('--rg-gross', groesse(meter));
     const b = document.createElement('button');
     b.type = 'button';
     b.className = klasse;
@@ -207,7 +213,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       liste.push({
         yaw, pitch, type: 'custom', cssClass: 'astro-rg-hs-weg',
         createTooltipFunc: (div: HTMLElement) => {
-          knopf(div, 'astro-rg-weg', `<span class="astro-rg-weg-punkt">${ICON.pfeil}</span><span class="astro-rg-hs-label">${label}</span>`, `Weitergehen: ${label}`, () => gehZu(ziel, { ueber: yaw }));
+          knopf(div, 'astro-rg-weg', `<span class="astro-rg-weg-punkt">${ICON.pfeil}</span><span class="astro-rg-hs-label">${label}</span>`, `Weitergehen: ${label}`, () => gehZu(ziel, { ueber: yaw }), r.raum);
           const b = div.querySelector('button')!;
           const an = () => hebeLinieHervor(ziel), aus = () => hebeLinieHervor(null);
           b.addEventListener('mouseenter', an); b.addEventListener('focus', an);
@@ -216,22 +222,50 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       });
     }
     for (const i of daten.infopunkte.filter((p: any) => p.sichtbarVon.includes(s.id))) {
-      const r = richtung(s, i.position, i.boden || 0, i.hoehe ?? 1.5);
+      // `ansichten.<station>`: Lage im Bild von Hand (z. B. von der Empore, wo Objekthöhen von oben nicht passen)
+      const berechnet = richtung(s, i.position, i.boden || 0, i.hoehe ?? 1.5);
+      const r = i.ansichten?.[s.id] || berechnet;
       liste.push({
         yaw: r.yaw, pitch: r.pitch, type: 'custom', cssClass: 'astro-rg-hs-info',
         createTooltipFunc: (div: HTMLElement) =>
-          knopf(div, 'astro-rg-info', `<span aria-hidden="true">i</span><span class="astro-rg-hs-label">${i.titel}</span>`, `Info: ${i.titel}`, () => zeigeInfo(i)),
+          knopf(div, 'astro-rg-info', `<span aria-hidden="true">i</span><span class="astro-rg-hs-label">${i.titel}</span>`, `Info: ${i.titel}`, () => zeigeInfo(i), berechnet.raum),
       });
     }
-    for (const g of daten.geschichten.filter((x: any) => x.station === s.id)) {
+    // Geschichten der eigenen Station an ihrer Stelle; von Überblicks-Standpunkten (Empore, `geschichtenVon`)
+    // zusätzlich alle Geschichten der dort sichtbaren Stationen – schwebend über deren Standort,
+    // mehrere an einem Ort leicht nebeneinander.
+    const geschichten: { g: any; yaw: number; pitch: number; meter: number }[] = daten.geschichten
+      .filter((x: any) => x.station === s.id)
+      .map((g: any) => ({ g, yaw: g.yaw, pitch: g.pitch, meter: 0 }));   // an der eigenen Station: nah
+    for (const ort of (s as any).geschichtenVon || []) {
+      const z = stationen[ort];
+      const dort = daten.geschichten.filter((x: any) => x.station === ort);
+      if (!z || !dort.length) continue;
+      const r = richtung(s, z.position, z.boden || 0, 4.5);   // hoch über dem Ort, damit sie nicht auf Infopunkten liegen
+      dort.forEach((g: any, n: number) => geschichten.push({ g, yaw: r.yaw + (n - (dort.length - 1) / 2) * 4, pitch: r.pitch, meter: r.raum }));
+    }
+    for (const { g, yaw, pitch, meter } of geschichten) {
       const bild = g.vorschaubild
         ? `<img src="${g.vorschaubild}" alt="">`
         : `<span class="astro-rg-initialen">${(g.person || g.titel).split(/\s+/).map((w: string) => w[0]).join('').slice(0, 2)}</span>`;
       liste.push({
-        yaw: g.yaw, pitch: g.pitch, type: 'custom', cssClass: 'astro-rg-hs-geschichte',
-        createTooltipFunc: (div: HTMLElement) =>
+        yaw, pitch, type: 'custom', cssClass: 'astro-rg-hs-geschichte',
+        createTooltipFunc: (div: HTMLElement) => {
+          // Titel nur beim Drüberfahren; auf Touch-Geräten zeigt der erste Tipp den Titel, der zweite öffnet.
+          let tippen = false;
           knopf(div, 'astro-rg-geschichte', `<span class="astro-rg-portrait">${bild}<span class="astro-rg-medium">${ICON[g.medium] || ''}</span></span><span class="astro-rg-hs-label">${g.titel} · ${g.jahr}</span>`,
-            `Geschichte: ${g.titel}, ${g.jahr} (${MEDIUM[g.medium] || ''})`, () => zeigeGeschichte(g)),
+            `Geschichte: ${g.titel}, ${g.jahr} (${MEDIUM[g.medium] || ''})`, () => {
+              if (tippen && !b.classList.contains('astro-rg-titel-an')) {
+                titelAus();
+                b.classList.add('astro-rg-titel-an');
+                return;
+              }
+              titelAus();
+              zeigeGeschichte(g);
+            }, meter);
+          const b = div.querySelector('button')!;
+          b.addEventListener('pointerdown', (e) => { tippen = e.pointerType !== 'mouse'; });
+        },
       });
     }
     for (const gal of daten.galerien.filter((x: any) => x.station === s.id)) {
@@ -242,6 +276,9 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       });
     }
     return liste;
+  }
+  function titelAus() {
+    document.querySelectorAll('.astro-rg-titel-an').forEach((x) => x.classList.remove('astro-rg-titel-an'));
   }
 
   // ---------- Bodenlinien (Frank 2026-10-30) ----------
@@ -366,7 +403,9 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   // Linien bei jedem Bild nachführen (nur neu zeichnen, wenn sich Blick oder Größe geändert haben);
   // während der Überblendung zur nächsten Station ausblenden.
   (function schleife() { zeichneLinien(); requestAnimationFrame(schleife); })();
-  viewer.on('scenechange', () => { linienSvg.classList.add('astro-rg-linien-weg'); hervorgehoben = null; });
+  viewer.on('scenechange', () => { linienSvg.classList.add('astro-rg-linien-weg'); hervorgehoben = null; titelAus(); });
+  // Tipp ins Bild (nicht auf einen Punkt) blendet einen offenen Geschichten-Titel wieder aus
+  viewer.on('mousedown', (e: any) => { if (!e?.target?.closest?.('.astro-rg-hs')) titelAus(); });
   viewer.on('load', () => { letzterStand = ''; linienSvg.classList.remove('astro-rg-linien-weg'); });
 
   // Gehen: kurz in Laufrichtung hineinzoomen, dann überblenden (Werner-Feedback 2026-09-23: sonst
@@ -461,11 +500,12 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       const blick = viewer.getYaw() + s.blickrichtung;
       const breite = viewer.getHfov() / 2;
       const r = 9; // Länge in Prozent der Kartenbreite
+      const k = s.karte || s.position;   // Punkt im Grundriss (Empore: neben dem Taufstein statt darüber)
       const pkt = (w: number) => {
         const a = ((blick + w) * Math.PI) / 180;
-        return `${s.position.x + r * Math.cos(a)},${s.position.y + r * (W / H) * Math.sin(a)}`;
+        return `${k.x + r * Math.cos(a)},${k.y + r * (W / H) * Math.sin(a)}`;
       };
-      kegel.innerHTML = `<polygon points="${s.position.x},${s.position.y} ${pkt(-breite)} ${pkt(breite)}" />`;
+      kegel.innerHTML = `<polygon points="${k.x},${k.y} ${pkt(-breite)} ${pkt(breite)}" />`;
     }
     kegelLauf = requestAnimationFrame(zeichneKegel);
   }
@@ -670,9 +710,9 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-hs button { font-family: 'Source Sans 3', sans-serif; cursor: pointer; }
   /* Drei Kategorien, je eigene Farbe (Frank 2026-10-30): Wege weiß, Infopunkte rot, Geschichten gold */
   .astro-rg-weg { position: relative; transform: translate(-50%, -50%); background: none; border: 0; padding: 0; }
-  .astro-rg-weg-punkt { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.9);
+  .astro-rg-weg-punkt { display: grid; place-items: center; width: calc(40px * var(--rg-gross, 1)); height: calc(40px * var(--rg-gross, 1)); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.9);
     background: rgba(255, 255, 255, 0.28); color: #fff; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); backdrop-filter: blur(2px); transition: background 0.15s, transform 0.15s; }
-  .astro-rg-weg-punkt svg { width: 22px; height: 22px; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6)); }
+  .astro-rg-weg-punkt svg { width: calc(22px * var(--rg-gross, 1)); height: calc(22px * var(--rg-gross, 1)); filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6)); }
   .astro-rg-weg:hover .astro-rg-weg-punkt, .astro-rg-weg:focus-visible .astro-rg-weg-punkt { background: #fff; color: var(--rg-schwarz); transform: scale(1.1); }
   .astro-rg-weg:hover .astro-rg-hs-label, .astro-rg-weg:focus-visible .astro-rg-hs-label { opacity: 1; }
   .astro-rg-weg .astro-rg-hs-label { background: #fff; }
@@ -683,8 +723,8 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-galerie svg { width: 18px; height: 18px; }
   .astro-rg-galerie:hover, .astro-rg-galerie:focus-visible { background: #b80015; outline: none; transform: translate(-50%, -50%) scale(1.06); }
 
-  .astro-rg-info { position: relative; transform: translate(-50%, -50%); width: 38px; height: 38px; border-radius: 50%; padding: 0;
-    border: 3px solid #fff; background: var(--rg-rot); color: #fff; font: 700 20px/1 Georgia, serif;
+  .astro-rg-info { position: relative; transform: translate(-50%, -50%); width: calc(38px * var(--rg-gross, 1)); height: calc(38px * var(--rg-gross, 1)); border-radius: 50%; padding: 0;
+    border: 3px solid #fff; background: var(--rg-rot); color: #fff; font: 700 calc(20px * var(--rg-gross, 1))/1 Georgia, serif;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); display: grid; place-items: center; }
   .astro-rg-hs-label { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 4px 10px;
     border-radius: 999px; background: var(--rg-creme); color: var(--rg-schwarz); font: 600 13px/1.2 'Source Sans 3', sans-serif;
@@ -693,15 +733,16 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-info:hover, .astro-rg-info:focus-visible { background: #b80015; outline: none; transform: translate(-50%, -50%) scale(1.1); }
 
   .astro-rg-geschichte { position: relative; transform: translate(-50%, -50%); background: none; border: 0; padding: 0; }
-  .astro-rg-portrait { position: relative; display: block; width: 64px; height: 64px; border-radius: 50%; background: var(--rg-creme);
+  .astro-rg-portrait { position: relative; display: block; width: calc(64px * var(--rg-gross, 1)); height: calc(64px * var(--rg-gross, 1)); border-radius: 50%; background: var(--rg-creme);
     border: 4px solid var(--rg-gold); box-shadow: 0 0 0 2px #fff, 0 4px 14px rgba(0, 0, 0, 0.55); }
   .astro-rg-portrait img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
   .astro-rg-initialen { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: #e3ddd2;
     color: var(--rg-schwarz); font: 700 18px/1 'Playfair Display', serif; }
-  .astro-rg-medium { position: absolute; right: -8px; bottom: -8px; width: 26px; height: 26px; border-radius: 50%; background: var(--rg-gold);
+  .astro-rg-medium { position: absolute; right: -6px; bottom: -6px; width: calc(26px * var(--rg-gross, 1)); height: calc(26px * var(--rg-gross, 1)); border-radius: 50%; background: var(--rg-gold);
     border: 2px solid #fff; color: var(--rg-schwarz); display: grid; place-items: center; }
-  .astro-rg-medium svg { width: 14px; height: 14px; }
-  .astro-rg-geschichte .astro-rg-hs-label { opacity: 1; top: calc(100% + 10px); background: var(--rg-gold); }
+  .astro-rg-medium svg { width: calc(14px * var(--rg-gross, 1)); height: calc(14px * var(--rg-gross, 1)); }
+  .astro-rg-geschichte .astro-rg-hs-label { top: calc(100% + 10px); background: var(--rg-gold); }
+  .astro-rg-geschichte:hover .astro-rg-hs-label, .astro-rg-geschichte:focus-visible .astro-rg-hs-label, .astro-rg-titel-an .astro-rg-hs-label { opacity: 1; }
   .astro-rg-geschichte:hover .astro-rg-portrait, .astro-rg-geschichte:focus-visible .astro-rg-portrait { box-shadow: 0 0 0 4px #fff, 0 4px 14px rgba(0, 0, 0, 0.55); }
   .astro-rg-geschichte:focus-visible { outline: none; }
   .astro-rg-linien { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.55)); transition: opacity 0.3s; }
@@ -788,7 +829,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     .astro-rg { padding: 0 12px; }
     .astro-rg .astro-rg-viewer { height: 68vh; }
     .astro-rg-galerie { font-size: 13px; padding: 7px 12px 7px 8px; }
-    .astro-rg-portrait { width: 52px; height: 52px; }
+    .astro-rg-portrait { width: calc(52px * var(--rg-gross, 1)); height: calc(52px * var(--rg-gross, 1)); }
     .astro-rg-punkt { width: 20px; height: 20px; font-size: 10px; border-width: 1.5px; }
     .astro-rg-karte { padding: 10px; }
     .astro-rg-dialog-box { padding: 24px 18px 18px; }
