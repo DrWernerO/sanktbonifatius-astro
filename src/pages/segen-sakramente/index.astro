@@ -21,7 +21,7 @@ const seo = SEO_STATIC['/segen-sakramente/'];
 // „Gottes Segen für Sie" — 2 Segensformen
 const segen = [
   {
-    img: '/uploads/2023/07/persoenlicher-segen-sanktbonifatius.jpg',
+    img: '/uploads/kacheln/segen-persoenlicher-segen.webp', alt: 'Priester legt einer Frau zum persönlichen Segen die Hand auf, im Hintergrund Kerzen in St. Bonifatius',
     label: 'Persönlicher Segen',
     title: 'Segen nach dem Gottesdienst',
     text: 'Nach unseren monatlichen Taizégottesdiensten in St. Bonifatius laden wir Sie ein, sich persönlich segnen zu lassen. Außerdem jederzeit nach Vereinbarung mit einem unserer Priester.',
@@ -29,7 +29,7 @@ const segen = [
     linkText: 'Termine finden &#8594;',
   },
   {
-    img: '/uploads/2026/05/segen-sakramente-stbonifatius.jpeg',
+    img: '/uploads/kacheln/segen-paarsegen.webp', alt: 'Zwei Frauen halten sich beim Paarsegen an den Händen, daneben ein Priester und Kerzen',
     pos: 'center',
     label: 'Paarsegen',
     title: 'Segen für Paare',
@@ -42,7 +42,7 @@ const segen = [
 // „Sakramente in unserer Pfarrei" — 6 Sakramente
 const sakramente = [
   {
-    img: '/uploads/2023/03/taufe-stbonifatius-5.jpg',
+    img: '/uploads/kacheln/tile-taufe.webp', alt: 'Kind mit Taufkerze, dem ein Priester die Hand auf die Stirn legt',
     label: 'Sakrament der Initiation',
     title: 'Taufe',
     text: 'In der Taufe schenkt Gott uns neues und ewiges Leben. Wir informieren Sie gerne, wie Sie selbst oder Ihr Kind die Taufe empfangen können.',
@@ -50,7 +50,7 @@ const sakramente = [
     linkText: 'Zur Taufe &#8594;',
   },
   {
-    img: '/uploads/2026/05/firmung-mai2026-stbonifatius.jpg',
+    img: '/uploads/kacheln/tile-firmung.webp', alt: 'Zwei Firmlinge werden von einem Priester in rotem Gewand gesegnet',
     pos: 'center',
     label: 'Sakrament der Reife',
     title: 'Firmung',
@@ -59,7 +59,7 @@ const sakramente = [
     linkText: 'Zur Firmung &#8594;',
   },
   {
-    img: '/uploads/2026/03/erstkommunion2024-stbonifatius.jpeg',
+    img: '/uploads/kacheln/tile-erstkommunion.webp', alt: 'Erstkommunionkinder in weißen Gewändern mit Messdienern vor der Kirche',
     pos: 'center 25%',
     label: 'Sakrament der Mitte',
     title: 'Eucharistie &amp; Erstkommunion',
@@ -68,7 +68,7 @@ const sakramente = [
     linkText: 'Zur Erstkommunion &#8594;',
   },
   {
-    img: '/uploads/2023/09/trauung-sankt-bonifatius.jpg',
+    img: '/uploads/kacheln/tile-trauung.webp', alt: 'Brautpaar tauscht bei der kirchlichen Trauung die Ringe',
     pos: 'center 30%',
     label: 'Sakrament der Ehe',
     title: 'Kirchliche Trauung',
@@ -77,7 +77,7 @@ const sakramente = [
     linkText: 'Zur Trauung &#8594;',
   },
   {
-    img: '/uploads/2023/07/sakramente-beichte-stbonifatius.jpg',
+    img: '/uploads/kacheln/tile-beichte.webp', alt: 'Priester im Gespräch mit einer jungen Frau in der Kirchenbank',
     label: 'Sakrament der Versöhnung',
     title: 'Beichte',
     text: 'Gott verzeiht uns unsere Schwächen und schenkt uns einen neuen Anfang. Das Sakrament der Versöhnung ist Einladung zur Befreiung und inneren Erneuerung.',
@@ -85,7 +85,7 @@ const sakramente = [
     linkText: 'Zur Beichte &#8594;',
   },
   {
-    img: '/uploads/2023/07/sakramente-krankensalbung-stbonifatius.jpg',
+    img: '/uploads/kacheln/tile-krankensalbung.webp', alt: 'Offene Hände bei der Krankensalbung',
     pos: 'center',
     label: 'Sakrament der Kranken',
     title: 'Krankensalbung',
@@ -97,7 +97,7 @@ const sakramente = [
 
 const [taufe, firmung, erstkommunion, trauung, beichte0, krankensalbung] = sakramente;
 const beichte = { ...beichte0, label: undefined, title: 'Sakrament der Vers&ouml;hnung / Beichte', linkText: 'Zum Sakrament der Vers&ouml;hnung &#8594;' };
-const katholischWerden = { img: '/uploads/2026/10/fiat-lux-gottesdienst-stbonifatius-a00014.jpg', pos: 'center', label: 'Neu in der Kirche', title: 'Katholisch werden',
+const katholischWerden = { img: '/uploads/kacheln/tile-katholisch-werden.webp', alt: 'Kelch und Kerzen beim Gottesdienst Fiat Lux in St. Bonifatius', pos: 'center', label: 'Neu in der Kirche', title: 'Katholisch werden',
   text: 'Sie m&ouml;chten sich taufen lassen, wieder eintreten oder in die katholische Kirche aufgenommen werden? Wir beraten Sie gerne.',
   href: '/kontakt/katholisch-werden/', linkText: 'Zum Weg in die Kirche &#8594;' };
 
@@ -135,6 +135,7 @@ const weg = [
   <SegenIntro />
   <SegenWeg
     id="segen"
+    eager
     bg="white"
     heading="Gottes Segen f&uuml;r Sie"
     intro="Segen ist nicht nur f&uuml;r besondere Anl&auml;sse &#8212; wir laden Sie ein, Gottes gute N&auml;he in Ihrem Leben zu erfahren."

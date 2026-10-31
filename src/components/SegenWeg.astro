@@ -5,8 +5,9 @@
 // Props:
 //   id, heading, intro – Anker, Überschrift, Einleitungssatz
 //   bg    – 'creme' | 'white' | 'ruhig' (ruhig = zurückhaltende Fläche für Krankheit/Abschied, ohne Fotos)
-//   tiles – [{ img?, pos?, label?, title, text, href, linkText }]
-const { id, heading, intro, bg = 'white', tiles = [] } = Astro.props;
+//   eager – true = Bilder sofort laden (erster Abschnitt unter dem Hero), sonst lazy
+//   tiles – [{ img?, alt?, pos?, label?, title, text, href, linkText }]
+const { id, heading, intro, bg = 'white', tiles = [], eager = false } = Astro.props;
 const n = tiles.length === 4 ? 2 : Math.min(tiles.length, 3);
 ---
 <section class={`astro-ssweg astro-ssweg--${bg}`} id={id}>
@@ -19,8 +20,9 @@ const n = tiles.length === 4 ? 2 : Math.min(tiles.length, 3);
       {tiles.map((t) => (
         <a class={`astro-sswt${t.img && bg !== 'ruhig' ? '' : ' astro-sswt--plain'}`} href={t.href}>
           {t.img && bg !== 'ruhig' && (
-            <div class="astro-sswt__img" role="img" aria-label={t.title}
-                 style={`background-image:url('${t.img}')${t.pos ? `;background-position:${t.pos}` : ''}`}></div>
+            <img class="astro-sswt__img" src={t.img} alt={t.alt || t.title} width="800" height="534"
+                 loading={eager ? 'eager' : 'lazy'} decoding="async"
+                 style={t.pos ? `object-position:${t.pos}` : undefined} />
           )}
           <div class="astro-sswt__body">
             {t.label && <p class="astro-sswt__label">{t.label}</p>}
@@ -53,7 +55,7 @@ const n = tiles.length === 4 ? 2 : Math.min(tiles.length, 3);
 .astro-ssweg--ruhig .astro-sswt{background:#f7f3ef;box-shadow:none;border:1px solid rgba(44,36,32,.12)}
 .astro-sswt:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(30,21,18,.13)}
 .astro-sswt:focus-visible{outline:3px solid #9a2d2d;outline-offset:3px}
-.astro-sswt__img{height:200px;background-size:cover;background-position:center;flex-shrink:0}
+.astro-sswt__img{display:block;width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0}
 .astro-sswt__body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
 .astro-sswt--plain .astro-sswt__body{padding:30px 30px 28px}
 .astro-sswt__label{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 8px}
@@ -69,7 +71,7 @@ const n = tiles.length === 4 ? 2 : Math.min(tiles.length, 3);
   .astro-ssweg__grid{gap:14px}
   .astro-ssweg__grid--c1,.astro-ssweg__grid--c2,.astro-ssweg__grid--c3{grid-template-columns:1fr}
   .astro-sswt{flex-direction:row;align-items:stretch}
-  .astro-sswt__img{width:104px;height:auto;min-height:100%}
+  .astro-sswt__img{width:104px;height:auto;align-self:stretch}
   .astro-sswt__body,.astro-sswt--plain .astro-sswt__body{padding:16px 18px}
   .astro-sswt__label{display:none}
   .astro-sswt__title{font-size:19px;margin-bottom:6px}
