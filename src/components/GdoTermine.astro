@@ -32,6 +32,14 @@ const bisDatum = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin' })
 const until = new Date(`${bisDatum}T00:00:00Z`);
 const termine = await getGottesdienste({ from: now, to: until });
 
+// Tagesüberschrift kürzen: „Sonntag, 01. November 2026“ → „Sonntag, 1. November“ (Jahr nur, wenn nicht das laufende).
+const jahr = String(new Date().getFullYear());
+const kurzLabel = (l) => {
+  const x = l.replace(/(\s)0(\d)\./, '$1$2.');
+  return x.endsWith(' ' + jahr) ? x.slice(0, -(jahr.length + 1)) : x;
+};
+const sundayKey = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin' }).format(nextSunday);
+
 // Für die Anzeige nach Tag gruppieren (Reihenfolge bleibt erhalten, da termine bereits sortiert sind).
 const tage = [];
 for (const t of termine) {
@@ -39,6 +47,10 @@ for (const t of termine) {
   if (!tag) { tag = { dateKey: t.dateKey, dayLabel: t.dayLabel, isSunday: t.isSunday, items: [] }; tage.push(tag); }
   tag.items.push(t);
 }
+
+// Woche 1 = bis einschließlich nächstem Sonntag, Woche 2 = Folgewoche (mobil eingeklappt, s. <details>)
+const woche1 = tage.filter((g) => g.dateKey <= sundayKey);
+const woche2 = tage.filter((g) => g.dateKey > sundayKey);
 
 // schema.org/Event je Termin — für Google, unsichtbar im Seitenbild. ENTFÄLLT-Termine bekommen
 // eventStatus "EventCancelled" statt "EventScheduled" (schema.org-konforme Absage).
@@ -76,23 +88,62 @@ const jsonLd = termine.filter((t) => t.startISO).map((t) => ({
       </p>
     ) : (
       <div class="astro-gdotermine__list">
-        {tage.map((tag) => (
-          <div class="astro-gdotermine__day">
-            <h3 class:list={['astro-gdotermine__day-hl', tag.isSunday && 'astro-gdotermine__day-hl--sun']}>
-              {tag.dayLabel}
-            </h3>
-            {tag.items.map((t) => (
-              <div class:list={['astro-gdotermine__ev', t.isEntfaellt && 'astro-gdotermine__ev--entfaellt']}>
-                <div class="astro-gdotermine__ev-time">{t.timeLabel}</div>
-                <div class="astro-gdotermine__ev-main">
-                  <p class="astro-gdotermine__ev-title">{t.title}</p>
-                  {t.celebrant && <p class="astro-gdotermine__ev-celebrant">Zelebrant: {t.celebrant}</p>}
+        {woche1.map((tag) => (
+          <Fragment>
+            <div class="astro-gdotermine__day">
+              <h3 class:list={['astro-gdotermine__day-hl', tag.isSunday && 'astro-gdotermine__day-hl--sun']}>{kurzLabel(tag.dayLabel)}</h3>
+              {tag.items.map((t) => (
+                <div class:list={['astro-gdotermine__ev', t.isEntfaellt && 'astro-gdotermine__ev--entfaellt']}>
+                  <div class="astro-gdotermine__ev-time">{t.timeLabel}</div>
+                  <div class="astro-gdotermine__ev-main">
+                    <p class="astro-gdotermine__ev-title">{t.title}</p>
+                    {(t.celebrant || t.church) && (
+                      <p class:list={['astro-gdotermine__ev-celebrant', !t.celebrant && 'astro-gdotermine__ev-celebrant--m']}>
+                        {t.church && <span class="astro-gdotermine__ev-church-m">{t.church}</span>}
+                        {t.church && t.celebrant && <span class="astro-gdotermine__ev-sep-m"> · </span>}
+                        {t.celebrant && <span>Zelebrant: {t.celebrant}</span>}
+                      </p>
+                    )}
+                  </div>
+                  {t.church && <div class="astro-gdotermine__ev-church">{t.church}</div>}
                 </div>
-                {t.church && <div class="astro-gdotermine__ev-church">{t.church}</div>}
+              ))}
+            </div>
+          </Fragment>
+        ))}
+        {woche2.length > 0 && (
+          <details class="astro-gdotermine__week2" id="astro-gdotermine-week2">
+            <summary class="astro-gdotermine__week2-btn">
+              <span class="astro-gdotermine__week2-open">Nächste Woche anzeigen</span>
+              <span class="astro-gdotermine__week2-close">Nächste Woche ausblenden</span>
+            </summary>
+            {woche2.map((tag) => (
+              <div class="astro-gdotermine__day">
+                <h3 class:list={['astro-gdotermine__day-hl', tag.isSunday && 'astro-gdotermine__day-hl--sun']}>{kurzLabel(tag.dayLabel)}</h3>
+                {tag.items.map((t) => (
+                  <div class:list={['astro-gdotermine__ev', t.isEntfaellt && 'astro-gdotermine__ev--entfaellt']}>
+                    <div class="astro-gdotermine__ev-time">{t.timeLabel}</div>
+                    <div class="astro-gdotermine__ev-main">
+                      <p class="astro-gdotermine__ev-title">{t.title}</p>
+                      {(t.celebrant || t.church) && (
+                        <p class:list={['astro-gdotermine__ev-celebrant', !t.celebrant && 'astro-gdotermine__ev-celebrant--m']}>
+                          {t.church && <span class="astro-gdotermine__ev-church-m">{t.church}</span>}
+                          {t.church && t.celebrant && <span class="astro-gdotermine__ev-sep-m"> · </span>}
+                          {t.celebrant && <span>Zelebrant: {t.celebrant}</span>}
+                        </p>
+                      )}
+                    </div>
+                    {t.church && <div class="astro-gdotermine__ev-church">{t.church}</div>}
+                  </div>
+                ))}
               </div>
             ))}
-          </div>
-        ))}
+          </details>
+          <script is:inline>
+            /* Desktop: Folgewoche sofort offen (vor dem ersten Rendern); mobil bleibt sie eingeklappt. */
+            if (window.matchMedia('(min-width:601px)').matches) document.getElementById('astro-gdotermine-week2').open = true;
+          </script>
+        )}
       </div>
     )}
 
@@ -133,8 +184,10 @@ const jsonLd = termine.filter((t) => t.startISO).map((t) => ({
 .astro-gdotermine__ev-time{font-weight:600;color:#9a2d2d;font-size:14.5px;white-space:nowrap}
 .astro-gdotermine__ev-main{min-width:0}
 .astro-gdotermine__ev-title{font-size:15px;font-weight:600;color:#2c2420;margin:0;line-height:1.35}
-.astro-gdotermine__ev-celebrant{font-size:12.5px;color:var(--txt-muted-light);margin:2px 0 0}
-.astro-gdotermine__ev-church{font-size:13px;color:var(--txt-muted-light);text-align:right;white-space:nowrap;flex-shrink:0}
+.astro-gdotermine__ev-celebrant{font-size:14px;color:#5c4e45;margin:2px 0 0;line-height:1.45}
+/* Kirchort inline (nur mobil); am Desktop steht er rechts in eigener Spalte */
+.astro-gdotermine__ev-church-m,.astro-gdotermine__ev-sep-m,.astro-gdotermine__ev-celebrant--m{display:none}
+.astro-gdotermine__ev-church{font-size:14px;color:#5c4e45;text-align:right;white-space:nowrap;flex-shrink:0}
 /* ENTFÄLLT-Termine bleiben sichtbar (Werners Wunsch), aber optisch gedämpft statt wie ein normaler Termin. */
 .astro-gdotermine__ev--entfaellt .astro-gdotermine__ev-time,
 .astro-gdotermine__ev--entfaellt .astro-gdotermine__ev-title{color:#a89c8f}
@@ -147,9 +200,27 @@ const jsonLd = termine.filter((t) => t.startISO).map((t) => ({
 }
 .astro-gdotermine__more-btn:hover{background:#7e2424}
 
+.astro-gdotermine__week2>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  min-height:48px;margin:4px 0 20px;border:2px solid #9a2d2d;border-radius:50px;color:#9a2d2d;font-weight:600;font-size:15px;padding:0 24px;transition:background .2s,color .2s}
+.astro-gdotermine__week2>summary::-webkit-details-marker{display:none}
+.astro-gdotermine__week2>summary:hover{background:#9a2d2d;color:#fff}
+.astro-gdotermine__week2>summary:focus-visible{outline:3px solid #2c2420;outline-offset:3px}
+/* Desktop: Folgewoche ist per Script offen — der Ein-/Ausklapp-Button wird dann nicht gebraucht */
+@media(min-width:601px){.astro-gdotermine__week2[open]>summary{display:none}}
+.astro-gdotermine__week2-close{display:none}
+.astro-gdotermine__week2[open]>summary .astro-gdotermine__week2-open{display:none}
+.astro-gdotermine__week2[open]>summary .astro-gdotermine__week2-close{display:inline}
+
 @media(max-width:600px){
-  .astro-gdotermine{padding:56px 20px}
-  .astro-gdotermine__ev{grid-template-columns:56px 1fr;gap:4px 12px}
-  .astro-gdotermine__ev-church{grid-column:2;text-align:left}
+  .astro-gdotermine{padding:48px 20px}
+  .astro-gdotermine__sub{margin-bottom:28px}
+  .astro-gdotermine__day{margin-bottom:20px}
+  .astro-gdotermine__ev{grid-template-columns:60px 1fr;gap:4px 12px;align-items:start;padding:10px 0}
+  .astro-gdotermine__ev-church{display:none}
+  .astro-gdotermine__ev-church-m,.astro-gdotermine__ev-sep-m{display:inline}
+  .astro-gdotermine__ev-celebrant--m{display:block}
+  .astro-gdotermine__ev-title{font-size:16px}
+  .astro-gdotermine__ev-time{font-size:15px}
+  .astro-gdotermine__ev-celebrant{font-size:14.5px}
 }
 </style>

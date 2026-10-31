@@ -2,8 +2,19 @@
 // Hero der Seite „Gottesdienstordnung" (Page 46977, /gottesdienst-glaube/gottesdienstordnung/).
 // Präfix: astro-gdohero. Full-Bleed-Bild + Overlay + H1 + Untertitel.
 // Bild (seit 31.10.2026: Gottesdienst in St. Bonifatius, WebP 800/1600 px) lokal unter public/uploads/2026/10/.
+// Auch von „Alle Gottesdienste" (alle-gottesdienste.astro) genutzt — Texte/Buttons/Höhe per Props, Standard = Gottesdienstordnung.
+// Props: title, sub, buttons [{label, href, primary?}], compact (niedrigerer Hero für Listenseiten)
+const {
+  title = 'Gottesdienstordnung',
+  sub = 'Gottesdienste in Frankfurt-Sachsenhausen und Oberrad — von meditativer Stille bis Band-Musik. Alle Termine auf einen Blick.',
+  buttons = [
+    { label: 'Aktuelle Termine', href: '#aktuelle-gottesdiensttermine', primary: true },
+    { label: 'Besondere Formate', href: '#besondere-gottesdienste' },
+  ],
+  compact = false,
+} = Astro.props;
 ---
-<section class="astro-gdohero">
+<section class:list={['astro-gdohero', { 'astro-gdohero--compact': compact }]}>
   <img class="astro-gdohero__bg"
        src="/uploads/2026/10/gottesdienstordnung-hero-1600.webp"
        srcset="/uploads/2026/10/gottesdienstordnung-hero-800.webp 800w, /uploads/2026/10/gottesdienstordnung-hero-1600.webp 1600w"
@@ -12,21 +23,25 @@
   <div class="astro-gdohero__overlay"></div>
   <div class="astro-gdohero__inner">
     <p class="astro-gdohero__eyebrow">Pfarrei St. Bonifatius · Frankfurt</p>
-    <h1 class="astro-gdohero__title">Gottesdienstordnung</h1>
-    <p class="astro-gdohero__sub">Katholische Gottesdienste in Frankfurt Sachsenhausen und Oberrad — von meditativer Stille bis zeitgenössischer Band-Musik. Alle Termine, Kirchorte und Gottesdienstformate der Pfarrei Sankt Bonifatius.</p>
-    <div class="astro-gdohero__btns">
-      <a class="astro-gdohero__btn astro-gdohero__btn--primary" href="#aktuelle-gottesdiensttermine">Aktuelle Termine</a>
-      <a class="astro-gdohero__btn astro-gdohero__btn--ghost" href="#besondere-gottesdienste">Besondere Formate</a>
-    </div>
+    <h1 class="astro-gdohero__title">{title}</h1>
+    <p class="astro-gdohero__sub">{sub}</p>
+    {buttons.length > 0 && (
+      <div class="astro-gdohero__btns">
+        {buttons.map((b) => (
+          <a class={`astro-gdohero__btn astro-gdohero__btn--${b.primary ? 'primary' : 'ghost'}`} href={b.href}>{b.label}</a>
+        ))}
+      </div>
+    )}
   </div>
 </section>
 
 <style is:global>
 .astro-gdohero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:560px;display:flex;align-items:flex-end;overflow:hidden}
+.astro-gdohero--compact{min-height:420px}
 .astro-gdohero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(1.15) saturate(1.05)}
 .astro-gdohero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,12,8,.68) 0%,rgba(30,18,12,.30) 45%,rgba(30,18,12,0) 100%)}
-.astro-gdohero__inner{text-shadow:0 1px 14px rgba(0,0,0,.5);position:relative;max-width:1200px;width:100%;margin:0 auto;padding:0 40px 64px;color:#f0e8d8}
-.astro-gdohero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-gold-deco);margin:0 0 14px}
+.astro-gdohero__inner{text-shadow:0 1px 14px rgba(0,0,0,.5);position:relative;max-width:1200px;width:100%;margin:0 auto;padding:104px 40px 64px;color:#f0e8d8}
+.astro-gdohero__eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#f7ecd0;background:rgba(20,12,8,.72);padding:6px 14px;border-radius:50px;margin:0 0 14px;text-shadow:none}
 .astro-gdohero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(40px,6vw,72px);margin:0 0 20px;overflow-wrap:break-word;hyphens:auto}
 .astro-gdohero__sub{font-size:clamp(15px,1.6vw,18px);color:#f0e8d8;max-width:640px;line-height:1.65;margin:0 0 32px}
 .astro-gdohero__btns{display:flex;gap:16px;flex-wrap:wrap}
@@ -36,13 +51,14 @@
 .astro-gdohero__btn--ghost{background:transparent;color:#f0e8d8;border:2px solid rgba(240,232,216,.5)}
 .astro-gdohero__btn--ghost:hover{border-color:var(--accent-gold-deco);color:var(--accent-gold-deco)}
 @media(max-width:600px){
-  .astro-gdohero{min-height:480px}
-  .astro-gdohero__inner{padding:0 24px 48px}
+  .astro-gdohero,.astro-gdohero--compact{min-height:0}
+  .astro-gdohero__inner{padding:96px 24px 48px}
   /* Der 40px-Mindestwert des Desktop-clamp() war auf schmalen Handys (375px, 327px
      Textfeld) zu breit fuer das eine lange Wort "Gottesdienstordnung" -> lief rechts
      ueber den Rand hinaus und wurde abgeschnitten (Designpruefung 11.09.2026, Punkt d).
      Eigener, kleinerer Mindestwert nur ab hier. */
-  .astro-gdohero__title{font-size:clamp(30px,9vw,40px)}
+  .astro-gdohero__title{font-size:clamp(26px,7.4vw,36px);margin-bottom:12px}
+  .astro-gdohero__sub{margin-bottom:22px;font-size:15px}
   .astro-gdohero__btns{gap:12px}
   .astro-gdohero__btn{padding:11px 22px;font-size:14px}
 }
