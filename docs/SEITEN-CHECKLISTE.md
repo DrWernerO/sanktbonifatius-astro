@@ -36,11 +36,24 @@
 - [ ] SEO-Head liegt in `src/lib/seo-static.js` (Handbuch 1e), nicht mehr in WordPress/SEOPress.
 - [ ] Titel ca. 50–60 Zeichen, Beschreibung 150–160 Zeichen, Suchbegriff vorn.
 - [ ] Titel, Beschreibung, `og:*`, `twitter:*` **und** JSON-LD gemeinsam nachziehen (alter Text bleibt sonst irgendwo stehen).
-- [ ] Vorschaubild (`og:image`) passt zum Thema und hat passenden Alt-Text und Maße.
+- [ ] Vorschaubild siehe eigener Abschnitt **4a**.
 - [ ] Ortsbezug im sichtbaren Text (z. B. „Frankfurt“), nicht nur im Titel.
 - [ ] Keine unwahren Angaben im Text (Beispiel: „Alle 7 Sakramente“ bei 6 aufgeführten).
 - [ ] Skill `seo-page` über die gerenderte Seite laufen lassen.
 - [ ] **FAQ-/HowTo-Schema nicht** einsetzen (für Kirchengemeinden nicht zulässig bzw. veraltet).
+
+## 4a. Vorschaubild (`og:image`, erscheint bei WhatsApp, Facebook, Google)
+Wo ändern: `src/lib/seo-static.js`, Eintrag der Adresse. Pro Seite alle Stellen gemeinsam anpassen:
+`og:image`, `og:image:secure_url`, `og:image:width`, `og:image:height`, `og:image:alt`, `twitter:image`.
+Beiträge und Termine: kommen aus WordPress (SEOPress), dort im Beitrag ändern.
+- [ ] Das Bild **passt zum Thema der Seite** (Foto ansehen, nicht nur den Dateinamen glauben). Nicht blind das Standardbild oder ein Bild einer anderen Seite übernehmen.
+- [ ] Bekannte Fehlgriffe vermeiden: Chor-Foto (`startseite-fotogalerie-00043.jpg`) auf Beratungs-/Ehrenamtsseiten, Grafik „Aktueller Gottesdienstplan“ (`Gottesdienste-aktuell.jpg`) auf Nicht-Gottesdienst-Seiten, Kita-Foto der falschen Kita.
+- [ ] Format: **1200 × 630 px, JPG, möglichst unter 300 KB** (WhatsApp zeigt zu große Bilder oft nicht). Zuschnitt prüfen, Gesichter nicht abschneiden. Ablage: `public/uploads/og/`, Originale nicht überschreiben.
+- [ ] `og:image:alt` beschreibt, was zu **sehen** ist (nicht leer lassen), Breite/Höhe stimmen mit der Datei überein.
+- [ ] Ruhige Themen (Trauerfall): kein Gesicht als Vorschau, ruhiges Standardbild.
+- [ ] Jede Seite braucht ein Vorschaubild (Beispiel: `/kontakt/seelsorge/` hatte keines).
+- [ ] Nach dem Push: Facebook/WhatsApp merken sich alte Vorschauen; ggf. im Facebook-Sharing-Debugger den Zwischenspeicher leeren.
+- [ ] Beim Review kurz prüfen, ob ein altes Bild noch in `twitter:image` oder im JSON-LD steht.
 
 ## 5. Pflege nach dem Bau
 - [ ] `public/llms.txt`: neue/verschobene Seite eintragen, **endgültige** Adressen statt Kurzadressen (`_redirects`), Datum „Stand“ aktualisieren.
