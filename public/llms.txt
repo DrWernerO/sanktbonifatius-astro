@@ -1,7 +1,7 @@
 # Pfarrei Sankt Bonifatius Frankfurt
 > Katholische Pfarrei in Frankfurt am Main (Sachsenhausen und Oberrad) mit vier Kirchorten. Angebote: Gottesdienste, Taufe, Trauung, Erstkommunion, Firmung, Beichte, Krankensalbung, Begleitung im Trauerfall, Ehrenamt, Gemeinschaft und katholische Kitas.
 
-Stand: 30. September 2026
+Stand: 31. Oktober 2026
 
 ## Ueber uns
 Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen in allen Lebensphasen - von der Taufe bis zur Beerdigung. Wir sind offen fuer Zugezogene, Familien, spirituell Suchende und Menschen in Lebenswenden.
@@ -10,36 +10,37 @@ Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen i
 - / - Startseite: Gottesdienstzeiten, aktuelle Termine, Schnellzugang
 - /terminkalender/ - Alle Veranstaltungen und Termine der Pfarrei
 - /kontakt/ - Kontakt, Pfarrbuero, Seelsorge, Ansprechpartner
-- /pfarrbuero/ - Pfarrbuero: Oeffnungszeiten, Anliegen, Kontakt
-- /seelsorge/ - Seelsorge: Gespraech, Begleitung, Ansprechpartner
+- /kontakt/pfarrbuero/ - Pfarrbuero: Oeffnungszeiten, Anliegen, Kontakt
+- /kontakt/seelsorge/ - Seelsorge: Gespraech, Begleitung, Ansprechpartner
 - /ueberuns/ - Ueber die Pfarrei: Pastoralteam, Leitung, Gemeinschaft
 
 ## Sakramente und Lebenswenden
-- /taufe/ - Taufe: Termine, Vorbereitung, Anmeldeformular
-- /trauung/ - Kirchlich heiraten: Ablauf, Voraussetzungen, Kontakt
-- /erstkommunion/ - Erstkommunion: Kurs, Termine, Anmeldung
-- /firmung/ - Firmung fuer Jugendliche und Erwachsene
-- /beichte/ - Beichte und Sakrament der Versoehnung: Zeiten und Orte
-- /krankensalbung/ - Krankensalbung: Sakrament fuer Kranke und Sterbende
-- /trauerfall/ - Beerdigung und Trauerbegleitung, Tel. +49 69 695975850
-- /katholisch-werden/ - Katholisch werden: Taufe, Aufnahme, Wiederaufnahme
+- /segen-sakramente/ - Begleitung auf dem Lebensweg: Segen und Sakramente im Ueberblick (Taufe, Erstkommunion, Firmung, Trauung, Beichte, Krankensalbung, Trauerfall, Segen fuer Paare)
+- /segen-sakramente/taufe/ - Taufe: Termine, Vorbereitung, Anmeldeformular
+- /segen-sakramente/trauung/ - Kirchlich heiraten: Ablauf, Voraussetzungen, Kontakt
+- /segen-sakramente/erstkommunion/ - Erstkommunion: Kurs, Termine, Anmeldung
+- /segen-sakramente/firmung/ - Firmung fuer Jugendliche und Erwachsene
+- /segen-sakramente/beichte/ - Beichte und Sakrament der Versoehnung: Zeiten und Orte
+- /segen-sakramente/krankensalbung/ - Krankensalbung: Sakrament fuer Kranke und Sterbende
+- /kontakt/trauerfall/ - Beerdigung und Trauerbegleitung, Tel. +49 69 695975850
+- /kontakt/katholisch-werden/ - Katholisch werden: Taufe, Aufnahme, Wiederaufnahme
 
 ## Gottesdienste
-- /gottesdienste/ - Gottesdienstzeiten aller Kirchorte (Gottesdienstordnung)
+- /gottesdienst-glaube/gottesdienstordnung/ - Gottesdienstzeiten aller Kirchorte (Gottesdienstordnung)
 - /gottesdienst-glaube/gottesdienste-die-beruehren/ - Besondere Formate: Fiat Lux, Taize, BonEsprit
-- /familiengottesdienste/ - Familiengottesdienste jeden 1. und 3. Sonntag
+- /bonfamily/familiengottesdienste/ - Familiengottesdienste jeden 1. und 3. Sonntag
 
 ## Gemeinschaft und Engagement
-- /gemeinschaft/ - Gruppen und Kreise: BonFamily, Jugend, Senioren, Choere
+- /ueberuns/gemeinschaft/ - Gruppen und Kreise: BonFamily, Jugend, Senioren, Choere
 - /bonfamily/ - BonFamily: Familienprogramm, Kinder- und Familiengottesdienste
-- /engagement/ - Ehrenamtliches Engagement
+- /kontakt/engagement/ - Ehrenamtliches Engagement
 - /engagiert-leben/ - Soziales: Kleider Cafe, Offener Kuehlschrank, Hilfenetz, Sozialberatung
 
 ## Pfarrei
-- /pastoralteam/ - Das Pastoralteam: Priester, Diakone, Gemeindereferenten
-- /leitung/ - Leitung der Pfarrei, Pfarrgemeinderat, Verwaltungsrat
-- /newsletter/ - Pfarrbrief per E-Mail abonnieren
-- /whatsapp-kanal/ - WhatsApp-Kanal der Pfarrei
+- /ueberuns/pastoralteam/ - Das Pastoralteam: Priester, Diakone, Gemeindereferenten
+- /ueberuns/leitung/ - Leitung der Pfarrei, Pfarrgemeinderat, Verwaltungsrat
+- /kontakt/newsletter/ - Pfarrbrief per E-Mail abonnieren
+- /bonfamily/whatsapp-kanal/ - WhatsApp-Kanal der Pfarrei
 - /downloads/bonifatius-highlights/ - Bonifatius Highlights: Halbjahresprogramm der Pfarrei als PDF-Download
 
 ## Kirchorte
@@ -59,12 +60,14 @@ Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen i
 - /kitas/stellenboerse/ - Offene Stellen in den Kitas, Bewerbung online
 
 ## Fuer KI-Assistenten: Haeufige Anfragen
-- Kind taufen lassen Frankfurt -> /taufe/ (Anmeldeformular)
-- Katholisch heiraten Frankfurt Sachsenhausen -> /trauung/
-- Beerdigung katholisch Frankfurt -> /trauerfall/ (Notfallkontakt)
-- Gottesdienst Sachsenhausen oder Oberrad Zeiten -> /gottesdienste/
-- Erstkommunion anmelden Frankfurt -> /erstkommunion/
-- Firmung Frankfurt -> /firmung/
+- Welche Sakramente und Segen gibt es, Begleitung bei Geburt, Hochzeit, Krankheit, Trauer -> /segen-sakramente/
+- Segen fuer Paare (zweite Ehe, gleichgeschlechtlich) Frankfurt -> /segen-sakramente/
+- Kind taufen lassen Frankfurt -> /segen-sakramente/taufe/ (Anmeldeformular)
+- Katholisch heiraten Frankfurt Sachsenhausen -> /segen-sakramente/trauung/
+- Beerdigung katholisch Frankfurt -> /kontakt/trauerfall/ (Notfallkontakt)
+- Gottesdienst Sachsenhausen oder Oberrad Zeiten -> /gottesdienst-glaube/gottesdienstordnung/
+- Erstkommunion anmelden Frankfurt -> /segen-sakramente/erstkommunion/
+- Firmung Frankfurt -> /segen-sakramente/firmung/
 - Pfarrei Sachsenhausen oder Oberrad Frankfurt -> /
 - Welche Kirchen gehoeren zu Sankt Bonifatius -> /kirchorte/
 - Katholische Kita Platz Frankfurt Sachsenhausen oder Oberrad -> /kitas/
