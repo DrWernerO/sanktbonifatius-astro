@@ -58,7 +58,13 @@ const canonicalUrl = new URL(Astro.url.pathname, PUBLIC_SITE).href;
     window.dataLayer = window.dataLayer || [];
     function gtag() { window.dataLayer.push(arguments); }
     window.gtag = gtag;
-    gtag('consent', 'default', { analytics_storage: 'denied' });
+    // Werbe-Speicher und -Signale bleiben immer abgelehnt (kein Google Ads, Datenschutzerklärung C.7).
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
 
     function loadGoogleAnalytics() {
       if (window.__gaLoaded) return;
@@ -68,7 +74,14 @@ const canonicalUrl = new URL(Astro.url.pathname, PUBLIC_SITE).href;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
       document.head.appendChild(s);
       gtag('js', new Date());
-      gtag('config', GA_ID, { anonymize_ip: true });
+      // Google-Signale und Werbe-Personalisierung im Tag abgeschaltet, unabhängig von den
+      // Property-Einstellungen in GA (dort war Google-Signale am 26.10.2026 eingeschaltet).
+      // Datenschutzerklärung C.7 sagt: keine Zusammenführung mit Google-Konten.
+      gtag('config', GA_ID, {
+        anonymize_ip: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+      });
     }
 
     // Frühere Einwilligung (vorheriger Besuch) übernehmen.
@@ -81,8 +94,22 @@ const canonicalUrl = new URL(Astro.url.pathname, PUBLIC_SITE).href;
     window.__handleCookieConsent = function (granted) {
       localStorage.setItem('cookie-consent', granted ? 'granted' : 'denied');
       if (granted) {
+        window['ga-disable-' + GA_ID] = false;
         gtag('consent', 'update', { analytics_storage: 'granted' });
         loadGoogleAnalytics();
+      } else {
+        // Widerruf: Analytics sofort stoppen und die GA-Cookies (_ga, _ga_<ID>) löschen
+        // (Datenschutzerklärung C.7). Cookies liegen auf der Hauptdomain, daher beide Varianten.
+        window['ga-disable-' + GA_ID] = true;
+        gtag('consent', 'update', { analytics_storage: 'denied' });
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (name === '_ga' || name.indexOf('_ga_') === 0) {
+            var weg = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+            document.cookie = name + weg;
+            document.cookie = name + weg + '; domain=.' + location.hostname.replace(/^www\./, '');
+          }
+        });
       }
     };
   </script>

@@ -90,7 +90,7 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonAntwort(false, 'Bitte Vorname, Name und E-Mail-Adresse angeben.', 400);
   }
   if (!d.bew_datenschutz) {
-    return jsonAntwort(false, 'Bitte den Datenschutzhinweisen zustimmen.', 400);
+    return jsonAntwort(false, 'Bitte bestätigen Sie, dass Sie die Datenschutzhinweise zur Kenntnis genommen haben.', 400);
   }
 
   // Datei-Prüfung (Client prüft bereits, hier nochmal serverseitig gegen manipulierte Anfragen)
@@ -113,7 +113,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     pdfBytes = await buildBewerbungPdf(d);
   } catch (err) {
-    console.error('[bewerbung] PDF-Erzeugung fehlgeschlagen:', err);
+    console.error('[bewerbung] PDF-Erzeugung fehlgeschlagen:', err instanceof Error ? err.message : 'unbekannt');
     return jsonAntwort(false, 'Die Bewerbung konnte nicht verarbeitet werden.', 500);
   }
 
@@ -162,7 +162,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
     return jsonAntwort(true, 'Vielen Dank! Ihre Bewerbung ist eingegangen. Wir melden uns bei Ihnen.');
   } catch (err) {
-    console.error('[bewerbung] Mailversand fehlgeschlagen:', err);
+    console.error('[bewerbung] Mailversand fehlgeschlagen:', err instanceof Error ? err.message : 'unbekannt');
     return jsonAntwort(false, 'Die Bewerbung konnte nicht versendet werden. Bitte senden Sie sie per E-Mail.', 502);
   }
 };

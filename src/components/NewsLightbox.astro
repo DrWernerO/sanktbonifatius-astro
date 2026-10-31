@@ -89,8 +89,8 @@ const data = Object.fromEntries(
       var yt = v.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
       var vimeo = v.match(/vimeo\.com\/(\d+)/);
       var portraitClass = current.orientation === 'portrait' ? ' astro-lb__stage-video--portrait' : '';
-      if(yt){ stage.innerHTML = '<iframe class="'+portraitClass.trim()+'" src="https://www.youtube.com/embed/'+yt[1]+'" allowfullscreen frameborder="0"></iframe>'; }
-      else if(vimeo){ stage.innerHTML = '<iframe class="'+portraitClass.trim()+'" src="https://player.vimeo.com/video/'+vimeo[1]+'" allowfullscreen frameborder="0"></iframe>'; }
+      if(yt){ stage.innerHTML = '<iframe class="'+portraitClass.trim()+'" src="https://www.youtube-nocookie.com/embed/'+yt[1]+'" allowfullscreen frameborder="0"></iframe>'; }
+      else if(vimeo){ stage.innerHTML = '<iframe class="'+portraitClass.trim()+'" src="https://player.vimeo.com/video/'+vimeo[1]+'?dnt=1" allowfullscreen frameborder="0"></iframe>'; }
       else { stage.innerHTML = '<video src="'+v+'" controls autoplay></video>'; }
       prevBtn.hidden = true; nextBtn.hidden = true; counterEl.textContent = '';
       capEl.textContent = current.excerpt || '';

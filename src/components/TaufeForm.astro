@@ -128,7 +128,7 @@ const paten = [
             <label class="astro-taform__f astro-taform__f--wide">Bemerkungen<textarea name="bemerkungen" rows="3"></textarea></label>
           </div>
           <div class="astro-taform__consent">
-            <span class="astro-taform__consent-text">Wir/Ich sind/bin damit einverstanden, dass der Name unseres/meines Kindes veröffentlicht wird (nur im Zusammenhang der Taufe)</span>
+            <span class="astro-taform__consent-text">Wir/Ich sind/bin damit einverstanden, dass der Name unseres/meines Kindes veröffentlicht wird (nur im Zusammenhang der Taufe). Diese Einwilligung ist freiwillig und kann jederzeit widerrufen werden.</span>
             <span class="astro-taform__radios">
               <label><input type="radio" name="veroeffentlichung" value="Ja" /> Ja</label>
               <label><input type="radio" name="veroeffentlichung" value="Nein" /> Nein</label>
@@ -137,6 +137,7 @@ const paten = [
         </fieldset>
 
         <p class="astro-taform__required">* Pflichtfeld</p>
+        <p class="astro-taform__privacy">Ihre Angaben werden verschlüsselt übertragen und per E-Mail an die Pfarrei gesendet. Mehr dazu in der <a href="/datenschutz/#formulare" target="_blank" rel="noopener">Datenschutzerklärung</a>.</p>
         <button type="submit" class="astro-taform__submit">Anmeldung absenden</button>
         <div class="astro-taform__msg" id="astro-taform-msg" role="status" aria-live="polite" hidden></div>
 
@@ -183,6 +184,8 @@ const paten = [
 .astro-taform__radios{display:flex;gap:18px;font-size:14px;color:#2c2420;font-weight:600}
 .astro-taform__radios label{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
 .astro-taform__required{font-size:13px;color:var(--txt-muted-light);margin:22px 0 14px}
+.astro-taform__privacy{font-size:13px;color:var(--txt-muted-light);line-height:1.55;margin:-6px 0 14px}
+.astro-taform__privacy a{color:inherit;text-decoration:underline}
 .astro-taform__submit{display:block;width:100%;padding:16px;border:none;border-radius:50px;background:#9a2d2d;color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s}
 .astro-taform__submit:hover{background:#7e2424}
 .astro-taform__submit:disabled{opacity:.65;cursor:default}
