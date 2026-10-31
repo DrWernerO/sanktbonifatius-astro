@@ -1,13 +1,14 @@
 ---
 // Hero der Seite „Gottesdienstordnung" (Page 46977, /gottesdienst-glaube/gottesdienstordnung/).
 // Präfix: astro-gdohero. Full-Bleed-Bild + Overlay + H1 + Untertitel.
-// Bild lokal unter public/uploads/2023/05/ (vom WP heruntergeladen, Handbuch 1b).
-const bg = '/uploads/2023/05/gottesdienstordnung-stbonifatius.jpg';
+// Bild (seit 31.10.2026: Gottesdienst in St. Bonifatius, WebP 800/1600 px) lokal unter public/uploads/2026/10/.
 ---
 <section class="astro-gdohero">
-  <div class="astro-gdohero__bg" role="img"
-       aria-label="Gottesdienst in der Pfarrei Sankt Bonifatius Frankfurt"
-       style={`background-image:url('${bg}')`}></div>
+  <img class="astro-gdohero__bg"
+       src="/uploads/2026/10/gottesdienstordnung-hero-1600.webp"
+       srcset="/uploads/2026/10/gottesdienstordnung-hero-800.webp 800w, /uploads/2026/10/gottesdienstordnung-hero-1600.webp 1600w"
+       sizes="100vw" width="1600" height="1067" fetchpriority="high" decoding="async"
+       alt="Gottesdienst in St. Bonifatius: Gemeinde im Halbkreis, Priester im violetten Gewand, dahinter Orgel und violett beleuchtetes Gewölbe" />
   <div class="astro-gdohero__overlay"></div>
   <div class="astro-gdohero__inner">
     <p class="astro-gdohero__eyebrow">Pfarrei St. Bonifatius · Frankfurt</p>
@@ -22,12 +23,12 @@ const bg = '/uploads/2023/05/gottesdienstordnung-stbonifatius.jpg';
 
 <style is:global>
 .astro-gdohero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:560px;display:flex;align-items:flex-end;overflow:hidden}
-.astro-gdohero__bg{position:absolute;inset:0;background-size:cover;background-position:center top}
-.astro-gdohero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,12,8,.88) 0%,rgba(30,18,12,.55) 45%,rgba(30,18,12,.25) 100%)}
-.astro-gdohero__inner{position:relative;max-width:1200px;width:100%;margin:0 auto;padding:0 40px 64px;color:#f0e8d8}
+.astro-gdohero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(1.15) saturate(1.05)}
+.astro-gdohero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,12,8,.68) 0%,rgba(30,18,12,.30) 45%,rgba(30,18,12,0) 100%)}
+.astro-gdohero__inner{text-shadow:0 1px 14px rgba(0,0,0,.5);position:relative;max-width:1200px;width:100%;margin:0 auto;padding:0 40px 64px;color:#f0e8d8}
 .astro-gdohero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-gold-deco);margin:0 0 14px}
 .astro-gdohero__title{font-family:'Playfair Display',serif;font-weight:700;line-height:1.05;color:#fff;font-size:clamp(40px,6vw,72px);margin:0 0 20px;overflow-wrap:break-word;hyphens:auto}
-.astro-gdohero__sub{font-size:clamp(15px,1.6vw,18px);color:#d4c9b5;max-width:640px;line-height:1.65;margin:0 0 32px}
+.astro-gdohero__sub{font-size:clamp(15px,1.6vw,18px);color:#f0e8d8;max-width:640px;line-height:1.65;margin:0 0 32px}
 .astro-gdohero__btns{display:flex;gap:16px;flex-wrap:wrap}
 .astro-gdohero__btn{display:inline-block;padding:13px 28px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
 .astro-gdohero__btn--primary{background:#9a2d2d;color:#fff;border:2px solid #9a2d2d}

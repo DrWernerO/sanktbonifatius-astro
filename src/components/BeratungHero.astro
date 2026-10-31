@@ -1,12 +1,17 @@
 ---
 // Hero der Seite „Beratung und Hilfe" — WP-Seite 48312 (/kontakt/beratung-und-hilfe/).
 // Eigene Klassen `astro-ber` (Handbuch Abschnitt 3 — niemals WP-Klassen `berh-…`).
-// Hero-Bild lokal unter public/uploads/ (Handbuch 1b); dunkler Verlauf darüber für
-// Lesbarkeit + würdevollen, ruhigen Ton (sensibles Thema). Genau EINE sichtbare <h1>.
-const HERO = '/uploads/2023/07/beratung-hilfe-stbonifatius.jpg';
+// Hero-Bild (seit 31.10.2026: Foto „Seelsorge“, WebP 800/1600 px) lokal unter public/uploads/;
+// dunkler Verlauf darüber für Lesbarkeit + würdevollen, ruhigen Ton (sensibles Thema).
+// Genau EINE sichtbare <h1>.
 ---
 <section class="astro-ber-hero">
-  <div class="astro-ber-hero__bg" role="img" aria-label="Beratung und Hilfe in der Pfarrei Sankt Bonifatius Frankfurt"></div>
+  <img class="astro-ber-hero__img"
+       src="/uploads/2026/10/beratung-hero-1600.webp"
+       srcset="/uploads/2026/10/beratung-hero-800.webp 800w, /uploads/2026/10/beratung-hero-1600.webp 1600w"
+       sizes="100vw" width="1600" height="1136" fetchpriority="high" decoding="async"
+       alt="Zwei Menschen halten sich über einer Bibel an den Händen" />
+  <div class="astro-ber-hero__bg"></div>
   <div class="astro-ber-hero__inner">
     <p class="astro-ber-hero__eyebrow">Pfarrei Sankt Bonifatius &#183; Frankfurt</p>
     <h1 class="astro-ber-hero__title">Beratung und Hilfe</h1>
@@ -23,7 +28,8 @@ const HERO = '/uploads/2023/07/beratung-hilfe-stbonifatius.jpg';
 
 <style is:global>
 .astro-ber-hero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;display:flex;align-items:flex-end;min-height:440px;overflow:hidden;color:#f3ead9}
-.astro-ber-hero__bg{position:absolute;inset:0;background:linear-gradient(180deg,rgba(33,19,13,.26) 0%,rgba(40,24,16,.38) 55%,rgba(30,21,18,.64) 100%),url('/uploads/2023/07/beratung-hilfe-stbonifatius.jpg') center/cover no-repeat}
+.astro-ber-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.astro-ber-hero__bg{position:absolute;inset:0;background:linear-gradient(180deg,rgba(33,19,13,.26) 0%,rgba(40,24,16,.38) 55%,rgba(30,21,18,.64) 100%)}
 .astro-ber-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(197,165,90,.12) 0%,transparent 62%)}
 .astro-ber-hero__inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:104px 40px 64px;text-align:center}
 .astro-ber-hero__eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#f0d79a;margin:0 0 16px;text-shadow:0 1px 10px rgba(0,0,0,.45)}
