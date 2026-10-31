@@ -1,30 +1,40 @@
 ---
-// Dunkler Info-Streifen direkt unter dem Hero (WP-Block `ss-strip`). Eigene Klassen `astro-ssstrip`.
-// SVG-Icons statt Emoji (Handbuch Lektion 7). Feste Inhalte.
+// Quick-Buttons unter dem Hero der Seite „Begleitung auf dem Lebensweg“: springen zu den Abschnitten.
+// Eigene Klassen `astro-ssstrip`. SVG-Icons statt Emoji (Handbuch Lektion 7).
 const items = [
-  { text: '7 Sakramente',
+  { text: 'Segen', href: '#segen',
+    icon: '<path d="M12 21s-7-4.4-9.3-9A5.2 5.2 0 0 1 12 6a5.2 5.2 0 0 1 9.3 6c-2.3 4.6-9.3 9-9.3 9z"/>' },
+  { text: 'Taufe', href: '#kind',
     icon: '<path d="M12 2l2.4 5.6L20 8l-4 4 1 6-5-2.8L7 18l1-6-4-4 5.6-.4z"/>' },
-  { text: 'St. Bonifatius &middot; St. Wendel &middot; Herz Jesu &middot; St. Aposteln',
-    icon: '<path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/>' },
+  { text: 'Firmung', href: '#bund',
+    icon: '<path d="M12 2l2.4 5.6L20 8l-4 4 1 6-5-2.8L7 18l1-6-4-4 5.6-.4z"/>' },
+  { text: 'Erstkommunion', href: '#kind',
+    icon: '<path d="M12 2l2.4 5.6L20 8l-4 4 1 6-5-2.8L7 18l1-6-4-4 5.6-.4z"/>' },
+  { text: 'Beichte', href: '#neuanfang',
+    icon: '<path d="M12 2l2.4 5.6L20 8l-4 4 1 6-5-2.8L7 18l1-6-4-4 5.6-.4z"/>' },
+  { text: 'Trauer', href: '#abschied',
+    icon: '<path d="M12 3c2.5 3 4 5 4 7.5a4 4 0 0 1-8 0C8 8 9.5 6 12 3z"/><path d="M12 21v-4"/>' },
 ];
 ---
-<section class="astro-ssstrip">
+<nav class="astro-ssstrip" aria-label="Schnellauswahl">
   <div class="astro-ssstrip__inner">
     {items.map((it) => (
-      <div class="astro-ssstrip__item">
+      <a class="astro-ssstrip__btn" href={it.href}>
         <svg class="astro-ssstrip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={it.icon} />
-        <span set:html={it.text} />
-      </div>
+        <span>{it.text}</span>
+      </a>
     ))}
   </div>
-</section>
+</nav>
 
 <style is:global>
-.astro-ssstrip{background:#1e1512;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;position:relative}
-.astro-ssstrip__inner{max-width:1200px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap}
-.astro-ssstrip__item{display:flex;align-items:center;gap:11px;padding:18px 34px;color:#f0e8d8;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;border-right:1px solid rgba(255,255,255,.1)}
-.astro-ssstrip__item:last-child{border-right:none}
-.astro-ssstrip__icon{width:20px;height:20px;flex-shrink:0;color:var(--accent-gold-deco)}
-@media(max-width:760px){.astro-ssstrip__inner{flex-direction:column;align-items:stretch}.astro-ssstrip__item{border-right:none;border-bottom:1px solid rgba(255,255,255,.1);padding:14px 24px;justify-content:center;text-align:center}.astro-ssstrip__item:last-child{border-bottom:none}}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+.astro-ssstrip{background:#1e1512;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;position:relative;padding:18px 20px}
+.astro-ssstrip__inner{max-width:1200px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.astro-ssstrip__btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:50px;border:1.5px solid rgba(240,232,216,.45);color:#f0e8d8;font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .2s,border-color .2s,color .2s}
+.astro-ssstrip__btn:hover{background:var(--accent-gold-deco);border-color:var(--accent-gold-deco);color:#1e1512}
+.astro-ssstrip__btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.astro-ssstrip__icon{width:20px;height:20px;flex-shrink:0}
+@media(max-width:600px){.astro-ssstrip{padding:14px 16px}.astro-ssstrip__inner{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.astro-ssstrip__btn{padding:0 6px;gap:6px;font-size:11.5px;letter-spacing:.02em}.astro-ssstrip__icon{width:16px;height:16px}}
 </style>

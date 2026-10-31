@@ -1,5 +1,5 @@
 ---
-// Seite „Segen und Sakramente" — WP-Seite 48265 (/segen-sakramente/), vollständig aus eigenen
+// Seite „Begleitung auf dem Lebensweg" (Adresse bleibt /segen-sakramente/) — WP-Seite 48265 (/segen-sakramente/), vollständig aus eigenen
 // astro-Komponenten (kein set:html mit WP-Markup, vgl. Migrationsplan Abschnitt 9b). Übersichts-
 // seite über dem bereits gebauten /segen-sakramente/taufe/. Nav + Footer kommen global aus
 // Base.astro (Handbuch Abschnitt 4b) — hier NICHT erneut einbinden. SEO live aus WP (SEOPress).
@@ -11,7 +11,7 @@ import Base from '../../layouts/Base.astro';
 import SegenHero from '../../components/SegenHero.astro';
 import SegenStrip from '../../components/SegenStrip.astro';
 import SegenIntro from '../../components/SegenIntro.astro';
-import SegenTiles from '../../components/SegenTiles.astro';
+import SegenWeg from '../../components/SegenWeg.astro';
 import SegenFaq from '../../components/SegenFaq.astro';
 import SegenCta from '../../components/SegenCta.astro';
 import { SEO_STATIC } from '../../lib/seo-static.js';
@@ -94,25 +94,55 @@ const sakramente = [
     linkText: 'Zur Krankensalbung &#8594;',
   },
 ];
+
+const [taufe, firmung, erstkommunion, trauung, beichte0, krankensalbung] = sakramente;
+const beichte = { ...beichte0, label: undefined, title: 'Sakrament der Vers&ouml;hnung / Beichte', linkText: 'Zum Sakrament der Vers&ouml;hnung &#8594;' };
+const katholischWerden = { img: '/uploads/2026/10/fiat-lux-gottesdienst-stbonifatius-a00014.jpg', pos: 'center', label: 'Neu in der Kirche', title: 'Katholisch werden',
+  text: 'Sie m&ouml;chten sich taufen lassen, wieder eintreten oder in die katholische Kirche aufgenommen werden? Wir beraten Sie gerne.',
+  href: '/kontakt/katholisch-werden/', linkText: 'Zum Weg in die Kirche &#8594;' };
+
+// Abschnitte als Weg: Anlass statt Fachwort. Texte/Fotos der Sakramente aus `sakramente` weiterverwendet.
+const weg = [
+  { id: 'kind', bg: 'creme',
+    heading: 'Ein Kind kommt zur Welt, ein Kind w&auml;chst',
+    intro: 'Wir freuen uns mit Ihnen &#8212; und begleiten Ihr Kind von der Taufe bis zur Erstkommunion.',
+    tiles: [taufe, erstkommunion] },
+  { id: 'bund', bg: 'white',
+    heading: 'Sich entscheiden, sich binden',
+    intro: 'Manche Schritte bestimmen das ganze Leben: der eigene Glaube und ein Versprechen zu zweit.',
+    tiles: [
+      firmung,
+      trauung,
+    ] },
+  { id: 'neuanfang', bg: 'creme',
+    heading: 'Neu anfangen',
+    intro: 'Manchmal braucht es ein offenes Gespr&auml;ch und die Zusage: Du darfst neu beginnen &#8212; in der Beichte oder auf dem Weg in unsere Kirche.',
+    tiles: [beichte, katholischWerden] },
+  { id: 'abschied', bg: 'ruhig',
+    heading: 'Krankheit und Abschied',
+    intro: 'In schweren Stunden sind Sie nicht allein. Wir sind da &#8212; am Krankenbett und bei einem Todesfall.',
+    tiles: [
+      krankensalbung,
+      { label: 'Wenn jemand gestorben ist', title: 'Trauerfall',
+        text: 'Wir begleiten Sie in den ersten Tagen, bei der Trauerfeier und danach. Rufen Sie uns an &#8212; wir nehmen uns Zeit.',
+        href: '/kontakt/trauerfall/', linkText: 'Zum Trauerfall &#8594;' },
+    ] },
+];
 ---
 <Base seo={seo}>
   <SegenHero />
   <SegenStrip />
   <SegenIntro />
-  <SegenTiles
-    heading="Gottes Segen für Sie"
-    intro="Segen ist nicht nur für besondere Anlässe — wir laden Sie ein, Gottes gute Nähe in Ihrem Leben zu erfahren."
-    cols={2}
+  <SegenWeg
+    id="segen"
     bg="white"
+    heading="Gottes Segen f&uuml;r Sie"
+    intro="Segen ist nicht nur f&uuml;r besondere Anl&auml;sse &#8212; wir laden Sie ein, Gottes gute N&auml;he in Ihrem Leben zu erfahren."
     tiles={segen}
   />
-  <SegenTiles
-    heading="Sakramente in unserer Pfarrei"
-    intro="Über die Bedeutung der einzelnen Sakramente und wie Sie sie empfangen können, informieren wir Sie gerne persönlich."
-    cols={3}
-    bg="creme"
-    tiles={sakramente}
-  />
+  {weg.map((w) => (
+    <SegenWeg id={w.id} bg={w.bg} heading={w.heading} intro={w.intro} tiles={w.tiles} />
+  ))}
   <SegenFaq />
   <SegenCta />
 </Base>

@@ -1,0 +1,78 @@
+---
+// Wegabschnitt der Seite „Begleitung auf dem Lebensweg" (/segen-sakramente/).
+// Eigene Klassen `astro-ssweg`. Ein Abschnitt = Überschrift + Einleitungssatz + Kacheln mit Link.
+// Mobil: kompakte Zeilen-Kacheln (kleines Bild links), Texte vollständig (kein Kürzen).
+// Props:
+//   id, heading, intro – Anker, Überschrift, Einleitungssatz
+//   bg    – 'creme' | 'white' | 'ruhig' (ruhig = zurückhaltende Fläche für Krankheit/Abschied, ohne Fotos)
+//   tiles – [{ img?, pos?, label?, title, text, href, linkText }]
+const { id, heading, intro, bg = 'white', tiles = [] } = Astro.props;
+const n = tiles.length === 4 ? 2 : Math.min(tiles.length, 3);
+---
+<section class={`astro-ssweg astro-ssweg--${bg}`} id={id}>
+  <div class="astro-ssweg__inner">
+    <div class="astro-ssweg__head">
+      <h2 class="astro-ssweg__hl" set:html={heading} />
+      {intro && <p class="astro-ssweg__intro" set:html={intro} />}
+    </div>
+    <div class={`astro-ssweg__grid astro-ssweg__grid--c${n}`}>
+      {tiles.map((t) => (
+        <a class={`astro-sswt${t.img && bg !== 'ruhig' ? '' : ' astro-sswt--plain'}`} href={t.href}>
+          {t.img && bg !== 'ruhig' && (
+            <div class="astro-sswt__img" role="img" aria-label={t.title}
+                 style={`background-image:url('${t.img}')${t.pos ? `;background-position:${t.pos}` : ''}`}></div>
+          )}
+          <div class="astro-sswt__body">
+            {t.label && <p class="astro-sswt__label">{t.label}</p>}
+            <h3 class="astro-sswt__title" set:html={t.title} />
+            <p class="astro-sswt__text" set:html={t.text} />
+            <span class="astro-sswt__link" set:html={t.linkText} />
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-ssweg{padding:72px 0;scroll-margin-top:90px}
+.astro-ssweg--creme{background:#f7f3ef}
+.astro-ssweg--white{background:#fff}
+.astro-ssweg--ruhig{background:#ece6df}
+.astro-ssweg__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-ssweg__head{text-align:center;margin:0 0 40px}
+.astro-ssweg__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 14px;line-height:1.15}
+.astro-ssweg__hl em{font-style:italic;font-weight:600}
+.astro-ssweg__intro{font-size:clamp(15px,1.8vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:640px}
+.astro-ssweg__grid{display:grid;gap:24px;margin:0 auto}
+.astro-ssweg__grid--c1{grid-template-columns:minmax(0,460px)}
+.astro-ssweg__grid--c2{grid-template-columns:repeat(2,1fr);max-width:860px}
+.astro-ssweg__grid--c3{grid-template-columns:repeat(3,1fr)}
+.astro-sswt{display:flex;flex-direction:column;background:#fff;border-radius:12px;overflow:hidden;text-decoration:none;color:#2c2420;box-shadow:0 2px 14px rgba(30,21,18,.07);transition:transform .15s,box-shadow .2s}
+.astro-ssweg--white .astro-sswt{background:#f7f3ef}
+.astro-ssweg--ruhig .astro-sswt{background:#f7f3ef;box-shadow:none;border:1px solid rgba(44,36,32,.12)}
+.astro-sswt:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(30,21,18,.13)}
+.astro-sswt:focus-visible{outline:3px solid #9a2d2d;outline-offset:3px}
+.astro-sswt__img{height:200px;background-size:cover;background-position:center;flex-shrink:0}
+.astro-sswt__body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
+.astro-sswt--plain .astro-sswt__body{padding:30px 30px 28px}
+.astro-sswt__label{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#9a2d2d;font-weight:600;margin:0 0 8px}
+.astro-sswt__title{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;margin:0 0 12px;line-height:1.2}
+.astro-sswt__text{font-size:15px;color:#5c4e45;line-height:1.6;margin:0 0 18px;flex:1}
+.astro-sswt__link{font-size:14px;font-weight:600;color:#9a2d2d;align-self:flex-start;border-bottom:1px solid rgba(154,45,45,.35);padding-bottom:2px}
+.astro-sswt:hover .astro-sswt__link{border-color:#9a2d2d}
+@media(max-width:860px){.astro-ssweg__grid--c3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .astro-ssweg{padding:48px 0}
+  .astro-ssweg__inner{padding:0 20px}
+  .astro-ssweg__head{margin-bottom:28px}
+  .astro-ssweg__grid{gap:14px}
+  .astro-ssweg__grid--c1,.astro-ssweg__grid--c2,.astro-ssweg__grid--c3{grid-template-columns:1fr}
+  .astro-sswt{flex-direction:row;align-items:stretch}
+  .astro-sswt__img{width:104px;height:auto;min-height:100%}
+  .astro-sswt__body,.astro-sswt--plain .astro-sswt__body{padding:16px 18px}
+  .astro-sswt__label{display:none}
+  .astro-sswt__title{font-size:19px;margin-bottom:6px}
+  .astro-sswt__text{font-size:15px;margin-bottom:10px}
+}
+</style>
