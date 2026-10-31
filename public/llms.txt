@@ -27,6 +27,7 @@ Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen i
 
 ## Gottesdienste
 - /gottesdienst-glaube/gottesdienstordnung/ - Gottesdienstzeiten aller Kirchorte (Gottesdienstordnung)
+- /gottesdienst-glaube/alle-gottesdienste/ - Alle Gottesdienste mit Wochentag und Uhrzeit, filterbar nach Kirchort und Stichwort
 - /gottesdienst-glaube/gottesdienste-die-beruehren/ - Besondere Formate: Fiat Lux, Taize, BonEsprit
 - /bonfamily/familiengottesdienste/ - Familiengottesdienste jeden 1. und 3. Sonntag
 

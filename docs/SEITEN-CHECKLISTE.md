@@ -9,6 +9,7 @@
 - [ ] `npm run build` lokal, nicht nur `npm run dev`.
 - [ ] Code und `docs/` in **getrennten** Commits (`Doku:`-Präfix für Dokumentation).
 - [ ] Nie committen/pushen ohne ausdrückliche Freigabe (begrenzte Netlify-Deploys pro Monat).
+- [ ] **Vor dem Push alle bekannten offenen Funde nennen** (z. B. schwer lesbare Zeile im Hero), nicht erst danach. Funde auf Seiten, die im selben Commit mitgehen, vorher beheben oder ausdrücklich zurückstellen lassen.
 - [ ] Menü (`Nav.astro`) nur auf ausdrückliche Anweisung ändern; neue Seite ≠ neuer Menüpunkt.
 - [ ] Nach CSS-Änderungen zeigt der Dev-Server manchmal altes CSS: Server neu starten, **bevor** man misst.
 
