@@ -3,7 +3,7 @@
 // Präfix: astro-gdohero. Full-Bleed-Bild + Overlay + H1 + Untertitel.
 // Bild (seit 31.10.2026: Gottesdienst in St. Bonifatius, WebP 800/1600 px) lokal unter public/uploads/2026/10/.
 // Auch von „Alle Gottesdienste" (alle-gottesdienste.astro) genutzt — Texte/Buttons/Höhe per Props, Standard = Gottesdienstordnung.
-// Props: title, sub, buttons [{label, href, primary?}], compact (niedrigerer Hero für Listenseiten)
+// Props: title, sub, buttons [{label, href, primary?}]
 const {
   title = 'Gottesdienstordnung',
   sub = 'Gottesdienste in Frankfurt-Sachsenhausen und Oberrad — von meditativer Stille bis Band-Musik. Alle Termine auf einen Blick.',
@@ -11,10 +11,9 @@ const {
     { label: 'Aktuelle Termine', href: '#aktuelle-gottesdiensttermine', primary: true },
     { label: 'Besondere Formate', href: '#besondere-gottesdienste' },
   ],
-  compact = false,
 } = Astro.props;
 ---
-<section class:list={['astro-gdohero', { 'astro-gdohero--compact': compact }]}>
+<section class="astro-gdohero">
   <img class="astro-gdohero__bg"
        src="/uploads/2026/10/gottesdienstordnung-hero-1600.webp"
        srcset="/uploads/2026/10/gottesdienstordnung-hero-800.webp 800w, /uploads/2026/10/gottesdienstordnung-hero-1600.webp 1600w"
@@ -37,8 +36,7 @@ const {
 
 <style is:global>
 .astro-gdohero{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:560px;display:flex;align-items:flex-end;overflow:hidden}
-.astro-gdohero--compact{min-height:420px}
-.astro-gdohero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(1.15) saturate(1.05)}
+.astro-gdohero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 85%;filter:brightness(1.15) saturate(1.05)}
 .astro-gdohero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,12,8,.68) 0%,rgba(30,18,12,.30) 45%,rgba(30,18,12,0) 100%)}
 .astro-gdohero__inner{text-shadow:0 1px 14px rgba(0,0,0,.5);position:relative;max-width:1200px;width:100%;margin:0 auto;padding:104px 40px 64px;color:#f0e8d8}
 .astro-gdohero__eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#f7ecd0;background:rgba(20,12,8,.72);padding:6px 14px;border-radius:50px;margin:0 0 14px;text-shadow:none}
@@ -51,7 +49,10 @@ const {
 .astro-gdohero__btn--ghost{background:transparent;color:#f0e8d8;border:2px solid rgba(240,232,216,.5)}
 .astro-gdohero__btn--ghost:hover{border-color:var(--accent-gold-deco);color:var(--accent-gold-deco)}
 @media(max-width:600px){
-  .astro-gdohero,.astro-gdohero--compact{min-height:0}
+  .astro-gdohero{min-height:0}
+  /* Mobil ist der Hero fast so hoch wie breit, das Foto hat vertikal keinen Spielraum. Deshalb Bild etwas größer
+     ansetzen und unten verankern: so rückt der Ausschnitt nach unten und zeigt die vielen Menschen. */
+  .astro-gdohero__bg{top:auto;bottom:0;height:128%;object-position:62% 90%}
   .astro-gdohero__inner{padding:96px 24px 48px}
   /* Der 40px-Mindestwert des Desktop-clamp() war auf schmalen Handys (375px, 327px
      Textfeld) zu breit fuer das eine lange Wort "Gottesdienstordnung" -> lief rechts
