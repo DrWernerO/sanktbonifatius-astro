@@ -2,11 +2,10 @@
 // "Aktuelles" auf der Startseite: Beiträge (posts) + News (pin) gemischt, nach Datum.
 // Daten via getAktuelles(); Galerie/Video bekommen ein SVG-Badge (kein Emoji, UI-Regel).
 import { getAktuelles } from '../lib/wordpress.js';
-// BIS AUF WEITERES (2026-10-11, Werner): 6 statt 3 Beiträge, Kommunikationsumfrage
-// ("Ihre Meinung zählt!") oben links angepinnt + hervorgehoben. Zum Beenden: PIN_SLUG
-// auf '' setzen (und ggf. limit zurück auf 3).
-const PIN_SLUG = 'ihre-meinung-zaehlt';
-const { limit = 6 } = Astro.props;
+// Pin-Mechanismus: Beitrag mit diesem Slug wird oben links angepinnt + hervorgehoben.
+// Leer = nichts angepinnt. (2026-11-01: Umfrage-Pin beendet, Anzahl wieder 3.)
+const PIN_SLUG = '';
+const { limit = 3 } = Astro.props;
 const items = await getAktuelles(limit, PIN_SLUG);
 const fmt = (iso) => new Date(iso).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
