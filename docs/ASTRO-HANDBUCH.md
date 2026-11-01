@@ -771,11 +771,12 @@ Die Nav ist die wichtigste wiederverwendbare Komponente. Aufbau (Präfix `bh3a-`
   erscheinen News ohne Bild/Typ; Beiträge bleiben unberührt.
 
 ### Darstellung
-- **`NewsGrid.astro`** (`astro-news`/`astro-nc`) — Startseiten-Teaser, seit 2026-10-11 **bis auf
-  Weiteres 6 Beiträge** (`limit = 6`), 3-Spalten-Grid. Dazu **angepinnter Beitrag** oben links
-  (Konstante `PIN_SLUG` in `NewsGrid.astro` = `ihre-meinung-zaehlt`, Kommunikationsumfrage): roter
+- **`NewsGrid.astro`** (`astro-news`/`astro-nc`) — Startseiten-Teaser, `limit = 3`
+  (vom 2026-10-11 bis 2026-11-01 vorübergehend 6), 3-Spalten-Grid. Optional **angepinnter Beitrag** oben links
+  (Konstante `PIN_SLUG` in `NewsGrid.astro`, aktuell leer = kein Pin; 2026-10-11 bis 2026-11-01 war es die
+  Kommunikationsumfrage `ihre-meinung-zaehlt`): roter
   Rahmen + Badge „Umfrage – jetzt mitmachen"; `getAktuelles(limit, pinSlug)` holt ihn an Position 1.
-  **Beenden:** `PIN_SLUG = ''` und `limit` zurück auf 3.
+  **Pin setzen:** Slug des Beitrags in `PIN_SLUG` eintragen.
 - **`BlogGrid.astro`** (`astro-blog`/`astro-bc`) — BoniBlog-Seite, `getAktuelles()` (alle ~33),
   erste 9 sichtbar, „Mehr anzeigen" blendet weitere **bereits gerenderte** Karten ein
   (kein Client-Nachladen/-Mischen mehr nötig).
