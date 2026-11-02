@@ -1,4 +1,5 @@
 ---
+import { mq } from '../lib/marquee.js';
 const images = [
   '/uploads/2023/04/leben-staposteln-frankfurt-1.jpg',
   '/uploads/2023/04/leben-staposteln-frankfurt-3.jpg',
@@ -31,8 +32,8 @@ const images = [
     <svg class="astro-apos-marquee__icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M8 5v14l11-7z"></path></svg>
   </button>
   <div class="astro-apos-marquee-track">
-    {images.map(src => <img src={src} alt="Leben in St. Aposteln" loading="lazy" />)}
-    {images.map(src => <img src={src} alt="" loading="lazy" aria-hidden="true" />)}
+    {images.map(src => <img {...mq(src)} alt="Leben in St. Aposteln" loading="lazy" />)}
+    {images.map(src => <img {...mq(src)} alt="" loading="lazy" aria-hidden="true" />)}
   </div>
 </div>
 

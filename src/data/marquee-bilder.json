@@ -1,0 +1,602 @@
+{
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt1.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt1.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt10.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt10.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt11.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt11.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt12.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt12.webp",
+    "w": 288,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt13.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt13.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt14.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt14.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt15.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt15.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt16.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt16.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt17.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt17.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt18.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt18.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt19.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt19.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt2.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt2.webp",
+    "w": 395,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt20.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt20.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt21.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt21.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt22.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt22.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt23.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt23.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt24.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt24.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt25.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt25.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt26.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt26.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt3.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt3.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt4.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt4.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt5.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt5.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt6.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt6.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt7.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt7.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt8.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt8.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-herz-jesu-frankfurt9.jpg": {
+    "src": "/uploads/marquee/kirche-herz-jesu-frankfurt9.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt1-scaled.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt1-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt10-scaled.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt10-scaled.webp",
+    "w": 270,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt11-scaled.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt11-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt12.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt12.webp",
+    "w": 640,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt13-scaled.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt13-scaled.webp",
+    "w": 270,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt14.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt14.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt15.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt15.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt16.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt16.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt17.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt17.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt18.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt18.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt19.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt19.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt2.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt2.webp",
+    "w": 853,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt20.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt20.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt21-scaled.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt21-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt3-1024x683.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt3-1024x683.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt4.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt4.webp",
+    "w": 640,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt5.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt5.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt6.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt6.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt7.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt7.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt8-scaled.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt8-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/kirche-st-wendel-frankfurt9-scaled.jpg": {
+    "src": "/uploads/marquee/kirche-st-wendel-frankfurt9-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt1.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt1.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt11.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt11.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt13.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt13.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt15-scaled.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt15-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt18.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt18.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt20-scaled.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt20-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt3.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt3.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt5.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt5.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt7.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt7.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/leben-st-aposteln-frankfurt9.jpg": {
+    "src": "/uploads/marquee/leben-st-aposteln-frankfurt9.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/st-bonifatius-frankfurt22.jpg": {
+    "src": "/uploads/marquee/st-bonifatius-frankfurt22.webp",
+    "w": 719,
+    "h": 480
+  },
+  "/uploads/2022/04/st-bonifatius-frankfurt31.jpg": {
+    "src": "/uploads/marquee/st-bonifatius-frankfurt31.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/st-bonifatius-frankfurt33.jpg": {
+    "src": "/uploads/marquee/st-bonifatius-frankfurt33.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/st-bonifatius-frankfurt34.jpg": {
+    "src": "/uploads/marquee/st-bonifatius-frankfurt34.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/04/st-bonifatius-frankfurt35.jpg": {
+    "src": "/uploads/marquee/st-bonifatius-frankfurt35.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/st-bonifatius-frankfurt36.jpg": {
+    "src": "/uploads/marquee/st-bonifatius-frankfurt36.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/04/st-bonifatius-frankfurt38-scaled.jpg": {
+    "src": "/uploads/marquee/st-bonifatius-frankfurt38-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2022/04/st-bonifatius-frankfurt40-scaled.jpg": {
+    "src": "/uploads/marquee/st-bonifatius-frankfurt40-scaled.webp",
+    "w": 318,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-1.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-1.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-11.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-11.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-14.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-14.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-2.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-2.webp",
+    "w": 705,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-21.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-21.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-23.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-23.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-24.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-24.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-4.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-4.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-6.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-6.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/05/kita-staposteln-frankfurt-8.jpg": {
+    "src": "/uploads/marquee/kita-staposteln-frankfurt-8.webp",
+    "w": 721,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-1.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-1.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-10.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-10.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-2.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-2.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-3.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-3.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-4.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-4.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-5.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-5.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-6.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-6.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-7.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-7.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-8.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-8.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/06/kita-stbonifatius-frankfurt-9.jpg": {
+    "src": "/uploads/marquee/kita-stbonifatius-frankfurt-9.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2022/10/Kleidercafe-staposteln-frankfurt.jpg": {
+    "src": "/uploads/marquee/Kleidercafe-staposteln-frankfurt.webp",
+    "w": 645,
+    "h": 430
+  },
+  "/uploads/2022/10/pommesbude-staposteln-frankfurt.jpg": {
+    "src": "/uploads/marquee/pommesbude-staposteln-frankfurt.webp",
+    "w": 698,
+    "h": 431
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-1.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-1.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-11.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-11.webp",
+    "w": 640,
+    "h": 480
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-13.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-13.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-15-scaled.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-15-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-17-scaled.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-17-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-19.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-19.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-3.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-3.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-5.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-5.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-7.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-7.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2023/04/leben-staposteln-frankfurt-9-scaled.jpg": {
+    "src": "/uploads/marquee/leben-staposteln-frankfurt-9-scaled.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg": {
+    "src": "/uploads/marquee/Garten-Kita-St-Bonifatius-Kinder.webp",
+    "w": 666,
+    "h": 480
+  },
+  "/uploads/2026/05/10-jahre-steyler-missionsschwestern-st-aposteln.jpg": {
+    "src": "/uploads/marquee/10-jahre-steyler-missionsschwestern-st-aposteln.webp",
+    "w": 677,
+    "h": 480
+  },
+  "/uploads/2026/06/250316_Wendel_FamiGo_hires-03027.jpg": {
+    "src": "/uploads/marquee/250316_Wendel_FamiGo_hires-03027.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/250316_Wendel_FamiGo_hires-03157.jpg": {
+    "src": "/uploads/marquee/250316_Wendel_FamiGo_hires-03157.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/250316_Wendel_FamiGo_hires-03245.jpg": {
+    "src": "/uploads/marquee/250316_Wendel_FamiGo_hires-03245.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2026/06/250406_Bilderbuch_GoDi_hires-05850.jpg": {
+    "src": "/uploads/marquee/250406_Bilderbuch_GoDi_hires-05850.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2026/06/250516_BonFriday_hires-9515.jpg": {
+    "src": "/uploads/marquee/250516_BonFriday_hires-9515.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2026/06/250516_BonFriday_hires-9612.jpg": {
+    "src": "/uploads/marquee/250516_BonFriday_hires-9612.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/260329_Bonifatsius-1013293.jpg": {
+    "src": "/uploads/marquee/260329_Bonifatsius-1013293.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/3_StMartin_cf_1.jpg": {
+    "src": "/uploads/marquee/3_StMartin_cf_1.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/Babylounge_hires-0249.jpg": {
+    "src": "/uploads/marquee/Babylounge_hires-0249.webp",
+    "w": 641,
+    "h": 480
+  },
+  "/uploads/2026/06/Babylounge_hires-0689.jpg": {
+    "src": "/uploads/marquee/Babylounge_hires-0689.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/BonFriday-14.jpg": {
+    "src": "/uploads/marquee/BonFriday-14.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2026/06/BonFriday-18.jpg": {
+    "src": "/uploads/marquee/BonFriday-18.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/BonFriday-22.jpg": {
+    "src": "/uploads/marquee/BonFriday-22.webp",
+    "w": 320,
+    "h": 480
+  },
+  "/uploads/2026/06/familiengottesdienst-bonifatius-00011.jpg": {
+    "src": "/uploads/marquee/familiengottesdienst-bonifatius-00011.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/familiengottesdienst-bonifatius-00017.jpg": {
+    "src": "/uploads/marquee/familiengottesdienst-bonifatius-00017.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/familiengottesdienst-bonifatius-00027.jpg": {
+    "src": "/uploads/marquee/familiengottesdienst-bonifatius-00027.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/familiengottesdienst-bonifatius-00031.jpg": {
+    "src": "/uploads/marquee/familiengottesdienst-bonifatius-00031.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/06/kinder-familie-stbonifatius-5.jpg": {
+    "src": "/uploads/marquee/kinder-familie-stbonifatius-5.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/08/kita-herzjesu-luftbild.jpg": {
+    "src": "/uploads/marquee/kita-herzjesu-luftbild.webp",
+    "w": 854,
+    "h": 480
+  },
+  "/uploads/2026/09/kita-herzjesu-atelier-farben.jpg": {
+    "src": "/uploads/marquee/kita-herzjesu-atelier-farben.webp",
+    "w": 720,
+    "h": 480
+  },
+  "/uploads/2026/09/kita-herzjesu-bauraum-lego.jpg": {
+    "src": "/uploads/marquee/kita-herzjesu-bauraum-lego.webp",
+    "w": 640,
+    "h": 480
+  }
+}

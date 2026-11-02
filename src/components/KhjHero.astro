@@ -1,4 +1,5 @@
 ---
+import { mq } from '../lib/marquee.js';
 // Hero der Kita Herz Jesu — Aufbau 1:1 wie KapHero (Vorlage Jeannine, 23.09.2026:
 // „genauso aufgebaut wie die Seite der Kita St. Aposteln").
 // Eigene Klassen astro-khj-* (nie WP-Präfixe wiederverwenden).
@@ -30,11 +31,11 @@ const leiste = [...fotos, ...fotos, ...fotos, ...fotos];
   <div class="astro-khj-marquee">
     <div class="astro-khj-marquee__track">
       {leiste.map((f, i) => (
-        <img src={f.src} alt={i === 0 ? f.alt : ''} aria-hidden={i === 0 ? undefined : 'true'} loading="lazy" />
+        <img {...mq(f.src)} alt={i === 0 ? f.alt : ''} aria-hidden={i === 0 ? undefined : 'true'} loading="lazy" />
       ))}
       <!-- Duplikat fuer nahtlose Schleife -->
       {leiste.map((f) => (
-        <img src={f.src} alt="" aria-hidden="true" loading="lazy" />
+        <img {...mq(f.src)} alt="" aria-hidden="true" loading="lazy" />
       ))}
     </div>
   </div>

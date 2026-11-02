@@ -1,4 +1,5 @@
 ---
+import { mq } from '../lib/marquee.js';
 // Hero der Kita St. Aposteln — WP-Seite 48345 (draft)
 // Eigene Klassen astro-kap-* (nie kapos-* aus WP wiederverwenden).
 ---
@@ -20,27 +21,27 @@
   <!-- Fotostreifen (Fotos der Kita, Freigabe Jeannine 12.08.2026) -->
   <div class="astro-kap-marquee">
     <div class="astro-kap-marquee__track">
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-6.jpg" alt="Das Kita-Geb&auml;ude vom Garten aus gesehen" loading="lazy" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-23.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-11.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-24.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-21.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-14.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-6.jpg')} alt="Das Kita-Geb&auml;ude vom Garten aus gesehen" loading="lazy" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-2.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-23.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-4.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-11.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-24.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-1.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-8.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-21.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-14.jpg')} alt="" loading="lazy" aria-hidden="true" />
       <!-- Duplikat fuer nahtlose Schleife -->
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-6.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-23.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-11.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-24.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-21.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-14.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-6.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-2.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-23.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-4.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-11.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-24.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-1.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-8.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-21.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-14.jpg')} alt="" loading="lazy" aria-hidden="true" />
     </div>
   </div>
 

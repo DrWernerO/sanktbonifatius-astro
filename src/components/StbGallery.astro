@@ -1,4 +1,5 @@
 ---
+import { mq } from '../lib/marquee.js';
 // Foto-Galerie des Kirchorts St. Bonifatius (WP-Block `bon-marquee`) als endlos scrollende
 // Banderole. Eigene Klassen `astro-stbgal`. Bilder lokal im Projekt unter public/uploads/.
 // Hinweis: Die WP-Vorlage zeigte diese Galerie zweimal (doppelte id="galerie", Editier-Artefakt)
@@ -21,7 +22,7 @@ const LOOP = [...PHOTOS, ...PHOTOS];
   <p class="astro-stbgal__title">Fotogalerie &middot; St. Bonifatius Frankfurt</p>
   <div class="astro-stbgal__track">
     {LOOP.map((p, i) => (
-      <img src={`${IMG}/${p}`} alt="Impression aus St. Bonifatius Frankfurt"
+      <img {...mq(`${IMG}/${p}`)} alt="Impression aus St. Bonifatius Frankfurt"
            decoding="async" aria-hidden={i >= PHOTOS.length ? 'true' : null} />
     ))}
   </div>
