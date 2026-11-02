@@ -12,7 +12,7 @@ const { page } = Astro.props;
 {page && (
   <section class="astro-kb-aktuell astro-kb-sec" id="astro-kb-aktuell">
     <div class="astro-kb-aktuell__in">
-      <p class="astro-kb-eyebrow">Aktuelles aus der Kita</p>
+      <h2 class="astro-kb-eyebrow">Aktuelles aus der Kita</h2>
       <div class="astro-kb-aktuell__content" set:html={page.content.rendered} />
     </div>
   </section>
