@@ -1,7 +1,7 @@
 # Pfarrei Sankt Bonifatius Frankfurt
 > Katholische Pfarrei in Frankfurt am Main (Sachsenhausen und Oberrad) mit vier Kirchorten. Angebote: Gottesdienste, Taufe, Trauung, Erstkommunion, Firmung, Beichte, Krankensalbung, Begleitung im Trauerfall, Ehrenamt, Gemeinschaft und katholische Kitas.
 
-Stand: 31. Oktober 2026
+Stand: 3. November 2026
 
 ## Ueber uns
 Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen in allen Lebensphasen - von der Taufe bis zur Beerdigung. Wir sind offen fuer Zugezogene, Familien, spirituell Suchende und Menschen in Lebenswenden.
@@ -29,7 +29,8 @@ Die Pfarrei Sankt Bonifatius gehoert zum Bistum Limburg und begleitet Menschen i
 - /gottesdienst-glaube/gottesdienstordnung/ - Gottesdienstzeiten aller Kirchorte (Gottesdienstordnung)
 - /gottesdienst-glaube/alle-gottesdienste/ - Alle Gottesdienste mit Wochentag und Uhrzeit, filterbar nach Kirchort und Stichwort
 - /gottesdienst-glaube/gottesdienste-die-beruehren/ - Besondere Formate: Fiat Lux, Taize, BonEsprit
-- /bonfamily/familiengottesdienste/ - Familiengottesdienste jeden 1. und 3. Sonntag
+- /bonfamily/familiengottesdienste/ - Kinder- und Familiengottesdienste: Formate, Zeiten und Orte
+- /bonfamily/familientreffpunkte/ - Baby-Lounge (bis 12 Monate) und Familien-Lounge (1-3 Jahre), freitags in St. Bonifatius, kostenlos
 
 ## Gemeinschaft und Engagement
 - /ueberuns/gemeinschaft/ - Gruppen und Kreise: BonFamily, Jugend, Senioren, Choere
