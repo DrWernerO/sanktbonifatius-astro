@@ -26,18 +26,18 @@ mkdir -p "$sicherung"
 
 for datei in "$@"; do
   [ -f "$datei" ] || { echo "fehlt: $datei"; continue; }
-  vorher=$(( $(stat -f %z "$datei") / 1024 ))
   ziel_pfad="$sicherung/${datei//\//__}"
   [ -e "$ziel_pfad" ] || cp -p "$datei" "$ziel_pfad"
+  vorher=$(( $(stat -f %z "$ziel_pfad") / 1024 ))   # immer vom gesicherten Original aus
 
-  breite=$(sips -g pixelWidth "$datei" | awk '/pixelWidth/{print $2}')
-  hoehe=$(sips -g pixelHeight "$datei" | awk '/pixelHeight/{print $2}')
+  breite=$(sips -g pixelWidth "$ziel_pfad" | awk '/pixelWidth/{print $2}')
+  hoehe=$(sips -g pixelHeight "$ziel_pfad" | awk '/pixelHeight/{print $2}')
   lang=$(( breite > hoehe ? breite : hoehe ))
   tmp="$(mktemp -d)/$(basename "$datei")"
 
   case "$(echo "${datei##*.}" | tr '[:upper:]' '[:lower:]')" in
     jpg|jpeg)
-      for q in 82 75 68 60 52; do
+      for q in 82 75 70; do
         if [ "$lang" -gt "$kante" ]; then
           sips -Z "$kante" -s format jpeg -s formatOptions "$q" "$ziel_pfad" --out "$tmp" >/dev/null
         else
