@@ -60,6 +60,11 @@
    werden gebaut, aber **nicht automatisch ins Menü aufgenommen**. Vor jeder Menü-Änderung
    Werners ausdrückliche Freigabe einholen.
 
+7. **Netlify-Credits sparen (Werner, 2026-11-03):** Commits lokal sammeln, **nur gebündelt und
+   nach Franks Freigabe pushen** (jeder Push auf `main` = 1 Deploy = 15 Credits), Fotos vorher mit
+   `scripts/bilder-verkleinern.sh` verkleinern. Pre-Push-Hook `.githooks/pre-push` prüft Build +
+   Dateien > 1 MB (Handbuch 1j).
+
 ## Hosting-Stand (Details in Handbuch 1b–1d, 1g)
 - **WordPress** läuft auf **All-inkl** (kasserver.com), erreichbar unter **`cms.sanktbonifatius.de`**
   → bleibt dort als reines Backend/REST-API.

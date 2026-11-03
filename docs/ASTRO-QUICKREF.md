@@ -22,13 +22,14 @@ CSS/Client-JS lädt per HMR. Hartnäckiger JS-Cache → privates Browser-Fenster
 
 ---
 
-## Die 5 wichtigsten Regeln
+## Die 6 wichtigsten Regeln
 
 1. **`astro-`-Präfix** für ALLE eigenen CSS-Klassen — nie WP-Theme-Klassen (`bh2-…`, `bh3a-…`) wiederverwenden, sonst überschreibt WP-CSS unsere Styles. (Handbuch Abschnitt 3)
 2. **Inhalte kommen von WordPress unter** `https://cms.sanktbonifatius.de` (seit Go-Live 2026-08-03). Quell-Domains in `src/lib/wordpress.js` (`WP_API`, `WP_RENDER_ORIGIN`) und `astro.config.mjs` (`WP_LIVE`).
 3. **Nav (`Nav.astro`) NUR mit Werners ausdrücklicher Freigabe ändern.** Neue Seiten werden gebaut, aber nicht automatisch ins Menü aufgenommen.
 4. **Seitenverzeichnis (`docs/SEITENVERZEICHNIS.md`) sofort mitpflegen** — bei jeder neuen oder geänderten Seite als eigener `Doku:`-Commit.
 5. **Nie löschen/senden/veröffentlichen ohne Franks Rückfrage.**
+6. **Netlify-Credits sparen:** jeder Push auf `main` kostet einen Deploy (15 Credits) → Commits lokal sammeln, **gebündelt pushen**, vorher `npm run build`. Fotos vorher verkleinern (`scripts/bilder-verkleinern.sh`, 1600 px bzw. 600 px für Bildleisten). Der Pre-Push-Hook prüft Build + Dateien > 1 MB automatisch. (Handbuch Abschnitt 1j)
 
 ---
 

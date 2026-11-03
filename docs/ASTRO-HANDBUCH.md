@@ -595,6 +595,46 @@ www.bonifatius-ffm.de/<pfad>      301  (All-inkl, Domain-Weiterleitung, reicht d
 
 ---
 
+## 1j. Netlify-Credits sparen: Pushes bündeln, Bilder klein halten — ✅ REGEL seit 2026-11-03
+
+> **Hintergrund (Werner, 2026-11-03):** Pro-Tarif = 3.000 Credits/Monat; im September 3.900
+> verbraucht. **Jeder Push auf `main` = ein Production-Deploy = 15 Credits** (46 Deploys = 690
+> Credits). Zweitgrößter Posten ist das **Datenvolumen** (529 Credits), vor allem durch
+> Originalfotos mit bis zu 21 MB. Verbrauch: Netlify → Team „Sankt Bonifatius" → Usage & billing.
+
+### Regeln
+1. **Lokal committen ist kostenlos — pushen nur gebündelt**, wenn ein Stand wirklich fertig ist.
+   Mehrere Commits in einem Push = **ein** Deploy. Der `Doku:`-Commit (Regel 5) bleibt ein eigener
+   Commit, geht aber im selben Push mit raus.
+2. **Vor jedem Push `npm run build`** — macht der Hook (unten) automatisch.
+3. **Keine leeren „Rebuild:"-Commits** als Routine. WP-Inhalte lösen ihren Rebuild selbst aus (1c).
+4. **Bilder vor dem Einbinden verkleinern:** normal max. **1600 px** lange Kante, möglichst
+   **< 300 KB**; Bildleisten/kleine Vorschauen **600 px**, möglichst **< 100 KB**.
+5. **Große PDFs und Videos nicht ins Repo.** ⚠️ Offen: Abstimmung mit der Regel aus 1g/Hosting-Stand
+   („PDFs immer lokal"), betrifft z. B. Finanzbericht-PDF (13,5 MB) und Sommerfreizeit-Video (14,2 MB).
+
+### Werkzeug 1: Push-Sperre `.githooks/pre-push`
+Läuft bei jedem `git push` auf `main` automatisch und bricht ab, wenn
+- eine **neue oder geänderte Datei unter `public/` größer als 1 MB** ist, oder
+- **`npm run build` fehlschlägt** (Log: `/tmp/bonastro-prepush-build.log`, Dauer ca. 30 s).
+
+Aktiviert über `git config core.hooksPath .githooks` — das setzt `npm install` per
+`prepare`-Skript in `package.json` automatisch (also auch bei Lovis nach dem nächsten
+`npm install`). Notfall-Umgehung: `git push --no-verify`.
+
+### Werkzeug 2: `scripts/bilder-verkleinern.sh`
+```bash
+scripts/bilder-verkleinern.sh public/uploads/2026/11/foto.jpg            # normal: 1600 px
+scripts/bilder-verkleinern.sh --leiste public/uploads/2026/11/foto.jpg   # Bildleiste: 600 px
+scripts/bilder-verkleinern.sh --pruefen                                  # alle Dateien > 1 MB
+```
+Nur macOS-Bordmittel (`sips`). Ersetzt die Datei an Ort und Stelle; das **Original** wird vorher
+nach `bilder-originale.nosync/<datum>/` gesichert (gitignored, nicht in iCloud). JPG wird mit
+abnehmender Qualität (82 → 52) gespeichert, bis das Ziel passt; PNG bleibt PNG (Logos/Transparenz).
+Erneuter Aufruf derselben Datei arbeitet immer vom gesicherten Original aus.
+
+---
+
 ## 2. WordPress-Anbindung (`src/lib/wordpress.js`)
 
 Zentrale Datei für alle WP-Zugriffe. Wichtige Bausteine:
