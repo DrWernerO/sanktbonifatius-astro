@@ -630,7 +630,7 @@ scripts/bilder-verkleinern.sh --pruefen                                  # alle 
 ```
 Nur macOS-Bordmittel (`sips`). Ersetzt die Datei an Ort und Stelle; das **Original** wird vorher
 nach `bilder-originale.nosync/<datum>/` gesichert (gitignored, nicht in iCloud). JPG wird mit
-abnehmender Qualität (82 → 52) gespeichert, bis das Ziel passt; PNG bleibt PNG (Logos/Transparenz).
+abnehmender Qualität (82 → 70, nicht tiefer, damit nichts matschig wird) gespeichert, bis das Ziel passt; PNG bleibt PNG (Logos/Transparenz).
 Erneuter Aufruf derselben Datei arbeitet immer vom gesicherten Original aus.
 
 ---
