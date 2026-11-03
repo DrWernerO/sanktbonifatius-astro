@@ -1,103 +1,225 @@
 ---
-// Lounge-Section BonFamily — Baby-Lounge, Familien-Lounge + Better Together als drei Karten
-// (Better Together seit 2026-11-03, Verweis auf /bonfamily/better-together/).
-// Präfix `astro-bflounge` (nicht `bf-lounge-...`).
+// „Regelmäßige Treffpunkte" BonFamily — seit 2026-11-03 als Bento-Raster (Wunsch Frank: drei
+// gleiche Karten waren zu gleichförmig; aus drei Entwürfen ausgewählt). Kacheln unterschiedlicher Größe, kompakt auf einen Bildschirm:
+//  - breite Foto-Kachel „Jeden Freitag" mit zwei Hälften (Baby-Lounge | Familien-Lounge);
+//    Beschreibung gleitet bei Hover/Fokus über das Foto (Handy: immer sichtbar)
+//  - zwei kleine Info-Kacheln (gelten für beide Lounges): „Kostenlos & ohne Anmeldung", „Wo?";
+//    Lounge-Kachel + Info-Kacheln liegen gemeinsam auf einer sandfarbenen Fläche (Gruppe), damit
+//    klar ist, dass die Infos nicht zu Better Together gehören
+//  - hohe Better-Together-Kachel mit Foto (mehrere Fotos wechseln per Ken-Burns alle 5 s — vorerst
+//    nur eins, Freigaben für weitere stehen noch aus, Stand 2026-11-03) und dem
+//    nächsten Termin live aus WP (Kategorie 2586 + Titel beginnt „Better together")
+// Präfix `astro-bfbento`. Anker #bonfamily-lounge bleibt für den Schnellzugriff.
 const lounges = [
   {
-    badge: 'Baby-Lounge',
-    target: 'Für Babys bis 12 Monate & ihre Eltern',
-    title: 'Baby-Lounge',
-    desc: 'Eine liebevoll gestaltete Spiellandschaft für die Kleinsten. Eltern kommen entspannt miteinander ins Gespräch, während die Babys spielen und die Welt entdecken.',
-    wann: 'Freitags, 09:30 – 11:30 Uhr',
-    wo: 'St. Bonifatius, Holbeinstraße 70\nKleiner Pfarrsaal, Eingang Achenbachstraße',
-    note: 'Kostenlos · Keine Anmeldung nötig',
-    href: '/bonfamily/familientreffpunkte/',
+    name: 'Baby-Lounge',
+    zeit: '09:30 – 11:30 Uhr',
+    fuer: 'Babys bis 12 Monate',
+    text: 'Spiellandschaft für die Kleinsten – die Eltern kommen entspannt ins Gespräch.',
+    img: '/uploads/2026/11/bonfamily-babylounge.jpg', w: 1000, h: 667,
+    alt: 'Babys spielen in der Baby-Lounge, Eltern sitzen im Kreis dabei',
   },
   {
-    badge: 'Familien-Lounge',
-    target: 'Für Kinder von 1 – 3 Jahren & ihre Eltern',
-    title: 'Familien-Lounge',
-    desc: 'Toben, spielen, lachen – und die Eltern können sich dabei entspannen und austauschen. Unsere Familien-Lounge ist ein offener Treffpunkt für Familien im Alltag.',
-    wann: 'Freitags, 15:30 – 17:30 Uhr',
-    wo: 'St. Bonifatius, Holbeinstraße 70\nKleiner Pfarrsaal, Eingang Achenbachstraße',
-    note: 'Kostenlos · Einfach vorbeikommen',
-    href: '/bonfamily/familientreffpunkte/',
-  },
-  {
-    badge: 'Better Together',
-    target: 'Für Familien mit kleinen Kindern',
-    title: 'Better Together',
-    desc: 'Gemeinsam etwas tun, erleben und Familien kennenlernen, denen es gerade ähnlich geht – mal beim Backen, mal im Garten, mal in der Küche.',
-    wann: 'Etwa einmal im Monat, samstags',
-    wo: 'St. Bonifatius, Holbeinstraße 70\nOrt je nach Treffen',
-    note: 'Termine & Anmeldung im Kalender',
-    href: '/bonfamily/better-together/',
+    name: 'Familien-Lounge',
+    zeit: '15:30 – 17:30 Uhr',
+    fuer: 'Kinder von 1 bis 3 Jahren',
+    text: 'Toben, spielen, lachen – ein offener Treffpunkt für den Familienalltag.',
+    img: '/uploads/2023/04/babylounge-st-bonifatius-1024x684.jpeg', w: 1024, h: 684,
+    alt: 'Kleinkind spielt mit Spielzeug in der Familien-Lounge',
   },
 ];
+// Weitere Fotos (z. B. bt-mealprep-03, bt-auftakt-23) erst nach Freigabe ergänzen — ab zwei Fotos
+// wechseln sie automatisch.
+const btFotos = [
+  { src: '/uploads/2026/08/bt-auftakt-20.jpg', w: 800, h: 1000 },
+];
 ---
-<section id="bonfamily-lounge" class="astro-bflounge">
-  <div class="astro-bflounge__inner">
-    <div class="astro-bflounge__head">
-      <h2 class="astro-bflounge__title">Regelmäßige Treffpunkte</h2>
-      <p class="astro-bflounge__sub">
-        Regelm&auml;&szlig;ige Begegnung f&uuml;r Familien &ndash; in entspannter Atmosph&auml;re
-        und herzlich willkommen.
+<section id="bonfamily-lounge" class="astro-bfbento">
+  <div class="astro-bfbento__inner">
+    <div class="astro-bfbento__head">
+      <h2 class="astro-bfbento__title">Regelmäßige Treffpunkte für Familien</h2>
+      <p class="astro-bfbento__sub">
+        Immer wieder, ganz entspannt: Hier trefft ihr andere Familien &ndash;
+        jede Woche oder einmal im Monat.
       </p>
     </div>
-    <div class="astro-bflounge__grid">
-      {lounges.map(l => (
-        <div class="astro-bflounge__card">
-          <div class="astro-bflounge__card-head">
-            <span class="astro-bflounge__badge">{l.badge}</span>
-            <span class="astro-bflounge__target">{l.target}</span>
-          </div>
-          <div class="astro-bflounge__card-body">
-            <h3 class="astro-bflounge__card-title">{l.title}</h3>
-            <p class="astro-bflounge__card-desc">{l.desc}</p>
-            <div class="astro-bflounge__details">
-              <div class="astro-bflounge__detail-row">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span>{l.wann}</span>
-              </div>
-              <div class="astro-bflounge__detail-row">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>{l.wo}</span>
-              </div>
-            </div>
-            <p class="astro-bflounge__note">{l.note}</p>
-          </div>
-          <div class="astro-bflounge__card-footer">
-            <a href={l.href} class="astro-bflounge__link">Mehr Infos</a>
-          </div>
-        </div>
-      ))}
+
+    <div class="astro-bfbento__grid">
+      <!-- Gruppe Lounges: Foto-Kachel + Info-Kacheln auf gemeinsamer Fläche -->
+      <div class="astro-bfbento__group">
+      <div class="astro-bfbento__fri">
+        <span class="astro-bfbento__ribbon">Jeden Freitag</span>
+        {lounges.map(l => (
+          <a href="/bonfamily/familientreffpunkte/" class="astro-bfbento__half">
+            <img src={l.img} alt={l.alt} width={l.w} height={l.h} loading="lazy" decoding="async" class="astro-bfbento__half-img" />
+            <span class="astro-bfbento__half-shade" aria-hidden="true"></span>
+            <span class="astro-bfbento__half-body">
+              <span class="astro-bfbento__half-zeit">{l.zeit}</span>
+              <span class="astro-bfbento__half-name">{l.name}</span>
+              <span class="astro-bfbento__half-fuer">{l.fuer}</span>
+              <span class="astro-bfbento__half-text">{l.text}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Info-Kacheln (gelten für beide Lounges) -->
+      <div class="astro-bfbento__info astro-bfbento__info--free">
+        <span class="astro-bfbento__info-tag">Für beide Lounges</span>
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        <p class="astro-bfbento__info-hl">Kostenlos &amp; ohne Anmeldung</p>
+        <p class="astro-bfbento__info-txt">Einfach vorbeikommen &ndash; über eine kleine Spende für Kaffee und Kuchen freuen wir uns.</p>
+      </div>
+      <div class="astro-bfbento__info astro-bfbento__info--ort">
+        <span class="astro-bfbento__info-tag">Für beide Lounges</span>
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <p class="astro-bfbento__info-hl">Kleiner Pfarrsaal St. Bonifatius</p>
+        <p class="astro-bfbento__info-txt">Holbeinstraße 70, Eingang Achenbachstraße</p>
+        <a href="/bonfamily/familientreffpunkte/" class="astro-bfbento__info-link">Mehr zu den Lounges</a>
+      </div>
+      </div>
+
+      <!-- Better Together: hohe Kachel -->
+      <a href="/bonfamily/better-together/" class="astro-bfbento__bt" data-bfbento-bt>
+        {btFotos.map((f, i) => (
+          <img src={f.src} alt="" width={f.w} height={f.h} loading="lazy" decoding="async" aria-hidden="true"
+               class:list={['astro-bfbento__bt-img', { 'is-active': i === 0 }]} />
+        ))}
+        <span class="astro-bfbento__bt-shade" aria-hidden="true"></span>
+        <span class="astro-bfbento__bt-tag">Einmal im Monat &middot; samstags</span>
+        <span class="astro-bfbento__bt-body">
+          <span class="astro-bfbento__bt-name">Better Together</span>
+          <span class="astro-bfbento__bt-text">Gemeinsam backen, gärtnern, kochen &ndash; und Familien kennenlernen, die auch der Meinung sind: Zusammen geht vieles besser.</span>
+          <span class="astro-bfbento__bt-next" hidden></span>
+          <span class="astro-bfbento__bt-cta">Mehr erfahren <span aria-hidden="true">→</span></span>
+        </span>
+      </a>
     </div>
   </div>
 </section>
 
 <style is:global>
-.astro-bflounge{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:96px}
-.astro-bflounge__inner{max-width:1200px;margin:0 auto;padding:0 40px}
-.astro-bflounge__head{text-align:center;margin-bottom:48px}
-.astro-bflounge__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 12px}
-.astro-bflounge__sub{font-size:17px;color:#6b5c52;margin:0;max-width:540px;margin-inline:auto;line-height:1.6}
-.astro-bflounge__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-@media(max-width:980px){.astro-bflounge__grid{grid-template-columns:1fr;max-width:560px;margin:0 auto}}
-.astro-bflounge__card{background:#fff;border-radius:16px;border:1px solid #e0d8cf;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(30,21,18,.06)}
-.astro-bflounge__card-head{background:#9a2d2d;padding:20px 28px;display:flex;flex-direction:column;gap:4px}
-.astro-bflounge__badge{font-size:13px;font-weight:700;color:#fff;letter-spacing:.04em}
-.astro-bflounge__target{font-size:13px;color:rgba(255,255,255,.78)}
-.astro-bflounge__card-body{padding:28px;flex:1;display:flex;flex-direction:column;gap:16px}
-.astro-bflounge__card-title{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#2c2420;margin:0}
-.astro-bflounge__card-desc{font-size:15px;line-height:1.65;color:#5a4a3a;margin:0;flex:1}
-.astro-bflounge__details{display:flex;flex-direction:column;gap:8px}
-.astro-bflounge__detail-row{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#3d2b1a;line-height:1.4}
-.astro-bflounge__detail-row svg{flex-shrink:0;margin-top:1px;color:#9a2d2d}
-.astro-bflounge__note{font-size:13px;color:var(--txt-muted-light);font-style:italic;margin:0}
-.astro-bflounge__card-footer{padding:0 28px 24px}
-.astro-bflounge__link{display:inline-flex;align-items:center;font-size:14px;font-weight:600;color:#9a2d2d;text-decoration:none;gap:4px}
-.astro-bflounge__link::after{content:'→';transition:transform .15s}
-.astro-bflounge__link:hover::after{transform:translateX(4px)}
-@media(max-width:760px){.astro-bflounge__grid{grid-template-columns:1fr}}
-@media(max-width:600px){.astro-bflounge__inner{padding:0 20px}.astro-bflounge{padding:52px 0}}
+.astro-bfbento{padding:72px 0;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:96px}
+.astro-bfbento__inner{max-width:1120px;margin:0 auto;padding:0 40px}
+.astro-bfbento__head{text-align:center;margin-bottom:40px}
+.astro-bfbento__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 12px}
+.astro-bfbento__sub{font-size:17px;color:#6b5c52;margin:0;max-width:540px;margin-inline:auto;line-height:1.6}
+
+.astro-bfbento__grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:stretch}
+.astro-bfbento__group{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:340px auto;gap:12px;padding:12px;border-radius:28px;background:#ede4d5}
+
+/* Freitag-Kachel */
+.astro-bfbento__fri{grid-column:1 / 3;grid-row:1;position:relative;display:grid;grid-template-columns:1fr 1fr;gap:4px;border-radius:20px;overflow:hidden;background:#9a2d2d}
+.astro-bfbento__ribbon{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:2;padding:7px 18px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:13px;font-weight:700;letter-spacing:.04em;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.astro-bfbento__half{position:relative;display:block;overflow:hidden;color:#fff;text-decoration:none}
+.astro-bfbento__half-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.astro-bfbento__half-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(30,18,12,.82) 100%);transition:background .4s}
+.astro-bfbento__half-body{position:absolute;left:0;right:0;bottom:0;padding:22px 24px;display:flex;flex-direction:column;gap:3px}
+.astro-bfbento__half-zeit{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#f3c98b}
+.astro-bfbento__half-name{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;line-height:1.2}
+.astro-bfbento__half-fuer{font-size:14px;color:rgba(255,255,255,.9)}
+.astro-bfbento__half-text{font-size:14px;line-height:1.5;color:rgba(255,255,255,.9);max-height:0;opacity:0;overflow:hidden;transition:max-height .45s ease,opacity .35s ease,margin .45s ease}
+.astro-bfbento__half:hover .astro-bfbento__half-img,.astro-bfbento__half:focus-visible .astro-bfbento__half-img{transform:scale(1.05)}
+.astro-bfbento__half:hover .astro-bfbento__half-shade,.astro-bfbento__half:focus-visible .astro-bfbento__half-shade{background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(30,18,12,.88) 100%)}
+.astro-bfbento__half:hover .astro-bfbento__half-text,.astro-bfbento__half:focus-visible .astro-bfbento__half-text{max-height:80px;opacity:1;margin-top:6px}
+.astro-bfbento__half:focus-visible{outline:3px solid #fff;outline-offset:-6px}
+
+/* Info-Kacheln */
+.astro-bfbento__info{border-radius:20px;padding:22px 24px;display:flex;flex-direction:column;gap:6px;background:#fff;color:#9a2d2d}
+.astro-bfbento__info--free{grid-column:1;grid-row:2}
+.astro-bfbento__info--ort{grid-column:2;grid-row:2}
+.astro-bfbento__info-tag{align-self:flex-start;margin-bottom:6px;padding:3px 10px;border-radius:50px;background:#fdf4f4;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9a2d2d}
+.astro-bfbento__info svg{margin-bottom:4px}
+.astro-bfbento__info-hl{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:#2c2420;margin:0}
+.astro-bfbento__info-txt{font-size:14px;line-height:1.55;color:#5a4a3a;margin:0}
+.astro-bfbento__info-link{align-self:flex-start;margin-top:4px;display:inline-flex;gap:4px;font-size:14px;font-weight:600;color:#9a2d2d;text-decoration:none}
+.astro-bfbento__info-link::after{content:'→';transition:transform .15s}
+.astro-bfbento__info-link:hover::after{transform:translateX(4px)}
+
+/* Better-Together-Kachel */
+.astro-bfbento__bt{position:relative;display:block;min-height:480px;border-radius:20px;overflow:hidden;color:#fff;text-decoration:none;background:#2c2420}
+.astro-bfbento__bt-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.astro-bfbento__bt-img.is-active{opacity:1;animation:astro-bfbento-kb 6s ease-out both}
+@keyframes astro-bfbento-kb{from{transform:scale(1.08)}to{transform:scale(1)}}
+.astro-bfbento__bt-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(154,45,45,.15) 0%,rgba(154,45,45,0) 30%,rgba(90,22,22,.92) 100%)}
+.astro-bfbento__bt-tag{position:absolute;top:18px;left:18px;padding:6px 14px;border-radius:50px;background:rgba(255,255,255,.92);color:#9a2d2d;font-size:12px;font-weight:700}
+.astro-bfbento__bt-body{position:absolute;left:0;right:0;bottom:0;padding:26px;display:flex;flex-direction:column;gap:8px}
+.astro-bfbento__bt-name{font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;line-height:1.15}
+.astro-bfbento__bt-text{font-size:14px;line-height:1.55;color:rgba(255,255,255,.9)}
+.astro-bfbento__bt-next{display:inline-block;align-self:flex-start;padding:7px 12px;border-radius:10px;background:rgba(255,255,255,.16);font-size:13px;line-height:1.4}
+.astro-bfbento__bt-next b{color:#f3c98b}
+.astro-bfbento__bt-cta{align-self:flex-start;margin-top:4px;padding:10px 20px;border-radius:50px;background:#fff;color:#9a2d2d;font-size:14px;font-weight:700;transition:background .18s}
+.astro-bfbento__bt-cta span{display:inline-block;transition:transform .15s}
+.astro-bfbento__bt:hover .astro-bfbento__bt-cta{background:#f7f0e6}
+.astro-bfbento__bt:hover .astro-bfbento__bt-cta span{transform:translateX(4px)}
+.astro-bfbento__bt:focus-visible{outline:3px solid #9a2d2d;outline-offset:3px}
+
+@media(prefers-reduced-motion:reduce){
+  .astro-bfbento__half-img,.astro-bfbento__half-text,.astro-bfbento__bt-img{transition:none}
+  .astro-bfbento__bt-img.is-active{animation:none}
+}
+/* Touch-Geräte ohne Hover: Beschreibung immer zeigen */
+@media(hover:none){.astro-bfbento__half-text{max-height:none;opacity:1;margin-top:6px}}
+
+@media(max-width:900px){
+  .astro-bfbento__grid{grid-template-columns:1fr}
+  .astro-bfbento__group{grid-template-rows:auto}
+  .astro-bfbento__fri{min-height:340px}
+  .astro-bfbento__bt{min-height:440px}
+}
+@media(max-width:600px){
+  .astro-bfbento{padding:52px 0}
+  .astro-bfbento__inner{padding:0 20px}
+  .astro-bfbento__fri{grid-template-columns:1fr;min-height:0}
+  .astro-bfbento__half{min-height:260px}
+  .astro-bfbento__ribbon{top:14px}
+  .astro-bfbento__group{padding:8px;border-radius:24px}
+  .astro-bfbento__info--free,.astro-bfbento__info--ort{grid-column:1 / 3;grid-row:auto}
+}
 </style>
+
+<script>
+  (function () {
+    var tile = document.querySelector<HTMLElement>('[data-bfbento-bt]');
+    if (!tile || tile.dataset.bound) return;
+    tile.dataset.bound = '1';
+
+    // Sanft wechselnde Fotos (5 s), ruht bei „Bewegung reduzieren“ und im Hintergrund-Tab
+    var imgs = tile.querySelectorAll<HTMLImageElement>('.astro-bfbento__bt-img');
+    imgs.forEach(function (img) { img.removeAttribute('loading'); });
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && imgs.length > 1) {
+      var i = 0;
+      setInterval(function () {
+        if (document.hidden) return;
+        imgs[i].classList.remove('is-active');
+        i = (i + 1) % imgs.length;
+        imgs[i].classList.add('is-active');
+      }, 5000);
+    }
+
+    // Nächster Termin live aus WP (wie BtNaechstes)
+    var next = tile.querySelector<HTMLElement>('.astro-bfbento__bt-next');
+    var TAGE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+    var MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+    var d = new Date();
+    var heute = '' + d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+    var dekodiere = function (html: string) { var t = document.createElement('textarea'); t.innerHTML = html; return t.value; };
+    fetch('/wp-proxy/wp-json/wp/v2/event?per_page=100&event-category=2586&_fields=title,event_meta')
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (liste: { title: { rendered: string }; event_meta?: Record<string, string> }[]) {
+        var t = liste
+          .filter(function (e) { return e.event_meta && e.event_meta.start_date >= heute && /^\s*better[\s-]*together/i.test(dekodiere(e.title.rendered)); })
+          .sort(function (a, b) { return a.event_meta!.start_date.localeCompare(b.event_meta!.start_date); })[0];
+        if (!t || !next) return;
+        var s = t.event_meta!.start_date;
+        var dt = new Date(s.slice(0, 4) + '-' + s.slice(4, 6) + '-' + s.slice(6, 8));
+        var thema = dekodiere(t.title.rendered).split(/\s[–-]\s/).slice(1).join(' – ');
+        var b = document.createElement('b');
+        b.textContent = 'Nächstes Treffen: ' + TAGE[dt.getDay()] + ', ' + dt.getDate() + '. ' + MONATE[dt.getMonth()];
+        next.append(b);
+        if (thema) next.append(document.createElement('br'), thema);
+        next.hidden = false;
+      })
+      .catch(function () { /* ohne Termin-Hinweis weiter */ });
+  })();
+</script>
