@@ -15,6 +15,19 @@ const ENTFAELLT = 'entfällt';
 // wird komplett rausgefiltert, nicht nur gedämpft wie ENTFÄLLT.
 const AUSGEBLENDETE_TITEL = ['taufe möglich'];
 
+// Taufen und Trauungen trägt das Pfarrbüro in ChurchDesk mit Namen ein („Taufe Carlotta …“).
+// Öffentlich zeigen wir nur die Feier, nie den Namen der Familie (Datenschutz/KDG, Funde aus
+// Werners Design-Review, 2026-11-01). Gilt für Titel und Zusammenfassung, also auch fürs JSON-LD.
+const NUR_FEIER = /^(taufe|trauung|hochzeit)\b/i;
+
+function anzeigeTitel(title) {
+  const t = (title || '').trim();
+  if (t.toLowerCase() === ENTFAELLT) return 'Gottesdienst entfällt';
+  const feier = t.match(NUR_FEIER);
+  if (feier) return feier[1].charAt(0).toUpperCase() + feier[1].slice(1).toLowerCase();
+  return t;
+}
+
 // import.meta.env als Fallback NUR für `npm run dev` lokal: Netlify setzt process.env zur
 // Laufzeit der Function (Produktiv-Pfad, wird immer zuerst geprüft); im lokalen `astro dev`
 // füllt Vite dagegen nur import.meta.env aus der .env, process.env bleibt leer (gleiche Lücke
@@ -67,9 +80,9 @@ function normalize(raw) {
   const berlin = berlinParts(start);
   return {
     id: raw.id,
-    title: raw.title,
+    title: anzeigeTitel(raw.title),
     isEntfaellt: (raw.title || '').trim().toLowerCase() === ENTFAELLT,
-    summary: raw.summary || '',
+    summary: NUR_FEIER.test((raw.title || '').trim()) ? '' : raw.summary || '',
     celebrant: extractCelebrant(raw.rotas),
     church: raw.locationName || raw.location || '',
     address: raw.locationObj?.address
