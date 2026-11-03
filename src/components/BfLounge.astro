@@ -1,5 +1,6 @@
 ---
-// Lounge-Section BonFamily — Baby-Lounge + Familien-Lounge als zwei Karten.
+// Lounge-Section BonFamily — Baby-Lounge, Familien-Lounge + Better Together als drei Karten
+// (Better Together seit 2026-11-03, Verweis auf /bonfamily/better-together/).
 // Präfix `astro-bflounge` (nicht `bf-lounge-...`).
 const lounges = [
   {
@@ -22,6 +23,16 @@ const lounges = [
     note: 'Kostenlos · Einfach vorbeikommen',
     href: '/bonfamily/familientreffpunkte/',
   },
+  {
+    badge: 'Better Together',
+    target: 'Für Familien mit kleinen Kindern',
+    title: 'Better Together',
+    desc: 'Gemeinsam etwas tun, erleben und Familien kennenlernen, denen es gerade ähnlich geht – mal beim Backen, mal im Garten, mal in der Küche.',
+    wann: 'Etwa einmal im Monat, samstags',
+    wo: 'St. Bonifatius, Holbeinstraße 70\nOrt je nach Treffen',
+    note: 'Termine & Anmeldung im Kalender',
+    href: '/bonfamily/better-together/',
+  },
 ];
 ---
 <section id="bonfamily-lounge" class="astro-bflounge">
@@ -29,8 +40,8 @@ const lounges = [
     <div class="astro-bflounge__head">
       <h2 class="astro-bflounge__title">Regelmäßige Treffpunkte</h2>
       <p class="astro-bflounge__sub">
-        W&ouml;chentliche Begegnung f&uuml;r Familien &ndash; in entspannter Atmosph&auml;re,
-        kostenlos und herzlich willkommen.
+        Regelm&auml;&szlig;ige Begegnung f&uuml;r Familien &ndash; in entspannter Atmosph&auml;re
+        und herzlich willkommen.
       </p>
     </div>
     <div class="astro-bflounge__grid">
@@ -70,7 +81,8 @@ const lounges = [
 .astro-bflounge__head{text-align:center;margin-bottom:48px}
 .astro-bflounge__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 12px}
 .astro-bflounge__sub{font-size:17px;color:#6b5c52;margin:0;max-width:540px;margin-inline:auto;line-height:1.6}
-.astro-bflounge__grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.astro-bflounge__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media(max-width:980px){.astro-bflounge__grid{grid-template-columns:1fr;max-width:560px;margin:0 auto}}
 .astro-bflounge__card{background:#f7f3ef;border-radius:16px;border:1px solid #e0d8cf;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(30,21,18,.06)}
 .astro-bflounge__card-head{background:#9a2d2d;padding:20px 28px;display:flex;flex-direction:column;gap:4px}
 .astro-bflounge__badge{font-size:13px;font-weight:700;color:#fff;letter-spacing:.04em}

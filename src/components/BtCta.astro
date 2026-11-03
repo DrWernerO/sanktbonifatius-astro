@@ -1,0 +1,55 @@
+---
+// Abschluss „Mitmachen" — Präfix `astro-btcta`. Persönlicher Kontakt (Frank Hoffmann) mit Foto
+// statt Termin-Buttons; bewusst ohne Preise/Termine (die stehen bei den einzelnen Terminen).
+// Foto: verkleinerte Kopie von /uploads/2025/06/DSC00850.jpg (480 px, Handbuch 1j).
+const kontakt = {
+  name: 'Frank Hoffmann',
+  rolle: 'Referent Familienpastoral',
+  foto: '/uploads/2026/11/frank-hoffmann-kontakt.jpg',
+  email: 'f.hoffmann@sanktbonifatius.de',
+  tel: '069 695 97 58 53',
+};
+---
+<section id="better-together-kontakt" class="astro-btcta">
+  <div class="astro-btcta__inner">
+    <img class="astro-btcta__foto" src={kontakt.foto} alt={`Porträt von ${kontakt.name}`} width="480" height="480" loading="lazy" decoding="async" />
+    <div class="astro-btcta__text">
+      <h2 class="astro-btcta__title">Fragen, Ideen oder Lust mitzumachen?</h2>
+      <p class="astro-btcta__sub">Dann melden Sie sich gern bei mir &ndash; ich freue mich auf Sie und Ihre Familie!</p>
+      <p class="astro-btcta__name"><strong>{kontakt.name}</strong> · {kontakt.rolle}</p>
+      <div class="astro-btcta__btns">
+        <a href={`mailto:${kontakt.email}`} class="astro-btcta__btn astro-btcta__btn--primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          {kontakt.email}
+        </a>
+        <a href={`tel:${kontakt.tel.replace(/\s/g, '')}`} class="astro-btcta__btn astro-btcta__btn--ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          {kontakt.tel}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-btcta{padding:80px 0;background:linear-gradient(135deg,#4a2e1a 0%,#9a2d2d 100%);width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-btcta__inner{max-width:880px;margin:0 auto;padding:0 40px;display:flex;align-items:center;gap:48px}
+.astro-btcta__foto{flex:0 0 200px;width:200px;height:200px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,.85);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.astro-btcta__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.4vw,38px);font-weight:700;color:#fff;margin:0 0 12px;line-height:1.2}
+.astro-btcta__sub{font-size:17px;color:rgba(255,255,255,.9);line-height:1.65;margin:0 0 18px}
+.astro-btcta__name{font-size:15px;color:rgba(255,255,255,.8);margin:0 0 22px}
+.astro-btcta__name strong{color:#fff;font-weight:600}
+.astro-btcta__btns{display:flex;gap:14px;flex-wrap:wrap}
+.astro-btcta__btn{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;font-size:15px;font-weight:600;text-decoration:none;border-radius:50px;transition:background .18s,color .18s,transform .18s}
+.astro-btcta__btn--primary{background:#fff;color:#9a2d2d}
+.astro-btcta__btn--primary:hover{background:#f0e8d8;transform:translateY(-2px)}
+.astro-btcta__btn--ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+.astro-btcta__btn--ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+@media(max-width:700px){
+  .astro-btcta{padding:56px 0}
+  .astro-btcta__inner{flex-direction:column;text-align:center;gap:24px;padding:0 20px}
+  .astro-btcta__foto{flex-basis:auto;width:150px;height:150px}
+  .astro-btcta__btns{justify-content:center}
+  .astro-btcta__btn{font-size:14px;padding:12px 20px}
+}
+</style>

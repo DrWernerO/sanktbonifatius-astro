@@ -1,0 +1,34 @@
+---
+// „Für wen das gedacht ist" — Präfix `astro-btfuerwen`. Fließtext + kurze
+// Entlastungs-Liste (Konfession/Verpflichtung/Familienform), da hier eine Liste
+// tatsächlich hilft (drei klar abgrenzbare Zusagen).
+const punkte = [
+  'Egal ob katholisch, evangelisch oder ohne Konfession',
+  'Keine Verpflichtung &ndash; kommen, wenn es passt',
+  'Jede Familienform ist willkommen',
+];
+---
+<section class="astro-btfuerwen">
+  <div class="astro-btfuerwen__inner">
+    <h2 class="astro-btfuerwen__title">Für alle Familien</h2>
+    <ul class="astro-btfuerwen__list">
+      {punkte.map(p => (
+        <li class="astro-btfuerwen__item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <span set:html={p} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-btfuerwen{padding:72px 40px;background:#fff}
+.astro-btfuerwen__inner{max-width:720px;margin:0 auto}
+.astro-btfuerwen__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 20px;text-align:center}
+.astro-btfuerwen__lead{font-size:16px;line-height:1.75;color:#5a4a3a;margin:0 0 32px;text-align:center}
+.astro-btfuerwen__list{list-style:none;margin:0 auto;padding:0;width:fit-content;max-width:100%;display:flex;flex-direction:column;gap:16px}
+.astro-btfuerwen__item{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.6;color:#3d2b1a}
+.astro-btfuerwen__item svg{flex-shrink:0;margin-top:3px;color:#9a2d2d}
+@media(max-width:600px){.astro-btfuerwen{padding:52px 20px}}
+</style>

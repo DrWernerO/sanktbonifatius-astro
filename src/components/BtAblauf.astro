@@ -1,0 +1,180 @@
+---
+// „Wie ein Treffen funktioniert" — Präfix `astro-btablauf`. Prinzip statt Ablaufplan,
+// bewusst ohne Uhrzeiten/Daten (Handbuch-Regel: allgemeine Seiten bleiben zeitlos).
+// Fotos vorab auf 4:5 zugeschnitten (800×1000 px).
+// Desktop (≥ 900 px): scrollbares Akkordeon – der Abschnitt bleibt beim Scrollen stehen (sticky),
+// rechts klappt je ein Foto groß auf, die anderen werden zu Streifen; links wechselt der Text.
+// Handy und „Bewegung reduzieren": einfache Foto-Kacheln untereinander, Text über dem Foto.
+const punkte = [
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+    title: 'Ein Thema',
+    img: '/uploads/2026/08/bt-auftakt-20.jpg',
+    pos: '50% 45%',
+    alt: 'Mutter und Kleinkind lachen durch einen bunt bemalten Bilderrahmen aus Pappe',
+    text: 'Eine biblische Geschichte, eine besondere Person oder ein christliches Symbol liefern die Idee für das Treffen.',
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.5l-3.5-4c-.5-.6-.4-1.5.2-2a1.6 1.6 0 0 1 2.1 0L6 15"/></svg>`,
+    title: 'Eine Aktivität',
+    img: '/uploads/2026/09/bt-mealprep-03.jpg',
+    pos: '50% 25%',
+    alt: 'Eine Mutter vermengt beim gemeinsamen Vorkochen lachend eine große Schüssel Gemüsefüllung',
+    text: 'Gemeinsam machen wir etwas, das zum Thema des Tages passt.',
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>`,
+    title: 'Zeit fürs Miteinander',
+    img: '/uploads/2026/08/bt-auftakt-23.jpg',
+    pos: '45% 35%',
+    alt: 'Väter und Kleinkinder sitzen beim Auftakttreffen gemeinsam auf dem Boden',
+    text: 'Vor allem geht es um Zeit miteinander und füreinander: Austausch mit Menschen in einer ähnlichen Lebenssituation und eine gute Zeit zusammen.',
+    link: { href: '/blog/better-together-schoener-haette-der-auftakt-nicht-sein-koennen/', label: 'Bericht vom Auftakt lesen', teaser: 'Wer mehr wissen will, kann hier einen Bericht im BoniBlog von unserem ersten Treffen lesen.' },
+  },
+];
+---
+<section class="astro-btablauf" style={`--astro-bt-n:${punkte.length}`} data-astro-btablauf>
+  <div class="astro-btablauf__track">
+    <div class="astro-btablauf__sticky">
+      <div class="astro-btablauf__text">
+        <h2 class="astro-btablauf__title">Wie ein Treffen funktioniert</h2>
+        <div class="astro-btablauf__slides">
+          {punkte.map((p, i) => (
+            <div class={`astro-btablauf__slide${i === 0 ? ' is-active' : ''}`} data-i={i} style={`--w:${i === 0 ? 1 : 0}`}>
+              <span class="astro-btablauf__num">{String(i + 1).padStart(2, '0')} / {String(punkte.length).padStart(2, '0')}</span>
+              <h3 class="astro-btablauf__slide-title">{p.title}</h3>
+              <p class="astro-btablauf__slide-text" set:html={p.text} />
+              {p.link && <p class="astro-btablauf__teaser">{p.link.teaser}</p>}
+              {p.link && <a href={p.link.href} class="astro-btablauf__link">{p.link.label}<span aria-hidden="true">→</span></a>}
+            </div>
+          ))}
+        </div>
+        <div class="astro-btablauf__dots" aria-hidden="true">
+          {punkte.map((_, i) => <span class={`astro-btablauf__dot${i === 0 ? ' is-active' : ''}`} data-i={i} />)}
+        </div>
+      </div>
+      <div class="astro-btablauf__grid">
+        {punkte.map((p, i) => (
+          <div class={`astro-btablauf__item${i === 0 ? ' is-active' : ''}`} data-i={i} style={`--w:${i === 0 ? 1 : 0}`}>
+            <img class="astro-btablauf__img" src={p.img} alt={p.alt} width="800" height="1000" loading="lazy" decoding="async" style={`object-position:${p.pos}`} />
+            <span class="astro-btablauf__strip" aria-hidden="true"><span class="astro-btablauf__strip-num">{String(i + 1).padStart(2, '0')}</span>{p.title}<svg class="astro-btablauf__strip-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+            <div class="astro-btablauf__overlay">
+              <span class="astro-btablauf__icon" set:html={p.icon} />
+              <h3 class="astro-btablauf__item-title">{p.title}</h3>
+              <p class="astro-btablauf__item-text" set:html={p.text} />
+              {p.link && <p class="astro-btablauf__teaser astro-btablauf__teaser--hell">{p.link.teaser}</p>}
+              {p.link && <a href={p.link.href} class="astro-btablauf__link astro-btablauf__link--hell">{p.link.label}<span aria-hidden="true">→</span></a>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scroll-Akkordeon, direkt an die Scroll-Position gekoppelt (kein automatisches Aufklappen):
+  // pos läuft von 0 bis n-1. Je Abschnitt bleibt ein Foto erst kurz stehen (Ruhephase),
+  // dann wächst das nächste im Gleichlauf mit dem Scrollen auf. --w (0…1) je Foto steuert
+  // Höhe, Abdunkelung, Streifentitel und den Text links.
+  const mq = window.matchMedia('(min-width: 900px) and (prefers-reduced-motion: no-preference)');
+  const RUHE = 0.2; // Anteil je Abschnitt am Anfang und Ende ohne Bewegung
+  const weich = (x: number) => x * x * (3 - 2 * x);
+  document.querySelectorAll<HTMLElement>('[data-astro-btablauf]').forEach((sec) => {
+    const track = sec.querySelector<HTMLElement>('.astro-btablauf__track')!;
+    const sticky = sec.querySelector<HTMLElement>('.astro-btablauf__sticky')!;
+    const items = [...sec.querySelectorAll<HTMLElement>('.astro-btablauf__item')];
+    const slides = [...sec.querySelectorAll<HTMLElement>('.astro-btablauf__slide')];
+    const dots = [...sec.querySelectorAll<HTMLElement>('.astro-btablauf__dot')];
+    const n = items.length;
+    const weg = () => Math.max(1, track.offsetHeight - sticky.offsetHeight);
+    let geplant = false;
+    const update = () => {
+      geplant = false;
+      if (!mq.matches) return;
+      const p = Math.min(1, Math.max(0, -track.getBoundingClientRect().top / weg()));
+      const roh = p * (n - 1);
+      const basis = Math.min(n - 2, Math.floor(roh));
+      const t = weich(Math.min(1, Math.max(0, (roh - basis - RUHE) / (1 - 2 * RUHE))));
+      const pos = basis + t;
+      const naechstes = Math.round(pos);
+      items.forEach((el, i) => {
+        const w = Math.max(0, 1 - Math.abs(pos - i));
+        el.style.setProperty('--w', w.toFixed(3));
+        slides[i].style.setProperty('--w', w.toFixed(3));
+        el.classList.toggle('is-active', i === naechstes);
+        slides[i].classList.toggle('is-active', i === naechstes);
+        dots[i].classList.toggle('is-active', i === naechstes);
+      });
+    };
+    const anfordern = () => { if (!geplant) { geplant = true; requestAnimationFrame(update); } };
+    // Klick auf einen Streifen scrollt zur Ruhestellung dieses Fotos
+    items.forEach((el, i) => el.addEventListener('click', () => {
+      if (!mq.matches || el.classList.contains('is-active')) return;
+      const top = window.scrollY + track.getBoundingClientRect().top + weg() * i / (n - 1);
+      window.scrollTo({ top, behavior: 'smooth' });
+    }));
+    window.addEventListener('scroll', anfordern, { passive: true });
+    window.addEventListener('resize', anfordern);
+    mq.addEventListener('change', () => {
+      // zurück zur Kachel-Ansicht: Inline-Werte entfernen
+      if (!mq.matches) [...items, ...slides].forEach((el) => el.style.removeProperty('--w'));
+      anfordern();
+    });
+    update();
+  });
+</script>
+
+<style is:global>
+.astro-btablauf{background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-btablauf__track{padding:64px 0 72px}
+.astro-btablauf__sticky{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-btablauf__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 36px;text-align:center}
+.astro-btablauf__slides,.astro-btablauf__dots,.astro-btablauf__strip{display:none}
+
+/* Kachel-Ansicht (Handy, Tablet, „Bewegung reduzieren") */
+.astro-btablauf__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.astro-btablauf__item{position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:#4a2e1a;box-shadow:0 6px 24px rgba(30,21,18,.12)}
+.astro-btablauf__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.astro-btablauf__overlay{position:absolute;inset:auto 0 0 0;padding:72px 22px 22px;color:#fff;background:linear-gradient(to top,rgba(30,18,12,.88) 0%,rgba(30,18,12,.72) 45%,rgba(30,18,12,0) 100%);display:flex;flex-direction:column;gap:6px}
+.astro-btablauf__icon{color:#f0d9a8;display:flex}
+.astro-btablauf__item-title{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#fff;margin:0}
+.astro-btablauf__item-text{font-size:14.5px;line-height:1.5;color:rgba(255,255,255,.92);margin:0}
+.astro-btablauf__teaser{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:18px;color:#9a2d2d;margin:26px 0 0}
+.astro-btablauf__teaser--hell{font-size:15px;color:#f0d9a8;margin:12px 0 0}
+.astro-btablauf__link{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-top:12px;padding:12px 22px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:15px;font-weight:600;text-decoration:none;transition:background .18s,transform .18s}
+.astro-btablauf__link:hover{background:#7d2424;transform:translateY(-2px)}
+.astro-btablauf__link--hell{margin-top:8px;padding:9px 18px;font-size:14px;background:#fff;color:#9a2d2d}
+.astro-btablauf__link--hell:hover{background:#f0e8d8}
+@media(max-width:899px){.astro-btablauf__grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+@media(max-width:600px){.astro-btablauf__sticky{padding:0 20px}.astro-btablauf__track{padding:44px 0 56px}.astro-btablauf__grid{gap:14px}}
+
+/* Scroll-Akkordeon (Desktop) */
+@media(min-width:900px) and (prefers-reduced-motion:no-preference){
+  /* Base.astro setzt overflow-x:hidden auf html+body – das macht body zum Scroll-Container und
+     verhindert position:sticky. `clip` schneidet genauso ab, ohne Scroll-Container (nur auf Seiten mit dieser Komponente). */
+  :root,:root body{overflow-x:clip}
+  .astro-btablauf__track{padding:0;height:calc(var(--astro-bt-n) * 70vh + 100vh)}
+  .astro-btablauf__sticky{position:sticky;top:0;height:100vh;padding:110px 40px 40px;box-sizing:border-box;display:grid;grid-template-columns:5fr 6fr;gap:56px;align-items:stretch}
+  .astro-btablauf__text{display:flex;flex-direction:column;justify-content:center}
+  .astro-btablauf__title{text-align:left;margin:0 0 40px}
+  .astro-btablauf__slides{display:grid}
+  .astro-btablauf__slide{grid-area:1/1;opacity:calc(var(--w,0) * 2 - 1);transform:translateY(calc((1 - var(--w,0)) * 24px));pointer-events:none}
+  .astro-btablauf__slide.is-active{pointer-events:auto}
+  .astro-btablauf__num{display:block;font-size:13px;letter-spacing:.14em;color:#c5a55a;font-weight:600;margin-bottom:10px}
+  .astro-btablauf__slide-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3vw,40px);font-weight:700;color:#2c2420;margin:0 0 14px;line-height:1.15}
+  .astro-btablauf__slide-text{font-size:17px;line-height:1.7;color:#5a4a3a;margin:0;max-width:440px}
+  .astro-btablauf__dots{display:flex;gap:8px;margin-top:32px}
+  .astro-btablauf__dot{width:8px;height:8px;border-radius:999px;background:#e0d8cf;transition:width .4s ease,background .4s ease}
+  .astro-btablauf__dot.is-active{width:28px;background:#9a2d2d}
+  .astro-btablauf__grid{display:flex;flex-direction:column;gap:10px;height:100%;min-height:0}
+  .astro-btablauf__item{aspect-ratio:auto;flex:var(--w,0) 1 76px;min-height:76px;cursor:pointer}
+  .astro-btablauf__item.is-active{cursor:default}
+  .astro-btablauf__item::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,18,12,.86) 0%,rgba(30,18,12,.74) 100%);opacity:calc(1 - var(--w,0))}
+  .astro-btablauf__overlay{display:none}
+  .astro-btablauf__strip{display:flex;align-items:center;gap:14px;position:absolute;left:24px;right:24px;top:50%;transform:translateY(-50%);z-index:1;color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;letter-spacing:.01em;text-shadow:0 1px 8px rgba(0,0,0,.35);opacity:calc(1 - var(--w,0) * 2.5)}
+  .astro-btablauf__strip-num{font-family:inherit;font-size:14px;letter-spacing:.14em;color:#f0d9a8;font-weight:600}
+  .astro-btablauf__strip-plus{margin-left:auto;color:#f0d9a8;opacity:.9;transition:transform .3s ease}
+  .astro-btablauf__item:hover .astro-btablauf__strip-plus{transform:rotate(90deg)}
+}
+</style>

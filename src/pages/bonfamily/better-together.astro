@@ -1,0 +1,25 @@
+---
+// Seite „Better Together" — neue Unterseite unter BonFamily, kein WP-Pendant
+// (rein redaktionell in Astro angelegt, daher kein SEO_STATIC-Eintrag, sondern
+// eigene title/description-Props → Base.astro-Fallback greift, Handbuch 1e).
+// Bewusst allgemeine Konzeptseite ohne Termine/Preise/Anmeldung (siehe Handbuch-Regel:
+// zeitlose Inhalte bleiben in Astro, laufend wechselnde Daten verlinken nur dorthin).
+// Präfix `astro-bt`. Nav + Footer global aus Base.astro (Handbuch 4b).
+import Base from '../../layouts/Base.astro';
+import BtHero from '../../components/BtHero.astro';
+import BtIdee from '../../components/BtIdee.astro';
+import BtNaechstes from '../../components/BtNaechstes.astro';
+import BtAblauf from '../../components/BtAblauf.astro';
+import BtFuerWen from '../../components/BtFuerWen.astro';
+import BtCta from '../../components/BtCta.astro';
+
+const description = 'Better Together ist die BonFamily-Reihe für junge Familien: gemeinsam etwas tun, erleben und andere Familien kennenlernen – in St. Bonifatius Frankfurt-Sachsenhausen.';
+---
+<Base title="Better Together · BonFamily" description={description}>
+  <BtHero />
+  <BtIdee />
+  <BtNaechstes />
+  <BtAblauf />
+  <BtFuerWen />
+  <BtCta />
+</Base>

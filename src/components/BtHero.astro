@@ -1,0 +1,119 @@
+---
+// Hero „Better Together" — Präfix `astro-bthero`.
+// Doppelfunktion: links Titel + Unterzeile, rechts über die volle Hero-Höhe ein horizontales
+// Foto-Akkordeon als Rückblick/Impressionen; der Text geht über einen Verlauf ins Foto über. Ein Foto ist breit geöffnet, die anderen sind schmale Streifen;
+// es läuft automatisch weiter (Pause bei Maus/Fokus, verstecktem Tab und „Bewegung reduzieren").
+// Fotos lokal, 1200 px lange Kante (Handbuch 1g/1j); Ausschnitt je Foto über `pos`.
+const fotos = [
+  { img: '/uploads/2026/09/bt-hero-mealprep-01.jpg', pos: '45% 40%', anlass: 'Mealprep', datum: 'September 2026',
+    alt: 'Zwei Väter und ein Kind schneiden gemeinsam Gemüse, vorne Kürbisse und Äpfel' },
+  { img: '/uploads/2026/09/bt-hero-mealprep-08.jpg', pos: '35% 30%', anlass: 'Mealprep', datum: 'September 2026',
+    alt: 'Eine Mutter knetet beim gemeinsamen Vorkochen lachend Teig in der Küche' },
+  { img: '/uploads/2026/09/bt-hero-mealprep-12.jpg', pos: '50% 55%', anlass: 'Mealprep', datum: 'September 2026',
+    alt: 'Ein Kleinkind läuft mit einem bunten Band über eine Wiese' },
+  { img: '/uploads/2026/08/bt-hero-auftakt-24.jpg', pos: '38% 50%', anlass: 'Auftakt', datum: 'August 2026',
+    alt: 'Ein Baby lächelt in die Kamera, dahinter spielen Väter mit Kindern auf dem Boden' },
+];
+---
+<section class="astro-bthero">
+  <div class="astro-bthero__inner">
+    <div class="astro-bthero__text">
+      <span class="astro-bthero__eyebrow">BonFamily · Familien.Zusammen.Halt.</span>
+      <h1 class="astro-bthero__title">Better Together</h1>
+      <p class="astro-bthero__sub">Mit kleinen Kindern ist vieles neu &ndash; und zusammen vieles leichter. Gemeinsam etwas tun, erleben und Familien kennenlernen, denen es gerade ähnlich geht.</p>
+    </div>
+  </div>
+  <div class="astro-bthero__acc" data-astro-bthero-acc role="group" aria-label="Eindrücke von bisherigen Treffen">
+      {fotos.map((f, i) => (
+        <button type="button" class={`astro-bthero__panel${i === 0 ? ' is-active' : ''}`} data-i={i}
+          aria-label={`Foto ${i + 1} von ${fotos.length}: ${f.anlass}, ${f.datum}`} aria-pressed={i === 0 ? 'true' : 'false'}>
+          <img class="astro-bthero__img" src={f.img} alt={f.alt} width="1200" height="800"
+            loading={i === 0 ? 'eager' : 'lazy'} decoding="async" style={`object-position:${f.pos}`} />
+          <span class="astro-bthero__progress" aria-hidden="true" />
+        </button>
+      ))}
+  </div>
+  <div class="astro-bthero__fade" aria-hidden="true" />
+</section>
+
+<script>
+  // Auto-Akkordeon: alle DAUER ms das nächste Foto öffnen; Klick öffnet direkt.
+  const DAUER = 7500;
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('[data-astro-bthero-acc]').forEach((acc) => {
+    const panels = [...acc.querySelectorAll<HTMLButtonElement>('.astro-bthero__panel')];
+    let aktiv = 0;
+    let timer: number | undefined;
+    const zeige = (i: number) => {
+      aktiv = (i + panels.length) % panels.length;
+      panels.forEach((p, k) => {
+        p.classList.toggle('is-active', k === aktiv);
+        p.setAttribute('aria-pressed', k === aktiv ? 'true' : 'false');
+      });
+    };
+    const stopp = () => { window.clearInterval(timer); timer = undefined; acc.classList.add('is-paused'); };
+    const start = () => {
+      stopp();
+      if (still.matches || document.hidden) return;
+      acc.classList.remove('is-paused');
+      // Fortschrittsbalken neu starten
+      const balken = panels[aktiv].querySelector<HTMLElement>('.astro-bthero__progress')!;
+      balken.style.animation = 'none'; void balken.offsetWidth; balken.style.animation = '';
+      timer = window.setInterval(() => zeige(aktiv + 1), DAUER);
+    };
+    panels.forEach((p, i) => p.addEventListener('click', () => { zeige(i); start(); }));
+    acc.addEventListener('mouseenter', stopp);
+    acc.addEventListener('mouseleave', start);
+    acc.addEventListener('focusin', stopp);
+    acc.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stopp() : start()));
+    still.addEventListener('change', start);
+    start();
+  });
+</script>
+
+<style is:global>
+.astro-bthero{--astro-bthero-dauer:7.5s;--astro-bthero-ton:#7a2d28;--astro-bthero-start:40%;position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:600px;display:flex;align-items:center;overflow:hidden;background:linear-gradient(90deg,#4a2e1a 0%,var(--astro-bthero-ton) var(--astro-bthero-start))}
+.astro-bthero__inner{position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;padding:130px 40px 64px;box-sizing:border-box;color:#fff;pointer-events:none}
+.astro-bthero__text{max-width:min(460px,38vw);pointer-events:auto}
+.astro-bthero__eyebrow{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:14px}
+.astro-bthero__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(38px,5.5vw,64px);font-weight:700;color:#fff;margin:0 0 18px;line-height:1.05}
+.astro-bthero__sub{font-size:clamp(16px,1.8vw,19px);color:rgba(255,255,255,.88);line-height:1.65;margin:0}
+
+/* Akkordeon: volle Höhe, rechts bis an den Rand */
+.astro-bthero__acc{position:absolute;top:0;bottom:0;right:0;left:var(--astro-bthero-start);display:flex;gap:4px;z-index:0}
+.astro-bthero__panel{all:unset;box-sizing:border-box;position:relative;flex:0 0 72px;overflow:hidden;cursor:pointer;background:#2c1d12;transition:flex-grow .9s cubic-bezier(.65,0,.35,1),flex-basis .9s cubic-bezier(.65,0,.35,1)}
+.astro-bthero__panel.is-active{flex:1 1 0;cursor:default}
+.astro-bthero__panel:focus-visible{outline:3px solid #f0d9a8;outline-offset:-3px}
+.astro-bthero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.astro-bthero__panel::after{content:'';position:absolute;inset:0;background:rgba(30,18,12,.62);transition:opacity .6s ease}
+.astro-bthero__panel.is-active::after{opacity:0}
+.astro-bthero__panel:not(.is-active):hover::after{opacity:.35}
+.astro-bthero__progress{position:absolute;left:0;bottom:0;height:3px;width:0;z-index:1;background:#f0d9a8}
+.astro-bthero__panel.is-active .astro-bthero__progress{animation:astro-bthero-lauf var(--astro-bthero-dauer) linear forwards}
+.astro-bthero__acc.is-paused .astro-bthero__progress{animation-play-state:paused}
+@keyframes astro-bthero-lauf{to{width:100%}}
+
+/* Verlauf: Hintergrundton läuft weich ins Foto ganz links aus; oben leicht dunkel für die Navigation */
+.astro-bthero__fade{position:absolute;top:0;bottom:0;left:calc(var(--astro-bthero-start) - 1px);width:260px;z-index:1;pointer-events:none;background:linear-gradient(90deg,var(--astro-bthero-ton) 0%,rgba(122,45,40,.85) 25%,rgba(122,45,40,.45) 60%,rgba(122,45,40,0) 100%)}
+.astro-bthero__acc::before{content:'';position:absolute;inset:0 0 auto 0;height:140px;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,12,8,.45),rgba(20,12,8,0))}
+
+@media(max-width:899px){
+  .astro-bthero{display:block;min-height:0;background:linear-gradient(180deg,#4a2e1a 0%,var(--astro-bthero-ton) 100%)}
+  .astro-bthero__inner{padding:110px 24px 28px}
+  .astro-bthero__text{max-width:none}
+  .astro-bthero__acc{position:relative;left:auto;height:300px;gap:3px}
+  .astro-bthero__acc::before{height:80px;background:linear-gradient(180deg,var(--astro-bthero-ton) 0%,rgba(122,45,40,0) 100%)}
+  .astro-bthero__panel{flex-basis:44px}
+  .astro-bthero__fade{display:none}
+}
+@media(max-width:600px){
+  .astro-bthero__inner{padding:96px 20px 24px}
+  .astro-bthero__acc{height:260px}
+  .astro-bthero__panel{flex-basis:34px}
+}
+@media(prefers-reduced-motion:reduce){
+  .astro-bthero__panel,.astro-bthero__panel::after{transition:none}
+  .astro-bthero__progress{display:none}
+}
+</style>
