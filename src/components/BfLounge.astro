@@ -10,6 +10,9 @@
 //    nur eins, Freigaben für weitere stehen noch aus, Stand 2026-11-03) und dem
 //    nächsten Termin live aus WP (Kategorie 2586 + Titel beginnt „Better together")
 // Präfix `astro-bfbento`. Anker #bonfamily-lounge bleibt für den Schnellzugriff.
+// Link der Better-Together-Kachel über lib/better-together.ts: solange die Unterseite versteckt
+// ist (Foto-Freigaben fehlen), führt sie zum nächsten Better-Together-Termin.
+import { BT_LINK, BT_SEITE_OEFFENTLICH } from '../lib/better-together';
 const lounges = [
   {
     name: 'Baby-Lounge',
@@ -80,7 +83,7 @@ const btFotos = [
       </div>
 
       <!-- Better Together: hohe Kachel -->
-      <a href="/bonfamily/better-together/" class="astro-bfbento__bt" data-bfbento-bt>
+      <a href={BT_LINK} class="astro-bfbento__bt" data-bfbento-bt data-bt-link>
         {btFotos.map((f, i) => (
           <img src={f.src} alt="" width={f.w} height={f.h} loading="lazy" decoding="async" aria-hidden="true"
                class:list={['astro-bfbento__bt-img', { 'is-active': i === 0 }]} />
@@ -91,7 +94,7 @@ const btFotos = [
           <span class="astro-bfbento__bt-name">Better Together</span>
           <span class="astro-bfbento__bt-text">Gemeinsam backen, gärtnern, kochen &ndash; und Familien kennenlernen, die auch der Meinung sind: Zusammen geht vieles besser.</span>
           <span class="astro-bfbento__bt-next" hidden></span>
-          <span class="astro-bfbento__bt-cta">Mehr erfahren <span aria-hidden="true">→</span></span>
+          <span class="astro-bfbento__bt-cta">{BT_SEITE_OEFFENTLICH ? 'Mehr erfahren' : 'Zum nächsten Treffen'} <span aria-hidden="true">→</span></span>
         </span>
       </a>
     </div>
@@ -181,6 +184,7 @@ const btFotos = [
 </style>
 
 <script>
+  import { naechsterBtTermin, verlinkeBtTermin } from '../lib/better-together';
   (function () {
     var tile = document.querySelector<HTMLElement>('[data-bfbento-bt]');
     if (!tile || tile.dataset.bound) return;
@@ -199,29 +203,18 @@ const btFotos = [
       }, 5000);
     }
 
-    // Nächster Termin live aus WP (wie BtNaechstes)
+    // Nächster Termin live aus WP → Hinweis auf der Kachel + (solange Unterseite versteckt) Link-Ziel
     var next = tile.querySelector<HTMLElement>('.astro-bfbento__bt-next');
     var TAGE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
     var MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-    var d = new Date();
-    var heute = '' + d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
-    var dekodiere = function (html: string) { var t = document.createElement('textarea'); t.innerHTML = html; return t.value; };
-    fetch('/wp-proxy/wp-json/wp/v2/event?per_page=100&event-category=2586&_fields=title,event_meta')
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (liste: { title: { rendered: string }; event_meta?: Record<string, string> }[]) {
-        var t = liste
-          .filter(function (e) { return e.event_meta && e.event_meta.start_date >= heute && /^\s*better[\s-]*together/i.test(dekodiere(e.title.rendered)); })
-          .sort(function (a, b) { return a.event_meta!.start_date.localeCompare(b.event_meta!.start_date); })[0];
-        if (!t || !next) return;
-        var s = t.event_meta!.start_date;
-        var dt = new Date(s.slice(0, 4) + '-' + s.slice(4, 6) + '-' + s.slice(6, 8));
-        var thema = dekodiere(t.title.rendered).split(/\s[–-]\s/).slice(1).join(' – ');
-        var b = document.createElement('b');
-        b.textContent = 'Nächstes Treffen: ' + TAGE[dt.getDay()] + ', ' + dt.getDate() + '. ' + MONATE[dt.getMonth()];
-        next.append(b);
-        if (thema) next.append(document.createElement('br'), thema);
-        next.hidden = false;
-      })
-      .catch(function () { /* ohne Termin-Hinweis weiter */ });
+    naechsterBtTermin().then(function (t) {
+      verlinkeBtTermin(t);
+      if (!t || !next) return;
+      var b = document.createElement('b');
+      b.textContent = 'Nächstes Treffen: ' + TAGE[t.datum.getDay()] + ', ' + t.datum.getDate() + '. ' + MONATE[t.datum.getMonth()];
+      next.append(b);
+      if (t.thema) next.append(document.createElement('br'), t.thema);
+      next.hidden = false;
+    });
   })();
 </script>

@@ -12,10 +12,13 @@ import BtNaechstes from '../../components/BtNaechstes.astro';
 import BtAblauf from '../../components/BtAblauf.astro';
 import BtFuerWen from '../../components/BtFuerWen.astro';
 import BtCta from '../../components/BtCta.astro';
+// Seit 2026-11-03 versteckt (noindex + nicht in Sitemap + keine internen Links), bis alle
+// Foto-Freigaben da sind — Schalter in lib/better-together.ts.
+import { BT_SEITE_OEFFENTLICH } from '../../lib/better-together';
 
 const description = 'Better Together ist die BonFamily-Reihe für junge Familien: gemeinsam etwas tun, erleben und andere Familien kennenlernen – in St. Bonifatius Frankfurt-Sachsenhausen.';
 ---
-<Base title="Better Together · BonFamily" description={description}>
+<Base title="Better Together · BonFamily" description={description} noindex={!BT_SEITE_OEFFENTLICH}>
   <BtHero />
   <BtIdee />
   <BtNaechstes />

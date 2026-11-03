@@ -1,12 +1,14 @@
 ---
 // Weitere Familienangebote (Schnell-Links) — Präfix `astro-fmquick`.
 // Seit 2026-11-03 Better Together statt Kindertagesstätten an erster Stelle (Wunsch Frank).
+// Better-Together-Link über lib/better-together.ts (solange Unterseite versteckt → nächster Termin).
+import { BT_LINK } from '../lib/better-together';
 const items = [
   {
     icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
     title: 'Better Together',
     desc: 'Einmal im Monat samstags: gemeinsame Aktivitäten und andere Familien kennenlernen.',
-    href: '/bonfamily/better-together/',
+    href: BT_LINK, bt: true,
   },
   {
     icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><circle cx="12" cy="20" r="2" fill="currentColor" stroke="none"/></svg>`,
@@ -30,7 +32,7 @@ const items = [
     </div>
     <div class="astro-fmquick__grid">
       {items.map(item => (
-        <a href={item.href} class="astro-fmquick__card">
+        <a href={item.href} class="astro-fmquick__card" data-bt-link={item.bt ? '' : undefined}>
           <div class="astro-fmquick__icon" set:html={item.icon} />
           <div class="astro-fmquick__card-body">
             <h3 class="astro-fmquick__card-title">{item.title}</h3>
@@ -61,3 +63,8 @@ const items = [
 @media(max-width:860px){.astro-fmquick__grid{grid-template-columns:1fr}}
 @media(max-width:600px){.astro-fmquick__inner{padding:0 20px}.astro-fmquick{padding:52px 0}}
 </style>
+
+<script>
+  import { naechsterBtTermin, verlinkeBtTermin } from '../lib/better-together';
+  if (document.querySelector('a[data-bt-link]')) naechsterBtTermin().then(verlinkeBtTermin);
+</script>
