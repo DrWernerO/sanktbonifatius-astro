@@ -260,6 +260,12 @@ const {
     'judas':      'St. Judas Thaddäus',
   };
 
+  // „9:30 Uhr“ / „15:00-18:00 Uhr“ → „09:30“; ohne Uhrzeit ans Tagesende
+  function timeKey(t) {
+    const m = /(\d{1,2})[:.](\d{2})/.exec(t || '');
+    return m ? m[1].padStart(2,'0')+':'+m[2] : '99:99';
+  }
+
   function parseDate(str) {
     return new Date(str.slice(0,4)+'-'+str.slice(4,6)+'-'+str.slice(6,8));
   }
@@ -357,7 +363,11 @@ const {
       const upcoming = all
         .filter(function(e){ return e.event_meta && e.event_meta.start_date >= today; })
         .filter(function(e){ return !CAT || (e['event-category']||[]).indexOf(CAT) > -1; })
-        .sort(function(a,b){ return a.event_meta.start_date.localeCompare(b.event_meta.start_date); });
+        .sort(function(a,b){
+          // gleicher Tag → nach Uhrzeit (erste HH:MM aus „times“), sonst stand z. B. 12 Uhr vor 11 Uhr
+          return a.event_meta.start_date.localeCompare(b.event_meta.start_date)
+            || timeKey(a.event_meta.times).localeCompare(timeKey(b.event_meta.times));
+        });
 
       // Highlight-Pin: das Weintasting (WP-Titel "Der Boni-Wein 2027: Das große Tasting",
       // 18.09.2026) bleibt bis auf Weiteres auf Platz 1 (Wunsch Werner, 2026-08-26).

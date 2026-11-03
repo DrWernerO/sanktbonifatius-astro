@@ -1,11 +1,12 @@
 ---
-// Ansprechpartner-Section BonFamily — Frank Hoffmann + Dorothea Schneider.
-// Präfix `astro-bfkontakt` (nicht `bf-mc-...`). Kein Foto lokal vorhanden → Initialen-Circle.
+// Abschluss der BonFamily-Seite: Einladung + Ansprechpartner Frank Hoffmann & Dorothea Schneider.
+// Seit 2026-11-03 zusammengelegt aus BfKontakt (Ansprechpartner) und BfCta („Neugierig geworden?"),
+// Feedback Werner: weniger Wiederholung. Dunkles Band als Seitenabschluss.
+// Präfix `astro-bfkontakt` (nicht `bf-mc-...`). Anker #bonfamily-kontakt + Personen-Anker bleiben.
 const personen = [
   {
     name: 'Frank Hoffmann',
     rolle: 'Koordination BonFamily',
-    initialen: 'FH',
     foto: '/uploads/2025/06/DSC00850.jpg',
     email: 'f.hoffmann@sanktbonifatius.de',
     tel: '069 695 97 58-53',
@@ -14,7 +15,6 @@ const personen = [
   {
     name: 'Dorothea Schneider',
     rolle: 'BonFamily · Familien & Kinder',
-    initialen: 'DS',
     foto: '/uploads/2025/06/DSC00891.jpg',
     email: 'd.schneider@sanktbonifatius.de',
     tel: '069 695 97 58-50',
@@ -25,10 +25,10 @@ const personen = [
 <section id="bonfamily-kontakt" class="astro-bfkontakt">
   <div class="astro-bfkontakt__inner">
     <div class="astro-bfkontakt__head">
-      <h2 class="astro-bfkontakt__title">Ihre Ansprechpartner</h2>
+      <h2 class="astro-bfkontakt__title">Neugierig geworden?</h2>
       <p class="astro-bfkontakt__sub">
-        Haben Sie Fragen zu BonFamily? M&ouml;chten Sie sich anmelden oder mitmachen?
-        Schreiben Sie uns.
+        Kommt einfach vorbei &ndash; zur Baby-Lounge, zu Better Together oder zum n&auml;chsten
+        Familiengottesdienst. Ihr habt Fragen oder wollt mitmachen? Dann meldet euch bei uns.
       </p>
     </div>
     <div class="astro-bfkontakt__grid">
@@ -52,17 +52,25 @@ const personen = [
         </div>
       ))}
     </div>
+    <div class="astro-bfkontakt__btns">
+      <a href="#bonfamily-termine" class="astro-bfkontakt__btn astro-bfkontakt__btn--primary">
+        Nächste Termine ansehen
+      </a>
+      <a href="/bonfamily/whatsapp-kanal/" class="astro-bfkontakt__btn astro-bfkontakt__btn--outline">
+        WhatsApp-Kanal abonnieren
+      </a>
+    </div>
   </div>
 </section>
 
 <style is:global>
-.astro-bfkontakt{padding:72px 0;background:#ede4d5;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:96px}
+.astro-bfkontakt{padding:72px 0;background:linear-gradient(135deg,#4a2e1a 0%,#3a2315 100%);width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:96px}
 .astro-bfkontakt__inner{max-width:1200px;margin:0 auto;padding:0 40px}
-.astro-bfkontakt__head{text-align:center;margin-bottom:48px}
-.astro-bfkontakt__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 12px}
-.astro-bfkontakt__sub{font-size:17px;color:#5a4a3a;margin:0;max-width:520px;margin-inline:auto;line-height:1.6}
+.astro-bfkontakt__head{text-align:center;margin-bottom:40px}
+.astro-bfkontakt__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,40px);font-weight:700;color:#fff;margin:0 0 14px}
+.astro-bfkontakt__sub{font-size:17px;color:rgba(255,255,255,.8);margin:0;max-width:600px;margin-inline:auto;line-height:1.7}
 .astro-bfkontakt__grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:800px;margin:0 auto}
-.astro-bfkontakt__card{background:#fff;border-radius:16px;padding:36px 32px;display:flex;align-items:flex-start;gap:24px;box-shadow:0 4px 20px rgba(30,21,18,.07);border:1px solid #e0d8cf;scroll-margin-top:96px}
+.astro-bfkontakt__card{background:#fff;border-radius:16px;padding:32px 30px;display:flex;align-items:flex-start;gap:22px;box-shadow:0 6px 24px rgba(0,0,0,.18);scroll-margin-top:96px}
 .astro-bfkontakt__circle{width:80px;height:80px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #9a2d2d}
 .astro-bfkontakt__foto{width:100%;height:100%;object-fit:cover;display:block}
 .astro-bfkontakt__info{display:flex;flex-direction:column;gap:8px;min-width:0}
@@ -71,6 +79,12 @@ const personen = [
 .astro-bfkontakt__link{display:flex;align-items:center;gap:7px;font-size:13px;color:#5a4a3a;text-decoration:none;word-break:break-all;transition:color .15s}
 .astro-bfkontakt__link:hover{color:#9a2d2d}
 .astro-bfkontakt__link svg{flex-shrink:0;color:#9a2d2d}
+.astro-bfkontakt__btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:40px}
+.astro-bfkontakt__btn{display:inline-flex;align-items:center;padding:13px 28px;border-radius:50px;font-size:14px;font-weight:600;text-decoration:none;transition:background .18s,color .18s,border-color .18s}
+.astro-bfkontakt__btn--primary{background:#9a2d2d;color:#fff;border:2px solid #9a2d2d}
+.astro-bfkontakt__btn--primary:hover{background:#7e2424;border-color:#7e2424}
+.astro-bfkontakt__btn--outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4)}
+.astro-bfkontakt__btn--outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
 @media(max-width:760px){.astro-bfkontakt__grid{grid-template-columns:1fr}.astro-bfkontakt__card{flex-direction:column;align-items:center;text-align:center}.astro-bfkontakt__link{justify-content:center}}
-@media(max-width:600px){.astro-bfkontakt__inner{padding:0 20px}.astro-bfkontakt{padding:52px 0}}
+@media(max-width:600px){.astro-bfkontakt__inner{padding:0 20px}.astro-bfkontakt{padding:52px 0}.astro-bfkontakt__btns{flex-direction:column;align-items:center}}
 </style>

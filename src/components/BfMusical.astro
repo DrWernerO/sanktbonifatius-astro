@@ -1,8 +1,13 @@
 ---
 // BonFamily Musicalprojekt — Einladung zum Familiengottesdienst mit Musical, mit Plakat-Bild.
 // Präfix `astro-bfmusical`. Hintergrund #ede4d5 (Sand) für Wechsel nach EventCalendar (Crème) und vor Gottesdienste (Weiß).
+// Blendet sich nach dem Gottesdienst selbst aus (Feedback Werner: keine vergangenen Termine):
+// beim Build per Datumsvergleich, zusätzlich im Browser, falls seit dem 15.11. noch kein Rebuild lief.
+const ENDE = '2026-11-15T13:00:00+01:00';
+const vorbei = Date.now() > Date.parse(ENDE);
 ---
-<section id="bonfamily-musical" class="astro-bfmusical">
+{!vorbei && (
+<section id="bonfamily-musical" class="astro-bfmusical" data-ende={ENDE}>
   <div class="astro-bfmusical__inner">
     <div class="astro-bfmusical__text">
       <span class="astro-bfmusical__badge">Familiengottesdienst</span>
@@ -32,6 +37,13 @@
     </div>
   </div>
 </section>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('.astro-bfmusical[data-ende]').forEach(function (el) {
+    if (Date.now() > Date.parse(el.dataset.ende || '')) el.remove();
+  });
+</script>
 
 <style is:global>
 .astro-bfmusical{padding:72px 0;background:#ede4d5;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;scroll-margin-top:96px}

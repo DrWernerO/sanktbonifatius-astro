@@ -1,70 +1,145 @@
 ---
-// Gottesdienste-Section BonFamily — dunkle Band-Section mit 3 Gottesdiensttypen.
-// Präfix `astro-bfgd` (nicht `bf-gd-...`).
-const items = [
+// Gottesdienste-Section BonFamily — seit 2026-11-03 knappes Foto-Band statt drei Erklär-Kacheln
+// (Wunsch Frank: Details stehen auf /bonfamily/familiengottesdienste/, hier nur Überblick + Verweis).
+// Links 3 Fotos als ruhige Überblend-Galerie (Wechsel alle 6 s, bei „Bewegung reduzieren“ statisch;
+// eine Collage war zu unruhig), rechts Überschrift,
+// ein Satz ohne feste Zeitangabe, zwei Wegweiser-Zeilen (gleiche Formate wie KfgFormate)
+// und ein deutlicher Button zur Unterseite. Präfix `astro-bfgd` (nicht `bf-gd-...`).
+const formate = [
   {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
-    title: 'Bilderbuchgottesdienst',
-    desc: 'Ein kindgerechter Gottesdienst rund um ein Bilderbuch – für Kinder ab 2 Jahren und ihre Familien in der Bücherei.',
-    meta: 'Monatlich · 11:00 Uhr',
+    icon: `<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>`,
+    title: 'Kindergottesdienste',
+    text: 'Mit Bilderbuch oder mit Farbe und Kleber – Kinder entdecken den Glauben auf ihre Weise.',
   },
   {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M9.5 3a9 9 0 0 1 5 0M3 9.5a9 9 0 0 1 0 5M9.5 21a9 9 0 0 1-5 0M21 14.5a9 9 0 0 1 0-5"/></svg>`,
-    title: 'Kreativgottesdienst',
-    desc: 'Kinder gestalten, malen und erleben Glauben mit allen Sinnen – bunt, lebendig und mit der ganzen Gemeinde.',
-    meta: 'Monatlich · 11:00 Uhr',
-  },
-  {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    title: 'Familiengottesdienst',
-    desc: 'Fröhlich, bunt und abwechslungsreich – Gottesdienste für die ganze Familie in St. Bonifatius und St. Wendel.',
-    meta: 'St. Bonifatius · St. Wendel',
+    icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
+    title: 'Familiengottesdienste',
+    text: 'Mitsingen, mitmachen, mitfeiern – für Groß und Klein in St. Bonifatius und St. Wendel.',
   },
 ];
+const fotos = [
+  { src: '/uploads/2026/11/bonfamily-gd-familie.jpg', w: 1000, h: 666,
+    alt: 'Kinder und Familien feiern gemeinsam Gottesdienst in St. Bonifatius' },
+  { src: '/uploads/2026/11/bonfamily-gd-bilderbuch.jpg', w: 666, h: 1000, pos: 'center 35%',
+    alt: 'Bilderbuchgottesdienst: Kinder schauen gemeinsam in ein Bilderbuch' },
+  { src: '/uploads/2026/11/bonfamily-gd-kreativ.jpg', w: 1000, h: 666,
+    alt: 'Kindergottesdienst: Kinder sitzen im Kreis und gestalten gemeinsam die Mitte' },
+];
+const href = '/bonfamily/familiengottesdienste/';
 ---
 <section id="bonfamily-gottesdienste" class="astro-bfgd">
   <div class="astro-bfgd__inner">
-    <div class="astro-bfgd__head">
-      <h2 class="astro-bfgd__title">Gottesdienste für Kinder und Familien</h2>
-      <p class="astro-bfgd__sub">
-        Lebendig, bunt und kindgerecht &ndash; so feiern Kinder und Familien
-        Gottesdienst bei uns in Sachsenhausen.
-      </p>
-    </div>
-    <div class="astro-bfgd__grid">
-      {items.map(item => (
-        <a href="/bonfamily/familiengottesdienste/" class="astro-bfgd__card">
-          <div class="astro-bfgd__icon" set:html={item.icon} />
-          <h3 class="astro-bfgd__card-title">{item.title}</h3>
-          <p class="astro-bfgd__card-desc">{item.desc}</p>
-          <span class="astro-bfgd__card-meta">{item.meta}</span>
+    <div class="astro-bfgd__band">
+      <div class="astro-bfgd__slides">
+        {fotos.map((f, i) => (
+          <img src={f.src} alt={f.alt} width={f.w} height={f.h}
+               style={f.pos ? `object-position:${f.pos}` : undefined}
+               class:list={['astro-bfgd__img', { 'is-active': i === 0 }]}
+               loading="lazy" decoding="async" />
+        ))}
+        <div class="astro-bfgd__dots">
+          {fotos.map((_, i) => (
+            <button type="button" class:list={['astro-bfgd__dot', { 'is-active': i === 0 }]}
+                    aria-label={`Foto ${i + 1} von ${fotos.length} zeigen`}
+                    aria-current={i === 0 ? 'true' : undefined}></button>
+          ))}
+        </div>
+      </div>
+      <div class="astro-bfgd__text">
+        <h2 class="astro-bfgd__title">Gottesdienste für Kinder und Familien</h2>
+        <p class="astro-bfgd__sub">
+          Kirche zum Mitmachen: Kinder feiern ihren eigenen Gottesdienst &ndash; und immer wieder
+          kommen wir alle zusammen als gro&szlig;e Familie.
+        </p>
+        <ul class="astro-bfgd__list">
+          {formate.map(f => (
+            <li class="astro-bfgd__item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" set:html={f.icon} />
+              <span><strong>{f.title}</strong> {f.text}</span>
+            </li>
+          ))}
+        </ul>
+        <a href={href} class="astro-bfgd__btn">
+          Zeiten, Orte und Formate ansehen
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
         </a>
-      ))}
-    </div>
-    <div class="astro-bfgd__cta">
-      <a href="/bonfamily/familiengottesdienste/" class="astro-bfgd__btn">
-        Mehr zu Kinder- &amp; Familiengottesdiensten
-      </a>
+      </div>
     </div>
   </div>
 </section>
 
 <style is:global>
 .astro-bfgd{width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw;background:#fff;padding:72px 0;scroll-margin-top:96px}
-.astro-bfgd__inner{max-width:1200px;margin:0 auto;padding:0 40px}
-.astro-bfgd__head{text-align:center;margin-bottom:48px}
-.astro-bfgd__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 14px}
-.astro-bfgd__sub{font-size:17px;color:#6b5c52;margin:0;max-width:600px;margin-inline:auto;line-height:1.6}
-.astro-bfgd__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
-.astro-bfgd__card{background:#fff;border:1px solid #e0d8cf;border-radius:14px;padding:32px 28px;display:flex;flex-direction:column;gap:12px;box-shadow:0 4px 20px rgba(30,21,18,.06);text-decoration:none;color:inherit;transition:border-color .18s,box-shadow .18s,transform .18s}
-.astro-bfgd__card:hover{border-color:#c5a0a0;box-shadow:0 8px 32px rgba(154,45,45,.12);transform:translateY(-2px)}
-.astro-bfgd__icon{color:#9a2d2d;flex-shrink:0}
-.astro-bfgd__card-title{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#2c2420;margin:0}
-.astro-bfgd__card-desc{font-size:15px;line-height:1.6;color:#6b5c52;margin:0;flex:1}
-.astro-bfgd__card-meta{font-size:12px;letter-spacing:.08em;color:#9a2d2d;text-transform:uppercase;font-weight:600}
-.astro-bfgd__cta{text-align:center}
-.astro-bfgd__btn{display:inline-flex;align-items:center;padding:12px 28px;background:transparent;color:#9a2d2d;border:1.5px solid #c5a0a0;border-radius:50px;font-size:14px;font-weight:600;text-decoration:none;transition:background .18s,color .18s,border-color .18s}
-.astro-bfgd__btn:hover{background:#9a2d2d;color:#fff;border-color:#9a2d2d}
-@media(max-width:860px){.astro-bfgd__grid{grid-template-columns:1fr}}
-@media(max-width:600px){.astro-bfgd__inner{padding:0 20px}.astro-bfgd{padding:52px 0}}
+.astro-bfgd__inner{max-width:1120px;margin:0 auto;padding:0 40px}
+.astro-bfgd__band{display:grid;grid-template-columns:1.1fr 1fr;border-radius:20px;overflow:hidden;background:#9a2d2d;box-shadow:0 8px 32px rgba(30,21,18,.14)}
+.astro-bfgd__slides{position:relative;min-height:420px;background:#2c2420}
+.astro-bfgd__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 1.2s ease}
+.astro-bfgd__img.is-active{opacity:1}
+.astro-bfgd__dots{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:10px;z-index:1}
+.astro-bfgd__dot{width:11px;height:11px;padding:0;border-radius:50%;border:2px solid #fff;background:rgba(255,255,255,.35);box-shadow:0 1px 4px rgba(0,0,0,.35);cursor:pointer;transition:background .3s,transform .3s}
+.astro-bfgd__dot:hover{background:rgba(255,255,255,.7)}
+.astro-bfgd__dot.is-active{background:#9a2d2d;transform:scale(1.15)}
+.astro-bfgd__dot:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.astro-bfgd__img,.astro-bfgd__dot{transition:none}}
+.astro-bfgd__text{padding:48px 44px;display:flex;flex-direction:column;justify-content:center;color:#fff}
+.astro-bfgd__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1.2;color:#fff;margin:0 0 14px}
+.astro-bfgd__sub{font-size:16px;line-height:1.65;color:rgba(255,255,255,.85);margin:0 0 24px}
+.astro-bfgd__list{list-style:none;padding:0;margin:0 0 32px;display:flex;flex-direction:column;gap:14px}
+.astro-bfgd__item{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.5;color:rgba(255,255,255,.85)}
+.astro-bfgd__item svg{flex-shrink:0;margin-top:1px;color:#f3c98b}
+.astro-bfgd__item strong{display:block;color:#fff;font-size:16px}
+.astro-bfgd__btn{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:50px;background:#fff;color:#9a2d2d;font-size:14px;font-weight:700;text-decoration:none;transition:background .18s,color .18s}
+.astro-bfgd__btn svg{transition:transform .15s}
+.astro-bfgd__btn:hover{background:#f7f0e6}
+.astro-bfgd__btn:hover svg{transform:translateX(4px)}
+.astro-bfgd__btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(max-width:860px){
+  .astro-bfgd__band{grid-template-columns:1fr}
+  .astro-bfgd__slides{min-height:0;aspect-ratio:4/3}
+  .astro-bfgd__text{padding:32px 28px}
+}
+@media(max-width:600px){
+  .astro-bfgd{padding:52px 0}
+  .astro-bfgd__inner{padding:0 20px}
+  .astro-bfgd__btn{align-self:stretch;justify-content:center}
+}
 </style>
+
+<script>
+  // Überblend-Galerie: alle 6 s nächstes Foto, Punkte unten zeigen/wählen das aktive Foto.
+  // Automatischer Wechsel ruht bei „Bewegung reduzieren“ und im Hintergrund-Tab.
+  document.querySelectorAll<HTMLElement>('.astro-bfgd__slides').forEach(function (wrap) {
+    var imgs = wrap.querySelectorAll('.astro-bfgd__img');
+    var dots = wrap.querySelectorAll('.astro-bfgd__dot');
+    if (imgs.length < 2 || wrap.dataset.bound) return;
+    wrap.dataset.bound = '1';
+    imgs.forEach(function (img) { img.removeAttribute('loading'); });
+    var i = 0;
+    var timer = 0;
+    function show(n) {
+      imgs[i].classList.remove('is-active');
+      dots[i].classList.remove('is-active');
+      dots[i].removeAttribute('aria-current');
+      i = n;
+      imgs[i].classList.add('is-active');
+      dots[i].classList.add('is-active');
+      dots[i].setAttribute('aria-current', 'true');
+    }
+    function start() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      clearInterval(timer);
+      timer = window.setInterval(function () {
+        if (!document.hidden) show((i + 1) % imgs.length);
+      }, 6000);
+    }
+    dots.forEach(function (dot, n) {
+      dot.addEventListener('click', function () { show(n); start(); });
+    });
+    start();
+  });
+</script>

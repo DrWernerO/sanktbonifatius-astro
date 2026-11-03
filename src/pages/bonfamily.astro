@@ -3,19 +3,19 @@
 // (kein set:html mit WP-Markup, vgl. Handbuch 9b). Nav + Footer global aus Base.astro (Handbuch 4b).
 // SEO fest aus lib/seo-static.js (SEOPress-Head, einmalig eingefroren).
 // EventCalendar gefiltert auf BonFamily-Kategorie = 2586 (Team-Handbuch 07).
+// 2026-11-03 gestrafft (Feedback Werner): Taufe + Kitas → BfMehr, Kontakt + Abschluss-CTA →
+// BfKontakt, Fotogalerie direkt vor den FAQ. Anrede durchgehend „ihr“.
 import Base from '../layouts/Base.astro';
 import BfHero from '../components/BfHero.astro';
 import BfStrip from '../components/BfStrip.astro';
 import BfWelcome from '../components/BfWelcome.astro';
 import BfMusical from '../components/BfMusical.astro';
 import BfGottesdienste from '../components/BfGottesdienste.astro';
-import BfTaufe from '../components/BfTaufe.astro';
 import BfLounge from '../components/BfLounge.astro';
-import BfKitas from '../components/BfKitas.astro';
+import BfMehr from '../components/BfMehr.astro';
 import BfMarquee from '../components/BfMarquee.astro';
 import BfKontakt from '../components/BfKontakt.astro';
 import BfFaq from '../components/BfFaq.astro';
-import BfCta from '../components/BfCta.astro';
 import EventCalendar from '../components/EventCalendar.astro';
 import { SEO_STATIC } from '../lib/seo-static.js';
 
@@ -35,13 +35,11 @@ const seo = SEO_STATIC['/bonfamily/'];
   </div>
   <BfMusical />
   <BfGottesdienste />
-  <BfTaufe />
   <BfLounge />
-  <BfKitas />
+  <BfMehr />
   <BfMarquee />
-  <BfKontakt />
   <BfFaq />
-  <BfCta />
+  <BfKontakt />
 </Base>
 
 <style is:global>
