@@ -1,4 +1,5 @@
 ---
+import { mq } from '../lib/marquee.js';
 // Auto-scrollende Fotogalerie BonFamily — 18 Fotos aus WP-Mediathek Ordner BonFamily/Fotogalerie.
 // IDs 50665–50682, alle in wp-content/uploads/2026/06/.
 // CSS-Animation, doppelte Bildliste für nahtlosen Loop. Muster: PhotoMarquee.astro.
@@ -36,7 +37,7 @@ const loop = [...photos, ...photos];
   <div class="astro-bfmarquee__track">
     {loop.map((p, i) => (
       <img
-        src={p.u}
+        {...mq(p.u)}
         alt={i < photos.length ? p.a : ''}
         aria-hidden={i >= photos.length ? 'true' : undefined}
         loading={i < photos.length ? 'eager' : 'lazy'}

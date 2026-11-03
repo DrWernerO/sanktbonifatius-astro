@@ -1,7 +1,9 @@
 ---
+import { mq } from '../lib/marquee.js';
 // Hero der Kita St. Bonifatius — WP-Seite 48346 (draft)
 // Eigene Klassen `astro-kb-*` (nie kapos-* aus WP wiederverwenden).
-// Gradient laut Feedback aufgehellt. Kein "Platz anfragen" Button.
+// Gradient laut Feedback aufgehellt. „Platz anfragen" (Kindernet) als Hauptknopf wie bei St. Aposteln/Herz Jesu
+// (Werner, 2026-11-02); Stellenbörse nur noch dezent (ghost), nicht mehr gold.
 // showAktuelles: Quicknav-Punkt „Aktuelles" nur zeigen, wenn die WP-Seite
 // `kita-st-bonifatius-aktuelles` veröffentlicht ist (siehe KboAktuelles.astro).
 const { showAktuelles = false } = Astro.props;
@@ -13,8 +15,9 @@ const { showAktuelles = false } = Astro.props;
       <h1 class="astro-kb-hero__h1">Kita St. Bonifatius</h1>
       <p class="astro-kb-hero__lead">100 Kinder, zwei Krippengruppen und vier Kindergartengruppen &ndash; in modernen, hellen R&auml;umen mit gro&szlig;em Garten in Sachsenhausen.</p>
       <div class="astro-kb-hero__ctas">
+        <a href="https://www.kindernetfrankfurt.de" target="_blank" rel="noopener" class="astro-kb-btn astro-kb-btn--primary">Platz anfragen &#8599;</a>
         <a href="#astro-kb-haus" class="astro-kb-btn astro-kb-btn--ghost">Kita kennenlernen</a>
-        <a href="/kitas/stellenboerse/" class="astro-kb-btn astro-kb-btn--gold">Stellenb&ouml;rse</a>
+        <a href="/kitas/stellenboerse/" class="astro-kb-btn astro-kb-btn--ghost">Stellenb&ouml;rse</a>
       </div>
     </div>
   </section>
@@ -22,29 +25,29 @@ const { showAktuelles = false } = Astro.props;
   <!-- Fotostreifen -->
   <div class="astro-kb-marquee">
     <div class="astro-kb-marquee__track">
-      <img src="/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg" alt="Kinder im Garten der Kita St. Bonifatius" loading="lazy" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-3.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-5.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-6.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-7.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-9.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-10.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg')} alt="Kinder im Garten der Kita St. Bonifatius" loading="lazy" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-1.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-2.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-3.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-4.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-5.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-6.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-7.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-8.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-9.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-10.jpg')} alt="" loading="lazy" aria-hidden="true" />
       <!-- duplicate for seamless loop -->
-      <img src="/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-3.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-5.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-6.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-7.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-9.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/06/kita-stbonifatius-frankfurt-10.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2024/07/Garten-Kita-St-Bonifatius-Kinder.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-1.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-2.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-3.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-4.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-5.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-6.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-7.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-8.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-9.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/06/kita-stbonifatius-frankfurt-10.jpg')} alt="" loading="lazy" aria-hidden="true" />
     </div>
   </div>
 
@@ -155,8 +158,6 @@ const { showAktuelles = false } = Astro.props;
   border: 2px solid rgba(255,255,255,.5);
 }
 .astro-kb-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
-.astro-kb-btn--gold { background: #f2b429; color: #1a120e; border: 2px solid #f2b429; }
-.astro-kb-btn--gold:hover { background: #e0a520; border-color: #e0a520; }
 .astro-kb-btn--primary {
   background: #fff;
   color: var(--bf-accent);

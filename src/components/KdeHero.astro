@@ -12,8 +12,8 @@
       <p class="astro-kde-hero__motto">Gemeinschaft, die tr&auml;gt.</p>
       <p class="astro-kde-hero__lead">Katholische Kita f&uuml;r Kinder von 3 bis 6 Jahren im historischen Sachsenhausen, in Tr&auml;gerschaft der Pfarrei Sankt Bonifatius.</p>
       <div class="astro-kde-hero__ctas">
-        <a href="#astro-kde-kontakt" class="astro-kde-btn astro-kde-btn--ghost">Kontakt aufnehmen</a>
-        <a href="/kitas/stellenboerse/" class="astro-kde-btn astro-kde-btn--gold">Stellenb&ouml;rse</a>
+        <a href="#astro-kde-kontakt" class="astro-kde-btn astro-kde-btn--primary">Kontakt aufnehmen</a>
+        <a href="/kitas/stellenboerse/" class="astro-kde-btn astro-kde-btn--ghost">Stellenb&ouml;rse</a>
       </div>
     </div>
   </section>
@@ -238,8 +238,8 @@
 }
 .astro-kde-btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
 .astro-kde-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
-.astro-kde-btn--gold { background: #f2b429; color: #1a120e; border: 2px solid #f2b429; }
-.astro-kde-btn--gold:hover { background: #e0a520; border-color: #e0a520; }
+.astro-kde-btn--primary { background: #fff; color: var(--bf-accent); border: 2px solid #fff; }
+.astro-kde-btn--primary:hover { background: #f0e8d8; border-color: #f0e8d8; }
 .astro-kde-btn--accent { background: var(--bf-accent); color: #fff; border: 2px solid var(--bf-accent); }
 .astro-kde-btn--accent:hover { background: #7a2424; border-color: #7a2424; }
 .astro-kde-sec { width: 100vw; position: relative; left: 50%; margin-left: -50vw; margin-right: -50vw; }
@@ -274,7 +274,7 @@
 .astro-kde-kontakt__role { font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 4px; }
 .astro-kde-kontakt__name { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 700; color: var(--bf-ink); margin: 0 0 10px; }
 .astro-kde-kontakt__info { font-size: 14px; color: var(--bf-ink-60); margin: 4px 0; }
-.astro-kde-kontakt__info a { color: var(--bf-ink-60); text-decoration: none; word-break: break-word; }
+.astro-kde-kontakt__info a { color: var(--bf-ink-60); text-decoration: none; word-break: break-word; display: inline-flex; align-items: center; min-height: 44px; }
 .astro-kde-kontakt__info a:hover { color: var(--bf-accent); }
 
 /* Koordination */
@@ -285,7 +285,7 @@
 .astro-kde-kontakt__koord-photo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: top; border: 2px solid var(--bf-border); margin: 0 auto 14px; display: block; }
 .astro-kde-kontakt__koord-role { font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--bf-accent); margin: 0 0 6px; }
 .astro-kde-kontakt__koord-name { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 700; color: var(--bf-ink); margin: 0 0 10px; }
-.astro-kde-kontakt__koord-card a { font-size: 13px; color: var(--bf-accent); text-decoration: none; word-break: break-all; }
+.astro-kde-kontakt__koord-card a { font-size: 13px; color: var(--bf-accent); text-decoration: none; word-break: break-all; display: inline-flex; align-items: center; min-height: 44px; }
 .astro-kde-kontakt__koord-card a:hover { text-decoration: underline; }
 
 .astro-kde-kontakt__divider { border: none; border-top: 1px solid var(--bf-border); margin: 0 0 48px; }
@@ -298,7 +298,7 @@
 .astro-kde-kontakt__info-row { display: grid; grid-template-columns: 80px 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--bf-border); font-size: 14px; color: var(--bf-ink); }
 .astro-kde-kontakt__info-row:last-child { border-bottom: none; }
 .astro-kde-kontakt__info-row strong { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--bf-accent); padding-top: 2px; }
-.astro-kde-kontakt__info-row a { color: var(--bf-ink-60); text-decoration: none; }
+.astro-kde-kontakt__info-row a { color: var(--bf-ink-60); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
 .astro-kde-kontakt__info-row a:hover { color: var(--bf-accent); }
 
 @media (max-width: 700px) {

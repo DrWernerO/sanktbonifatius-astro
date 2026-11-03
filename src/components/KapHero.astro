@@ -1,4 +1,5 @@
 ---
+import { mq } from '../lib/marquee.js';
 // Hero der Kita St. Aposteln — WP-Seite 48345 (draft)
 // Eigene Klassen astro-kap-* (nie kapos-* aus WP wiederverwenden).
 ---
@@ -12,7 +13,7 @@
       <div class="astro-kap-hero__ctas">
         <a href="https://www.kindernetfrankfurt.de" target="_blank" rel="noopener" class="astro-kap-btn astro-kap-btn--primary">Platz anfragen &#8599;</a>
         <a href="#astro-kap-haus" class="astro-kap-btn astro-kap-btn--ghost">Kita kennenlernen</a>
-        <a href="/kitas/stellenboerse/" class="astro-kap-btn astro-kap-btn--gold">Stellenb&ouml;rse</a>
+        <a href="/kitas/stellenboerse/" class="astro-kap-btn astro-kap-btn--ghost">Stellenb&ouml;rse</a>
       </div>
     </div>
   </section>
@@ -20,27 +21,27 @@
   <!-- Fotostreifen (Fotos der Kita, Freigabe Jeannine 12.08.2026) -->
   <div class="astro-kap-marquee">
     <div class="astro-kap-marquee__track">
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-6.jpg" alt="Das Kita-Geb&auml;ude vom Garten aus gesehen" loading="lazy" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-23.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-11.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-24.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-21.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-14.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-6.jpg')} alt="Das Kita-Geb&auml;ude vom Garten aus gesehen" loading="lazy" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-2.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-23.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-4.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-11.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-24.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-1.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-8.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-21.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-14.jpg')} alt="" loading="lazy" aria-hidden="true" />
       <!-- Duplikat fuer nahtlose Schleife -->
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-6.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-2.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-23.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-4.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-11.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-24.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-1.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-8.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-21.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <img src="/uploads/2022/05/kita-staposteln-frankfurt-14.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-6.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-2.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-23.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-4.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-11.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-24.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-1.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-8.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-21.jpg')} alt="" loading="lazy" aria-hidden="true" />
+      <img {...mq('/uploads/2022/05/kita-staposteln-frankfurt-14.jpg')} alt="" loading="lazy" aria-hidden="true" />
     </div>
   </div>
 
@@ -151,8 +152,6 @@
 .astro-kap-btn--primary:hover { background: #f0e8d8; }
 .astro-kap-btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
 .astro-kap-btn--ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
-.astro-kap-btn--gold { background: #f2b429; color: #1a120e; border: 2px solid #f2b429; }
-.astro-kap-btn--gold:hover { background: #e0a520; border-color: #e0a520; }
 .astro-kap-btn--accent { background: var(--bf-accent); color: #fff; }
 .astro-kap-btn--accent:hover { background: #7a2424; }
 

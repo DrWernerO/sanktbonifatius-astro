@@ -46,9 +46,9 @@ const SCHLIESSZEITEN_PDF = '/uploads/2026/09/Schliesszeiten-Kita-Herz-Jesu-2026.
       <p>Unsere p&auml;dagogische Arbeit ist teiloffen. Diese Arbeitsweise bietet den Kindern Freir&auml;ume f&uuml;r selbstbestimmtes Lernen und Spielen und erm&ouml;glicht ihnen, ihre Interessen und Bed&uuml;rfnisse aktiv in den Alltag einzubringen.</p>
     </div>
     <div class="astro-khj-konzept__cards">
-      <div class="astro-khj-konzept__card"><h4>Kinder</h4><p>Kinder von 3 bis 6 Jahren.</p></div>
-      <div class="astro-khj-konzept__card"><h4>&Ouml;ffnungszeit</h4><p>Montag bis Freitag 7:30 &ndash; 17:00 Uhr.</p></div>
-      <div class="astro-khj-konzept__card"><h4>Unsere Arbeit</h4><p>In unseren Funktionsr&auml;umen entscheiden die Kinder mit, wo, mit wem und was sie spielen.</p></div>
+      <div class="astro-khj-konzept__card"><h3>Kinder</h3><p>Kinder von 3 bis 6 Jahren.</p></div>
+      <div class="astro-khj-konzept__card"><h3>&Ouml;ffnungszeit</h3><p>Montag bis Freitag 7:30 &ndash; 17:00 Uhr.</p></div>
+      <div class="astro-khj-konzept__card"><h3>Unsere Arbeit</h3><p>In unseren Funktionsr&auml;umen entscheiden die Kinder mit, wo, mit wem und was sie spielen.</p></div>
     </div>
   </div>
 </section>
@@ -207,7 +207,7 @@ const SCHLIESSZEITEN_PDF = '/uploads/2026/09/Schliesszeiten-Kita-Herz-Jesu-2026.
 .astro-khj-konzept__text p { font-size: 15.5px; line-height: 1.75; color: var(--bf-ink-60); }
 .astro-khj-konzept__cards { display: flex; flex-direction: column; gap: 14px; }
 .astro-khj-konzept__card { background: #fff; border: 1px solid var(--bf-border); border-radius: var(--bf-radius); padding: 18px 22px; border-left: 3px solid var(--bf-accent); }
-.astro-khj-konzept__card h4 { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700; color: var(--bf-ink); margin: 0 0 4px; }
+.astro-khj-konzept__card h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700; color: var(--bf-ink); margin: 0 0 4px; }
 .astro-khj-konzept__card p { font-size: 14px; line-height: 1.6; color: var(--bf-ink-60); margin: 0; }
 
 /* HAUS */
@@ -240,7 +240,7 @@ const SCHLIESSZEITEN_PDF = '/uploads/2026/09/Schliesszeiten-Kita-Herz-Jesu-2026.
 .astro-khj-zeiten__in { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
 .astro-khj-zeiten__h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: var(--bf-ink); margin: 0 0 14px; line-height: 1.2; }
 .astro-khj-zeiten__p { font-size: 15.5px; color: var(--bf-ink-60); line-height: 1.75; margin: 0 0 20px; }
-.astro-khj-zeiten__dl { display: inline-flex; align-items: center; gap: 7px; padding: 8px 16px; border-radius: 20px; background: var(--bf-accent); color: #fff; font-weight: 600; font-size: 13px; text-decoration: none; min-height: 34px; transition: background .2s; }
+.astro-khj-zeiten__dl { display: inline-flex; align-items: center; gap: 7px; padding: 8px 16px; border-radius: 20px; background: var(--bf-accent); color: #fff; font-weight: 600; font-size: 13px; text-decoration: none; transition: background .2s; min-height: 44px; }
 .astro-khj-zeiten__dl:hover { background: #7a2424; }
 .astro-khj-zeiten__grid { background: #fff; border-radius: var(--bf-radius); padding: 24px 28px; border: 1px solid var(--bf-border); }
 .astro-khj-zeiten__row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--bf-border); font-size: 15px; }
@@ -270,7 +270,7 @@ const SCHLIESSZEITEN_PDF = '/uploads/2026/09/Schliesszeiten-Kita-Herz-Jesu-2026.
 .astro-khj-paed__icon { width: 48px; height: 48px; border-radius: 50%; background: var(--bf-bg); color: var(--bf-accent); display: flex; align-items: center; justify-content: center; border: 1px solid var(--bf-border); }
 .astro-khj-paed__card h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 700; color: var(--bf-ink); margin: 0; }
 .astro-khj-paed__card p { font-size: 14px; color: var(--bf-ink-60); line-height: 1.6; margin: 0; }
-.astro-khj-paed__card a { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 22px; background: var(--bf-accent); color: #fff; font-weight: 600; font-size: 13px; text-decoration: none; min-height: 40px; transition: background .2s; margin-top: auto; }
+.astro-khj-paed__card a { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 22px; background: var(--bf-accent); color: #fff; font-weight: 600; font-size: 13px; text-decoration: none; transition: background .2s; margin-top: auto; min-height: 44px; }
 .astro-khj-paed__card a:hover { background: #7a2424; }
 @media (max-width: 700px) { .astro-khj-paed__grid { grid-template-columns: 1fr; } }
 

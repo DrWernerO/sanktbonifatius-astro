@@ -1,4 +1,5 @@
 ---
+import { mq } from '../lib/marquee.js';
 // Foto-Galerie des Kirchorts Herz Jesu (WP-Block `hj-marquee`) als endlos scrollende
 // Banderole. Eigene Klassen `astro-hjgal`. 26 Fotos lokal unter public/uploads/2022/04/.
 const IMG = '/uploads/2022/04';
@@ -10,7 +11,7 @@ const LOOP = [...PHOTOS, ...PHOTOS];
   <p class="astro-hjgal__title">Fotogalerie &middot; Herz Jesu Frankfurt-Oberrad</p>
   <div class="astro-hjgal__track">
     {LOOP.map((p, i) => (
-      <img src={`${IMG}/${p}`} alt="Impression aus der Kirche Herz Jesu Frankfurt"
+      <img {...mq(`${IMG}/${p}`)} alt="Impression aus der Kirche Herz Jesu Frankfurt"
            decoding="async" aria-hidden={i >= PHOTOS.length ? 'true' : null} />
     ))}
   </div>

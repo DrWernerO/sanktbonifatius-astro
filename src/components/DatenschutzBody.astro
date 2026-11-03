@@ -17,14 +17,25 @@
 //    bestehende Property aus 2020) wieder in die Astro-Seite eingebaut wurde — mit vorgeschaltetem
 //    Cookie-Consent-Banner (Opt-in, siehe CookieConsent.astro). Formulierung noch nicht vom
 //    Bistum/DSB freigegeben, ebenso die Ergänzungen in E und F.
+//  - NEU (Entwurf Oktober 2026, Lovis, nach Datenschutz-Check 22.10. und Prüfung durch drei
+//    Modelle 27.10.): KDG-Fassung seit 01.03.2026 (Amtsblatt Limburg 2/2026: Widerruf § 8 Abs. 4,
+//    §§ 9/10 weggefallen, Kirchenzugehörigkeit keine besondere Kategorie nach § 4 Nr. 2 Satz 2).
+//    Neu/geändert: Einleitung (§§ 15/16), C.4/E Microsoft 365, C.5, C.6 (Videos nocookie,
+//    Redaktionssystem, ChurchDesk, lokale Speicherung), C.7 (GA4 gemäß Property-Einstellungen,
+//    Signale im Tag aus, Widerruf löscht Cookies), C.8 Online-Formulare, E, F (DPF/SCC), G, H, I, K.
+//    Veröffentlicht 31.10.2026 mit Freigabe Pfarrer Dr. Otto (Mail 31.10.). WEITER OFFEN: AVV ALL-INKL + ChurchDesk, Microsoft-Vertrag, Google-
+//    Datenverarbeitungsbedingungen, Buchstabe § 11 Abs. 2 (Entwurf: lit. g, DSB bestätigen), Löschfrist Bewerbungen,
+//    Region der Netlify-Funktionen, Angaben Abschnitt B. Gästebuch/Beiträge Jubiläum (/100-jahre/)
+//    noch nicht enthalten: vor Freigabe Abschnitt ergänzen und Löschfrist festlegen.
 ---
 <section class="astro-dzbody">
   <div class="astro-dzbody__in">
 
     <p>
-      Diese Datenschutzerklärung informiert Sie nach &sect;&sect; 14, 15 KDG über die Verarbeitung
+      Diese Datenschutzerklärung informiert Sie nach &sect; 15 KDG über die Verarbeitung
       personenbezogener Daten, wenn Sie unsere Website besuchen und die angebotenen Kontaktwege
-      nutzen. Als Einrichtung der katholischen Kirche unterliegen wir dem
+      nutzen. Personen, deren Daten uns andere übermitteln (z.&#8201;B. Eltern, Paten oder frühere
+      Ehepartner in unseren Formularen), informieren wir hiermit zugleich nach &sect; 16 KDG. Als Einrichtung der katholischen Kirche unterliegen wir dem
       <strong>Gesetz über den Kirchlichen Datenschutz (KDG)</strong>; an die Stelle der
       Datenschutz-Grundverordnung (DSGVO) treten für uns die Regelungen des KDG.
     </p>
@@ -69,10 +80,10 @@
       ist die Auslieferung der Seite technisch nicht möglich. Wir bzw. unser Hoster verarbeiten
       diese Daten zur Bereitstellung der Inhalte sowie zur Wahrung der Systemsicherheit und
       -stabilität und zur Abwehr von Angriffen. Eine darüber hinausgehende Webanalyse führen wir
-      nur mit Ihrer vorherigen Einwilligung durch; siehe dazu Ziffer 7.
+      nur mit Ihrer vorherigen Einwilligung durch (C.7).
       Rechtsgrundlage: &sect; 6 Abs. 1 lit. f KDG. Unsere Website wird bei einem externen
-      Dienstleister gehostet; Näheres zum Hoster (Abschnitt E) und zur Übermittlung in ein
-      Drittland (Abschnitt F).
+      Dienstleister gehostet. Näheres zum Hoster finden Sie in Abschnitt E, zur Übermittlung in
+      ein Drittland in Abschnitt F.
     </p>
 
     <h3>2. Wenn Sie uns einen Brief schicken</h3>
@@ -98,20 +109,25 @@
     <p>
       Bei einer E-Mail werden die übermittelten Daten (Absenderadresse, Betreff, Inhalt,
       Dateianhänge sowie technisch bedingte Header-Daten) gespeichert und zur Bearbeitung Ihres
-      Anliegens verarbeitet. Rechtsgrundlagen wie unter C.2. Bitte beachten Sie, dass der
+      Anliegens verarbeitet. Unsere E-Mail-Postfächer werden bei Microsoft (Microsoft 365)
+      betrieben (Abschnitt E). Rechtsgrundlagen wie unter C.2. Bitte beachten Sie, dass der
       Versand unverschlüsselter E-Mails nicht vor Kenntnisnahme durch Dritte geschützt ist.
     </p>
 
     <h3>5. Besondere Kategorien personenbezogener Daten (&sect; 4 Nr. 2 KDG)</h3>
     <p>
-      Wir erheben ohne besonderen Anlass keine besonderen Kategorien personenbezogener Daten
-      („sensible Daten", z.&#8201;B. Gesundheitsdaten); bitte sehen Sie von einer unaufgeforderten
-      Übermittlung ab. Ist deren Verarbeitung im Einzelfall erforderlich, ergibt sich die
-      Rechtsgrundlage aus &sect; 11 KDG; Sie erhalten dann in der Regel eine gesonderte
-      Datenschutzinformation.
+      Die Zugehörigkeit zu einer Kirche oder Religionsgemeinschaft ist nach &sect; 4 Nr. 2 Satz 2
+      KDG keine besondere Kategorie personenbezogener Daten. Wir fragen sie bei der Anmeldung zur
+      Taufe und zur Ehevorbereitung ab, weil sie für die Vorbereitung und Spendung der Sakramente
+      erforderlich ist (C.8); Rechtsgrundlage ist &sect; 6 Abs. 1 lit. f KDG. Soweit Angaben
+      darüber hinaus religiöse Überzeugungen erkennen lassen (z.&#8201;B. ein Kirchenaustritt),
+      stützen wir die Verarbeitung auf &sect; 11 Abs. 2 lit. g KDG in Verbindung mit dem
+      kirchlichen Recht über Taufe und Eheschließung. Andere besondere Kategorien
+      personenbezogener Daten (z.&#8201;B. Gesundheitsdaten) erheben wir über die Website nicht;
+      bitte übermitteln Sie uns solche Daten nicht unaufgefordert.
     </p>
 
-    <h3>6. Eingebundene Inhalte und Schriftarten</h3>
+    <h3>6. Eingebundene Inhalte, Schriftarten und lokale Speicherung</h3>
     <p>
       <strong>Schriftarten:</strong> Die verwendeten Schriftarten (Source Sans 3, Playfair Display)
       sind lokal auf unserem Server hinterlegt und werden von dort ausgeliefert. Es besteht
@@ -121,31 +137,68 @@
     </p>
     <p>
       <strong>Videoinhalte:</strong> Auf einzelnen Seiten können Videos (YouTube, Vimeo) eingebettet
-      sein. Ein Video wird erst geladen, wenn Sie es aktiv starten. Erst dann wird eine Verbindung
-      zu den Servern des jeweiligen Anbieters &#8212; YouTube: Google Ireland Limited, Irland;
-      Vimeo: Vimeo, Inc., USA &#8212; hergestellt und dabei u.&#8201;a. Ihre IP-Adresse übertragen.
-      Vorher findet keine Verbindung statt. Rechtsgrundlage: &sect; 6 Abs. 1 lit. f KDG; soweit eine
-      Einwilligung abgefragt wird, &sect; 6 Abs. 1 lit. b KDG und &sect; 25 Abs. 1 TDDDG. Zur
-      Übermittlung in die USA siehe Abschnitt F.
+      sein. Die Vorschaubilder liefern wir von unserem eigenen Server aus. Erst wenn Sie eine
+      Video-Kachel anklicken und das Video damit öffnen, wird es von den Servern des jeweiligen
+      Anbieters geladen (YouTube: Google Ireland Limited, Irland, im erweiterten Datenschutzmodus
+      über youtube-nocookie.com; Vimeo: Vimeo.com, Inc., USA). Dabei stellt Ihr Browser eine
+      Verbindung zum Anbieter her und überträgt u.&#8201;a. Ihre IP-Adresse; der Anbieter kann
+      Cookies oder ähnliche Technologien einsetzen. Für das Laden des Videos sind wir gemeinsam mit
+      dem Anbieter verantwortlich; die weitere Verarbeitung richtet sich nach den
+      Datenschutzhinweisen des Anbieters. Rechtsgrundlage für das Laden auf Ihren Klick ist
+      &sect; 6 Abs. 1 lit. f KDG.
     </p>
     <p>
-      <strong>Interaktive Angebote:</strong> Einzelne Funktionen (z.&#8201;B. Newsletter-Anmeldung,
-      Online-Spenden, Anmeldungen, Veranstaltungskalender) werden technisch über den Dienst
-      ChurchDesk (ChurchDesk ApS, Dänemark) bereitgestellt und als eingebettete Inhalte geladen.
-      Wenn Sie ein solches Angebot aufrufen oder nutzen, wird eine Verbindung zu ChurchDesk
-      hergestellt; dabei kann Ihre IP-Adresse übertragen werden. Für die dabei von Ihnen
-      eingegebenen Daten gelten die jeweils beim Angebot bereitgestellten gesonderten
-      Datenschutzinformationen.
+      <strong>Bilder, Dokumente und Termine aus unserem Redaktionssystem:</strong> Ein Teil der
+      Bilder und Dokumente (z.&#8201;B. Monatsprogramme als PDF) sowie die Daten des
+      Veranstaltungskalenders werden von unserem Redaktionssystem unter cms.sanktbonifatius.de
+      geladen, teils direkt, teils über unseren Hoster. Das Redaktionssystem wird bei ALL-INKL.COM in
+      Deutschland betrieben (Abschnitt E). Bei einem direkten Abruf wird Ihre IP-Adresse an diesen
+      Server übertragen. Rechtsgrundlage: &sect; 6 Abs. 1 lit. f KDG.
+    </p>
+    <p>
+      <strong>Suche:</strong> Wenn Sie die Suchfunktion nutzen, wird Ihr Suchbegriff als Teil der
+      Seitenadresse an unsere Website übermittelt und von dort an unser Redaktionssystem
+      weitergegeben, um passende Seiten zu finden. Der Suchbegriff kann dadurch in Server-Logfiles
+      (C.1) und, falls Sie eingewilligt haben, in Google Analytics (C.7) erscheinen. Bitte geben Sie
+      keine persönlichen Angaben in das Suchfeld ein. Rechtsgrundlage: &sect; 6 Abs. 1 lit. f KDG.
+    </p>
+    <p>
+      <strong>Interaktive Angebote:</strong> Einzelne Funktionen (Newsletter-Anmeldung,
+      Online-Spenden, Raumbuchung, Registrierung für Ehrenamtliche und einzelne
+      Veranstaltungsanmeldungen) werden technisch über den Dienst ChurchDesk (ChurchDesk ApS,
+      Dänemark) bereitgestellt und auf den jeweiligen Seiten eingebettet. Wenn Sie eine solche Seite
+      aufrufen, wird eine Verbindung zu ChurchDesk hergestellt; dabei wird Ihre IP-Adresse
+      übertragen. Einzelne Anmelde-Buttons führen außerdem auf Formularseiten, die direkt bei
+      ChurchDesk liegen. Die von Ihnen dort eingegebenen Daten werden bei ChurchDesk verarbeitet;
+      Näheres finden Sie in den Hinweisen im jeweiligen Formular. Rechtsgrundlage ist &sect; 6
+      Abs. 1 lit. f KDG, für den Newsletter Ihre Einwilligung (&sect; 6 Abs. 1 lit. b KDG).
+    </p>
+    <p>
+      <strong>Lokale Speicherung im Browser:</strong> Ihre Auswahl im Einwilligungsbanner sowie
+      Einstellungen der Barrierefreiheits-Funktionen (z.&#8201;B. Schriftgröße, Kontrast) speichern
+      wir im lokalen Speicher Ihres Browsers. Diese Angaben verlassen Ihr Gerät nicht. Die
+      Speicherung ist für die von Ihnen gewünschte Funktion unbedingt erforderlich
+      (&sect; 25 Abs. 2 Nr. 2 TDDDG).
     </p>
 
     <h3>7. Webanalyse mit Google Analytics (nur mit Ihrer Einwilligung)</h3>
     <p>
       Mit Ihrer Einwilligung setzen wir den Webanalysedienst <strong>Google Analytics</strong> der
       Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland (im Konzernverbund mit
-      der Google LLC, USA), ein. Der Dienst erstellt mithilfe von Cookies bzw. vergleichbaren
-      Technologien pseudonyme Nutzungsstatistiken (z.&#8201;B. aufgerufene Seiten, Verweildauer,
-      verwendetes Gerät). Die IP-Adresse wird dabei gekürzt (IP-Anonymisierung) und nicht mit
-      anderen Google-Daten zusammengeführt.
+      der Google LLC, USA), ein. Der Dienst erstellt mithilfe von Cookies pseudonyme
+      Nutzungsstatistiken, z.&#8201;B. über aufgerufene Seiten, Verweildauer, Herkunft des Besuchs
+      (etwa eine Suchmaschine), Gerätetyp, Betriebssystem und Browser sowie den ungefähren Standort
+      (Land, Region, Stadt). Ihre IP-Adresse wird dafür nach Angaben von Google nur zur Bestimmung
+      des ungefähren Standorts verwendet und nicht gespeichert. Die Funktionen
+      &bdquo;Google-Signale&ldquo; und personalisierte Werbung sind abgeschaltet; die Nutzungsdaten
+      werden nicht mit Google-Konten zusammengeführt.
+    </p>
+    <p>
+      Die Cookies von Google Analytics (&bdquo;_ga&ldquo; und &bdquo;_ga_&hellip;&ldquo;) bleiben bis
+      zu zwei Jahre auf Ihrem Gerät, sofern Sie sie nicht vorher löschen oder Ihre Einwilligung
+      widerrufen. Daten, die mit Cookies verknüpft sind, werden in Google Analytics automatisch
+      gelöscht: Ereignisdaten nach zwei Monaten, Nutzerdaten 14 Monate nach Ihrem letzten Besuch. Danach stehen uns nur noch
+      zusammengefasste Statistiken ohne Personenbezug zur Verfügung.
     </p>
     <p>
       Google Analytics wird technisch erst aktiv, wenn Sie im Einwilligungsbanner
@@ -153,8 +206,47 @@
       statt und es werden keine entsprechenden Cookies gesetzt. Rechtsgrundlage ist Ihre
       Einwilligung (&sect; 6 Abs. 1 lit. b KDG i.&#8201;V.&#8201;m. &sect; 25 Abs. 1 TDDDG). Sie
       können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft
-      <button type="button" class="astro-dzbody__linkbtn" onclick="window.openCookieSettings && window.openCookieSettings()">widerrufen oder ändern</button>
-      (siehe auch Abschnitt I).
+      <button type="button" class="astro-dzbody__linkbtn" onclick="window.openCookieSettings && window.openCookieSettings()">widerrufen oder ändern</button>,
+      auch über den Link &bdquo;Cookie-Einstellungen&ldquo; am Ende jeder Seite. Beim Widerruf
+      stoppen wir Google Analytics und löschen dessen Cookies (siehe auch Abschnitt I).
+    </p>
+
+    <h3 id="formulare">8. Online-Formulare</h3>
+    <p>
+      Auf unserer Website bieten wir eigene Formulare an: für die Anmeldung zur Taufe, für die
+      Ehevorbereitung, für Bewerbungen auf Stellen in unseren Kindertagesstätten sowie für
+      Rückmeldungen und Kontaktwünsche. Welche Angaben wir benötigen, ergibt sich aus dem
+      jeweiligen Formular. Je nach Formular sind das z.&#8201;B. Name,
+      Anschrift, Kontaktdaten und Geburtsdaten, bei Taufe und Ehevorbereitung zusätzlich Angaben zur
+      Religionszugehörigkeit und zum kirchlichen Lebensweg (z.&#8201;B. Taufe, Firmung,
+      Kirchenaustritt, frühere Ehe), bei Bewerbungen die Bewerbungsunterlagen.
+    </p>
+    <p>
+      Bei Taufe und Ehevorbereitung geben Sie auch Daten weiterer Personen an (z.&#8201;B. Eltern,
+      Paten, Kinder, frühere Ehepartner). Bitte informieren Sie diese Personen darüber, dass Sie ihre
+      Angaben an uns weitergeben, und weisen Sie sie auf diese Datenschutzerklärung hin. Für diese
+      Personen gelten die Angaben in dieser Datenschutzerklärung entsprechend.
+    </p>
+    <p>
+      Ihre Eingaben und hochgeladenen Dateien werden über eine verschlüsselte Verbindung (HTTPS) an
+      unseren Hoster Netlify übertragen, dort verarbeitet und über den Mailserver von ALL-INKL.COM
+      als E-Mail an die zuständige Stelle der Pfarrei gesendet; unsere E-Mail-Postfächer werden bei
+      Microsoft betrieben (Abschnitt E). Auf der Website selbst werden die Eingaben dieser Formulare
+      nicht dauerhaft gespeichert. Wir verwenden die Angaben zur Bearbeitung Ihres Anliegens. Bei der Taufanmeldung
+      können Sie zusätzlich einwilligen, dass der Name Ihres Kindes im Zusammenhang mit der Taufe
+      veröffentlicht wird; diese Einwilligung können Sie jederzeit widerrufen (Abschnitt I).
+    </p>
+    <p>
+      Rechtsgrundlage ist &sect; 6 Abs. 1 lit. f KDG, für Angaben zur Religionszugehörigkeit siehe
+      C.5, für die Veröffentlichung des Namens bei der Taufe Ihre Einwilligung (&sect; 6 Abs. 1
+      lit. b KDG). Bei den Rückmeldeformularen verarbeiten wir Ihren Namen und Ihre Kontaktdaten nur,
+      wenn Sie eine Kontaktaufnahme wünschen; Rechtsgrundlage ist dann Ihre Einwilligung
+      (&sect; 6 Abs. 1 lit. b KDG), die Sie jederzeit widerrufen können. Bewerbungen verarbeiten wir zur Durchführung des Bewerbungsverfahrens
+      (&sect; 6 Abs. 1 lit. a KDG i.&#8201;V.&#8201;m. &sect; 53 Abs. 1 KDG). Bewerbungsunterlagen
+      löschen wir spätestens sechs Monate nach Abschluss des Bewerbungsverfahrens, sofern kein
+      Beschäftigungsverhältnis zustande kommt und Sie nicht in eine längere Aufbewahrung eingewilligt
+      haben. Angaben, die für die Kirchenbücher und die Unterlagen zur Ehevorbereitung benötigt
+      werden, bewahren wir nach den kirchlichen Vorschriften auf (Abschnitt G).
     </p>
 
     <h2 id="berechtigte-interessen">D. Berechtigte Interessen (&sect; 6 Abs. 1 lit. g KDG)</h2>
@@ -168,46 +260,72 @@
 
     <h2 id="empfaenger">E. Empfänger der Daten</h2>
     <p>
-      <strong>Hosting:</strong> Unsere Website wird bei der Netlify, Inc., 512 2nd Street, Suite 200,
-      San Francisco, CA 94107, USA, gehostet. Netlify verarbeitet die beim Besuch anfallenden
-      technischen Daten (insbesondere IP-Adresse und Zugriffsdaten) als Auftragsverarbeiter
-      ausschließlich nach unseren Weisungen. Hierfür ist nach &sect; 29 KDG ein
-      Auftragsverarbeitungsvertrag abzuschließen.
+      <strong>Hosting:</strong> Unsere Website wird bei der Netlify, Inc., 512 2nd Street,
+      Suite 200, San Francisco, CA 94107, USA, gehostet. Netlify verarbeitet die beim Besuch anfallenden
+      technischen Daten (insbesondere IP-Adresse und Zugriffsdaten) sowie die Eingaben in unseren
+      Online-Formularen (C.8) als Auftragsverarbeiter nach unseren Weisungen. Grundlage ist der
+      Vertrag zur Auftragsverarbeitung (Data Processing Agreement) von Netlify.
     </p>
     <p>
-      <strong>ChurchDesk:</strong> Für die interaktiven Angebote (Abschnitt C.6) ist die ChurchDesk
-      ApS, Dänemark, Empfänger der dort eingegebenen Daten.
+      <strong>Redaktionssystem und E-Mail-Versand:</strong> Unser Redaktionssystem
+      (cms.sanktbonifatius.de, C.6) und der Mailserver, über den unsere Online-Formulare versendet
+      werden (C.8), werden bei ALL-INKL.COM &#8211; Neue Medien Münnich, Inhaber René Münnich,
+      Hauptstraße 68, 02742 Friedersdorf, betrieben.
     </p>
     <p>
-      <strong>Google Analytics:</strong> Soweit Sie eingewilligt haben (Abschnitt C.7), verarbeitet
-      die Google Ireland Limited (Irland) die dabei anfallenden pseudonymen Nutzungsdaten als
-      Auftragsverarbeiter nach unseren Weisungen.
+      <strong>E-Mail-Postfächer:</strong> Die E-Mail-Postfächer der Pfarrei werden bei Microsoft
+      (Microsoft 365) betrieben. Dort gehen E-Mails ein, die Sie uns schreiben (C.4), sowie die
+      Eingaben aus unseren Online-Formularen (C.8).
+    </p>
+    <p>
+      <strong>ChurchDesk:</strong> Für die interaktiven Angebote (C.6) ist die ChurchDesk ApS,
+      Dänemark, Empfänger der dort eingegebenen Daten.
+    </p>
+    <p>
+      <strong>Google Analytics:</strong> Soweit Sie eingewilligt haben (C.7), verarbeitet die Google
+      Ireland Limited (Irland) die dabei anfallenden pseudonymen Nutzungsdaten.
     </p>
     <p>
       Im Übrigen geben wir die Daten nach C.1 nicht an Dritte weiter. Eine Weitergabe von
       Kommunikationsdaten (C.2 bis C.4) kann zur weiteren Bearbeitung Ihres Anliegens erforderlich
-      sein und richtet sich nach den &sect;&sect; 9, 10 KDG.
+      sein; sie richtet sich nach &sect; 6 KDG.
     </p>
 
     <h2 id="drittland">F. Übermittlung in ein Drittland</h2>
     <p>
-      Mit dem Hosting bei Netlify (USA) sowie beim aktiven Abspielen von YouTube-/Vimeo-Videos ist
-      eine Übermittlung personenbezogener Daten (insbesondere der IP-Adresse) in die USA verbunden.
-      Diese Drittlandübermittlung stützen wir auf die Standardvertragsklauseln der EU-Kommission
-      (&sect; 40 KDG). Beim reinen Besuch der Website ohne Einwilligung zu Google Analytics
-      (Abschnitt C.7) beschränken sich die an den US-Hoster übermittelten Daten auf die technisch
-      notwendigen Zugriffsdaten. Haben Sie in Google Analytics eingewilligt, verarbeitet
-      vorrangig die Google Ireland Limited (EU) die pseudonymen Nutzungsdaten; im Konzernverbund
-      kann im Einzelfall auch die Google LLC (USA) Zugriff erhalten. Auch diese Übermittlung
-      stützen wir auf die Standardvertragsklauseln der EU-Kommission (&sect; 40 KDG).
+      Unser Hoster Netlify, Inc. hat seinen Sitz in den USA. Mit dem Hosting, einschließlich der
+      Verarbeitung von Formulareingaben (C.8), kann daher eine Übermittlung personenbezogener Daten in
+      die USA verbunden sein. Netlify ist nach dem EU-US Data Privacy Framework zertifiziert; für
+      die Übermittlung besteht damit ein Angemessenheitsbeschluss der EU-Kommission
+      (&sect; 40 Abs. 1 KDG). Hilfsweise gelten die im Vertrag mit Netlify vereinbarten
+      Standardvertragsklauseln der EU-Kommission (&sect; 40 Abs. 2 KDG); eine Kopie erhalten Sie
+      auf Anfrage beim Verantwortlichen (Abschnitt A).
+    </p>
+    <p>
+      Haben Sie in Google Analytics eingewilligt (C.7), verarbeitet vorrangig die Google Ireland
+      Limited (EU) die pseudonymen Nutzungsdaten; im Konzernverbund kann auch die Google LLC (USA)
+      Zugriff erhalten. Auch bei unseren E-Mail-Postfächern bei Microsoft (Abschnitt E) ist ein
+      Zugriff aus den USA nicht auszuschließen. Google LLC und Microsoft Corporation sind ebenfalls
+      nach dem EU-US Data Privacy Framework zertifiziert (&sect; 40 Abs. 1 KDG).
+    </p>
+    <p>
+      Wenn Sie ein Video von YouTube oder Vimeo öffnen (C.6), baut Ihr Browser die Verbindung
+      unmittelbar zum Anbieter auf. Google LLC und Vimeo.com, Inc. sind nach dem EU-US Data Privacy
+      Framework zertifiziert (&sect; 40 Abs. 1 KDG).
     </p>
 
     <h2 id="speicherdauer">G. Speicherdauer</h2>
     <p>
-      Server-Logfiles (C.1) werden nur kurzzeitig gespeichert und anschließend automatisch gelöscht,
-      soweit sie nicht zur Wahrung der Systemsicherheit und -stabilität weiter benötigt werden; eine
-      Zugriffsstatistik wird nicht erstellt. Daten aus Ihrer Kontaktaufnahme (C.2 bis C.4) speichern
-      wir, solange dies zur Bearbeitung Ihres Anliegens erforderlich ist. Darüber hinaus richten sich
+      Server-Logfiles (C.1) und die Zugriffsprotokolle unseres Redaktionssystems (C.6) werden von
+      unseren Dienstleistern nur für begrenzte Zeit gespeichert, soweit sie zur Bereitstellung und
+      zur Wahrung der Systemsicherheit und -stabilität benötigt werden; die genauen Fristen richten
+      sich nach den Vorgaben der Dienstleister. Ohne Ihre Einwilligung (C.7) erstellen wir keine
+      personenbezogene Zugriffsstatistik. Wir zählen lediglich, wie oft
+      bestimmte Dokumente (z.&#8201;B. der Pfarrbrief) abgerufen und unsere QR-Code-Links aufgerufen
+      werden; gespeichert wird dabei nur eine Zahl pro Woche bzw. Monat, ohne Angaben zu den
+      abrufenden Personen. Zur Speicherdauer bei Google Analytics siehe C.7. Daten aus Ihrer
+      Kontaktaufnahme (C.2 bis C.4) und aus Online-Formularen (C.8) speichern wir, solange dies zur
+      Bearbeitung Ihres Anliegens erforderlich ist; für Bewerbungen gilt die Frist in C.8. Darüber hinaus richten sich
       die Fristen nach gesetzlichen und kirchlichen Aufbewahrungspflichten sowie der Archivordnung des
       Bistums Limburg; die Archivierung archivwürdiger Unterlagen ersetzt die Löschung.
     </p>
@@ -215,23 +333,27 @@
     <h2 id="betroffenenrechte">H. Ihre Rechte</h2>
     <p>
       Sie haben das Recht auf Auskunft (&sect; 17 KDG), Berichtigung (&sect; 18 KDG), Löschung
-      (&sect; 19 KDG), Einschränkung der Verarbeitung (&sect; 20 KDG) und Datenübertragbarkeit
-      (&sect; 22 KDG).
+      (&sect; 19 KDG), Einschränkung der Verarbeitung (&sect; 20 KDG) und, soweit die Verarbeitung
+      auf Ihrer Einwilligung oder einem Vertrag beruht, auf Datenübertragbarkeit (&sect; 22 KDG).
     </p>
     <p>
       <strong>Widerspruchsrecht (&sect; 23 KDG):</strong> Soweit wir Ihre Daten auf Grundlage von
       &sect; 6 Abs. 1 lit. f oder lit. g KDG verarbeiten, haben Sie das Recht, aus Gründen, die sich
       aus Ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung Widerspruch
       einzulegen. Bitte richten Sie den Widerspruch an den Verantwortlichen (Abschnitt A) und
-      begründen Sie ihn aus Ihrer besonderen Situation.
+      begründen Sie ihn aus Ihrer besonderen Situation. Nutzen wir Ihre Daten für Fundraising oder
+      Direktwerbung (z.&#8201;B. Spendenaufrufe), können Sie dem jederzeit ohne Begründung
+      widersprechen (&sect; 23 Abs. 2 KDG).
     </p>
 
     <h2 id="widerruf">I. Widerruf der Einwilligung</h2>
     <p>
       Soweit die Verarbeitung Ihrer Daten auf einer Einwilligung (&sect; 6 Abs. 1 lit. b bzw.
       &sect; 11 Abs. 2 lit. a KDG) beruht, haben Sie das Recht, diese jederzeit mit Wirkung für die
-      Zukunft zu widerrufen (&sect; 8 Abs. 6 Satz 1 KDG); die Rechtmäßigkeit der bis zum Widerruf
-      erfolgten Verarbeitung bleibt unberührt.
+      Zukunft zu widerrufen (&sect; 8 Abs. 4 Satz 1 KDG); die Rechtmäßigkeit der bis zum Widerruf
+      erfolgten Verarbeitung bleibt unberührt. Ihre Einwilligung in Google Analytics widerrufen Sie
+      über den Link &bdquo;Cookie-Einstellungen&ldquo; am Ende jeder Seite mit &bdquo;Ablehnen&ldquo;,
+      alle übrigen Einwilligungen formlos beim Verantwortlichen (Abschnitt A).
     </p>
 
     <h2 id="beschwerderecht">J. Beschwerderecht bei der Datenschutzaufsicht</h2>
@@ -251,8 +373,10 @@
     <p>
       Die Bereitstellung der Daten nach C.1 ist weder gesetzlich noch vertraglich vorgeschrieben;
       ohne diese technisch notwendigen Daten können Sie die Website jedoch nicht nutzen. Die
-      Bereitstellung der Daten nach C.2 bis C.4 ist freiwillig; ohne sie können wir Ihr Anliegen
-      gegebenenfalls nicht bearbeiten.
+      Bereitstellung der Daten nach C.2 bis C.4 und C.8 ist freiwillig. Ohne sie, insbesondere ohne
+      die Pflichtangaben in unseren Formularen, können wir Ihr Anliegen jedoch nicht oder nicht
+      vollständig bearbeiten; die für Taufe und Trauung erforderlichen Angaben ergeben sich aus dem
+      kirchlichen Recht.
     </p>
 
     <h2 id="profiling">L. Automatisierte Entscheidungsfindung / Profiling</h2>
@@ -260,6 +384,8 @@
       Eine automatisierte Entscheidungsfindung im Einzelfall einschließlich Profiling im Sinne des
       &sect; 24 KDG setzen wir nicht ein.
     </p>
+
+    <p><em>Stand: Oktober 2026</em></p>
 
   </div>
 </section>

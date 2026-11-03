@@ -59,6 +59,10 @@
    erweitert oder umsortiert werden — auch nicht "passend" beim Bau neuer Seiten. Neue Seiten
    werden gebaut, aber **nicht automatisch ins Menü aufgenommen**. Vor jeder Menü-Änderung
    Werners ausdrückliche Freigabe einholen.
+7. ✅ **Vor jedem Commit einer neuen oder geänderten Seite
+   [`docs/SEITEN-CHECKLISTE.md`](docs/SEITEN-CHECKLISTE.md) abarbeiten** (Design-Review, Bilder/WebP,
+   Sprünge, SEO in `seo-static.js`, `llms.txt`, Seitenverzeichnis) und die Funde dem Redakteur mit
+   Empfehlung nennen — umgesetzt wird nur, was er freigibt.
 
 7. **Netlify-Credits sparen (Werner, 2026-11-03):** Commits lokal sammeln, **nur gebündelt und
    nach Franks Freigabe pushen** (jeder Push auf `main` = 1 Deploy = 15 Credits), Fotos vorher mit

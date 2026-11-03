@@ -93,16 +93,16 @@ const jsonLd = items.filter((t) => t.startISO).map((t) => ({
 }
 .astro-gdoalle__field{display:flex;flex-direction:column;gap:6px;flex:1 1 180px;min-width:160px}
 .astro-gdoalle__field--grow{flex:2 1 260px}
-.astro-gdoalle__label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt-muted-light)}
+.astro-gdoalle__label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt-muted-light)}
 .astro-gdoalle__select,.astro-gdoalle__input{
   font-family:inherit;font-size:14px;color:#2c2420;background:#f7f3ef;
-  border:1px solid #e3dace;border-radius:7px;padding:9px 11px;
+  border:1px solid #e3dace;border-radius:7px;padding:9px 12px;min-height:44px;
 }
 .astro-gdoalle__select{cursor:pointer;appearance:none}
 .astro-gdoalle__select:focus,.astro-gdoalle__input:focus{outline:none;border-color:#9a2d2d}
 .astro-gdoalle__clear{
   flex:0 0 auto;font-family:inherit;font-size:13px;font-weight:600;color:#6b5c52;
-  background:transparent;border:1px solid #d8cfc2;border-radius:7px;padding:10px 16px;cursor:pointer;
+  background:transparent;border:1px solid #d8cfc2;border-radius:7px;padding:10px 16px;min-height:44px;cursor:pointer;
   transition:background .2s,color .2s,border-color .2s;
 }
 .astro-gdoalle__clear:hover{background:#9a2d2d;border-color:#9a2d2d;color:#fff}
@@ -115,7 +115,7 @@ const jsonLd = items.filter((t) => t.startISO).map((t) => ({
 }
 .astro-gdoalle__list > .astro-gdoalle__month-hl:first-child{margin-top:0}
 .astro-gdoalle-ev{
-  display:grid;grid-template-columns:44px 68px 1fr auto;gap:12px;align-items:center;
+  display:grid;grid-template-columns:52px 68px 1fr auto;gap:12px;align-items:center;
   background:#fff;border-radius:10px;padding:10px 18px;margin:0 0 8px;
   color:#2c2420;box-shadow:0 1px 6px rgba(30,21,18,.05);border-left:4px solid #9a2d2d;
 }
@@ -123,24 +123,30 @@ const jsonLd = items.filter((t) => t.startISO).map((t) => ({
 .astro-gdoalle-ev--sun{border-left-color:var(--accent-gold-deco);background:#fdf9f0}
 .astro-gdoalle-ev__date{font-family:'Playfair Display',serif;font-weight:700;color:#9a2d2d;line-height:1.15;text-align:center}
 .astro-gdoalle-ev__date b{display:block;font-size:18px}
-.astro-gdoalle-ev__date span{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--txt-muted-light)}
-.astro-gdoalle-ev__time{font-weight:600;color:#9a2d2d;font-size:14px;white-space:nowrap}
+.astro-gdoalle-ev__date span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--txt-muted-light)}
+.astro-gdoalle-ev__date span.astro-gdoalle-ev__wd{display:block;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;color:#9a2d2d;margin:0 0 1px}
+.astro-gdoalle-ev__time{font-weight:600;color:#9a2d2d;font-size:15px;white-space:nowrap}
 .astro-gdoalle-ev__main{min-width:0}
-.astro-gdoalle-ev__title{font-size:15px;font-weight:600;line-height:1.3;margin:0}
-.astro-gdoalle-ev__sub,.astro-gdoalle-ev__celebrant{font-size:12.5px;color:#6b5c52;line-height:1.4;margin:2px 0 0;
-  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
-.astro-gdoalle-ev__church{text-align:right;font-size:13px;color:var(--txt-muted-light);white-space:nowrap;flex-shrink:0}
+.astro-gdoalle-ev__title{font-size:16px;font-weight:600;line-height:1.3;margin:0}
+.astro-gdoalle-ev__sub,.astro-gdoalle-ev__celebrant{font-size:14px;color:#5c4e45;line-height:1.45;margin:2px 0 0}
+.astro-gdoalle-ev__church{text-align:right;font-size:14px;color:var(--txt-muted-light);white-space:nowrap;flex-shrink:0}
 /* ENTFÄLLT-Termine bleiben sichtbar (Werners Wunsch), aber optisch gedämpft statt wie ein normaler Termin. */
 .astro-gdoalle-ev--entfaellt .astro-gdoalle-ev__time,
 .astro-gdoalle-ev--entfaellt .astro-gdoalle-ev__title{color:#a89c8f}
 .astro-gdoalle-ev--entfaellt .astro-gdoalle-ev__title{font-style:italic}
+.astro-gdoalle__more{display:flex;flex-direction:column;align-items:center;gap:8px;margin:20px 0 0}
+.astro-gdoalle__more-btn{font-family:inherit;font-size:15px;font-weight:600;color:#fff;background:#9a2d2d;border:0;border-radius:50px;min-height:48px;padding:0 28px;cursor:pointer;transition:background .2s}
+.astro-gdoalle__more-btn:hover{background:#7e2424}
+.astro-gdoalle__more-btn:focus-visible{outline:3px solid #2c2420;outline-offset:3px}
+.astro-gdoalle__more-note{font-size:14px;color:#5c4e45;margin:0}
 .astro-gdoalle__empty{color:var(--txt-muted-light);font-size:14px;padding:32px 0;text-align:center}
 
 @media(max-width:640px){
   .astro-gdoalle__inner{padding:0 20px}
-  .astro-gdoalle-ev{grid-template-columns:40px 56px 1fr;gap:4px 10px;padding:10px 14px}
+  .astro-gdoalle-ev{grid-template-columns:46px 56px 1fr;gap:4px 10px;padding:10px 14px}
   .astro-gdoalle-ev__church{grid-column:1 / -1;text-align:left;margin-top:2px}
   .astro-gdoalle-ev__date b{font-size:16px}
+  .astro-gdoalle-ev__sub,.astro-gdoalle-ev__celebrant{font-size:15px}
 }
 </style>
 
@@ -153,6 +159,8 @@ const jsonLd = items.filter((t) => t.startISO).map((t) => ({
   const dataEl   = document.getElementById('astro-gdoalle-data');
   if(!listEl || !dataEl) return;
 
+  const PAGE = 30; // Termine pro Schritt (Seitenlänge mobil begrenzen)
+  let visible = PAGE;
   let EVENTS = [];
   try { EVENTS = JSON.parse(dataEl.textContent || '[]'); } catch(e) { EVENTS = []; }
 
@@ -174,13 +182,14 @@ const jsonLd = items.filter((t) => t.startISO).map((t) => ({
 
     if(!shown.length){ listEl.innerHTML='<p class="astro-gdoalle__empty">Keine Gottesdienste für diese Auswahl.</p>'; return; }
 
+    const part = shown.slice(0, visible);
     let html='', curMonth='';
-    shown.forEach(function(e){
+    part.forEach(function(e){
       if(e.monthKey!==curMonth){ curMonth=e.monthKey; html+='<h2 class="astro-gdoalle__month-hl">'+esc(e.monthLabel)+'</h2>'; }
       var cls = 'astro-gdoalle-ev'+(e.isSunday?' astro-gdoalle-ev--sun':'')+(e.isEntfaellt?' astro-gdoalle-ev--entfaellt':'');
       html+=''
         +'<div class="'+cls+'">'
-        +  '<div class="astro-gdoalle-ev__date"><b>'+esc(e.shortDay)+'.</b><span>'+esc(e.shortMonth)+'</span></div>'
+        +  '<div class="astro-gdoalle-ev__date"><span class="astro-gdoalle-ev__wd" title="'+esc(String(e.dayLabel).split(',')[0])+'">'+esc(String(e.dayLabel).slice(0,2))+'</span><b>'+esc(e.shortDay)+'.</b><span>'+esc(e.shortMonth)+'</span></div>'
         +  '<div class="astro-gdoalle-ev__time">'+esc(e.timeLabel)+'</div>'
         +  '<div class="astro-gdoalle-ev__main">'
         +    '<p class="astro-gdoalle-ev__title">'+esc(e.title)+'</p>'
@@ -190,13 +199,28 @@ const jsonLd = items.filter((t) => t.startISO).map((t) => ({
         +  (e.church ? '<div class="astro-gdoalle-ev__church">'+esc(e.church)+'</div>' : '')
         +'</div>';
     });
+    if(shown.length > part.length){
+      const rest = shown.length - part.length;
+      html += '<div class="astro-gdoalle__more"><button type="button" class="astro-gdoalle__more-btn" id="astro-gdoalle-more">Weitere Gottesdienste anzeigen</button>'
+            + '<p class="astro-gdoalle__more-note">'+part.length+' von '+shown.length+' angezeigt &middot; noch '+rest+'</p></div>';
+    }
     listEl.innerHTML=html;
   }
 
-  churchSel.addEventListener('change', render);
-  searchIn.addEventListener('input', render);
+  listEl.addEventListener('click', function(ev){
+    const btn = ev.target.closest && ev.target.closest('#astro-gdoalle-more');
+    if(!btn) return;
+    const prev = visible;
+    visible += PAGE; render();
+    // Fokus auf den ersten neuen Termin, damit Tastatur-/Screenreader-Nutzer nicht oben landen
+    const first = listEl.querySelectorAll('.astro-gdoalle-ev')[prev];
+    if(first){ first.setAttribute('tabindex','-1'); first.focus(); }
+  });
+
+  churchSel.addEventListener('change', function(){ visible = PAGE; render(); });
+  searchIn.addEventListener('input', function(){ visible = PAGE; render(); });
   clearBtn.addEventListener('click', function(){
-    churchSel.value='*'; searchIn.value=''; render();
+    churchSel.value='*'; searchIn.value=''; visible = PAGE; render();
   });
 
   render();

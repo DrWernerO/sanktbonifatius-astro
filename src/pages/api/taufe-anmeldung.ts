@@ -88,7 +88,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     pdfBytes = await fillTaufeForm(d);
   } catch (err) {
-    console.error('[taufe] PDF-Erzeugung fehlgeschlagen:', err);
+    console.error('[taufe] PDF-Erzeugung fehlgeschlagen:', err instanceof Error ? err.message : 'unbekannt');
     return jsonAntwort(false, 'Das Anmelde-PDF konnte nicht erstellt werden.', 500);
   }
 
@@ -127,7 +127,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
     return jsonAntwort(true, 'Vielen Dank! Ihre Anmeldung ist eingegangen. Wir melden uns bei Ihnen.');
   } catch (err) {
-    console.error('[taufe] Mailversand fehlgeschlagen:', err);
+    console.error('[taufe] Mailversand fehlgeschlagen:', err instanceof Error ? err.message : 'unbekannt');
     return jsonAntwort(false, 'Die Anmeldung konnte nicht versendet werden. Bitte rufen Sie uns an.', 502);
   }
 };

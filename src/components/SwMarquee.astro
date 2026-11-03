@@ -1,4 +1,5 @@
 ---
+import { mq } from '../lib/marquee.js';
 // Scrollende Foto-Galerie St. Wendel (WP-Block `sw-marquee`).
 // 21 Fotos aus public/uploads/2022/04/. Eigene Klassen `astro-swmarquee`.
 // Animation pausiert bei Hover und bei prefers-reduced-motion.
@@ -33,7 +34,7 @@ const PHOTOS = [
   </button>
   <div class="astro-swmarquee__track">
     {[...PHOTOS, ...PHOTOS].map((p) => (
-      <img src={p.src} alt={p.alt} loading="lazy" />
+      <img {...mq(p.src)} alt={p.alt} loading="lazy" />
     ))}
   </div>
 </div>
