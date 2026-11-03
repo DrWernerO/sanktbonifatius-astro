@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Prüfung vor jedem Push auf main (Netlify-Credits sparen, Handbuch 1j):
+#   1. keine neuen/geänderten Dateien > 1 MB unter public/
+#   2. `npm run build` muss lokal durchlaufen (kein Fehlbuild = kein zweiter Deploy)
+# Notfall-Umgehung: git push --no-verify
+
+GRENZE=$((1024 * 1024))
+NULL_SHA="0000000000000000000000000000000000000000"
+pruefen=0
+zu_gross=()
+
+while read -r lokal_ref lokal_sha remote_ref remote_sha; do
+  [ "$remote_ref" = "refs/heads/main" ] || continue
+  [ "$lokal_sha" = "$NULL_SHA" ] && continue
+  pruefen=1
+  if [ "$remote_sha" = "$NULL_SHA" ]; then
+    basis=$(git rev-parse --verify -q origin/main || git hash-object -t tree /dev/null)
+  else
+    basis=$remote_sha
+  fi
+  anzahl=$(git rev-list --count "$basis..$lokal_sha" 2>/dev/null || echo "?")
+  echo "pre-push: $anzahl Commit(s) gehen in EINEM Deploy raus."
+  while IFS= read -r datei; do
+    [ -n "$datei" ] || continue
+    groesse=$(git cat-file -s "$lokal_sha:$datei" 2>/dev/null) || continue
+    if [ "$groesse" -gt "$GRENZE" ]; then
+      zu_gross+=("$(awk -v b="$groesse" 'BEGIN{printf "%.1f MB", b/1048576}')  $datei")
+    fi
+  done < <(git diff --name-only --diff-filter=AM "$basis" "$lokal_sha" -- public)
+done
+
+[ "$pruefen" = 1 ] || exit 0
+
+if [ ${#zu_gross[@]} -gt 0 ]; then
+  echo ""
+  echo "pre-push: ABGEBROCHEN – diese Dateien unter public/ sind größer als 1 MB:"
+  printf '  %s\n' "${zu_gross[@]}"
+  echo ""
+  echo "Bilder verkleinern:  scripts/bilder-verkleinern.sh <datei>   (Bildleiste: --leiste)"
+  echo "Große PDFs/Videos gehören nicht ins Repo (Handbuch 1j)."
+  exit 1
+fi
+
+echo "pre-push: npm run build läuft ..."
+if ! npm run build > /tmp/bonastro-prepush-build.log 2>&1; then
+  echo ""
+  echo "pre-push: ABGEBROCHEN – der Build schlägt fehl. Letzte Zeilen:"
+  tail -25 /tmp/bonastro-prepush-build.log
+  exit 1
+fi
+echo "pre-push: Build ok – Push geht raus."
