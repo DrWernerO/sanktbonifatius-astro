@@ -44,8 +44,3 @@
 /statistik
   X-Robots-Tag: noindex, nofollow
 
-# Passwortgeschützte Testseite neue Startseite (Middleware): zusätzlich noindex per Header.
-/startseite-neu/*
-  X-Robots-Tag: noindex, nofollow
-/startseite-neu
-  X-Robots-Tag: noindex, nofollow

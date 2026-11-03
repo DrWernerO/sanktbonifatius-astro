@@ -1,6 +1,6 @@
 ---
-// Hero der NEUEN Startseite (Testseite /startseite-neu/): ein großes Foto, Dreiklang als h1,
-// rechts schmale „Laschen" mit den Kirchorten — Klick wechselt das Hero-Foto.
+// Hero der Startseite (seit 03.11.2026): ein großes Foto, Dreiklang als h1, rechts ein schmaler
+// senkrechter Streifen mit „Laschen" je Kirchort (Handy: Reihe oben) — Klick wechselt das Hero-Foto.
 // Entwurf: Entwuerfe/startseite-hero/startseite.html (Werner, 03.11.2026).
 // FOTOS: nur St. Bonifatius und Herz Jesu vorhanden (public/uploads/startseite/). Für St. Aposteln
 // und St. Wendel `img` in `orte` eintragen (800 + 1600 px WebP, Handbuch 1g) — dann wird die Lasche
@@ -94,14 +94,16 @@ const orte = [
 .astro-hn h1 .astro-hn__eyebrow{display:flex;font-family:'Source Sans 3',system-ui,sans-serif;font-size:13px;font-weight:600;line-height:1.4;letter-spacing:.2em;text-transform:uppercase;color:#e3c987}
 .astro-hn__lead{font-size:20px;line-height:1.5;margin:0;max-width:600px;text-wrap:balance;color:#f3ece0}
 
-/* Laschen */
-.astro-hn__orte{position:absolute;right:0;bottom:56px;z-index:4;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
-.astro-hn__orte button{font:inherit;font-size:14px;font-weight:600;letter-spacing:.02em;color:#f3e9d8;background:rgba(26,18,14,.42);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);border-right:0;border-radius:8px 0 0 8px;padding:9px 16px 9px 14px;min-width:132px;min-height:44px;text-align:left;cursor:pointer;transition:background .2s}
+/* Laschen: Desktop = schmaler senkrechter Streifen am rechten Rand (unter der fixen Nav), Handy = Reihe oben rechts (s. u.) */
+.astro-hn__orte{position:absolute;right:0;top:80px;bottom:0;width:46px;z-index:4;display:flex;flex-direction:column;align-items:stretch}
+.astro-hn__orte button{flex:1;width:46px;min-width:0;font:inherit;font-size:14px;font-weight:600;letter-spacing:.05em;white-space:nowrap;color:#f3e9d8;background:rgba(26,18,14,.40);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:0;border-top:1px solid rgba(255,255,255,.16);border-radius:0;padding:14px 0;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;cursor:pointer;transition:background .2s}
+.astro-hn__orte button:first-child{border-top:0}
 .astro-hn__orte button:hover:not(:disabled){background:rgba(26,18,14,.7)}
-.astro-hn__orte button[aria-pressed="true"]{background:rgba(26,18,14,.82);border-color:var(--hn-gold);border-left:3px solid var(--hn-gold);color:#fff;min-width:152px}
-.astro-hn__orte button:focus-visible{outline:3px solid var(--hn-gold);outline-offset:2px}
+.astro-hn__orte button[aria-pressed="true"]{background:rgba(26,18,14,.82);box-shadow:inset -3px 0 0 var(--hn-gold);color:#fff}
+.astro-hn__orte button:focus-visible{outline:3px solid var(--hn-gold);outline-offset:-3px}
 .astro-hn__orte button:disabled{opacity:.5;cursor:default}
-.astro-hn__orte small{display:block;font-size:11px;font-weight:400;color:#d9ccb6;letter-spacing:.03em}
+.astro-hn__orte small{display:none}
+@media (min-width:861px){.astro-hn__in{padding-right:78px}}
 
 @media (max-width:860px){
   .astro-hn{height:370px}
@@ -115,10 +117,10 @@ const orte = [
   .astro-hn__eyebrow::before{width:22px}
   .astro-hn h1 .astro-hn__dk,.astro-hn__lead{display:none}
   .astro-hn h1{font-size:29px;margin:0;line-height:1.08}
-  .astro-hn__orte{top:90px;bottom:auto;flex-direction:row;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:100%;padding-left:12px}
-  .astro-hn__orte button{font-size:12px;padding:6px 9px;min-width:0;min-height:36px;border-right:1px solid rgba(255,255,255,.2);border-radius:14px 0 0 14px}
-  .astro-hn__orte button[aria-pressed="true"]{min-width:0;border-left:1px solid var(--hn-gold);border-color:var(--hn-gold)}
-  .astro-hn__orte small{display:none}
+  .astro-hn__orte{top:90px;bottom:auto;width:auto;flex-direction:row;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:100%;padding-left:12px}
+  .astro-hn__orte button{flex:none;width:auto;writing-mode:horizontal-tb;transform:none;font-size:12px;letter-spacing:.02em;padding:6px 9px;min-height:36px;border:1px solid rgba(255,255,255,.2);border-radius:14px 0 0 14px}
+  .astro-hn__orte button:first-child{border-top:1px solid rgba(255,255,255,.2)}
+  .astro-hn__orte button[aria-pressed="true"]{box-shadow:none;border-color:var(--hn-gold)}
 }
 
 @media (prefers-reduced-motion:reduce){.astro-hn__pic{transition:none}}

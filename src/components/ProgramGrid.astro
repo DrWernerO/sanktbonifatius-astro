@@ -1,7 +1,7 @@
 ---
 // Programm-Kacheln (ersetzt WP-Block `boni-prog-wrap`). 5 farbige Kacheln, feste Inhalte.
 // SVG-Icons (kein Emoji). Die SEO-H1 bleibt erhalten (visuell versteckt).
-// seoH1=false: Seite hat schon eine eigene h1 (Testseite /startseite-neu/) — dann keine zweite, versteckte.
+// seoH1=false: Seite hat schon eine eigene h1 (neue Startseite, Hero-h1) — dann keine zweite, versteckte.
 const { seoH1 = true } = Astro.props;
 const tiles = [
   { href: '/gottesdienst-glaube/', mod: 'gold', title: 'Gottesdienst & Glaube', sub: 'Wo erleben Sie Gott?',
