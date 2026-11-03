@@ -18,11 +18,11 @@ const formate = [
   },
 ];
 const fotos = [
-  { src: '/uploads/2026/11/bonfamily-gd-familie.jpg', w: 1000, h: 666,
+  { src: '/uploads/2026/11/bonfamily-gd-familie.webp', w: 1000, h: 666,
     alt: 'Kinder und Familien feiern gemeinsam Gottesdienst in St. Bonifatius' },
-  { src: '/uploads/2026/11/bonfamily-gd-bilderbuch.jpg', w: 666, h: 1000, pos: 'center 35%',
+  { src: '/uploads/2026/11/bonfamily-gd-bilderbuch.webp', w: 666, h: 1000, pos: 'center 35%',
     alt: 'Bilderbuchgottesdienst: Kinder schauen gemeinsam in ein Bilderbuch' },
-  { src: '/uploads/2026/11/bonfamily-gd-kreativ.jpg', w: 1000, h: 666,
+  { src: '/uploads/2026/11/bonfamily-gd-kreativ.webp', w: 1000, h: 666,
     alt: 'Kindergottesdienst: Kinder sitzen im Kreis und gestalten gemeinsam die Mitte' },
 ];
 const href = '/bonfamily/familiengottesdienste/';
@@ -80,12 +80,14 @@ const href = '/bonfamily/familiengottesdienste/';
 .astro-bfgd__slides{position:relative;min-height:420px;background:#2c2420}
 .astro-bfgd__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 1.2s ease}
 .astro-bfgd__img.is-active{opacity:1}
-.astro-bfgd__dots{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:10px;z-index:1}
-.astro-bfgd__dot{width:11px;height:11px;padding:0;border-radius:50%;border:2px solid #fff;background:rgba(255,255,255,.35);box-shadow:0 1px 4px rgba(0,0,0,.35);cursor:pointer;transition:background .3s,transform .3s}
-.astro-bfgd__dot:hover{background:rgba(255,255,255,.7)}
-.astro-bfgd__dot.is-active{background:#9a2d2d;transform:scale(1.15)}
-.astro-bfgd__dot:focus-visible{outline:2px solid #fff;outline-offset:3px}
-@media(prefers-reduced-motion:reduce){.astro-bfgd__img,.astro-bfgd__dot{transition:none}}
+.astro-bfgd__dots{position:absolute;left:0;right:0;bottom:4px;display:flex;justify-content:center;z-index:1}
+/* Tippfläche 44 × 44 px (Seiten-Checkliste), sichtbar bleibt nur der kleine Punkt (::before) */
+.astro-bfgd__dot{width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.astro-bfgd__dot::before{content:'';width:11px;height:11px;box-sizing:border-box;border-radius:50%;border:2px solid #fff;background:rgba(255,255,255,.35);box-shadow:0 1px 4px rgba(0,0,0,.35);transition:background .3s,transform .3s}
+.astro-bfgd__dot:hover::before{background:rgba(255,255,255,.7)}
+.astro-bfgd__dot.is-active::before{background:#9a2d2d;transform:scale(1.15)}
+.astro-bfgd__dot:focus-visible{outline:2px solid #fff;outline-offset:-8px}
+@media(prefers-reduced-motion:reduce){.astro-bfgd__img,.astro-bfgd__dot::before{transition:none}}
 .astro-bfgd__text{padding:48px 44px;display:flex;flex-direction:column;justify-content:center;color:#fff}
 .astro-bfgd__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1.2;color:#fff;margin:0 0 14px}
 .astro-bfgd__sub{font-size:16px;line-height:1.65;color:rgba(255,255,255,.85);margin:0 0 24px}
