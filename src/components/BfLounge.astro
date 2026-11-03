@@ -138,8 +138,10 @@ const btFotos = [
 
 /* Better-Together-Kachel */
 .astro-bfbento__bt{position:relative;display:block;min-height:480px;border-radius:20px;overflow:hidden;color:#fff;text-decoration:none;background:#2c2420}
-.astro-bfbento__bt-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
-.astro-bfbento__bt-img.is-active{opacity:1;animation:astro-bfbento-kb 6s ease-out both}
+.astro-bfbento__bt-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease,transform .6s ease}
+/* Ken-Burns ohne fill-mode: nach dem Einzoomen gilt wieder der normale transform → Hover-Zoom greift */
+.astro-bfbento__bt-img.is-active{opacity:1;animation:astro-bfbento-kb 6s ease-out}
+.astro-bfbento__bt:hover .astro-bfbento__bt-img,.astro-bfbento__bt:focus-visible .astro-bfbento__bt-img{transform:scale(1.05)}
 @keyframes astro-bfbento-kb{from{transform:scale(1.08)}to{transform:scale(1)}}
 .astro-bfbento__bt-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(154,45,45,.15) 0%,rgba(154,45,45,0) 30%,rgba(90,22,22,.92) 100%)}
 .astro-bfbento__bt-tag{position:absolute;top:18px;left:18px;padding:6px 14px;border-radius:50px;background:rgba(255,255,255,.92);color:#9a2d2d;font-size:12px;font-weight:700}
