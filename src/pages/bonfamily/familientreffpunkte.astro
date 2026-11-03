@@ -2,10 +2,12 @@
 // Seite „Familientreffpunkte" — WP-Seite 49158 (/bonfamily/familientreffpunkte/)
 // Vollständig aus eigenen Astro-Komponenten (Präfix astro-fm).
 // Nav + Footer global aus Base.astro (Handbuch 4b).
+// Seit 2026-11-03 nur noch Baby- + Familien-Lounge (Eltern-Kind-Gruppe St. Wendel entfiel);
+// Intro-Text steht jetzt im Hero, FmIntro wird nicht mehr eingebunden.
 import Base from '../../layouts/Base.astro';
 import FmHero from '../../components/FmHero.astro';
-import FmIntro from '../../components/FmIntro.astro';
 import FmGrid from '../../components/FmGrid.astro';
+import FmInfo from '../../components/FmInfo.astro';
 import FmQuick from '../../components/FmQuick.astro';
 import FmContact from '../../components/FmContact.astro';
 import { SEO_STATIC } from '../../lib/seo-static.js';
@@ -14,8 +16,8 @@ const seo = SEO_STATIC['/bonfamily/familientreffpunkte/'];
 ---
 <Base seo={seo} title="Familientreffpunkte · BonFamily · St. Bonifatius Frankfurt">
   <FmHero />
-  <FmIntro />
   <FmGrid />
+  <FmInfo />
   <FmQuick />
   <FmContact />
 </Base>

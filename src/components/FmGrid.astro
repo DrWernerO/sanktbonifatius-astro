@@ -1,130 +1,139 @@
 ---
-// Treffpunkt-Karten „Familientreffpunkte" — Präfix `astro-fmgrid`.
-// Karte 1: Baby-/Familien-Lounge St. Bonifatius (2 Gruppen)
-// Karte 2: Eltern-Kind-Gruppe St. Wendel (externe Anmeldung)
+// Die beiden Lounges „Familientreffpunkte" — Präfix `astro-fmgrid`.
+// Seit 2026-11-03 nur noch Baby-Lounge + Familien-Lounge als zwei Karten nebeneinander
+// (Foto oben mit Bogen-Abschluss + Tageszeit-Etikett, großes Alters-Siegel, Stichpunkte als
+// farbige Kärtchen). Jede Lounge hat eine Akzentfarbe (--fm-akzent): Baby = Gold, Familie = Bordeaux.
+// Die Eltern-Kind-Gruppe St. Wendel ist nicht zustande gekommen und wurde entfernt (Frank).
+// Gemeinsame Infos (Zeit, Ort, Kosten, Leitung) stehen in FmInfo.
+const SONNE = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
+const ABEND = '<path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="9" x2="12" y2="2"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/><line x1="23" y1="22" x2="1" y2="22"/>';
+const ICON = {
+  spiel: '<path d="M12 2l3 7h7l-5.5 4.5 2 7.5-6.5-4.5L5.5 21l2-7.5L2 9h7z"/>',
+  musik: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+  gespraech: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  kinder: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+};
+const lounges = [
+  {
+    id: 'baby-lounge',
+    akzent: '#b5762a', tint: '#fbf3e6',
+    tageszeit: 'Vormittags', tzIcon: SONNE,
+    alter: { zahl: '0–12', einheit: 'Monate' },
+    zeit: 'Freitags · 09:30 – 11:30 Uhr',
+    name: 'Baby-Lounge',
+    fuer: 'Für Babys bis 12 Monate & ihre Eltern',
+    text: [
+      'Auf weichen Matten und mit Spielsachen für die ersten Entdeckungen können die Kleinsten krabbeln, greifen und staunen – ganz in ihrem eigenen Tempo.',
+      'Und ihr als Eltern habt eine kleine Auszeit vom Alltag zu Hause: Kaffee trinken, andere Eltern kennenlernen und sich austauschen über Entwicklung, Alltag und all die Fragen, die das erste Jahr mit sich bringt.',
+    ],
+    punkte: [
+      { t: 'Spiellandschaft für Babys', i: ICON.spiel },
+      { t: 'Gemeinsam singen und spielen', i: ICON.musik },
+      { t: 'Zeit für Gespräche unter Eltern', i: ICON.gespraech },
+    ],
+    img: '/uploads/2026/11/bonfamily-babylounge.jpg', w: 1000, h: 667,
+    alt: 'Babys spielen in der Baby-Lounge, Eltern sitzen im Kreis dabei',
+  },
+  {
+    id: 'familien-lounge',
+    akzent: '#9a2d2d', tint: '#fbf1f1',
+    tageszeit: 'Nachmittags', tzIcon: ABEND,
+    alter: { zahl: '1–3', einheit: 'Jahre' },
+    zeit: 'Freitags · 15:30 – 17:30 Uhr',
+    name: 'Familien-Lounge',
+    fuer: 'Für Kinder von 1 bis 3 Jahren & ihre Eltern',
+    text: [
+      'Wenn die Kinder laufen, klettern und die Welt erobern, braucht es mehr Platz zum Toben. In der Familien-Lounge spielen die Kinder miteinander und finden erste Freundinnen und Freunde.',
+      'Die Eltern kommen währenddessen ins Gespräch – ein offener Treffpunkt zum Ausklang der Woche, den ihr ganz nach Lust und Laune besuchen könnt.',
+    ],
+    punkte: [
+      { t: 'Raum zum Spielen und Toben', i: ICON.spiel },
+      { t: 'Kontakt zu anderen Kindern', i: ICON.kinder },
+      { t: 'Austausch unter Eltern', i: ICON.gespraech },
+    ],
+    img: '/uploads/2023/04/babylounge-st-bonifatius-1024x684.jpeg', w: 1024, h: 684,
+    alt: 'Kleinkind spielt mit Spielzeug in der Familien-Lounge',
+  },
+];
 ---
 <section class="astro-fmgrid">
   <div class="astro-fmgrid__inner">
     <div class="astro-fmgrid__head">
-      <h2 class="astro-fmgrid__title">Unsere Treffpunkte</h2>
-      <p class="astro-fmgrid__sub">Drei laufende Angebote für Familien an zwei Kirchorten.</p>
+      <h2 class="astro-fmgrid__title">Ein Freitag, zwei Lounges</h2>
+      <p class="astro-fmgrid__sub">
+        Vormittags für die Kleinsten, nachmittags für die etwas Größeren &ndash;
+        im selben Raum und mit derselben offenen Art.
+      </p>
     </div>
-    <div class="astro-fmgrid__grid">
 
-      <!-- Karte 1: St. Bonifatius -->
-      <article class="astro-fmcard">
-        <div class="astro-fmcard__img-wrap">
-          <img src="/uploads/2023/04/babylounge-stbonifatius-frankfurt-37-1024x767.jpg"
-               alt="Baby-Lounge im Kleinen Pfarrsaal St. Bonifatius Frankfurt"
-               class="astro-fmcard__img" loading="lazy" width="1024" height="767" />
+    <div class="astro-fmgrid__cards">
+    {lounges.map(l => (
+      <article id={l.id} class="astro-fmgrid__card" style={`--fm-akzent:${l.akzent};--fm-tint:${l.tint}`}>
+        <div class="astro-fmgrid__media">
+          <img src={l.img} alt={l.alt} width={l.w} height={l.h} loading="lazy" decoding="async" class="astro-fmgrid__img" />
+          <span class="astro-fmgrid__zeit">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={l.tzIcon} />
+            {l.tageszeit}
+          </span>
+          <svg class="astro-fmgrid__wave" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40V22C80 2 160 0 220 12s130 22 180 6v22z" fill="#fff"/></svg>
         </div>
-        <div class="astro-fmcard__body">
-          <h3 class="astro-fmcard__title">Baby- und Familien-Lounge St. Bonifatius</h3>
-
-          <div class="astro-fmcard__group">
-            <p class="astro-fmcard__group-label">Baby-Lounge <span class="astro-fmcard__group-age">Kinder bis 12 Monate</span></p>
-            <div class="astro-fmcard__meta-row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span>Freitags · 09:30–11:30 Uhr</span>
-            </div>
-            <p class="astro-fmcard__note">außer Brückentagen und hess. Schulferien</p>
-          </div>
-
-          <div class="astro-fmcard__group">
-            <p class="astro-fmcard__group-label">Familien-Lounge <span class="astro-fmcard__group-age">Kinder 1–3 Jahre</span></p>
-            <div class="astro-fmcard__meta-row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span>Freitags · 15:30–17:30 Uhr</span>
-            </div>
-            <p class="astro-fmcard__note">außer Brückentagen und hess. Schulferien</p>
-          </div>
-
-          <div class="astro-fmcard__info">
-            <div class="astro-fmcard__meta-row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span>Leitung: Barbara Schröder-Spitzenberg (DELFI)</span>
-            </div>
-            <div class="astro-fmcard__meta-row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Kleiner Pfarrsaal St. Bonifatius, Zugang Achenbachstraße</span>
-            </div>
-          </div>
-          <p class="astro-fmcard__free">Kostenlos · Keine Anmeldung nötig</p>
-          <a href="/kontakt/pfarrbuero/" class="astro-fmcard__btn">Fragen? Pfarrbüro kontaktieren</a>
+        <div class="astro-fmgrid__body">
+          <span class="astro-fmgrid__alter" aria-hidden="true">
+            <b>{l.alter.zahl}</b><small>{l.alter.einheit}</small>
+          </span>
+          <span class="astro-fmgrid__uhr">{l.zeit}</span>
+          <h3 class="astro-fmgrid__name">{l.name}</h3>
+          <p class="astro-fmgrid__fuer">{l.fuer}</p>
+          {l.text.map(t => <p class="astro-fmgrid__text">{t}</p>)}
+          <ul class="astro-fmgrid__list">
+            {l.punkte.map(p => (
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={p.i} />
+                {p.t}
+              </li>
+            ))}
+          </ul>
         </div>
       </article>
-
-      <!-- Karte 2: St. Wendel -->
-      <article class="astro-fmcard">
-        <div class="astro-fmcard__img-wrap">
-          <img src="/uploads/2023/04/babylounge-st-bonifatius-1024x684.jpeg"
-               alt="Eltern-Kind-Gruppe bei St. Wendel Frankfurt"
-               class="astro-fmcard__img" loading="lazy" width="1024" height="684" />
-        </div>
-        <div class="astro-fmcard__body">
-          <h3 class="astro-fmcard__title">Eltern-Kind-Gruppe St. Wendel</h3>
-
-          <div class="astro-fmcard__group">
-            <p class="astro-fmcard__group-label">Kinder 1–3 Jahre <span class="astro-fmcard__group-age">8 Treffen pro Kurs</span></p>
-            <div class="astro-fmcard__meta-row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span>Mittwochs · 09:15–11:15 Uhr · Start: 12.08.2026</span>
-            </div>
-          </div>
-
-          <div class="astro-fmcard__group">
-            <p class="astro-fmcard__group-label">Inhalte</p>
-            <p class="astro-fmcard__group-text">Altersgerechte Spiel- und Sinnesanregungen, Lieder, kurze Impulse zu Entwicklung und Familienalltag, Zeit für Fragen und Vernetzung.</p>
-          </div>
-
-          <div class="astro-fmcard__info">
-            <div class="astro-fmcard__meta-row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span>Leitung: Susanne Tombers</span>
-            </div>
-            <div class="astro-fmcard__meta-row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Gemeinderaum St. Wendel, Altes Schützenhüttengäßchen 6</span>
-            </div>
-            <div class="astro-fmcard__meta-row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg>
-              <span>56 € für 8 Treffen</span>
-            </div>
-          </div>
-          <a href="https://kufer-web.bistumlimburg.de/frankfurt-fbs/webbasys/index.php?kathaupt=11&knr=261-2600&kursname=Eltern-Kind-Gruppe"
-             target="_blank" rel="noopener" class="astro-fmcard__btn">
-            Über Kath. Familienbildung anmelden
-          </a>
-        </div>
-      </article>
-
+    ))}
     </div>
   </div>
 </section>
 
 <style is:global>
-.astro-fmgrid{padding:56px 0 72px;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
-.astro-fmgrid__inner{max-width:1200px;margin:0 auto;padding:0 40px}
-.astro-fmgrid__head{text-align:center;margin-bottom:48px}
-.astro-fmgrid__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 12px}
-.astro-fmgrid__sub{font-size:17px;color:#6b5c52;margin:0}
-.astro-fmgrid__grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
-.astro-fmcard{background:#f7f3ef;border:1px solid #e0d8cf;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 24px rgba(30,21,18,.07)}
-.astro-fmcard__img-wrap{height:240px;overflow:hidden;flex-shrink:0}
-.astro-fmcard__img{width:100%;height:100%;object-fit:cover;display:block}
-.astro-fmcard__body{padding:28px;display:flex;flex-direction:column;gap:18px;flex:1}
-.astro-fmcard__title{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#2c2420;margin:0}
-.astro-fmcard__group{background:#fff;border-radius:10px;padding:14px 16px;border:1px solid #e8e0d8;display:flex;flex-direction:column;gap:6px}
-.astro-fmcard__group-label{font-size:13px;font-weight:700;color:#9a2d2d;letter-spacing:.04em;text-transform:uppercase;margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.astro-fmcard__group-age{font-size:12px;font-weight:500;color:var(--txt-muted-light);text-transform:none;letter-spacing:0}
-.astro-fmcard__group-text{font-size:14px;line-height:1.6;color:#5a4a3a;margin:4px 0 0}
-.astro-fmcard__meta-row{display:flex;align-items:flex-start;gap:8px;font-size:14px;color:#3d2b1a;line-height:1.4}
-.astro-fmcard__meta-row svg{flex-shrink:0;margin-top:1px;color:#9a2d2d}
-.astro-fmcard__note{font-size:12px;color:var(--txt-muted-light);font-style:italic;margin:2px 0 0}
-.astro-fmcard__info{display:flex;flex-direction:column;gap:8px;margin-top:4px}
-.astro-fmcard__free{font-size:13px;font-weight:600;color:#0f776b;margin:0}
-.astro-fmcard__btn{display:inline-flex;align-items:center;padding:11px 20px;background:#9a2d2d;color:#fff;font-size:14px;font-weight:600;text-decoration:none;border-radius:50px;transition:background .18s;margin-top:auto;align-self:flex-start}
-.astro-fmcard__btn:hover{background:#7e2424}
-@media(max-width:860px){.astro-fmgrid__grid{grid-template-columns:1fr}}
-@media(max-width:600px){.astro-fmgrid__inner{padding:0 20px}.astro-fmgrid{padding:40px 0 56px}}
+.astro-fmgrid{padding:56px 0 64px;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-fmgrid__inner{max-width:1080px;margin:0 auto;padding:0 40px}
+.astro-fmgrid__head{text-align:center;margin-bottom:32px}
+.astro-fmgrid__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,32px);font-weight:700;color:#9a2d2d;margin:0 0 8px}
+.astro-fmgrid__sub{font-size:16px;color:#6b5c52;margin:0 auto;max-width:540px;line-height:1.6}
+.astro-fmgrid__cards{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.astro-fmgrid__card{position:relative;backface-visibility:hidden;display:flex;flex-direction:column;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 6px 24px rgba(30,21,18,.08);border-top:5px solid var(--fm-akzent);scroll-margin-top:96px;transition:transform .25s ease,box-shadow .25s ease}
+.astro-fmgrid__card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(30,21,18,.14)}
+.astro-fmgrid__media{position:relative;aspect-ratio:16/9;overflow:hidden;margin-bottom:-2px}
+.astro-fmgrid__img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.astro-fmgrid__card:hover .astro-fmgrid__img{transform:scale(1.04)}
+/* Welle 2px überlappend + weißer Body: verhindert beim Anheben (Hover) eine Haarlinie zwischen Foto und Text */
+.astro-fmgrid__wave{position:absolute;left:-1px;right:-1px;bottom:-2px;width:calc(100% + 2px);height:36px;display:block}
+.astro-fmgrid__zeit{position:absolute;left:16px;top:16px;display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:50px;background:rgba(255,255,255,.94);color:var(--fm-akzent);font-size:13px;font-weight:700;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.astro-fmgrid__alter{position:absolute;right:24px;top:-50px;z-index:2;width:84px;height:84px;border-radius:50%;background:var(--fm-akzent);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;box-shadow:0 6px 16px rgba(0,0,0,.2);border:4px solid #fff}
+.astro-fmgrid__alter b{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700}
+.astro-fmgrid__alter small{font-size:11px;font-weight:600;letter-spacing:.04em;margin-top:3px}
+.astro-fmgrid__body{position:relative;background:#fff;padding:8px 28px 28px;display:flex;flex-direction:column;gap:8px}
+.astro-fmgrid__uhr{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--fm-akzent)}
+.astro-fmgrid__name{font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;color:#2c2420;margin:0;padding-right:96px}
+.astro-fmgrid__fuer{font-size:15px;font-weight:600;color:#3d2b1a;margin:0 0 2px}
+.astro-fmgrid__text{font-size:15px;line-height:1.65;color:#5a4a3a;margin:0}
+.astro-fmgrid__list{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.astro-fmgrid__list li{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:12px;background:var(--fm-tint);font-size:13.5px;font-weight:600;color:#3d2b1a}
+.astro-fmgrid__list svg{flex-shrink:0;color:var(--fm-akzent)}
+@media(prefers-reduced-motion:reduce){.astro-fmgrid__card,.astro-fmgrid__img{transition:none}.astro-fmgrid__card:hover{transform:none}.astro-fmgrid__card:hover .astro-fmgrid__img{transform:none}}
+@media(max-width:860px){.astro-fmgrid__cards{grid-template-columns:1fr;max-width:560px;margin:0 auto}}
+@media(max-width:600px){
+  .astro-fmgrid{padding:44px 0 48px}
+  .astro-fmgrid__inner{padding:0 20px}
+  .astro-fmgrid__body{padding:6px 22px 24px}
+  .astro-fmgrid__alter{width:72px;height:72px;right:18px;top:-44px}
+  .astro-fmgrid__alter b{font-size:20px}
+  .astro-fmgrid__name{font-size:24px;padding-right:80px}
+}
 </style>

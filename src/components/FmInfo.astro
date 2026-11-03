@@ -1,0 +1,73 @@
+---
+// „Gut zu wissen" — gemeinsame Infos für Baby- und Familien-Lounge, Präfix `astro-fminfo`.
+// Seit 2026-11-03; ersetzt die doppelten Angaben aus den früheren Karten in FmGrid.
+// Kompakt als eine Leiste mit vier Spalten (Trennlinien), Icon neben der Frage.
+const infos = [
+  {
+    icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    label: 'Wann?',
+    text: 'Jeden Freitag – außer an Brückentagen und in den hessischen Schulferien.',
+  },
+  {
+    icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+    label: 'Wo?',
+    text: 'Kleiner Pfarrsaal St. Bonifatius, Holbeinstraße 70 – Eingang über die Achenbachstraße.',
+    link: { href: 'https://www.google.de/maps/place/St.+Bonifatiuskirche/@50.0977051,8.6771909,17z', label: 'Auf der Karte ansehen' },
+  },
+  {
+    icon: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+    label: 'Was kostet das?',
+    text: 'Nichts, und eine Anmeldung braucht ihr auch nicht. Über eine kleine Spende für Kaffee und Kuchen freuen wir uns.',
+  },
+  {
+    icon: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    label: 'Wer begleitet euch?',
+    text: 'Barbara Schröder-Spitzenberg (DELFI) leitet beide Lounges.',
+  },
+];
+---
+<section class="astro-fminfo">
+  <div class="astro-fminfo__inner">
+    <h2 class="astro-fminfo__title">Gut zu wissen <span class="astro-fminfo__sub">&ndash; gilt für beide Lounges</span></h2>
+    <div class="astro-fminfo__grid">
+      {infos.map(i => (
+        <div class="astro-fminfo__item">
+          <p class="astro-fminfo__label">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={i.icon} />
+            {i.label}
+          </p>
+          <p class="astro-fminfo__text">{i.text}</p>
+          {i.link && <a href={i.link.href} target="_blank" rel="noopener" class="astro-fminfo__link">{i.link.label}</a>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.astro-fminfo{padding:56px 0;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-fminfo__inner{max-width:1080px;margin:0 auto;padding:0 40px}
+.astro-fminfo__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,2.6vw,28px);font-weight:700;color:#9a2d2d;margin:0 0 20px;text-align:center}
+.astro-fminfo__sub{font-family:'Source Sans 3',sans-serif;font-size:15px;font-weight:400;color:#6b5c52}
+.astro-fminfo__grid{display:grid;grid-template-columns:repeat(4,1fr);background:#f7f3ef;border-radius:18px;padding:6px 0}
+.astro-fminfo__item{padding:18px 22px;display:flex;flex-direction:column;gap:6px}
+.astro-fminfo__item + .astro-fminfo__item{border-left:1px solid #e3d8cc}
+.astro-fminfo__label{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#2c2420;margin:0}
+.astro-fminfo__label svg{flex-shrink:0;color:#9a2d2d}
+.astro-fminfo__text{font-size:14px;line-height:1.55;color:#5a4a3a;margin:0}
+.astro-fminfo__link{font-size:14px;font-weight:600;color:#9a2d2d;text-decoration:none}
+.astro-fminfo__link::after{content:' →'}
+.astro-fminfo__link:hover{text-decoration:underline}
+@media(max-width:960px){
+  .astro-fminfo__grid{grid-template-columns:1fr 1fr}
+  .astro-fminfo__item:nth-child(3){border-left:none}
+  .astro-fminfo__item:nth-child(n+3){border-top:1px solid #e3d8cc}
+}
+@media(max-width:560px){
+  .astro-fminfo{padding:44px 0}
+  .astro-fminfo__inner{padding:0 20px}
+  .astro-fminfo__sub{display:block;margin-top:2px}
+  .astro-fminfo__grid{grid-template-columns:1fr}
+  .astro-fminfo__item + .astro-fminfo__item{border-left:none;border-top:1px solid #e3d8cc}
+}
+</style>
