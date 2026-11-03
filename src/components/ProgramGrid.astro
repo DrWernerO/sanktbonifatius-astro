@@ -1,6 +1,8 @@
 ---
 // Programm-Kacheln (ersetzt WP-Block `boni-prog-wrap`). 5 farbige Kacheln, feste Inhalte.
 // SVG-Icons (kein Emoji). Die SEO-H1 bleibt erhalten (visuell versteckt).
+// seoH1=false: Seite hat schon eine eigene h1 (Testseite /startseite-neu/) — dann keine zweite, versteckte.
+const { seoH1 = true } = Astro.props;
 const tiles = [
   { href: '/gottesdienst-glaube/', mod: 'gold', title: 'Gottesdienst & Glaube', sub: 'Wo erleben Sie Gott?',
     icon: '<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>' },
@@ -16,7 +18,7 @@ const tiles = [
 ---
 <section class="astro-prog-wrap">
   <h2 class="astro-prog__hl">Unsere Angebote</h2>
-  <h1 class="astro-prog__seo">Katholische Pfarrei Sankt Bonifatius Frankfurt</h1>
+  {seoH1 && <h1 class="astro-prog__seo">Katholische Pfarrei Sankt Bonifatius Frankfurt</h1>}
   <div class="astro-prog">
     {tiles.map((t) => (
       <a href={t.href} class={`astro-prog__tile astro-prog__tile--${t.mod}`}>

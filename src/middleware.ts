@@ -39,6 +39,11 @@ const GESCHUETZTE_PFADE: Record<string, { envVar: string; zusatzEnvVar?: string;
     zusatzEnvVar: 'JUBILAEUM_GRUPPE_PASSWORD',
     realm: '100 Jahre Sankt Bonifatius',
   },
+  '/startseite-neu': {
+    // Testseite neue Startseite (03.11.2026): gemeinsames internes Passwort, Benutzername egal.
+    envVar: 'INTERNE_SEITEN_PASSWORD',
+    realm: 'Testseite neue Startseite',
+  },
   '/100-jahre/rundgang': {
     envVar: 'INTERNE_SEITEN_PASSWORD',
     realm: '100 Jahre Sankt Bonifatius (Prototyp)',

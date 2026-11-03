@@ -1,0 +1,99 @@
+---
+// „Die nächsten Gottesdienste in unseren Kirchen" — je Kirchort der nächste Gottesdienst aus der
+// ChurchDesk-API (serverseitig, gleiche Quelle wie die Gottesdienstordnung, src/lib/churchdesk.js).
+// Desktop: schmaler Streifen unter dem Hero; Handy: Liste unter den Wegekacheln (Entwurf 03.11.2026).
+// Nur Wochentag + Datum (oder „Heute"), Uhrzeit und Kirchort — keine Beschreibung.
+// „ENTFÄLLT"-Termine zählen nicht als nächster Gottesdienst. Kirchorte ohne Termin im Zeitfenster
+// (14 Tage) entfallen aus der Liste; kommt gar nichts zurück, erscheint die Komponente nicht.
+// Der Kirchort wird am Namen des ChurchDesk-Standorts erkannt (Teilwort, ohne Groß/Klein).
+import { getGottesdienste } from '../lib/churchdesk.js';
+
+const ORTE = [
+  { key: 'bonifatius', name: 'St. Bonifatius' },
+  { key: 'herz', name: 'Herz Jesu' },
+  { key: 'apostel', name: 'St. Aposteln' },
+  { key: 'wendel', name: 'St. Wendel' },
+];
+const now = new Date();
+const termine = await getGottesdienste({ from: now, to: new Date(now.getTime() + 14 * 24 * 3600 * 1000) });
+
+const tagFmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin' });
+const heute = tagFmt.format(now);
+const wochentagFmt = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', weekday: 'short' });
+const tagMonatFmt = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', day: 'numeric', month: 'numeric' });
+const zeitFmt = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', hour: 'numeric', minute: '2-digit' });
+const kurzWochentag = (d) => wochentagFmt.format(d).replace('.', '').slice(0, 2);
+
+const eintraege = ORTE.map((o) => {
+  const t = termine.find((x) => !x.isEntfaellt && x.start > now && (x.church || '').toLowerCase().includes(o.key));
+  if (!t) return null;
+  const istHeute = t.dateKey === heute;
+  return {
+    name: o.name,
+    tag: istHeute ? 'Heute' : `${kurzWochentag(t.start)} ${tagMonatFmt.format(t.start)}`,
+    uhr: zeitFmt.format(t.start),
+    iso: t.startISO,
+  };
+}).filter(Boolean);
+const ALLE = '/gottesdienst-glaube/gottesdienstordnung/';
+---
+{eintraege.length > 0 && (
+  <>
+    <section class="astro-nxg" aria-labelledby="astro-nxg-h">
+      <div class="astro-nxg__in">
+        <h2 id="astro-nxg-h">Die nächsten Gottesdienste in unseren Kirchen</h2>
+        <div class="astro-nxg__row">
+          {eintraege.map((e) => (
+            <a class="astro-nxg__i" href={ALLE}>
+              <span class="astro-nxg__w"><b>{e.tag}</b> <time datetime={e.iso}>{e.uhr}</time></span>
+              <strong>{e.name}</strong>
+            </a>
+          ))}
+          <a class="astro-nxg__all" href={ALLE}>Alle Gottesdienste <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="astro-nxg-m" aria-labelledby="astro-nxg-mh">
+      <h2 id="astro-nxg-mh">Gottesdienste an unseren Kirchorten</h2>
+      <p class="astro-nxg-m__sub">Der nächste Gottesdienst in jeder Kirche</p>
+      {eintraege.map((e) => (
+        <a class="astro-nxg-m__ev" href={ALLE}>
+          <span class="astro-nxg-m__when"><b>{e.tag}</b><small>{e.uhr}</small></span>
+          <strong>{e.name}</strong>
+        </a>
+      ))}
+      <a class="astro-nxg-m__all" href={ALLE}>Alle Gottesdienste →</a>
+    </section>
+  </>
+)}
+
+<style is:global>
+.astro-nxg{background:#2c2420;color:#f3e9d8;border-bottom:3px solid #c5a55a;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
+.astro-nxg__in{max-width:1200px;margin:0 auto;padding:13px 32px 12px}
+.astro-nxg h2{font-family:'Playfair Display',Georgia,serif;font-size:18px;margin:0 0 7px;color:#fff}
+.astro-nxg__row{display:grid;grid-template-columns:repeat(4,auto) 1fr;gap:0 18px;align-items:center}
+.astro-nxg__i{display:flex;align-items:baseline;gap:8px;padding:2px 0 2px 14px;border-left:1px solid rgba(255,255,255,.18);line-height:1.3;white-space:nowrap;text-decoration:none;color:inherit}
+.astro-nxg__i:hover strong{color:#c5a55a}
+.astro-nxg__w{font-size:13.5px;color:#d9ccb6}
+.astro-nxg__w b{margin-right:.4em;font-family:'Playfair Display',Georgia,serif;font-size:16px;color:#e3c987;font-weight:700}
+.astro-nxg__i strong{color:#fff;font-size:15.5px;font-weight:600}
+.astro-nxg__all{justify-self:end;font-weight:600;font-size:14.5px;color:#e3c987;white-space:nowrap;text-decoration:none}
+.astro-nxg__all:hover{color:#fff}
+.astro-nxg a:focus-visible,.astro-nxg-m a:focus-visible{outline:3px solid #c5a55a;outline-offset:2px}
+@media (max-width:1100px){.astro-nxg__row{grid-template-columns:repeat(2,1fr);gap:12px 22px}.astro-nxg__all{grid-column:1/-1;justify-self:start}}
+@media (max-width:860px){.astro-nxg{display:none}}
+
+.astro-nxg-m{display:none}
+@media (max-width:860px){
+  .astro-nxg-m{display:block;padding:26px 16px 8px;background:#fff}
+  .astro-nxg-m h2{font-family:'Playfair Display',Georgia,serif;font-size:24px;margin:0 0 4px;color:#2c2420}
+  .astro-nxg-m__sub{margin:0 0 6px;color:#5a4a3a;font-size:15px}
+  .astro-nxg-m__ev{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:center;padding:13px 0;border-top:1px solid #e0d8cf;text-decoration:none;color:#2c2420;min-height:44px}
+  .astro-nxg-m__when{line-height:1.1}
+  .astro-nxg-m__when b{display:block;white-space:nowrap;font-family:'Playfair Display',Georgia,serif;font-size:17px;color:#806b3a}
+  .astro-nxg-m__when small{font-size:13px;color:#5a4a3a}
+  .astro-nxg-m__ev strong{font-size:17px;font-weight:600}
+  .astro-nxg-m__all{display:block;margin-top:6px;padding:14px 0 6px;border-top:1px solid #e0d8cf;font-weight:600;color:#806b3a;text-decoration:none}
+}
+</style>

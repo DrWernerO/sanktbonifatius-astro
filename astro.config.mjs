@@ -54,6 +54,8 @@ export default defineConfig({
       filter: (page) => !page.includes('/kontakt/raumbuchung') && !page.includes('/statistik')
         && !page.includes('/exerzitien2027')
         && !page.includes('/100-jahre')
+        // Passwortgeschützte Testseite neue Startseite, noindex — siehe src/pages/startseite-neu.astro
+        && !page.includes('/startseite-neu')
         // Versteckte QR-Landingpage (Brief zum Willkommens-Flyer), noindex — siehe src/pages/willkommen.astro
         && !page.includes('/willkommen/')
         // Versteckte QR-Landingpage (Brief zum Gutscheinheft), noindex — siehe src/pages/baby.astro
