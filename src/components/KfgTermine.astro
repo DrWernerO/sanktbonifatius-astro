@@ -3,43 +3,42 @@
 // Dynamisch aus der Termindatenbank: clientseitig per Fetch über den WP-Proxy geholt
 // (gleiches Muster wie EventCalendar.astro, Handbuch Abschnitt 7) — bleibt dadurch immer
 // aktuell, ohne dass ein Rebuild nötig ist (Termine lösen laut Handbuch 1c keinen Rebuild
-// aus). Gefiltert auf event-category „BonFamily" (2586) und nach Titel-Stichwort in die
-// drei Formate gruppiert (Bilderbuch-/Kreativ-/Familiengottesdienst).
+// aus). Gefiltert auf event-category „BonFamily" (2586) und nach Titel-Stichwort gruppiert.
+// Seit 2026-11-04 (Frank): nur noch 2 Spalten analog zu KfgFormate — Kindergottesdienste
+// (Bilderbuch + Kreativ, Format steht als Marke beim Termin) und Familiengottesdienste
+// (Kirchort als Marke). Uhrzeit, Raum und Kirchort kommen aus den Termindaten (`times`,
+// `location` = „Kirchort, Raum"), nichts davon ist hier fest eingetragen.
 const cols = [
   {
-    match: 'bilderbuch',
-    title: 'Bilderbuchgottesdienste',
-    time: '11:00 Uhr · in der Bücherei',
-    note: 'Nur an Sonntagen außerhalb der Ferien. Änderungen möglich — aktuelle Infos im Pfarrbrief oder auf ChurchDesk.',
+    key: 'kigo',
+    title: 'Kindergottesdienste',
+    sub: 'Bilderbuch- und Kreativgottesdienste · in St. Bonifatius',
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="6" r="3"/><path d="M7 21v-5a5 5 0 0 1 10 0v5"/><path d="M4 21h16"/></svg>`,
   },
   {
-    match: 'kreativ',
-    title: 'Kreativgottesdienste',
-    time: '11:00 Uhr · im Pfarrsaal / Krypta',
-    note: 'Der genaue Raum (Großer Pfarrsaal oder Krypta) wird kurzfristig bekanntgegeben.',
-  },
-  {
-    match: 'familien',
+    key: 'fam',
     title: 'Familiengottesdienste',
-    time: '11:00 Uhr · St. Bonifatius & St. Wendel',
-    note: 'Im Anschluss gemeinsames Kirchcafé oder Familienbrunch — alle willkommen.',
+    sub: 'In St. Bonifatius und St. Wendel',
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8" cy="6" r="2.6"/><circle cx="16.5" cy="7.5" r="2"/><path d="M3.5 21v-4.5a4.5 4.5 0 0 1 9 0V21"/><path d="M13 21v-3a3.5 3.5 0 0 1 7 0v3"/></svg>`,
   },
 ];
 ---
-<section class="astro-kfgtermine">
+<section class="astro-kfgtermine" id="termine">
   <div class="astro-kfgtermine__inner">
-    <h2 class="astro-kfgtermine__title">Aktuelle Termine</h2>
+    <h2 class="astro-kfgtermine__title">Die nächsten Termine</h2>
     <div class="astro-kfgtermine__grid">
-      {cols.map((col, i) => (
-        <div class="astro-kfgtermine__col">
+      {cols.map((col) => (
+        <div class={`astro-kfgtermine__col astro-kfgtermine__col--${col.key}`}>
           <div class="astro-kfgtermine__col-head">
-            <h3 class="astro-kfgtermine__col-title">{col.title}</h3>
-            <p class="astro-kfgtermine__col-time">{col.time}</p>
+            <span class="astro-kfgtermine__col-icon" set:html={col.icon} />
+            <div>
+              <h3 class="astro-kfgtermine__col-title">{col.title}</h3>
+              <p class="astro-kfgtermine__col-sub">{col.sub}</p>
+            </div>
           </div>
-          <ul class="astro-kfgtermine__list" id={`astro-kfgtermine-list-${i}`} data-match={col.match}>
-            <li class="astro-kfgtermine__item astro-kfgtermine__item--loading">Termine werden geladen …</li>
+          <ul class="astro-kfgtermine__list" data-gruppe={col.key}>
+            <li class="astro-kfgtermine__leer">Termine werden geladen …</li>
           </ul>
-          <p class="astro-kfgtermine__note">{col.note}</p>
         </div>
       ))}
     </div>
@@ -47,21 +46,42 @@ const cols = [
 </section>
 
 <style is:global>
+/* Sprungziel aus KfgFormate (#termine): Platz für die feste Navigation */
+.astro-kfgtermine{scroll-margin-top:90px}
 .astro-kfgtermine{padding:72px 0;background:#fff;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
-.astro-kfgtermine__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-kfgtermine__inner{max-width:1100px;margin:0 auto;padding:0 40px}
 .astro-kfgtermine__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 40px;text-align:center}
-.astro-kfgtermine__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.astro-kfgtermine__col{background:#f7f3ef;border:1px solid #e0d8cf;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:20px}
-.astro-kfgtermine__col-head{border-bottom:2px solid #9a2d2d;padding-bottom:14px}
-.astro-kfgtermine__col-title{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;color:#9a2d2d;margin:0 0 6px}
-.astro-kfgtermine__col-time{font-size:13px;color:#9a2d2d;font-weight:600;margin:0}
-.astro-kfgtermine__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;flex:1}
-.astro-kfgtermine__item{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;color:#3d2b1a}
-.astro-kfgtermine__item svg{flex-shrink:0;color:#9a2d2d}
-.astro-kfgtermine__item--loading,.astro-kfgtermine__item--empty{color:var(--txt-muted-light);font-style:italic;font-weight:400}
-.astro-kfgtermine__note{font-size:13px;color:var(--txt-muted-light);line-height:1.5;font-style:italic;margin:0;border-top:1px solid #e8e0d8;padding-top:14px}
-@media(max-width:860px){.astro-kfgtermine__grid{grid-template-columns:1fr}}
-@media(max-width:600px){.astro-kfgtermine__inner{padding:0 20px}.astro-kfgtermine{padding:52px 0}}
+.astro-kfgtermine__grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.astro-kfgtermine__col{background:#f7f3ef;border-radius:20px;padding:26px 24px 24px}
+.astro-kfgtermine__col-head{display:flex;align-items:center;gap:14px;margin:0 0 18px}
+.astro-kfgtermine__col-icon{flex-shrink:0;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#9a2d2d;color:#fff}
+.astro-kfgtermine__col--fam .astro-kfgtermine__col-icon{background:#a8883f}
+.astro-kfgtermine__col-title{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#2c2420;margin:0;line-height:1.2}
+.astro-kfgtermine__col-sub{font-size:14px;color:#7a6a5a;margin:2px 0 0}
+.astro-kfgtermine__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+
+/* Ein Termin: Kalenderblatt links, rechts Marke (Format bzw. Kirchort) + Uhrzeit/Raum */
+.astro-kfgtermine__termin{display:flex;align-items:center;gap:16px;padding:12px 16px 12px 12px;background:#fff;border-radius:14px;text-decoration:none;color:inherit;box-shadow:0 1px 3px rgba(30,21,18,.06);transition:transform .18s ease,box-shadow .18s ease}
+a.astro-kfgtermine__termin:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(30,21,18,.1)}
+a.astro-kfgtermine__termin:focus-visible{outline:3px solid #9a2d2d;outline-offset:2px}
+.astro-kfgtermine__blatt{flex-shrink:0;width:58px;border-radius:10px;overflow:hidden;text-align:center;border:1px solid #eadfd3;background:#fff}
+.astro-kfgtermine__blatt-wt{display:block;background:#9a2d2d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 0}
+.astro-kfgtermine__col--fam .astro-kfgtermine__blatt-wt{background:#85651f}
+.astro-kfgtermine__blatt-tag{display:block;font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;color:#2c2420;line-height:1.1;padding-top:3px}
+.astro-kfgtermine__blatt-mon{display:block;font-size:12px;font-weight:600;color:#7a6a5a;padding-bottom:4px}
+.astro-kfgtermine__info{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1}
+.astro-kfgtermine__marke{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:3px 11px;border-radius:999px;background:#f6e3e1;color:#8a2626}
+.astro-kfgtermine__marke--bilderbuch{background:#f3e7d4;color:#7a5a1e}
+.astro-kfgtermine__marke--ort{background:#f3ece2;color:#5a4a3a}
+.astro-kfgtermine__marke svg{flex-shrink:0}
+.astro-kfgtermine__zeile{font-size:14.5px;color:#5a4a3a;line-height:1.45}
+.astro-kfgtermine__zusatz{display:block;font-weight:600;color:#2c2420}
+.astro-kfgtermine__pfeil{flex-shrink:0;color:#c5a55a;transition:transform .18s ease}
+a.astro-kfgtermine__termin:hover .astro-kfgtermine__pfeil{transform:translateX(3px)}
+.astro-kfgtermine__leer{padding:16px;background:#fff;border-radius:14px;color:var(--txt-muted-light);font-style:italic;font-size:15px}
+@media(max-width:860px){.astro-kfgtermine__grid{grid-template-columns:1fr;max-width:560px;margin:0 auto}}
+@media(max-width:600px){.astro-kfgtermine__inner{padding:0 20px}.astro-kfgtermine{padding:52px 0}.astro-kfgtermine__col{padding:20px 14px 14px}.astro-kfgtermine__termin{gap:12px;padding:10px 12px 10px 10px}}
+@media(prefers-reduced-motion:reduce){.astro-kfgtermine__termin,.astro-kfgtermine__pfeil{transition:none}}
 </style>
 
 <script>
@@ -69,22 +89,69 @@ const cols = [
   // Proxy-Pfad — kein SSL-Problem im Browser (gleiches Muster wie EventCalendar.astro)
   const WP = '/wp-proxy/wp-json/wp/v2';
   const CATEGORY_BONFAMILY = 2586;
-  const DAYS = ['So','Mo','Di','Mi','Do','Fr','Sa'];
-  const MATCHERS = {
-    bilderbuch: /bilderbuch/i,
-    kreativ: /kreativ/i,
-    familien: /familiengottesdienst/i,
-  };
-  const CAL_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+  const ANZAHL = 4; // Termine je Spalte
+  const WT = ['So','Mo','Di','Mi','Do','Fr','Sa'];
+  const MON = ['Jan','Feb','März','Apr','Mai','Juni','Juli','Aug','Sep','Okt','Nov','Dez'];
+  const FORMATE = [
+    { re: /bilderbuch[\s-]*gottesdienst/i, name: 'Bilderbuchgottesdienst', cls: 'bilderbuch',
+      icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>' },
+    { re: /kreativ[\s-]*gottesdienst/i, name: 'Kreativgottesdienst', cls: 'kreativ',
+      icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9.06 11.9l8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></svg>' },
+  ];
+  const FAMILIE = /familiengottesdienst/i;
+  const ORT_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+  const PFEIL = '<svg class="astro-kfgtermine__pfeil" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
 
-  function parseDate(str) {
-    return new Date(str.slice(0,4)+'-'+str.slice(4,6)+'-'+str.slice(6,8));
+  function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+  function dekodiere(html) { const t = document.createElement('textarea'); t.innerHTML = html; return t.value; }
+  function pfad(url) { try { return new URL(url).pathname; } catch (e) { return url || ''; } }
+
+  function blatt(str) {
+    const d = new Date(str.slice(0,4)+'-'+str.slice(4,6)+'-'+str.slice(6,8));
+    return '<span class="astro-kfgtermine__blatt" aria-hidden="true">'
+      + '<span class="astro-kfgtermine__blatt-wt">'+WT[d.getDay()]+'</span>'
+      + '<span class="astro-kfgtermine__blatt-tag">'+d.getDate()+'</span>'
+      + '<span class="astro-kfgtermine__blatt-mon">'+MON[d.getMonth()]+'</span></span>';
   }
-  function fmtDate(str) {
-    const d = parseDate(str);
-    const dd = String(d.getDate()).padStart(2,'0');
-    const mm = String(d.getMonth()+1).padStart(2,'0');
-    return DAYS[d.getDay()]+'., '+dd+'.'+mm+'.'+d.getFullYear();
+  function datumLang(str) {
+    const d = new Date(str.slice(0,4)+'-'+str.slice(4,6)+'-'+str.slice(6,8));
+    return d.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+  }
+
+  // location = „St. Bonifatius, Krypta" → { kirche: 'St. Bonifatius', raum: 'Krypta' }
+  function ort(loc) {
+    const teile = String(loc || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+    return { kirche: teile[0] || '', raum: teile.slice(1).join(', ') };
+  }
+
+  function termin(e, gruppe) {
+    const m = e.event_meta || {};
+    const titel = dekodiere(e.title.rendered);
+    const o = ort(m.location);
+    const zeit = m.times ? esc(m.times) : '';
+    let marke, zeile, zusatz = '', label;
+    if (gruppe === 'kigo') {
+      const f = FORMATE.find(function(x){ return x.re.test(titel); });
+      marke = '<span class="astro-kfgtermine__marke astro-kfgtermine__marke--'+f.cls+'">'+f.icon+f.name+'</span>';
+      zeile = [zeit, esc(o.raum)].filter(Boolean).join(' · ');
+      label = f.name;
+    } else {
+      marke = '<span class="astro-kfgtermine__marke astro-kfgtermine__marke--ort">'+ORT_ICON+esc(o.kirche || 'Ort folgt')+'</span>';
+      zeile = zeit;
+      // Besonderer Anlass im Titel („Familiengottesdienst mit Musical …") wird mit angezeigt;
+      // „Familiengottesdienst St. Bonifatius" bringt keinen Zusatz (Kirchort steht schon in der Marke).
+      const rest = titel.replace(FAMILIE, '').replace(/^\s*(in\s+)?St\.\s*(Bonifatius|Wendel)\s*/i, '').trim();
+      if (rest) zusatz = '<span class="astro-kfgtermine__zusatz">'+esc(rest.replace(/^[–-]\s*/, ''))+'</span>';
+      label = 'Familiengottesdienst ' + o.kirche;
+    }
+    const inhalt = blatt(m.start_date)
+      + '<span class="astro-kfgtermine__info">'+marke
+      + '<span class="astro-kfgtermine__zeile">'+zusatz+zeile+'</span></span>';
+    const aria = esc(label+', '+datumLang(m.start_date)+(m.times ? ', '+m.times : ''));
+    const href = pfad(e.link);
+    return href
+      ? '<li><a class="astro-kfgtermine__termin" href="'+esc(href)+'" aria-label="'+aria+'">'+inhalt+PFEIL+'</a></li>'
+      : '<li><div class="astro-kfgtermine__termin" aria-label="'+aria+'">'+inhalt+'</div></li>';
   }
 
   // WP liefert max. 100 Termine pro Seite — paginiert vorsichtshalber wie EventCalendar/
@@ -101,36 +168,30 @@ const cols = [
     return all;
   }
 
-  function renderList(el, events, showLocation) {
-    if (!events.length) {
-      el.innerHTML = '<li class="astro-kfgtermine__item astro-kfgtermine__item--empty">Termine folgen in Kürze.</li>';
-      return;
-    }
-    el.innerHTML = events.map(function(e) {
-      const m = e.event_meta || {};
-      const loc = showLocation && m.location ? ' · '+m.location : '';
-      return '<li class="astro-kfgtermine__item">'+CAL_ICON+fmtDate(m.start_date)+loc+'</li>';
-    }).join('');
-  }
+  function leer(text) { return '<li class="astro-kfgtermine__leer">'+text+'</li>'; }
 
   async function init() {
-    const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
+    const d = new Date();
+    const today = d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
     const lists = document.querySelectorAll('.astro-kfgtermine__list');
     try {
       const all = await fetchEvents();
       const upcoming = all
         .filter(function(e){ return e.event_meta && e.event_meta.start_date >= today; })
         .sort(function(a,b){ return a.event_meta.start_date.localeCompare(b.event_meta.start_date); });
-
+      const gruppen = {
+        kigo: upcoming.filter(function(e){ const t = dekodiere(e.title.rendered); return FORMATE.some(function(f){ return f.re.test(t); }); }),
+        fam: upcoming.filter(function(e){ return FAMILIE.test(dekodiere(e.title.rendered)); }),
+      };
       lists.forEach(function(listEl) {
-        const re = MATCHERS[listEl.dataset.match];
-        const items = re ? upcoming.filter(function(e){ return re.test(e.title.rendered); }).slice(0,3) : [];
-        renderList(listEl, items, listEl.dataset.match === 'familien');
+        const g = listEl.dataset.gruppe;
+        const items = (gruppen[g] || []).slice(0, ANZAHL);
+        listEl.innerHTML = items.length ? items.map(function(e){ return termin(e, g); }).join('') : leer('Neue Termine folgen in Kürze.');
       });
     } catch(e) {
       console.warn('Termine (Familiengottesdienste) konnten nicht geladen werden:', e);
       lists.forEach(function(listEl) {
-        listEl.innerHTML = '<li class="astro-kfgtermine__item astro-kfgtermine__item--empty">Aktuelle Termine findet ihr im Terminkalender.</li>';
+        listEl.innerHTML = leer('Aktuelle Termine findet ihr im <a href="/terminkalender/">Terminkalender</a>.');
       });
     }
   }

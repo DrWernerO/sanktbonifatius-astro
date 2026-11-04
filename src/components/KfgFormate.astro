@@ -1,76 +1,172 @@
 ---
 // Format-Kacheln „Familiengottesdienste" — Präfix `astro-kfgfmt`.
-// 2 Kacheln: Kindergottesdienste + Familiengottesdienste.
-const formate = [
+// Neu 2026-11-04 (Frank): zwei bewusst unterschiedliche Blöcke statt zwei gleicher Kacheln.
+// 1) Kindergottesdienste = Überkategorie mit den Unterformaten (Bilderbuch-/Kreativgottesdienst) als eigene
+//    Foto-Karten, je mit eigenem Weg (`weg`: wo die Kinder wann sind – die Abläufe unterscheiden sich!).
+//    Weitere Formate einfach in `kigoFormate` ergänzen.
+// 2) Familiengottesdienste = breites Foto-Band mit Text-Kasten.
+// Bewusst ohne festen Rhythmus/Uhrzeit (nicht allgemeingültig) — die konkreten Termine stehen unten in KfgTermine (#termine).
+// Fotos lokal als WebP (Handbuch 1g/1j), dieselben wie in BfGottesdienste auf der BonFamily-Seite.
+const kigoFormate = [
   {
-    img: '/uploads/2026/06/260329_Bonifatsius-1013293.jpg',
-    alt: 'Kinder beim Kindergottesdienst in St. Bonifatius Frankfurt',
-    badge: 'Für Kinder (ca. 4–12 Jahre)',
-    title: 'Kindergottesdienste',
-    desc: 'Parallel zur Sonntagsmesse um 11 Uhr feiern Kinder ihren eigenen Gottesdienst — lebendig, altersgerecht und voller Entdeckerfreude. Zwei Formate wechseln sich ab:',
-    details: [
-      { label: 'Bilderbuchgottesdienst', text: 'in der Bücherei: Ein Bilderbuch öffnet Türen zu Glaubensfragen. Gemeinsam hören, staunen und besprechen.' },
-      { label: 'Kreativgottesdienst', text: 'in Krypta oder Pfarrsaal: Malen, Basteln, Gestalten — der Glaube wird mit Händen erfahrbar.' },
+    img: '/uploads/2026/11/bonfamily-gd-bilderbuch.webp', w: 666, h: 1000, pos: '50% 30%',
+    alt: 'Eine Begleiterin zeigt den Kindern, die im Kreis sitzen, eine Seite aus einem Bilderbuch',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>`,
+    title: 'Bilderbuchgottesdienst',
+    text: 'Ein Bilderbuch öffnet Türen zu Glaubensfragen. Gemeinsam hören, staunen und darüber reden.',
+    weg: [
+      { ort: 'Bücherei', text: 'Die Kinder starten direkt in der Bücherei mit ihrem eigenen Gottesdienst.' },
+      { ort: 'Kirche', text: 'Zur Gabenbereitung kommen sie in die Kirche und feiern mit allen weiter.' },
     ],
-    note: 'Zur Gabenbereitung kommen alle Kinder zurück in die Kirche und feiern gemeinsam mit der Gemeinde weiter.',
   },
   {
-    img: '/uploads/2026/06/familiengottesdienst-bonifatius-00027.jpg',
-    alt: 'Familiengottesdienst mit Musik in St. Bonifatius Frankfurt',
-    badge: 'Für die ganze Familie',
-    title: 'Familiengottesdienste',
-    desc: 'Mitmachen, Mitsingen, Mitfeiern — unsere Familiengottesdienste sind für alle da. Moderne Musik steckt an, Gespräche stärken, und lebensnahe Impulse ermuntern dazu, Gottes Wort mit in den Familienalltag zu nehmen.',
-    details: [
-      { label: null, text: 'Ob ihr zum ersten Mal dabei seid oder seit Jahren zur Gemeinde gehört: hier ist jede und jeder willkommen.' },
+    img: '/uploads/2026/11/bonfamily-gd-kreativ.webp', w: 1000, h: 666, pos: '55% 50%',
+    alt: 'Kinder sitzen im Kreis auf dem Boden und gestalten gemeinsam mit Tüchern und Zweigen eine Mitte',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9.06 11.9l8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></svg>`,
+    title: 'Kreativgottesdienst',
+    text: 'Malen, basteln, gestalten – der Glaube wird mit den Händen erfahrbar.',
+    weg: [
+      { ort: 'Kirche', text: 'Kinder und Eltern beginnen gemeinsam in der Messe.' },
+      { ort: 'Krypta oder Pfarrsaal', text: 'Die Kinder gehen zum kreativen Teil.' },
+      { ort: 'Kirche', text: 'Zur Gabenbereitung kommen alle zurück und feiern gemeinsam weiter.' },
     ],
-    note: 'An besonderen Festtagen (Advent, Weihnachten, Ostern) finden eigene Familiengottesdienste statt — bitte Termine beachten.',
   },
 ];
+const ferien = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 14l6 6M15 14l-6 6"/></svg>`;
+const ort = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+const pfeil = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>`;
 ---
 <section class="astro-kfgfmt">
   <div class="astro-kfgfmt__inner">
     <h2 class="astro-kfgfmt__title">Für jedes Alter das Richtige</h2>
-    <div class="astro-kfgfmt__grid">
-      {formate.map(f => (
-        <article class="astro-kfgfmt__card">
-          <div class="astro-kfgfmt__img-wrap">
-            <img src={f.img} alt={f.alt} class="astro-kfgfmt__img" loading="lazy" width="800" height="534" />
-            <span class="astro-kfgfmt__badge">{f.badge}</span>
+    <p class="astro-kfgfmt__lead">Zwei Angebote: eigene <strong>Kindergottesdienste</strong> parallel zur Messe – und <strong>Familiengottesdienste</strong>, in denen alle Generationen zusammen feiern.</p>
+
+    <!-- 1) Kindergottesdienste: Überkategorie mit Ablauf + Unterformaten -->
+    <article class="astro-kfgfmt__kigo" aria-labelledby="astro-kfgfmt-kigo">
+      <header class="astro-kfgfmt__kigo-head">
+        <div class="astro-kfgfmt__badges">
+          <span class="astro-kfgfmt__badge">Für Kinder · ca. 4–12 Jahre</span>
+          <span class="astro-kfgfmt__badge astro-kfgfmt__badge--rand"><span class="astro-kfgfmt__badge-icon" set:html={ferien} />Nicht in den hessischen Schulferien</span>
+        </div>
+        <h3 class="astro-kfgfmt__kigo-title" id="astro-kfgfmt-kigo">Kindergottesdienste</h3>
+        <p class="astro-kfgfmt__kigo-desc">Parallel zur Sonntagsmesse feiern Kinder ihren eigenen Gottesdienst – lebendig, altersgerecht und voller Entdeckerfreude. Zur Gabenbereitung sind alle wieder zusammen in der Kirche.</p>
+        <p class="astro-kfgfmt__kigo-ort"><span class="astro-kfgfmt__kigo-ort-icon" set:html={ort} /><span><strong>St. Bonifatius</strong> – in Bücherei, Krypta oder Pfarrsaal</span></p>
+      </header>
+
+      <p class="astro-kfgfmt__sub-label">Zwei Formate wechseln sich ab – mit unterschiedlichem Ablauf</p>
+      <div class="astro-kfgfmt__subs">
+        {kigoFormate.map((f) => (
+          <div class="astro-kfgfmt__sub">
+            <div class="astro-kfgfmt__sub-img-wrap">
+              <img src={f.img} alt={f.alt} width={f.w} height={f.h} loading="lazy" decoding="async" class="astro-kfgfmt__sub-img" style={`object-position:${f.pos}`} />
+            </div>
+            <div class="astro-kfgfmt__sub-body">
+              <h4 class="astro-kfgfmt__sub-title"><span class="astro-kfgfmt__sub-icon" set:html={f.icon} />{f.title}</h4>
+              <p class="astro-kfgfmt__sub-text">{f.text}</p>
+              <p class="astro-kfgfmt__weg-label">So läuft's ab</p>
+              <ol class="astro-kfgfmt__weg">
+                {f.weg.map((w) => (
+                  <li class="astro-kfgfmt__weg-step"><strong>{w.ort}</strong><span>{w.text}</span></li>
+                ))}
+              </ol>
+            </div>
           </div>
-          <div class="astro-kfgfmt__body">
-            <h3 class="astro-kfgfmt__card-title">{f.title}</h3>
-            <p class="astro-kfgfmt__card-desc">{f.desc}</p>
-            <ul class="astro-kfgfmt__details">
-              {f.details.map(d => (
-                <li class="astro-kfgfmt__detail-item">
-                  {d.label && <strong>{d.label}:</strong>} {d.text}
-                </li>
-              ))}
-            </ul>
-            <p class="astro-kfgfmt__note">{f.note}</p>
-          </div>
-        </article>
-      ))}
-    </div>
+        ))}
+      </div>
+
+      <div class="astro-kfgfmt__kigo-foot">
+        <a href="#termine" class="astro-kfgfmt__fam-link astro-kfgfmt__fam-link--rot">Nächste Termine ansehen<span set:html={pfeil} /></a>      </div>
+    </article>
+
+    <!-- 2) Familiengottesdienste: breites Foto-Band -->
+    <article class="astro-kfgfmt__fam" aria-labelledby="astro-kfgfmt-fam">
+      <img src="/uploads/2026/11/bonfamily-gd-familie.webp" alt="Volle Kirche beim Familiengottesdienst: vorne stehen viele Kinder um den Altar, dahinter Eltern und Gemeinde" width="1000" height="666" loading="lazy" decoding="async" class="astro-kfgfmt__fam-img" />
+      <div class="astro-kfgfmt__fam-box">
+        <div class="astro-kfgfmt__badges">
+          <span class="astro-kfgfmt__badge astro-kfgfmt__badge--hell">Für die ganze Familie</span>
+          <span class="astro-kfgfmt__badge astro-kfgfmt__badge--rand-hell"><span class="astro-kfgfmt__badge-icon" set:html={ferien} />Nicht in den hessischen Schulferien</span>
+        </div>
+        <h3 class="astro-kfgfmt__fam-title" id="astro-kfgfmt-fam">Familiengottesdienste</h3>
+        <p class="astro-kfgfmt__fam-chips" aria-label="Mitmachen, Mitsingen, Mitfeiern"><span>Mitmachen</span><span>Mitsingen</span><span>Mitfeiern</span></p>
+        <p class="astro-kfgfmt__fam-text">Hier feiern alle zusammen – vom Baby bis zu den Großeltern. Moderne Musik steckt an, und lebensnahe Impulse nehmen Gottes Wort mit in den Familienalltag. Ob ihr zum ersten Mal dabei seid oder seit Jahren zur Gemeinde gehört: Ihr seid willkommen.</p>
+        <p class="astro-kfgfmt__fam-ort"><span class="astro-kfgfmt__fam-ort-icon" set:html={ort} /><span><strong>St. Bonifatius und St. Wendel</strong> – der Ort steht jeweils beim Termin</span></p>
+        <a href="#termine" class="astro-kfgfmt__fam-link">Nächste Termine ansehen<span set:html={pfeil} /></a>
+      </div>
+    </article>
   </div>
 </section>
 
 <style is:global>
 .astro-kfgfmt{padding:56px 0 72px;background:#f7f3ef;width:100vw;position:relative;left:50%;margin-left:-50vw;margin-right:-50vw}
-.astro-kfgfmt__inner{max-width:1200px;margin:0 auto;padding:0 40px}
-.astro-kfgfmt__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 40px;text-align:center}
-.astro-kfgfmt__grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
-.astro-kfgfmt__card{background:#fff;border:1px solid #e0d8cf;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(30,21,18,.07)}
-.astro-kfgfmt__img-wrap{position:relative;height:260px;overflow:hidden;flex-shrink:0}
-.astro-kfgfmt__img{width:100%;height:100%;object-fit:cover;display:block}
-.astro-kfgfmt__badge{position:absolute;top:16px;left:16px;background:#9a2d2d;color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:.03em}
-.astro-kfgfmt__body{padding:28px}
-.astro-kfgfmt__card-title{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#2c2420;margin:0 0 14px}
-.astro-kfgfmt__card-desc{font-size:15px;line-height:1.65;color:#5a4a3a;margin:0 0 16px}
-.astro-kfgfmt__details{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:10px;border-left:3px solid #e0d8cf;padding-left:16px}
-.astro-kfgfmt__detail-item{font-size:14px;line-height:1.6;color:#5a4a3a}
-.astro-kfgfmt__detail-item strong{color:#9a2d2d}
-.astro-kfgfmt__note{font-size:13px;color:var(--txt-muted-light);font-style:italic;margin:0;border-top:1px solid #f0e8d8;padding-top:14px}
-@media(max-width:860px){.astro-kfgfmt__grid{grid-template-columns:1fr}}
-@media(max-width:600px){.astro-kfgfmt__inner{padding:0 20px}.astro-kfgfmt{padding:40px 0 56px}}
+.astro-kfgfmt__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-kfgfmt__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#9a2d2d;margin:0 0 14px;text-align:center}
+.astro-kfgfmt__lead{max-width:640px;margin:0 auto 40px;text-align:center;font-size:17px;line-height:1.65;color:#5a4a3a}
+.astro-kfgfmt__lead strong{color:#2c2420}
+.astro-kfgfmt__badge{display:inline-block;background:#9a2d2d;color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:.03em}
+.astro-kfgfmt__badge--hell{background:#fff;color:#9a2d2d}
+.astro-kfgfmt__badges{display:flex;flex-wrap:wrap;gap:8px}
+.astro-kfgfmt__badge--rand,.astro-kfgfmt__badge--rand-hell{display:inline-flex;align-items:center;gap:6px}
+.astro-kfgfmt__badge--rand{background:#fff;color:#9a2d2d;box-shadow:inset 0 0 0 1.5px #9a2d2d}
+.astro-kfgfmt__badge--rand-hell{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.75)}
+.astro-kfgfmt__badge-icon{display:flex}
+
+/* Kindergottesdienste */
+.astro-kfgfmt__kigo{background:#fff;border:1px solid #e0d8cf;border-radius:20px;padding:40px;box-shadow:0 4px 24px rgba(30,21,18,.07)}
+.astro-kfgfmt__kigo-head{max-width:640px}
+.astro-kfgfmt__kigo-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,2.6vw,30px);font-weight:700;color:#2c2420;margin:14px 0 10px}
+.astro-kfgfmt__kigo-desc{font-size:16px;line-height:1.65;color:#5a4a3a;margin:0}
+.astro-kfgfmt__kigo-ort{display:inline-flex;align-items:flex-start;gap:10px;margin:16px 0 0;padding:12px 16px;border-radius:12px;background:#f7f3ef;font-size:15px;line-height:1.5;color:#5a4a3a}
+.astro-kfgfmt__kigo-ort strong{color:#2c2420}
+.astro-kfgfmt__kigo-ort-icon{display:flex;flex-shrink:0;color:#9a2d2d;margin-top:1px}
+.astro-kfgfmt__sub-label{margin:32px 0 14px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#a8883f}
+.astro-kfgfmt__subs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.astro-kfgfmt__sub{display:flex;flex-direction:column;border:1px solid #e0d8cf;border-radius:16px;overflow:hidden;background:#fff}
+.astro-kfgfmt__sub-img-wrap{position:relative;height:200px}
+.astro-kfgfmt__sub-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.astro-kfgfmt__sub-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:6px}
+.astro-kfgfmt__sub-title{display:flex;align-items:center;gap:8px;min-width:0;overflow-wrap:anywhere;font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:#9a2d2d;margin:0}
+.astro-kfgfmt__sub-icon{display:flex;color:#9a2d2d;flex-shrink:0}
+.astro-kfgfmt__sub-text{font-size:15px;line-height:1.55;color:#5a4a3a;margin:4px 0 0}
+/* Weg: senkrechte Linie mit Stationen (Ort fett, darunter was passiert) */
+.astro-kfgfmt__weg-label{margin:14px 0 4px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#a8883f}
+.astro-kfgfmt__weg{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.astro-kfgfmt__weg-step{position:relative;display:flex;flex-direction:column;gap:2px;padding:0 0 14px 26px;font-size:14.5px;line-height:1.5;color:#5a4a3a}
+.astro-kfgfmt__weg-step:last-child{padding-bottom:0}
+.astro-kfgfmt__weg-step::before{content:'';position:absolute;left:3px;top:5px;width:10px;height:10px;border-radius:50%;background:#fff;border:2.5px solid #9a2d2d}
+.astro-kfgfmt__weg-step:not(:last-child)::after{content:'';position:absolute;left:8px;top:19px;bottom:1px;width:2px;background:#e8d9c8}
+.astro-kfgfmt__weg-step strong{color:#2c2420;font-size:15px}
+.astro-kfgfmt__kigo-foot{margin:24px 0 0;padding-top:22px;border-top:1px solid #f0e8d8;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+
+/* Familiengottesdienste */
+.astro-kfgfmt__fam{position:relative;margin-top:40px;border-radius:20px;overflow:hidden;min-height:440px;display:flex;align-items:center;background:#6e1e1e;box-shadow:0 4px 24px rgba(30,21,18,.1)}
+.astro-kfgfmt__fam-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;display:block}
+.astro-kfgfmt__fam::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(110,30,30,.95) 0%,rgba(122,34,34,.82) 38%,rgba(122,34,34,0) 68%)}
+.astro-kfgfmt__fam-box{position:relative;z-index:1;max-width:480px;padding:44px;color:#fff}
+.astro-kfgfmt__fam-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3vw,34px);font-weight:700;color:#fff;margin:14px 0 12px}
+.astro-kfgfmt__fam-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.astro-kfgfmt__fam-chips span{border:1.5px solid rgba(240,217,168,.7);color:#f0d9a8;font-size:13px;font-weight:600;padding:4px 12px;border-radius:999px}
+.astro-kfgfmt__fam-text{font-size:16px;line-height:1.65;color:rgba(255,255,255,.92);margin:0 0 16px}
+.astro-kfgfmt__fam-ort{display:flex;align-items:flex-start;gap:10px;margin:0 0 22px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.1);font-size:15px;line-height:1.5;color:rgba(255,255,255,.92)}
+.astro-kfgfmt__fam-ort strong{color:#fff}
+.astro-kfgfmt__fam-ort-icon{display:flex;flex-shrink:0;color:#f0d9a8;margin-top:1px}
+.astro-kfgfmt__fam-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;box-sizing:border-box;padding:10px 22px;border-radius:50px;background:#fff;color:#9a2d2d;font-size:15px;font-weight:600;text-decoration:none;transition:background .18s}
+.astro-kfgfmt__fam-link:hover{background:#f3e7d4}
+.astro-kfgfmt__fam-link--rot{background:#9a2d2d;color:#fff}
+.astro-kfgfmt__fam-link--rot:hover{background:#7d2424}
+
+@media(max-width:860px){
+  .astro-kfgfmt__subs{grid-template-columns:1fr}
+  .astro-kfgfmt__fam{flex-direction:column;align-items:stretch;min-height:0}
+  .astro-kfgfmt__fam-img{position:relative;height:220px}
+  .astro-kfgfmt__fam::after{display:none}
+  .astro-kfgfmt__fam-box{max-width:none;padding:28px 24px 30px}
+}
+@media(max-width:600px){
+  .astro-kfgfmt__inner{padding:0 20px}
+  .astro-kfgfmt{padding:40px 0 56px}
+  .astro-kfgfmt__lead{font-size:16px;margin-bottom:28px}
+  .astro-kfgfmt__kigo{padding:24px 18px;border-radius:16px}
+  .astro-kfgfmt__sub-img-wrap{height:170px}
+  .astro-kfgfmt__sub-body{padding:16px 18px 18px}
+}
 </style>
