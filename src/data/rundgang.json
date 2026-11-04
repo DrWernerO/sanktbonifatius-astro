@@ -53,7 +53,7 @@
       "ort": "Mittelgang, östlich vom Altar",
       "datei": "Station 5 Mittelgang hinter Altar.jpg",
       "position": { "x": 66.84, "y": 49.97 }, "blickrichtung": 0,
-      "startblick": { "yaw": 0, "pitch": 0 },
+      "startblick": { "yaw": 0, "pitch": 0 }, "zusaetzlicheInfopunkte": ["M"],
       "verbindungen": [{ "ziel": "vor-dem-altar", "ueber": [{ "x": 61.0, "y": 43.0 }], "wegpunkt": "umweg" }, "vor-der-treppe", "reliquie", "jona-nischen", "nischen-krypta"],
       "begleittext": "Hinter dem Altar geht der Blick nach vorne: zur breiten Treppe und zum Chorraum mit seinen bunten Fenstern."
     },
