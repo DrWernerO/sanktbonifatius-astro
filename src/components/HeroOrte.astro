@@ -1,0 +1,127 @@
+---
+// Hero der Startseite (seit 03.11.2026): ein großes Foto, Dreiklang als h1, rechts ein schmaler
+// senkrechter Streifen mit „Laschen" je Kirchort (Handy: Reihe oben) — Klick wechselt das Hero-Foto.
+// Entwurf: Entwuerfe/startseite-hero/startseite.html (Werner, 03.11.2026).
+// FOTOS: nur St. Bonifatius und Herz Jesu vorhanden (public/uploads/startseite/). Für St. Aposteln
+// und St. Wendel `img` in `orte` eintragen (800 + 1600 px WebP, Handbuch 1g) — dann wird die Lasche
+// automatisch klickbar; ohne `img` bleibt sie abgeblendet („Foto folgt").
+// Alle Fotos liegen als <img> im Dokument (nicht als CSS-Hintergrund, Checkliste Abschnitt 3);
+// nur das erste lädt mit hoher Priorität, die übrigen lazy.
+const IMG = '/uploads/startseite/';
+const orte = [
+  { id: 'bo', name: 'St. Bonifatius', img: 'hero-pfarrkirche', w: 1600, h: 1066,
+    alt: 'Luftbild der Pfarrkirche St. Bonifatius in Sachsenhausen, dahinter die Frankfurter Skyline' },
+  { id: 'hj', name: 'Herz Jesu', img: 'hero-herzjesu', w: 1600, h: 1200,
+    alt: 'Der Turm der Herz-Jesu-Kirche in Oberrad im Abendlicht, dahinter die Frankfurter Skyline' },
+  { id: 'sa', name: 'St. Aposteln' },
+  { id: 'sw', name: 'St. Wendel' },
+];
+---
+<section class="astro-hn" id="astro-hn" aria-labelledby="astro-hn-h1" data-ort="bo">
+  <div class="astro-hn__bgs">
+    {orte.filter((o) => o.img).map((o, i) => (
+      <picture class={`astro-hn__pic astro-hn__pic--${o.id}${i === 0 ? ' is-on' : ''}`} data-ort={o.id}>
+        <source media="(max-width:860px)" srcset={`${IMG}${o.img}-800.webp`} type="image/webp" />
+        <img src={`${IMG}${o.img}-1600.webp`} width={o.w} height={o.h} alt={i === 0 ? o.alt : ''} data-alt={o.alt}
+          loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" />
+      </picture>
+    ))}
+  </div>
+
+  <nav class="astro-hn__orte" aria-label="Foto nach Kirchort wählen">
+    {orte.map((o, i) => (
+      <button type="button" data-ort={o.id} aria-pressed={i === 0 ? 'true' : 'false'} disabled={!o.img} title={o.img ? undefined : 'Foto folgt'}>
+        {o.name}{!o.img && <small>Foto folgt</small>}
+      </button>
+    ))}
+  </nav>
+
+  <div class="astro-hn__in">
+    <div class="astro-hn__txt">
+      <h1 id="astro-hn-h1">
+        <span class="astro-hn__eyebrow"><span class="astro-hn__et"><span class="astro-hn__dk">Katholische </span>Pfarrei Sankt Bonifatius Frankfurt<span class="astro-hn__dk"> · Sachsenhausen &amp; Oberrad</span></span></span>
+        <span>Mitten in Frankfurt.</span><span>Mitten im Leben.</span><span>Mitten im Glauben.</span>
+      </h1>
+      <p class="astro-hn__lead">Vier Kirchen, offen für alle, die suchen, feiern, fragen oder mit anpacken.</p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var hero = document.getElementById('astro-hn');
+    if (!hero) return;
+    var buttons = hero.querySelectorAll('.astro-hn__orte button[data-ort]');
+    var pics = hero.querySelectorAll('.astro-hn__pic');
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var ort = b.dataset.ort;
+        if (!ort || b.getAttribute('aria-pressed') === 'true') return;
+        buttons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        hero.dataset.ort = ort;
+        pics.forEach(function (p) {
+          var an = p.dataset.ort === ort;
+          p.classList.toggle('is-on', an);
+          var img = p.querySelector('img');
+          if (img) img.alt = an ? img.getAttribute('data-alt') || '' : '';
+        });
+      });
+    });
+  })();
+</script>
+
+<style is:global>
+.astro-hn{--hn-gold:#c5a55a;--hn-deep:#806b3a;position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;height:660px;color:#fff;overflow:hidden;background:#1a120e}
+.astro-hn__bgs,.astro-hn__pic{position:absolute;inset:0}
+.astro-hn__pic{opacity:0;transition:opacity .45s ease}
+.astro-hn__pic.is-on{opacity:1}
+.astro-hn__pic img{filter:saturate(1.22) contrast(1.08) brightness(1.05);position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 66%}
+.astro-hn__pic--hj img{object-position:50% 64%;filter:saturate(1.3) contrast(1.06) brightness(1.28)}
+/* Breiter Desktop: Foto St. Bonifatius vergrößert und nach links verankert, damit der Kirchturm rechts neben dem Text steht */
+@media (min-width:1101px){
+  .astro-hn__pic--bo img{width:113%;height:auto;max-width:none;inset:auto auto auto 0;top:-10vw}
+}
+.astro-hn::after{content:"";position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(20,10,2,.62) 0%,rgba(20,10,2,.32) 46%,rgba(20,10,2,0) 78%),
+  linear-gradient(0deg,rgba(20,10,2,.50) 0%,rgba(20,10,2,0) 45%)}
+.astro-hn__in{position:relative;z-index:2;height:100%;max-width:1280px;margin:0 auto;padding:0 32px 56px;display:flex;align-items:flex-end}
+.astro-hn__txt{max-width:780px}
+.astro-hn__eyebrow{margin:0 0 18px;align-items:center;gap:14px}
+.astro-hn__eyebrow::before{content:"";width:34px;height:2px;background:var(--hn-gold);flex:none}
+.astro-hn h1{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(40px,4.5vw,66px);line-height:1.04;margin:0 0 22px;letter-spacing:-.01em;text-wrap:balance;color:#fff}
+.astro-hn h1 span{display:block}
+.astro-hn h1 .astro-hn__et,.astro-hn h1 .astro-hn__dk{display:inline}
+.astro-hn h1 .astro-hn__eyebrow{display:flex;font-family:'Source Sans 3',system-ui,sans-serif;font-size:13px;font-weight:600;line-height:1.4;letter-spacing:.2em;text-transform:uppercase;color:#e3c987}
+.astro-hn__lead{font-size:20px;line-height:1.5;margin:0;max-width:600px;text-wrap:balance;color:#f3ece0}
+
+/* Laschen: Desktop = schmaler senkrechter Streifen am rechten Rand (unter der fixen Nav), Handy = Reihe oben rechts (s. u.) */
+.astro-hn__orte{position:absolute;right:0;top:80px;bottom:0;width:46px;z-index:4;display:flex;flex-direction:column;align-items:stretch}
+.astro-hn__orte button{flex:1;width:46px;min-width:0;font:inherit;font-size:14px;font-weight:600;letter-spacing:.05em;white-space:nowrap;color:#f3e9d8;background:rgba(26,18,14,.40);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:0;border-top:1px solid rgba(255,255,255,.16);border-radius:0;padding:14px 0;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;cursor:pointer;transition:background .2s}
+.astro-hn__orte button:first-child{border-top:0}
+.astro-hn__orte button:hover:not(:disabled){background:rgba(26,18,14,.7)}
+.astro-hn__orte button[aria-pressed="true"]{background:rgba(26,18,14,.82);box-shadow:inset -3px 0 0 var(--hn-gold);color:#fff}
+.astro-hn__orte button:focus-visible{outline:3px solid var(--hn-gold);outline-offset:-3px}
+.astro-hn__orte button:disabled{opacity:.5;cursor:default}
+.astro-hn__orte small{display:none}
+@media (min-width:861px){.astro-hn__in{padding-right:78px}}
+
+@media (max-width:860px){
+  .astro-hn{height:370px}
+  .astro-hn__pic--bo img{object-position:46% 74%}
+  .astro-hn__pic--hj img{object-position:58% 40%}
+  .astro-hn::after{background:linear-gradient(0deg,rgba(20,10,2,.74) 0%,rgba(20,10,2,.26) 52%,rgba(20,10,2,.02) 100%)}
+  .astro-hn__in{padding:0 18px 20px}
+  .astro-hn__txt{max-width:none}
+  .astro-hn h1 .astro-hn__eyebrow{font-size:11px;letter-spacing:.16em}
+  .astro-hn__eyebrow{margin-bottom:10px}
+  .astro-hn__eyebrow::before{width:22px}
+  .astro-hn h1 .astro-hn__dk,.astro-hn__lead{display:none}
+  .astro-hn h1{font-size:29px;margin:0;line-height:1.08}
+  .astro-hn__orte{top:90px;bottom:auto;width:auto;flex-direction:row;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:100%;padding-left:12px}
+  .astro-hn__orte button{flex:none;width:auto;writing-mode:horizontal-tb;transform:none;font-size:12px;letter-spacing:.02em;padding:6px 9px;min-height:36px;border:1px solid rgba(255,255,255,.2);border-radius:14px 0 0 14px}
+  .astro-hn__orte button:first-child{border-top:1px solid rgba(255,255,255,.2)}
+  .astro-hn__orte button[aria-pressed="true"]{box-shadow:none;border-color:var(--hn-gold)}
+}
+
+@media (prefers-reduced-motion:reduce){.astro-hn__pic{transition:none}}
+</style>

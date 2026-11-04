@@ -1,5 +1,11 @@
 ---
 // Hauptinhalt Kita St. Aposteln — Info-Strip, Angebot, Haus, Tagesablauf, Öffnungszeiten, Anmeldung, Pädagogik
+// Besichtigungstermine: vergangene blenden sich aus (Werners Design-Review, 2026-11-01) — beim
+// Build per Datumsvergleich, zusätzlich im Browser, weil die Seite statisch ist.
+const BESICHTIGUNG = ['2026-07-15', '2026-08-19', '2026-09-16', '2026-10-21', '2026-11-18'];
+const terminEnde = (d) => Date.parse(`${d}T23:59:59+01:00`);
+const kommend = BESICHTIGUNG.filter((d) => Date.now() < terminEnde(d));
+const kurz = (d) => `${d.slice(8, 10)}.${d.slice(5, 7)}.`;
 ---
 
 <!-- INFO STRIP -->
@@ -137,7 +143,10 @@
   <div class="astro-kap-anmeld__in">
     <h2 class="astro-kap-anmeld__h2">Sie haben Interesse an einem Platz?</h2>
     <p class="astro-kap-anmeld__lead">Wir freuen uns, wenn Sie zu einem Informationsnachmittag vorbeikommen und wir Sie pers&ouml;nlich kennenlernen. Bei einer F&uuml;hrung durch die Kita bekommen Sie einen ersten Eindruck von unserer Arbeit.</p>
-    <p class="astro-kap-anmeld__lead" style="margin-top:8px">Besichtigungstermine sind jeden 3. Mittwoch im Monat um 17:00 Uhr in der Kita St. Aposteln. Termine 2026: 15.07., 19.08., 16.09., 21.10., 18.11.</p>
+    <p class="astro-kap-anmeld__lead" style="margin-top:8px">Besichtigungstermine sind jeden 3. Mittwoch im Monat um 17:00 Uhr in der Kita St. Aposteln.
+      <span class="astro-kap-anmeld__termine" data-termine={kommend.join(',')} hidden={kommend.length === 0}>{kommend.length === 1 ? 'Nächster Termin' : 'Nächste Termine'}: {kommend.map(kurz).join(', ')}</span>
+      <span class="astro-kap-anmeld__keine" hidden={kommend.length > 0}>Den n&auml;chsten Termin nennen wir Ihnen gerne auf Anfrage.</span>
+    </p>
     <div class="astro-kap-anmeld__ctas">
       <a href="#astro-kap-kontakt" class="astro-kap-btn astro-kap-btn--accent">Besichtigungstermin anfragen</a>
       <a href="https://www.kindernetfrankfurt.de/start?0" target="_blank" rel="noopener" class="astro-kap-btn astro-kap-btn--outline">Anmeldung &uuml;ber Kindernet Frankfurt &#8599;</a>
@@ -191,6 +200,22 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.astro-kap-anmeld__termine[data-termine]').forEach(function (el) {
+    const offen = (el.dataset.termine || '').split(',').filter(function (d) {
+      return d && Date.now() < Date.parse(d + 'T23:59:59+01:00');
+    });
+    if (offen.length === 0) {
+      el.hidden = true;
+      const keine = el.parentElement?.querySelector<HTMLElement>('.astro-kap-anmeld__keine');
+      if (keine) keine.hidden = false;
+      return;
+    }
+    el.textContent = (offen.length === 1 ? 'Nächster Termin' : 'Nächste Termine') + ': '
+      + offen.map(function (d) { return d.slice(8, 10) + '.' + d.slice(5, 7) + '.'; }).join(', ');
+  });
+</script>
 
 <style is:global>
 /* STRIP */

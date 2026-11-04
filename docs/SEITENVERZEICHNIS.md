@@ -13,7 +13,7 @@ Live-Seiten der Pfarrei Sankt Bonifatius (Frankfurt am Main) und Stand der Über
 
 | Name der Seite | URL | Neue Astro-Seite | Zuständig | Status | Bemerkungen |
 |---|---|---|---|---|---|
-| Startseite | [Link](https://www.sanktbonifatius.de/) | `src/pages/index.astro` | Werner | ✅ erledigt | Page-ID 45758, vollständig auf Astro-Komponenten umgestellt. **Seit 16.09.2026:** Quicklink „Gottesdienste" → „Gottesdienste heute" umbenannt (führt weiter zur Gottesdienstordnung); Intro-Text in `QuickLinks.astro` verlinkt jetzt die 5 Kitas einzeln mit Stadtteil |
+| Startseite | [Link](https://www.sanktbonifatius.de/) | `src/pages/index.astro` | Werner | ✅ erledigt | Page-ID 45758, vollständig auf Astro-Komponenten umgestellt. **Seit 16.09.2026:** Quicklink „Gottesdienste" → „Gottesdienste heute" umbenannt (führt weiter zur Gottesdienstordnung); Intro-Text in `QuickLinks.astro` verlinkt jetzt die 5 Kitas einzeln mit Stadtteil. **Neu seit 03.11.2026:** Kopfbereich ersetzt (`HeroOrte`: ein Foto, Dreiklang als h1, senkrechter Laschen-Streifen je Kirchort wechselt das Foto, Handy: Reihe oben; `NaechsteGottesdienste`: nächster Gottesdienst je Kirchort aus ChurchDesk; `WegeKacheln`: vier Kacheln + „Häufig gesucht“); Seite jetzt serverseitig gerendert (`prerender=false`, CDN-Cache 5 Min.); versteckte SEO-h1 im Programm-Block aus (`seoH1={false}`). Fotos St. Bonifatius + Herz Jesu unter `public/uploads/startseite/`. **Offen:** Hero-Fotos St. Aposteln und St. Wendel (Laschen bis dahin abgeblendet). Alte `Hero.astro`/`QuickLinks.astro` liegen ungenutzt im Repo |
 
 ## 2 · Über uns (mit Unterseiten)
 
