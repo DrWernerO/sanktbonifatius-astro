@@ -38,7 +38,7 @@ const fotos = [
 
 <script>
   // Auto-Akkordeon: alle DAUER ms das nächste Foto öffnen; Klick öffnet direkt.
-  const DAUER = 7500;
+  const DAUER = 6000;
   const still = window.matchMedia('(prefers-reduced-motion: reduce)');
   document.querySelectorAll<HTMLElement>('[data-astro-bthero-acc]').forEach((acc) => {
     const panels = [...acc.querySelectorAll<HTMLButtonElement>('.astro-bthero__panel')];
@@ -73,7 +73,7 @@ const fotos = [
 </script>
 
 <style is:global>
-.astro-bthero{--astro-bthero-dauer:7.5s;--astro-bthero-ton:#7a2d28;--astro-bthero-start:40%;position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:600px;display:flex;align-items:center;overflow:hidden;background:linear-gradient(90deg,#4a2e1a 0%,var(--astro-bthero-ton) var(--astro-bthero-start))}
+.astro-bthero{--astro-bthero-dauer:6s;--astro-bthero-ton:#7a2d28;--astro-bthero-start:40%;position:relative;width:100vw;left:50%;margin-left:-50vw;margin-right:-50vw;min-height:600px;display:flex;align-items:center;overflow:hidden;background:linear-gradient(90deg,#4a2e1a 0%,var(--astro-bthero-ton) var(--astro-bthero-start))}
 .astro-bthero__inner{position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;padding:130px 40px 64px;box-sizing:border-box;color:#fff;pointer-events:none}
 .astro-bthero__text{max-width:min(460px,38vw);pointer-events:auto}
 .astro-bthero__eyebrow{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:14px}
@@ -99,12 +99,14 @@ const fotos = [
 .astro-bthero__acc::before{content:'';position:absolute;inset:0 0 auto 0;height:140px;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,12,8,.45),rgba(20,12,8,0))}
 
 @media(max-width:899px){
-  .astro-bthero{display:block;min-height:0;background:linear-gradient(180deg,#4a2e1a 0%,var(--astro-bthero-ton) 100%)}
+  .astro-bthero{display:block;min-height:0;background:var(--astro-bthero-ton)}
   .astro-bthero__inner{padding:110px 24px 28px}
   .astro-bthero__text{max-width:none}
   .astro-bthero__acc{position:relative;left:auto;height:300px;gap:3px}
-  .astro-bthero__acc::before{height:80px;background:linear-gradient(180deg,var(--astro-bthero-ton) 0%,rgba(122,45,40,0) 100%)}
+  /* harte Kante zwischen Text und Fotos (Frank, 04.11.) – kein Verlauf über den Bildern */
+  .astro-bthero__acc::before{display:none}
   .astro-bthero__panel{flex-basis:44px}
+  .astro-bthero__panel::after{background:rgba(74,22,20,.6)}
   .astro-bthero__fade{display:none}
 }
 @media(max-width:600px){
