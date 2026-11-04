@@ -10,8 +10,17 @@ import daten from '../data/rundgang.json';
 import kacheln from '../data/rundgang-kacheln.json';
 
 const stationen = daten.stationen.filter((s) => kacheln[s.id]);
+// Ortsliste: dieselben Infopunkte wie im Bild – von der Empore alle sichtbaren, sonst nur die in Reichweite
+const meterBis = (s: any, i: any) => Math.hypot(
+  ((i.position.x - s.position.x) / 100) * daten.grundriss.breiteMeter,
+  ((i.position.y - s.position.y) / 100) * daten.grundriss.hoeheMeter,
+  (i.boden || 0) + (i.hoehe ?? 1.5) - ((s.boden || 0) + daten.kamerahoeheMeter),
+);
 const infoProStation = Object.fromEntries(
-  stationen.map((s) => [s.id, daten.infopunkte.filter((i) => i.sichtbarVon.includes(s.id))]),
+  stationen.map((s) => [s.id, daten.infopunkte
+    .filter((i) => i.sichtbarVon.includes(s.id) && (s.ebene === 'Empore' || meterBis(s, i) <= daten.infopunktAnzeige.reichweiteMeter
+      || (s as any).zusaetzlicheInfopunkte?.includes(i.id)))
+    .sort((a, b) => meterBis(s, a) - meterBis(s, b))]),
 );
 const geschichtenProStation = Object.fromEntries(
   stationen.map((s) => [s.id, daten.geschichten.filter((g) => g.station === s.id)]),
@@ -134,8 +143,8 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   </div>
 
   <dialog class="astro-rg-dialog" id="astro-rg-dialog" aria-labelledby="astro-rg-dialog-titel">
+    <button type="button" class="astro-rg-dialog-zu" id="astro-rg-dialog-zu" aria-label="Schließen">×</button>
     <div class="astro-rg-dialog-box">
-      <button type="button" class="astro-rg-dialog-zu" id="astro-rg-dialog-zu" aria-label="Schließen">×</button>
       <div id="astro-rg-dialog-inhalt"></div>
     </div>
   </dialog>
@@ -147,7 +156,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   type Pos = { x: number; y: number };
   type Station = {
     nr: number; id: string; titel: string; ort: string; position: Pos; karte?: Pos; blickrichtung: number;
-    boden?: number; ebene?: string; startblick: { yaw: number; pitch: number };
+    boden?: number; ebene?: string; startblick: { yaw: number; pitch: number }; zusaetzlicheInfopunkte?: string[];
     verbindungen: (string | { ziel: string; yaw?: number; pitch?: number; label?: string; ueber?: Pos[]; wegpunkt?: 'umweg' })[];
     begleittext: string;
   };
@@ -175,6 +184,19 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   // ab ca. 25 m die Mindestgröße (bleibt antippbar). Wirkt über die CSS-Variable --rg-gross.
   const groesse = (meter: number) => Math.max(0.6, Math.min(1, 1.2 - 0.024 * meter)).toFixed(2);
 
+  // Infopunkte (Frank 2026-11-04): direkt davor volle Größe, in der Nähe deutlich kleiner und mit der
+  // Entfernung weiter schrumpfend, außer Reichweite ausgeblendet – damit der Blick nicht überladen wirkt.
+  // Von der Empore alle sichtbaren, ebenfalls nach Entfernung abgestuft (dort ist nichts näher als ~14 m).
+  const { vollBisMeter: VOLL, reichweiteMeter: REICHWEITE } = daten.infopunktAnzeige;
+  const anteil = (m: number, von: number, bis: number) => Math.max(0, Math.min(1, (m - von) / (bis - von)));
+  // `zusaetzlicheInfopunkte` einer Station: dort auch jenseits der Reichweite zeigen (kleinste Größe),
+  // z. B. vom zentralen Platz vor dem Altar die Osterkerze und die Engelbilder.
+  function infoGroesse(meter: number, s: Station, id: string): string | null {
+    if (s.ebene === 'Empore') return (0.9 - 0.4 * anteil(meter, 14, 40)).toFixed(2);
+    if (meter > REICHWEITE) return s.zusaetzlicheInfopunkte?.includes(id) ? '0.45' : null;
+    return meter <= VOLL ? '1' : (0.7 - 0.25 * anteil(meter, VOLL, REICHWEITE)).toFixed(2);
+  }
+
   const ICON: Record<string, string> = {
     pfeil: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     video: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2" fill="currentColor"/><path d="M17 10l4-2v8l-4-2z" fill="currentColor"/></svg>',
@@ -184,9 +206,9 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   };
   const MEDIUM: Record<string, string> = { video: 'Video', audio: 'Tonaufnahme', text: 'Text' };
 
-  function knopf(div: HTMLElement, klasse: string, html: string, label: string, aktion: () => void, meter = 0) {
+  function knopf(div: HTMLElement, klasse: string, html: string, label: string, aktion: () => void, meter = 0, gross?: string) {
     div.classList.add('astro-rg-hs');
-    div.style.setProperty('--rg-gross', groesse(meter));
+    div.style.setProperty('--rg-gross', gross ?? groesse(meter));
     const b = document.createElement('button');
     b.type = 'button';
     b.className = klasse;
@@ -224,11 +246,13 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     for (const i of daten.infopunkte.filter((p: any) => p.sichtbarVon.includes(s.id))) {
       // `ansichten.<station>`: Lage im Bild von Hand (z. B. von der Empore, wo Objekthöhen von oben nicht passen)
       const berechnet = richtung(s, i.position, i.boden || 0, i.hoehe ?? 1.5);
+      const gross = infoGroesse(berechnet.raum, s, i.id);
+      if (gross === null) continue;
       const r = i.ansichten?.[s.id] || berechnet;
       liste.push({
         yaw: r.yaw, pitch: r.pitch, type: 'custom', cssClass: 'astro-rg-hs-info',
         createTooltipFunc: (div: HTMLElement) =>
-          knopf(div, 'astro-rg-info', `<span aria-hidden="true">i</span><span class="astro-rg-hs-label">${i.titel}</span>`, `Info: ${i.titel}`, () => zeigeInfo(i), berechnet.raum),
+          knopf(div, 'astro-rg-info', `<span aria-hidden="true">i</span><span class="astro-rg-hs-label">${i.titel}</span>`, `Info: ${i.titel}`, () => zeigeInfo(i), berechnet.raum, gross),
       });
     }
     // Geschichten der eigenen Station an ihrer Stelle; von Überblicks-Standpunkten (Empore, `geschichtenVon`)
@@ -628,6 +652,11 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     const teile: HTMLElement[] = [];
     if (i.foto) { const img = el('img') as HTMLImageElement; img.src = i.foto; img.alt = i.titel; teile.push(img); }
     teile.push(el('p', i.text || 'Infotext und Detailfoto folgen.', i.text ? '' : 'astro-rg-platzhalter'));
+    if (i.mehr?.length) {
+      const d = el('details', '', 'astro-rg-mehr'); d.appendChild(el('summary', 'Mehr erfahren'));
+      i.mehr.forEach((absatz: string) => d.appendChild(el('p', absatz)));
+      teile.push(d);
+    }
     oeffne(i.titel, teile, 'Infopunkt');
   }
   function zeigeGeschichte(g: any) {
@@ -725,7 +754,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-galerie:hover, .astro-rg-galerie:focus-visible { background: #b80015; outline: none; transform: translate(-50%, -50%) scale(1.06); }
 
   .astro-rg-info { position: relative; transform: translate(-50%, -50%); width: calc(38px * var(--rg-gross, 1)); height: calc(38px * var(--rg-gross, 1)); border-radius: 50%; padding: 0;
-    border: 3px solid #fff; background: var(--rg-rot); color: #fff; font: 700 calc(20px * var(--rg-gross, 1))/1 Georgia, serif;
+    border: max(1.5px, calc(3px * var(--rg-gross, 1))) solid #fff; background: var(--rg-rot); color: #fff; font: 700 calc(20px * var(--rg-gross, 1))/1 Georgia, serif;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); display: grid; place-items: center; }
   .astro-rg-hs-label { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 4px 10px;
     border-radius: 999px; background: var(--rg-creme); color: var(--rg-schwarz); font: 600 13px/1.2 'Source Sans 3', sans-serif;
@@ -810,10 +839,12 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 
   /* Dialog */
   /* margin:auto zentriert das Fenster (das globale Stylesheet setzt margin:0 für alles) */
-  .astro-rg-dialog { margin: auto; border: 0; border-radius: 12px; padding: 0; width: min(640px, calc(100% - 32px)); max-height: 86vh; background: #fff; color: var(--rg-schwarz); }
+  .astro-rg-dialog { margin: auto; border: 0; border-radius: 12px; padding: 0; width: min(640px, calc(100% - 32px)); max-height: 86vh; overflow: hidden; background: #fff; color: var(--rg-schwarz); }
   .astro-rg-dialog::backdrop { background: rgba(10, 10, 10, 0.7); }
-  .astro-rg-dialog-box { position: relative; padding: 28px 28px 24px; }
-  .astro-rg-dialog-zu { position: absolute; top: 10px; right: 12px; width: 40px; height: 40px; border: 0; background: none; font-size: 30px; line-height: 1; cursor: pointer; color: #555; }
+  /* Der Inhalt scrollt, das × bleibt oben rechts stehen */
+  .astro-rg-dialog[open] { display: flex; flex-direction: column; }
+  .astro-rg-dialog-box { position: relative; flex: 1 1 auto; min-height: 0; padding: 28px 28px 24px; overflow-y: auto; overscroll-behavior: contain; }
+  .astro-rg-dialog-zu { position: absolute; z-index: 1; top: 10px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.92); font-size: 30px; line-height: 1; cursor: pointer; color: #555; }
   .astro-rg-dialog-zu:focus-visible { outline: 3px solid var(--rg-rot); border-radius: 50%; }
   .astro-rg-dialog h2 { font-family: 'Playfair Display', serif; margin: 0 0 12px; padding-right: 36px; }
   .astro-rg-dialog img, .astro-rg-dialog video { width: 100%; border-radius: 8px; display: block; margin-bottom: 12px; background: #111; }
@@ -825,6 +856,11 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-galerie-objekt img { aspect-ratio: 3 / 4; object-fit: cover; margin: 0; }
   .astro-rg-galerie-objekt:hover, .astro-rg-galerie-objekt:focus-visible { border-color: var(--rg-rot); outline: none; }
   .astro-rg-galerie-gross { max-height: 50vh; object-fit: contain; }
+  .astro-rg-dialog-box > div > img { max-height: 45vh; object-fit: contain; background: var(--rg-creme); }
+  .astro-rg-mehr { margin-top: 4px; border-top: 1px solid #e5e0d8; padding-top: 10px; }
+  .astro-rg-mehr p { margin: 10px 0 0; }
+  .astro-rg-mehr summary { cursor: pointer; font-weight: 700; color: var(--rg-rot); }
+  .astro-rg-mehr summary:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: 2px; border-radius: 4px; }
 
   @media (max-width: 640px) {
     .astro-rg { padding: 0 12px; }
