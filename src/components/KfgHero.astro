@@ -11,6 +11,10 @@ const bg = '/uploads/2026/05/familiengottesdienst-stbonifatius-frankfurt.jpg';
   <div class="astro-kfghero__inner">
     <h1 class="astro-kfghero__title">Kinder- und Familiengottesdienste</h1>
     <p class="astro-kfghero__sub">Lebendig, kreativ, herzlich &mdash; Gottes Wort erfahren auf eine Weise, die wirklich berührt. Für Familien, Kinder und alle, die dazugehören möchten.</p>
+    <div class="astro-kfghero__btns">
+      <a href="#formate" class="astro-kfghero__btn astro-kfghero__btn--primary">Unsere Formate</a>
+      <a href="#termine" class="astro-kfghero__btn astro-kfghero__btn--outline">Nächste Termine ansehen<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+    </div>
   </div>
 </section>
 
@@ -23,5 +27,13 @@ const bg = '/uploads/2026/05/familiengottesdienst-stbonifatius-frankfurt.jpg';
 /* Handy: langes Wort „Familiengottesdienste" passt sonst nicht in die Zeile */
 @media(max-width:600px){.astro-kfghero__title{font-size:clamp(26px,8vw,38px)}}
 .astro-kfghero__sub{font-size:clamp(16px,1.9vw,20px);color:#e8ddc9;line-height:1.55;margin:0;max-width:640px}
-@media(max-width:600px){.astro-kfghero__inner{padding:0 20px 48px}.astro-kfghero{min-height:440px}}
+/* Sprung-Buttons zu den Infokacheln (#formate) und Terminen (#termine), Stil wie BfHero */
+.astro-kfghero__btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.astro-kfghero__btn{display:inline-flex;align-items:center;gap:8px;min-height:46px;box-sizing:border-box;padding:11px 26px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:background .18s,color .18s,border-color .18s}
+.astro-kfghero__btn--primary{background:#fff;color:#9a2d2d;border:2px solid #fff}
+.astro-kfghero__btn--primary:hover{background:#f3e7d4;border-color:#f3e7d4;color:#7e2424}
+.astro-kfghero__btn--outline{background:rgba(255,255,255,.12);color:#fff;border:2px solid rgba(255,255,255,.6);backdrop-filter:blur(4px)}
+.astro-kfghero__btn--outline:hover{background:rgba(255,255,255,.22);border-color:#fff}
+.astro-kfghero__btn:focus-visible{outline:3px solid #f0d9a8;outline-offset:2px}
+@media(max-width:600px){.astro-kfghero__inner{padding:0 20px 48px}.astro-kfghero{min-height:500px}}
 </style>
