@@ -62,10 +62,10 @@ Neue Geschichte unter `geschichten` nach diesem Muster:
 - `"beispiel": true` nur für Platzhalter – solche Einträge vor der Veröffentlichung löschen.
 - **Vor dem Einstellen:** schriftliche Einwilligung (KDG) der Person, bei Kindern der Eltern – auch
   für alle anderen, die im Video oder auf dem Foto zu sehen sind.
-- **Entwurf:** Die Beispiele von Werner (Video) und Uwe (Foto) liegen nur lokal in
-  `public/rundgang/entwurf.nosync/` (über `.git/info/exclude` ausgenommen) und fehlen deshalb auf der
-  Website. Videos sind für das Repo zu groß (Werners auch verkleinert 11 MB) – für echte Videos einen
-  eigenen Ablageort klären.
+- **Medien** nach `public/uploads/jubilaeum/geschichten/`. Jede Datei unter 1 MB (Pre-Push-Hook):
+  Fotos als WebP, Videos klein rechnen – Werners Beispiel (18 s) mit 640 × 360 bei ca. 330 kbit/s
+  ergibt 870 KB (`swift scripts/video-verkleinern.swift <ein> <aus.mp4> 640 360 330000`). Längere Videos passen so
+  nicht ins Repo – Ablageort dafür ist noch offen (Handbuch 1j).
 
 ## Blick von der Empore
 
