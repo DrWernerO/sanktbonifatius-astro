@@ -22,9 +22,6 @@ const infoProStation = Object.fromEntries(
       || (s as any).zusaetzlicheInfopunkte?.includes(i.id)))
     .sort((a, b) => meterBis(s, a) - meterBis(s, b))]),
 );
-const geschichtenProStation = Object.fromEntries(
-  stationen.map((s) => [s.id, daten.geschichten.filter((g) => g.station === s.id)]),
-);
 const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 ---
 <link rel="stylesheet" href="/vendor/pannellum/pannellum.css" />
@@ -37,6 +34,13 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     <div id="astro-rg-viewer" class="astro-rg-viewer" aria-label="360-Grad-Ansicht der Kirche. Mit Maus, Finger oder Pfeiltasten umschauen."></div>
 
     <p class="astro-rg-ort" id="astro-rg-ort" aria-live="polite"></p>
+
+    <div class="astro-rg-hg-steuerung" id="astro-rg-hg-steuerung" role="group" aria-label={daten.heiligengalerie.titel} hidden>
+      <button type="button" id="astro-rg-hg-links" aria-label="Zur vorigen Geschichte drehen">←</button>
+      <span class="astro-rg-hg-titel">{daten.heiligengalerie.titel}</span>
+      <button type="button" id="astro-rg-hg-zu"><span class="astro-rg-hg-lang">Galerie schließen</span><span class="astro-rg-hg-kurz">Schließen</span></button>
+      <button type="button" id="astro-rg-hg-rechts" aria-label="Zur nächsten Geschichte drehen">→</button>
+    </div>
 
     <div class="astro-rg-werkzeuge">
       <button type="button" class="astro-rg-rund" id="astro-rg-karte-knopf" aria-expanded="false" aria-controls="astro-rg-karte" title="Grundriss">
@@ -111,7 +115,8 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       <li>Mit gedrückter Maustaste oder dem Finger im Bild ziehen, um sich umzuschauen.</li>
       <li>Zoomen mit dem Mausrad oder mit zwei Fingern.</li>
       <li>Weiße Wegpunkte mit Pfeil führen zu einem anderen Standpunkt.</li>
-      <li>Rote Punkte mit „i“ erklären besondere Orte, runde Bilder mit goldenem Rand erzählen Geschichten von Menschen.</li>
+      <li>Rote Punkte mit „i“ erklären besondere Orte.</li>
+      <li>Hinter dem Altar führt der goldene Knopf „{daten.heiligengalerie.titel}“ zu den Geschichten von Menschen: Ringsum erscheinen runde Bilder – einfach umdrehen, antippen, zuhören. Die Pfeile unten drehen von Geschichte zu Geschichte.</li>
       <li>Unter dem Bild lassen sich Wege, Infopunkte und Geschichten einzeln aus- und einblenden.</li>
       <li>Mit der Tastatur: Pfeiltasten drehen, Plus und Minus zoomen, mit der Tabulatortaste erreichen Sie Pfeile und Punkte.</li>
       <li>Über den Grundriss oben rechts oder die Liste unten springen Sie direkt zu jedem Ort.</li>
@@ -129,10 +134,10 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
             <h3><span class="astro-rg-ort-nr">{s.nr}</span> {s.titel}</h3>
             <p class="astro-rg-ort-lage">{s.ort}</p>
             <p>{s.begleittext}</p>
-            {(infoProStation[s.id].length > 0 || geschichtenProStation[s.id].length > 0) && (
+            {(infoProStation[s.id].length > 0 || s.id === daten.heiligengalerie.station) && (
               <ul class="astro-rg-ort-details">
                 {infoProStation[s.id].map((i) => <li>{i.titel}{!i.text && <em> – Infotext folgt</em>}</li>)}
-                {geschichtenProStation[s.id].map((g) => <li>Geschichte: {g.titel}{g.beispiel && <em> (Beispiel)</em>}</li>)}
+                {s.id === daten.heiligengalerie.station && <li>{daten.heiligengalerie.titel} mit {daten.geschichten.length} Geschichten</li>}
               </ul>
             )}
             <button type="button" class="astro-rg-knopf" data-station={s.id}>Hier umschauen</button>
@@ -140,6 +145,18 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
         </li>
       ))}
     </ol>
+
+    <details class="astro-rg-hg-liste">
+      <summary>Alle Geschichten der {daten.heiligengalerie.titel} ({daten.geschichten.length})</summary>
+      <ul>
+        {daten.geschichten.map((g) => (
+          <li>
+            <button type="button" data-geschichte={g.id}>{g.titel}</button>
+            {' – '}{[g.person, g.jahr].filter(Boolean).join(', ')}{g.beispiel && <em> (Beispiel)</em>}
+          </li>
+        ))}
+      </ul>
+    </details>
   </div>
 
   <dialog class="astro-rg-dialog" id="astro-rg-dialog" aria-labelledby="astro-rg-dialog-titel">
@@ -204,7 +221,8 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     text: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>',
     galerie: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l8-5 8 5v11z M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
   };
-  const MEDIUM: Record<string, string> = { video: 'Video', audio: 'Tonaufnahme', text: 'Text' };
+  ICON.foto = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2" fill="currentColor"/><circle cx="12" cy="12.5" r="3.4" fill="#c5a55a"/><path d="M8 6l1.5-2h5L16 6z" fill="currentColor"/></svg>';
+  const MEDIUM: Record<string, string> = { video: 'Video', audio: 'Tonaufnahme', text: 'Text', foto: 'Foto' };
 
   function knopf(div: HTMLElement, klasse: string, html: string, label: string, aktion: () => void, meter = 0, gross?: string) {
     div.classList.add('astro-rg-hs');
@@ -255,41 +273,14 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
           knopf(div, 'astro-rg-info', `<span aria-hidden="true">i</span><span class="astro-rg-hs-label">${i.titel}</span>`, `Info: ${i.titel}`, () => zeigeInfo(i), berechnet.raum, gross),
       });
     }
-    // Geschichten der eigenen Station an ihrer Stelle; von Überblicks-Standpunkten (Empore, `geschichtenVon`)
-    // zusätzlich alle Geschichten der dort sichtbaren Stationen – schwebend über deren Standort,
-    // mehrere an einem Ort leicht nebeneinander.
-    const geschichten: { g: any; yaw: number; pitch: number; meter: number }[] = daten.geschichten
-      .filter((x: any) => x.station === s.id)
-      .map((g: any) => ({ g, yaw: g.yaw, pitch: g.pitch, meter: 0 }));   // an der eigenen Station: nah
-    for (const ort of (s as any).geschichtenVon || []) {
-      const z = stationen[ort];
-      const dort = daten.geschichten.filter((x: any) => x.station === ort);
-      if (!z || !dort.length) continue;
-      const r = richtung(s, z.position, z.boden || 0, 4.5);   // hoch über dem Ort, damit sie nicht auf Infopunkten liegen
-      dort.forEach((g: any, n: number) => geschichten.push({ g, yaw: r.yaw + (n - (dort.length - 1) / 2) * 4, pitch: r.pitch, meter: r.raum }));
-    }
-    for (const { g, yaw, pitch, meter } of geschichten) {
-      const bild = g.vorschaubild
-        ? `<img src="${g.vorschaubild}" alt="">`
-        : `<span class="astro-rg-initialen">${(g.person || g.titel).split(/\s+/).map((w: string) => w[0]).join('').slice(0, 2)}</span>`;
+    // Geschichten hängen nicht mehr im Raum, sondern gesammelt in der Heiligengalerie (Frank 2026-11-04):
+    // an ihrer Station nur ein Knopf auf den Stufen zum Hochaltar, der den Zylinder hochfährt.
+    if (s.id === GAL.station) {
+      const r = richtung(s, GAL.knopf, GAL.knopf.boden || 0, GAL.knopf.hoehe ?? 0.4);
       liste.push({
-        yaw, pitch, type: 'custom', cssClass: 'astro-rg-hs-geschichte',
-        createTooltipFunc: (div: HTMLElement) => {
-          // Titel nur beim Drüberfahren; auf Touch-Geräten zeigt der erste Tipp den Titel, der zweite öffnet.
-          let tippen = false;
-          knopf(div, 'astro-rg-geschichte', `<span class="astro-rg-portrait">${bild}<span class="astro-rg-medium">${ICON[g.medium] || ''}</span></span><span class="astro-rg-hs-label">${g.titel} · ${g.jahr}</span>`,
-            `Geschichte: ${g.titel}, ${g.jahr} (${MEDIUM[g.medium] || ''})`, () => {
-              if (tippen && !b.classList.contains('astro-rg-titel-an')) {
-                titelAus();
-                b.classList.add('astro-rg-titel-an');
-                return;
-              }
-              titelAus();
-              zeigeGeschichte(g);
-            }, meter);
-          const b = div.querySelector('button')!;
-          b.addEventListener('pointerdown', (e) => { tippen = e.pointerType !== 'mouse'; });
-        },
+        yaw: r.yaw, pitch: r.pitch, type: 'custom', cssClass: 'astro-rg-hs-geschichte',
+        createTooltipFunc: (div: HTMLElement) =>
+          knopf(div, 'astro-rg-hg-knopf', `${ICON.galerie}<span>${GAL.titel}</span>`, `${GAL.titel} öffnen – ${daten.geschichten.length} Geschichten`, oeffneGalerie, 0, '1'),
       });
     }
     for (const gal of daten.galerien.filter((x: any) => x.station === s.id)) {
@@ -303,6 +294,106 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   }
   function titelAus() {
     document.querySelectorAll('.astro-rg-titel-an').forEach((x) => x.classList.remove('astro-rg-titel-an'));
+  }
+
+  // ---------- Heiligengalerie (Frank 2026-11-04) ----------
+  // Ein durchsichtiger Zylinder rund um die Station: Knopf antippen → der Zylinder fährt von unten hoch
+  // (gezeichnet als Band zwischen Unter- und Oberkante, Projektion wie die Bodenlinien), dann erscheinen
+  // ringsum die Geschichten – bewusst durcheinander in Reihenfolge und Höhe, aber ohne sich zu überdecken.
+  const GAL = daten.heiligengalerie;
+  const HUB_MS = 1100;
+  let galerieOffen = false;
+  let hub = 0;                 // 0 = Zylinder unten, 1 = ganz hochgezogen
+  let hubZiel = 0;
+
+  function geschichteKnopf(div: HTMLElement, g: any) {
+    const bild = g.vorschaubild
+      ? `<img src="${g.vorschaubild}" alt="">`
+      : `<span class="astro-rg-initialen">${g.kuerzel || (g.person || g.titel).split(/\s+/).map((w: string) => w[0]).join('').slice(0, 2)}</span>`;
+    const zeile = [g.titel, g.jahr].filter(Boolean).join(' · ');
+    // Titel nur beim Drüberfahren; auf Touch-Geräten zeigt der erste Tipp den Titel, der zweite öffnet.
+    let tippen = false;
+    knopf(div, 'astro-rg-geschichte', `<span class="astro-rg-portrait">${bild}<span class="astro-rg-medium">${ICON[g.medium] || ''}</span></span><span class="astro-rg-hs-label">${zeile}</span>`,
+      `Geschichte: ${zeile} (${MEDIUM[g.medium] || ''})`, () => {
+        if (tippen && !b.classList.contains('astro-rg-titel-an')) {
+          titelAus();
+          b.classList.add('astro-rg-titel-an');
+          return;
+        }
+        titelAus();
+        zeigeGeschichte(g);
+      }, 0, '1');
+    const b = div.querySelector('button')!;
+    b.addEventListener('pointerdown', (e) => { tippen = e.pointerType !== 'mouse'; });
+  }
+
+  // Feste „Zufalls“-Verteilung (gleicher Startwert → bei jedem Besuch dieselbe Anordnung).
+  function zufallszahlen(start: number) {
+    let a = start;
+    return () => { a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  }
+  const galerieLage: { g: any; yaw: number; pitch: number; verz: number }[] = (() => {
+    const zz = zufallszahlen(1927);
+    const liste = [...daten.geschichten];
+    for (let i = liste.length - 1; i > 0; i--) { const j = Math.floor(zz() * (i + 1)); [liste[i], liste[j]] = [liste[j], liste[i]]; }
+    const schritt = 360 / Math.max(1, liste.length);
+    const knopfYaw = richtung(stationen[GAL.station], GAL.knopf).yaw;
+    // drei Höhenlagen im Wechsel, damit Nachbarn nie auf gleicher Höhe hängen; dazu etwas Streuung
+    const rand = 8, unten = GAL.ring.unten + rand, oben = GAL.ring.oben - rand, lagen = [unten, (unten + oben) / 2, oben];
+    const reihe = [0, 2, 1];
+    return liste.map((g, i) => ({
+      g,
+      yaw: wrap(knopfYaw + i * schritt + (zz() - 0.5) * schritt * 0.5),
+      pitch: lagen[reihe[i % 3]] + (zz() - 0.5) * 7,
+      verz: Math.round(zz() * 500),
+    }));
+  })();
+
+  function hubAnimieren(ziel: number, fertig?: () => void) {
+    hubZiel = ziel;
+    if (ruhig) { hub = ziel; fertig?.(); return; }
+    const start = hub, t0 = performance.now(), dauer = HUB_MS * Math.abs(ziel - start);
+    (function schritt(t: number) {
+      if (hubZiel !== ziel) return;   // inzwischen umgekehrt
+      const x = dauer ? Math.min(1, (t - t0) / dauer) : 1;
+      hub = start + (ziel - start) * (1 - Math.pow(1 - x, 3));
+      if (x < 1) requestAnimationFrame(schritt); else fertig?.();
+    })(t0);
+  }
+  function oeffneGalerie() {
+    if (galerieOffen || viewer.getScene() !== GAL.station) return;
+    galerieOffen = true;
+    titelAus();
+    viewerEl.classList.add('astro-rg-galerie-offen');
+    hgSteuerung.hidden = false;
+    // schmale Bildschirme: etwas hineinzoomen, sonst drängen sich die Porträts nebeneinander
+    if (viewerEl.clientWidth < 640 && viewer.getHfov() > 65) viewer.setHfov(65, ruhig ? false : 600);
+    hubAnimieren(1, () => {
+      if (!galerieOffen) return;
+      galerieLage.forEach(({ g, yaw, pitch, verz }) =>
+        viewer.addHotSpot({
+          id: `hg-${g.id}`, yaw, pitch, type: 'custom', cssClass: 'astro-rg-hs-zylinder',
+          createTooltipFunc: (div: HTMLElement) => { div.style.setProperty('--verz', `${verz}ms`); geschichteKnopf(div, g); },
+        }, GAL.station),
+      );
+    });
+    (document.getElementById('astro-rg-hg-zu') as HTMLButtonElement).focus();
+  }
+  function schliesseGalerie(sofort = false) {
+    if (!galerieOffen) return;
+    galerieOffen = false;
+    titelAus();
+    galerieLage.forEach(({ g }) => { try { viewer.removeHotSpot(`hg-${g.id}`, GAL.station); } catch {} });
+    hgSteuerung.hidden = true;
+    const ende = () => viewerEl.classList.remove('astro-rg-galerie-offen');
+    if (sofort) { hubZiel = 0; hub = 0; ende(); } else hubAnimieren(0, ende);
+  }
+  // Pfeile: Blick zur nächsten Geschichte links/rechts drehen (auch ohne Ziehen bedienbar)
+  function blaettere(richtungPfeil: 1 | -1) {
+    const jetzt = viewer.getYaw();
+    const abstand = (y: number) => ((richtungPfeil * (y - jetzt)) % 360 + 360) % 360;
+    const naechste = galerieLage.filter((l) => abstand(l.yaw) > 3).sort((a, b) => abstand(a.yaw) - abstand(b.yaw))[0];
+    if (naechste) viewer.lookAt(naechste.pitch, naechste.yaw, viewer.getHfov(), ruhig ? false : 700);
   }
 
   // ---------- Bodenlinien (Frank 2026-10-30) ----------
@@ -370,11 +461,24 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     if (!canvas) return;
     if (linienSvg.parentNode !== canvas.parentNode) canvas.parentNode.insertBefore(linienSvg, canvas.nextSibling);
     const v = { yaw: viewer.getYaw(), pitch: viewer.getPitch(), hfov: viewer.getHfov(), w: canvas.clientWidth, h: canvas.clientHeight };
-    const stand = [viewer.getScene(), v.yaw.toFixed(2), v.pitch.toFixed(2), v.hfov.toFixed(2), v.w, v.h, hervorgehoben].join('|');
+    const stand = [viewer.getScene(), v.yaw.toFixed(2), v.pitch.toFixed(2), v.hfov.toFixed(2), v.w, v.h, hervorgehoben, hub.toFixed(3)].join('|');
     if (stand === letzterStand) return;
     letzterStand = stand;
     linienSvg.setAttribute('viewBox', `0 0 ${v.w} ${v.h}`);
     let svg = '';
+    if (hub > 0 && viewer.getScene() === GAL.station) {
+      // Heiligengalerie: Band zwischen Unterkante und (hochfahrender) Oberkante, nur im Blickfeld berechnet
+      const unten = GAL.ring.unten, oben = unten + (GAL.ring.oben - unten) * hub, weite = v.hfov / 2 + 45;
+      const kante = (p: number) => {
+        const pkte: string[] = [];
+        for (let y = v.yaw - weite; y <= v.yaw + weite; y += 2) { const q = projiziere([y, p], v); if (q) pkte.push(q); }
+        return pkte;
+      };
+      const o = kante(oben), u = kante(unten);
+      linienSvg.innerHTML = `<polygon class="astro-rg-zylinder" points="${[...o, ...[...u].reverse()].join(' ')}"/>`
+        + `<polyline class="astro-rg-zylinder-rand" points="${o.join(' ')}"/><polyline class="astro-rg-zylinder-rand" points="${u.join(' ')}"/>`;
+      return;
+    }
     for (const linie of linienProStation[viewer.getScene()] || []) {
       const aktiv = linie.ziel === hervorgehoben;
       svg += `<g class="${aktiv ? 'astro-rg-linie-aktiv' : ''}">`;
@@ -428,7 +532,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   // Linien bei jedem Bild nachführen (nur neu zeichnen, wenn sich Blick oder Größe geändert haben);
   // während der Überblendung zur nächsten Station ausblenden.
   (function schleife() { zeichneLinien(); requestAnimationFrame(schleife); })();
-  viewer.on('scenechange', () => { linienSvg.classList.add('astro-rg-linien-weg'); hervorgehoben = null; titelAus(); });
+  viewer.on('scenechange', () => { schliesseGalerie(true); linienSvg.classList.add('astro-rg-linien-weg'); hervorgehoben = null; titelAus(); });
   // Tipp ins Bild (nicht auf einen Punkt) blendet einen offenen Geschichten-Titel wieder aus
   viewer.on('mousedown', (e: any) => { if (!e?.target?.closest?.('.astro-rg-hs')) titelAus(); });
   viewer.on('load', () => { letzterStand = ''; linienSvg.classList.remove('astro-rg-linien-weg'); });
@@ -611,6 +715,19 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 
   // ---------- Legende: Wege, Infopunkte, Geschichten ein/aus ----------
   const viewerEl = document.getElementById('astro-rg-viewer')!;
+
+  // ---------- Heiligengalerie: Bedienung ----------
+  const hgSteuerung = document.getElementById('astro-rg-hg-steuerung')!;
+  document.getElementById('astro-rg-hg-zu')!.addEventListener('click', () => schliesseGalerie());
+  document.getElementById('astro-rg-hg-links')!.addEventListener('click', () => blaettere(-1));
+  document.getElementById('astro-rg-hg-rechts')!.addEventListener('click', () => blaettere(1));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && galerieOffen && !dialog.open) schliesseGalerie(); });
+  document.querySelectorAll<HTMLButtonElement>('.astro-rg-hg-liste button[data-geschichte]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const g = daten.geschichten.find((x: any) => x.id === b.dataset.geschichte);
+      if (g) zeigeGeschichte(g);
+    }),
+  );
   document.querySelectorAll<HTMLButtonElement>('.astro-rg-ebene').forEach((b) =>
     b.addEventListener('click', () => {
       const an = b.getAttribute('aria-pressed') !== 'true';
@@ -666,12 +783,13 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       const v = el('video') as HTMLVideoElement; v.controls = true; v.preload = 'metadata'; v.src = g.datei; teile.push(v);
     } else if (g.medium === 'audio' && g.datei) {
       const a = el('audio') as HTMLAudioElement; a.controls = true; a.preload = 'metadata'; a.src = g.datei; teile.push(a);
+    } else if (g.medium === 'foto' && g.datei) {
+      const img = el('img') as HTMLImageElement; img.src = g.datei; img.alt = `${g.titel} – ${g.person}`; teile.push(img);
     }
-    if (g.text) {
-      if (g.medium === 'text') teile.push(el('p', g.text));
-      else { const d = el('details'); d.appendChild(el('summary', 'Abschrift')); d.appendChild(el('p', g.text)); teile.push(d); }
-    }
-    oeffne(g.titel, teile, `${g.person} · ${g.jahr} · ${MEDIUM[g.medium] || ''}`);
+    // `text`: die Geschichte selbst, immer sichtbar; `abschrift`: Wortlaut von Video/Ton, eingeklappt
+    if (g.text) teile.push(el('p', g.text));
+    if (g.abschrift) { const d = el('details'); d.appendChild(el('summary', 'Abschrift')); d.appendChild(el('p', g.abschrift)); teile.push(d); }
+    oeffne(g.titel, teile, [g.person, g.jahr, MEDIUM[g.medium]].filter(Boolean).join(' · '));
   }
   function zeigeGalerie(gal: any) {
     const raster = el('div', '', 'astro-rg-galerie');
@@ -780,6 +898,36 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-linien .astro-rg-linie-aktiv polygon { opacity: 1; }
   .astro-rg-linien-weg { opacity: 0; transition: none; }
   .astro-rg-ohne-weg .astro-rg-linien, .astro-rg-ohne-weg .astro-rg-hs-weg,.astro-rg-ohne-info .astro-rg-hs-info, .astro-rg-ohne-geschichte .astro-rg-hs-geschichte { display: none; }
+
+  /* Heiligengalerie: Knopf auf den Stufen, Zylinder als Band, Geschichten ringsum (Frank 2026-11-04) */
+  .astro-rg-hg-knopf { display: inline-flex; align-items: center; gap: 8px; transform: translate(-50%, -50%); white-space: nowrap; padding: 9px 16px 9px 12px;
+    border: 2px solid #fff; border-radius: 999px; background: var(--rg-gold); color: var(--rg-schwarz); font: 700 15px 'Source Sans 3', sans-serif; cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); }
+  .astro-rg-hg-knopf svg { width: 20px; height: 20px; }
+  .astro-rg-hg-knopf:hover, .astro-rg-hg-knopf:focus-visible { background: #d9bd74; outline: none; transform: translate(-50%, -50%) scale(1.06); }
+  .astro-rg-hg-knopf:focus-visible { box-shadow: 0 0 0 3px var(--rg-schwarz), 0 2px 10px rgba(0, 0, 0, 0.45); }
+  .astro-rg-galerie-offen .astro-rg-linien { display: block; filter: none; }
+  .astro-rg-linien .astro-rg-zylinder { fill: rgba(255, 252, 244, 0.2); opacity: 1; }
+  .astro-rg-linien .astro-rg-zylinder-rand { fill: none; stroke: var(--rg-gold); stroke-width: 2.5; opacity: 0.95; filter: drop-shadow(0 0 4px rgba(197, 165, 90, 0.9)); }
+  .astro-rg-galerie-offen .astro-rg-hs-weg, .astro-rg-galerie-offen .astro-rg-hs-info, .astro-rg-galerie-offen .astro-rg-hs-geschichte { display: none; }
+  .astro-rg-hs-zylinder .astro-rg-geschichte { animation: astro-rg-hg-ein 0.55s ease-out both; animation-delay: var(--verz, 0ms); }
+  @keyframes astro-rg-hg-ein { from { opacity: 0; transform: translate(-50%, -30%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+  @media (prefers-reduced-motion: reduce) { .astro-rg-hs-zylinder .astro-rg-geschichte { animation: none; } }
+  .astro-rg-hg-steuerung { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 4; display: flex; gap: 8px; align-items: center; }
+  .astro-rg-hg-steuerung[hidden] { display: none; }
+  .astro-rg-hg-steuerung button { min-height: 44px; min-width: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: rgba(26, 26, 26, 0.82); color: #fff;
+    font: 600 15px 'Source Sans 3', sans-serif; cursor: pointer; }
+  .astro-rg-hg-steuerung button:hover, .astro-rg-hg-steuerung button:focus-visible { background: var(--rg-schwarz); outline: 3px solid var(--rg-gold); outline-offset: 1px; }
+  .astro-rg-hg-steuerung .astro-rg-hg-titel { padding: 0 10px; color: #fff; font: 700 15px 'Playfair Display', serif; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8); white-space: nowrap; }
+  .astro-rg-hg-liste { margin: 24px 0 0; }
+  .astro-rg-hg-liste summary { cursor: pointer; font-weight: 700; }
+  .astro-rg-hg-liste ul { columns: 2 260px; margin: 12px 0 0; padding-left: 20px; }
+  .astro-rg-hg-liste li { break-inside: avoid; margin-bottom: 6px; }
+  .astro-rg-hg-liste button { border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .astro-rg-galerie-offen ~ .astro-rg-ort { display: none; }
+  .astro-rg-hg-steuerung button { white-space: nowrap; }
+  .astro-rg-hg-kurz { display: none; }
+  @media (max-width: 640px) { .astro-rg-hg-steuerung .astro-rg-hg-titel, .astro-rg-hg-lang { display: none; } .astro-rg-hg-kurz { display: inline; } }
   /* Touch-Geräte haben kein Hover: Ziel-Namen der Wegpunkte dort immer zeigen */
   @media (hover: none) { .astro-rg-weg .astro-rg-hs-label { opacity: 0.92; font-size: 12px; padding: 3px 8px; } }
 

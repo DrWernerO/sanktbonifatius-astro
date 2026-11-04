@@ -134,7 +134,6 @@
       "ort": "Orgelempore (2. OG)",
       "datei": "Station 14 Ausblick Empore.jpg",
       "position": { "x": 32.2, "y": 52.2 }, "karte": { "x": 31.86, "y": 59.76 }, "blickrichtung": 184, "boden": 6.05, "ebene": "Empore",
-      "geschichtenVon": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "tabernakel", "reliquie", "jona-nischen", "nischen-krypta", "trauer-madonna"],
       "startblick": { "yaw": 180, "pitch": -14 },
       "vorschauFlaeche": "b",
       "verbindungen": [{ "ziel": "taufstein", "yaw": 41, "pitch": -35, "label": "Hinunter zum Taufstein" }],
@@ -156,26 +155,43 @@
     { "id": "L", "titel": "Osterkerze", "position": { "x": 82.21, "y": 22.46 }, "hoehe": 2.4, "boden": 1.5, "ansichten": { "empore": { "yaw": 162.3, "pitch": -8.0 }, "hochaltar": { "yaw": -81.6, "pitch": -3.0 }, "vor-dem-altar": { "yaw": -24.3, "pitch": 2.0 }, "hinter-dem-altar": { "yaw": -45.3, "pitch": 2.8 }, "vor-der-treppe": { "yaw": -55.2, "pitch": 6.5 } }, "sichtbarVon": ["vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "jona-nischen", "empore"], "text": "Die große Osterkerze wird jedes Jahr in der Osternacht am Osterfeuer angezündet und in die noch dunkle Kirche getragen. Von ihr bekommen alle ihr Licht für die eigene Kerze – ein Zeichen, dass das Leben stärker ist als der Tod.", "mehr": ["Der Brauch ist sehr alt, die ersten Berichte stammen aus dem 4. Jahrhundert. Beim Einzug ruft man dreimal „Lumen Christi“ – Christus, das Licht.", "Auf der Kerze sind ein Kreuz, die Jahreszahl und die griechischen Buchstaben Alpha und Omega, Anfang und Ende. Die goldenen Wachsnägel erinnern an die Wunden Jesu."], "foto": "/uploads/2020/05/osterkerze-2-1024x768.jpg" },
     { "id": "M", "titel": "Marienfigur", "position": { "x": 83.39, "y": 78.82 }, "hoehe": 2.4, "boden": 1.5, "ansichten": { "empore": { "yaw": -172.7, "pitch": -6.8 }, "hochaltar": { "yaw": 71.4, "pitch": -2.8 }, "mittelgang-empore": { "yaw": 15.8, "pitch": 2.2 }, "vor-dem-altar": { "yaw": 21.7, "pitch": 4.7 }, "hinter-dem-altar": { "yaw": 29.3, "pitch": 5.1 }, "vor-der-treppe": { "yaw": 46.8, "pitch": 6.4 }, "reliquie": { "yaw": 141.2, "pitch": 3.2 }, "nischen-krypta": { "yaw": -84.3, "pitch": 5.2 } }, "sichtbarVon": ["mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "reliquie", "jona-nischen", "nischen-krypta", "empore"], "text": "Diese Marienfigur stand früher auf einem eigenen Marienaltar, der in den 1960er Jahren abgebaut wurde. Der Bildhauer Johann Belz hat sie 1927 geschaffen – von ihm stammt in Frankfurt zum Beispiel auch der Brüningbrunnen in Höchst.", "mehr": ["Würden Sie sie als Maria erkennen? Kein Kind, keine Krone, kein Strahlenkranz – nur eine junge Frau mit einem goldenen Saum am Gewand.", "Ihre Hände erzählen von ihr: Die rechte grüßt oder segnet, die linke ist offen zum Empfangen, und ihr Bein hebt sich leicht, als wolle sie gleich losgehen. Sie gibt, sie empfängt, sie bewegt – und ist dabei fast wie eine von uns."], "foto": "/uploads/2020/05/immaculata-belz-1-1024x671.jpg" }
   ],
+  "heiligengalerie": {
+    "_hinweis": "Alle Geschichten hängen gesammelt auf einem durchsichtigen Zylinder rund um diese Station (Frank 2026-11-04). knopf = Lage des Knopfs im Grundriss; ring = Unter-/Oberkante des Zylinders in Grad.",
+    "titel": "Heiligengalerie", "station": "hinter-dem-altar",
+    "knopf": { "x": 74.5, "y": 49.97, "boden": 0.75, "hoehe": 0.35 },
+    "ring": { "unten": -22, "oben": 30 }
+  },
   "geschichten": [
-    {
-      "id": "sommerfreizeit-2026", "titel": "Sommerfreizeit", "person": "Jugend", "jahr": "2026",
-      "medium": "video", "station": "jona-nischen", "yaw": -40, "pitch": 6,
-      "vorschaubild": "/uploads/jubilaeum/heiligentafel-foto-1.jpg",
-      "datei": "/uploads/jubilaeum/sommerfreizeit-2026.mp4",
-      "text": "Abschrift folgt.", "beispiel": true
-    },
-    {
-      "id": "beispiel-taufe", "titel": "Meine Taufe hier", "person": "Hans S.", "jahr": "1958",
-      "medium": "text", "station": "taufstein", "yaw": 28, "pitch": 4,
-      "text": "Platzhalter für eine Geschichte. Hier steht später ein kurzer, selbst geschriebener Text über ein besonderes Erlebnis in Sankt Bonifatius.",
-      "beispiel": true
-    },
-    {
-      "id": "beispiel-hochzeit", "titel": "Unsere Hochzeit", "person": "Anna B.", "jahr": "1987",
-      "medium": "audio", "station": "vor-dem-altar", "yaw": -42, "pitch": 12,
-      "text": "Platzhalter für eine Tonaufnahme mit Abschrift.",
-      "beispiel": true
-    }
+    { "id": "werner-nikolaus", "titel": "Als Nikolaus unterwegs", "person": "Werner", "jahr": "2017", "medium": "video", "vorschaubild": "/rundgang/entwurf.nosync/werner-vorschau.jpg", "datei": "/rundgang/entwurf.nosync/werner-nikolaus.mp4", "text": "Mit den Jugendlichen macht es immer viel Spaß – die wissen eh nicht so genau, ob ich nun Pfarrer oder Bischof bin.", "beispiel": true },
+    { "id": "uwe-foto", "titel": "Ein Foto von Uwe", "person": "Uwe", "jahr": "2026", "medium": "foto", "vorschaubild": "/rundgang/entwurf.nosync/uwe-vorschau.jpg", "datei": "/rundgang/entwurf.nosync/uwe.webp", "text": "Ich bin seit vielen Jahren hier in Sankt Bonifatius aktiv und freue mich darüber, dass man mich hier trotz meiner vielen Fehler akzeptiert.", "beispiel": true },
+    { "id": "sommerfreizeit-2026", "titel": "Sommerfreizeit", "person": "Jugend", "jahr": "2026", "medium": "video", "vorschaubild": "/uploads/jubilaeum/heiligentafel-foto-1.jpg", "datei": "/uploads/jubilaeum/sommerfreizeit-2026.mp4", "beispiel": true, "abschrift": "Abschrift folgt." },
+    { "id": "beispiel-taufe", "titel": "Meine Taufe hier", "person": "Hans S.", "jahr": "1958", "medium": "text", "text": "Platzhalter für eine Geschichte. Hier steht später ein kurzer, selbst geschriebener Text über ein besonderes Erlebnis in Sankt Bonifatius.", "beispiel": true },
+    { "id": "beispiel-hochzeit", "titel": "Unsere Hochzeit", "person": "Anna B.", "jahr": "1987", "medium": "audio", "beispiel": true, "abschrift": "Platzhalter für eine Tonaufnahme mit Abschrift." },
+    { "id": "platzhalter-04", "titel": "Geschichte 04", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "04", "beispiel": true },
+    { "id": "platzhalter-05", "titel": "Geschichte 05", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "05", "beispiel": true },
+    { "id": "platzhalter-06", "titel": "Geschichte 06", "person": "Name folgt", "jahr": "", "medium": "audio", "kuerzel": "06", "beispiel": true },
+    { "id": "platzhalter-07", "titel": "Geschichte 07", "person": "Name folgt", "jahr": "", "medium": "video", "kuerzel": "07", "beispiel": true },
+    { "id": "platzhalter-08", "titel": "Geschichte 08", "person": "Name folgt", "jahr": "", "medium": "foto", "kuerzel": "08", "beispiel": true },
+    { "id": "platzhalter-09", "titel": "Geschichte 09", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "09", "beispiel": true },
+    { "id": "platzhalter-10", "titel": "Geschichte 10", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "10", "beispiel": true },
+    { "id": "platzhalter-11", "titel": "Geschichte 11", "person": "Name folgt", "jahr": "", "medium": "audio", "kuerzel": "11", "beispiel": true },
+    { "id": "platzhalter-12", "titel": "Geschichte 12", "person": "Name folgt", "jahr": "", "medium": "video", "kuerzel": "12", "beispiel": true },
+    { "id": "platzhalter-13", "titel": "Geschichte 13", "person": "Name folgt", "jahr": "", "medium": "foto", "kuerzel": "13", "beispiel": true },
+    { "id": "platzhalter-14", "titel": "Geschichte 14", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "14", "beispiel": true },
+    { "id": "platzhalter-15", "titel": "Geschichte 15", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "15", "beispiel": true },
+    { "id": "platzhalter-16", "titel": "Geschichte 16", "person": "Name folgt", "jahr": "", "medium": "audio", "kuerzel": "16", "beispiel": true },
+    { "id": "platzhalter-17", "titel": "Geschichte 17", "person": "Name folgt", "jahr": "", "medium": "video", "kuerzel": "17", "beispiel": true },
+    { "id": "platzhalter-18", "titel": "Geschichte 18", "person": "Name folgt", "jahr": "", "medium": "foto", "kuerzel": "18", "beispiel": true },
+    { "id": "platzhalter-19", "titel": "Geschichte 19", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "19", "beispiel": true },
+    { "id": "platzhalter-20", "titel": "Geschichte 20", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "20", "beispiel": true },
+    { "id": "platzhalter-21", "titel": "Geschichte 21", "person": "Name folgt", "jahr": "", "medium": "audio", "kuerzel": "21", "beispiel": true },
+    { "id": "platzhalter-22", "titel": "Geschichte 22", "person": "Name folgt", "jahr": "", "medium": "video", "kuerzel": "22", "beispiel": true },
+    { "id": "platzhalter-23", "titel": "Geschichte 23", "person": "Name folgt", "jahr": "", "medium": "foto", "kuerzel": "23", "beispiel": true },
+    { "id": "platzhalter-24", "titel": "Geschichte 24", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "24", "beispiel": true },
+    { "id": "platzhalter-25", "titel": "Geschichte 25", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "25", "beispiel": true },
+    { "id": "platzhalter-26", "titel": "Geschichte 26", "person": "Name folgt", "jahr": "", "medium": "audio", "kuerzel": "26", "beispiel": true },
+    { "id": "platzhalter-27", "titel": "Geschichte 27", "person": "Name folgt", "jahr": "", "medium": "video", "kuerzel": "27", "beispiel": true },
+    { "id": "platzhalter-28", "titel": "Geschichte 28", "person": "Name folgt", "jahr": "", "medium": "foto", "kuerzel": "28", "beispiel": true }
   ],
   "galerien": [
     {
