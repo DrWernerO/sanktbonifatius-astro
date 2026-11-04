@@ -30,26 +30,42 @@ und Klammern stehen lassen.
   `"foto": null` ersetzen durch `"foto": "/uploads/jubilaeum/rundgang/A-taufstein.jpg"`.
 - **Reihenfolge des geführten Rundgangs:** Liste `fuehrung` (Stations-IDs in Wunschreihenfolge).
 
-## Geschichten ergänzen
+## Geschichten: die Heiligengalerie
 
-Unter `geschichten` einen Eintrag nach diesem Muster anlegen:
+Seit 04.11.2026 (Franks Konzept) hängen die Geschichten nicht mehr verteilt im Raum, sondern gesammelt
+in der **Heiligengalerie**: An Station 5 „Hinter dem Altar“ liegt auf den Stufen zum Hochaltar ein
+goldener Knopf. Ein Klick fährt einen durchsichtigen Zylinder rund um den Standpunkt hoch, ringsum
+erscheinen alle Geschichten – bewusst durcheinander in Reihenfolge und Höhe (feste Anordnung, bei jedem
+Besuch gleich). Die Pfeile unten drehen von Geschichte zu Geschichte, „Galerie schließen“ oder Esc fährt
+den Zylinder wieder herunter. Unter der Ortsliste stehen alle Geschichten zusätzlich als Liste.
+
+Einstellungen oben in `heiligengalerie`: `station`, Lage des Knopfs (`knopf`, Grundriss-Prozent wie
+Infopunkte) und Unter-/Oberkante des Zylinders (`ring`, in Grad). Die Lage der einzelnen Geschichten
+wird automatisch verteilt – dafür muss nichts eingetragen werden.
+
+Neue Geschichte unter `geschichten` nach diesem Muster:
 
 ```json
 {
   "id": "taufe-1972", "titel": "Meine Taufe", "person": "Maria K.", "jahr": "1972",
-  "medium": "audio", "station": "taufstein", "yaw": 28, "pitch": 4,
+  "medium": "audio",
   "vorschaubild": "/uploads/jubilaeum/geschichten/maria-k.jpg",
   "datei": "/uploads/jubilaeum/geschichten/maria-k.mp3",
-  "text": "Abschrift der Tonaufnahme …"
+  "text": "Kurzer Text, erscheint sichtbar unter der Aufnahme …",
+  "abschrift": "Wortlaut der Tonaufnahme (eingeklappt) …"
 }
 ```
 
-- `medium`: `text`, `audio` oder `video`. Bei Video und Ton gehört die Abschrift in `text`.
-- `yaw`/`pitch`: Position im Panorama (Grad, 0/0 = Bildmitte; `yaw` positiv = nach rechts,
-  `pitch` positiv = nach oben). Am einfachsten Claude bitten, die Stelle einzutragen.
-- Ohne `vorschaubild` erscheinen die Initialen.
+- `medium`: `text`, `audio`, `video` oder `foto` (Foto in `datei`, Text darunter).
+- `text` erscheint immer sichtbar, `abschrift` (bei Video und Ton) eingeklappt.
+- Ohne `vorschaubild` erscheinen die Initialen bzw. `kuerzel`.
 - `"beispiel": true` nur für Platzhalter – solche Einträge vor der Veröffentlichung löschen.
-- **Vor dem Einstellen:** schriftliche Einwilligung (KDG) der Person, bei Kindern der Eltern.
+- **Vor dem Einstellen:** schriftliche Einwilligung (KDG) der Person, bei Kindern der Eltern – auch
+  für alle anderen, die im Video oder auf dem Foto zu sehen sind.
+- **Entwurf:** Die Beispiele von Werner (Video) und Uwe (Foto) liegen nur lokal in
+  `public/rundgang/entwurf.nosync/` (über `.git/info/exclude` ausgenommen) und fehlen deshalb auf der
+  Website. Videos sind für das Repo zu groß (Werners auch verkleinert 11 MB) – für echte Videos einen
+  eigenen Ablageort klären.
 
 ## Blick von der Empore
 
@@ -59,8 +75,6 @@ Von der Empore (Station 14) sieht man den ganzen Raum. Dort erscheinen deshalb z
   JONA-Wohnzimmer fehlen, weil sie unter der Empore bzw. hinter der Brüstung liegen. Wo die
   berechnete Lage von oben nicht genau passt, steht beim Infopunkt eine eigene Lage im Bild:
   `"ansichten": { "empore": { "yaw": 162.3, "pitch": -8.0 } }`.
-- **Geschichten** aller Stationen, die in `geschichtenVon` der Empore stehen. Sie schweben
-  automatisch über ihrem Standort und müssen nicht eigens eingetragen werden.
 - Wegpunkte gibt es von oben nur zurück zum Taufstein.
 
 Die Kameraposition der Empore (`position`, `boden`, `blickrichtung`) wurde am 30.10.2026 aus Altar,
@@ -134,8 +148,8 @@ Weg (Altar, Taufstein), führt man das Band mit Zwischenpunkten herum:
 
 Farben im Bild: **Wege weiß, Infopunkte rot, Geschichten gold.** Unter dem Bild lassen sich die drei
 Gruppen einzeln ein- und ausblenden.
-Wegpunkte und Geschichten werden mit der Entfernung im Raum kleiner (bis ca. 6 m volle Größe, ab ca.
-25 m die Mindestgröße); für Infopunkte gilt die eigene Regel aus `infopunktAnzeige` (siehe oben). Geschichten zeigen nur Bild bzw. Initialen. Der Titel erscheint beim Drüberfahren mit
+Wegpunkte werden mit der Entfernung im Raum kleiner (bis ca. 6 m volle Größe, ab ca.
+25 m die Mindestgröße); für Infopunkte gilt die eigene Regel aus `infopunktAnzeige` (siehe oben). Geschichten in der Galerie zeigen nur Bild bzw. Initialen. Der Titel erscheint beim Drüberfahren mit
 der Maus, auf Handy und Tablet beim ersten Antippen. Erst der zweite Tipp öffnet die Geschichte.
 
 ## Testcheckliste
@@ -145,8 +159,9 @@ der Maus, auf Handy und Tablet beim ersten Antippen. Erst der zweite Tipp öffne
 - [ ] Ziehen mit der Maus dreht, Mausrad und +/− zoomen
 - [ ] Wegpunkte führen zur richtigen Station, der Wechsel wirkt wie ein paar Schritte
 - [ ] Bodenlinien liegen auf dem Boden und enden am Wegpunkt; beim Drüberfahren leuchtet die Linie auf
-- [ ] Legende unter dem Bild: Wege, Infopunkte, Geschichten einzeln aus- und einblenden
-- [ ] Empore: Infopunkte sitzen an ihren Objekten, Geschichten schweben über ihren Orten, beide öffnen sich
+- [ ] Legende unter dem Bild: Wege, Infopunkte und Galerie-Knopf einzeln aus- und einblenden
+- [ ] Heiligengalerie an Station 5: Knopf öffnet den Zylinder, Geschichten ringsum, Pfeile drehen, Schließen/Esc fährt ihn herunter; am Handy überdecken sich die Porträts nicht
+- [ ] Empore: Infopunkte sitzen an ihren Objekten und öffnen sich
 - [ ] Grundriss öffnet sich, Klick auf eine Station springt dorthin, Blickkegel dreht mit
 - [ ] Geschichten: Titel erst beim Drüberfahren; am Handy 1. Tipp Titel, 2. Tipp öffnet
 - [ ] „Rundgang starten“: Weiter/Zurück, Station 1 bis 14, „Rundgang beenden“
@@ -183,5 +198,5 @@ Netlify-Konto hat):
 
 - Detailfotos und Texte für D Trauernische, E JONA-Wohnzimmer, F Fenster zum Himmel, H Ambo
   (A–C, G, I–M seit 04.11.2026 aus dem Kirchenführer übernommen und gekürzt); Begleittexte gegenlesen.
-- Echte Geschichten statt der drei Beispiele; Einwilligungen.
+- Echte Geschichten statt der Beispiele und Platzhalter in der Heiligengalerie; Einwilligungen; Ablageort für Videos.
 - Rechte: Kunstwerke (Künstler/Bistum), Sommerfreizeit-Video.
