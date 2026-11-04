@@ -23,7 +23,9 @@ und Klammern stehen lassen.
 
 - **Begleittext einer Station** (erscheint im geführten Rundgang und in der Ortsliste): Feld `begleittext`.
 - **Titel einer Station:** `titel`, kurze Ortsangabe darunter: `ort`.
-- **Infopunkt-Text:** beim Infopunkt `"text": null` ersetzen durch `"text": "Ihr Text …"`.
+- **Infopunkt-Text:** beim Infopunkt `"text": null` ersetzen durch `"text": "Ihr Text …"` (zwei bis
+  drei Sätze, gleich sichtbar). Ausführlicheres optional als Liste `"mehr": ["Absatz 1", "Absatz 2"]`
+  – erscheint aufklappbar unter „Mehr erfahren“; das Infofenster scrollt dann.
 - **Detailfoto zum Infopunkt:** Foto nach `public/uploads/jubilaeum/rundgang/` legen und
   `"foto": null` ersetzen durch `"foto": "/uploads/jubilaeum/rundgang/A-taufstein.jpg"`.
 - **Reihenfolge des geführten Rundgangs:** Liste `fuehrung` (Stations-IDs in Wunschreihenfolge).
@@ -86,6 +88,19 @@ Die Richtung der Wegpunkte und Infopunkte wird aus den Positionen im Grundriss b
 Wegpunkt daneben, lässt er sich bei der Verbindung mit `{ "ziel": "…", "yaw": 40, "pitch": -12 }`
 von Hand festlegen.
 
+`sichtbarVon` sagt, von wo ein Objekt im Panorama wirklich zu sehen ist (seit 04.11.2026 mit
+Bildausschnitten aus allen Panoramen geprüft). **Angezeigt** wird davon nur, was in der Nähe ist
+(Franks Wunsch, damit der Blick nicht überladen wirkt), eingestellt oben in `infopunktAnzeige`:
+bis `vollBisMeter` (5 m, „direkt davor“) volle Größe, bis `reichweiteMeter` (15 m) deutlich kleiner
+und mit der Entfernung weiter schrumpfend, weiter weg ausgeblendet. Von der Empore erscheinen alle
+sichtbaren Infopunkte, ebenfalls nach Entfernung abgestuft. Die Ortsliste unter dem Bild folgt derselben Regel.
+Ausnahmen je Station: `"zusaetzlicheInfopunkte": ["J", "K", "L"]` zeigt diese Infopunkte dort auch
+jenseits der Reichweite in kleinster Größe (so bei Station 4 „Vor dem Altar“: Engelbilder, Osterkerze und Marienfigur).
+Seitennischen (Mariengemälde, Madonna, Trauernische) bleiben bewusst nur aus der Nähe sichtbar, weil
+Pfeiler und Nischenwände sie sonst verdecken; Osterkerze und Marienfigur sind von Station 8 nicht zu
+sehen. Wo die berechnete Lage danebenliegt, steht beim Infopunkt unter `ansichten.<station-id>` die
+gemessene Lage im Bild (`yaw`, `pitch`), genau wie für die Empore.
+
 ## Lage der Stationen (Stand 30.10.2026)
 
 Die Lage der Stationen im Grundriss ist entscheidend: Aus ihr werden Wegpunkte, Bodenlinien und
@@ -95,6 +110,11 @@ den Panoramen nachgemessen. Die Kamera stand bei allen Aufnahmen etwa **1,85 m**
 (`kamerahoeheMeter`), das ergab der Vergleich von Empore, Ambo und Treppe. Sitzt ein Wegpunkt
 daneben, ist meist die Lage der Station ungenau. Dann lieber die Station korrigieren als den
 Wegpunkt von Hand verschieben.
+
+Am 04.11.2026 Station 10 (JONA-Nischen) neu eingemessen: Lage und Blickrichtung gemeinsam aus acht
+Objekten (Taufstein, Mariengemälde, Madonna, Altar, Ambo, Engelbild Süd, JONA-Wohnzimmer, Fenster zum
+Himmel) bestimmt, mittlere Abweichung 1,7° (vorher bis 20°). Neu: `position` (46.4, 27.6),
+`blickrichtung` −87 (vorher 44.5/26.75 und −74).
 
 ## Wege und Bodenlinien
 
@@ -114,8 +134,8 @@ Weg (Altar, Taufstein), führt man das Band mit Zwischenpunkten herum:
 
 Farben im Bild: **Wege weiß, Infopunkte rot, Geschichten gold.** Unter dem Bild lassen sich die drei
 Gruppen einzeln ein- und ausblenden.
-Alle Punkte werden mit der Entfernung im Raum kleiner (bis ca. 6 m volle Größe, ab ca. 25 m die
-Mindestgröße). Geschichten zeigen nur Bild bzw. Initialen. Der Titel erscheint beim Drüberfahren mit
+Wegpunkte und Geschichten werden mit der Entfernung im Raum kleiner (bis ca. 6 m volle Größe, ab ca.
+25 m die Mindestgröße); für Infopunkte gilt die eigene Regel aus `infopunktAnzeige` (siehe oben). Geschichten zeigen nur Bild bzw. Initialen. Der Titel erscheint beim Drüberfahren mit
 der Maus, auf Handy und Tablet beim ersten Antippen. Erst der zweite Tipp öffnet die Geschichte.
 
 ## Testcheckliste
@@ -161,6 +181,7 @@ Netlify-Konto hat):
 
 ## Noch offen
 
-- Detailfotos und Texte der Infopunkte A–M, Begleittexte gegenlesen.
+- Detailfotos und Texte für D Trauernische, E JONA-Wohnzimmer, F Fenster zum Himmel, H Ambo
+  (A–C, G, I–M seit 04.11.2026 aus dem Kirchenführer übernommen und gekürzt); Begleittexte gegenlesen.
 - Echte Geschichten statt der drei Beispiele; Einwilligungen.
 - Rechte: Kunstwerke (Künstler/Bistum), Sommerfreizeit-Video.
