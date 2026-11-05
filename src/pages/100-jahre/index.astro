@@ -51,12 +51,13 @@ const sparten = [
     fotos: [{ src: IMG + 'auftakt.jpg', alt: 'Gottesdienst in St. Bonifatius: Gemeinde, Ministrantinnen und Ministranten stehen im Kreis um den Altar, im Hintergrund die Orgelempore' }], fakten: ['So 24.01.2027 · 11 Uhr'],
     items: [{ datum: 'So 24.01.2027', zeit: '11 Uhr', titel: 'Eröffnungsgottesdienst und Neujahrsempfang', von: '2027-01-24', kurz: 'So 24.01.', text: 'Festlicher Gottesdienst, anschließend Neujahrsempfang.' }] },
   { id: 'jubilarin', kurz: 'Geschichte', label: 'Geschichte', titel: 'Bonifatius – immer noch Vorbild?',
-    teaser: 'Wer war der Namensgeber unserer Kirche, und was hat er uns heute noch zu sagen? Zwei BonSalons und eine Ausstellung in der Kirche laden ein, die 100-jährige Jubilarin und ihren Patron neu kennenzulernen – mit Vorträgen, Gesprächen und einem Zeitstrahl durch ein bewegtes Jahrhundert.',
+    teaser: 'Wer war der Namensgeber unserer Kirche, und was hat er uns heute noch zu sagen? Drei BonSalons und eine Ausstellung in der Kirche laden ein, die 100-jährige Jubilarin und ihren Patron neu kennenzulernen – mit Vorträgen, Gesprächen und einem Zeitstrahl durch ein bewegtes Jahrhundert.',
     fotos: [{ src: IMG + 'bonifatius.jpg', alt: 'Steinfigur des Heiligen Bonifatius an der Backsteinfassade der Pfarrkirche, darüber die Kirchenfenster', h: 1049, pos: '50% 30%' }],
-    fakten: ['BonSalon Do 25.02.2027', 'Ausstellung ab Ende Januar'],
+    fakten: ['BonSalon Do 25.02.2027', 'BonSalons Mitte März und um den 05.06.', 'Ausstellung ab Ende Januar'],
     items: [
       { datum: 'Do 25.02.2027', zeit: '19:30 Uhr', ort: 'Kleiner Pfarrsaal, Holbeinstraße 70', titel: 'BonSalon: 100 Jahre St. Bonifatius in Frankfurt-Sachsenhausen', von: '2027-02-25', kurz: 'Do 25.02.', ueb: 'BonSalon: 100 Jahre St. Bonifatius', href: '/termine/bonsalon-100-jahre-st-bonifatius-in-frankfurt-sachsenhausen/', text: 'Prof. Dr. Martin Belz (Universität Osnabrück) zeigt die Pfarreigeschichte als Spiegel eines Jahrhunderts – mit Diskussion.' },
-      { titel: 'BonSalon: Der Hl. Bonifatius – immer noch Vorbild für uns?', text: 'Ein Professor stellt die schillernde Figur des Pfarrpatrons vor und spricht mit Pfr. Werner Otto darüber, was der Heilige den heutigen „Bonifatianern“ zu sagen hätte.', offen: 'Referent und Termin folgen.' },
+      { datum: 'Mitte März 2027', zeit: '19:30 Uhr', titel: 'BonSalon: Wie weit darf die Kirche sich in die Politik einmischen?', von: '2027-03-15', kurz: 'Mitte März', ueb: 'BonSalon: Kirche und Politik', text: 'Der Journalist Matthias Drobinski spricht darüber, wie weit sich die Kirche in die Politik einmischen darf – mit Diskussion.', offen: 'Genaues Datum folgt.' },
+      { datum: 'um den 05.06.2027', zeit: '19:30 Uhr', titel: 'BonSalon: St. Bonifatius – immer noch aktuell?', von: '2027-06-05', kurz: 'um den 05.06.', ueb: 'BonSalon: St. Bonifatius – aktuell?', text: 'Prof. Niccolò Steiner SJ stellt die schillernde Figur des Pfarrpatrons vor und spricht mit Pfr. Werner Otto darüber, was der Heilige den heutigen „Bonifatianern“ zu sagen hätte.', offen: 'Genaues Datum folgt.' },
       { datum: 'ab Ende Januar 2027', titel: 'Ausstellung in der Kirche', von: '2027-01-31', kurz: 'ab Ende Januar', text: 'Ein Zeitstrahl ordnet die Geschichte des Hauses ein – von der Stadt- und Bistumsgeschichte bis heute – dazu historische Bilder. Beginn kurz nach der Eröffnung.', offen: 'Genaues Datum folgt.' },
     ] },
   { id: 'gespraech', kurz: 'Im Gespräch', label: 'Begegnung', titel: 'Erzählen, zuhören, anstoßen',
@@ -117,7 +118,7 @@ const sparten = [
 // Terminübersicht (vor den FAQ) = alle Items mit `von`, automatisch aus den Sparten; Items ohne
 // Termin erscheinen nur in der Fußzeile „Termin folgt".
 const termine = sparten.flatMap((b) => b.items.filter((i) => i.von).map((i) => ({ ...i, anker: b.id })));
-const termineOffen = ['BonSalon: Der Hl. Bonifatius', 'Sofagespräche (weitere Abende)', 'Orgel- und Chorkonzerte', 'Beitrag der Jugendkirche', 'Tag am Schweizer Platz', 'Virtueller Kirchenführer'];
+const termineOffen = ['BonSalons: genaue Termine', 'Sofagespräche (weitere Abende)', 'Orgel- und Chorkonzerte', 'Beitrag der Jugendkirche', 'Tag am Schweizer Platz', 'Virtueller Kirchenführer'];
 
 // PDFs: `pdf: '/uploads/2027/jubilaeum/<datei>.pdf'` eintragen, sobald die Datei vorliegt.
 const downloads = [
