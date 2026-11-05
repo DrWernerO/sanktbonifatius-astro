@@ -15,14 +15,13 @@ import Rundgang from '../../components/Rundgang.astro';
 ---
 <Base title="100 Jahre Sankt Bonifatius – virtueller Rundgang" noindex={true}>
   <section class="jub-intro">
+    <p class="jub-zurueck"><a href="/100-jahre/">← Zur Jubiläumsseite „100 Jahre“</a></p>
     <p class="jub-badge">Vorschau – noch nicht öffentlich</p>
     <h1>Virtueller Rundgang durch Sankt Bonifatius</h1>
     <p>
       Schauen Sie sich in unserer Kirche um – vom Taufstein bis zum Chorraum und hinauf auf die
-      Orgelempore. Ziehen Sie mit der Maus oder dem Finger im Bild, folgen Sie den Pfeilen oder lassen
-      Sie sich mit „Rundgang starten“ Schritt für Schritt führen.
+      Orgelempore. Wie das geht, steht gleich hier darunter.
     </p>
-    <p class="jub-zurueck"><a href="/100-jahre/">← Zur Jubiläumsseite „100 Jahre“</a></p>
   </section>
 
   <Rundgang />
@@ -122,7 +121,7 @@ import Rundgang from '../../components/Rundgang.astro';
     .jub-intro {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 40px 20px 24px;
+      padding: 104px 20px 20px;   /* feste Kopfleiste ist 80 px hoch */
       text-align: center;
     }
     .jub-badge {
@@ -145,7 +144,7 @@ import Rundgang from '../../components/Rundgang.astro';
       margin-bottom: 12px;
     }
     .jub-intro p { color: #4a4a4a; max-width: 680px; margin: 0 auto; }
-    .jub-intro .jub-zurueck { margin-top: 12px; font-size: 15px; }
+    .jub-intro .jub-zurueck { margin: 0 0 18px; font-size: 15px; text-align: left; max-width: none; }
     .jub-zurueck a { color: #1a1a1a; }
     .jub-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 

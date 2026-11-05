@@ -22,6 +22,21 @@ const infoProStation = Object.fromEntries(
       || (s as any).zusaetzlicheInfopunkte?.includes(i.id)))
     .sort((a, b) => meterBis(s, a) - meterBis(s, b))]),
 );
+// Heiligengalerie als Tafelwand („Heiligengalerie von St. Bonifatius“, 2026-11-05): ersetzt den Zylinder, wenn `gedenktafeln.aktiv`.
+// In der Ortsliste bei den Stationen nennen, die höchstens 15 m vor einer Tafelwand stehen.
+const TF: any = (daten as any).gedenktafeln?.aktiv ? (daten as any).gedenktafeln : null;
+const geschichtenTitel = TF ? TF.titel : daten.heiligengalerie.titel;
+// Liste unter dem Rundgang: bei der Tafelwand nur die Geschichten, die auch wirklich auf einer Tafel hängen
+const geschichtenListe = TF
+  ? TF.tafeln.map((t: any) => daten.geschichten.find((g) => g.id === t.geschichte)).filter(Boolean)
+  : daten.geschichten;
+const tafelnNah = (s: any) => !!TF && TF.waende.some((w: any) => {
+  if (w.verdecktVon?.includes(s.id)) return false;
+  const m = (p: any) => [(p.x / 100) * daten.grundriss.breiteMeter, (p.y / 100) * daten.grundriss.hoeheMeter];
+  const [ax, ay] = m(w.a), [bx, by] = m(w.b), [sx, sy] = m(s.position);
+  return Math.hypot(sx - (ax + bx) / 2, sy - (ay + by) / 2) <= 15 && (sx - ax) * (by - ay) - (sy - ay) * (bx - ax) > 0;
+});
+const geschichtenHier = (s: any) => (TF ? tafelnNah(s) : s.id === daten.heiligengalerie.station);
 const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 ---
 <link rel="stylesheet" href="/vendor/pannellum/pannellum.css" />
@@ -30,10 +45,79 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 <section class="astro-rg" aria-labelledby="astro-rg-titel">
   <h2 id="astro-rg-titel" class="astro-rg-sr">Virtueller Rundgang durch die Kirche</h2>
 
+  <!-- „So geht’s“ (Frank 2026-11-05): steht VOR dem Bild und ist mit dem Seitenkopf zu einem Einstieg zusammengeführt –
+       erst erklären, dann wählen (Knöpfe), dann umschauen. Bedienung immer sichtbar, in einfachen Worten und mit denselben
+       Zeichen wie im Bild, weil unser Publikum oft wenig technikerfahren ist. Seltenere Tipps bleiben zum Aufklappen. -->
+  <section class="astro-rg-sogehts" aria-labelledby="astro-rg-sogehts-titel">
+    <h2 id="astro-rg-sogehts-titel">So geht’s – ganz einfach</h2>
+    <ol class="astro-rg-schritte">
+      <li>
+        <span class="astro-rg-schritt-bild astro-rg-sb-hand" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg></span>
+        <strong>Umschauen</strong>
+        <span>Ins Bild tippen und mit dem Finger oder der Maus ziehen – so drehen Sie sich in alle Richtungen.</span>
+      </li>
+      <li>
+        <span class="astro-rg-schritt-bild astro-rg-sb-weg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <strong>Weitergehen</strong>
+        <span>Einen weißen Pfeil im Bild antippen – schon stehen Sie an der nächsten Stelle.</span>
+      </li>
+      <li>
+        <span class="astro-rg-schritt-bild astro-rg-sb-karte" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6z M9 4v14 M15 6v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <strong>Grundriss</strong>
+        <span>Den Knopf mit der Karte oben rechts im Bild antippen – dort sehen Sie alle Orte und springen mit einem Tipp hin.</span>
+      </li>
+      <li>
+        <span class="astro-rg-schritt-bild astro-rg-sb-info" aria-hidden="true">i</span>
+        <strong>Mehr erfahren</strong>
+        <span>Einen roten Punkt mit „i“ antippen – dann lesen Sie, was Sie gerade sehen.</span>
+      </li>
+      <li>
+        <span class="astro-rg-schritt-bild astro-rg-sb-tafel" aria-hidden="true"><span></span></span>
+        <strong>{TF ? TF.titel : daten.heiligengalerie.titel}</strong>
+        {TF
+          ? <span>Vorne an den Wänden eine goldene Tafel antippen – Menschen aus unserer Gemeinde erzählen ihre Geschichte.</span>
+          : <span>Hinter dem Altar den goldenen Knopf antippen – ringsum erscheinen Geschichten von Menschen aus unserer Gemeinde.</span>}
+      </li>
+    </ol>
+    <div class="astro-rg-leiste">
+      <div class="astro-rg-leiste-start" id="astro-rg-start-bereich">
+        <button type="button" class="astro-rg-knopf astro-rg-knopf-rot" id="astro-rg-start">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>
+          Rundgang starten
+        </button>
+        {TF?.direkt && (
+          <button type="button" class="astro-rg-knopf astro-rg-knopf-gold" id="astro-rg-zur-galerie">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l8-5 8 5v11z M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            Direkt zur Heiligengalerie
+          </button>
+        )}
+      </div>
+      <p class="astro-rg-leiste-hinweis"><strong>Lieber begleitet?</strong> „Rundgang starten“ führt Sie Schritt für Schritt durch die Kirche – Sie tippen nur auf „Weiter“.</p>
+    </div>
+
+    <details class="astro-rg-hilfe">
+      <summary>Weitere Tipps</summary>
+      <ul>
+        <li>Näher heranholen: mit zwei Fingern im Bild auseinanderziehen, mit dem Mausrad oder mit den Knöpfen + und − oben links.</li>
+        <li>Der Knopf mit den vier Ecken oben rechts im Bild schaltet auf Vollbild – noch einmal antippen, und alles ist wieder wie vorher.</li>
+        <li>Unten rechts im Bild lassen sich Wege, Infopunkte und Geschichten einzeln aus- und einblenden.</li>
+        <li>Mit der Tastatur: Pfeiltasten drehen, Plus und Minus zoomen, mit der Tabulatortaste erreichen Sie Pfeile, Punkte und Tafeln.</li>
+        <li>Ganz unten auf dieser Seite stehen alle Orte noch einmal als Liste – zum Lesen oder um direkt dorthin zu springen.</li>
+      </ul>
+    </details>
+  </section>
+
+
   <div class="astro-rg-buehne" id="astro-rg-buehne">
     <div id="astro-rg-viewer" class="astro-rg-viewer" aria-label="360-Grad-Ansicht der Kirche. Mit Maus, Finger oder Pfeiltasten umschauen."></div>
 
     <p class="astro-rg-ort" id="astro-rg-ort" aria-live="polite"></p>
+
+    <!-- Erster Hinweis mitten im Bild; verschwindet, sobald man sich einmal umgeschaut hat (Frank 2026-11-05) -->
+    <div class="astro-rg-anfang" id="astro-rg-anfang" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg>
+      <span>Zum Umschauen ins Bild tippen und ziehen</span>
+    </div>
 
     <div class="astro-rg-hg-steuerung" id="astro-rg-hg-steuerung" role="group" aria-label={daten.heiligengalerie.titel} hidden>
       <button type="button" id="astro-rg-hg-links" aria-label="Zur vorigen Geschichte drehen">←</button>
@@ -74,28 +158,30 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       </div>
       <p class="astro-rg-karte-hinweis">Station 14 liegt oben auf der Orgelempore.</p>
     </div>
+
+    <!-- Filter „Im Bild“ (Frank 2026-11-05): unten rechts im Bild statt unter dem Bild; auf dem Handy nur die Symbole -->
+    <div class="astro-rg-legende" role="group" aria-label="Im Bild anzeigen">
+      <span class="astro-rg-legende-titel" aria-hidden="true">Im Bild:</span>
+      <button type="button" class="astro-rg-ebene" data-ebene="weg" aria-pressed="true" title="Wege ein- oder ausblenden">
+        <span class="astro-rg-marke astro-rg-marke-weg" aria-hidden="true"></span><span class="astro-rg-ebene-text">Wege</span>
+      </button>
+      <button type="button" class="astro-rg-ebene" data-ebene="info" aria-pressed="true" title="Infopunkte ein- oder ausblenden">
+        <span class="astro-rg-marke astro-rg-marke-info" aria-hidden="true">i</span><span class="astro-rg-ebene-text">Infopunkte</span>
+      </button>
+      <button type="button" class="astro-rg-ebene" data-ebene="geschichte" aria-pressed="true" title="Geschichten ein- oder ausblenden">
+        <span class="astro-rg-marke astro-rg-marke-geschichte" aria-hidden="true"></span><span class="astro-rg-ebene-text">Geschichten</span>
+      </button>
+    </div>
   </div>
 
-  <div class="astro-rg-leiste">
-    <div class="astro-rg-leiste-start" id="astro-rg-start-bereich">
-      <button type="button" class="astro-rg-knopf astro-rg-knopf-rot" id="astro-rg-start">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>
-        Rundgang starten
-      </button>
-      <span class="astro-rg-leiste-text">oder frei umschauen: die weißen Wegpunkte im Bild führen weiter.</span>
-    </div>
-    <div class="astro-rg-legende" role="group" aria-label="Im Bild anzeigen">
-      <span class="astro-rg-legende-titel">Im Bild:</span>
-      <button type="button" class="astro-rg-ebene" data-ebene="weg" aria-pressed="true">
-        <span class="astro-rg-marke astro-rg-marke-weg" aria-hidden="true"></span>Wege
-      </button>
-      <button type="button" class="astro-rg-ebene" data-ebene="info" aria-pressed="true">
-        <span class="astro-rg-marke astro-rg-marke-info" aria-hidden="true">i</span>Infopunkte
-      </button>
-      <button type="button" class="astro-rg-ebene" data-ebene="geschichte" aria-pressed="true">
-        <span class="astro-rg-marke astro-rg-marke-geschichte" aria-hidden="true"></span>Geschichten
-      </button>
-    </div>
+  <!-- Karte der aktuellen Station beim freien Umschauen (Frank 2026-11-05): wie die Führungskarte, Inhalt aus der
+       Stationskarte der Liste unten, wechselt mit jedem Standort. Während der Führung übernimmt die Führungskarte. -->
+  <div class="astro-rg-fuehrung astro-rg-hier" id="astro-rg-hier">
+    <p class="astro-rg-fuehrung-nr" id="astro-rg-hier-nr"></p>
+    <h3 id="astro-rg-hier-titel"></h3>
+    <p class="astro-rg-hier-lage" id="astro-rg-hier-lage"></p>
+    <p id="astro-rg-hier-text"></p>
+    <div class="astro-rg-hier-details" id="astro-rg-hier-details"></div>
   </div>
 
   <div class="astro-rg-fuehrung" id="astro-rg-fuehrung" hidden>
@@ -109,20 +195,6 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     </div>
   </div>
 
-  <details class="astro-rg-hilfe">
-    <summary>So funktioniert der Rundgang</summary>
-    <ul>
-      <li>Mit gedrückter Maustaste oder dem Finger im Bild ziehen, um sich umzuschauen.</li>
-      <li>Zoomen mit dem Mausrad oder mit zwei Fingern.</li>
-      <li>Weiße Wegpunkte mit Pfeil führen zu einem anderen Standpunkt.</li>
-      <li>Rote Punkte mit „i“ erklären besondere Orte.</li>
-      <li>Hinter dem Altar führt der goldene Knopf „{daten.heiligengalerie.titel}“ zu den Geschichten von Menschen: Ringsum erscheinen runde Bilder – einfach umdrehen, antippen, zuhören. Die Pfeile unten drehen von Geschichte zu Geschichte.</li>
-      <li>Unter dem Bild lassen sich Wege, Infopunkte und Geschichten einzeln aus- und einblenden.</li>
-      <li>Mit der Tastatur: Pfeiltasten drehen, Plus und Minus zoomen, mit der Tabulatortaste erreichen Sie Pfeile und Punkte.</li>
-      <li>Über den Grundriss oben rechts oder die Liste unten springen Sie direkt zu jedem Ort.</li>
-    </ul>
-  </details>
-
   <div class="astro-rg-orte">
     <h2>Alle Orte im Überblick</h2>
     <p class="astro-rg-orte-intro">Die Stationen des Rundgangs als Liste – zum Lesen oder um direkt zu einem Ort zu springen.</p>
@@ -134,10 +206,13 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
             <h3><span class="astro-rg-ort-nr">{s.nr}</span> {s.titel}</h3>
             <p class="astro-rg-ort-lage">{s.ort}</p>
             <p>{s.begleittext}</p>
-            {(infoProStation[s.id].length > 0 || s.id === daten.heiligengalerie.station) && (
-              <ul class="astro-rg-ort-details">
+            {(infoProStation[s.id].length > 0 || geschichtenHier(s)) && (
+              <p class="astro-rg-ort-details-titel" id={`astro-rg-details-${s.id}`}>Von hier aus zu entdecken</p>
+            )}
+            {(infoProStation[s.id].length > 0 || geschichtenHier(s)) && (
+              <ul class="astro-rg-ort-details" aria-labelledby={`astro-rg-details-${s.id}`}>
                 {infoProStation[s.id].map((i) => <li>{i.titel}{!i.text && <em> – Infotext folgt</em>}</li>)}
-                {s.id === daten.heiligengalerie.station && <li>{daten.heiligengalerie.titel} mit {daten.geschichten.length} Geschichten</li>}
+                {geschichtenHier(s) && <li>{geschichtenTitel} mit {TF ? TF.tafeln.length : daten.geschichten.length} Geschichten</li>}
               </ul>
             )}
             <button type="button" class="astro-rg-knopf" data-station={s.id}>Hier umschauen</button>
@@ -147,9 +222,9 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     </ol>
 
     <details class="astro-rg-hg-liste">
-      <summary>Alle Geschichten der {daten.heiligengalerie.titel} ({daten.geschichten.length})</summary>
+      <summary>Alle Geschichten der {geschichtenTitel} ({geschichtenListe.length})</summary>
       <ul>
-        {daten.geschichten.map((g) => (
+        {geschichtenListe.map((g) => (
           <li>
             <button type="button" data-geschichte={g.id}>{g.titel}</button>
             {' – '}{[g.person, g.jahr].filter(Boolean).join(', ')}{g.beispiel && <em> (Beispiel)</em>}
@@ -275,7 +350,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     }
     // Geschichten hängen nicht mehr im Raum, sondern gesammelt in der Heiligengalerie (Frank 2026-11-04):
     // an ihrer Station nur ein Knopf auf den Stufen zum Hochaltar, der den Zylinder hochfährt.
-    if (s.id === GAL.station) {
+    if (s.id === GAL.station && !daten.gedenktafeln?.aktiv) {
       const r = richtung(s, GAL.knopf, GAL.knopf.boden || 0, GAL.knopf.hoehe ?? 0.4);
       liste.push({
         yaw: r.yaw, pitch: r.pitch, type: 'custom', cssClass: 'astro-rg-hs-geschichte',
@@ -441,12 +516,16 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   }
 
   const rad = (g: number) => (g * Math.PI) / 180;
-  function projiziere([yaw, pitch]: [number, number], v: { yaw: number; pitch: number; hfov: number; w: number; h: number }) {
+  function projPunkt([yaw, pitch]: [number, number], v: { yaw: number; pitch: number; hfov: number; w: number; h: number }): [number, number] | null {
     const f = Math.sin(rad(pitch)), c = Math.cos(rad(pitch)), d = Math.sin(rad(v.pitch)), e = Math.cos(rad(v.pitch));
     const g = Math.cos(rad(v.yaw - yaw)), z = f * d + c * g * e;
     if (z <= 0.02) return null;   // hinter dem Betrachter
     const l = Math.sin(rad(v.yaw - yaw)), k = Math.tan(rad(v.hfov / 2));
-    return `${(v.w / 2 - (v.w / k) * l * c / z / 2).toFixed(1)},${(v.h / 2 - (v.w / k) * (f * e - c * g * d) / z / 2).toFixed(1)}`;
+    return [v.w / 2 - (v.w / k) * l * c / z / 2, v.h / 2 - (v.w / k) * (f * e - c * g * d) / z / 2];
+  }
+  function projiziere(p: [number, number], v: { yaw: number; pitch: number; hfov: number; w: number; h: number }) {
+    const q = projPunkt(p, v);
+    return q ? `${q[0].toFixed(1)},${q[1].toFixed(1)}` : null;
   }
 
   const linienProStation: Record<string, Linie[]> = {};
@@ -497,6 +576,259 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   }
   function hebeLinieHervor(ziel: string | null) { hervorgehoben = ziel; }
 
+  // ---------- Heiligengalerie als Tafelwand (Frank 2026-11-05) ----------
+  // Jede Geschichte als goldene Tafel, fest an einer Wand: Die Tafel ist ein echtes Rechteck im Raum
+  // (Wand aus `gedenktafeln.waende`, Lage in Metern). Ihre vier Ecken werden je Bild mit derselben
+  // Projektion wie Pannellum aufs Bild gerechnet und die Tafel per CSS-matrix3d genau in dieses Viereck
+  // gezogen – so sitzt sie von jeder Station aus perspektivisch richtig an der Wand. Das Foto kennt keine
+  // Tiefe: Wo etwas davorsteht, die Wand per `verdecktVon` für diese Station ausblenden. Die Ebene liegt
+  // unter Pannellums Zieh-Fläche (Umschauen bleibt überall möglich); Klicks werden selbst zugeordnet.
+  const GT = daten.gedenktafeln;
+  const TAFELN_AN = !!GT?.aktiv;
+  // Detailstufen (wie Mipmaps): Die Tafel wird in etwa der Größe gezeichnet, in der sie gerade im Bild erscheint
+  // (75/150/300/600 px breit). Zu groß gezeichnet und dann stark verkleinert flimmert sie pixelig, zu klein
+  // gezeichnet und vergrößert verschwimmt sie. Alle Maße im CSS hängen an --u (= Breite / 200).
+  const STUFEN = [75, 150, 300, 600];
+  const SEITEN = (GT?.format.hoehe ?? 0.68) / (GT?.format.breite ?? 0.5);
+  const DICKE = 0.02;          // Plattenstärke in m – ergibt je nach Blickwinkel sichtbare Kanten
+  type P3 = [number, number, number];
+  type Kante = { el: HTMLElement; idx: number[]; normale: P3; punkt: P3 };
+  type Tafel = {
+    g: any; wand: any; mitte: P3; n: [number, number]; el: HTMLButtonElement; stufe: number;
+    punkte: P3[];              // 0–3 Vorderseite, 4–7 an der Wand, 8–11 Schatten (je oben-links, oben-rechts, unten-rechts, unten-links)
+    kanten: Kante[]; schatten: HTMLElement;
+  };
+  type Eck = [number, number];
+  const rgViewerEl = document.getElementById('astro-rg-viewer')!;
+  const tafelEbene = document.createElement('div');
+  tafelEbene.className = 'astro-rg-tafeln';
+  const tafelLabel = document.createElement('span');
+  tafelLabel.className = 'astro-rg-tafel-label';
+  tafelLabel.setAttribute('aria-hidden', 'true');
+  tafelEbene.appendChild(tafelLabel);
+  const tafeln: Tafel[] = [];
+  if (TAFELN_AN) {
+    const waende = Object.fromEntries(GT.waende.map((w: any) => [w.id, w]));
+    for (const t of GT.tafeln) {
+      const w = waende[t.wand];
+      const g = daten.geschichten.find((x: any) => x.id === t.geschichte);
+      if (!w || !g) continue;
+      const ax = (w.a.x / 100) * W, ay = (w.a.y / 100) * H, bx = (w.b.x / 100) * W, by = (w.b.y / 100) * H;
+      const L = Math.hypot(bx - ax, by - ay), dx = (bx - ax) / L, dy = (by - ay) / L;
+      const n: [number, number] = [dy, -dx];             // Vorderseite: links von a→b
+      const rx = n[1], ry = -n[0];                         // „rechts“ für jemanden, der auf die Wand schaut
+      const cx = ax + dx * t.entlang, cy = ay + dy * t.entlang, cz = (w.boden || 0) + t.hoehe;
+      const hb = GT.format.breite / 2, hh = GT.format.hoehe / 2;
+      const ecke = (sr: number, sz: number, vor: number, unten = 0, rand = 0): P3 =>
+        [cx + rx * (hb + rand) * sr + n[0] * vor, cy + ry * (hb + rand) * sr + n[1] * vor, cz - unten + (hh + rand) * sz];
+      const reihum: [number, number][] = [[-1, 1], [1, 1], [1, -1], [-1, -1]];
+      const punkte: P3[] = [
+        ...reihum.map(([a, b]) => ecke(a, b, DICKE)),
+        ...reihum.map(([a, b]) => ecke(a, b, 0)),
+        ...reihum.map(([a, b]) => ecke(a, b, 0, 0.045, 0.012)),   // Schatten: Licht von oben → etwas tiefer
+      ];
+      // Kanten der Platte: oben, rechts, unten, links – sichtbar, wenn ihre Außenseite zur Kamera zeigt
+      const kanten: Kante[] = ([
+        ['oben', [0, 1, 5, 4], [0, 0, 1]], ['rechts', [1, 2, 6, 5], [rx, ry, 0]],
+        ['unten', [3, 2, 6, 7], [0, 0, -1]], ['links', [0, 3, 7, 4], [-rx, -ry, 0]],
+      ] as [string, number[], P3][]).map(([seite, idx, normale]) => {
+        const k = document.createElement('span');
+        k.className = `astro-rg-tafel-kante astro-rg-tafel-kante-${seite}`;
+        k.setAttribute('aria-hidden', 'true');
+        return { el: k, idx, normale, punkt: punkte[idx[0]] };
+      });
+      const schatten = document.createElement('span');
+      schatten.className = 'astro-rg-tafel-schatten';
+      schatten.setAttribute('aria-hidden', 'true');
+      const el = document.createElement('button');
+      el.type = 'button';
+      el.className = 'astro-rg-tafel';
+      const zeile = [g.titel, g.jahr].filter(Boolean).join(' · ');
+      el.setAttribute('aria-label', `Geschichte: ${zeile} (${MEDIUM[g.medium] || ''})`);
+      // `tafelbild`: großes Hochformat-Porträt (480 × 600) eigens für die Tafel, sonst das kleine Vorschaubild
+      const tb = g.tafelbild || g.vorschaubild;
+      const bild = tb
+        ? `<img src="${tb}" alt="" draggable="false" decoding="async">`
+        : `<span class="astro-rg-tafel-initialen">${g.kuerzel || (g.person || g.titel).split(/\s+/).map((x: string) => x[0]).join('').slice(0, 2)}</span>`;
+      el.innerHTML = `<span class="astro-rg-tafel-bild">${bild}</span><span class="astro-rg-tafel-name">${g.person || ''}</span>`
+        + `<span class="astro-rg-tafel-titel">${g.titel}</span><span class="astro-rg-tafel-jahr">${g.jahr || ''}</span>`;
+      el.addEventListener('click', () => zeigeGeschichte(g));
+      const tafel: Tafel = { g, wand: w, mitte: [cx, cy, cz], n, el, stufe: 0, punkte, kanten, schatten };
+      setzeStufe(tafel, 150);
+      // Tastatur: beim Ansteuern mit Tab die Tafel ins Bild drehen
+      el.addEventListener('focus', () => {
+        const s = stationen[viewer.getScene()];
+        const k = GT.korrektur?.[s.id]?.[w.id] ?? 0;
+        const [kd, kn] = Array.isArray(k) ? k : [k, 0];
+        const [y0, p0] = winkel(s, tafel.mitte);
+        const yaw = wrap(y0 + kd), pitch = p0 + kn;
+        viewer.lookAt(pitch, yaw, Math.min(viewer.getHfov(), 70), ruhig ? false : 600);
+      });
+      tafelEbene.append(schatten, ...kanten.map((k) => k.el), el);
+      tafeln.push(tafel);
+    }
+  }
+  function winkel(s: Station, [x, y, z]: [number, number, number]): Eck {
+    const sx = (s.position.x / 100) * W, sy = (s.position.y / 100) * H;
+    return [wrap(grad(Math.atan2(y - sy, x - sx)) - s.blickrichtung),
+      grad(Math.atan2(z - ((s.boden || 0) + KAMERA), Math.hypot(x - sx, y - sy)))];
+  }
+  function setzeStufe(t: Tafel, breite: number) {
+    if (t.stufe === breite) return;
+    t.stufe = breite;
+    t.el.style.width = `${breite}px`;
+    t.el.style.height = `${Math.round(breite * SEITEN)}px`;
+    t.el.style.setProperty('--u', `${breite / 200}px`);
+  }
+  // je Station einmal: welche Tafeln sind von dort zu sehen (Vorderseite, Reichweite, nicht verdeckt),
+  // die Winkel aller Eckpunkte, welche Plattenkanten zur Kamera zeigen und wo der Glanz liegt
+  type Sicht = { t: Tafel; winkel: Eck[]; meter: number; kanten: Kante[]; glanz: number };
+  const tafelnProStation: Record<string, Sicht[]> = {};
+  for (const s of Object.values(stationen)) {
+    const sx = (s.position.x / 100) * W, sy = (s.position.y / 100) * H, sz = (s.boden || 0) + KAMERA;
+    tafelnProStation[s.id] = tafeln
+      .filter((t) => !t.wand.verdecktVon?.includes(s.id) && (sx - t.mitte[0]) * t.n[0] + (sy - t.mitte[1]) * t.n[1] > 0.3)
+      .map((t) => {
+        const zu = (p: P3) => [sx - p[0], sy - p[1], sz - p[2]];
+        const kanten = t.kanten.filter((k) => { const d = zu(k.punkt); return d[0] * k.normale[0] + d[1] * k.normale[1] + d[2] * k.normale[2] > 0; });
+        // seitlicher Blickwinkel auf die Tafel → Lage des Glanzstreifens (frontal = Mitte)
+        const d = zu(t.mitte), lang = Math.hypot(d[0], d[1]);
+        const seitlich = (d[0] * t.n[1] - d[1] * t.n[0]) / lang;
+        // gemessene Korrektur je Station und Wand (gleicht kleine Lagefehler der Stationen aus)
+        const k = GT.korrektur?.[s.id]?.[t.wand.id] ?? 0;
+        const [kd, kn] = Array.isArray(k) ? k : [k, 0];
+        const wk = t.punkte.map((p) => { const [y, n] = winkel(s, p); return [wrap(y + kd), n + kn] as Eck; });
+        return { t, winkel: wk, meter: lang, kanten, glanz: Math.round(50 + seitlich * 45) };
+      })
+      .filter((x) => x.meter <= GT.reichweiteMeter);
+  }
+  // Viereck (Bildpunkte, Reihenfolge oben-links, oben-rechts, unten-rechts, unten-links) → CSS matrix3d
+  function matrixFuer(q: Eck[], w: number, h: number) {
+    const [[x0, y0], [x1, y1], [x2, y2], [x3, y3]] = q;
+    const sx = x0 - x1 + x2 - x3, sy = y0 - y1 + y2 - y3;
+    const dx1 = x1 - x2, dx2 = x3 - x2, dy1 = y1 - y2, dy2 = y3 - y2, den = dx1 * dy2 - dx2 * dy1;
+    if (Math.abs(den) < 1e-9) return null;
+    const g = (sx * dy2 - dx2 * sy) / den, k = (dx1 * sy - sx * dy1) / den;
+    const a = x1 - x0 + g * x1, b = x3 - x0 + k * x3, d = y1 - y0 + g * y1, e = y3 - y0 + k * y3;
+    return `matrix3d(${[a / w, d / w, 0, g / w, b / h, e / h, 0, k / h, 0, 0, 1, 0, x0, y0, 0, 1].map((z) => +z.toPrecision(9)).join(',')})`;   // signifikante Stellen: die Perspektiv-Werte sind winzig
+  }
+  let tafelQuads: { t: Tafel; q: Eck[] }[] = [];
+  let verdeckt: Eck[][] = [];   // Umrisse der Verdecker im Bild (für die Trefferprüfung)
+  const innenPolygon = (px: number, py: number, pg: Eck[]) => {
+    let drin = false;
+    for (let i = 0, j = pg.length - 1; i < pg.length; j = i++) {
+      const [xi, yi] = pg[i], [xj, yj] = pg[j];
+      if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) drin = !drin;
+    }
+    return drin;
+  };
+  let tafelStand = '';
+  let tafelUeber: Tafel | null = null;
+  function zeichneTafeln() {
+    if (!TAFELN_AN) return;
+    const canvas = viewer.getRenderer()?.getCanvas();
+    if (!canvas) return;
+    if (tafelEbene.parentNode !== canvas.parentNode) canvas.parentNode.insertBefore(tafelEbene, linienSvg.nextSibling);
+    const v = { yaw: viewer.getYaw(), pitch: viewer.getPitch(), hfov: viewer.getHfov(), w: canvas.clientWidth, h: canvas.clientHeight };
+    const stand = [viewer.getScene(), v.yaw.toFixed(2), v.pitch.toFixed(2), v.hfov.toFixed(2), v.w, v.h, tafelUeber?.g.id].join('|');
+    if (stand === tafelStand) return;
+    tafelStand = stand;
+    const sichtbar = tafelnProStation[viewer.getScene()] || [];
+    tafelQuads = [];
+    const weg = 'translate(-99999px, 0)';
+    for (const t of tafeln) {
+      const x = sichtbar.find((y) => y.t === t);
+      const q = x ? x.winkel.map((e) => projPunkt(e, v)) : [];
+      const vorn = q.slice(0, 4) as Eck[];
+      const ok = !!x && !q.includes(null);
+      // Detailstufe nach der Breite im Bild wählen (vor dem Berechnen der Matrix, die hängt an der Größe)
+      if (ok) {
+        const breite = Math.max(Math.hypot(vorn[1][0] - vorn[0][0], vorn[1][1] - vorn[0][1]), Math.hypot(vorn[2][0] - vorn[3][0], vorn[2][1] - vorn[3][1]));
+        setzeStufe(t, STUFEN.find((s) => s >= breite * 0.9) ?? STUFEN[STUFEN.length - 1]);
+      }
+      const m = ok ? matrixFuer(vorn, t.stufe, Math.round(t.stufe * SEITEN)) : null;
+      // Von dieser Station aus nicht zu sehen → ganz aus (auch für die Tastatur). Nur gerade außerhalb des
+      // Blickfelds → aus dem Bild schieben, aber per Tab erreichbar lassen (Fokus dreht dann dorthin).
+      t.el.style.visibility = x ? 'visible' : 'hidden';
+      if (!m) {
+        t.el.style.transform = weg; t.schatten.style.transform = weg;
+        t.kanten.forEach((k) => (k.el.style.transform = weg));
+        continue;
+      }
+      t.el.style.transform = m;
+      t.el.style.setProperty('--glanz', `${x!.glanz}%`);
+      t.schatten.style.transform = matrixFuer(q.slice(8, 12) as Eck[], 100, 100) || weg;
+      for (const k of t.kanten) {
+        k.el.style.transform = x!.kanten.includes(k) ? (matrixFuer(k.idx.map((i) => q[i]) as Eck[], 100, 10) || weg) : weg;
+      }
+      t.el.classList.toggle('astro-rg-tafel-ueber', t === tafelUeber);
+      tafelQuads.push({ t, q: vorn });
+    }
+    // Verdecker (z. B. Lesepult vor einer Tafel): Tafel-Ebene dort ausschneiden, damit das Objekt aus dem Foto
+    // davor bleibt. Ausschnitt im Bild = alles minus Umriss (evenodd).
+    let ausschnitt = '';
+    verdeckt = [];
+    for (const vd of GT.verdecker?.[viewer.getScene()] || []) {
+      const pk = vd.umriss.map((u: Eck) => projPunkt(u, v));
+      if (pk.includes(null)) continue;
+      verdeckt.push(pk as Eck[]);
+      ausschnitt += ` M${pk.map((p: Eck) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' L')} Z`;
+    }
+    tafelEbene.style.clipPath = ausschnitt ? `path(evenodd, "M-10 -10 H${v.w + 10} V${v.h + 10} H-10 Z${ausschnitt}")` : '';
+    // Titel über der Tafel, auf die der Mauszeiger zeigt (hilft vor allem bei weit entfernten Tafeln)
+    const u = tafelQuads.find((x) => x.t === tafelUeber);
+    if (u) {
+      tafelLabel.textContent = [u.t.g.titel, u.t.g.jahr].filter(Boolean).join(' · ');
+      tafelLabel.style.left = `${(u.q[0][0] + u.q[1][0]) / 2}px`;
+      tafelLabel.style.top = `${Math.min(u.q[0][1], u.q[1][1])}px`;
+      tafelLabel.classList.add('astro-rg-tafel-label-an');
+    } else tafelLabel.classList.remove('astro-rg-tafel-label-an');
+  }
+  // Treffer: im Viereck – kleine (ferne) Tafeln bekommen eine Mindest-Trefferfläche von 28 px
+  function tafelAn(px: number, py: number): Tafel | null {
+    if (!TAFELN_AN || rgViewerEl.classList.contains('astro-rg-ohne-geschichte')) return null;
+    if (verdeckt.some((pg) => innenPolygon(px, py, pg))) return null;
+    for (let i = tafelQuads.length - 1; i >= 0; i--) {
+      const { t, q } = tafelQuads[i];
+      const xs = q.map((p) => p[0]), ys = q.map((p) => p[1]);
+      const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+      if (maxX - minX < 28 || maxY - minY < 28) {
+        const mx = (minX + maxX) / 2, my = (minY + maxY) / 2;
+        if (Math.abs(px - mx) <= Math.max(14, (maxX - minX) / 2) && Math.abs(py - my) <= Math.max(14, (maxY - minY) / 2)) return t;
+        continue;
+      }
+      let innen = true;
+      for (let j = 0; j < 4; j++) {
+        const [ax, ay] = q[j], [bx, by] = q[(j + 1) % 4];
+        if ((bx - ax) * (py - ay) - (by - ay) * (px - ax) < 0) { innen = false; break; }
+      }
+      if (innen) return t;
+    }
+    return null;
+  }
+  if (TAFELN_AN) {
+    const lokal = (e: PointerEvent): Eck => {
+      const r = (viewer.getRenderer()?.getCanvas() as HTMLElement).getBoundingClientRect();
+      return [e.clientX - r.left, e.clientY - r.top];
+    };
+    let druck: { x: number; y: number; t: number } | null = null;
+    rgViewerEl.addEventListener('pointerdown', (e) => { druck = { x: e.clientX, y: e.clientY, t: performance.now() }; });
+    rgViewerEl.addEventListener('pointerup', (e) => {
+      if (!druck || (e.target as HTMLElement).closest?.('.astro-rg-hs, .pnlm-controls-container')) { druck = null; return; }
+      const kurz = Math.hypot(e.clientX - druck.x, e.clientY - druck.y) < 6 && performance.now() - druck.t < 600;
+      druck = null;
+      if (!kurz) return;
+      const t = tafelAn(...lokal(e));
+      if (t) zeigeGeschichte(t.g);
+    });
+    rgViewerEl.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse' || e.buttons) return;
+      const t = (e.target as HTMLElement).closest?.('.astro-rg-hs') ? null : tafelAn(...lokal(e));
+      if (t !== tafelUeber) { tafelUeber = t; rgViewerEl.classList.toggle('astro-rg-zeiger', !!t); }
+    });
+    rgViewerEl.addEventListener('pointerleave', () => { tafelUeber = null; rgViewerEl.classList.remove('astro-rg-zeiger'); });
+  }
+
   // ---------- Viewer ----------
   const szenen: Record<string, any> = {};
   for (const s of Object.values(stationen)) {
@@ -531,11 +863,11 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 
   // Linien bei jedem Bild nachführen (nur neu zeichnen, wenn sich Blick oder Größe geändert haben);
   // während der Überblendung zur nächsten Station ausblenden.
-  (function schleife() { zeichneLinien(); requestAnimationFrame(schleife); })();
-  viewer.on('scenechange', () => { schliesseGalerie(true); linienSvg.classList.add('astro-rg-linien-weg'); hervorgehoben = null; titelAus(); });
+  (function schleife() { zeichneLinien(); zeichneTafeln(); requestAnimationFrame(schleife); })();
+  viewer.on('scenechange', () => { schliesseGalerie(true); linienSvg.classList.add('astro-rg-linien-weg'); tafelEbene.classList.add('astro-rg-linien-weg'); tafelUeber = null; hervorgehoben = null; titelAus(); });
   // Tipp ins Bild (nicht auf einen Punkt) blendet einen offenen Geschichten-Titel wieder aus
   viewer.on('mousedown', (e: any) => { if (!e?.target?.closest?.('.astro-rg-hs')) titelAus(); });
-  viewer.on('load', () => { letzterStand = ''; linienSvg.classList.remove('astro-rg-linien-weg'); });
+  viewer.on('load', () => { letzterStand = ''; tafelStand = ''; linienSvg.classList.remove('astro-rg-linien-weg'); tafelEbene.classList.remove('astro-rg-linien-weg'); });
 
   // Gehen: kurz in Laufrichtung hineinzoomen, dann überblenden (Werner-Feedback 2026-09-23: sonst
   // fühlt sich der Wechsel wie Teleportieren an). Ankunft mit Blick in Laufrichtung.
@@ -579,9 +911,31 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     punkte.forEach((p) => p.classList.toggle('astro-rg-punkt-aktiv', p.dataset.station === id));
     history.replaceState(null, '', `#${id}`);
     if (fuehrungAktiv) zeigeFuehrung(id);
+    zeigeHier(id);
     vorladen(s);
   }
   viewer.on('scenechange', aktualisiere);
+
+  // Karte „Hier stehen Sie“ unter dem Bild: Texte aus den Daten, die Liste „Von hier aus zu entdecken“ aus der
+  // passenden Stationskarte unten kopiert (so bleiben beide immer gleich).
+  const hier = document.getElementById('astro-rg-hier')!;
+  function zeigeHier(id: string) {
+    const s = stationen[id];
+    document.getElementById('astro-rg-hier-nr')!.textContent = `Hier stehen Sie · Station ${s.nr}`;
+    document.getElementById('astro-rg-hier-titel')!.textContent = s.titel;
+    document.getElementById('astro-rg-hier-lage')!.textContent = s.ort;
+    document.getElementById('astro-rg-hier-text')!.textContent = s.begleittext;
+    const ziel = document.getElementById('astro-rg-hier-details')!;
+    ziel.replaceChildren();
+    const karte = document.getElementById(`astro-rg-ort-${id}`);
+    const titel = karte?.querySelector('.astro-rg-ort-details-titel'), liste = karte?.querySelector('.astro-rg-ort-details');
+    if (titel && liste) {
+      const t2 = titel.cloneNode(true) as HTMLElement, l2 = liste.cloneNode(true) as HTMLElement;
+      t2.id = 'astro-rg-hier-details-titel';
+      l2.setAttribute('aria-labelledby', t2.id);
+      ziel.append(t2, l2);
+    }
+  }
 
   // Nachbarstationen in grober Auflösung vorladen (Stufe 1 und 2), damit das Weitergehen flott ist.
   // Bewusst in einer Warteschlange mit wenigen gleichzeitigen Anfragen – schont Handy-Verbindungen
@@ -684,10 +1038,12 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   const rgSektion = document.querySelector('.astro-rg') as HTMLElement;
   function fuehrungsModus(an: boolean) {
     rgSektion.classList.toggle('astro-rg-fuehrung-aktiv', an);
+    hier.hidden = an;
     if (typeof viewer.resize === 'function') viewer.resize();
   }
   document.getElementById('astro-rg-start')!.addEventListener('click', () => {
     fuehrungAktiv = true;
+    anfangWeg();
     fuehrung.hidden = false;
     startBereich.hidden = true;
     fuehrungsModus(true);
@@ -695,12 +1051,28 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     zeigeFuehrung(reihenfolge[0]);
     buehne.scrollIntoView({ behavior: ruhig ? 'auto' : 'smooth', block: 'start' });
   });
+  // Erster Hinweis „ins Bild tippen und ziehen“: weg, sobald man sich umgeschaut, gedreht oder weiterbewegt hat
+  const anfang = document.getElementById('astro-rg-anfang')!;
+  const anfangWeg = () => anfang.classList.add('astro-rg-anfang-weg');
+  rgViewerEl.addEventListener('pointerdown', anfangWeg, { once: true });
+  rgViewerEl.addEventListener('keydown', anfangWeg, { once: true });
+  // Pannellum meldet beim ersten Laden auch einen „Wechsel“ zur Startstation – nur echte Wechsel zählen
+  viewer.on('scenechange', (id: string) => { if (id !== erste) anfangWeg(); });
+  // „Direkt zur Heiligengalerie“: zur Station mit dem besten Blick auf beide Tafelwände springen
+  document.getElementById('astro-rg-zur-galerie')?.addEventListener('click', () => {
+    const z = daten.gedenktafeln.direkt;
+    anfangWeg();
+    buehne.scrollIntoView({ behavior: ruhig ? 'auto' : 'smooth', block: 'start' });
+    if (laeuft || !stationen[z.station]) return;
+    if (viewer.getScene() === z.station) viewer.lookAt(z.pitch, z.yaw, z.hfov, ruhig ? false : 800);
+    else viewer.loadScene(z.station, z.pitch, z.yaw, z.hfov);
+  });
   function beende() {
     fuehrungAktiv = false;
     fuehrung.hidden = true;
     startBereich.hidden = false;
     fuehrungsModus(false);
-    (document.getElementById('astro-rg-start') as HTMLButtonElement).focus();
+    (document.getElementById('astro-rg-start') as HTMLButtonElement).focus({ preventScroll: true });
   }
   document.getElementById('astro-rg-weiter')!.addEventListener('click', () => {
     const aktuell = reihenfolge.indexOf(viewer.getScene());
@@ -829,6 +1201,14 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 
   .astro-rg-ort { position: absolute; left: 12px; bottom: 12px; margin: 0; padding: 6px 14px; border-radius: 999px;
     background: rgba(26, 26, 26, 0.78); color: var(--rg-creme); font-weight: 700; font-size: 15px; pointer-events: none; }
+  .astro-rg-anfang { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; pointer-events: none;
+    display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 16px 22px; border-radius: 16px;
+    background: rgba(26, 26, 26, 0.72); color: #fff; font: 700 18px/1.3 'Source Sans 3', sans-serif; text-align: center; max-width: 80%;
+    transition: opacity 0.5s; }
+  .astro-rg-anfang svg { width: 48px; height: 48px; animation: astro-rg-wisch 2.4s ease-in-out infinite; }
+  .astro-rg-anfang-weg { opacity: 0; }
+  @keyframes astro-rg-wisch { 0%, 100% { transform: translateX(-22px) rotate(-8deg); } 50% { transform: translateX(22px) rotate(8deg); } }
+  @media (prefers-reduced-motion: reduce) { .astro-rg-anfang svg { animation: none; } }
   .astro-rg-werkzeuge { position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; }
   .astro-rg-rund { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rg-creme); background: rgba(26, 26, 26, 0.78);
     color: var(--rg-creme); display: grid; place-items: center; cursor: pointer; }
@@ -907,6 +1287,68 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-hg-knopf:hover, .astro-rg-hg-knopf:focus-visible { background: #d9bd74; outline: none; transform: translate(-50%, -50%) scale(1.06); }
   .astro-rg-hg-knopf:focus-visible { box-shadow: 0 0 0 3px var(--rg-schwarz), 0 2px 10px rgba(0, 0, 0, 0.45); }
   .astro-rg-galerie-offen .astro-rg-linien { display: block; filter: none; }
+  /* Heiligengalerie als Tafelwand: goldene Tafeln, per matrix3d perspektivisch an die Wand gelegt (Prototyp 2026-11-05).
+     Schatten und Licht sind auf das warme Oberlicht im Chorraum abgestimmt (Licht von oben → Schatten nach unten). */
+  .astro-rg-tafeln { position: absolute; inset: 0; overflow: hidden; pointer-events: none; transition: opacity 0.3s; }
+  .astro-rg-tafeln.astro-rg-linien-weg { opacity: 0; transition: none; }
+  .astro-rg-ohne-geschichte .astro-rg-tafeln { display: none; }
+  .astro-rg-zeiger .pnlm-dragfix, .astro-rg-zeiger .pnlm-ui { cursor: pointer !important; }
+  /* Feine Bürststruktur (waagerecht gebürstetes Messing) als SVG-Rauschen, wird per soft-light aufs Gold gelegt */
+  .astro-rg-tafeln { --rg-buerste: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='540'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.75' numOctaves='3' seed='7'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E"); }
+  .astro-rg-tafel { position: absolute; left: 0; top: 0; box-sizing: border-box; margin: 0; padding: calc(16 * var(--u)) calc(18 * var(--u)) calc(13 * var(--u));
+    border: 0; border-radius: calc(4 * var(--u));
+    transform-origin: 0 0; pointer-events: none; visibility: hidden; backface-visibility: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: calc(7 * var(--u));
+    font-family: Georgia, 'Times New Roman', serif; color: #3f2b0a; text-align: center;
+    background:
+      radial-gradient(ellipse 75% 70% at 50% 45%, transparent 55%, rgba(58, 36, 6, 0.42) 100%),
+      linear-gradient(104deg, transparent calc(var(--glanz, 50%) - 22%), rgba(255, 247, 214, 0.5) var(--glanz, 50%), transparent calc(var(--glanz, 50%) + 22%)),
+      var(--rg-buerste),
+      linear-gradient(172deg, #d9bb6c 0%, #c9a24f 30%, #b48a38 62%, #9c7428 100%);
+    background-size: 100% 100%;
+    background-blend-mode: normal, screen, soft-light, normal;
+    /* erhabener Rahmen: Lichtkante oben/links, Schattenkante unten/rechts, dann eine eingetiefte Fuge */
+    box-shadow:
+      inset calc(1.2 * var(--u)) calc(1.5 * var(--u)) 0 rgba(255, 244, 205, 0.85),
+      inset calc(-1.2 * var(--u)) calc(-1.5 * var(--u)) 0 rgba(70, 46, 8, 0.75),
+      inset 0 0 0 calc(7 * var(--u)) rgba(214, 180, 98, 0.35),
+      inset calc(-1 * var(--u)) calc(-1 * var(--u)) 0 calc(8 * var(--u)) rgba(255, 238, 185, 0.6),
+      inset calc(1 * var(--u)) calc(1 * var(--u)) 0 calc(8.5 * var(--u)) rgba(80, 54, 12, 0.6);
+    filter: brightness(0.84) saturate(0.85) contrast(1.04); transition: filter 0.2s; }
+  /* Pannellum setzt `.pnlm-container * { box-sizing: content-box }` – dann wäre die Tafel samt Innenabstand größer
+     als die Fläche, auf die matrix3d die Ecken rechnet, und säße verzerrt an der Wand. */
+  .pnlm-container .astro-rg-tafel, .pnlm-container .astro-rg-tafel * { box-sizing: border-box; }
+  .astro-rg-tafel-ueber, .astro-rg-tafel:focus-visible { filter: brightness(1.02) saturate(0.95) contrast(1.04); outline: none; }
+  .astro-rg-tafel:focus-visible { box-shadow: 0 0 0 calc(5 * var(--u)) #fff, 0 0 0 calc(9 * var(--u)) var(--rg-rot); }
+  /* Plattenkanten (2 cm stark, echt im Raum berechnet): oben im Licht, unten im Schatten, seitlich dazwischen */
+  .astro-rg-tafel-kante { position: absolute; left: 0; top: 0; width: 100px; height: 10px; transform-origin: 0 0; pointer-events: none;
+    background: linear-gradient(180deg, #8d6a26, #5e4313); }
+  .astro-rg-tafel-kante-oben { background: linear-gradient(180deg, #e6cd88, #a78236); }
+  .astro-rg-tafel-kante-unten { background: linear-gradient(180deg, #5a3f10, #2f2108); }
+  .astro-rg-tafel-kante-links, .astro-rg-tafel-kante-rechts { background: linear-gradient(180deg, #9a7630, #5c4213); }
+  /* weicher Schlagschatten auf dem Beton, liegt in der Wandebene etwas tiefer als die Tafel */
+  .astro-rg-tafel-schatten { position: absolute; left: 0; top: 0; width: 100px; height: 100px; transform-origin: 0 0; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(28, 18, 6, 0.55), rgba(28, 18, 6, 0.38) 70%, transparent); filter: blur(4px); }
+  .astro-rg-ohne-geschichte .astro-rg-tafel-kante, .astro-rg-ohne-geschichte .astro-rg-tafel-schatten { display: none; }
+  /* Medaillon: erhabene Fassung mit Perlrand-Anmutung, Foto leicht getönt wie unter altem Glas */
+  .astro-rg-tafel-bild { flex: 0 0 auto; width: 60%; aspect-ratio: 4 / 5; border-radius: 50%; overflow: hidden; display: grid; place-items: center;
+    padding: calc(5 * var(--u));
+    background: linear-gradient(150deg, #f3e1a3 0%, #c39a45 35%, #8a6624 70%, #d2b062 100%);
+    box-shadow: 0 calc(2.5 * var(--u)) calc(3 * var(--u)) rgba(50, 32, 4, 0.6), 0 calc(-0.6 * var(--u)) 0 rgba(255, 244, 205, 0.7); }
+  .astro-rg-tafel-bild img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; filter: sepia(0.45) contrast(1.02) brightness(0.92) saturate(0.85);
+    box-shadow: inset 0 0 calc(6 * var(--u)) rgba(0, 0, 0, 0.5); }
+  .astro-rg-tafel-initialen { font-size: calc(42 * var(--u)); letter-spacing: calc(2 * var(--u)); color: #4a330c;
+    text-shadow: 0 calc(0.8 * var(--u)) 0 rgba(255, 240, 196, 0.75), 0 calc(-0.6 * var(--u)) 0 rgba(40, 25, 2, 0.55); }
+  /* Gravur: dunkel vertieft – Schattenkante oben, Lichtkante unten */
+  .astro-rg-tafel-name, .astro-rg-tafel-titel, .astro-rg-tafel-jahr { display: block; max-width: 100%; color: #36250a;
+    text-shadow: 0 calc(0.7 * var(--u)) 0 rgba(255, 240, 196, 0.7), 0 calc(-0.5 * var(--u)) 0 rgba(30, 18, 2, 0.5); }
+  .astro-rg-tafel-name { font-size: calc(19 * var(--u)); font-weight: 700; letter-spacing: calc(3 * var(--u)); text-transform: uppercase; margin-top: calc(2 * var(--u)); }
+  .astro-rg-tafel-titel { font-size: calc(13.5 * var(--u)); line-height: 1.25; font-style: italic; }
+  .astro-rg-tafel-jahr { font-size: calc(13 * var(--u)); letter-spacing: calc(2 * var(--u)); margin-top: auto; }
+  .astro-rg-tafel-label { position: absolute; transform: translate(-50%, calc(-100% - 10px)); padding: 5px 12px; border-radius: 999px; white-space: nowrap;
+    background: var(--rg-gold); color: var(--rg-schwarz); font: 600 14px/1.3 system-ui, sans-serif; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    opacity: 0; transition: opacity 0.15s; pointer-events: none; }
+  .astro-rg-tafel-label-an { opacity: 1; }
   .astro-rg-linien .astro-rg-zylinder { fill: rgba(255, 252, 244, 0.2); opacity: 1; }
   .astro-rg-linien .astro-rg-zylinder-rand { fill: none; stroke: var(--rg-gold); stroke-width: 2.5; opacity: 0.95; filter: drop-shadow(0 0 4px rgba(197, 165, 90, 0.9)); }
   .astro-rg-galerie-offen .astro-rg-hs-weg, .astro-rg-galerie-offen .astro-rg-hs-info, .astro-rg-galerie-offen .astro-rg-hs-geschichte { display: none; }
@@ -935,24 +1377,34 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-leiste { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
   .astro-rg-leiste-start { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
   .astro-rg-leiste-start[hidden] { display: none; }
-  .astro-rg-leiste-text { color: #5c5c5c; font-size: 15px; }
-  .astro-rg-knopf { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 999px; border: 2px solid var(--rg-schwarz);
+  .astro-rg-knopf { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; min-height: 44px; box-sizing: border-box; border-radius: 999px; border: 2px solid var(--rg-schwarz);
     background: #fff; color: var(--rg-schwarz); font: 700 15px/1.2 'Source Sans 3', sans-serif; cursor: pointer; }
   .astro-rg-knopf svg { width: 16px; height: 16px; }
   .astro-rg-knopf:hover { background: var(--rg-schwarz); color: #fff; }
+  .astro-rg-knopf-gold { border-color: var(--rg-gold); background: #fbf6ea; }
+  .astro-rg-knopf-gold svg { color: #a8873d; }
+  .astro-rg-knopf-gold:hover { background: var(--rg-gold); border-color: var(--rg-gold); color: var(--rg-schwarz); }
+  .astro-rg-knopf-gold:hover svg { color: var(--rg-schwarz); }
   .astro-rg-knopf:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: 2px; }
   .astro-rg-knopf:disabled { opacity: 0.4; cursor: default; background: #fff; color: var(--rg-schwarz); }
   .astro-rg-knopf-rot { background: var(--rg-rot); border-color: var(--rg-rot); color: #fff; }
   .astro-rg-knopf-rot:hover { background: #b80015; border-color: #b80015; }
   .astro-rg-knopf-leise { border-color: transparent; text-decoration: underline; }
-  .astro-rg-legende { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-  .astro-rg-legende-titel { color: #5c5c5c; font-size: 15px; }
-  .astro-rg-ebene { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 6px; border-radius: 999px; border: 1px solid #d6d0c6;
-    background: #fff; color: var(--rg-schwarz); font: 600 14px/1.2 'Source Sans 3', sans-serif; cursor: pointer; }
-  .astro-rg-ebene:hover { border-color: var(--rg-schwarz); }
-  .astro-rg-ebene:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: 2px; }
-  .astro-rg-ebene[aria-pressed='false'] { color: #8a8a8a; text-decoration: line-through; background: #f1f1f1; }
-  .astro-rg-ebene[aria-pressed='false'] .astro-rg-marke { opacity: 0.35; }
+  .astro-rg-legende { position: absolute; right: 12px; bottom: 12px; z-index: 2; display: flex; align-items: center; gap: 4px; padding: 4px;
+    border-radius: 999px; background: rgba(26, 26, 26, 0.78); }
+  .astro-rg-legende-titel { color: var(--rg-creme); font-size: 13px; font-weight: 600; padding: 0 4px 0 8px; opacity: 0.85; }
+  .astro-rg-ebene { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 999px; border: 0;
+    background: transparent; color: var(--rg-creme); font: 600 13px/1.2 'Source Sans 3', sans-serif; cursor: pointer; }
+  .astro-rg-ebene:hover { background: rgba(255, 255, 255, 0.14); }
+  .astro-rg-ebene:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: 1px; }
+  .astro-rg-ebene[aria-pressed='false'] { opacity: 0.55; text-decoration: line-through; }
+  .astro-rg-ebene[aria-pressed='false'] .astro-rg-marke { opacity: 0.4; }
+  .astro-rg-ebene .astro-rg-marke { width: 20px; height: 20px; font-size: 12px; }
+  @media (max-width: 640px) {
+    .astro-rg-legende-titel { display: none; }
+    .astro-rg-ebene { padding: 0; width: 44px; height: 44px; justify-content: center; }
+    .astro-rg-ebene-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  }
   .astro-rg-marke { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; flex: none; font: 700 13px/1 Georgia, serif; }
   .astro-rg-marke-weg { background: #6b6b6b; border: 2px solid #fff; box-shadow: 0 0 0 1px #6b6b6b; }
   .astro-rg-marke-info { background: var(--rg-rot); color: #fff; }
@@ -960,15 +1412,49 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 
   .astro-rg-fuehrung { background: var(--rg-creme); border-left: 5px solid var(--rg-rot); border-radius: 0 var(--radius, 8px) var(--radius, 8px) 0; padding: 18px 22px; margin-bottom: 16px; }
   .astro-rg-fuehrung[hidden] { display: none; }
-  .astro-rg-fuehrung-nr { margin: 0 0 4px; color: var(--rg-rot); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .astro-rg-hier { margin-top: 16px; }
+  .astro-rg-hier .astro-rg-hier-lage { margin: -2px 0 10px; color: #5c5c5c; font-size: 15px; }
+  .astro-rg-hier-details .astro-rg-ort-details-titel { margin: 4px 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #c2001a; }
+  .astro-rg-hier-details .astro-rg-ort-details { margin: 0; padding-left: 18px; font-size: 15px; columns: 2 220px; column-gap: 28px; }
+  .astro-rg-hier-details em { color: #6b6b6b; }
+  .astro-rg-fuehrung-nr { margin: 0 0 4px; color: #c2001a; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; }
   .astro-rg-fuehrung h3 { margin: 0 0 6px; font-family: 'Playfair Display', serif; font-size: 24px; color: var(--rg-schwarz); }
   .astro-rg-fuehrung h3:focus { outline: none; }
   .astro-rg-fuehrung p { margin: 0 0 12px; max-width: 70ch; }
   .astro-rg-fuehrung-knoepfe { display: flex; flex-wrap: wrap; gap: 10px; }
 
-  .astro-rg-hilfe { margin: 0 0 32px; font-size: 15px; }
-  .astro-rg-hilfe summary { cursor: pointer; font-weight: 700; }
-  .astro-rg-hilfe ul { margin: 8px 0 0; padding-left: 20px; }
+  .astro-rg-sogehts { margin: 0 0 20px; padding: 22px 24px 16px; background: var(--rg-creme); border-radius: var(--radius, 8px); }
+  .astro-rg-sogehts h2 { margin: 0 0 18px; font-family: 'Playfair Display', serif; font-size: 22px; color: var(--rg-schwarz); text-align: center; }
+  .astro-rg-schritte { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+  .astro-rg-schritte li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+  .astro-rg-schritte strong { font-size: 18px; color: var(--rg-schwarz); margin-top: 4px; }
+  .astro-rg-schritte li > span:last-child { font-size: 16px; line-height: 1.45; color: #333; max-width: 240px; }
+  .astro-rg-schritt-bild { flex: none; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; }
+  .astro-rg-schritt-bild svg { width: 30px; height: 30px; }
+  .astro-rg-sb-hand { background: #fff; color: var(--rg-schwarz); border: 2px solid #d6d0c6; }
+  .astro-rg-sb-weg { background: #6b6b6b; color: #fff; border: 3px solid #fff; box-shadow: 0 0 0 2px #6b6b6b; }
+  .astro-rg-sb-karte { background: rgba(26, 26, 26, 0.85); color: #fff; border: 2px solid var(--rg-creme); box-shadow: 0 0 0 2px rgba(26, 26, 26, 0.85); }
+  .astro-rg-sb-info { background: var(--rg-rot); color: #fff; font: 700 28px/1 Georgia, serif; }
+  .astro-rg-sb-tafel { background: #fff; border: 2px solid #d6d0c6; }
+  .astro-rg-sb-tafel span { width: 26px; height: 34px; border-radius: 3px; background: linear-gradient(160deg, #e6cd88, #b48a38 60%, #8d6a26);
+    box-shadow: inset 0 0 0 2px rgba(255, 240, 196, 0.7), 0 2px 3px rgba(0, 0, 0, 0.3); }
+  .astro-rg-sogehts .astro-rg-leiste { margin-top: 20px; padding: 18px 0 0; border-top: 1px solid #e3ddd2; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .astro-rg-sogehts .astro-rg-leiste-start { justify-content: center; }
+  .astro-rg-leiste-hinweis { margin: 0; font-size: 15px; color: #4a4a4a; text-align: center; }
+  .astro-rg-fuehrung-aktiv .astro-rg-leiste-hinweis { display: none; }
+  .astro-rg-hilfe { margin: 12px 0 0; font-size: 15px; text-align: center; }
+  .astro-rg-hilfe summary { cursor: pointer; font-weight: 700; padding: 12px 0; }
+  .astro-rg-hilfe ul { margin: 6px auto 0; padding-left: 20px; display: grid; gap: 4px; max-width: 720px; text-align: left; }
+  @media (max-width: 1000px) { .astro-rg-schritte { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 760px) {
+    .astro-rg-schritte { grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
+    .astro-rg-schritte li:last-child { grid-column: 1 / -1; }
+    .astro-rg-sogehts { padding: 18px 14px 14px; }
+    .astro-rg-schritt-bild { width: 46px; height: 46px; }
+    .astro-rg-schritt-bild svg { width: 26px; height: 26px; }
+    .astro-rg-schritte strong { font-size: 16px; }
+    .astro-rg-schritte li > span:last-child { font-size: 15px; }
+  }
 
   /* Liste der Orte */
   .astro-rg-orte h2 { font-family: 'Playfair Display', serif; color: var(--rg-schwarz); margin: 0 0 6px; }
@@ -981,6 +1467,8 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-ort-nr { flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--rg-rot); color: #fff; font-size: 13px; display: grid; place-items: center; }
   .astro-rg-ort-text p { margin: 0; font-size: 15px; }
   .astro-rg-ort-lage { color: #5c5c5c; font-size: 14px !important; }
+  /* kleines Rot etwas dunkler als --rg-rot: sonst nur 4,46:1 auf Creme (Checkliste: mind. 4,5:1) */
+  .astro-rg-ort-text .astro-rg-ort-details-titel { margin: 6px 0 -2px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #c2001a; }
   .astro-rg-ort-details { margin: 2px 0 4px; padding-left: 18px; font-size: 14px; }
   .astro-rg-ort-details em { color: #6b6b6b; }
   .astro-rg-ort-text .astro-rg-knopf { align-self: flex-start; margin-top: auto; }

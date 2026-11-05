@@ -161,9 +161,87 @@
     "knopf": { "x": 74.5, "y": 49.97, "boden": 0.75, "hoehe": 0.35 },
     "ring": { "unten": -22, "oben": 30 }
   },
+  "gedenktafeln": {
+    "_hinweis": "Prototyp (Frank 2026-11-05): Geschichten als goldene Tafeln fest an den glatten Chorwänden statt im Zylinder. aktiv = true ersetzt die Heiligengalerie. Wand = Strecke von a nach b im Grundriss (Prozent), Vorderseite links von a→b; boden = Fußbodenhöhe davor in m. Tafel: entlang = Mitte in m ab a, hoehe = Mitte in m über boden. Wände vermessen aus Station 4/5/6/7/11 (Triangulation der Wandkante).",
+    "aktiv": true,
+    "titel": "Heiligengalerie von St. Bonifatius",
+    "direkt": { "_hinweis": "Ziel des Knopfs „Direkt zur Heiligengalerie“: Station und Blick (Grad), von dort beide Tafelgruppen im Bild", "station": "vor-der-treppe", "yaw": 0, "pitch": 6, "hfov": 100 },
+    "format": { "breite": 0.55, "hoehe": 0.74 },
+    "reichweiteMeter": 45,
+    "waende": [
+      { "id": "chor-nord", "titel": "Chorwand Nord", "a": { "x": 83.6, "y": 29.2 }, "b": { "x": 83.6, "y": 14.8 }, "boden": 1.5 },
+      { "id": "chor-sued", "titel": "Chorwand Süd (bei der Marienfigur)", "a": { "x": 83.6, "y": 85.2 }, "b": { "x": 83.6, "y": 70.8 }, "boden": 1.5 }
+    ],
+    "korrektur": {
+      "_hinweis": "Drehkorrektur in Grad je Station und Wand (positiv = im Bild nach rechts), gemessen an der Kante glatte Wand/Rippen in den Original-Panoramen und gegengeprüft an der Marienfigur (05.11.). Ausgleich für kleine Lagefehler der Stationen, die mit der Entfernung wachsen. Statt Zahl auch [Drehung, Neigung] möglich. 6 und 7 bewusst ohne (von Frank abgenommen).",
+      "taufstein": { "chor-nord": -5.9, "chor-sued": -8.3 },
+      "mittelgang-empore": { "chor-nord": 4.25, "chor-sued": 2.0 },
+      "mittelgang-pult": { "chor-nord": 2.9, "chor-sued": -0.2 },
+      "vor-dem-altar": { "chor-nord": 2.1, "chor-sued": -1.6 },
+      "hinter-dem-altar": { "chor-nord": -2.3, "chor-sued": -5.8 },
+      "reliquie": { "chor-nord": 4.3, "chor-sued": 4.3 },
+      "jona-nischen": { "chor-nord": 1.5, "chor-sued": -0.9 },
+      "nischen-krypta": { "chor-nord": 1.1, "chor-sued": -3.2 },
+      "trauer-madonna": { "chor-nord": 2.6, "chor-sued": -0.6 },
+      "marienbild": { "chor-nord": -0.75, "chor-sued": -3.9 },
+      "empore": { "chor-nord": 1.9, "chor-sued": -0.7 }
+    },
+    "verdecker": {
+      "_hinweis": "Dinge, die von einer Station aus VOR den Tafeln stehen (das Foto kennt keine Tiefe): Umriss in Blickwinkeln [Drehung, Neigung] wie bei Pannellum, abgelesen aus dem Panorama. Dort wird die Tafel-Ebene ausgeschnitten, das echte Objekt aus dem Foto bleibt sichtbar.",
+      "nischen-krypta": [
+        { "titel": "Lesepult am Chorraum", "umriss": [[-128.71, 2.5], [-126.59, 2.5], [-126.59, 1.45], [-126.74, 1.39], [-126.74, -1.98], [-128.49, -1.98], [-128.49, 1.39], [-128.71, 1.45]] }
+      ],
+      "vor-dem-altar": [
+        { "titel": "Lesepult am Chorraum", "umriss": [[-22.95, 2.88], [-21.11, 2.94], [-20.75, 2.59], [-20.74, 1.72], [-20.93, 1.69], [-20.91, -7.43], [-22.73, -7.42], [-22.77, 1.69], [-22.95, 1.72]] }
+      ],
+      "mittelgang-pult": [
+        { "titel": "Lesepult am Chorraum", "umriss": [[-16.1, 2.22], [-14.63, 2.22], [-14.45, 2.01], [-14.45, 1.65], [-14.63, 1.63], [-14.63, 1.34], [-14.78, 1.3], [-14.78, -6.96], [-15.93, -6.96], [-15.94, 1.3], [-16.1, 1.34]] }
+      ],
+      "trauer-madonna": [
+        { "titel": "Lesepult am Chorraum", "umriss": [[-115.39, 1.63], [-114.29, 1.63], [-114.09, 1.5], [-114.09, 1.24], [-114.28, 1.22], [-114.28, 0.95], [-114.4, 0.92], [-114.4, -5.48], [-115.26, -5.48], [-115.26, 0.92], [-115.39, 0.95]] }
+      ],
+      "taufstein": [
+        { "titel": "Lesepult am Chorraum", "umriss": [[-17.82, 1.39], [-16.98, 1.39], [-16.98, -2.08], [-17.77, -2.08], [-17.77, 0.89], [-17.82, 0.89]] }
+      ],
+      "mittelgang-empore": [
+        { "titel": "Lesepult am Chorraum", "umriss": [[-10.09, 1.7], [-9.05, 1.7], [-8.92, 1.58], [-8.92, 1.01], [-8.99, 0.99], [-8.99, -2.4], [-10.02, -2.4], [-10.02, 0.99], [-10.09, 1.01]] }
+      ],
+      "hinter-dem-altar": [
+        { "titel": "Lesepult am Chorraum", "umriss": [[-48.26, 4.63], [-41.79, 4.69], [-40.84, 4.2], [-40.42, 4.15], [-40.42, 2.76], [-40.6, 2.71], [-40.6, -3.7], [-48.21, -3.67]] }
+      ],
+      "jona-nischen": [
+        { "titel": "Lesepult am Chorraum", "umriss": [[86.2, 1.87], [87.6, 1.87], [87.6, 1.03], [87.45, 1.01], [87.45, -3.33], [86.33, -3.33], [86.32, 1.01], [86.2, 1.03]] }
+      ],
+      "marienbild": [
+        { "titel": "Lesepult am Chorraum", "umriss": [[-113.58, 1.39], [-112.79, 1.39], [-112.67, 1.21], [-112.57, 0.81], [-112.67, 0.78], [-112.79, 0.76], [-112.79, -1.89], [-113.46, -1.89], [-113.46, 0.83], [-113.58, 0.84]] }
+      ],
+      "empore": [
+        { "titel": "Osterkerze mit Ständer", "umriss": [[162.29, -5.17], [162.5, -5.17], [162.5, -7.46], [162.66, -7.49], [162.66, -7.62], [162.5, -7.65], [162.49, -10.98], [162.29, -10.98], [162.29, -7.65], [162.17, -7.62], [162.17, -7.49], [162.29, -7.46]] }
+      ],
+      "reliquie": [
+        { "titel": "Pfeiler links (Nordwand dahinter)", "umriss": [[74.66, 18.67], [91.97, 20.1], [91.95, 11.56], [91.89, -1.45], [91.92, -18.11], [74.92, -16.83]] },
+        { "titel": "Osterkerze mit Ständer", "umriss": [[96.52, 7.12], [97.17, 7.12], [97.17, 4.43], [97.69, 4.25], [97.69, 4.01], [97.14, 3.88], [97.14, -1.76], [97.75, -2.31], [95.91, -2.31], [96.53, -1.76], [96.52, 3.88], [96.03, 4.0], [96.03, 4.25], [96.52, 4.43]] },
+        { "titel": "Vorhang mit Glasrahmen", "umriss": [[98.31, 20.2], [105.44, 20.05], [105.35, -18.07], [98.31, -18.2]] }
+      ]
+    },
+    "tafeln": [
+      { "wand": "chor-nord", "entlang": 3.55, "hoehe": 2.6, "geschichte": "werner-nikolaus" },
+      { "wand": "chor-nord", "entlang": 2.6, "hoehe": 2.6, "geschichte": "uwe-foto" },
+      { "wand": "chor-nord", "entlang": 1.65, "hoehe": 2.6, "geschichte": "sommerfreizeit-2026" },
+      { "wand": "chor-nord", "entlang": 0.7, "hoehe": 2.6, "geschichte": "beispiel-taufe" },
+      { "wand": "chor-nord", "entlang": 3.55, "hoehe": 1.48, "geschichte": "beispiel-hochzeit" },
+      { "wand": "chor-nord", "entlang": 2.6, "hoehe": 1.48, "geschichte": "platzhalter-04" },
+      { "wand": "chor-nord", "entlang": 1.65, "hoehe": 1.48, "geschichte": "platzhalter-05" },
+      { "wand": "chor-nord", "entlang": 0.7, "hoehe": 1.48, "geschichte": "platzhalter-06" },
+      { "wand": "chor-sued", "entlang": 3.65, "hoehe": 2.6, "geschichte": "platzhalter-07" },
+      { "wand": "chor-sued", "entlang": 2.75, "hoehe": 2.6, "geschichte": "platzhalter-08" },
+      { "wand": "chor-sued", "entlang": 3.65, "hoehe": 1.48, "geschichte": "platzhalter-09" },
+      { "wand": "chor-sued", "entlang": 2.75, "hoehe": 1.48, "geschichte": "platzhalter-10" }
+    ]
+  },
   "geschichten": [
-    { "id": "werner-nikolaus", "titel": "Als Nikolaus unterwegs", "person": "Werner", "jahr": "2017", "medium": "video", "vorschaubild": "/uploads/jubilaeum/geschichten/werner-vorschau.jpg", "datei": "/uploads/jubilaeum/geschichten/werner-nikolaus.mp4", "text": "Mit den Jugendlichen macht es immer viel Spaß – die wissen eh nicht so genau, ob ich nun Pfarrer oder Bischof bin.", "beispiel": true },
-    { "id": "uwe-foto", "titel": "Ein Foto von Uwe", "person": "Uwe", "jahr": "2026", "medium": "foto", "vorschaubild": "/uploads/jubilaeum/geschichten/uwe-vorschau.jpg", "datei": "/uploads/jubilaeum/geschichten/uwe.webp", "text": "Ich bin seit vielen Jahren hier in Sankt Bonifatius aktiv und freue mich darüber, dass man mich hier trotz meiner vielen Fehler akzeptiert.", "beispiel": true },
+    { "id": "werner-nikolaus", "titel": "Als Nikolaus unterwegs", "person": "Werner", "jahr": "2017", "medium": "video", "vorschaubild": "/uploads/jubilaeum/geschichten/werner-vorschau.jpg", "tafelbild": "/uploads/jubilaeum/geschichten/werner-tafel.webp", "datei": "/uploads/jubilaeum/geschichten/werner-nikolaus.mp4", "text": "Mit den Jugendlichen macht es immer viel Spaß – die wissen eh nicht so genau, ob ich nun Pfarrer oder Bischof bin.", "beispiel": true },
+    { "id": "uwe-foto", "titel": "Ein Foto von Uwe", "person": "Uwe", "jahr": "2026", "medium": "foto", "vorschaubild": "/uploads/jubilaeum/geschichten/uwe-vorschau.jpg", "tafelbild": "/uploads/jubilaeum/geschichten/uwe-tafel.webp", "datei": "/uploads/jubilaeum/geschichten/uwe.webp", "text": "Ich bin seit vielen Jahren hier in Sankt Bonifatius aktiv und freue mich darüber, dass man mich hier trotz meiner vielen Fehler akzeptiert.", "beispiel": true },
     { "id": "sommerfreizeit-2026", "titel": "Sommerfreizeit", "person": "Jugend", "jahr": "2026", "medium": "video", "vorschaubild": "/uploads/jubilaeum/heiligentafel-foto-1.jpg", "datei": "/uploads/jubilaeum/sommerfreizeit-2026.mp4", "beispiel": true, "abschrift": "Abschrift folgt." },
     { "id": "beispiel-taufe", "titel": "Meine Taufe hier", "person": "Hans S.", "jahr": "1958", "medium": "text", "text": "Platzhalter für eine Geschichte. Hier steht später ein kurzer, selbst geschriebener Text über ein besonderes Erlebnis in Sankt Bonifatius.", "beispiel": true },
     { "id": "beispiel-hochzeit", "titel": "Unsere Hochzeit", "person": "Anna B.", "jahr": "1987", "medium": "audio", "beispiel": true, "abschrift": "Platzhalter für eine Tonaufnahme mit Abschrift." },
