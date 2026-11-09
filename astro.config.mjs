@@ -54,8 +54,8 @@ export default defineConfig({
       filter: (page) => !page.includes('/kontakt/raumbuchung') && !page.includes('/statistik')
         && !page.includes('/exerzitien2027')
         && !page.includes('/100-jahre')
-        // Versteckte öffentliche Infoseite zur Mitmach-Aktion (QR-Code Flyer/Pfarrbrief), noindex — siehe src/pages/meineboni.astro
-        && !page.includes('/meineboni/')
+        // Versteckte öffentliche Infoseite zur Mitmach-Aktion (QR-Code Flyer/Pfarrbrief), noindex — siehe src/pages/meinboni.astro
+        && !page.includes('/meinboni/')
         // Versteckte QR-Landingpage (Brief zum Willkommens-Flyer), noindex — siehe src/pages/willkommen.astro
         && !page.includes('/willkommen/')
         // Versteckte QR-Landingpage (Brief zum Gutscheinheft), noindex — siehe src/pages/baby.astro
