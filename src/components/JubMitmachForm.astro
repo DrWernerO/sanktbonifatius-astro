@@ -5,7 +5,7 @@
 // (nodemailer/SMTP) wie Taufanmeldung und Kita-Bewerbung.
 // 🔑 Feldnamen sind VERTRAG mit der API-Route: name, email, nachricht, foto, einverstaendnis,
 // quelle (Herkunftsseite, nur für den Mailtext), webseite (Honeypot), astro_ts.
-// Einwilligungstext (Werner, 09.11.2026): Website, Virtueller Kirchenführer UND Bildschirm im Eingang der Kirche.
+// Einwilligungstext (Werner, 09.11.2026): Website, Virtueller Kirchenführer UND Fernseher im Eingang der Kirche.
 // Es darf nur ein Formular pro Seite stehen (feste IDs).
 const { quelle = '/100-jahre/' } = Astro.props;
 ---
@@ -22,7 +22,7 @@ const { quelle = '/100-jahre/' } = Astro.props;
     <span class="astro-jub-mit__hint">Bitte nur Fotos, an denen Sie die Rechte haben und auf denen alle erkennbaren Personen einverstanden sind.</span>
   </label>
   <div class="astro-jub-mit__consent">
-    <label><input type="checkbox" name="einverstaendnis" required /><span>Ich erlaube, meinen Namen, Text und gegebenenfalls mein Foto auf der Website der Pfarrei, im „Virtuellen Kirchenführer“ und im Jubiläumsjahr auf einem Bildschirm im Eingang der Kirche zu zeigen. Mehr dazu in der <a href="/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a>. *</span></label>
+    <label><input type="checkbox" name="einverstaendnis" required /><span>Ich erlaube, meinen Namen, Text und gegebenenfalls mein Foto auf der Website der Pfarrei, im „Virtuellen Kirchenführer“ und im Jubiläumsjahr auf einem Fernseher im Eingang der Kirche zu zeigen. Mehr dazu in der <a href="/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a>. *</span></label>
   </div>
   <p class="astro-jub-mit__required">* Pflichtfeld</p>
   <button type="submit" class="astro-jub-mit__submit">Absenden</button>

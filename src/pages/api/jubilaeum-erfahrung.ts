@@ -84,7 +84,7 @@ export const POST: APIRoute = async ({ request }) => {
     `Neuer Beitrag „IHR St. Bonifatius“ über sanktbonifatius.de${/^\/[\w\-\/]*$/.test(d.quelle || '') ? d.quelle : '/100-jahre/'}\n\n` +
     `Name: ${name}\n` +
     `E-Mail: ${einzeilig(d.email)}\n` +
-    `Einverständnis zur Veröffentlichung (Website, Virtueller Kirchenführer, Bildschirm im Eingang der Kirche): ja (${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })})\n` +
+    `Einverständnis zur Veröffentlichung (Website, Virtueller Kirchenführer, Fernseher im Eingang der Kirche): ja (${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })})\n` +
     `Foto: ${foto ? 'im Anhang' : 'keines'}\n\n` +
     `— Nachricht —\n${d.nachricht.trim()}\n`;
   const attachments = foto ? [{ filename: safeFilename(foto.name), content: Buffer.from(await foto.arrayBuffer()) }] : [];
