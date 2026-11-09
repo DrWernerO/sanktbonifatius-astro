@@ -11,6 +11,14 @@
 import Base from '../layouts/Base.astro';
 import JubMitmachForm from '../components/JubMitmachForm.astro';
 
+// Beispielkacheln (Entwurf 09.11.2026): sollen später mit den ersten beiden echten Beiträgen gefüllt werden.
+// Leer lassen = Platzhalter. Foto: `foto` = '/uploads/2027/jubilaeum/<datei>.webp' + `alt` (beschreibt das Bild);
+// Video: `video` = '/uploads/2027/jubilaeum/<datei>.mp4' (+ optional `poster`, `untertitel` = .vtt-Datei).
+const beispiele = [
+  { typ: 'foto', label: 'Foto mit Text', name: 'Name der Person', text: '', foto: '', alt: '' },
+  { typ: 'video', label: 'Video', name: 'Name der Person', text: '', video: '', poster: '', untertitel: '' },
+];
+
 // Tafelwand im Seitenkopf (reine Grafik): 3 Reihen, eine Tafel „Ihr Name"
 const cols = 6, rows = 3, w = 96, h = 56, gap = 14;
 const tafeln = [];
@@ -63,6 +71,34 @@ const breite = cols * (w + gap) - gap, hoehe = rows * (h + gap) - gap;
           </section>
         </div>
 
+        <p>Vielleicht haben Sie ja auch verstorbene Angehörige, die überzeugte „Bonifatianer“ waren. Auch ihnen können Sie mit einem Text und Foto oder einem kleinen Film einen Platz hier sichern.</p>
+
+        <h2 class="astro-mb-h2">So könnte Ihr Beitrag aussehen</h2>
+        <p>Die ersten beiden Beiträge, die wir erhalten, zeigen wir hier als Beispiel.</p>
+        <div class="astro-mb-bsp">
+          {beispiele.map((b, i) => (
+            <article class="astro-mb-kachel" aria-labelledby={`mb-bsp${i}`}>
+              <div class="astro-mb-kachel__media">
+                {b.typ === 'foto' && b.foto && <img src={b.foto} alt={b.alt} loading="lazy" />}
+                {b.typ === 'video' && b.video && <video controls preload="metadata" poster={b.poster || undefined}><source src={b.video} type="video/mp4" />{b.untertitel && <track kind="captions" src={b.untertitel} srclang="de" label="Deutsch" default />}</video>}
+                {!(b.foto || b.video) && (
+                  <div class="astro-mb-kachel__leer" role="img" aria-label={b.typ === 'video' ? 'Platzhalter für ein Beispielvideo' : 'Platzhalter für ein Beispielfoto'}>
+                    {b.typ === 'video'
+                      ? <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" /><path d="M19 15l16 9-16 9z" /></svg>
+                      : <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="9" width="38" height="30" rx="3" /><circle cx="17" cy="21" r="4" /><path d="M7 37l12-11 8 7 6-5 9 9z" /></svg>}
+                    <span>{b.typ === 'video' ? 'Beispielvideo folgt' : 'Beispielfoto folgt'}</span>
+                  </div>
+                )}
+              </div>
+              <div class="astro-mb-kachel__body">
+                <p class="astro-mb-kachel__tag">{b.label}</p>
+                <h3 id={`mb-bsp${i}`} class="astro-mb-kachel__name">{b.name}</h3>
+                <p class="astro-mb-kachel__text">{b.text || 'Hier steht, was dieser Mensch mit St. Bonifatius verbindet: ein paar Sätze oder ein kurzer Gruß zum Video.'}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
         <h2 class="astro-mb-h2">Ihre Ansprechpartner</h2>
         <ul class="astro-mb-kontakt">
           <li><span>Pfr. Werner Otto</span><a href="mailto:w.otto@sanktbonifatius.de">w.otto@sanktbonifatius.de</a></li>
@@ -111,5 +147,15 @@ const breite = cols * (w + gap) - gap, hoehe = rows * (h + gap) - gap;
 .astro-mb-box .astro-jub-mit__f{font-size:16px}
 .astro-mb-schluss{font-family:var(--mb-serif);font-size:20px;margin-top:34px!important}
 .astro-mb-schluss span{font-style:italic}
-@media(min-width:700px){.astro-mb-opts{grid-template-columns:1fr 1fr}.astro-mb-opt{padding:62px 20px 6px 20px}.astro-mb-kontakt li{flex-direction:row;justify-content:space-between;align-items:center}}
+.astro-mb-bsp{display:grid;gap:16px;margin:0 0 8px}
+.astro-mb-kachel{background:#fff;border:1px solid var(--mb-border);border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(30,21,18,.06)}
+.astro-mb-kachel__media{aspect-ratio:16/10;background:var(--mb-bg-alt);display:flex}
+.astro-mb-kachel__media img,.astro-mb-kachel__media video{width:100%;height:100%;object-fit:cover;display:block}
+.astro-mb-kachel__leer{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--mb-muted);font-size:15px}
+.astro-mb-kachel__leer svg{width:48px;height:48px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.astro-mb-kachel__body{padding:14px 18px 18px;border-top:4px solid var(--mb-accent)}
+.astro-mb-kachel__tag{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--mb-muted);margin:0 0 2px!important}
+.astro-mb-kachel__name{font-family:var(--mb-serif);font-size:21px;margin:0 0 6px}
+.astro-mb-kachel__text{margin:0!important;font-size:16px;line-height:1.55}
+@media(min-width:700px){.astro-mb-bsp{grid-template-columns:1fr 1fr}.astro-mb-opts{grid-template-columns:1fr 1fr}.astro-mb-opt{padding:62px 20px 6px 20px}.astro-mb-kontakt li{flex-direction:row;justify-content:space-between;align-items:center}}
 </style>
