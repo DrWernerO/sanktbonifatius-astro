@@ -1,9 +1,8 @@
 ---
 // Kleine Mitmach-Abteilung „IHR St. Bonifatius" (Werner, 03.10.2026) — sammelt Erfahrungen und
 // Erinnerungen für den „Virtuellen Kirchenführer" (Sparte „Die Kirche mit neuen Augen"). Eigene Klassen `astro-jub-mit`
-// (Handbuch 3). Das Formular selbst steckt seit 09.11.2026 in JubMitmachForm.astro (gemeinsam mit der
-// öffentlichen Infoseite /meineboni/) und klappt hier auf; es sendet an `/api/jubilaeum-erfahrung`.
-import JubMitmachForm from './JubMitmachForm.astro';
+// (Handbuch 3). Das Formular liegt seit 09.11.2026 nur noch auf der öffentlichen Infoseite /meineboni/
+// (JubMitmachForm.astro); hier steht nur noch der Verweis mit Button.
 ---
 <section class="astro-jub-sec astro-jub-mit" id="mitmachen">
   <div class="astro-jub-wrap astro-jub-wrap--narrow">
@@ -11,12 +10,8 @@ import JubMitmachForm from './JubMitmachForm.astro';
       <p class="astro-jub-mit__label">Mitmachen</p>
       <h2 class="astro-jub-mit__hl">IHR St. Bonifatius</h2>
       <p class="astro-jub-mit__q">Was bedeutet Ihnen die Pfarrkirche? Was haben Sie an diesem Ort erlebt?</p>
-      <p class="astro-jub-mit__text">Wir interessieren uns dafür, was Sie mit St. Bonifatius verbinden: welche schönen Momente, welche besonderen Ereignisse in Ihrem Leben. Erzählen Sie uns davon! Ihren Beitrag werden wir dann im „Virtuellen Kirchenführer“ veröffentlichen und im Jubiläumsjahr auch auf einem Bildschirm im Eingang der Kirche zeigen. Legen Sie auch gerne ein Foto bei, wenn Sie eins haben.</p>
-      <p class="astro-jub-mit__text">Wir sind sehr gespannt, was Sie zu erzählen haben. Vielen herzlichen Dank, dass Sie mitmachen! <a class="astro-jub-mit__link" href="/meineboni/">Alle Informationen zur Aktion</a></p>
-      <details class="astro-jub-mit__more">
-        <summary class="astro-jub-btn astro-jub-btn--primary">Ihre Erfahrung einsenden</summary>
-        <JubMitmachForm quelle="/100-jahre/" />
-      </details>
+      <p class="astro-jub-mit__text">Wir sammeln Geschichten, Fotos und kleine Videos von Menschen aus der Gemeinde. Sie hängen als Tafeln in einer virtuellen St.-Bonifatius-Kirche und sind im Jubiläumsjahr auch auf einem Bildschirm im Eingang der Kirche zu sehen. Machen Sie mit: ein Foto und ein paar Sätze genügen.</p>
+      <a class="astro-jub-btn astro-jub-btn--primary" href="/meineboni/">So können Sie mitmachen</a>
     </div>
   </div>
 </section>
@@ -28,7 +23,7 @@ import JubMitmachForm from './JubMitmachForm.astro';
 .astro-jub-mit__hl{font-family:var(--jub-serif);font-size:clamp(21px,2.6vw,26px);font-weight:700;line-height:1.2;color:var(--bf-ink);margin:0 0 8px}
 .astro-jub-mit__q{font-family:var(--jub-serif);font-size:18px;line-height:1.5;color:var(--bf-ink);margin:0 0 6px}
 .astro-jub-mit__text{font-size:16px;line-height:1.6;color:var(--txt-muted-light);margin:0 0 14px}
-.astro-jub-mit__link{color:var(--bf-accent);font-weight:600}
+
 /* Aufklapp-Knopf = Button-Optik (summary) */
 .astro-jub-mit__more summary{list-style:none;cursor:pointer}
 .astro-jub-mit__more summary::-webkit-details-marker{display:none}
