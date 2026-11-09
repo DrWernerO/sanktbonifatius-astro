@@ -73,7 +73,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   const schutz = findeSchutz(context.url.pathname);
-  if (!schutz) {
+  // Lokale Entwicklung (`npm run dev`): kein Passwort, damit Vorschau und Tests ohne Login laufen.
+  // Gilt nur im Dev-Server; im Netlify-Build ist import.meta.env.DEV immer false.
+  if (!schutz || import.meta.env.DEV) {
     return next();
   }
 
