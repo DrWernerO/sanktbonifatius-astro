@@ -1,0 +1,115 @@
+---
+// VERSTECKTE öffentliche Infoseite zur Mitmach-Aktion „IHR St. Bonifatius" (/meineboni/) — Ziel
+// des QR-Codes auf Flyer und Pfarrbrief (Werner, 09.11.2026). Bewusst: NICHT im Menü, NICHT in der
+// Sitemap (Filter in astro.config.mjs), noindex/nofollow, kein robots-Disallow (würde das noindex
+// unlesbar machen), kein llms.txt-Eintrag. Verlinkt nur von /100-jahre/ (JubMitmachen.astro).
+// Freischalten (nur nach Werners OK): `noindex` entfernen, Filter in astro.config.mjs raus,
+// SEO-Head in seo-static.js eintragen, Menü nur auf ausdrückliche Anweisung.
+// Formular = gemeinsame Komponente JubMitmachForm.astro (API /api/jubilaeum-erfahrung).
+// Texte stammen von Werner (Flyer); nur Rechtschreibung/Typografie geprüft.
+// Bildschirm: „im Eingang der Kirche" (Werner, 09.11.2026). Mail-Kopie an Frank: Standard in der API-Route.
+import Base from '../layouts/Base.astro';
+import JubMitmachForm from '../components/JubMitmachForm.astro';
+
+// Tafelwand im Seitenkopf (reine Grafik): 3 Reihen, eine Tafel „Ihr Name"
+const cols = 6, rows = 3, w = 96, h = 56, gap = 14;
+const tafeln = [];
+for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+  const x = c * (w + gap) + (r % 2 ? 40 : 0) - 20, y = r * (h + gap);
+  tafeln.push({ x, y, ihr: r === 1 && c === 2, n: (r * 7 + c * 3) % 4 });
+}
+const breite = cols * (w + gap) - gap, hoehe = rows * (h + gap) - gap;
+---
+<Base
+  title="Mitmachen: IHR St. Bonifatius – 100 Jahre Pfarrkirche"
+  description="Was verbindet Sie mit St. Bonifatius? Machen Sie mit bei unserer virtuellen Kirche zum 100-jährigen Jubiläum: mit Video oder Foto und ein paar Sätzen."
+  noindex={true}
+>
+  <div class="astro-mb">
+    <header class="astro-mb-head">
+      <div class="astro-mb-wrap">
+        <svg class="astro-mb-wand" viewBox={`0 0 ${breite} ${hoehe}`} aria-hidden="true" focusable="false">
+          {tafeln.map((t) => (
+            <g>
+              <rect x={t.x} y={t.y} width={w} height={h} rx="6" class={t.ihr ? 'is-ihr' : `n${t.n}`} />
+              {t.ihr
+                ? <text x={t.x + w / 2} y={t.y + h / 2 + 6} text-anchor="middle" class="astro-mb-wand__ihr">Ihr Name</text>
+                : <><rect x={t.x + 16} y={t.y + 20} width={w - 32} height="5" rx="2.5" class="strich" /><rect x={t.x + 28} y={t.y + 32} width={w - 56} height="5" rx="2.5" class="strich" /></>}
+            </g>
+          ))}
+        </svg>
+        <p class="astro-mb-eyebrow">Mitmach-Aktion „IHR St. Bonifatius“ · 100 Jahre Pfarrkirche</p>
+        <h1 class="astro-mb-h1">Was verbindet Sie mit St. Bonifatius?</h1>
+      </div>
+    </header>
+
+    <main class="astro-mb-sec">
+      <div class="astro-mb-wrap astro-mb-text">
+        <p class="astro-mb-lead">Seit 100 Jahren ist St. Bonifatius für unzählige Menschen ein Zuhause im Glauben und im Leben. Hier haben Menschen gebetet, gehofft, geweint und gefeiert.</p>
+        <p>Zum Jubiläum möchten wir sammeln, was diese besondere Kirche den Menschen bedeutet. Aus vielen persönlichen Geschichten entsteht eine „virtuelle St.-Bonifatius-Kirche“: Dort hängen Tafeln mit den Namen vieler Gemeindemitglieder, ein Klick zeigt ein Foto oder Video und was der Mensch mit der Kirche verbindet. Im Jubiläumsjahr zeigen wir die Beiträge auch auf einem Bildschirm im Eingang der Kirche – so bunt wie die Menschen, die hier zu Hause sind.</p>
+        <p><strong>Wir würden uns sehr freuen, wenn auch Sie mitmachen!</strong></p>
+
+        <h2 class="astro-mb-h2">Es gibt zwei Möglichkeiten</h2>
+        <div class="astro-mb-opts">
+          <section class="astro-mb-opt" aria-labelledby="mb-opt1">
+            <p class="astro-mb-opt__nr" aria-hidden="true">1</p>
+            <h3 id="mb-opt1">Video</h3>
+            <p>Erzählen Sie in einem kurzen Video von ein bis zwei Minuten, was Ihnen die Kirche bedeutet. Sie können es selbst aufnehmen oder gemeinsam mit uns. Melden Sie sich einfach bei uns, wir schicken Ihnen dann weitere Informationen.</p>
+          </section>
+          <section class="astro-mb-opt" aria-labelledby="mb-opt2">
+            <p class="astro-mb-opt__nr" aria-hidden="true">2</p>
+            <h3 id="mb-opt2">Foto mit Text</h3>
+            <p>Sie sprechen nicht so gern in die Kamera? Dann schicken Sie uns ein Foto und ein paar Sätze dazu. Bitte nennen Sie Ihren Namen. Dafür gibt es unten ein Formular, oder Sie schreiben direkt per E-Mail.</p>
+          </section>
+        </div>
+
+        <h2 class="astro-mb-h2">Ihre Ansprechpartner</h2>
+        <ul class="astro-mb-kontakt">
+          <li><span>Pfr. Werner Otto</span><a href="mailto:w.otto@sanktbonifatius.de">w.otto@sanktbonifatius.de</a></li>
+          <li><span>Frank Hoffmann (Familienreferent)</span><a href="mailto:f.hoffmann@sanktbonifatius.de">f.hoffmann@sanktbonifatius.de</a></li>
+        </ul>
+        <p class="astro-mb-frist"><strong>Einsendeschluss: 15. Dezember 2026</strong></p>
+
+        <h2 class="astro-mb-h2" id="formular">Foto mit Text einsenden</h2>
+        <div class="astro-mb-box">
+          <JubMitmachForm quelle="/meineboni/" />
+        </div>
+
+        <p class="astro-mb-schluss">Vielen Dank, dass Sie unser Jubiläum bereichern!<br /><span>Ihr Pfarrer Werner Otto</span></p>
+      </div>
+    </main>
+  </div>
+</Base>
+
+<style is:global>
+.astro-mb{--mb-bg:#f7f3ef;--mb-bg-alt:#ede4d5;--mb-ink:#1e1512;--mb-muted:#5b4d44;--mb-accent:#9a2d2d;--mb-border:#e0d8cf;--mb-serif:'Playfair Display',Georgia,serif;color:var(--mb-ink);font-size:17px;line-height:1.65}
+.astro-mb-wrap{max-width:760px;margin:0 auto;padding:0 20px}
+.astro-mb-head{background:var(--mb-bg);border-bottom:1px solid var(--mb-border);padding:32px 0 30px;text-align:center}
+.astro-mb-wand{display:block;width:100%;max-width:520px;height:auto;margin:0 auto 20px}
+.astro-mb-wand rect.n0{fill:#cdb89c}.astro-mb-wand rect.n1{fill:#bfa583}.astro-mb-wand rect.n2{fill:#d8c7ae}.astro-mb-wand rect.n3{fill:#c6ad8b}
+.astro-mb-wand rect.strich{fill:#fff;opacity:.55}
+.astro-mb-wand rect.is-ihr{fill:#fff;stroke:var(--mb-accent);stroke-width:3}
+.astro-mb-wand__ihr{font-family:var(--mb-serif);font-size:19px;font-weight:700;fill:var(--mb-accent)}
+.astro-mb-eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--mb-muted);margin:0 0 10px}
+.astro-mb-h1{font-family:var(--mb-serif);font-size:clamp(28px,6.4vw,44px);font-weight:700;line-height:1.15;margin:0}
+.astro-mb-sec{padding:34px 0 56px;background:#fff}
+.astro-mb-text p{margin:0 0 16px}
+.astro-mb-lead{font-family:var(--mb-serif);font-size:clamp(19px,4.6vw,22px);line-height:1.5}
+.astro-mb-h2{font-family:var(--mb-serif);font-size:clamp(22px,5vw,28px);line-height:1.2;margin:38px 0 14px;scroll-margin-top:90px}
+.astro-mb-opts{display:grid;gap:14px}
+.astro-mb-opt{position:relative;background:var(--mb-bg);border:1px solid var(--mb-border);border-radius:14px;padding:18px 20px 6px 64px}
+.astro-mb-opt__nr{position:absolute;left:18px;top:16px;width:34px;height:34px;border-radius:50%;background:var(--mb-accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0!important}
+.astro-mb-opt h3{font-family:var(--mb-serif);font-size:21px;margin:0 0 6px}
+.astro-mb-kontakt{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:10px}
+.astro-mb-kontakt li{display:flex;flex-direction:column;gap:2px;background:var(--mb-bg);border:1px solid var(--mb-border);border-radius:12px;padding:12px 16px}
+.astro-mb-kontakt span{font-weight:600}
+.astro-mb-kontakt a{display:inline-block;padding:6px 0;color:var(--mb-accent);font-weight:600;word-break:break-all}
+.astro-mb-text a{color:var(--mb-accent)}
+.astro-mb-frist{background:var(--mb-bg-alt);border-radius:12px;padding:12px 16px;margin-top:4px}
+.astro-mb-box{background:var(--mb-bg);border:1px solid var(--mb-border);border-left:5px solid var(--mb-accent);border-radius:14px;padding:6px 20px 22px;margin-bottom:8px}
+.astro-mb-box .astro-jub-mit__form{margin-top:12px}
+.astro-mb-box .astro-jub-mit__f{font-size:16px}
+.astro-mb-schluss{font-family:var(--mb-serif);font-size:20px;margin-top:34px!important}
+.astro-mb-schluss span{font-style:italic}
+@media(min-width:700px){.astro-mb-opts{grid-template-columns:1fr 1fr}.astro-mb-opt{padding:62px 20px 6px 20px}.astro-mb-kontakt li{flex-direction:row;justify-content:space-between;align-items:center}}
+</style>
