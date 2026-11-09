@@ -17,6 +17,7 @@ export const prerender = false;
 // process.env statt import.meta.env (Astro 6 friert import.meta.env beim Build ein, s. middleware.ts)
 const E = process.env;
 const TO_STD = 'w.otto@sanktbonifatius.de';
+const FRANK = 'f.hoffmann@sanktbonifatius.de';
 const MAX_FILE_BYTES = 4 * 1024 * 1024; // 4 MB (Netlify-Funktionen: Payload-Limit im Bereich weniger MB)
 const ALLOWED_EXT = ['.jpg', '.jpeg', '.png', '.webp'];
 const MAX_TEXT = 5000;
@@ -80,10 +81,10 @@ export const POST: APIRoute = async ({ request }) => {
 
   const name = einzeilig(d.name);
   const text =
-    'Neuer Beitrag „IHR St. Bonifatius“ über sanktbonifatius.de/100-jahre/\n\n' +
+    `Neuer Beitrag „IHR St. Bonifatius“ über sanktbonifatius.de${/^\/[\w\-\/]*$/.test(d.quelle || '') ? d.quelle : '/100-jahre/'}\n\n` +
     `Name: ${name}\n` +
     `E-Mail: ${einzeilig(d.email)}\n` +
-    `Einverständnis zur Veröffentlichung auf der Website: ja (${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })})\n` +
+    `Einverständnis zur Veröffentlichung (Website, Virtueller Kirchenführer, Bildschirm im Eingang der Kirche): ja (${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })})\n` +
     `Foto: ${foto ? 'im Anhang' : 'keines'}\n\n` +
     `— Nachricht —\n${d.nachricht.trim()}\n`;
   const attachments = foto ? [{ filename: safeFilename(foto.name), content: Buffer.from(await foto.arrayBuffer()) }] : [];
@@ -113,7 +114,8 @@ export const POST: APIRoute = async ({ request }) => {
     });
     await transporter.sendMail({
       from: E.SMTP_FROM || E.SMTP_USER,
-      to: E.JUBILAEUM_ERFAHRUNG_TO || TO_STD,
+      // Werner und Frank Hoffmann (Familienreferent) bekommen jede Einsendung; überschreibbar via JUBILAEUM_ERFAHRUNG_TO (kommagetrennt)
+      to: E.JUBILAEUM_ERFAHRUNG_TO || `${TO_STD}, ${FRANK}`,
       replyTo: einzeilig(d.email),
       subject: `IHR St. Bonifatius: Beitrag von ${name}`,
       text,
