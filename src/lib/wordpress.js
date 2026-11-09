@@ -399,14 +399,24 @@ function parseMonthYear(text) {
 // `ortWort` = eindeutiges Kirchort-Wort im Dateititel (z.B. 'aposteln'). Bereits vergangene
 // Monate werden verworfen. Findet WP nichts Passendes → [] (Aufrufer blendet den
 // Download-Bereich dann einfach aus, der Build bricht nie ab).
-export async function getMonatsprogramme(ortWort, max = 2, scan = 40) {
+// `ordner` (optional, RML-Ordner-ID): Dateien aus diesem Ordner zählen auch ohne Kirchort- und
+// Hinweiswort im Titel, nur Monat + Jahr müssen drinstehen, und sie haben Vorrang. Für St. Aposteln
+// ist das MONATSBRIEF_APOSTELN_FOLDER: ein Upload dorthin löst per WP-Hook selbst einen Rebuild aus
+// (Werner/Manuela, 2026-11-06: Monatsprogramm soll „von allein hochladen“ wie der Pfarrbrief).
+export async function getMonatsprogramme(ortWort, max = 2, scan = 40, ordner = null) {
   try {
-    const res = await fetch(
-      `${WP_API}/media?media_type=application&orderby=date&order=desc&per_page=${scan}&_fields=id,title,source_url`,
-      { cache: 'no-store' }
-    );
-    if (!res.ok) return [];
-    const items = await res.json();
+    const holen = async (query) => {
+      const res = await fetch(`${WP_API}/media?${query}&_fields=id,title,source_url`, { cache: 'no-store' });
+      return res.ok ? res.json() : [];
+    };
+    const [ausOrdner, neueste] = await Promise.all([
+      ordner ? holen(`rml_folder=${ordner}&media_type=application&orderby=date&order=desc&per_page=10`) : [],
+      holen(`media_type=application&orderby=date&order=desc&per_page=${scan}`),
+    ]);
+    const items = [
+      ...ausOrdner.map((item) => ({ ...item, imOrdner: true })),
+      ...neueste,
+    ];
 
     const now = new Date();
     const curKey = now.getFullYear() * 12 + now.getMonth();
@@ -416,7 +426,7 @@ export async function getMonatsprogramme(ortWort, max = 2, scan = 40) {
     for (const item of items) {
       const title = decodeEntities(item.title?.rendered ?? '');
       const t = title.toLowerCase();
-      if (!t.includes(ort) || !PROGRAMM_HINWEISWORTE.some((w) => t.includes(w))) continue;
+      if (!item.imOrdner && (!t.includes(ort) || !PROGRAMM_HINWEISWORTE.some((w) => t.includes(w)))) continue;
       const my = parseMonthYear(title);
       if (!my) continue;
       const key = my.year * 12 + my.month;
@@ -535,7 +545,7 @@ export async function getHighlightsCover() {
 // Eigener Ordner "Astro-Upload/Monatsbrief Aposteln" (RML-Ordner-ID 205) — anders als bei
 // PFARRBRIEF_HIGHLIGHTS_FOLDER liegt hier immer nur die eine aktuelle Ausgabe, darum kein
 // Titel-Filter nötig (analog Konzept in getLatestDokument/Handbuch 1d).
-const MONATSBRIEF_APOSTELN_FOLDER = 205;
+export const MONATSBRIEF_APOSTELN_FOLDER = 205;
 
 // Liefert das neueste Medien-Dokument aus MONATSBRIEF_APOSTELN_FOLDER. Grundlage für die
 // stabile Download-Adresse /downloads/monatsbrief-aposteln.pdf (s. src/pages/downloads/).
@@ -551,6 +561,19 @@ export async function getLatestMonatsbriefAposteln() {
   } catch {
     return null;
   }
+}
+
+// Zeile „Monatsbrief (PDF)“ in ApSteyler.astro: nur zeigen, wenn Ordner 205 wirklich eine Datei
+// hat, die nicht schon als Monatsprogramm verlinkt ist und (falls ihr Titel einen Monat nennt)
+// nicht vergangen ist. Vorher lieferte der Link bei leerem Ordner nur den Text „Monatsbrief
+// derzeit nicht verfügbar.“ (seit Oktober 2026).
+export async function getMonatsbriefZeile(programme) {
+  const doc = await getLatestMonatsbriefAposteln();
+  if (!doc?.source_url || programme.some((p) => p.url === doc.source_url)) return null;
+  const my = parseMonthYear(decodeEntities(doc.title?.rendered ?? ''));
+  const now = new Date();
+  if (my && my.year * 12 + my.month < now.getFullYear() * 12 + now.getMonth()) return null;
+  return doc;
 }
 
 // EIN Termin per Slug, live vom Server (src/pages/termine/[slug].astro, `prerender = false`).

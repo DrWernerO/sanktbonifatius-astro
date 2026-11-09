@@ -1,6 +1,7 @@
 ---
-import { getMonatsprogramme } from '../lib/wordpress.js';
-const programme = await getMonatsprogramme('aposteln');
+import { getMonatsprogramme, getMonatsbriefZeile, MONATSBRIEF_APOSTELN_FOLDER } from '../lib/wordpress.js';
+const programme = await getMonatsprogramme('aposteln', 2, 40, MONATSBRIEF_APOSTELN_FOLDER);
+const monatsbrief = await getMonatsbriefZeile(programme);
 ---
 <div class="astro-ap-root astro-ap-sec alt" id="weitere-angebote">
   <div class="astro-ap-in">
@@ -50,6 +51,7 @@ const programme = await getMonatsprogramme('aposteln');
                 <span class="astro-sw-karte__linkrow__arrow">→</span>
               </a>
             ))}
+            {monatsbrief && (
             <a class="astro-sw-karte__linkrow astro-sw-karte__linkrow--secondary" href="/downloads/monatsbrief-aposteln.pdf">
               <span class="astro-sw-karte__linkrow__icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v10"></path><path d="M8 10l4 4 4-4"></path><path d="M5 19h14"></path></svg>
@@ -60,6 +62,7 @@ const programme = await getMonatsprogramme('aposteln');
               </span>
               <span class="astro-sw-karte__linkrow__arrow">→</span>
             </a>
+            )}
           </div>
         </div>
       </div>

@@ -124,5 +124,6 @@ npm run dev   # läuft mit NODE_TLS_REJECT_UNAUTHORIZED=0 auf Port 4321
 - `src/pages/downloads/monatsbrief-aposteln.pdf.ts` — analoge stabile Adresse für den Monatsbrief
   St. Aposteln, holt die aktuelle Ausgabe aus RML-Ordner 205 via `getLatestMonatsbriefAposteln()`
   in `src/lib/wordpress.js` (Handbuch 1d); verlinkt als Zeile „Monatsbrief (PDF)" in der
-  Monatsprogramm-Kachel (`src/components/ApSteyler.astro`); Rebuild-Hook in WP-`functions.php`
-  noch offen
+  Monatsprogramm-Kachel (`src/components/ApSteyler.astro`), nur wenn Ordner 205 eine eigene,
+  aktuelle Datei hat (`getMonatsbriefZeile()`); Ordner 205 zählt auch fürs Monatsprogramm, ein
+  Upload dorthin löst per WP-Hook einen Rebuild aus (Handbuch 1d, Stand 2026-11-09)

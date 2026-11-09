@@ -332,6 +332,16 @@ seltenen Fall ab, dass ein Hook mal nicht durchkommt. Bewusst noch nicht eingeri
 > dort löst also ebenfalls einen Rebuild aus (seit 2026-10-01 genauso für Ordner 206, Tauftermine,
 > Abschnitt 13c).
 
+> **Stand 2026-11-09: Monatsprogramm und Monatsbrief aus einem Ordner.** Das Pfarrbüro lud das
+> Monatsprogramm bisher ohne Ordner hoch, Ordner 205 blieb leer: Das Programm erschien erst beim
+> nächsten zufälligen Rebuild, und die Zeile „Monatsbrief (PDF)" lieferte nur „Monatsbrief derzeit
+> nicht verfügbar.". Jetzt liest `getMonatsprogramme('aposteln', …, MONATSBRIEF_APOSTELN_FOLDER)`
+> Ordner 205 mit (Titel braucht dort nur Monat + Jahr, z. B. „St. Aposteln Angebote im Dezember
+> 2026"), ein Upload dorthin baut die Seite also selbst neu. `getMonatsbriefZeile()` zeigt die
+> Monatsbrief-Zeile nur noch, wenn Ordner 205 eine Datei hat, die nicht schon als Monatsprogramm
+> verlinkt ist und keinen vergangenen Monat nennt. Workflow fürs Pfarrbüro: Programm in
+> „Astro-Upload/Monatsbrief Aposteln" hochladen, Monat und Jahr in den Titel.
+
 ---
 
 ## 1e. SEO — SEOPress-Head fest eingebaut (headless SEO) ✅ UMGESETZT (seit 2026-08-20 statisch)
