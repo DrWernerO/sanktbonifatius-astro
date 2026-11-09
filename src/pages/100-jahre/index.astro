@@ -43,66 +43,65 @@ const seo = SEO_STATIC['/100-jahre/'];
 // Einzeltermine klappen auf (`items`). Fotos: `fotos: [{src, alt}]` — leer = Platzhalter „Foto folgt"
 // (Fotos liegen lokal unter public/uploads/2027/jubilaeum/, Handbuch 1g). Items ohne `datum` zeigen
 // „Termin offen". Bewusst NICHT auf der Seite: Verantwortliche, Budget, Werbemedien/Presse,
-// Zeitkapsel/Mitgebsel (nicht selbsterklärend), Portraits an der Empore, Zeitstrahl-Idee, Jubiläumsfilm.
+// Zeitkapsel/Mitgebsel (nicht selbsterklärend), Portraits an der Empore, Zeitstrahl-Idee, Jubiläumsfilm,
+// Boni-Quiz (entfallen, 09.11.2026), BonBons/Kaffeemobil am Schweizer Platz (Infos folgen, Werner gibt sie frei).
 const IMG = '/uploads/2027/jubilaeum/';
 const sparten = [
   { id: 'eroeffnung', kurz: 'Eröffnung', featured: true, ohneDetails: true, label: 'Auftakt', titel: 'Wir läuten das Jahr ein',
     teaser: 'Am 24. Januar 2027 fällt der Startschuss: Wir feiern einen festlichen Gottesdienst und stoßen danach beim Neujahrsempfang gemeinsam auf hundert Jahre Pfarrkirche an. Ein Jubiläumsjahr beginnt man am besten in guter Gesellschaft.',
     fotos: [{ src: IMG + 'auftakt.jpg', alt: 'Gottesdienst in St. Bonifatius: Gemeinde, Ministrantinnen und Ministranten stehen im Kreis um den Altar, im Hintergrund die Orgelempore' }], fakten: ['So 24.01.2027 · 11 Uhr'],
     items: [{ datum: 'So 24.01.2027', zeit: '11 Uhr', titel: 'Eröffnungsgottesdienst und Neujahrsempfang', von: '2027-01-24', kurz: 'So 24.01.', text: 'Festlicher Gottesdienst, anschließend Neujahrsempfang.' }] },
-  { id: 'jubilarin', kurz: 'Geschichte', label: 'Geschichte', titel: 'Bonifatius – immer noch Vorbild?',
-    teaser: 'Wer war der Namensgeber unserer Kirche, und was hat er uns heute noch zu sagen? Drei BonSalons und eine Ausstellung in der Kirche laden ein, die 100-jährige Jubilarin und ihren Patron neu kennenzulernen – mit Vorträgen, Gesprächen und einem Zeitstrahl durch ein bewegtes Jahrhundert.',
-    fotos: [{ src: IMG + 'bonifatius.jpg', alt: 'Steinfigur des Heiligen Bonifatius an der Backsteinfassade der Pfarrkirche, darüber die Kirchenfenster', h: 1049, pos: '50% 30%' }],
-    fakten: ['BonSalon Do 25.02.2027', 'BonSalons Mitte März und um den 05.06.', 'Ausstellung ab Ende Januar'],
+  { id: 'jubilarin', kurz: 'Pfarrei & Patron', label: 'Geschichte', titel: 'St. Bonifatius – die Pfarrei und ihr Patron',
+    teaser: 'Wer war der Namensgeber unserer Kirche, und was hat er uns heute noch zu sagen? Drei BonSalons laden zum Zuhören und Diskutieren ein. Beim Sofagespräch erzählen Menschen verschiedener Generationen, was ihnen St. Bonifatius bedeutet.',
+    fotos: [
+      { src: IMG + 'bonifatius.jpg', alt: 'Steinfigur des Heiligen Bonifatius an der Backsteinfassade der Pfarrkirche, darüber die Kirchenfenster', h: 1049, pos: '50% 30%' },
+      { src: IMG + 'sofagespraeche.jpg', alt: 'Ein grünes Sofa mitten im Kirchraum von St. Bonifatius, im Hintergrund Altar und Fenster', pos: '50% 82%' },
+    ],
+    fakten: ['BonSalon Do 25.02.2027', 'Sofagespräch Di 13.04.2027', 'BonSalons Mitte März und um den 05.06.'],
     items: [
       { datum: 'Do 25.02.2027', zeit: '19:30 Uhr', ort: 'Kleiner Pfarrsaal, Holbeinstraße 70', titel: 'BonSalon: 100 Jahre St. Bonifatius in Frankfurt-Sachsenhausen', von: '2027-02-25', kurz: 'Do 25.02.', ueb: 'BonSalon: 100 Jahre St. Bonifatius', href: '/termine/bonsalon-100-jahre-st-bonifatius-in-frankfurt-sachsenhausen/', text: 'Prof. Dr. Martin Belz (Universität Osnabrück) zeigt die Pfarreigeschichte als Spiegel eines Jahrhunderts – mit Diskussion.' },
       { datum: 'Mitte März 2027', zeit: '19:30 Uhr', titel: 'BonSalon: Wie weit darf die Kirche sich in die Politik einmischen?', von: '2027-03-15', kurz: 'Mitte März', ueb: 'BonSalon: Kirche und Politik', text: 'Der Journalist Matthias Drobinski spricht darüber, wie weit sich die Kirche in die Politik einmischen darf – mit Diskussion.', offen: 'Genaues Datum folgt.' },
+      { datum: 'Di 13.04.2027', zeit: '19:30 Uhr', ort: 'Kirche St. Bonifatius', von: '2027-04-13', kurz: 'Di 13.04.', ueb: 'Sofagespräch: Zeitzeugen erzählen', titel: 'Sofagespräch. Zeitzeugen erzählen', text: 'Pfr. Werner Otto lädt Menschen verschiedener Generationen ein, die in St. Bonifatius für ihr Leben und ihren Glauben wichtige Erfahrungen gemacht haben, zu erzählen – auf dem Sofa in der Kirche.' },
       { datum: 'um den 05.06.2027', zeit: '19:30 Uhr', titel: 'BonSalon: St. Bonifatius – immer noch aktuell?', von: '2027-06-05', kurz: 'um den 05.06.', ueb: 'BonSalon: St. Bonifatius – aktuell?', text: 'Prof. Niccolò Steiner SJ stellt die schillernde Figur des Pfarrpatrons vor und spricht mit Pfr. Werner Otto darüber, was der Heilige den heutigen „Bonifatianern“ zu sagen hätte.', offen: 'Genaues Datum folgt.' },
-      { datum: 'ab Ende Januar 2027', titel: 'Ausstellung in der Kirche', von: '2027-01-31', kurz: 'ab Ende Januar', text: 'Ein Zeitstrahl ordnet die Geschichte des Hauses ein – von der Stadt- und Bistumsgeschichte bis heute – dazu historische Bilder. Beginn kurz nach der Eröffnung.', offen: 'Genaues Datum folgt.' },
-    ] },
-  { id: 'gespraech', kurz: 'Im Gespräch', label: 'Begegnung', titel: 'Erzählen, zuhören, anstoßen',
-    teaser: 'Beim BonBistro treffen Sie Menschen aus unserer Gemeinde: fünf Freitagabende, an denen jeweils eine andere Gruppe einlädt. Und bei den Sofagesprächen erzählen Zeitzeugen verschiedener Generationen, was ihnen in St. Bonifatius für Leben und Glauben wichtig geworden ist – Pfr. Werner Otto lädt sie ein, der erste Abend ist am 13. April. Irgendwo im Stadtteil wartet außerdem ein Überraschungstermin.',
-    fotos: [
-      { src: IMG + 'sofagespraeche.jpg', alt: 'Ein grünes Sofa mitten im Kirchraum von St. Bonifatius, im Hintergrund Altar und Fenster', pos: '50% 82%' },
-    ],
-    fakten: ['BonBistro ab Fr 12.02.2027 · 19:30 Uhr', 'Sofagespräch Di 13.04.2027 · 19:30 Uhr'],
-    items: [
-      { datum: 'Fr 12.02.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Jugendliche Firmbewerber', von: '2027-02-12', kurz: 'Fr 12.02.', ueb: 'BonBistro (Firmbewerber)' },
-      { datum: 'Fr 12.03.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Bücherei-Team', von: '2027-03-12', kurz: 'Fr 12.03.', ueb: 'BonBistro (Bücherei-Team)' },
-      { datum: 'Fr 09.04.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Jugendkirche JONA', von: '2027-04-09', kurz: 'Fr 09.04.', ueb: 'BonBistro (Jugendkirche JONA)' },
-      { datum: 'Fr 14.05.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Gottesdienst-Teams', von: '2027-05-14', kurz: 'Fr 14.05.', ueb: 'BonBistro (Gottesdienst-Teams)' },
-      { datum: 'Fr 04.06.2027', zeit: 'ab 19:30 Uhr', titel: 'BonBistro – es laden ein: Frauengruppen', von: '2027-06-04', kurz: 'Fr 04.06.', ueb: 'BonBistro (Frauengruppen)', offen: 'Der Ort der BonBistro-Abende wird noch bekannt gegeben.' },
-      { datum: 'Di 13.04.2027', zeit: '19:30 Uhr', ort: 'Kirche St. Bonifatius', von: '2027-04-13', kurz: 'Di 13.04.', ueb: 'Sofagespräche: erster Abend', titel: 'Sofagespräche. Zeitzeugen erzählen – erster Abend', text: 'Pfr. Werner Otto lädt Menschen verschiedener Generationen ein, die in St. Bonifatius für ihr Leben und ihren Glauben wichtige Erfahrungen gemacht haben, zu erzählen – auf dem Sofa in der Kirche. Weitere Abende folgen.' },
-      { titel: 'Tag am Schweizer Platz', text: 'Ein Überraschungstermin: Wir sind im Stadtteil unterwegs, mit einem Kaffeemobil und kleinen Überraschungen. Mehr verraten wir noch nicht.' },
     ] },
   { id: 'kultur', kurz: 'Kultur', label: 'Kultur', titel: 'Der Kirchraum klingt',
-    teaser: 'Das Streichquartett der Frankfurter Oper spielt Haydn, das Frankfurter Saxophonorchester gibt ein Jubiläumskonzert – dazu kommen Orgel und Chor, weitere Konzerte und ein Quiz für alle, die ihre Kirche wirklich kennen. Weitere Termine geben wir bekannt, sobald sie feststehen.',
+    teaser: 'Das Streichquartett der Frankfurter Oper spielt Haydn, das Frankfurter Saxophonorchester gibt ein Jubiläumskonzert: zwei Abende, an denen unsere Kirche klingt.',
     fotos: [{ src: IMG + 'kultur.jpg', alt: 'Silberne Orgelpfeifen der Orgel von St. Bonifatius, grün und violett angestrahlt', h: 935 }], fakten: ['Di 23.03.2027 · 19:30 Uhr', 'Sa 04.09.2027 · 19:30 Uhr'],
     items: [
       { datum: 'Di 23.03.2027', zeit: '19:30 Uhr', ort: 'St. Bonifatius', von: '2027-03-23', kurz: 'Di 23.03.', ueb: 'Haydn: Die sieben letzten Worte unseres Erlösers am Kreuze', titel: 'Haydn: Die sieben letzten Worte unseres Erlösers am Kreuze – Streichquartett der Frankfurter Oper', text: 'Sieben Sätze, die ein Leben auf den Punkt bringen – in Töne gefasst von Joseph Haydn. Das Streichquartett der Frankfurter Oper spielt dieses Meisterwerk der Stille und der Intensität. Zwischen den Sätzen gibt Pfr. Dr. Werner Otto kurze geistliche Impulse zum Innehalten. Ein Abend für alle, die Musik nicht nur hören, sondern spüren wollen.' },
       { datum: 'Sa 04.09.2027', zeit: '19:30 Uhr', ort: 'St.-Bonifatius-Kirche', von: '2027-09-04', kurz: 'Sa 04.09.', ueb: 'Jubiläumskonzert des Frankfurter Saxophonorchesters', titel: 'Jubiläumskonzert des Frankfurter Saxophonorchesters', text: 'Leitung: Bastian Fiebig, Mitglied unserer Gemeinde.' },
-      { titel: 'Orgel- und Chorkonzerte' },
-      { titel: 'Weitere Kulturangebote' },
-      { titel: 'Boni-Quiz', text: 'Wie gut kennen Sie unsere Kirche? Ein Quiz zum Mitraten, eventuell beim Sommerfest.' },
+    ] },
+  { id: 'gespraech', kurz: 'Begegnung', label: 'Begegnung', titel: 'Begegnen und anstoßen',
+    teaser: 'Beim BonBistro treffen Sie Menschen aus unserer Gemeinde: fünf Freitagabende im Schülercafé ORCA, an denen jeweils eine andere Gruppe einlädt. Und irgendwo im Stadtteil wartet eine überraschende Begegnung am Schweizer Platz.',
+    fotos: [],
+    fakten: ['BonBistro ab Fr 12.02.2027 · 19:30 Uhr', 'Überraschung am Schweizer Platz: Termin folgt'],
+    items: [
+      { datum: 'Fr 12.02.2027', zeit: 'ab 19:30 Uhr', ort: 'Schülercafé ORCA, Holbeinstraße 70', titel: 'BonBistro – es laden ein: Jugendliche Firmbewerber', von: '2027-02-12', kurz: 'Fr 12.02.', ueb: 'BonBistro (Firmbewerber)' },
+      { datum: 'Fr 12.03.2027', zeit: 'ab 19:30 Uhr', ort: 'Schülercafé ORCA, Holbeinstraße 70', titel: 'BonBistro – es laden ein: Bücherei-Team', von: '2027-03-12', kurz: 'Fr 12.03.', ueb: 'BonBistro (Bücherei-Team)' },
+      { datum: 'Fr 09.04.2027', zeit: 'ab 19:30 Uhr', ort: 'Schülercafé ORCA, Holbeinstraße 70', titel: 'BonBistro – es laden ein: Jugendkirche JONA', von: '2027-04-09', kurz: 'Fr 09.04.', ueb: 'BonBistro (Jugendkirche JONA)' },
+      { datum: 'Fr 14.05.2027', zeit: 'ab 19:30 Uhr', ort: 'Schülercafé ORCA, Holbeinstraße 70', titel: 'BonBistro – es laden ein: Gottesdienst-Teams', von: '2027-05-14', kurz: 'Fr 14.05.', ueb: 'BonBistro (Gottesdienst-Teams)' },
+      { datum: 'Fr 04.06.2027', zeit: 'ab 19:30 Uhr', ort: 'Schülercafé ORCA, Holbeinstraße 70', titel: 'BonBistro – es laden ein: Frauengruppen', von: '2027-06-04', kurz: 'Fr 04.06.', ueb: 'BonBistro (Frauengruppen)' },
+      { titel: 'Eine überraschende Begegnung am Schweizer Platz', offen: 'Infos folgen zu gegebener Zeit.' },
+    ] },
+  { id: 'generation', kurz: 'Nächste Generation', label: 'Für Kinder und Jugendliche', titel: 'Die nächste Generation feiert den Hl. Bonifatius',
+    teaser: 'Auch die Jüngsten und die Jugendlichen feiern mit: Der Kindergarten führt das Bonifatius-Musical auf, und die Jugendkirche ist für einen Beitrag angefragt. Was genau kommt, verraten wir bald.',
+    fotos: [
+      { src: IMG + 'familie-kinder.jpg', alt: 'Ein Kleinkind mit Strohhut läuft lachend mit ausgestreckten Armen auf eine Frau zu' },
+      { src: IMG + 'jugend-gruppe.jpg', alt: 'Eine Gruppe Jugendlicher liegt lachend im Kreis auf einer Decke im Gras, von oben fotografiert', h: 1050 },
+    ],
+    fakten: ['So 20.06.2027 · 11 Uhr', 'Jugendkirche: Termin folgt'],
+    items: [
+      { datum: 'So 20.06.2027', zeit: '11 Uhr', titel: 'Familiengottesdienst mit dem Kindergarten: Bonifatius-Musical', von: '2027-06-20', kurz: 'So 20.06.', ueb: 'Bonifatius-Musical (Kindergarten)', text: 'Aufführung des Bonifatius-Musicals im Gottesdienst mit dem Kindergarten.' },
+      { titel: 'Beitrag der Jugendkirche', offen: 'Format und Termin stehen noch nicht fest.' },
     ] },
   { id: 'entdecken', kurz: 'Kirche entdecken', label: 'Entdecken', titel: 'Die Kirche mit neuen Augen',
-    teaser: 'Unser Virtueller Kirchenführer zeigt Ihre Pfarrkirche aus ganz neuen Blickwinkeln: mit Infos zu Orten und Kunstwerken, der Schatzkammer und der Heiligenwand mit Texten und Videos von Gemeindemitgliedern. Er ist schon zur Hälfte begehbar und wird laufend erweitert. Schauen Sie vorbei und lassen Sie sich überraschen.',
+    teaser: 'Unsere Pfarrkirche mit neuen Augen: In der Kirche zeigt eine Ausstellung mit Zeitstrahl und historischen Bildern ein bewegtes Jahrhundert. Und unser Virtueller Kirchenführer zeigt Ihre Kirche aus ganz neuen Blickwinkeln, mit Infos zu Orten und Kunstwerken, der Schatzkammer und der Heiligenwand mit Texten und Videos von Gemeindemitgliedern. Er ist schon zur Hälfte begehbar und wird laufend erweitert.',
     fotos: [{ src: IMG + 'kirchenfuehrer.jpg', alt: 'Blick in das Kirchenschiff von St. Bonifatius: weit geschwungene graue Gewölbebögen, in der Mitte ein Kronleuchter, vorn der Altarraum', h: 1062, pos: '50% 60%' }],
-    fakten: ['Digital · wird laufend erweitert'], items: [],
-    cta: { href: '/100-jahre/rundgang/', text: 'Zum Virtuellen Kirchenführer' } },
-  { id: 'familie', kurz: 'Kinder & Familie', label: 'Für Kinder und Familien', titel: 'Auch die Kleinen feiern mit',
-    teaser: 'Für Kinder und Familien planen wir eigene Angebote – vom Bonifatius-Musical im Kindergartengottesdienst bis zu weiteren Aktionen für die ganze Familie. Was genau kommt, verraten wir bald.',
-    fotos: [{ src: IMG + 'familie-kinder.jpg', alt: 'Ein Kleinkind mit Strohhut läuft lachend mit ausgestreckten Armen auf eine Frau zu' }],
-    fakten: ['Termine folgen'],
+    fakten: ['Ausstellung ab Ende Januar', 'Digital · wird laufend erweitert'],
     items: [
-      { datum: '16.05. oder 20.06.2027', titel: 'Bonifatius-Musical', von: '2027-05-16', bis: '2027-06-20', kurz: '16.05. oder 20.06.', text: 'Aufführung im Kindergartengottesdienst.', offen: 'Der genaue Tag wird noch entschieden.' },
-      { titel: 'Angebote für Kinder und Familien', text: 'Wir planen Angebote rund um das Jubiläum.' },
-    ] },
-  { id: 'jugend', kurz: 'Jugend', label: 'Für Jugendliche', titel: 'Jetzt ist die Jugend dran',
-    teaser: 'Das Jubiläum gehört auch den Jugendlichen: Die Jugendkirche ist für einen Beitrag angefragt. Wie er aussieht und wann er stattfindet, ist noch offen – bleiben Sie gespannt.',
-    fotos: [{ src: IMG + 'jugend-gruppe.jpg', alt: 'Eine Gruppe Jugendlicher liegt lachend im Kreis auf einer Decke im Gras, von oben fotografiert', h: 1050 }],
-    fakten: ['Termin folgt'],
-    items: [{ titel: 'Beitrag der Jugendkirche', offen: 'Format und Termin stehen noch nicht fest.' }] },
+      { datum: 'ab Ende Januar 2027', titel: 'Ausstellung in der Kirche', von: '2027-01-31', kurz: 'ab Ende Januar', text: 'Ein Zeitstrahl ordnet die Geschichte des Hauses ein – von der Stadt- und Bistumsgeschichte bis heute – dazu historische Bilder. Beginn kurz nach der Eröffnung.', offen: 'Genaues Datum folgt.' },
+    ],
+    cta: { href: '/100-jahre/rundgang/', text: 'Zum Virtuellen Kirchenführer' } },
   { id: 'pause', kurz: 'Pause für die Seele', label: 'Spirituell', titel: 'Eine Pause für die Seele',
     teaser: 'Sechs Wochen in der Fastenzeit innehalten: jeden Tag ein kurzer Impuls, einmal pro Woche eine kleine Gruppe. Ökumenisch, ohne Vorkenntnisse und mitten im Alltag – so begehen Sie das Jubiläum auch spirituell.',
     fotos: [{ src: IMG + 'pause-40-tage.jpg', alt: 'Pause für die Seele – Vierzig Tage, die gut tun.', contain: true, w: 1400, h: 788 }], mediaBg: '#581c5a',
@@ -118,12 +117,12 @@ const sparten = [
 // Terminübersicht (vor den FAQ) = alle Items mit `von`, automatisch aus den Sparten; Items ohne
 // Termin erscheinen nur in der Fußzeile „Termin folgt".
 const termine = sparten.flatMap((b) => b.items.filter((i) => i.von).map((i) => ({ ...i, anker: b.id })));
-const termineOffen = ['BonSalons: genaue Termine', 'Sofagespräche (weitere Abende)', 'Orgel- und Chorkonzerte', 'Beitrag der Jugendkirche', 'Tag am Schweizer Platz', 'Virtueller Kirchenführer'];
+const termineOffen = ['BonSalons: genaue Termine', 'Überraschende Begegnung am Schweizer Platz', 'Beitrag der Jugendkirche', 'Virtueller Kirchenführer'];
 
 // PDFs: `pdf: '/uploads/2027/jubilaeum/<datei>.pdf'` eintragen, sobald die Datei vorliegt.
 const downloads = [
-  { titel: 'Flyer', text: 'Das Jubiläum auf einen Blick – zum Ausdrucken und Weitergeben.', pdf: '', erscheint: 'im Laufe des Jahres 2027' },
-  { titel: 'Festprogramm', text: 'Alle Veranstaltungen des Jubiläumsjahrs.', pdf: '', erscheint: 'vor der Eröffnung' },
+  // Flyer-Karte entfällt, bis eine PDF vorliegt (dann hier wieder aufnehmen).
+  { titel: 'Programmheft', text: 'Alle Veranstaltungen des Jubiläumsjahrs.', pdf: '', erscheint: 'im neuen Jahr' },
 ];
 
 ---
