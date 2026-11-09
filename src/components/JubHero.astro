@@ -17,8 +17,7 @@ const bg = '/uploads/2027/jubilaeum/hero-pfarrkirche.jpg';
     <h1 class="astro-jub-hero__title">100 Jahre Pfarrkirche St. Bonifatius – feiern Sie mit</h1>
     <p class="astro-jub-hero__sub">Vom 24. Januar bis 8. August 2027 &middot; Frankfurt-Sachsenhausen</p>
     <div class="astro-jub-hero__cta">
-      <a class="astro-jub-btn astro-jub-btn--primary astro-jub-btn--onphoto" href="#programm">Zum Programm</a>
-      <a class="astro-jub-btn astro-jub-btn--ghost" href="/meineboni/">Machen Sie mit: Ihre Geschichte gehört dazu</a>
+      <a class="astro-jub-btn astro-jub-btn--gold" href="/meineboni/">Machen Sie mit: Ihre Geschichte gehört dazu</a>
     </div>
   </div>
 </section>
@@ -32,5 +31,8 @@ const bg = '/uploads/2027/jubilaeum/hero-pfarrkirche.jpg';
 .astro-jub-hero__title{font-family:var(--jub-serif);font-size:clamp(30px,4.6vw,48px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 10px;max-width:22ch;text-shadow:0 2px 14px rgba(20,12,8,.55)}
 .astro-jub-hero__sub{font-size:clamp(15px,1.8vw,18px);line-height:1.5;color:#fff;margin:0 0 20px;text-shadow:0 1px 10px rgba(20,12,8,.6)}
 .astro-jub-hero__cta{display:flex;flex-wrap:wrap;gap:12px}
+/* Goldener Hauptknopf (Werner, 09.11.2026): dunkle Schrift auf Gold = Kontrast ca. 6:1 */
+.astro-jub-btn--gold{background:#d4a44a;color:#1e1512;border:2px solid #d4a44a}
+.astro-jub-btn--gold:hover{background:#e3b75e;border-color:#e3b75e;transform:translateY(-1px)}
 @media(max-width:600px){.astro-jub-hero{padding:90px 0 30px}.astro-jub-hero__inner{padding:0 20px}.astro-jub-hero__cta .astro-jub-btn{flex:1 1 100%;justify-content:center}}
 </style>
