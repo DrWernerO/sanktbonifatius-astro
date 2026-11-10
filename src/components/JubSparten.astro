@@ -5,7 +5,7 @@
 // Sparte: id, kurz (Name in der Sprungleiste), label, titel, teaser, fotos[{src,alt}] (leer = Platzhalter
 // „Foto folgt"; Foto mit `contain:true` wird vollständig gezeigt statt beschnitten, `mediaBg` = Hintergrundfarbe
 // dahinter, `w`/`h` = Pixelmaße, `pos` = Bildausschnitt als object-position, z. B. '50% 78%'), fakten[] (kurze Pillen), items[] (aufklappbare Einzeltermine), cta{href,text},
-// featured (Band), ohneDetails (kein Aufklappen; `items` bleiben für die Terminübersicht). Item: datum (sonst „Termin offen"), zeit, ort, titel, text, href, offen.
+// vorschau[{wann,was}] (immer sichtbare Kurzinfo unter dem Teaser, ersetzt die Pillen `fakten`), slot (Name eines Slots: statt der Karte wird der Slot-Inhalt eingefügt, z. B. 'mitmachen'), featured (Band), ohneDetails (kein Aufklappen; `items` bleiben für die Terminübersicht). Item: datum (sonst „Termin offen"), zeit, ort, titel, text, href, offen.
 const { sparten = [] } = Astro.props;
 ---
 <section class="astro-jub-sp" id="programm">
@@ -14,7 +14,7 @@ const { sparten = [] } = Astro.props;
       {sparten.map((b) => <a href={`#${b.id}`}>{b.kurz ?? b.titel}</a>)}
     </nav>
     <div class="astro-jub-sp__list">
-    {sparten.map((b, n) => (
+    {sparten.map((b, n) => b.slot === 'mitmachen' ? <slot name="mitmachen" /> : (
       <article class={`astro-jub-sp__card${b.featured ? ' is-featured' : ''}${n % 2 ? ' is-reverse' : ''}`} id={b.id}>
         <div class={`astro-jub-sp__media${b.fotos && b.fotos.length > 1 ? ' is-multi' : ''}`} style={b.mediaBg ? `background:${b.mediaBg}` : undefined}>
           {b.fotos && b.fotos.length > 0
@@ -25,7 +25,10 @@ const { sparten = [] } = Astro.props;
           {b.label && <p class="astro-jub-sp__label">{b.label}</p>}
           <h2 class="astro-jub-sp__hl">{b.titel}</h2>
           <p class="astro-jub-sp__teaser">{b.teaser}</p>
-          {b.fakten && b.fakten.length > 0 && (
+          {b.vorschau && b.vorschau.length > 0 && (
+            <ul class="astro-jub-sp__pre">{b.vorschau.map((v) => <li><span class="astro-jub-sp__pre-when">{v.wann}</span><span class="astro-jub-sp__pre-what">{v.was}</span></li>)}</ul>
+          )}
+          {!(b.vorschau && b.vorschau.length > 0) && b.fakten && b.fakten.length > 0 && (
             <ul class="astro-jub-sp__facts">{b.fakten.map((f) => <li>{f}</li>)}</ul>
           )}
           {b.items && b.items.length > 0 && !b.ohneDetails && (
@@ -128,4 +131,12 @@ const { sparten = [] } = Astro.props;
 @media(max-width:1000px){.astro-jub-sp__nav{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;padding:8px 20px;margin-left:-20px;margin-right:-20px;scrollbar-width:thin}.astro-jub-sp__nav a{flex:0 0 auto;white-space:nowrap}}
 @media(max-width:820px){.astro-jub-sp__card{grid-template-columns:1fr}.astro-jub-sp__card.is-reverse .astro-jub-sp__media{order:0}.astro-jub-sp__media,.astro-jub-sp__ph{min-height:220px;max-height:300px}.astro-jub-sp__media.is-multi{grid-template-rows:none;grid-template-columns:1fr 1fr;max-height:200px}.astro-jub-sp__body{padding:22px 20px}.astro-jub-sp__row{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.astro-jub-sp__nav a,.astro-jub-sp__more summary::after{transition:none}}
+.astro-jub-sp__pre{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:8px;width:100%}
+.astro-jub-sp__pre li{display:grid;grid-template-columns:150px 1fr;gap:4px 14px;font-size:15.5px;line-height:1.5}
+.astro-jub-sp__pre-when{font-weight:700;color:var(--bf-accent)}
+.astro-jub-sp__pre-what{color:var(--bf-ink)}
+.astro-jub-mit{scroll-margin-top:170px}
+.astro-jub-sp__list .astro-jub-mit{padding:0;background:transparent}
+.astro-jub-sp__list .astro-jub-mit .astro-jub-wrap{max-width:none;padding:0}
+@media(max-width:600px){.astro-jub-sp__pre li{grid-template-columns:1fr;gap:0}}
 </style>
