@@ -47,8 +47,8 @@ function mailText(d: Record<string, string>, kontakt: boolean): string {
   const z = (label: string, v?: string) => (v ? `${label}: ${v}\n` : '');
   return (
     'Neue Rückmeldung über die Willkommens-Seite (sanktbonifatius.de/willkommen)\n' +
-    '(QR-Code im Brief zum Willkommens-Flyer für Neuzugezogene)\n\n' +
-    z('Wie hat der Flyer gefallen?', d.wk_flyer || '(keine Angabe)') +
+    '(QR-Code im Willkommensbrief für Neuzugezogene)\n\n' +
+    z('Wie hat der Brief gefallen?', d.wk_flyer || '(keine Angabe)') +
     (d.wk_nachricht ? `\nNachricht:\n${d.wk_nachricht}\n` : '') +
     '\n— Kontaktwunsch —\n' +
     (kontakt
@@ -91,7 +91,7 @@ export const POST: APIRoute = async ({ request }) => {
     return antwort(request, false, 'Damit wir Sie erreichen können, geben Sie bitte Telefon oder E-Mail an.', 400);
   }
 
-  const betreff = 'Rückmeldung Willkommens-Flyer' + (kontakt ? ' – bitte Kontakt aufnehmen' : '');
+  const betreff = 'Rückmeldung Willkommensbrief' + (kontakt ? ' – bitte Kontakt aufnehmen' : '');
   const text = mailText(d, kontakt);
   const danke = kontakt
     ? 'Herzlichen Dank! Wir freuen uns und melden uns bald bei Ihnen.'

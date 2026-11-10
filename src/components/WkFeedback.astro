@@ -8,7 +8,8 @@
 // weder in Server-Logs noch als page_location in Google Analytics). Die API schreibt keine
 // Formularinhalte in Logs.
 //
-// 🔑 Feldnamen sind VERTRAG mit der API-Route — NICHT umbenennen.
+// 🔑 Feldnamen sind VERTRAG mit der API-Route — NICHT umbenennen. (`wk_flyer` heißt historisch so;
+// gefragt wird seit 2026-11-09 nach dem Brief, Wunsch Werner.)
 ---
 <section class="astro-wkfb" id="rueckmeldung">
   <div class="astro-wkfb__inner">
@@ -27,7 +28,7 @@
 
     <form id="astro-wkfb-form" class="astro-wkfb__form" method="post" action="/api/willkommen-rueckmeldung" novalidate>
       <fieldset class="astro-wkfb__group">
-        <legend class="astro-wkfb__legend">Wie hat Ihnen der Flyer gefallen?</legend>
+        <legend class="astro-wkfb__legend">Wie hat Ihnen unser Brief gefallen?</legend>
         <div class="astro-wkfb__choices">
           <label class="astro-wkfb__choice"><input type="radio" name="wk_flyer" value="Sehr gut" /><span>Sehr gut</span></label>
           <label class="astro-wkfb__choice"><input type="radio" name="wk_flyer" value="Ganz gut" /><span>Ganz gut</span></label>
