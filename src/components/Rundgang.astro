@@ -43,7 +43,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 <script is:inline src="/vendor/pannellum/pannellum.js"></script>
 
 <section class="astro-rg" aria-labelledby="astro-rg-titel">
-  <h2 id="astro-rg-titel" class="astro-rg-sr">Virtueller Rundgang durch die Kirche</h2>
+  <h2 id="astro-rg-titel" class="astro-rg-sr">Panorama der Kirche</h2>
 
   <!-- „So geht’s“ (Frank 2026-11-05): steht VOR dem Bild und ist mit dem Seitenkopf zu einem Einstieg zusammengeführt –
        erst erklären, dann wählen (Knöpfe), dann umschauen. Bedienung immer sichtbar, in einfachen Worten und mit denselben
@@ -1395,6 +1395,9 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-legende-titel { color: var(--rg-creme); font-size: 13px; font-weight: 600; padding: 0 4px 0 8px; opacity: 0.85; }
   .astro-rg-ebene { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 999px; border: 0;
     background: transparent; color: var(--rg-creme); font: 600 13px/1.2 'Source Sans 3', sans-serif; cursor: pointer; }
+  .astro-rg-ebene { min-height: 44px; }
+  .astro-rg-hg-liste summary { min-height: 44px; display: flex; align-items: center; }
+  .astro-rg-hg-liste button { min-height: 44px; display: inline-flex; align-items: center; }
   .astro-rg-ebene:hover { background: rgba(255, 255, 255, 0.14); }
   .astro-rg-ebene:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: 1px; }
   .astro-rg-ebene[aria-pressed='false'] { opacity: 0.55; text-decoration: line-through; }

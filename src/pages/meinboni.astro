@@ -11,6 +11,24 @@
 import Base from '../layouts/Base.astro';
 import JubMitmachForm from '../components/JubMitmachForm.astro';
 
+// SEO-Kopf (Titel ≤ 60 Zeichen, Vorschaubild 1200×630 unter public/uploads/og/meinboni.jpg) — Seite bleibt noindex.
+const seoKopf = `<title>Mitmachen: IHR St. Bonifatius – 100 Jahre Pfarrkirche</title>
+<meta name="description" content="Was verbindet Sie mit St. Bonifatius? Machen Sie mit bei unserer virtuellen Kirche zum 100-jährigen Jubiläum: mit Video oder Foto und ein paar Sätzen.">
+<meta property="og:site_name" content="Sankt Bonifatius">
+<meta property="og:locale" content="de_DE">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mitmachen: IHR St. Bonifatius – 100 Jahre Pfarrkirche">
+<meta property="og:description" content="Was verbindet Sie mit St. Bonifatius? Machen Sie mit bei unserer virtuellen Kirche zum 100-jährigen Jubiläum: mit Video oder Foto und ein paar Sätzen.">
+<meta property="og:image" content="https://sanktbonifatius.de/uploads/og/meinboni.jpg">
+<meta property="og:image:secure_url" content="https://sanktbonifatius.de/uploads/og/meinboni.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Luftbild der Pfarrkirche St. Bonifatius mit Backsteinturm in Frankfurt-Sachsenhausen">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mitmachen: IHR St. Bonifatius – 100 Jahre Pfarrkirche">
+<meta name="twitter:description" content="Was verbindet Sie mit St. Bonifatius? Machen Sie mit bei unserer virtuellen Kirche zum 100-jährigen Jubiläum: mit Video oder Foto und ein paar Sätzen.">
+<meta name="twitter:image" content="https://sanktbonifatius.de/uploads/og/meinboni.jpg">`;
+
 // Beispielkacheln (Entwurf 09.11.2026): sollen später mit den ersten beiden echten Beiträgen gefüllt werden.
 // Leer lassen = Platzhalter. Foto: `foto` = '/uploads/2027/jubilaeum/<datei>.webp' + `alt` (beschreibt das Bild);
 // Video: `video` = '/uploads/2027/jubilaeum/<datei>.mp4' (+ optional `poster`, `untertitel` = .vtt-Datei).
@@ -28,11 +46,7 @@ for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
 }
 const breite = cols * (w + gap) - gap, hoehe = rows * (h + gap) - gap;
 ---
-<Base
-  title="Mitmachen: IHR St. Bonifatius – 100 Jahre Pfarrkirche"
-  description="Was verbindet Sie mit St. Bonifatius? Machen Sie mit bei unserer virtuellen Kirche zum 100-jährigen Jubiläum: mit Video oder Foto und ein paar Sätzen."
-  noindex={true}
->
+<Base seo={seoKopf} noindex={true}>
   <div class="astro-mb">
     <header class="astro-mb-head">
       <div class="astro-mb-wrap">
@@ -124,7 +138,7 @@ const breite = cols * (w + gap) - gap, hoehe = rows * (h + gap) - gap;
 .astro-mb-kontakt{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:10px}
 .astro-mb-kontakt li{display:flex;flex-direction:column;gap:2px;background:var(--mb-bg);border:1px solid var(--mb-border);border-radius:12px;padding:12px 16px}
 .astro-mb-kontakt span{font-weight:600}
-.astro-mb-kontakt a{display:inline-block;padding:6px 0;color:var(--mb-accent);font-weight:600;word-break:break-all}
+.astro-mb-kontakt a{display:inline-flex;align-items:center;min-height:44px;padding:6px 0;color:var(--mb-accent);font-weight:600;word-break:break-all}
 .astro-mb-text a{color:var(--mb-accent)}
 .astro-mb-frist{background:var(--mb-bg-alt);border-radius:12px;padding:12px 16px;margin-top:4px}
 .astro-mb-box{background:var(--mb-bg);border:1px solid var(--mb-border);border-left:5px solid var(--mb-accent);border-radius:14px;padding:6px 20px 22px;margin-bottom:8px}
