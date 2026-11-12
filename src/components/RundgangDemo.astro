@@ -1,0 +1,68 @@
+---
+// Mini-Anleitung („Zeigen, wie es geht“) für einen Schritt im Kasten „So einfach navigieren Sie …“ (Frank 2026-11-12).
+// Kein Video, sondern eine kurze CSS-Animation über ECHTEN Aufnahmen des Rundgangs (public/rundgang/anleitung/,
+// aufgenommen im Browser bei 480 × 300 px, Infofenster bei 760 × 640 px): Wege, Pfeile, Tafeln an der Wand und
+// die Fenster sehen so aus wie im Rundgang. Die Hand tippt auf die bei der Aufnahme ausgemessenen Stellen (ZIEL,
+// in Prozent des Bildes). Bilder laden erst beim Antippen (Hintergrund in verstecktem Element wird nicht geladen).
+// Neue Aufnahme nötig (z. B. Rundgang optisch geändert)? → docs/rundgang-anleitung.md, Abschnitt Mini-Anleitungen.
+// Steuerung (immer nur eine gleichzeitig) im Skript von Rundgang.astro, Bewegungen (Keyframes rg-demo-…) dort im CSS.
+
+interface Props { art: 'umschauen' | 'weitergehen' | 'grundriss' | 'info' | 'galerie' }
+const { art } = Astro.props;
+const A = '/rundgang/anleitung';
+const bild = (name: string) => `background-image:url(${A}/${name}.webp)`;
+
+// Wo die Hand tippt (Mitte von Pfeil / Nummer 7 / Infopunkt / Tafel), in % der Aufnahme.
+// Weitergehen hat zwei Schritte (Frank 2026-11-12): Taufstein → Mittelgang vor der Empore (ZIEL) → vor dem Pult (ZIEL2).
+const ZIEL: Record<string, [number, number]> = {
+  weitergehen: [34.5, 66.7],
+  grundriss: [11.9, 46.5],
+  info: [39.7, 67.1],
+  galerie: [26.3, 29.8],
+};
+const z = ZIEL[art];
+const ZIEL2: [number, number] = [45.4, 48.5];
+const stil = z ? `--zl:${z[0]}%;--zt:${z[1]}%` + (art === 'weitergehen' ? `;--z2l:${ZIEL2[0]}%;--z2t:${ZIEL2[1]}%` : '') : undefined;
+
+const hand = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg>`;
+---
+<div class={`astro-rg-demo astro-rg-demo-${art}`} id={`astro-rg-demo-${art}`} style={stil} hidden aria-hidden="true">
+  {art === 'umschauen' && <div class="astro-rg-demo-bild astro-rg-demo-pan" style={bild('umschauen')}></div>}
+
+  {art === 'weitergehen' && (
+    <>
+      <div class="astro-rg-demo-bild" style={bild('weiter-2')}></div>
+      <div class="astro-rg-demo-bild astro-rg-demo-b2" style={bild('weiter-1')}></div>
+      <div class="astro-rg-demo-bild astro-rg-demo-b1" style={bild('weiter-0')}></div>
+      <span class="astro-rg-demo-tipp astro-rg-demo-tipp2"></span>
+    </>
+  )}
+
+  {art === 'grundriss' && (
+    <>
+      <div class="astro-rg-demo-bild" style={bild('grundriss-2')}></div>
+      <div class="astro-rg-demo-bild astro-rg-demo-b1" style={bild('grundriss-1')}></div>
+    </>
+  )}
+
+  {art === 'info' && (
+    <>
+      <div class="astro-rg-demo-bild" style={bild('info-1')}></div>
+      <div class="astro-rg-demo-fenster"><span style={bild('info-fenster')}></span></div>
+    </>
+  )}
+
+  {art === 'galerie' && (
+    <>
+      <div class="astro-rg-demo-bild" style={bild('galerie-1')}></div>
+      <div class="astro-rg-demo-fenster astro-rg-demo-fenster-breit"><span style={bild('galerie-fenster')}></span></div>
+    </>
+  )}
+
+  <span class="astro-rg-demo-tipp"></span>
+  <span class="astro-rg-demo-hand" set:html={hand} />
+</div>
+<button type="button" class="astro-rg-demo-knopf" data-demo={art} aria-expanded="false" aria-controls={`astro-rg-demo-${art}`}>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path class="astro-rg-demo-play" d="M8 5l11 7-11 7z" fill="currentColor"/><path class="astro-rg-demo-stop" d="M7 7h10v10H7z" fill="currentColor"/></svg>
+  <span class="astro-rg-demo-zeigen">Zeigen, wie es geht</span><span class="astro-rg-demo-fertig">Ausblenden</span>
+</button>

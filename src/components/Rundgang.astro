@@ -8,6 +8,7 @@
 // zum Ziel minus Blickrichtung der Bildmitte), damit neue Stationen ohne Rechnen eingetragen werden.
 import daten from '../data/rundgang.json';
 import kacheln from '../data/rundgang-kacheln.json';
+import RundgangDemo from './RundgangDemo.astro';
 
 const stationen = daten.stationen.filter((s) => kacheln[s.id]);
 // Ortsliste: dieselben Infopunkte wie im Bild – von der Empore alle sichtbaren, sonst nur die in Reichweite
@@ -37,6 +38,12 @@ const tafelnNah = (s: any) => !!TF && TF.waende.some((w: any) => {
   return Math.hypot(sx - (ax + bx) / 2, sy - (ay + by) / 2) <= 15 && (sx - ax) * (by - ay) - (sy - ay) * (bx - ax) > 0;
 });
 const geschichtenHier = (s: any) => (TF ? tafelnNah(s) : s.id === daten.heiligengalerie.station);
+// Hochkant-Grundriss: Ausschnitt des Plans (in % des Original-Querformats), um 90° gedreht → Altar oben
+const AS = daten.grundriss.ausschnitt;
+const kartePos = (p: any) => ({
+  left: ((p.y - AS.y0) / (AS.y1 - AS.y0)) * 100,
+  top: 100 - ((p.x - AS.x0) / (AS.x1 - AS.x0)) * 100,
+});
 const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
 ---
 <link rel="stylesheet" href="/vendor/pannellum/pannellum.css" />
@@ -49,27 +56,32 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
        erst erklären, dann wählen (Knöpfe), dann umschauen. Bedienung immer sichtbar, in einfachen Worten und mit denselben
        Zeichen wie im Bild, weil unser Publikum oft wenig technikerfahren ist. Seltenere Tipps bleiben zum Aufklappen. -->
   <section class="astro-rg-sogehts" aria-labelledby="astro-rg-sogehts-titel">
-    <h2 id="astro-rg-sogehts-titel">So geht’s – ganz einfach</h2>
+    <h2 id="astro-rg-sogehts-titel">So einfach navigieren Sie im virtuellen Kirchenraum</h2>
     <ol class="astro-rg-schritte">
       <li>
         <span class="astro-rg-schritt-bild astro-rg-sb-hand" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg></span>
         <strong>Umschauen</strong>
         <span>Ins Bild tippen und mit dem Finger oder der Maus ziehen – so drehen Sie sich in alle Richtungen.</span>
+        <RundgangDemo art="umschauen" />
       </li>
       <li>
         <span class="astro-rg-schritt-bild astro-rg-sb-weg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <strong>Weitergehen</strong>
-        <span>Einen weißen Pfeil im Bild antippen – schon stehen Sie an der nächsten Stelle.</span>
+        <span>Einen weißen Pfeil im Bild antippen, um sich an den angezeigten Ort zu bewegen.</span>
+        <RundgangDemo art="weitergehen" />
       </li>
       <li>
         <span class="astro-rg-schritt-bild astro-rg-sb-karte" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6z M9 4v14 M15 6v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
         <strong>Grundriss</strong>
-        <span>Den Knopf mit der Karte oben rechts im Bild antippen – dort sehen Sie alle Orte und springen mit einem Tipp hin.</span>
+        <span class="astro-rg-nur-gross">Unten links im Bild sehen Sie den Grundriss der Kirche. Eine Nummer anklicken, um direkt dorthin zu gelangen.</span>
+        <span class="astro-rg-nur-klein">Den Knopf mit der Karte oben rechts im Bild antippen – dort sehen Sie alle Orte und springen mit einem Tipp hin.</span>
+        <RundgangDemo art="grundriss" />
       </li>
       <li>
         <span class="astro-rg-schritt-bild astro-rg-sb-info" aria-hidden="true">i</span>
         <strong>Mehr erfahren</strong>
-        <span>Einen roten Punkt mit „i“ antippen – dann lesen Sie, was Sie gerade sehen.</span>
+        <span>Die roten Infopunkte mit „i“ können Sie anklicken, um mehr über das markierte Objekt oder den Ort zu erfahren.</span>
+        <RundgangDemo art="info" />
       </li>
       <li>
         <span class="astro-rg-schritt-bild astro-rg-sb-tafel" aria-hidden="true"><span></span></span>
@@ -77,6 +89,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
         {TF
           ? <span>Vorne an den Wänden eine goldene Tafel antippen – Menschen aus unserer Gemeinde erzählen ihre Geschichte.</span>
           : <span>Hinter dem Altar den goldenen Knopf antippen – ringsum erscheinen Geschichten von Menschen aus unserer Gemeinde.</span>}
+        {TF && <RundgangDemo art="galerie" />}
       </li>
     </ol>
     <div class="astro-rg-leiste">
@@ -100,7 +113,6 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       <ul>
         <li>Näher heranholen: mit zwei Fingern im Bild auseinanderziehen, mit dem Mausrad oder mit den Knöpfen + und − oben links.</li>
         <li>Der Knopf mit den vier Ecken oben rechts im Bild schaltet auf Vollbild – noch einmal antippen, und alles ist wieder wie vorher.</li>
-        <li>Unten rechts im Bild lassen sich Wege, Infopunkte und Geschichten einzeln aus- und einblenden.</li>
         <li>Mit der Tastatur: Pfeiltasten drehen, Plus und Minus zoomen, mit der Tabulatortaste erreichen Sie Pfeile, Punkte und Tafeln.</li>
         <li>Ganz unten auf dieser Seite stehen alle Orte noch einmal als Liste – zum Lesen oder um direkt dorthin zu springen.</li>
       </ul>
@@ -137,40 +149,44 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       </button>
     </div>
 
+    <!-- Grundriss (Feedback-Test 2026-11-12): Wer wenig Technikerfahrung hat, kommt mit den Pfeilen im Bild schlecht
+         voran, mit dem Grundriss dagegen gut. Darum auf großen Bildschirmen (ab 1000 px) dauerhaft unten links,
+         leicht durchscheinend; auf dem Handy weiter als Klapp-Fenster hinter dem Karten-Knopf. -->
     <div class="astro-rg-karte" id="astro-rg-karte" hidden>
       <div class="astro-rg-karte-kopf">
         <strong>Grundriss</strong>
-        <span>Station anklicken, um dorthin zu springen</span>
+        <span>Nummer antippen</span>
       </div>
       <div class="astro-rg-karte-bild">
-        <img src={daten.grundriss.bild} alt="" width="1350" height="540" />
+        <img src={daten.grundriss.bildHochkant} alt="" width="475" height="1155" />
         <svg class="astro-rg-kegel" id="astro-rg-kegel" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
         {stationen.map((s) => (
           <button
             type="button"
             class:list={['astro-rg-punkt', { 'astro-rg-punkt-empore': s.ebene === 'Empore' }]}
-            style={`left:${(s.karte || s.position).x}%;top:${(s.karte || s.position).y}%`}
+            style={`left:${kartePos(s.karte || s.position).left}%;top:${kartePos(s.karte || s.position).top}%`}
             data-station={s.id}
             aria-label={`Station ${s.nr}: ${s.titel}${s.ebene ? ` (${s.ebene})` : ''}`}
             title={`${s.nr} · ${s.titel}`}
           >{s.nr}</button>
         ))}
       </div>
-      <p class="astro-rg-karte-hinweis">Station 14 liegt oben auf der Orgelempore.</p>
+      <p class="astro-rg-karte-hinweis">14 = Empore</p>
     </div>
 
-    <!-- Filter „Im Bild“ (Frank 2026-11-05): unten rechts im Bild statt unter dem Bild; auf dem Handy nur die Symbole -->
-    <div class="astro-rg-legende" role="group" aria-label="Im Bild anzeigen">
-      <span class="astro-rg-legende-titel" aria-hidden="true">Im Bild:</span>
-      <button type="button" class="astro-rg-ebene" data-ebene="weg" aria-pressed="true" title="Wege ein- oder ausblenden">
-        <span class="astro-rg-marke astro-rg-marke-weg" aria-hidden="true"></span><span class="astro-rg-ebene-text">Wege</span>
+    <!-- Zur vorherigen / nächsten Station (Feedback-Test 2026-11-12): einfachster Weg durch die Kirche, ohne Pfeile im
+         Bild treffen zu müssen. Reihenfolge: Laufweg aus daten.laufweg (nur Nachbarstationen). Ersetzt die frühere Legende
+         „Im Bild“ (Wege/Infopunkte/Geschichten aus- und einblenden) – so viele Elemente sind es nicht, Frank 2026-11-12. -->
+    <div class="astro-rg-schritte-nav" id="astro-rg-schritte-nav" role="group" aria-label="Von Station zu Station">
+      <button type="button" class="astro-rg-sn" id="astro-rg-sn-zurueck">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="astro-rg-sn-lang">Vorherige Station</span><span class="astro-rg-sn-kurz">Zurück</span>
       </button>
-      <button type="button" class="astro-rg-ebene" data-ebene="info" aria-pressed="true" title="Infopunkte ein- oder ausblenden">
-        <span class="astro-rg-marke astro-rg-marke-info" aria-hidden="true">i</span><span class="astro-rg-ebene-text">Infopunkte</span>
+      <button type="button" class="astro-rg-sn astro-rg-sn-vor" id="astro-rg-sn-weiter">
+        <span class="astro-rg-sn-lang">Nächste Station</span><span class="astro-rg-sn-kurz">Weiter</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <button type="button" class="astro-rg-ebene" data-ebene="geschichte" aria-pressed="true" title="Geschichten ein- oder ausblenden">
-        <span class="astro-rg-marke astro-rg-marke-geschichte" aria-hidden="true"></span><span class="astro-rg-ebene-text">Geschichten</span>
-      </button>
+    </div>
     </div>
   </div>
 
@@ -248,7 +264,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   type Pos = { x: number; y: number };
   type Station = {
     nr: number; id: string; titel: string; ort: string; position: Pos; karte?: Pos; blickrichtung: number;
-    boden?: number; ebene?: string; startblick: { yaw: number; pitch: number }; zusaetzlicheInfopunkte?: string[];
+    boden?: number; ebene?: string; startblick: { yaw: number; pitch: number }; zusaetzlicheInfopunkte?: string[]; blickZiel?: string[];
     verbindungen: (string | { ziel: string; yaw?: number; pitch?: number; label?: string; ueber?: Pos[]; wegpunkt?: 'umweg' })[];
     begleittext: string;
   };
@@ -872,6 +888,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   // Gehen: kurz in Laufrichtung hineinzoomen, dann überblenden (Werner-Feedback 2026-09-23: sonst
   // fühlt sich der Wechsel wie Teleportieren an). Ankunft mit Blick in Laufrichtung.
   let laeuft = false;
+  const BLICK_SPIELRAUM = 28;
   let fuehrungAktiv = false;
   let fuehrungIndex = 0;
   function gehZu(id: string, opt: { ueber?: number; startblick?: boolean } = {}) {
@@ -884,6 +901,17 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       const lauf = r.yaw + von.blickrichtung;            // Himmelsrichtung der Bewegung
       yaw = wrap(lauf - ziel.blickrichtung); pitch = 0;
       if (ziel.ebene === 'Empore' || von.ebene === 'Empore') { yaw = ziel.startblick.yaw; pitch = ziel.startblick.pitch; }
+      // Blickziel (Frank 2026-11-12): Hauptobjekt der Station (z. B. die Reliquie) soll beim Ankommen im Bild sein →
+      // Laufrichtung höchstens bis BLICK_SPIELRAUM Grad neben das Objekt, sonst so weit dorthin gedreht.
+      else if (ziel.blickZiel?.length) {
+        const ys = ziel.blickZiel.map((ip: string) => daten.infopunkte.find((x: any) => x.id === ip)).filter(Boolean)
+          .map((ip: any) => ip.ansichten?.[id]?.yaw ?? richtung(ziel, ip.position).yaw);
+        if (ys.length) {
+          const mitte = grad(Math.atan2(ys.reduce((a: number, y: number) => a + Math.sin((y * Math.PI) / 180), 0), ys.reduce((a: number, y: number) => a + Math.cos((y * Math.PI) / 180), 0)));
+          const ab = wrap(yaw - mitte);
+          if (Math.abs(ab) > BLICK_SPIELRAUM) yaw = wrap(mitte + Math.sign(ab) * BLICK_SPIELRAUM);
+        }
+      }
     }
     if (ruhig || opt.ueber === undefined) {
       viewer.loadScene(id, pitch, yaw, 100);
@@ -976,19 +1004,30 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   const karte = document.getElementById('astro-rg-karte')!;
   const karteKnopf = document.getElementById('astro-rg-karte-knopf')!;
   const kegel = document.getElementById('astro-rg-kegel')!;
-  let kegelLauf = 0;
+  let kegelLauf = 0, kegelAlt = '';
   function zeichneKegel() {
     const s = stationen[viewer.getScene()];
     if (s) {
       const blick = viewer.getYaw() + s.blickrichtung;
       const breite = viewer.getHfov() / 2;
-      const r = 9; // Länge in Prozent der Kartenbreite
+      const r = 12; // Länge in Metern (Frank 2026-11-12: länger, läuft nach vorn ins Durchsichtige aus)
       const k = s.karte || s.position;   // Punkt im Grundriss (Empore: neben dem Taufstein statt darüber)
+      // Grundriss hochkant (Altar oben) und beschnitten: Plan-Punkt (x, y) → Bild (links, oben), Richtungen um 90° gedreht
+      const AS = daten.grundriss.ausschnitt;
+      const bx = ((k.y - AS.y0) / (AS.y1 - AS.y0)) * 100, by = 100 - ((k.x - AS.x0) / (AS.x1 - AS.x0)) * 100;
+      const proMeterX = 100 / (H * (AS.y1 - AS.y0) / 100), proMeterY = 100 / (W * (AS.x1 - AS.x0) / 100);
+      // Prozentwerte: streckt sich mit dem Plan (--rg-dehnung), zeigt also weiter auf die Punkte
       const pkt = (w: number) => {
         const a = ((blick + w) * Math.PI) / 180;
-        return `${k.x + r * Math.cos(a)},${k.y + r * (W / H) * Math.sin(a)}`;
+        return `${bx + r * proMeterX * Math.sin(a)},${by - r * proMeterY * Math.cos(a)}`;
       };
-      kegel.innerHTML = `<polygon points="${k.x},${k.y} ${pkt(-breite)} ${pkt(breite)}" />`;
+      // Fächer mit rundem Rand; Verlauf vom Standpunkt (kräftig) zur Spitze (durchsichtig) entlang der Blickrichtung
+      const bogen = Array.from({ length: 9 }, (_, i) => pkt(-breite + (i * breite) / 4)).join(' ');
+      const [mx, my] = pkt(0).split(',');
+      const neu = `<defs><linearGradient id="astro-rg-kegel-verlauf" gradientUnits="userSpaceOnUse" x1="${bx}" y1="${by}" x2="${mx}" y2="${my}">`
+        + `<stop offset="0" stop-color="#e2001a" stop-opacity="0.6"/><stop offset="1" stop-color="#e2001a" stop-opacity="0"/></linearGradient></defs>`
+        + `<polygon points="${bx},${by} ${bogen}" fill="url(#astro-rg-kegel-verlauf)" />`;
+      if (neu !== kegelAlt) kegel.innerHTML = kegelAlt = neu;   // läuft auf großen Bildschirmen dauernd → nur bei Änderung zeichnen
     }
     kegelLauf = requestAnimationFrame(zeichneKegel);
   }
@@ -999,10 +1038,21 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     if (offen) zeichneKegel();
   }
   karteKnopf.addEventListener('click', () => karteZeigen(karte.hidden));
-  // Nach dem Sprung schließt sich der Grundriss, damit er den neuen Ort nicht verdeckt.
+  // Große Bildschirme: Grundriss bleibt dauerhaft unten links stehen, der Karten-Knopf entfällt dort.
+  const grossesBild = matchMedia('(min-width: 1000px)');
+  function karteModus() {
+    karte.classList.toggle('astro-rg-karte-dauerhaft', grossesBild.matches);
+    karteKnopf.hidden = grossesBild.matches;
+    karteZeigen(grossesBild.matches);
+  }
+  grossesBild.addEventListener('change', karteModus);
+  karteModus();
+  // Kleines Klapp-Fenster: nach dem Sprung schließen, damit es den neuen Ort nicht verdeckt.
   punkte.forEach((p) => p.addEventListener('click', () => {
-    karteZeigen(false);
-    karteKnopf.focus();
+    if (!grossesBild.matches) {
+      karteZeigen(false);
+      karteKnopf.focus();
+    }
     gehZu(p.dataset.station!, { startblick: true });
   }));
 
@@ -1085,8 +1135,53 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   });
   document.getElementById('astro-rg-ende')!.addEventListener('click', beende);
 
-  // ---------- Legende: Wege, Infopunkte, Geschichten ein/aus ----------
+  // ---------- Vorherige / nächste Station (Knöpfe unten im Bild) ----------
   const viewerEl = document.getElementById('astro-rg-viewer')!;
+  const snZurueck = document.getElementById('astro-rg-sn-zurueck') as HTMLButtonElement;
+  const snWeiter = document.getElementById('astro-rg-sn-weiter') as HTMLButtonElement;
+  // Laufweg (daten.laufweg): wie echtes Gehen, nur zur Nachbarstation; Stationen kommen mehrfach vor (z. B. 7 auf dem
+  // Hin- und Rückweg vom Tabernakel). Darum merken wir uns die Stelle im Weg, nicht nur die Station. Kommt man per
+  // Pfeil, Grundriss oder Liste an, gilt das Vorkommen, das zur vorigen Station passt, sonst das erste.
+  const laufweg: string[] = (daten.laufweg || []).filter((id: string) => stationen[id]);
+  let laufIdx = Math.max(0, laufweg.indexOf(viewer.getScene()));
+  let laufVorher = viewer.getScene();
+  let laufPerKnopf: number | null = null;
+  function laufStelle(id: string) {
+    if (laufPerKnopf !== null && laufweg[laufPerKnopf] === id) return laufPerKnopf;
+    const stellen = laufweg.map((x, i) => (x === id ? i : -1)).filter((i) => i >= 0);
+    if (stellen.includes(laufIdx) && laufweg[laufIdx] === id) return laufIdx;
+    return stellen.find((i) => laufweg[i - 1] === laufVorher) ?? stellen.find((i) => laufweg[i + 1] === laufVorher) ?? stellen[0] ?? laufIdx;
+  }
+  function stationsKnoepfe(id: string) {
+    laufIdx = laufStelle(id);
+    laufPerKnopf = null;
+    laufVorher = id;
+    const vor = laufweg[laufIdx] === id && laufIdx > 0 ? stationen[laufweg[laufIdx - 1]] : null;
+    const nach = laufweg[laufIdx] === id && laufIdx < laufweg.length - 1 ? stationen[laufweg[laufIdx + 1]] : null;
+    snZurueck.disabled = !vor;
+    snWeiter.disabled = !nach;
+    snZurueck.title = vor ? `Zurück zu ${vor.nr} · ${vor.titel}` : 'Sie sind am Anfang des Wegs';
+    snWeiter.title = nach ? `Weiter zu ${nach.nr} · ${nach.titel}` : 'Sie sind am Ende des Wegs';
+    snZurueck.setAttribute('aria-label', snZurueck.title);
+    snWeiter.setAttribute('aria-label', snWeiter.title);
+  }
+  function stationsSchritt(d: number) {
+    anfangWeg();
+    const ziel = laufIdx + d;
+    if (!laufweg[ziel] || laeuft) return;
+    laufPerKnopf = ziel;
+    // Wie ein Pfeil im Bild (Frank 2026-11-12): kurz in Laufrichtung hineinzoomen und mit Blick in Laufrichtung
+    // ankommen – nicht mit dem festen Startblick (sonst blickt man z. B. auf dem Rückweg 8 → 7 wieder zu 8 zurück).
+    const von = stationen[viewer.getScene()], id = laufweg[ziel];
+    const v = von?.verbindungen.find((x: any) => (typeof x === 'string' ? x : x.ziel) === id);
+    const umweg = v && typeof v === 'object' && v.wegpunkt === 'umweg' && v.ueber?.length ? v.ueber[v.ueber.length - 1] : null;
+    const ueber = v && typeof v === 'object' && v.yaw !== undefined ? v.yaw : von ? richtung(von, umweg || stationen[id].position).yaw : undefined;
+    gehZu(id, { ueber });
+  }
+  snZurueck.addEventListener('click', () => stationsSchritt(-1));
+  snWeiter.addEventListener('click', () => stationsSchritt(1));
+  viewer.on('scenechange', stationsKnoepfe);
+  stationsKnoepfe(viewer.getScene());
 
   // ---------- Heiligengalerie: Bedienung ----------
   const hgSteuerung = document.getElementById('astro-rg-hg-steuerung')!;
@@ -1098,13 +1193,6 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     b.addEventListener('click', () => {
       const g = daten.geschichten.find((x: any) => x.id === b.dataset.geschichte);
       if (g) zeigeGeschichte(g);
-    }),
-  );
-  document.querySelectorAll<HTMLButtonElement>('.astro-rg-ebene').forEach((b) =>
-    b.addEventListener('click', () => {
-      const an = b.getAttribute('aria-pressed') !== 'true';
-      b.setAttribute('aria-pressed', String(an));
-      viewerEl.classList.toggle(`astro-rg-ohne-${b.dataset.ebene}`, !an);
     }),
   );
 
@@ -1182,6 +1270,28 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     oeffne(gal.titel, [el('p', gal.hinweis), raster]);
   }
 
+  // ---------- Mini-Anleitungen „Zeigen, wie es geht“ (RundgangDemo.astro) ----------
+  // Immer nur eine gleichzeitig; Neustart der CSS-Animation durch Klasse weg → Reflow → Klasse dran.
+  const demoKnoepfe = document.querySelectorAll<HTMLButtonElement>('.astro-rg-demo-knopf');
+  function demoZeigen(knopf: HTMLButtonElement, an: boolean) {
+    const film = document.getElementById(knopf.getAttribute('aria-controls')!)!;
+    const li = knopf.closest('li')!;
+    knopf.setAttribute('aria-expanded', String(an));
+    li.classList.toggle('astro-rg-demo-laeuft', an);
+    film.hidden = !an;
+    film.classList.remove('astro-rg-demo-an');
+    if (an) { void film.offsetWidth; film.classList.add('astro-rg-demo-an'); }
+  }
+  demoKnoepfe.forEach((k) => k.addEventListener('click', () => {
+    const an = k.getAttribute('aria-expanded') !== 'true';
+    demoKnoepfe.forEach((andere) => andere !== k && demoZeigen(andere, false));
+    demoZeigen(k, an);
+  }));
+  document.querySelectorAll<HTMLElement>('.astro-rg-demo').forEach((film) => film.addEventListener('click', () => {
+    const k = document.querySelector<HTMLButtonElement>(`.astro-rg-demo-knopf[aria-controls="${film.id}"]`);
+    if (k) demoZeigen(k, false);
+  }));
+
   aktualisiere(erste);
   if (import.meta.env.DEV) (window as any).__rgViewer = viewer; // nur für Tests in der lokalen Entwicklung
 </script>
@@ -1199,7 +1309,9 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg .astro-rg-buehne:fullscreen .astro-rg-viewer { height: 100vh !important; }
   .astro-rg-viewer:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: -3px; }
 
-  .astro-rg-ort { position: absolute; left: 12px; bottom: 12px; margin: 0; padding: 6px 14px; border-radius: 999px;
+  /* Stationsname oben mittig (unten links sitzt der Grundriss, unten mittig die Stations-Knöpfe) */
+  .astro-rg-ort { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); z-index: 2; white-space: nowrap;
+    max-width: calc(100% - 120px); overflow: hidden; text-overflow: ellipsis; margin: 0; padding: 6px 14px; border-radius: 999px;
     background: rgba(26, 26, 26, 0.78); color: var(--rg-creme); font-weight: 700; font-size: 15px; pointer-events: none; }
   .astro-rg-anfang { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; pointer-events: none;
     display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 16px 22px; border-radius: 16px;
@@ -1213,25 +1325,47 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-rund { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rg-creme); background: rgba(26, 26, 26, 0.78);
     color: var(--rg-creme); display: grid; place-items: center; cursor: pointer; }
   .astro-rg-rund svg { width: 22px; height: 22px; }
+  .astro-rg-rund[hidden] { display: none; }
   .astro-rg-rund:hover, .astro-rg-rund[aria-expanded='true'] { background: var(--rg-rot); }
   .astro-rg-rund:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 
   /* Grundriss */
-  .astro-rg-karte { position: absolute; top: 62px; right: 10px; width: min(560px, calc(100% - 20px)); background: var(--rg-creme);
+  /* Hochkant (Frank 2026-11-12): Altar oben, Eingang unten – „im Bild nach vorne“ = „im Plan nach oben“.
+     Höhe über --rg-karte-h, Breite ergibt sich aus dem Bild (540 × 1350), Kopfzeilen brechen auf Bildbreite um. */
+  .astro-rg-karte { --rg-karte-h: max(200px, min(calc(68vh - 220px), 420px)); position: absolute; z-index: 3; top: 62px; right: 10px; width: min-content; background: var(--rg-creme);
     border-radius: 10px; padding: 12px 14px 10px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45); }
   .astro-rg-karte[hidden] { display: none; }
-  .astro-rg-karte-kopf { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--rg-schwarz); margin-bottom: 6px; }
+  .astro-rg-karte-kopf { display: flex; flex-direction: column; gap: 2px; font-size: 14px; line-height: 1.25; color: var(--rg-schwarz); margin-bottom: 6px; }
   .astro-rg-karte-kopf span { color: #5c5c5c; }
-  .astro-rg-karte-bild { position: relative; }
-  .astro-rg-karte-bild img { width: 100%; height: auto; display: block; }
+  .astro-rg-karte-bild { position: relative; width: fit-content; }
+  .astro-rg-karte-bild img { height: var(--rg-karte-h); width: calc(var(--rg-karte-h) * 475 / 1155 * var(--rg-dehnung, 1)); max-width: none; display: block; }
   .astro-rg-kegel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-  .astro-rg-kegel polygon { fill: rgba(226, 0, 26, 0.28); stroke: rgba(226, 0, 26, 0.6); stroke-width: 0.25; vector-effect: non-scaling-stroke; }
+  .astro-rg-kegel polygon { stroke: none; }
   .astro-rg-punkt { position: absolute; transform: translate(-50%, -50%); width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff;
     background: var(--rg-schwarz); color: #fff; font: 700 11px/1 'Source Sans 3', sans-serif; display: grid; place-items: center; cursor: pointer; padding: 0; }
   .astro-rg-punkt-empore { border-style: dashed; background: #6b6b6b; }
   .astro-rg-punkt:hover, .astro-rg-punkt:focus-visible { background: var(--rg-rot); outline: none; transform: translate(-50%, -50%) scale(1.15); }
   .astro-rg-punkt-aktiv { background: var(--rg-rot); box-shadow: 0 0 0 4px rgba(226, 0, 26, 0.3); }
   .astro-rg-karte-hinweis { margin: 6px 0 0; font-size: 13px; color: #5c5c5c; }
+  /* Dauerhafter Grundriss unten links (ab 1000 px): leicht durchscheinend, beim Darüberfahren voll sichtbar */
+  .astro-rg-karte-dauerhaft { --rg-dehnung: 1.25; --rg-karte-h: clamp(180px, calc(min(72vh, 640px) - 330px), 240px);
+    top: auto; right: auto; left: 12px; bottom: 12px; padding: 8px 10px 6px;
+    background: rgba(245, 243, 239, 0.86); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35); opacity: 0.88; transition: opacity 0.2s, background 0.2s; }
+  .astro-rg-karte-dauerhaft:hover, .astro-rg-karte-dauerhaft:focus-within { opacity: 1; background: var(--rg-creme); }
+  .astro-rg-karte-dauerhaft .astro-rg-karte-kopf { font-size: 13px; margin-bottom: 4px; gap: 0; white-space: nowrap; }
+  .astro-rg-karte-dauerhaft .astro-rg-karte-bild img { opacity: 0.9; }
+  .astro-rg-karte-dauerhaft .astro-rg-punkt { width: 18px; height: 18px; font-size: 10px; border-width: 1.5px; }
+  .astro-rg-karte-dauerhaft .astro-rg-karte-hinweis { margin-top: 3px; font-size: 12px; white-space: nowrap; }
+  .astro-rg-galerie-offen ~ .astro-rg-karte-dauerhaft { display: none; }
+  /* Während der Führung ist das Bild niedriger → Grundriss etwas kleiner, Erklärzeilen weg */
+  .astro-rg-fuehrung-aktiv .astro-rg-karte-dauerhaft { --rg-karte-h: clamp(150px, calc(min(50vh, 520px) - 170px), 200px); padding: 6px 8px 5px; }
+  .astro-rg-fuehrung-aktiv .astro-rg-karte-dauerhaft .astro-rg-karte-kopf span { display: none; }
+  .astro-rg-nur-gross { display: none; }
+  @media (min-width: 1000px) {
+    .astro-rg-nur-gross { display: inline; }
+    .astro-rg-nur-klein { display: none; }
+    .astro-rg-ort { font-size: 16px; }
+  }
 
   /* Hotspots im Panorama (von Pannellum positioniert) */
   .astro-rg-hs { position: absolute; }
@@ -1366,7 +1500,25 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-hg-liste ul { columns: 2 260px; margin: 12px 0 0; padding-left: 20px; }
   .astro-rg-hg-liste li { break-inside: avoid; margin-bottom: 6px; }
   .astro-rg-hg-liste button { border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-  .astro-rg-galerie-offen ~ .astro-rg-ort { display: none; }
+  .astro-rg-galerie-offen ~ .astro-rg-ort, .astro-rg-galerie-offen ~ .astro-rg-schritte-nav { display: none; }
+  /* Vorherige / nächste Station: unten mittig im Bild, dezent und leicht durchscheinend (Frank 2026-11-12),
+     beim Darüberfahren/Antippen voll sichtbar; „Nächste“ nur mit rotem Pfeil betont */
+  .astro-rg-schritte-nav { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 2; display: flex; gap: 8px; }
+  .astro-rg-sn { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 14px; border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px; background: rgba(26, 26, 26, 0.55); color: #fff; font: 600 15px/1 'Source Sans 3', sans-serif; white-space: nowrap;
+    cursor: pointer; opacity: 0.85; transition: opacity 0.2s, background 0.2s; -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+  .astro-rg-sn svg { width: 18px; height: 18px; flex: none; }
+  .astro-rg-sn:hover, .astro-rg-sn:focus-visible { opacity: 1; background: rgba(26, 26, 26, 0.85); }
+  .astro-rg-sn-vor svg { color: #ff4a5c; }
+  .astro-rg-sn:focus-visible { outline: 3px solid var(--rg-gold); outline-offset: 2px; }
+  .astro-rg-sn:disabled { opacity: 0.35; cursor: default; background: rgba(26, 26, 26, 0.55); }
+  .astro-rg-sn-kurz { display: none; }
+  /* Unter 1000 px sitzen oben rechts Grundriss- und Vollbild-Knopf → Stationsname dort direkt über die Stations-Knöpfe */
+  @media (max-width: 999px) { .astro-rg-ort { top: auto; bottom: 64px; max-width: calc(100% - 24px); } }
+  @media (max-width: 640px) {
+    .astro-rg-sn-lang { display: none; } .astro-rg-sn-kurz { display: inline; }
+    .astro-rg-sn { padding: 0 12px; min-height: 44px; }
+  }
   .astro-rg-hg-steuerung button { white-space: nowrap; }
   .astro-rg-hg-kurz { display: none; }
   @media (max-width: 640px) { .astro-rg-hg-steuerung .astro-rg-hg-titel, .astro-rg-hg-lang { display: none; } .astro-rg-hg-kurz { display: inline; } }
@@ -1390,24 +1542,8 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-knopf-rot { background: var(--rg-rot); border-color: var(--rg-rot); color: #fff; }
   .astro-rg-knopf-rot:hover { background: #b80015; border-color: #b80015; }
   .astro-rg-knopf-leise { border-color: transparent; text-decoration: underline; }
-  .astro-rg-legende { position: absolute; right: 12px; bottom: 12px; z-index: 2; display: flex; align-items: center; gap: 4px; padding: 4px;
-    border-radius: 999px; background: rgba(26, 26, 26, 0.78); }
-  .astro-rg-legende-titel { color: var(--rg-creme); font-size: 13px; font-weight: 600; padding: 0 4px 0 8px; opacity: 0.85; }
-  .astro-rg-ebene { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 999px; border: 0;
-    background: transparent; color: var(--rg-creme); font: 600 13px/1.2 'Source Sans 3', sans-serif; cursor: pointer; }
-  .astro-rg-ebene { min-height: 44px; }
   .astro-rg-hg-liste summary { min-height: 44px; display: flex; align-items: center; }
   .astro-rg-hg-liste button { min-height: 44px; display: inline-flex; align-items: center; }
-  .astro-rg-ebene:hover { background: rgba(255, 255, 255, 0.14); }
-  .astro-rg-ebene:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: 1px; }
-  .astro-rg-ebene[aria-pressed='false'] { opacity: 0.55; text-decoration: line-through; }
-  .astro-rg-ebene[aria-pressed='false'] .astro-rg-marke { opacity: 0.4; }
-  .astro-rg-ebene .astro-rg-marke { width: 20px; height: 20px; font-size: 12px; }
-  @media (max-width: 640px) {
-    .astro-rg-legende-titel { display: none; }
-    .astro-rg-ebene { padding: 0; width: 44px; height: 44px; justify-content: center; }
-    .astro-rg-ebene-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  }
   .astro-rg-marke { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; flex: none; font: 700 13px/1 Georgia, serif; }
   .astro-rg-marke-weg { background: #6b6b6b; border: 2px solid #fff; box-shadow: 0 0 0 1px #6b6b6b; }
   .astro-rg-marke-info { background: var(--rg-rot); color: #fff; }
@@ -1431,7 +1567,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   .astro-rg-schritte { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
   .astro-rg-schritte li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
   .astro-rg-schritte strong { font-size: 18px; color: var(--rg-schwarz); margin-top: 4px; }
-  .astro-rg-schritte li > span:last-child { font-size: 16px; line-height: 1.45; color: #333; max-width: 240px; }
+  .astro-rg-schritte li > span:not(.astro-rg-schritt-bild) { font-size: 16px; line-height: 1.45; color: #333; max-width: 240px; }
   .astro-rg-schritt-bild { flex: none; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; }
   .astro-rg-schritt-bild svg { width: 30px; height: 30px; }
   .astro-rg-sb-hand { background: #fff; color: var(--rg-schwarz); border: 2px solid #d6d0c6; }
@@ -1456,7 +1592,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     .astro-rg-schritt-bild { width: 46px; height: 46px; }
     .astro-rg-schritt-bild svg { width: 26px; height: 26px; }
     .astro-rg-schritte strong { font-size: 16px; }
-    .astro-rg-schritte li > span:last-child { font-size: 15px; }
+    .astro-rg-schritte li > span:not(.astro-rg-schritt-bild) { font-size: 15px; }
   }
 
   /* Liste der Orte */
@@ -1510,4 +1646,114 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     .astro-rg-karte { padding: 10px; }
     .astro-rg-dialog-box { padding: 24px 18px 18px; }
   }
+
+  /* ---------- Mini-Anleitungen „Zeigen, wie es geht“ (RundgangDemo.astro, Frank 2026-11-12) ----------
+     Echte Aufnahmen des Rundgangs + Hand/Tipp darüber. Tipp-Szenen: 6 s, Tipp bei ~30 %, Ziel über --zl/--zt
+     (Fingerspitze der Hand = left/top). Umschauen: 9 s, links/rechts und oben/unten. */
+  .astro-rg-schritte li { position: relative; }
+  .astro-rg-demo { order: -1; position: relative; width: 100%; max-width: 230px; aspect-ratio: 8 / 5; border-radius: 10px; overflow: hidden;
+    background: #2a2a2a; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25); cursor: pointer; --d: 6s; }
+  .astro-rg-demo[hidden] { display: none; }
+  .astro-rg-demo-laeuft .astro-rg-schritt-bild { display: none; }
+  .astro-rg-demo-bild { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .astro-rg-demo-hand { position: absolute; z-index: 3; left: var(--zl, 50%); top: var(--zt, 55%); width: 34px; height: 34px; color: #fff; opacity: 0;
+    transform: translate(-48%, -20%); filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.75)); pointer-events: none; }
+  .astro-rg-demo-hand svg { width: 100%; height: 100%; display: block; }
+  .astro-rg-demo-hand path { stroke: #1a1a1a; stroke-width: 1.1px; stroke-linejoin: round; paint-order: stroke; }   /* dunkler Rand: auch auf hellem Grund sichtbar */
+  .astro-rg-demo-tipp { position: absolute; z-index: 2; left: var(--zl); top: var(--zt); width: 26px; height: 26px; border-radius: 50%; border: 3px solid #fff; opacity: 0;
+    transform: translate(-50%, -50%) scale(0); box-shadow: 0 0 6px rgba(0, 0, 0, 0.5); pointer-events: none; }
+  .astro-rg-demo-an .astro-rg-demo-tipp { animation: rg-demo-tipp var(--d) infinite; }
+  @keyframes rg-demo-tipp { 0%, 29% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); } 31% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+    42% { opacity: 0; transform: translate(-50%, -50%) scale(1.7); } 100% { opacity: 0; } }
+  /* Hand kommt von unten rechts, tippt aufs Ziel (~30 %), verschwindet */
+  .astro-rg-demo-an:not(.astro-rg-demo-umschauen) .astro-rg-demo-hand { animation: rg-demo-hand-tipp var(--d) ease-in-out infinite; }
+  @keyframes rg-demo-hand-tipp {
+    0% { left: 84%; top: 98%; opacity: 0; transform: translate(-48%, -20%) scale(1); }
+    8% { opacity: 1; }
+    27% { left: var(--zl); top: var(--zt); transform: translate(-48%, -20%) scale(1); }
+    31% { transform: translate(-48%, -20%) scale(0.84); }
+    35% { opacity: 1; transform: translate(-48%, -20%) scale(1); }
+    46%, 100% { left: var(--zl); top: var(--zt); opacity: 0; } }
+
+  /* Umschauen: Hand zieht nach rechts/links (Blick schwenkt) und nach unten/oben (Blick ins Gewölbe / auf den Boden) */
+  .astro-rg-demo-umschauen { --d: 9s; }
+  .astro-rg-demo-pan { background-size: 165% auto; background-position: 50% 50%; }
+  .astro-rg-demo-umschauen .astro-rg-demo-tipp { display: none; }
+  .astro-rg-demo-an .astro-rg-demo-pan { animation: rg-demo-pan var(--d) ease-in-out infinite; }
+  .astro-rg-demo-an.astro-rg-demo-umschauen .astro-rg-demo-hand { animation: rg-demo-hand-pan var(--d) ease-in-out infinite; }
+  @keyframes rg-demo-pan {
+    0%, 7% { background-position: 50% 50%; }
+    22% { background-position: 8% 50%; }
+    38% { background-position: 92% 50%; }
+    47% { background-position: 50% 50%; }
+    61% { background-position: 50% 0%; }
+    77% { background-position: 50% 100%; }
+    86%, 100% { background-position: 50% 50%; } }
+  @keyframes rg-demo-hand-pan {
+    0% { left: 50%; top: 52%; opacity: 0; transform: translate(-48%, -20%) scale(1); }
+    5% { left: 50%; top: 52%; opacity: 1; transform: translate(-48%, -20%) scale(1); }
+    7% { left: 50%; top: 52%; transform: translate(-48%, -20%) scale(0.86); }
+    22% { left: 76%; top: 52%; transform: translate(-48%, -20%) scale(0.86); }
+    38% { left: 24%; top: 52%; }
+    47% { left: 50%; top: 52%; }
+    61% { left: 50%; top: 78%; }
+    77% { left: 50%; top: 22%; }
+    86% { left: 50%; top: 52%; opacity: 1; transform: translate(-48%, -20%) scale(0.86); }
+    92%, 100% { left: 50%; top: 52%; opacity: 0; transform: translate(-48%, -20%) scale(1); } }
+
+  /* Weitergehen / Grundriss: nach dem Tipp blendet das Bild zur neuen Station über (Weitergehen mit Zoom „nach vorn“) */
+  .astro-rg-demo-b1 { transform-origin: var(--zl) var(--zt); }
+  .astro-rg-demo-an .astro-rg-demo-b1 { animation: rg-demo-wechsel var(--d) ease-in-out infinite; }
+  @keyframes rg-demo-wechsel { 0%, 34% { opacity: 1; } 48%, 88% { opacity: 0; } 100% { opacity: 1; } }
+
+  /* Weitergehen in zwei Schritten (10 s): Tipp 1 bei ~19 % (Taufstein → Empore), Tipp 2 bei ~58 % (→ Pult).
+     Jeder Schritt zoomt „nach vorn“ auf den angetippten Pfeil und blendet zur nächsten Aufnahme über. */
+  .astro-rg-demo-weitergehen { --d: 10s; }
+  .astro-rg-demo-weitergehen .astro-rg-demo-b2 { transform-origin: var(--z2l) var(--z2t); }
+  .astro-rg-demo-weitergehen .astro-rg-demo-tipp2 { left: var(--z2l); top: var(--z2t); }
+  .astro-rg-demo-an.astro-rg-demo-weitergehen .astro-rg-demo-b1 { animation: rg-demo-schritt1 var(--d) ease-in-out infinite; }
+  .astro-rg-demo-an.astro-rg-demo-weitergehen .astro-rg-demo-b2 { animation: rg-demo-schritt2 var(--d) ease-in-out infinite; }
+  .astro-rg-demo-an.astro-rg-demo-weitergehen .astro-rg-demo-tipp { animation: rg-demo-tipp-a var(--d) infinite; }
+  .astro-rg-demo-an.astro-rg-demo-weitergehen .astro-rg-demo-tipp2 { animation: rg-demo-tipp-b var(--d) infinite; }
+  .astro-rg-demo-an.astro-rg-demo-weitergehen .astro-rg-demo-hand { animation: rg-demo-hand-zwei var(--d) ease-in-out infinite; }
+  @keyframes rg-demo-schritt1 { 0%, 22% { opacity: 1; transform: scale(1); } 34% { opacity: 0; transform: scale(1.5); } 90% { opacity: 0; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes rg-demo-schritt2 { 0%, 61% { opacity: 1; transform: scale(1); } 73% { opacity: 0; transform: scale(1.5); } 90% { opacity: 0; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes rg-demo-tipp-a { 0%, 18% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); } 20% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+    28%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.7); } }
+  @keyframes rg-demo-tipp-b { 0%, 57% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); } 59% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+    67%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.7); } }
+  @keyframes rg-demo-hand-zwei {
+    0% { left: 84%; top: 98%; opacity: 0; transform: translate(-48%, -20%) scale(1); }
+    4% { opacity: 1; }
+    16% { left: var(--zl); top: var(--zt); transform: translate(-48%, -20%) scale(1); }
+    19% { transform: translate(-48%, -20%) scale(0.84); }
+    22% { transform: translate(-48%, -20%) scale(1); }
+    34% { left: var(--zl); top: var(--zt); }
+    54% { left: var(--z2l); top: var(--z2t); transform: translate(-48%, -20%) scale(1); }
+    58% { transform: translate(-48%, -20%) scale(0.84); }
+    61% { opacity: 1; transform: translate(-48%, -20%) scale(1); }
+    70%, 100% { left: var(--z2l); top: var(--z2t); opacity: 0; } }
+
+  /* Mehr erfahren / Heiligengalerie: nach dem Tipp öffnet sich das echte Fenster (abgedunkelter Hintergrund wie im Rundgang) */
+  .astro-rg-demo-fenster { position: absolute; z-index: 2; inset: 0; display: grid; place-items: center; background: rgba(20, 20, 20, 0.55); opacity: 0; }
+  .astro-rg-demo-fenster span { display: block; height: 90%; aspect-ratio: 480 / 409; background-size: contain; background-repeat: no-repeat; background-position: center;
+    border-radius: 4px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55); transform: scale(0.7); }
+  .astro-rg-demo-fenster-breit span { height: auto; width: 88%; aspect-ratio: 480 / 236; }
+  .astro-rg-demo-an .astro-rg-demo-fenster { animation: rg-demo-fenster var(--d) ease-out infinite; }
+  .astro-rg-demo-an .astro-rg-demo-fenster span { animation: rg-demo-fenster-auf var(--d) ease-out infinite; }
+  @keyframes rg-demo-fenster { 0%, 35% { opacity: 0; } 42%, 86% { opacity: 1; } 94%, 100% { opacity: 0; } }
+  @keyframes rg-demo-fenster-auf { 0%, 35% { transform: scale(0.7); } 44%, 100% { transform: scale(1); } }
+
+  /* Knopf unter jedem Schritt: dezent, sitzt in allen Spalten auf gleicher Höhe */
+  .astro-rg-demo-knopf { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 14px 6px 10px; border-radius: 999px;
+    border: 1.5px solid #cfc7b9; background: #fff; color: var(--rg-schwarz); font: 600 14px/1.2 'Source Sans 3', sans-serif; cursor: pointer; }
+  .astro-rg-demo-knopf svg { width: 14px; height: 14px; flex: none; color: var(--rg-rot); }
+  .astro-rg-demo-knopf:hover { border-color: var(--rg-schwarz); }
+  .astro-rg-demo-knopf:focus-visible { outline: 3px solid var(--rg-rot); outline-offset: 2px; }
+  .astro-rg-demo-knopf .astro-rg-demo-stop, .astro-rg-demo-knopf .astro-rg-demo-fertig { display: none; }
+  .astro-rg-demo-knopf[aria-expanded='true'] { background: var(--rg-schwarz); border-color: var(--rg-schwarz); color: #fff; }
+  .astro-rg-demo-knopf[aria-expanded='true'] svg { color: #fff; }
+  .astro-rg-demo-knopf[aria-expanded='true'] .astro-rg-demo-stop, .astro-rg-demo-knopf[aria-expanded='true'] .astro-rg-demo-fertig { display: inline; }
+  .astro-rg-demo-knopf[aria-expanded='true'] .astro-rg-demo-play, .astro-rg-demo-knopf[aria-expanded='true'] .astro-rg-demo-zeigen { display: none; }
+  @media (max-width: 760px) { .astro-rg-demo-knopf { font-size: 13px; padding: 5px 12px 5px 9px; } }
 </style>

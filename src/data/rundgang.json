@@ -2,18 +2,25 @@
   "_hinweis": "Zentrale Datei für den 360°-Rundgang (100 Jahre). Anleitung: docs/rundgang-anleitung.md. Positionen in Prozent des Grundrisses (x = von links/Westen, y = von oben/Norden). blickrichtung = Himmelsrichtung der Bildmitte des Panoramas (0 = Osten/Altar, 90 = Süden, -90 = Norden, 180 = Westen).",
   "kachelBasis": "/rundgang/kacheln",
   "vorschauBasis": "/rundgang/vorschau",
-  "grundriss": { "bild": "/rundgang/grundriss.png", "breiteMeter": 73.65, "hoeheMeter": 29.46 },
+  "grundriss": { "bild": "/rundgang/grundriss.png", "bildHochkant": "/rundgang/grundriss-hochkant.png", "ausschnitt": { "_hinweis": "Ausschnitt des Hochkant-Bilds in % des Querformat-Plans (x = Länge, y = Breite)", "x0": 13.333, "x1": 98.889, "y0": 7.407, "y1": 95.37 }, "breiteMeter": 73.65, "hoeheMeter": 29.46 },
   "kamerahoeheMeter": 1.85,
   "infopunktAnzeige": { "_hinweis": "Infopunkte bis vollBisMeter in voller Größe, bis reichweiteMeter kleiner werdend, weiter weg ausgeblendet (Empore: alle sichtbaren, nach Entfernung abgestuft)", "vollBisMeter": 5, "reichweiteMeter": 15 },
   "start": "taufstein",
   "fuehrung": [
-    "taufstein", "mittelgang-empore", "marienbild", "trauer-madonna", "mittelgang-pult", "vor-dem-altar",
-    "jona-nischen", "reliquie", "hinter-dem-altar", "nischen-krypta", "vor-der-treppe", "hochaltar",
-    "tabernakel", "empore"
+    "taufstein", "mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe",
+    "hochaltar", "tabernakel", "reliquie", "jona-nischen", "nischen-krypta", "trauer-madonna",
+    "marienbild", "empore"
+  ],
+  "_blickZiel": "Station → Infopunkt(e), die beim Ankommen (Pfeil oder Knopf „Nächste/Vorherige Station“) im Bild bleiben sollen: man blickt in Laufrichtung, aber höchstens so weit gedreht, dass das Objekt noch gut zu sehen ist (Frank 2026-11-12).",
+  "_laufweg": "Weg für die Knöpfe „Vorherige / Nächste Station“ unten im Bild (Frank 2026-11-12): wie beim echten Gehen immer nur zur Nachbarstation, Stationen dürfen mehrfach vorkommen (Sackgasse Chorraum 7–8 hin und zurück, dann von 6 direkt zu 9; 13 → 14 bewusst direkt, obwohl im Bild nur der Taufstein zur Empore führt).",
+  "laufweg": [
+    "taufstein", "mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe",
+    "hochaltar", "tabernakel", "hochaltar", "vor-der-treppe", "reliquie", "jona-nischen",
+    "mittelgang-pult", "nischen-krypta", "trauer-madonna", "marienbild", "empore"
   ],
   "stationen": [
     {
-      "nr": 1, "id": "taufstein", "titel": "Am Taufstein",
+      "nr": 1, "id": "taufstein", "blickZiel": ["A"], "titel": "Am Taufstein",
       "ort": "Vorhalle unter der Orgelempore",
       "datei": "Station 1 Taufstein.jpg",
       "position": { "x": 27.35, "y": 49.97 }, "blickrichtung": 0,
@@ -85,7 +92,7 @@
       "begleittext": "Ganz vorne steht der Tabernakel, ein kleiner goldener Schrank. Darin wird das geweihte Brot aus dem Gottesdienst aufbewahrt."
     },
     {
-      "nr": 9, "id": "reliquie", "titel": "Vor der Reliquie",
+      "nr": 9, "id": "reliquie", "blickZiel": ["I"], "titel": "Vor der Reliquie",
       "ort": "Nordseite, vorderer Teil",
       "datei": "Station 9 vor Reliquie.jpg",
       "position": { "x": 62.78, "y": 23.53 }, "blickrichtung": -90,
@@ -94,7 +101,7 @@
       "begleittext": "In dieser Nische wird eine Reliquie des heiligen Bonifatius aufbewahrt – ein kleines Erinnerungsstück an den Mann, nach dem unsere Kirche benannt ist."
     },
     {
-      "nr": 10, "id": "jona-nischen", "titel": "Vor den JONA-Nischen",
+      "nr": 10, "id": "jona-nischen", "blickZiel": ["E"], "titel": "Vor den JONA-Nischen",
       "ort": "Nordseite",
       "datei": "Station 10 vor JONA Nischen.jpg",
       "position": { "x": 46.4, "y": 27.6 }, "blickrichtung": -87,
@@ -112,7 +119,7 @@
       "begleittext": "Auch an der Südseite gibt es stille Nischen zwischen den Pfeilern. Von hier aus geht es zur Krypta."
     },
     {
-      "nr": 12, "id": "trauer-madonna", "titel": "Trauernische und Madonna",
+      "nr": 12, "id": "trauer-madonna", "blickZiel": ["D", "C"], "titel": "Trauernische und Madonna",
       "ort": "Südseite",
       "datei": "Station 12 Nischen Trauer+Madonna.jpg",
       "position": { "x": 41.15, "y": 74.66 }, "blickrichtung": 90,
@@ -121,7 +128,7 @@
       "begleittext": "In dieser Nische ist Platz für Trauer und Erinnerung an Menschen, die uns fehlen. Gleich daneben steht eine Figur der Madonna mit dem Kind."
     },
     {
-      "nr": 13, "id": "marienbild", "titel": "Am Marienbild",
+      "nr": 13, "id": "marienbild", "blickZiel": ["B"], "titel": "Am Marienbild",
       "ort": "Südseite, unter der Empore",
       "datei": "Station 13 Marienbild.jpg",
       "position": { "x": 30.68, "y": 74.66 }, "blickrichtung": 90,
@@ -133,7 +140,7 @@
       "nr": 14, "id": "empore", "titel": "Ausblick von der Empore",
       "ort": "Orgelempore (2. OG)",
       "datei": "Station 14 Ausblick Empore.jpg",
-      "position": { "x": 32.2, "y": 52.2 }, "karte": { "x": 31.86, "y": 59.76 }, "blickrichtung": 184, "boden": 6.05, "ebene": "Empore",
+      "position": { "x": 32.2, "y": 52.2 }, "karte": { "x": 31.9, "y": 37 }, "blickrichtung": 184, "boden": 6.05, "ebene": "Empore",
       "startblick": { "yaw": 180, "pitch": -14 },
       "vorschauFlaeche": "b",
       "verbindungen": [{ "ziel": "taufstein", "yaw": 41, "pitch": -35, "label": "Hinunter zum Taufstein" }],
