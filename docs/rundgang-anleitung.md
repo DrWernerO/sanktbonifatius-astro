@@ -12,7 +12,8 @@ Stand: 05.11.2026 · Seite: `/100-jahre/rundgang/` (passwortgeschützt, noindex,
 | Kachel-Werkzeug | `scripts/rundgang-kacheln.py` |
 | Kacheln in halber Auflösung (ca. 86 MB, 3.276 Dateien, im Projekt) | `public/rundgang/kacheln/<station>/` |
 | Vorschaubilder für die Ortsliste | `public/rundgang/vorschau/<station>.jpg` |
-| Grundriss für die Kartenansicht | `public/rundgang/grundriss.png` |
+| Grundriss (Querformat, Grundlage aller Positionen) | `public/rundgang/grundriss.png` |
+| Grundriss hochkant für die Anzeige (gedreht + beschnitten) | `public/rundgang/grundriss-hochkant.png` |
 | Viewer-Programm Pannellum 2.5.6 (selbst gehostet, MIT-Lizenz) | `public/vendor/pannellum/` |
 | Original-Panoramen (Insta360 X6, HDR) | `iClaude/Inputs/Rundgang-Panoramen/` |
 
@@ -28,18 +29,59 @@ und Klammern stehen lassen.
   – erscheint aufklappbar unter „Mehr erfahren“; das Infofenster scrollt dann.
 - **Detailfoto zum Infopunkt:** Foto nach `public/uploads/jubilaeum/rundgang/` legen und
   `"foto": null` ersetzen durch `"foto": "/uploads/jubilaeum/rundgang/A-taufstein.jpg"`.
-- **Reihenfolge des geführten Rundgangs:** Liste `fuehrung` (Stations-IDs in Wunschreihenfolge).
+- **Reihenfolge des geführten Rundgangs:** Liste `fuehrung` (Stations-IDs in Wunschreihenfolge; seit 12.11.2026 nach Nummern 1–14).
+- **Weg der Knöpfe „Vorherige / Nächste Station“:** Liste `laufweg` – wie echtes Gehen nur von Nachbar zu Nachbar,
+  Stationen dürfen mehrfach vorkommen: 1–8, zurück 7–6, dann 9, 10, 3, 11, 12, 13, 14 (Frank 2026-11-12; 13 → 14 bewusst direkt, obwohl im Bild nur der
+  Taufstein zur Empore führt).
+- **Blickziel beim Ankommen:** `blickZiel` an der Station (Infopunkt-IDs). Wer per Pfeil oder Stations-Knopf
+  ankommt, blickt in Laufrichtung, aber höchstens 28° (`BLICK_SPIELRAUM` in `Rundgang.astro`) neben dem Objekt
+  – so bleibt z. B. die Reliquie im Bild. Gesetzt für Taufstein (A), Reliquie (I), JONA-Nischen (E),
+  Trauernische/Madonna (D + C, Mitte von beiden) und Marienbild (B); Chorraum-Stationen bewusst ohne, sonst
+  blickte man auf dem Rückweg 8 → 7 wieder zum Altar.
 
 ## Seitenaufbau (seit 05.11.2026)
 
 Für ein wenig technikerfahrenes Publikum steht die Bedienung **vor** dem Bild und ist immer sichtbar:
-Überschrift mit einem Satz, darunter die Karte „So geht’s – ganz einfach“ mit fünf Schritten (Umschauen,
+Überschrift mit einem Satz, darunter die Karte „So einfach navigieren Sie im virtuellen Kirchenraum“ mit fünf Schritten (Umschauen,
 Weitergehen, Grundriss, Mehr erfahren, Heiligengalerie) – jeweils mit demselben Zeichen, das im Bild
 erscheint –, darunter die Knöpfe „Rundgang starten“ und „Direkt zur Heiligengalerie“ und aufklappbar
 „Weitere Tipps“. Beim ersten Öffnen zeigt das Bild mitten drin „Zum Umschauen ins Bild tippen und
-ziehen“, bis man es einmal getan hat. Der Filter „Im Bild“ sitzt unten rechts im Bild (am Handy nur die
-Symbole). Unter dem Bild steht beim freien Umschauen die Karte „Hier stehen Sie · Station N“ (Titel,
+ziehen“, bis man es einmal getan hat. Unten mittig im Bild stehen **„Vorherige Station“ / „Nächste
+Station“** (am Handy „Zurück“ / „Weiter“; seit 12.11.2026 nach Nutzertest): der einfachste Weg durch die Kirche,
+ohne einen Pfeil treffen zu müssen. Weg aus `laufweg` in `rundgang.json` (nur Nachbarstationen; wer per Pfeil oder
+Grundriss springt, wird an der passenden Stelle des Wegs eingeordnet). Ein Schritt wirkt wie ein Pfeil im Bild: kurz in
+Laufrichtung hineinzoomen, Ankunft mit Blick in Laufrichtung (nicht Startblick). Am Anfang/Ende ausgegraut, Ziel steht im Tooltip; läuft die Führung, zieht die Führungskarte mit. Der frühere
+Filter „Im Bild“ (Wege/Infopunkte/Geschichten ausblenden) ist dafür entfallen – so viele Elemente sind es nicht.
+Der Stationsname steht oben mittig, unter 1000 px direkt über den beiden Knöpfen. Unter dem Bild steht beim freien Umschauen die Karte „Hier stehen Sie · Station N“ (Titel,
 Lage, Begleittext, „Von hier aus zu entdecken“), im geführten Rundgang stattdessen die Führungskarte.
+
+**Mini-Anleitungen (seit 12.11.2026):** Unter jedem der fünf Schritte steht „Zeigen, wie es geht“. Ein Tipp
+zeigt an Stelle des Symbols eine kurze Szene in Schleife (Hand tippt/zieht, Bild reagiert); es läuft immer nur
+eine, „Ausblenden“ oder ein Tipp auf die Szene beendet sie. Kein Video, sondern CSS-Animation über **echten
+Aufnahmen des Rundgangs** in `public/rundgang/anleitung/` (10 WebP, zusammen ca. 210 KB, laden erst beim Antippen).
+Aufbau und Tipp-Ziele (`ZIEL`, Prozent im Bild) in `src/components/RundgangDemo.astro`, Bewegungen (Keyframes
+`rg-demo-…`) und Steuerung in `Rundgang.astro`.
+So wurden die Aufnahmen gemacht (bei optischen Änderungen am Rundgang wiederholen): Seite lokal im Browser, Bühne
+per CSS auf volle Fläche, Menü/Cookie-Hinweis/Stations-Knöpfe/Werkzeuge ausgeblendet, Fenster 480 × 300 px (Bedienelemente
+dann so groß wie auf dem Handy); `umschauen` bei 1200 × 750 mit hfov 130 (Platz zum Schwenken nach oben/unten).
+Szenen: Umschauen = Taufstein; Weitergehen = zwei Schritte, Taufstein (Startblick) → Mittelgang vor der Empore
+→ vor dem Pult (`weiter-0/1/2`, Tipp-Ziele `ZIEL` + `ZIEL2`, 10 s); Grundriss = Taufstein →
+Hochaltar mit eingeblendetem Grundriss (Punkte für die Aufnahme verkleinert); Mehr erfahren = Infopunkt Taufstein
++ Infofenster (bei 760 × 640 aufgenommen, ausgeschnitten); Heiligengalerie = vor der Treppe, Nordwand, Tafel
+„Sommerfreizeit“ (bewusst keine Tafel mit Personenfoto; Hinweis „Beispiel …“ für die Aufnahme ausgeblendet).
+Danach die Tipp-Stelle neu ausmessen und in `ZIEL` eintragen.
+
+**Grundriss (seit 12.11.2026, nach Nutzertest):** Wer wenig Technikerfahrung hat, kam mit den Pfeilen im
+Bild schlecht voran, mit dem Grundriss dagegen gut. Darum steht er auf großen Bildschirmen (ab 1000 px)
+**dauerhaft unten links** im Bild, leicht durchscheinend, etwa halbe Bildhöhe, in der Breite um 25 %
+gestreckt (`--rg-dehnung`). Auf dem Handy bleibt er
+ein Klapp-Fenster hinter dem Karten-Knopf oben rechts (unverzerrt). Der Plan steht **hochkant mit dem
+Altar oben** („im Bild nach vorn“ = „im Plan nach oben“) und ist auf die Kirche zugeschnitten. Der
+Ausschnitt steht in `grundriss.ausschnitt` (Prozent des Querformats); alle Positionen bleiben im
+Querformat und werden beim Anzeigen umgerechnet. Neues Hochkant-Bild nötig → aus `grundriss.png` mit
+genau diesem Ausschnitt zuschneiden und um 90° gegen den Uhrzeigersinn drehen. Der rote Blickkegel ist
+12 m lang und läuft nach vorn ins Durchsichtige aus. Station 14 (Empore) steht im Plan per `karte` links
+neben dem Taufstein, damit sie sich im kleinen Plan nicht mit 1, 2 und 13 überlappt.
 
 ## Geschichten: die „Heiligengalerie von St. Bonifatius“
 
@@ -179,8 +221,7 @@ Weg (Altar, Taufstein), führt man das Band mit Zwischenpunkten herum:
   das Ziel verdeckt ist (hinter dem Altar) oder der Wegpunkt sonst auf einem Infopunkt läge (Ambo, Taufstein).
 - Zur Empore gibt es keine Bänder, weil sie auf einer anderen Ebene liegt.
 
-Farben im Bild: **Wege weiß, Infopunkte rot, Geschichten gold.** Unter dem Bild lassen sich die drei
-Gruppen einzeln ein- und ausblenden.
+Farben im Bild: **Wege weiß, Infopunkte rot, Geschichten gold.**
 Wegpunkte werden mit der Entfernung im Raum kleiner (bis ca. 6 m volle Größe, ab ca.
 25 m die Mindestgröße); für Infopunkte gilt die eigene Regel aus `infopunktAnzeige` (siehe oben). Geschichten in der Galerie zeigen nur Bild bzw. Initialen. Der Titel erscheint beim Drüberfahren mit
 der Maus, auf Handy und Tablet beim ersten Antippen. Erst der zweite Tipp öffnet die Geschichte.
@@ -192,12 +233,12 @@ der Maus, auf Handy und Tablet beim ersten Antippen. Erst der zweite Tipp öffne
 - [ ] Ziehen mit der Maus dreht, Mausrad und +/− zoomen
 - [ ] Wegpunkte führen zur richtigen Station, der Wechsel wirkt wie ein paar Schritte
 - [ ] Bodenlinien liegen auf dem Boden und enden am Wegpunkt; beim Drüberfahren leuchtet die Linie auf
-- [ ] Filter unten rechts im Bild: Wege, Infopunkte und Geschichten einzeln aus- und einblenden
+- [ ] „Vorherige / Nächste Station“ unten im Bild folgen dem Laufweg 1–8–6–9–10–3–11–14, an Anfang bzw. Ende ausgegraut; Führung geht 1–14
 - [ ] Heiligengalerie: Tafeln sitzen von allen Stationen auf den glatten Chorwänden, Pult/Kerze/Vorhang stehen davor, Antippen öffnet die Geschichte; „Direkt zur Heiligengalerie“ springt zu Station 6
 - [ ] Hinweis „ins Bild tippen und ziehen“ erscheint beim Öffnen und verschwindet beim ersten Ziehen
 - [ ] Unter dem Bild wechselt „Hier stehen Sie“ mit jeder Station; in der Führung steht stattdessen die Führungskarte
 - [ ] Empore: Infopunkte sitzen an ihren Objekten und öffnen sich
-- [ ] Grundriss öffnet sich, Klick auf eine Station springt dorthin, Blickkegel dreht mit
+- [ ] Grundriss steht unten links (Handy: öffnet sich per Knopf), Klick auf eine Station springt dorthin, Blickkegel dreht mit
 - [ ] Tafeln: beim Drüberfahren erscheint der Titel, Tab springt von Tafel zu Tafel und dreht den Blick dorthin
 - [ ] „Rundgang starten“: Weiter/Zurück, Station 1 bis 14, „Rundgang beenden“
 - [ ] Infopunkt, Geschichte (Video spielt) und Schatzkammer öffnen und mit × oder Esc schließen
