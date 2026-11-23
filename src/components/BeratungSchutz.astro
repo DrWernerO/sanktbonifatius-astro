@@ -3,6 +3,8 @@
 // Eigene Klassen `astro-ber-schutz`. Inhalte 1:1 aus WP. E-Mail im Klartext (im WP-Quelltext
 // als HTML-Entities verschleiert, hier dekodiert): d.kadavil@sanktbonifatius.de.
 const MAIL_PRAEVENTION = 'd.kadavil@sanktbonifatius.de';
+// Schutzkonzept als lokales PDF (Download-Button im dritten Block).
+const ISK_PDF = '/uploads/2026/11/Institutionelles-Schutzkonzept-St-Bonifatius.pdf';
 ---
 <section class="astro-ber-schutz" id="astro-ber-hinweis">
   <div class="astro-ber-schutz__inner">
@@ -36,6 +38,10 @@ const MAIL_PRAEVENTION = 'd.kadavil@sanktbonifatius.de';
           Umgang miteinander in unserer Pfarrei &#8212; für Haupt- und Ehrenamtliche
           gleichermaßen. Es wird regelmäßig überprüft und weiterentwickelt.
         </p>
+        <a class="astro-ber-schutz__btn" href={ISK_PDF} target="_blank" rel="noopener" download>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Schutzkonzept herunterladen (PDF, 302&nbsp;KB)
+        </a>
       </div>
     </div>
   </div>
@@ -50,5 +56,7 @@ const MAIL_PRAEVENTION = 'd.kadavil@sanktbonifatius.de';
 .astro-ber-schutz__text{font-size:15px;color:#6b5c52;line-height:1.7;margin:0}
 .astro-ber-schutz__text a{color:#9a2d2d;text-decoration:none;font-weight:600;word-break:break-word}
 .astro-ber-schutz__text a:hover{text-decoration:underline}
+.astro-ber-schutz__btn{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:11px 24px;border-radius:50px;background:#9a2d2d;color:#fff;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s}
+.astro-ber-schutz__btn:hover{background:#7e2424}
 @media(max-width:600px){.astro-ber-schutz{padding:52px 20px}.astro-ber-schutz__block{padding:24px 22px}}
 </style>
