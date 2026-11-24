@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Prüfung vor jedem Push auf main (Netlify-Credits sparen, Handbuch 1j):
-#   1. keine neuen/geänderten Dateien > 1 MB unter public/
+#   1. keine neuen/geänderten Dateien > 1 MB unter public/ (Ausnahme: Geschichten-Videos bis 8 MB)
 #   2. `npm run build` muss lokal durchlaufen (kein Fehlbuild = kein zweiter Deploy)
 # Notfall-Umgehung: git push --no-verify
 
@@ -23,7 +23,11 @@ while read -r lokal_ref lokal_sha remote_ref remote_sha; do
   while IFS= read -r datei; do
     [ -n "$datei" ] || continue
     groesse=$(git cat-file -s "$lokal_sha:$datei" 2>/dev/null) || continue
-    if [ "$groesse" -gt "$GRENZE" ]; then
+    grenze=$GRENZE
+    # Ausnahme (Frank 2026-11-24): Videos der Heiligengalerie (Geschichten) bis 8 MB – längere Testimonials
+    # passen auch klein gerechnet (640 × 360, scripts/video-verkleinern.swift) nicht in 1 MB
+    case "$datei" in public/uploads/jubilaeum/geschichten/*.mp4) grenze=$((8 * 1024 * 1024)) ;; esac
+    if [ "$groesse" -gt "$grenze" ]; then
       zu_gross+=("$(awk -v b="$groesse" 'BEGIN{printf "%.1f MB", b/1048576}')  $datei")
     fi
   done < <(git diff --name-only --diff-filter=AM "$basis" "$lokal_sha" -- public)

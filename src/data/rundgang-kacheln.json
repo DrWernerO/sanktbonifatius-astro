@@ -68,5 +68,30 @@
     "cubeResolution": 2468,
     "maxLevel": 4,
     "tileResolution": 512
+  },
+  "vor-der-kirche": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "galerie-nord": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "galerie-nord-nah": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "galerie-sued": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
+  },
+  "galerie-sued-nah": {
+    "cubeResolution": 2468,
+    "maxLevel": 4,
+    "tileResolution": 512
   }
 }

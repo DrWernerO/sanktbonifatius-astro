@@ -5,28 +5,41 @@
   "grundriss": { "bild": "/rundgang/grundriss.png", "bildHochkant": "/rundgang/grundriss-hochkant.png", "ausschnitt": { "_hinweis": "Ausschnitt des Hochkant-Bilds in % des Querformat-Plans (x = Länge, y = Breite)", "x0": 13.333, "x1": 98.889, "y0": 7.407, "y1": 95.37 }, "breiteMeter": 73.65, "hoeheMeter": 29.46 },
   "kamerahoeheMeter": 1.85,
   "infopunktAnzeige": { "_hinweis": "Infopunkte bis vollBisMeter in voller Größe, bis reichweiteMeter kleiner werdend, weiter weg ausgeblendet (Empore: alle sichtbaren, nach Entfernung abgestuft)", "vollBisMeter": 5, "reichweiteMeter": 15 },
-  "start": "taufstein",
+  "start": "vor-der-kirche",
   "fuehrung": [
-    "taufstein", "mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe",
-    "hochaltar", "tabernakel", "reliquie", "jona-nischen", "nischen-krypta", "trauer-madonna",
-    "marienbild", "empore"
+    "vor-der-kirche", "taufstein", "mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe",
+    "galerie-nord", "galerie-nord-nah", "hochaltar", "tabernakel", "galerie-sued-nah", "galerie-sued",
+    "reliquie", "jona-nischen", "nischen-krypta", "trauer-madonna", "marienbild", "empore"
   ],
   "_blickZiel": "Station → Infopunkt(e), die beim Ankommen (Pfeil oder Knopf „Nächste/Vorherige Station“) im Bild bleiben sollen: man blickt in Laufrichtung, aber höchstens so weit gedreht, dass das Objekt noch gut zu sehen ist (Frank 2026-11-12).",
-  "_laufweg": "Weg für die Knöpfe „Vorherige / Nächste Station“ unten im Bild (Frank 2026-11-12): wie beim echten Gehen immer nur zur Nachbarstation, Stationen dürfen mehrfach vorkommen (Sackgasse Chorraum 7–8 hin und zurück, dann von 6 direkt zu 9; 13 → 14 bewusst direkt, obwohl im Bild nur der Taufstein zur Empore führt).",
+  "_laufweg": "Weg für die Knöpfe „Vorherige / Nächste Station“ unten im Bild (Frank 2026-11-12, erweitert 2026-11-24): wie beim echten Gehen immer nur zur Nachbarstation, Stationen dürfen mehrfach vorkommen. Start vor der Kirche, durch den Mittelgang nach vorn, links an der Heiligengalerie hinauf, Sackgasse Chorraum 7–8 hin und zurück, rechts an der Heiligengalerie wieder hinunter, über 11 und 5 zur Nordseite (9, 10), dann 3 → 12 → 13; 13 → 14 bewusst direkt, obwohl im Bild nur der Taufstein zur Empore führt.",
   "laufweg": [
-    "taufstein", "mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe",
-    "hochaltar", "tabernakel", "hochaltar", "vor-der-treppe", "reliquie", "jona-nischen",
-    "mittelgang-pult", "nischen-krypta", "trauer-madonna", "marienbild", "empore"
+    "vor-der-kirche", "taufstein", "mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe",
+    "galerie-nord", "galerie-nord-nah", "hochaltar", "tabernakel", "hochaltar", "galerie-sued-nah", "galerie-sued",
+    "nischen-krypta", "hinter-dem-altar", "reliquie", "jona-nischen", "mittelgang-pult", "trauer-madonna", "marienbild", "empore"
   ],
   "stationen": [
+    {
+      "nr": 0, "id": "vor-der-kirche", "titel": "Vor der Kirche",
+      "ort": "Vor dem Hauptportal",
+      "datei": "Vor der Kirche.jpg",
+      "position": { "x": 10.5, "y": 50.0 }, "karte": { "x": 14.6, "y": 50.0 }, "blickrichtung": 0, "ebene": "vor der Kirche",
+      "startblick": { "yaw": 0, "pitch": 6 },
+      "verbindungen": [{ "ziel": "taufstein", "yaw": 0, "pitch": -2, "label": "Hinein in die Kirche" }],
+      "portalKnoepfe": [
+        { "aktion": "fuehrung", "label": "Rundgang starten", "kurz": "Rundgang starten", "yaw": -17, "pitch": -12 },
+        { "aktion": "galerie", "label": "Direkt zur Heiligengalerie", "kurz": "Zur Heiligen\u00adgalerie", "yaw": 17, "pitch": -12 }
+      ],
+      "begleittext": "Herzlich willkommen in Sankt Bonifatius! Sie stehen vor dem Hauptportal. Gehen Sie einfach hinein – gleich hinter der Tür beginnt der Rundgang am Taufstein."
+    },
     {
       "nr": 1, "id": "taufstein", "blickZiel": ["A"], "titel": "Am Taufstein",
       "ort": "Vorhalle unter der Orgelempore",
       "datei": "Station 1 Taufstein.jpg",
       "position": { "x": 27.35, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": -8 },
-      "verbindungen": [{ "ziel": "mittelgang-empore", "ueber": [{ "x": 29.4, "y": 44.5 }, { "x": 32.5, "y": 44.5 }], "wegpunkt": "umweg" }, "marienbild", { "ziel": "empore", "yaw": -150, "pitch": -4, "label": "Hinauf zur Empore" }],
-      "begleittext": "Willkommen in Sankt Bonifatius! Gleich hinter dem Eingang steht der Taufstein mit seiner goldglänzenden Kuppel. Hier werden Kinder und Erwachsene getauft – für viele beginnt der Weg mit dieser Kirche genau an dieser Stelle."
+      "verbindungen": [{ "ziel": "mittelgang-empore", "ueber": [{ "x": 29.4, "y": 44.5 }, { "x": 32.5, "y": 44.5 }], "wegpunkt": "umweg" }, "marienbild", { "ziel": "empore", "yaw": -150, "pitch": -4, "label": "Hinauf zur Empore" }, { "ziel": "vor-der-kirche", "yaw": 158, "pitch": -2, "label": "Hinaus vor die Kirche" }],
+      "begleittext": "Gleich hinter dem Eingang steht der Taufstein mit seiner goldglänzenden Kuppel. Hier werden Kinder und Erwachsene getauft – für viele beginnt der Weg mit dieser Kirche genau an dieser Stelle."
     },
     {
       "nr": 2, "id": "mittelgang-empore", "titel": "Mittelgang vor der Empore",
@@ -61,7 +74,7 @@
       "datei": "Station 5 Mittelgang hinter Altar.jpg",
       "position": { "x": 66.84, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": 0 }, "zusaetzlicheInfopunkte": ["M"],
-      "verbindungen": [{ "ziel": "vor-dem-altar", "ueber": [{ "x": 61.0, "y": 43.0 }], "wegpunkt": "umweg" }, "vor-der-treppe", "reliquie", "jona-nischen", "nischen-krypta"],
+      "verbindungen": [{ "ziel": "vor-dem-altar", "ueber": [{ "x": 61.0, "y": 43.0 }], "wegpunkt": "umweg" }, "vor-der-treppe", "reliquie", "jona-nischen", "nischen-krypta", "galerie-nord", "galerie-sued"],
       "begleittext": "Hinter dem Altar geht der Blick nach vorne: zur breiten Treppe und zum Chorraum mit seinen bunten Fenstern."
     },
     {
@@ -70,7 +83,7 @@
       "datei": "Station 6 vor Treppe.jpg",
       "position": { "x": 72.28, "y": 49.97 }, "blickrichtung": 0,
       "startblick": { "yaw": 0, "pitch": 4 },
-      "verbindungen": ["hinter-dem-altar", "hochaltar", "reliquie", "nischen-krypta"],
+      "verbindungen": ["hinter-dem-altar", "hochaltar", "reliquie", "nischen-krypta", "galerie-nord", "galerie-sued"],
       "begleittext": "Eine breite Treppe führt hinauf in den Chorraum. Links und rechts an der Wand hängen zwei goldene Engelbilder."
     },
     {
@@ -79,7 +92,7 @@
       "datei": "Station 7 vor Hochaltar.jpg",
       "position": { "x": 79.0, "y": 49.97 }, "blickrichtung": 0, "boden": 1.5,
       "startblick": { "yaw": 0, "pitch": 6 },
-      "verbindungen": ["vor-der-treppe", "tabernakel"],
+      "verbindungen": ["vor-der-treppe", "tabernakel", "galerie-nord-nah", "galerie-sued-nah"],
       "begleittext": "Oben im Chorraum steht der alte Hochaltar vor den farbigen Fenstern. Links steht die Osterkerze, rechts eine Marienfigur."
     },
     {
@@ -97,7 +110,7 @@
       "datei": "Station 9 vor Reliquie.jpg",
       "position": { "x": 62.78, "y": 23.53 }, "blickrichtung": -90,
       "startblick": { "yaw": 0, "pitch": -4 },
-      "verbindungen": ["hinter-dem-altar", "vor-der-treppe", "jona-nischen", "mittelgang-pult"],
+      "verbindungen": ["hinter-dem-altar", "vor-der-treppe", "jona-nischen", "mittelgang-pult", "galerie-nord"],
       "begleittext": "In dieser Nische wird eine Reliquie des heiligen Bonifatius aufbewahrt – ein kleines Erinnerungsstück an den Mann, nach dem unsere Kirche benannt ist."
     },
     {
@@ -115,7 +128,7 @@
       "datei": "Station 11 Nischen vor Krypta.jpg",
       "position": { "x": 56.96, "y": 67.75 }, "blickrichtung": 91,
       "startblick": { "yaw": 0, "pitch": 0 },
-      "verbindungen": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "trauer-madonna"],
+      "verbindungen": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "trauer-madonna", "galerie-sued"],
       "begleittext": "Auch an der Südseite gibt es stille Nischen zwischen den Pfeilern. Von hier aus geht es zur Krypta."
     },
     {
@@ -145,6 +158,42 @@
       "vorschauFlaeche": "b",
       "verbindungen": [{ "ziel": "taufstein", "yaw": 41, "pitch": -35, "label": "Hinunter zum Taufstein" }],
       "begleittext": "Zum Schluss der Blick von der Orgelempore: Von hier oben sieht man den ganzen Raum – mit dem Altar in der Mitte und den Stühlen rundherum."
+    },
+    {
+      "nr": 15, "id": "galerie-nord", "titel": "Heiligengalerie links",
+      "ort": "Am Engelbild Nord, unten an der Chortreppe",
+      "datei": "Heiligengalerie links von Engelbild.jpg",
+      "position": { "x": 75.96, "y": 20.3 }, "blickrichtung": 4.1, "kamerahoehe": 1.95,
+      "startblick": { "yaw": 0, "pitch": 6 },
+      "verbindungen": ["galerie-nord-nah", "vor-der-treppe", "hinter-dem-altar", "reliquie"],
+      "begleittext": "Von hier sehen Sie die linke Wand der Heiligengalerie im Ganzen. Die goldenen Tafeln erzählen Geschichten von Menschen aus unserer Gemeinde – tippen Sie eine an. Direkt neben Ihnen hängt das Engelbild Nord."
+    },
+    {
+      "nr": 16, "id": "galerie-nord-nah", "titel": "Heiligengalerie links, ganz nah",
+      "ort": "Oben an der Chortreppe, direkt vor der Wand (+1,50 m)",
+      "datei": "Heiligengalerie links nah.jpg",
+      "position": { "x": 80.74, "y": 22.94 }, "blickrichtung": 1.5, "boden": 1.5, "kamerahoehe": 1.53,
+      "startblick": { "yaw": 0, "pitch": 12 },
+      "verbindungen": ["galerie-nord", "hochaltar"],
+      "begleittext": "Direkt vor der Wand können Sie die Tafeln der Heiligengalerie in Ruhe aus der Nähe anschauen. Links neben Ihnen steht die Osterkerze."
+    },
+    {
+      "nr": 17, "id": "galerie-sued", "titel": "Heiligengalerie rechts",
+      "ort": "Am Engelbild Süd, unten an der Chortreppe",
+      "datei": "Heiligengalerie rechts vor Engelbild.jpg",
+      "position": { "x": 75.88, "y": 78.73 }, "blickrichtung": -4.02, "kamerahoehe": 1.95,
+      "startblick": { "yaw": 0, "pitch": 6 },
+      "verbindungen": ["galerie-sued-nah", "vor-der-treppe", "hinter-dem-altar", "nischen-krypta"],
+      "begleittext": "Auch auf der rechten Seite hängen Tafeln der Heiligengalerie, gleich neben der Marienfigur. Hier ist noch Platz für viele weitere Geschichten. Hinter Ihnen hängt das Engelbild Süd."
+    },
+    {
+      "nr": 18, "id": "galerie-sued-nah", "titel": "Heiligengalerie rechts, ganz nah",
+      "ort": "Oben an der Chortreppe, vor der Marienfigur (+1,50 m)",
+      "datei": "Heiligengalerie rechts nah.jpg",
+      "position": { "x": 80.79, "y": 77.83 }, "blickrichtung": -4.7, "boden": 1.5, "kamerahoehe": 1.535,
+      "startblick": { "yaw": -8, "pitch": 10 },
+      "verbindungen": ["galerie-sued", "hochaltar"],
+      "begleittext": "Ganz nah an der rechten Wand: Hier steht die Marienfigur, und links daneben hängen weitere Tafeln der Heiligengalerie."
     }
   ],
   "infopunkte": [
@@ -157,10 +206,10 @@
     { "id": "G", "titel": "Altar", "position": { "x": 59.55, "y": 49.7 }, "hoehe": 1.0, "ansichten": { "mittelgang-empore": { "yaw": 2.8, "pitch": -4.2 }, "reliquie": { "yaw": -166.3, "pitch": -7.4 }, "trauer-madonna": { "yaw": -114.3, "pitch": -3.9 } }, "sichtbarVon": ["mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "tabernakel", "reliquie", "jona-nischen", "nischen-krypta", "trauer-madonna", "marienbild", "empore"], "text": "Der Altar steht nicht vorne, sondern mitten in der Kirche – wie ein großer Tisch, um den sich alle versammeln. Hier feiern wir Eucharistie, das heißt übersetzt „Danksagung“.", "mehr": ["Die Feier geht auf Jesus selbst zurück: Am Abend vor seinem Tod hat er mit seinen Freunden gegessen, Brot und Wein geteilt und gesagt: „Tut dies zu meinem Gedächtnis.“ Daran erinnern wir uns bis heute jeden Sonntag.", "Der Altar ist ein Zeichen für Jesus. In das Holz sind deshalb fünf kleine Kreuze eingebrannt – sie erinnern an seine Wunden am Kreuz."], "foto": "/uploads/2025/06/altar-stbonifatius-1024x1025.jpeg" },
     { "id": "H", "titel": "Ambo", "position": { "x": 59.95, "y": 57.1 }, "hoehe": 1.2, "ansichten": { "mittelgang-empore": { "yaw": 11.7, "pitch": -3.5 }, "mittelgang-pult": { "yaw": 17.3, "pitch": -5.4 }, "reliquie": { "yaw": -172.6, "pitch": -5.8 }, "hinter-dem-altar": { "yaw": 147.8, "pitch": -10.9 }, "trauer-madonna": { "yaw": -104.2, "pitch": -2.5 } }, "sichtbarVon": ["mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "tabernakel", "reliquie", "jona-nischen", "nischen-krypta", "trauer-madonna", "marienbild", "empore"], "text": null, "foto": null },
     { "id": "I", "titel": "Bonifatiusreliquie", "position": { "x": 62.78, "y": 13.5 }, "hoehe": 1.2, "ansichten": { "mittelgang-pult": { "yaw": -48.2, "pitch": -0.3 }, "vor-dem-altar": { "yaw": -71.7, "pitch": -1.8 }, "hinter-dem-altar": { "yaw": -115.3, "pitch": -0.6 }, "reliquie": { "yaw": 5.6, "pitch": -12.4 } }, "sichtbarVon": ["mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "reliquie", "empore"], "text": "In dem goldenen Gefäß wird eine Reliquie des heiligen Bonifatius aufbewahrt, nach dem unsere Kirche benannt ist. Der Bischof von Fulda hat sie der Gemeinde 1927 zur Kirchweihe geschenkt.", "mehr": ["Eine Reliquie ist ein Überrest eines Heiligen, etwa ein kleines Stück Knochen oder Stoff. Das kostbare Gefäß hat der Fuldaer Domgoldschmied Wilhelm Rauscher gestaltet.", "Bonifatius, eigentlich Wynfreth, kam um 673 in England zur Welt und zog als Missionar durch das damalige Germanien. Er gründete mehrere Klöster, darunter Fulda, und wird deshalb „Apostel der Deutschen“ genannt. Berühmt ist die Geschichte, wie er bei Geismar die Donar-Eiche fällte – und der befürchtete Zorn des Gottes einfach ausblieb."], "foto": "/uploads/2020/05/reliquie-1-1-1024x671.jpg" },
-    { "id": "J", "titel": "Engelbild Nord", "position": { "x": 74.43, "y": 17.76 }, "hoehe": 2.0, "ansichten": { "empore": { "yaw": 157.1, "pitch": -10.3 }, "hinter-dem-altar": { "yaw": -68.5, "pitch": 0.8 } }, "sichtbarVon": ["mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "tabernakel", "nischen-krypta", "trauer-madonna", "marienbild", "empore"], "text": "Links und rechts vor dem Chorraum hängen zwei Engelbilder der Frankfurter Malerin Carola Ströter. Sie ist in St. Bonifatius groß geworden und war hier Messdienerin. Nach einer Ausstellung 1997 hat die Gemeinde beide Bilder gekauft.", "mehr": ["Die Engel haben die Form geflügelter Herzen. „Der Engel ist ein Bote Gottes – er begleitet, schützt und stärkt uns“, sagt die Künstlerin. Farben und Linien hat sie bewusst auf diesen Kirchenraum abgestimmt.", "Jedes Bild besteht aus zwei Hälften, einem Diptychon: Jeder ist für sich, aber lebendig wird es erst gemeinsam. Und warum gerade hier? „Hier geht es hinauf, es ist die Schwelle zu einem geheiligten Raum. Wer könnte besser den Weg weisen als Engel?“"], "foto": "/uploads/2020/05/engel-2-1024x723.jpg" },
-    { "id": "K", "titel": "Engelbild Süd", "position": { "x": 74.0, "y": 84.19 }, "hoehe": 2.0, "ansichten": { "empore": { "yaw": -166.5, "pitch": -10.3 }, "mittelgang-empore": { "yaw": 23.3, "pitch": 0.3 }, "reliquie": { "yaw": 159.4, "pitch": 0.4 } }, "sichtbarVon": ["mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "tabernakel", "reliquie", "jona-nischen", "nischen-krypta", "empore"], "text": "Das Gegenstück auf der Südseite – ebenfalls von Carola Ströter. Golden scheint das Licht durch den Engel hindurch, so beschreibt sie es selbst. Zusammen mit dem Bild gegenüber begleiten die beiden Engel den Weg hinauf in den Chorraum.", "mehr": ["„Ich male oft Paare“, erzählt die Künstlerin. „Jeder existiert für sich in seinem eigenen Raum, aber wirklich lebendig wird der Mensch nur gemeinsam.“ Die Bilder waren keine Auftragsarbeit – sie passen trotzdem so gut hierher, weil dieser Raum sie selbst ihr Leben lang begleitet hat."], "foto": "/uploads/2020/05/engel-5-1024x768.jpg" },
-    { "id": "L", "titel": "Osterkerze", "position": { "x": 82.21, "y": 22.46 }, "hoehe": 2.4, "boden": 1.5, "ansichten": { "empore": { "yaw": 162.3, "pitch": -8.0 }, "hochaltar": { "yaw": -81.6, "pitch": -3.0 }, "vor-dem-altar": { "yaw": -24.3, "pitch": 2.0 }, "hinter-dem-altar": { "yaw": -45.3, "pitch": 2.8 }, "vor-der-treppe": { "yaw": -55.2, "pitch": 6.5 } }, "sichtbarVon": ["vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "jona-nischen", "empore"], "text": "Die große Osterkerze wird jedes Jahr in der Osternacht am Osterfeuer angezündet und in die noch dunkle Kirche getragen. Von ihr bekommen alle ihr Licht für die eigene Kerze – ein Zeichen, dass das Leben stärker ist als der Tod.", "mehr": ["Der Brauch ist sehr alt, die ersten Berichte stammen aus dem 4. Jahrhundert. Beim Einzug ruft man dreimal „Lumen Christi“ – Christus, das Licht.", "Auf der Kerze sind ein Kreuz, die Jahreszahl und die griechischen Buchstaben Alpha und Omega, Anfang und Ende. Die goldenen Wachsnägel erinnern an die Wunden Jesu."], "foto": "/uploads/2020/05/osterkerze-2-1024x768.jpg" },
-    { "id": "M", "titel": "Marienfigur", "position": { "x": 83.39, "y": 78.82 }, "hoehe": 2.4, "boden": 1.5, "ansichten": { "empore": { "yaw": -172.7, "pitch": -6.8 }, "hochaltar": { "yaw": 71.4, "pitch": -2.8 }, "mittelgang-empore": { "yaw": 15.8, "pitch": 2.2 }, "vor-dem-altar": { "yaw": 21.7, "pitch": 4.7 }, "hinter-dem-altar": { "yaw": 29.3, "pitch": 5.1 }, "vor-der-treppe": { "yaw": 46.8, "pitch": 6.4 }, "reliquie": { "yaw": 141.2, "pitch": 3.2 }, "nischen-krypta": { "yaw": -84.3, "pitch": 5.2 } }, "sichtbarVon": ["mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "reliquie", "jona-nischen", "nischen-krypta", "empore"], "text": "Diese Marienfigur stand früher auf einem eigenen Marienaltar, der in den 1960er Jahren abgebaut wurde. Der Bildhauer Johann Belz hat sie 1927 geschaffen – von ihm stammt in Frankfurt zum Beispiel auch der Brüningbrunnen in Höchst.", "mehr": ["Würden Sie sie als Maria erkennen? Kein Kind, keine Krone, kein Strahlenkranz – nur eine junge Frau mit einem goldenen Saum am Gewand.", "Ihre Hände erzählen von ihr: Die rechte grüßt oder segnet, die linke ist offen zum Empfangen, und ihr Bein hebt sich leicht, als wolle sie gleich losgehen. Sie gibt, sie empfängt, sie bewegt – und ist dabei fast wie eine von uns."], "foto": "/uploads/2020/05/immaculata-belz-1-1024x671.jpg" }
+    { "id": "J", "titel": "Engelbild Nord", "position": { "x": 74.43, "y": 17.76 }, "hoehe": 2.0, "ansichten": { "galerie-nord": { "yaw": -100, "pitch": 7 }, "galerie-nord-nah": { "yaw": -150, "pitch": -17 }, "empore": { "yaw": 157.1, "pitch": -10.3 }, "hinter-dem-altar": { "yaw": -68.5, "pitch": 0.8 } }, "sichtbarVon": ["galerie-nord", "galerie-nord-nah", "mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "tabernakel", "nischen-krypta", "trauer-madonna", "marienbild", "empore"], "text": "Links und rechts vor dem Chorraum hängen zwei Engelbilder der Frankfurter Malerin Carola Ströter. Sie ist in St. Bonifatius groß geworden und war hier Messdienerin. Nach einer Ausstellung 1997 hat die Gemeinde beide Bilder gekauft.", "mehr": ["Die Engel haben die Form geflügelter Herzen. „Der Engel ist ein Bote Gottes – er begleitet, schützt und stärkt uns“, sagt die Künstlerin. Farben und Linien hat sie bewusst auf diesen Kirchenraum abgestimmt.", "Jedes Bild besteht aus zwei Hälften, einem Diptychon: Jeder ist für sich, aber lebendig wird es erst gemeinsam. Und warum gerade hier? „Hier geht es hinauf, es ist die Schwelle zu einem geheiligten Raum. Wer könnte besser den Weg weisen als Engel?“"], "foto": "/uploads/2020/05/engel-2-1024x723.jpg" },
+    { "id": "K", "titel": "Engelbild Süd", "position": { "x": 74.0, "y": 84.19 }, "hoehe": 2.0, "ansichten": { "galerie-sued": { "yaw": 102, "pitch": 2 }, "galerie-sued-nah": { "yaw": 151, "pitch": -15 }, "empore": { "yaw": -166.5, "pitch": -10.3 }, "mittelgang-empore": { "yaw": 23.3, "pitch": 0.3 }, "reliquie": { "yaw": 159.4, "pitch": 0.4 } }, "sichtbarVon": ["galerie-sued", "galerie-sued-nah", "mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "tabernakel", "reliquie", "jona-nischen", "nischen-krypta", "empore"], "text": "Das Gegenstück auf der Südseite – ebenfalls von Carola Ströter. Golden scheint das Licht durch den Engel hindurch, so beschreibt sie es selbst. Zusammen mit dem Bild gegenüber begleiten die beiden Engel den Weg hinauf in den Chorraum.", "mehr": ["„Ich male oft Paare“, erzählt die Künstlerin. „Jeder existiert für sich in seinem eigenen Raum, aber wirklich lebendig wird der Mensch nur gemeinsam.“ Die Bilder waren keine Auftragsarbeit – sie passen trotzdem so gut hierher, weil dieser Raum sie selbst ihr Leben lang begleitet hat."], "foto": "/uploads/2020/05/engel-5-1024x768.jpg" },
+    { "id": "L", "titel": "Osterkerze", "position": { "x": 82.21, "y": 22.46 }, "hoehe": 2.4, "boden": 1.5, "ansichten": { "galerie-nord": { "yaw": -11.7, "pitch": 13 }, "galerie-nord-nah": { "yaw": -54, "pitch": 6 }, "empore": { "yaw": 162.3, "pitch": -8.0 }, "hochaltar": { "yaw": -81.6, "pitch": -3.0 }, "vor-dem-altar": { "yaw": -24.3, "pitch": 2.0 }, "hinter-dem-altar": { "yaw": -45.3, "pitch": 2.8 }, "vor-der-treppe": { "yaw": -55.2, "pitch": 6.5 } }, "sichtbarVon": ["galerie-nord", "galerie-nord-nah", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "jona-nischen", "empore"], "text": "Die große Osterkerze wird jedes Jahr in der Osternacht am Osterfeuer angezündet und in die noch dunkle Kirche getragen. Von ihr bekommen alle ihr Licht für die eigene Kerze – ein Zeichen, dass das Leben stärker ist als der Tod.", "mehr": ["Der Brauch ist sehr alt, die ersten Berichte stammen aus dem 4. Jahrhundert. Beim Einzug ruft man dreimal „Lumen Christi“ – Christus, das Licht.", "Auf der Kerze sind ein Kreuz, die Jahreszahl und die griechischen Buchstaben Alpha und Omega, Anfang und Ende. Die goldenen Wachsnägel erinnern an die Wunden Jesu."], "foto": "/uploads/2020/05/osterkerze-2-1024x768.jpg" },
+    { "id": "M", "titel": "Marienfigur", "position": { "x": 83.39, "y": 78.82 }, "hoehe": 2.4, "boden": 1.5, "ansichten": { "galerie-sued": { "yaw": 2, "pitch": 12 }, "galerie-sued-nah": { "yaw": 2, "pitch": 6 }, "empore": { "yaw": -172.7, "pitch": -6.8 }, "hochaltar": { "yaw": 71.4, "pitch": -2.8 }, "mittelgang-empore": { "yaw": 15.8, "pitch": 2.2 }, "vor-dem-altar": { "yaw": 21.7, "pitch": 4.7 }, "hinter-dem-altar": { "yaw": 29.3, "pitch": 5.1 }, "vor-der-treppe": { "yaw": 46.8, "pitch": 6.4 }, "reliquie": { "yaw": 141.2, "pitch": 3.2 }, "nischen-krypta": { "yaw": -84.3, "pitch": 5.2 } }, "sichtbarVon": ["galerie-sued", "galerie-sued-nah", "mittelgang-empore", "mittelgang-pult", "vor-dem-altar", "hinter-dem-altar", "vor-der-treppe", "hochaltar", "reliquie", "jona-nischen", "nischen-krypta", "empore"], "text": "Diese Marienfigur stand früher auf einem eigenen Marienaltar, der in den 1960er Jahren abgebaut wurde. Der Bildhauer Johann Belz hat sie 1927 geschaffen – von ihm stammt in Frankfurt zum Beispiel auch der Brüningbrunnen in Höchst.", "mehr": ["Würden Sie sie als Maria erkennen? Kein Kind, keine Krone, kein Strahlenkranz – nur eine junge Frau mit einem goldenen Saum am Gewand.", "Ihre Hände erzählen von ihr: Die rechte grüßt oder segnet, die linke ist offen zum Empfangen, und ihr Bein hebt sich leicht, als wolle sie gleich losgehen. Sie gibt, sie empfängt, sie bewegt – und ist dabei fast wie eine von uns."], "foto": "/uploads/2020/05/immaculata-belz-1-1024x671.jpg" }
   ],
   "heiligengalerie": {
     "_hinweis": "Alle Geschichten hängen gesammelt auf einem durchsichtigen Zylinder rund um diese Station (Frank 2026-11-04). knopf = Lage des Knopfs im Grundriss; ring = Unter-/Oberkante des Zylinders in Grad.",
@@ -172,7 +221,7 @@
     "_hinweis": "Prototyp (Frank 2026-11-05): Geschichten als goldene Tafeln fest an den glatten Chorwänden statt im Zylinder. aktiv = true ersetzt die Heiligengalerie. Wand = Strecke von a nach b im Grundriss (Prozent), Vorderseite links von a→b; boden = Fußbodenhöhe davor in m. Tafel: entlang = Mitte in m ab a, hoehe = Mitte in m über boden. Wände vermessen aus Station 4/5/6/7/11 (Triangulation der Wandkante).",
     "aktiv": true,
     "titel": "Heiligengalerie von St. Bonifatius",
-    "direkt": { "_hinweis": "Ziel des Knopfs „Direkt zur Heiligengalerie“: Station und Blick (Grad), von dort beide Tafelgruppen im Bild", "station": "vor-der-treppe", "yaw": 0, "pitch": 6, "hfov": 100 },
+    "direkt": { "_hinweis": "Ziel des Knopfs „Direkt zur Heiligengalerie“: Station und Blick (Grad), von dort beide Tafelgruppen im Bild", "station": "galerie-nord-nah", "yaw": 0, "pitch": 12, "hfov": 100 },
     "format": { "breite": 0.55, "hoehe": 0.74 },
     "reichweiteMeter": 45,
     "waende": [
@@ -195,6 +244,13 @@
     },
     "verdecker": {
       "_hinweis": "Dinge, die von einer Station aus VOR den Tafeln stehen (das Foto kennt keine Tiefe): Umriss in Blickwinkeln [Drehung, Neigung] wie bei Pannellum, abgelesen aus dem Panorama. Dort wird die Tafel-Ebene ausgeschnitten, das echte Objekt aus dem Foto bleibt sichtbar.",
+      "galerie-nord": [
+        { "titel": "Osterkerze", "umriss": [[-12.65, 20.85], [-10.69, 20.85], [-10.69, 5.55], [-9.67, 5.55], [-9.67, 4.33], [-10.88, 4.33], [-10.88, -7.33], [-12.84, -7.33], [-12.84, 4.33], [-13.87, 4.33], [-13.87, 5.55], [-12.65, 5.55]] },
+        { "titel": "Lesepult am Chorraum", "umriss": [[8.07, 12.64], [18.61, 12.64], [18.61, 5.55], [17.4, 5.55], [17.4, -14.8], [9.19, -14.8], [9.19, 5.55], [8.07, 5.55]] }
+      ],
+      "galerie-sued-nah": [
+        { "titel": "Marienfigur", "umriss": [[1.2, 28.2], [5.4, 28.2], [6.6, 24.0], [7.8, 18.6], [9.6, 9.6], [10.8, -2.4], [12.0, -22.8], [12.0, -36.0], [-6.0, -36.0], [-6.0, -22.8], [-3.36, -12.0], [-3.36, 9.6], [-1.8, 18.6], [0.0, 24.0]] }
+      ],
       "nischen-krypta": [
         { "titel": "Lesepult am Chorraum", "umriss": [[-128.71, 2.5], [-126.59, 2.5], [-126.59, 1.45], [-126.74, 1.39], [-126.74, -1.98], [-128.49, -1.98], [-128.49, 1.39], [-128.71, 1.45]] }
       ],
@@ -232,13 +288,13 @@
       ]
     },
     "tafeln": [
-      { "wand": "chor-nord", "entlang": 3.55, "hoehe": 2.6, "geschichte": "werner-nikolaus" },
-      { "wand": "chor-nord", "entlang": 2.6, "hoehe": 2.6, "geschichte": "uwe-foto" },
-      { "wand": "chor-nord", "entlang": 1.65, "hoehe": 2.6, "geschichte": "sommerfreizeit-2026" },
-      { "wand": "chor-nord", "entlang": 0.7, "hoehe": 2.6, "geschichte": "beispiel-taufe" },
-      { "wand": "chor-nord", "entlang": 3.55, "hoehe": 1.48, "geschichte": "beispiel-hochzeit" },
-      { "wand": "chor-nord", "entlang": 2.6, "hoehe": 1.48, "geschichte": "platzhalter-04" },
-      { "wand": "chor-nord", "entlang": 1.65, "hoehe": 1.48, "geschichte": "platzhalter-05" },
+      { "wand": "chor-nord", "entlang": 3.2, "hoehe": 2.6, "geschichte": "werner-nikolaus" },
+      { "wand": "chor-nord", "entlang": 2.37, "hoehe": 2.6, "geschichte": "uwe-foto" },
+      { "wand": "chor-nord", "entlang": 1.53, "hoehe": 2.6, "geschichte": "sommerfreizeit-2026" },
+      { "wand": "chor-nord", "entlang": 0.7, "hoehe": 2.6, "geschichte": "christine-fiebig" },
+      { "wand": "chor-nord", "entlang": 3.2, "hoehe": 1.48, "geschichte": "beispiel-hochzeit" },
+      { "wand": "chor-nord", "entlang": 2.37, "hoehe": 1.48, "geschichte": "platzhalter-04" },
+      { "wand": "chor-nord", "entlang": 1.53, "hoehe": 1.48, "geschichte": "platzhalter-05" },
       { "wand": "chor-nord", "entlang": 0.7, "hoehe": 1.48, "geschichte": "platzhalter-06" },
       { "wand": "chor-sued", "entlang": 3.65, "hoehe": 2.6, "geschichte": "platzhalter-07" },
       { "wand": "chor-sued", "entlang": 2.75, "hoehe": 2.6, "geschichte": "platzhalter-08" },
@@ -250,7 +306,7 @@
     { "id": "werner-nikolaus", "titel": "Als Nikolaus unterwegs", "person": "Werner", "jahr": "2017", "medium": "video", "vorschaubild": "/uploads/jubilaeum/geschichten/werner-vorschau.jpg", "tafelbild": "/uploads/jubilaeum/geschichten/werner-tafel.webp", "datei": "/uploads/jubilaeum/geschichten/werner-nikolaus.mp4", "text": "Mit den Jugendlichen macht es immer viel Spaß – die wissen eh nicht so genau, ob ich nun Pfarrer oder Bischof bin.", "beispiel": true },
     { "id": "uwe-foto", "titel": "Ein Foto von Uwe", "person": "Uwe", "jahr": "2026", "medium": "foto", "vorschaubild": "/uploads/jubilaeum/geschichten/uwe-vorschau.jpg", "tafelbild": "/uploads/jubilaeum/geschichten/uwe-tafel.webp", "datei": "/uploads/jubilaeum/geschichten/uwe.webp", "text": "Ich bin seit vielen Jahren hier in Sankt Bonifatius aktiv und freue mich darüber, dass man mich hier trotz meiner vielen Fehler akzeptiert.", "beispiel": true },
     { "id": "sommerfreizeit-2026", "titel": "Sommerfreizeit", "person": "Jugend", "jahr": "2026", "medium": "video", "vorschaubild": "/uploads/jubilaeum/heiligentafel-foto-1.jpg", "datei": "/uploads/jubilaeum/sommerfreizeit-2026.mp4", "beispiel": true, "abschrift": "Abschrift folgt." },
-    { "id": "beispiel-taufe", "titel": "Meine Taufe hier", "person": "Hans S.", "jahr": "1958", "medium": "text", "text": "Platzhalter für eine Geschichte. Hier steht später ein kurzer, selbst geschriebener Text über ein besonderes Erlebnis in Sankt Bonifatius.", "beispiel": true },
+    { "id": "christine-fiebig", "titel": "Sankt Bonifatius ist Leuchten", "person": "Christine", "jahr": "2026", "medium": "video", "vorschaubild": "/uploads/jubilaeum/geschichten/christine-vorschau.jpg", "tafelbild": "/uploads/jubilaeum/geschichten/christine-tafel.webp", "datei": "/uploads/jubilaeum/geschichten/christine-fiebig.mp4" },
     { "id": "beispiel-hochzeit", "titel": "Unsere Hochzeit", "person": "Anna B.", "jahr": "1987", "medium": "audio", "beispiel": true, "abschrift": "Platzhalter für eine Tonaufnahme mit Abschrift." },
     { "id": "platzhalter-04", "titel": "Geschichte 04", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "04", "beispiel": true },
     { "id": "platzhalter-05", "titel": "Geschichte 05", "person": "Name folgt", "jahr": "", "medium": "text", "kuerzel": "05", "beispiel": true },

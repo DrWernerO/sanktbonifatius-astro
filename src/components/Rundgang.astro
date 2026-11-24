@@ -15,7 +15,7 @@ const stationen = daten.stationen.filter((s) => kacheln[s.id]);
 const meterBis = (s: any, i: any) => Math.hypot(
   ((i.position.x - s.position.x) / 100) * daten.grundriss.breiteMeter,
   ((i.position.y - s.position.y) / 100) * daten.grundriss.hoeheMeter,
-  (i.boden || 0) + (i.hoehe ?? 1.5) - ((s.boden || 0) + daten.kamerahoeheMeter),
+  (i.boden || 0) + (i.hoehe ?? 1.5) - ((s.boden || 0) + ((s as any).kamerahoehe ?? daten.kamerahoeheMeter)),
 );
 const infoProStation = Object.fromEntries(
   stationen.map((s) => [s.id, daten.infopunkte
@@ -163,7 +163,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
         {stationen.map((s) => (
           <button
             type="button"
-            class:list={['astro-rg-punkt', { 'astro-rg-punkt-empore': s.ebene === 'Empore' }]}
+            class:list={['astro-rg-punkt', { 'astro-rg-punkt-empore': !!s.ebene }]}
             style={`left:${kartePos(s.karte || s.position).left}%;top:${kartePos(s.karte || s.position).top}%`}
             data-station={s.id}
             aria-label={`Station ${s.nr}: ${s.titel}${s.ebene ? ` (${s.ebene})` : ''}`}
@@ -171,7 +171,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
           >{s.nr}</button>
         ))}
       </div>
-      <p class="astro-rg-karte-hinweis">14 = Empore</p>
+      <p class="astro-rg-karte-hinweis">{stationen.filter((s) => s.ebene).map((s) => `${s.nr} = ${s.ebene}`).join(' · ')}</p>
     </div>
 
     <!-- Zur vorherigen / nächsten Station (Feedback-Test 2026-11-12): einfachster Weg durch die Kirche, ohne Pfeile im
@@ -264,7 +264,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   type Pos = { x: number; y: number };
   type Station = {
     nr: number; id: string; titel: string; ort: string; position: Pos; karte?: Pos; blickrichtung: number;
-    boden?: number; ebene?: string; startblick: { yaw: number; pitch: number }; zusaetzlicheInfopunkte?: string[]; blickZiel?: string[];
+    boden?: number; kamerahoehe?: number; ebene?: string; startblick: { yaw: number; pitch: number }; zusaetzlicheInfopunkte?: string[]; blickZiel?: string[];
     verbindungen: (string | { ziel: string; yaw?: number; pitch?: number; label?: string; ueber?: Pos[]; wegpunkt?: 'umweg' })[];
     begleittext: string;
   };
@@ -273,6 +273,8 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   const stationen: Record<string, Station> = Object.fromEntries(daten.stationen.map((s: Station) => [s.id, s]));
   const reihenfolge: string[] = daten.fuehrung.filter((id: string) => stationen[id]);
   const W = daten.grundriss.breiteMeter, H = daten.grundriss.hoeheMeter, KAMERA = daten.kamerahoeheMeter;
+  // Augenhöhe der Kamera über dem Nullniveau: Boden der Station + Stativhöhe (`kamerahoehe` je Station, sonst Standard)
+  const auge = (s: Station) => (s.boden || 0) + (s.kamerahoehe ?? KAMERA);
   const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const grad = (r: number) => (r * 180) / Math.PI;
   const wrap = (a: number) => ((((a + 180) % 360) + 360) % 360) - 180;
@@ -283,7 +285,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     const dy = ((nach.y - von.position.y) / 100) * H;
     const abstand = Math.max(0.5, Math.hypot(dx, dy));
     const yaw = wrap(grad(Math.atan2(dy, dx)) - von.blickrichtung);
-    const hoehe = zielBoden + zielHoehe - ((von.boden || 0) + KAMERA);
+    const hoehe = zielBoden + zielHoehe - auge(von);
     const pitch = grad(Math.atan2(hoehe, abstand));
     return { yaw, pitch, abstand, raum: Math.hypot(abstand, hoehe) };
   }
@@ -314,6 +316,13 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   };
   ICON.foto = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2" fill="currentColor"/><circle cx="12" cy="12.5" r="3.4" fill="#c5a55a"/><path d="M8 6l1.5-2h5L16 6z" fill="currentColor"/></svg>';
   const MEDIUM: Record<string, string> = { video: 'Video', audio: 'Tonaufnahme', text: 'Text', foto: 'Foto' };
+
+  // Knöpfe auf den Flügeln des Hauptportals vor der Kirche (Frank 2026-11-24): dieselben Aktionen wie die Knöpfe über dem Bild
+  const PORTAL: Record<string, { id: string; farbe: string; icon: string }> = {
+    fuehrung: { id: 'astro-rg-start', farbe: 'rot', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>' },
+    galerie: { id: 'astro-rg-zur-galerie', farbe: 'gold', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l8-5 8 5v11z M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>' },
+  };
+  const portalAktion = (pk: any) => (document.getElementById(PORTAL[pk.aktion]?.id) as HTMLButtonElement | null)?.click();
 
   function knopf(div: HTMLElement, klasse: string, html: string, label: string, aktion: () => void, meter = 0, gross?: string) {
     div.classList.add('astro-rg-hs');
@@ -379,6 +388,17 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
         yaw: gal.yaw, pitch: gal.pitch, type: 'custom', cssClass: 'astro-rg-hs-info',
         createTooltipFunc: (div: HTMLElement) =>
           knopf(div, 'astro-rg-galerie',`${ICON.galerie}<span>${gal.titel}</span>`, `${gal.titel} öffnen`, () => zeigeGalerie(gal)),
+      });
+    }
+    // Knöpfe auf den Portalflügeln vor der Kirche (Frank 2026-11-24)
+    for (const pk of (s as any).portalKnoepfe || []) {
+      const art = PORTAL[pk.aktion];
+      if (!art || !document.getElementById(art.id)) continue;
+      liste.push({
+        yaw: pk.yaw, pitch: pk.pitch, type: 'custom', cssClass: 'astro-rg-hs-portal',
+        createTooltipFunc: (div: HTMLElement) =>
+          knopf(div, `astro-rg-portal astro-rg-portal-${art.farbe}`, `${art.icon}<span class="astro-rg-portal-lang">${pk.label}</span><span class="astro-rg-portal-kurz">${pk.kurz || pk.label}</span>`, pk.label,
+            () => portalAktion(pk), 0, '1'),
       });
     }
     return liste;
@@ -519,7 +539,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
         const a = pkt[i], b = pkt[i + 1], t = rest / laengen[i];
         const x = a.x + (b.x - a.x) * t, y = a.y + (b.y - a.y) * t;
         const nx = -(b.y - a.y) / laengen[i], ny = (b.x - a.x) / laengen[i];
-        const hoehe = b0 + (b1 - b0) * (d / L) - (b0 + KAMERA);   // Treppe zum Chorraum: linear ansteigend
+        const hoehe = b0 + (b1 - b0) * (d / L) - auge(s);   // Treppe zum Chorraum: linear ansteigend
         const winkel = (px: number, py: number): [number, number] => [
           wrap(grad(Math.atan2(py - ich.y, px - ich.x)) - s.blickrichtung),
           grad(Math.atan2(hoehe, Math.hypot(px - ich.x, py - ich.y))),
@@ -687,7 +707,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   function winkel(s: Station, [x, y, z]: [number, number, number]): Eck {
     const sx = (s.position.x / 100) * W, sy = (s.position.y / 100) * H;
     return [wrap(grad(Math.atan2(y - sy, x - sx)) - s.blickrichtung),
-      grad(Math.atan2(z - ((s.boden || 0) + KAMERA), Math.hypot(x - sx, y - sy)))];
+      grad(Math.atan2(z - auge(s), Math.hypot(x - sx, y - sy)))];
   }
   function setzeStufe(t: Tafel, breite: number) {
     if (t.stufe === breite) return;
@@ -701,7 +721,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
   type Sicht = { t: Tafel; winkel: Eck[]; meter: number; kanten: Kante[]; glanz: number };
   const tafelnProStation: Record<string, Sicht[]> = {};
   for (const s of Object.values(stationen)) {
-    const sx = (s.position.x / 100) * W, sy = (s.position.y / 100) * H, sz = (s.boden || 0) + KAMERA;
+    const sx = (s.position.x / 100) * W, sy = (s.position.y / 100) * H, sz = auge(s);
     tafelnProStation[s.id] = tafeln
       .filter((t) => !t.wand.verdecktVon?.includes(s.id) && (sx - t.mitte[0]) * t.n[0] + (sy - t.mitte[1]) * t.n[1] > 0.3)
       .map((t) => {
@@ -900,7 +920,7 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
       const r = richtung(von, ziel.position);
       const lauf = r.yaw + von.blickrichtung;            // Himmelsrichtung der Bewegung
       yaw = wrap(lauf - ziel.blickrichtung); pitch = 0;
-      if (ziel.ebene === 'Empore' || von.ebene === 'Empore') { yaw = ziel.startblick.yaw; pitch = ziel.startblick.pitch; }
+      /* Empore, vor der Kirche: eigener Startblick */ if (ziel.ebene || von.ebene) { yaw = ziel.startblick.yaw; pitch = ziel.startblick.pitch; }
       // Blickziel (Frank 2026-11-12): Hauptobjekt der Station (z. B. die Reliquie) soll beim Ankommen im Bild sein →
       // Laufrichtung höchstens bis BLICK_SPIELRAUM Grad neben das Objekt, sonst so weit dorthin gedreht.
       else if (ziel.blickZiel?.length) {
@@ -1533,6 +1553,29 @@ const clientDaten = JSON.stringify({ ...daten, stationen, kacheln });
     background: #fff; color: var(--rg-schwarz); font: 700 15px/1.2 'Source Sans 3', sans-serif; cursor: pointer; }
   .astro-rg-knopf svg { width: 16px; height: 16px; }
   .astro-rg-knopf:hover { background: var(--rg-schwarz); color: #fff; }
+  /* Knöpfe auf den Flügeln des Hauptportals vor der Kirche – immer beschriftet, während der Führung ausgeblendet */
+  /* position:absolute → der Hotspot-Rahmen bleibt 0 px breit; Pannellum zieht sonst die halbe Knopfbreite ab und der
+     breite Knopf säße je nach Bildgröße neben dem Portal statt mittig davor */
+  .astro-rg-portal { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+    padding: 8px 16px; border-radius: 26px; border: 2px solid; font: 600 15px/1.15 inherit; font-family: inherit; width: max-content; max-width: 10.5em; text-align: left;
+    cursor: pointer; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4); transition: transform 0.15s ease, background 0.15s ease; }
+  .astro-rg-portal svg { width: 18px; height: 18px; flex: none; }
+  .astro-rg-portal:hover, .astro-rg-portal:focus-visible { transform: translate(-50%, -50%) scale(1.05); }
+  .astro-rg-portal-rot { background: var(--rg-rot); border-color: #fff; color: #fff; }
+  .astro-rg-portal-gold { background: var(--rg-gold); border-color: #fff; color: var(--rg-schwarz); }
+  .astro-rg-fuehrung-aktiv .astro-rg-hs-portal { display: none; }
+  @media (max-width: 900px) { .astro-rg-portal { font-size: 13px; padding: 6px 12px; gap: 6px; max-width: 8em; } }
+  .astro-rg-portal-kurz { display: none; }
+  /* Handy: die Türflügel sind im Bild schmal → kurze Beschriftung ohne Symbol, etwas tiefer, damit die
+     immer sichtbare Beschriftung „Hinein in die Kirche“ frei bleibt */
+  @media (max-width: 600px) {
+    .astro-rg-portal { font-size: 11px; line-height: 1.1; padding: 4px 6px; border-radius: 12px; max-width: 6.4em; min-height: 40px; justify-content: center; text-align: center; border-width: 1.5px;
+      transform: translate(-50%, calc(-50% + 30px)); }
+    .astro-rg-portal:hover, .astro-rg-portal:focus-visible { transform: translate(-50%, calc(-50% + 30px)) scale(1.05); }
+    .astro-rg-portal svg, .astro-rg-portal-lang { display: none; }
+    .astro-rg-portal-kurz { display: inline; }
+  }
+  @media (prefers-reduced-motion: reduce) { .astro-rg-portal { transition: none; } }
   .astro-rg-knopf-gold { border-color: var(--rg-gold); background: #fbf6ea; }
   .astro-rg-knopf-gold svg { color: #a8873d; }
   .astro-rg-knopf-gold:hover { background: var(--rg-gold); border-color: var(--rg-gold); color: var(--rg-schwarz); }
