@@ -1,6 +1,6 @@
 # 360°-Rundgang St. Bonifatius – Anleitung
 
-Stand: 05.11.2026 · Seite: `/100-jahre/rundgang/` (passwortgeschützt, noindex, nicht im Menü)
+Stand: 24.11.2026 · Seite: `/100-jahre/rundgang/` (passwortgeschützt, noindex, nicht im Menü)
 
 ## Wo was liegt
 
@@ -10,7 +10,7 @@ Stand: 05.11.2026 · Seite: `/100-jahre/rundgang/` (passwortgeschützt, noindex,
 | Der Rundgang selbst (Viewer, Grundriss, Führung, Liste) | `src/components/Rundgang.astro` |
 | Die Seite | `src/pages/100-jahre/rundgang.astro` |
 | Kachel-Werkzeug | `scripts/rundgang-kacheln.py` |
-| Kacheln in halber Auflösung (ca. 86 MB, 3.276 Dateien, im Projekt) | `public/rundgang/kacheln/<station>/` |
+| Kacheln in halber Auflösung (ca. 123 MB für 19 Stationen, im Projekt) | `public/rundgang/kacheln/<station>/` |
 | Vorschaubilder für die Ortsliste | `public/rundgang/vorschau/<station>.jpg` |
 | Grundriss (Querformat, Grundlage aller Positionen) | `public/rundgang/grundriss.png` |
 | Grundriss hochkant für die Anzeige (gedreht + beschnitten) | `public/rundgang/grundriss-hochkant.png` |
@@ -29,7 +29,7 @@ und Klammern stehen lassen.
   – erscheint aufklappbar unter „Mehr erfahren“; das Infofenster scrollt dann.
 - **Detailfoto zum Infopunkt:** Foto nach `public/uploads/jubilaeum/rundgang/` legen und
   `"foto": null` ersetzen durch `"foto": "/uploads/jubilaeum/rundgang/A-taufstein.jpg"`.
-- **Reihenfolge des geführten Rundgangs:** Liste `fuehrung` (Stations-IDs in Wunschreihenfolge; seit 12.11.2026 nach Nummern 1–14).
+- **Reihenfolge des geführten Rundgangs:** Liste `fuehrung` (Stations-IDs in Wunschreihenfolge; seit 24.11.2026: vor der Kirche, 1–6, 15, 16, 7, 8, 18, 17, 9–14).
 - **Weg der Knöpfe „Vorherige / Nächste Station“:** Liste `laufweg` – wie echtes Gehen nur von Nachbar zu Nachbar,
   Stationen dürfen mehrfach vorkommen: 1–8, zurück 7–6, dann 9, 10, 3, 11, 12, 13, 14 (Frank 2026-11-12; 13 → 14 bewusst direkt, obwohl im Bild nur der
   Taufstein zur Empore führt).
@@ -67,8 +67,9 @@ dann so groß wie auf dem Handy); `umschauen` bei 1200 × 750 mit hfov 130 (Plat
 Szenen: Umschauen = Taufstein; Weitergehen = zwei Schritte, Taufstein (Startblick) → Mittelgang vor der Empore
 → vor dem Pult (`weiter-0/1/2`, Tipp-Ziele `ZIEL` + `ZIEL2`, 10 s); Grundriss = Taufstein →
 Hochaltar mit eingeblendetem Grundriss (Punkte für die Aufnahme verkleinert); Mehr erfahren = Infopunkt Taufstein
-+ Infofenster (bei 760 × 640 aufgenommen, ausgeschnitten); Heiligengalerie = vor der Treppe, Nordwand, Tafel
-„Sommerfreizeit“ (bewusst keine Tafel mit Personenfoto; Hinweis „Beispiel …“ für die Aufnahme ausgeblendet).
++ Infofenster (bei 760 × 640 aufgenommen, ausgeschnitten); Heiligengalerie = seit 24.11.2026 Station 16
+(„Heiligengalerie links, ganz nah“, Startblick), Hand tippt auf Tafel „Sommerfreizeit“ (bewusst keine Tafel mit
+Personenfoto; Hinweis „Beispiel …“ für die Aufnahme ausgeblendet).
 Danach die Tipp-Stelle neu ausmessen und in `ZIEL` eintragen.
 
 **Grundriss (seit 12.11.2026, nach Nutzertest):** Wer wenig Technikerfahrung hat, kam mit den Pfeilen im
@@ -137,10 +138,11 @@ Neue Geschichte unter `geschichten` nach diesem Muster:
 - `"beispiel": true` nur für Platzhalter – solche Einträge vor der Veröffentlichung löschen.
 - **Vor dem Einstellen:** schriftliche Einwilligung (KDG) der Person, bei Kindern der Eltern – auch
   für alle anderen, die im Video oder auf dem Foto zu sehen sind.
-- **Medien** nach `public/uploads/jubilaeum/geschichten/`. Jede Datei unter 1 MB (Pre-Push-Hook):
-  Fotos als WebP, Videos klein rechnen – Werners Beispiel (18 s) mit 640 × 360 bei ca. 330 kbit/s
-  ergibt 870 KB (`swift scripts/video-verkleinern.swift <ein> <aus.mp4> 640 360 330000`). Längere Videos passen so
-  nicht ins Repo – Ablageort dafür ist noch offen (Handbuch 1j).
+- **Medien** nach `public/uploads/jubilaeum/geschichten/`. Fotos als WebP unter 1 MB. Videos klein rechnen
+  (`swift scripts/video-verkleinern.swift <ein> <aus.mp4> 640 360 380000`): Werners Beispiel (18 s) ergab 870 KB,
+  Christines Testimonial (88 s, 24.11.2026) 4,7 MB. **Ausnahme im Pre-Push-Hook (Frank 24.11.):** MP4-Dateien in
+  diesem Ordner dürfen bis 8 MB groß sein (bleibt auf unserer Domain, kein Fremdanbieter). Dazu je Person ein
+  Tafelbild 480 × 600 (WebP, Standbild mit geschlossenem Mund aus dem Video) und ein Vorschaubild 240 × 240.
 
 ## Blick von der Empore
 
@@ -190,6 +192,46 @@ Pfeiler und Nischenwände sie sonst verdecken; Osterkerze und Marienfigur sind v
 sehen. Wo die berechnete Lage danebenliegt, steht beim Infopunkt unter `ansichten.<station-id>` die
 gemessene Lage im Bild (`yaw`, `pitch`), genau wie für die Empore.
 
+## Start vor der Kirche und Stationen an der Heiligengalerie (24.11.2026)
+
+Neu aufgenommen am 24.11.2026 (Franks Dateinamen in `Inputs/Rundgang-Panoramen/` beibehalten):
+
+| Nr. | id | Datei | Lage |
+|-----|----|-------|------|
+| 0 | `vor-der-kirche` | Vor der Kirche.jpg | vor dem Hauptportal, **neuer Start** (`start`, Anfang von Führung und Laufweg) |
+| 15 | `galerie-nord` | Heiligengalerie links von Engelbild.jpg | unten an der Chortreppe vor dem Engelbild Nord |
+| 16 | `galerie-nord-nah` | Heiligengalerie links nah.jpg | oben an der Treppe, ca. 2,1 m vor der linken Tafelwand |
+| 17 | `galerie-sued` | Heiligengalerie rechts vor Engelbild.jpg | unten an der Chortreppe vor dem Engelbild Süd |
+| 18 | `galerie-sued-nah` | Heiligengalerie rechts nah.jpg | oben an der Treppe, ca. 2,1 m vor der Marienfigur |
+
+- **Vor der Kirche** hat `"ebene": "vor der Kirche"` (wie die Empore): keine Bodenlinien, Pfeile mit
+  festem `yaw`/`pitch` („Hinein in die Kirche“ auf das Portal, am Taufstein „Hinaus vor die Kirche“
+  auf die Tür bei 158°). Im Grundriss steht der Punkt mit `karte` am Rand des Ausschnitts; der
+  Hinweis unter dem Grundriss („0 = vor der Kirche · 14 = Empore“) entsteht automatisch aus `ebene`.
+- **Knöpfe auf dem Portal** (Frank 24.11.): `portalKnoepfe` bei „Vor der Kirche“ – links „Rundgang starten“ (rot),
+  rechts „Direkt zur Heiligengalerie“ (gold), je vor einem Flügel des Hauptportals (`yaw` ∓17, `pitch` −12;
+  `kurz` = kürzere Beschriftung fürs Handy). Sie lösen dieselben Knöpfe aus wie über dem Bild (`aktion`:
+  `fuehrung` bzw. `galerie`) und sind während der Führung ausgeblendet. Eingefärbte Türflächen wurden
+  ausprobiert und wieder verworfen (Frank: „zu viel des Guten“).
+- **`kamerahoehe` je Station** (neu): Das Stativ stand diesmal niedriger als im Oktober. Augenhöhe =
+  `boden` + `kamerahoehe` (fehlt das Feld, gilt `kamerahoeheMeter` = 1,85). Nahe Stationen: Boden
+  1,5 (Podest der Tafelwände) + 1,53 m; Stationen am Engelbild: Boden 0 + 1,95 m. Ohne das Feld
+  säßen die Tafeln zu hoch oder zu tief.
+- **Eingemessen** über die Tafelwände selbst (deshalb keine `korrektur` nötig): Kanten der glatten
+  Wand (Übergang zu Rippe bzw. Chorbogen), bei den nahen Stationen zusätzlich die Wandunterkante
+  (ergibt Abstand, Drehung und Kamerahöhe), bei den Engelbild-Stationen beide Wände und die
+  Marienfigur (Abweichung unter 1°). Prüfweg: Wandumriss und Tafeln ins Original-Panorama
+  zeichnen und vergleichen.
+- **Knopf „Direkt zur Heiligengalerie“** (oben und auf dem Portal) führt seit 24.11. zu Station 16
+  (`gedenktafeln.direkt`).
+- **Tafelspalten Nordwand enger** (24.11.): `entlang` 0,7 / 1,53 / 2,37 / 3,2 statt 0,7 / 1,65 / 2,6 / 3,55 – aus der
+  Nähe (Station 16) sah man, dass die glatte Wand nach oben durch den Bogen der Rippe schmaler wird; die
+  äußere Spalte ragte sonst in den Bogen.
+- **Verdecker:** an 15 Osterkerze und Lesepult, an 18 die Marienfigur (steht vor Tafel 10).
+- **Infopunkte:** Osterkerze, Engelbilder und Marienfigur an den neuen Stationen mit gemessener
+  Lage (`ansichten`), weil die gespeicherten Positionen aus der Nähe nicht genau genug sind.
+- **Laufweg** jetzt: 0 → 1 … 6 → 15 → 16 → 7 → 8 → 7 → 18 → 17 → 11 → 5 → 9 → 10 → 3 → 12 → 13 → 14.
+
 ## Lage der Stationen (Stand 30.10.2026)
 
 Die Lage der Stationen im Grundriss ist entscheidend: Aus ihr werden Wegpunkte, Bodenlinien und
@@ -233,14 +275,14 @@ der Maus, auf Handy und Tablet beim ersten Antippen. Erst der zweite Tipp öffne
 - [ ] Ziehen mit der Maus dreht, Mausrad und +/− zoomen
 - [ ] Wegpunkte führen zur richtigen Station, der Wechsel wirkt wie ein paar Schritte
 - [ ] Bodenlinien liegen auf dem Boden und enden am Wegpunkt; beim Drüberfahren leuchtet die Linie auf
-- [ ] „Vorherige / Nächste Station“ unten im Bild folgen dem Laufweg 1–8–6–9–10–3–11–14, an Anfang bzw. Ende ausgegraut; Führung geht 1–14
+- [ ] „Vorherige / Nächste Station“ unten im Bild folgen dem Laufweg (0 vor der Kirche … 14, siehe Abschnitt Heiligengalerie-Stationen), an Anfang bzw. Ende ausgegraut; Führung beginnt vor der Kirche
 - [ ] Heiligengalerie: Tafeln sitzen von allen Stationen auf den glatten Chorwänden, Pult/Kerze/Vorhang stehen davor, Antippen öffnet die Geschichte; „Direkt zur Heiligengalerie“ springt zu Station 6
 - [ ] Hinweis „ins Bild tippen und ziehen“ erscheint beim Öffnen und verschwindet beim ersten Ziehen
 - [ ] Unter dem Bild wechselt „Hier stehen Sie“ mit jeder Station; in der Führung steht stattdessen die Führungskarte
 - [ ] Empore: Infopunkte sitzen an ihren Objekten und öffnen sich
 - [ ] Grundriss steht unten links (Handy: öffnet sich per Knopf), Klick auf eine Station springt dorthin, Blickkegel dreht mit
 - [ ] Tafeln: beim Drüberfahren erscheint der Titel, Tab springt von Tafel zu Tafel und dreht den Blick dorthin
-- [ ] „Rundgang starten“: Weiter/Zurück, Station 1 bis 14, „Rundgang beenden“
+- [ ] „Rundgang starten“: Weiter/Zurück, von „Vor der Kirche“ bis Station 14, „Rundgang beenden“
 - [ ] Infopunkt, Geschichte (Video spielt) und Schatzkammer öffnen und mit × oder Esc schließen
 - [ ] Vollbild ein und aus
 - [ ] Nur Tastatur: Tab erreicht Wegpunkte und Punkte, Enter öffnet, Pfeiltasten drehen

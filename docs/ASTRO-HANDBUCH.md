@@ -625,7 +625,8 @@ www.bonifatius-ffm.de/<pfad>      301  (All-inkl, Domain-Weiterleitung, reicht d
 
 ### Werkzeug 1: Push-Sperre `.githooks/pre-push`
 Läuft bei jedem `git push` auf `main` automatisch und bricht ab, wenn
-- eine **neue oder geänderte Datei unter `public/` größer als 1 MB** ist, oder
+- eine **neue oder geänderte Datei unter `public/` größer als 1 MB** ist (Ausnahme seit 2026-11-24, Franks
+  Freigabe: Geschichten-Videos `public/uploads/jubilaeum/geschichten/*.mp4` bis 8 MB), oder
 - **`npm run build` fehlschlägt** (Log: `/tmp/bonastro-prepush-build.log`, Dauer ca. 30 s).
 
 Aktiviert über `git config core.hooksPath .githooks` — das setzt `npm install` per
