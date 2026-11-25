@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "[PLATZHALTER: Pass Type ID, z.B. pass.de.sanktbonifatius.hallobaby]",
+  "teamIdentifier": "[PLATZHALTER: Apple Team ID]",
+  "serialNumber": "hallobaby-bonfriday-2027",
+  "organizationName": "Pfarrei St. Bonifatius Frankfurt",
+  "description": "Hallo Baby! – BonFriday-Gutschein",
+  "logoText": "Hallo Baby!",
+  "backgroundColor": "rgb(183,28,44)",
+  "foregroundColor": "rgb(255,255,255)",
+  "labelColor": "rgb(255,211,211)",
+  "coupon": {
+    "primaryFields": [
+      {
+        "key": "angebot",
+        "label": "Gutschein",
+        "value": "Brezel & Getränk"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "fuer",
+        "label": "Für",
+        "value": "Für jedes Familienmitglied"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "wo",
+        "label": "Wann & wo",
+        "value": "[BONFRIDAY-TERMINE UND ORT EINTRAGEN]"
+      },
+      {
+        "key": "gueltig",
+        "label": "Gültig",
+        "value": "[GÜLTIGKEIT KLÄREN]"
+      }
+    ],
+    "backFields": [
+      {
+        "key": "info",
+        "label": "So geht's",
+        "value": "Eine Brezel und ein Getränk für jedes Familienmitglied beim BonFriday. Kommen Sie vorbei und lernen Sie andere Familien kennen."
+      },
+      {
+        "key": "regel",
+        "label": "Hinweis",
+        "value": "Einmal pro Familie. Kein Ausdruck nötig."
+      },
+      {
+        "key": "mehr",
+        "label": "Mehr erfahren",
+        "value": "https://sanktbonifatius.de/bonfamily/"
+      },
+      {
+        "key": "kontakt",
+        "label": "Fragen?",
+        "value": "Frank Hoffmann, 069 695 97 58 53, f.hoffmann@sanktbonifatius.de"
+      }
+    ]
+  }
+}

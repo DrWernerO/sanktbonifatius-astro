@@ -1,0 +1,59 @@
+{
+  "id": "[ISSUER_ID].hallobaby-buch",
+  "classId": "[ISSUER_ID].hallobaby",
+  "state": "ACTIVE",
+  "hexBackgroundColor": "#0E6E8C",
+  "cardTitle": {
+    "defaultValue": {
+      "language": "de",
+      "value": "Hallo Baby!"
+    }
+  },
+  "header": {
+    "defaultValue": {
+      "language": "de",
+      "value": "Ein Buch für Ihr Kind"
+    }
+  },
+  "subheader": {
+    "defaultValue": {
+      "language": "de",
+      "value": "Bücherei-Gutschein"
+    }
+  },
+  "textModulesData": [
+    {
+      "id": "fuer",
+      "header": "Für",
+      "body": "In einer unserer Büchereien"
+    },
+    {
+      "id": "wo",
+      "header": "Wann & wo",
+      "body": "[BÜCHEREIEN UND ÖFFNUNGSZEITEN]"
+    },
+    {
+      "id": "gueltig",
+      "header": "Gültig",
+      "body": "[GÜLTIGKEIT KLÄREN]"
+    },
+    {
+      "id": "info",
+      "header": "So geht's",
+      "body": "Suchen Sie sich in einer unserer Büchereien ein Buch für Ihr Kind aus. Es gehört Ihnen. Zeigen Sie diesen Gutschein einfach vor Ort vor."
+    }
+  ],
+  "linksModuleData": {
+    "uris": [
+      {
+        "uri": "https://sanktbonifatius.de/kultur-begegnung/buechereien/",
+        "description": "Mehr erfahren"
+      }
+    ]
+  },
+  "logo": {
+    "sourceUri": {
+      "uri": "[URL ZUM BONIFATIUS-LOGO, öffentlich erreichbar]"
+    }
+  }
+}

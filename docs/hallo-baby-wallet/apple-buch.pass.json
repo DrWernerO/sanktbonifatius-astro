@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "[PLATZHALTER: Pass Type ID, z.B. pass.de.sanktbonifatius.hallobaby]",
+  "teamIdentifier": "[PLATZHALTER: Apple Team ID]",
+  "serialNumber": "hallobaby-buch-2027",
+  "organizationName": "Pfarrei St. Bonifatius Frankfurt",
+  "description": "Hallo Baby! – Bücherei-Gutschein",
+  "logoText": "Hallo Baby!",
+  "backgroundColor": "rgb(14,110,140)",
+  "foregroundColor": "rgb(255,255,255)",
+  "labelColor": "rgb(255,211,211)",
+  "coupon": {
+    "primaryFields": [
+      {
+        "key": "angebot",
+        "label": "Gutschein",
+        "value": "Ein Buch für Ihr Kind"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "fuer",
+        "label": "Für",
+        "value": "In einer unserer Büchereien"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "wo",
+        "label": "Wann & wo",
+        "value": "[BÜCHEREIEN UND ÖFFNUNGSZEITEN]"
+      },
+      {
+        "key": "gueltig",
+        "label": "Gültig",
+        "value": "[GÜLTIGKEIT KLÄREN]"
+      }
+    ],
+    "backFields": [
+      {
+        "key": "info",
+        "label": "So geht's",
+        "value": "Suchen Sie sich in einer unserer Büchereien ein Buch für Ihr Kind aus. Es gehört Ihnen. Zeigen Sie diesen Gutschein einfach vor Ort vor."
+      },
+      {
+        "key": "regel",
+        "label": "Hinweis",
+        "value": "Einmal pro Familie. Kein Ausdruck nötig."
+      },
+      {
+        "key": "mehr",
+        "label": "Mehr erfahren",
+        "value": "https://sanktbonifatius.de/kultur-begegnung/buechereien/"
+      },
+      {
+        "key": "kontakt",
+        "label": "Fragen?",
+        "value": "Frank Hoffmann, 069 695 97 58 53, f.hoffmann@sanktbonifatius.de"
+      }
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "id": "[ISSUER_ID].hallobaby-kaffee",
+  "classId": "[ISSUER_ID].hallobaby",
+  "state": "ACTIVE",
+  "hexBackgroundColor": "#4A2C5E",
+  "cardTitle": {
+    "defaultValue": {
+      "language": "de",
+      "value": "Hallo Baby!"
+    }
+  },
+  "header": {
+    "defaultValue": {
+      "language": "de",
+      "value": "Ein Kaffee"
+    }
+  },
+  "subheader": {
+    "defaultValue": {
+      "language": "de",
+      "value": "Kirchcafé-Gutschein"
+    }
+  },
+  "textModulesData": [
+    {
+      "id": "fuer",
+      "header": "Für",
+      "body": "Im Kirchcafé"
+    },
+    {
+      "id": "wo",
+      "header": "Wann & wo",
+      "body": "Nach dem Familiengottesdienst, [TERMINE/RHYTHMUS KLÄREN]"
+    },
+    {
+      "id": "gueltig",
+      "header": "Gültig",
+      "body": "[GÜLTIGKEIT KLÄREN]"
+    },
+    {
+      "id": "info",
+      "header": "So geht's",
+      "body": "Nach dem Familiengottesdienst geht der Kaffee auf uns. Zeigen Sie diesen Gutschein einfach im Kirchcafé vor."
+    }
+  ],
+  "linksModuleData": {
+    "uris": [
+      {
+        "uri": "https://sanktbonifatius.de/bonfamily/familiengottesdienste/",
+        "description": "Mehr erfahren"
+      }
+    ]
+  },
+  "logo": {
+    "sourceUri": {
+      "uri": "[URL ZUM BONIFATIUS-LOGO, öffentlich erreichbar]"
+    }
+  }
+}

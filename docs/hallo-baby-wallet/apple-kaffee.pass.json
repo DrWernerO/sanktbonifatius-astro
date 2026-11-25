@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "[PLATZHALTER: Pass Type ID, z.B. pass.de.sanktbonifatius.hallobaby]",
+  "teamIdentifier": "[PLATZHALTER: Apple Team ID]",
+  "serialNumber": "hallobaby-kaffee-2027",
+  "organizationName": "Pfarrei St. Bonifatius Frankfurt",
+  "description": "Hallo Baby! – Kirchcafé-Gutschein",
+  "logoText": "Hallo Baby!",
+  "backgroundColor": "rgb(74,44,94)",
+  "foregroundColor": "rgb(255,255,255)",
+  "labelColor": "rgb(255,211,211)",
+  "coupon": {
+    "primaryFields": [
+      {
+        "key": "angebot",
+        "label": "Gutschein",
+        "value": "Ein Kaffee"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "fuer",
+        "label": "Für",
+        "value": "Im Kirchcafé"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "wo",
+        "label": "Wann & wo",
+        "value": "Nach dem Familiengottesdienst, [TERMINE/RHYTHMUS KLÄREN]"
+      },
+      {
+        "key": "gueltig",
+        "label": "Gültig",
+        "value": "[GÜLTIGKEIT KLÄREN]"
+      }
+    ],
+    "backFields": [
+      {
+        "key": "info",
+        "label": "So geht's",
+        "value": "Nach dem Familiengottesdienst geht der Kaffee auf uns. Zeigen Sie diesen Gutschein einfach im Kirchcafé vor."
+      },
+      {
+        "key": "regel",
+        "label": "Hinweis",
+        "value": "Einmal pro Familie. Kein Ausdruck nötig."
+      },
+      {
+        "key": "mehr",
+        "label": "Mehr erfahren",
+        "value": "https://sanktbonifatius.de/bonfamily/familiengottesdienste/"
+      },
+      {
+        "key": "kontakt",
+        "label": "Fragen?",
+        "value": "Frank Hoffmann, 069 695 97 58 53, f.hoffmann@sanktbonifatius.de"
+      }
+    ]
+  }
+}

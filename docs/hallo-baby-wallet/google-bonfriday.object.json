@@ -1,0 +1,59 @@
+{
+  "id": "[ISSUER_ID].hallobaby-bonfriday",
+  "classId": "[ISSUER_ID].hallobaby",
+  "state": "ACTIVE",
+  "hexBackgroundColor": "#B71C2C",
+  "cardTitle": {
+    "defaultValue": {
+      "language": "de",
+      "value": "Hallo Baby!"
+    }
+  },
+  "header": {
+    "defaultValue": {
+      "language": "de",
+      "value": "Brezel & Getränk"
+    }
+  },
+  "subheader": {
+    "defaultValue": {
+      "language": "de",
+      "value": "BonFriday-Gutschein"
+    }
+  },
+  "textModulesData": [
+    {
+      "id": "fuer",
+      "header": "Für",
+      "body": "Für jedes Familienmitglied"
+    },
+    {
+      "id": "wo",
+      "header": "Wann & wo",
+      "body": "[BONFRIDAY-TERMINE UND ORT EINTRAGEN]"
+    },
+    {
+      "id": "gueltig",
+      "header": "Gültig",
+      "body": "[GÜLTIGKEIT KLÄREN]"
+    },
+    {
+      "id": "info",
+      "header": "So geht's",
+      "body": "Eine Brezel und ein Getränk für jedes Familienmitglied beim BonFriday. Kommen Sie vorbei und lernen Sie andere Familien kennen."
+    }
+  ],
+  "linksModuleData": {
+    "uris": [
+      {
+        "uri": "https://sanktbonifatius.de/bonfamily/",
+        "description": "Mehr erfahren"
+      }
+    ]
+  },
+  "logo": {
+    "sourceUri": {
+      "uri": "[URL ZUM BONIFATIUS-LOGO, öffentlich erreichbar]"
+    }
+  }
+}
