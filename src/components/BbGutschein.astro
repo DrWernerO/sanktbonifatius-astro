@@ -1,25 +1,89 @@
 ---
-// Gutscheinheft-Block der Landingpage „Baby" (/baby/). Eigene Klassen `astro-bbgs`.
-// ⚠️ Zum Gutscheinheft gibt es auf der Website NICHTS (Stand 2026-10-05): Inhalt des Hefts, Einlöse-
-// Weg, Gültigkeit und Ansprechperson sind als sichtbare Platzhalter [..] gesetzt und müssen vom
-// Team geliefert werden. Nichts erfinden — Platzhalter erst ersetzen, wenn Angaben vorliegen.
+// Digitales Gutscheinheft der Landingpage „Baby" (/baby/). Eigene Klassen `astro-bbgs`.
+// Die drei Gutscheine gibt es NUR hier digital (im gedruckten Heft „Hallo Baby!" bewusst gestrichen).
+// Festgelegt von Frank am 25.11.2026: Buch (ein bestimmtes Kinderbuch als Geschenk, Titel noch offen —
+// NICHT „aussuchen“ schreiben; abholbar in allen drei Büchereien), Brezel + Getränk für jedes
+// Familienmitglied beim BonFriday, Kaffee im Kirchcafé; Gültigkeit ein Jahr, jeder einmal pro Familie.
+// Briefing: docs/2026-11-Hallo-Baby-Website-Briefing.md. Farben = Wallet-Vorlagen (docs/hallo-baby-wallet/).
+// Einlösen: Karte auf dem Handy vorzeigen. Apple-/Google-Wallet-Buttons kommen später in
+// `.astro-bbgs__wallet` je Karte, sobald die Pässe signiert sind (Phase 2).
+// BonFriday-Link: clientseitig auf den nächsten Termin mit Titel „BonFriday…“ umgebogen
+// (src/lib/naechster-termin.ts); ohne Termin bleibt der Terminkalender als Ziel.
+// Gleiche Kopfhöhe: Karten nutzen `grid-template-rows: subgrid`; Einschnitte per CSS-Maske (echt
+// transparent), Schatten per `filter: drop-shadow` auf der Karte, damit er der Ausschnittform folgt.
+const GUELTIG = 'Ein Jahr lang gültig, einmal pro Familie';
+
+const gutscheine = [
+  {
+    key: 'buch',
+    farbe: '#0E6E8C',
+    titel: 'Ein Buch für Ihr Kind',
+    text: 'Wir schenken Ihrem Kind ein Kinderbuch. Holen Sie es einfach in einer unserer Büchereien ab.',
+    wo: 'In allen unseren Büchereien: St. Bonifatius und St. Wendel in Sachsenhausen, Herz Jesu in Oberrad',
+    link: { href: '/kultur-begegnung/buechereien/', label: 'Adressen und Öffnungszeiten' },
+    icon: '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>',
+  },
+  {
+    key: 'bonfriday',
+    farbe: '#B71C2C',
+    titel: 'Brezel und Getränk',
+    text: 'Für jedes Familienmitglied eine Brezel und ein Getränk beim BonFriday. Kommen Sie vorbei und lernen Sie andere Familien kennen.',
+    wo: 'Beim BonFriday im Pfarrgarten St. Bonifatius',
+    link: { href: '/terminkalender/', label: 'Nächste Termine im Kalender', naechsterBonFriday: true },
+    icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+  },
+  {
+    key: 'kaffee',
+    farbe: '#4A2C5E',
+    titel: 'Ein Kaffee',
+    text: 'Nach dem Gottesdienst geht der Kaffee auf uns, zum Beispiel nach einem Familiengottesdienst.',
+    wo: 'Im Kirchcafé nach dem Sonntagsgottesdienst',
+    link: { href: '/bonfamily/familiengottesdienste/', label: 'Zu den Familiengottesdiensten' },
+    icon: '<path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/>',
+  },
+];
+
 const schritte = [
-  { n: '1', t: 'Gutschein aussuchen', d: '[Kurz beschreiben, welche Gutscheine im Heft sind – vom Team einzutragen]' },
-  { n: '2', t: 'Einlösen', d: '[Wo und wie werden die Gutscheine eingelöst? – vom Team einzutragen]' },
-  { n: '3', t: 'Genießen', d: '[Gültigkeit / Hinweise zum Heft – vom Team einzutragen]' },
+  { n: '1', t: 'Aussuchen', d: 'Drei kleine Willkommensgeschenke warten auf Sie. Fangen Sie an, womit Sie möchten.' },
+  { n: '2', t: 'Vorzeigen', d: 'Zeigen Sie diese Seite vor Ort auf Ihrem Handy oder sagen Sie kurz, dass Sie über „Hallo Baby!“ kommen. Ein Ausdruck ist nicht nötig.' },
+  { n: '3', t: 'Genießen', d: 'Die Gutscheine gelten ein Jahr lang, jeder einmal pro Familie. Lassen Sie sich Zeit, wir freuen uns auf Sie!' },
 ];
 ---
-<section class="astro-bbgs" id="gutschein">
+<section class="astro-bbgs" id="gutschein" aria-labelledby="astro-bbgs-hl">
   <div class="astro-bbgs__inner">
-    <h2 class="astro-bbgs__hl">So lösen Sie Ihre Gutscheine ein</h2>
-    <p class="astro-bbgs__lead">Das Gutscheinheft ist unser kleines Willkommensgeschenk für Sie und Ihr Baby. Und so einfach geht es:</p>
-    <ol class="astro-bbgs__steps" role="list">
+    <p class="astro-bbgs__eyebrow">Hallo Baby!</p>
+    <h2 class="astro-bbgs__hl" id="astro-bbgs-hl">Ihr digitales Gutscheinheft</h2>
+    <p class="astro-bbgs__lead">Drei kleine Willkommensgeschenke für Sie und Ihr Baby. Einfach diese Seite vor Ort auf dem Handy zeigen.</p>
+
+    <ul class="astro-bbgs__cards" role="list">
+      {gutscheine.map((g) => (
+        <li class="astro-bbgs__card" id={`gutschein-${g.key}`} style={`--bbgs-farbe:${g.farbe}`}>
+          <div class="astro-bbgs__top">
+            <div class="astro-bbgs__kopf">
+              <p class="astro-bbgs__label">Gutschein</p>
+              <svg class="astro-bbgs__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={g.icon} />
+            </div>
+            <h3 class="astro-bbgs__titel">{g.titel}</h3>
+          </div>
+          <div class="astro-bbgs__body">
+            <p class="astro-bbgs__text">{g.text}</p>
+            <dl class="astro-bbgs__facts">
+              <div><dt>Wo</dt><dd>{g.wo}</dd></div>
+              <div><dt>Gültig</dt><dd>{GUELTIG}</dd></div>
+            </dl>
+            <a class="astro-bbgs__link" href={g.link.href} {...(g.link.naechsterBonFriday ? { 'data-bonfriday-link': '' } : {})}>{g.link.label}</a>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <ol class="astro-bbgs__steps" role="list" aria-label="So lösen Sie Ihre Gutscheine ein">
       {schritte.map((s) => (
         <li class="astro-bbgs__step">
           <span class="astro-bbgs__num" aria-hidden="true">{s.n}</span>
           <div>
             <h3 class="astro-bbgs__t">{s.t}</h3>
-            <p class="astro-bbgs__d"><mark class="astro-bb-ph">{s.d}</mark></p>
+            <p class="astro-bbgs__d">{s.d}</p>
           </div>
         </li>
       ))}
@@ -27,17 +91,54 @@ const schritte = [
   </div>
 </section>
 
+<script>
+  import { naechsterTerminPfad } from '../lib/naechster-termin';
+  const a = document.querySelector<HTMLAnchorElement>('a[data-bonfriday-link]');
+  if (a) naechsterTerminPfad(/^\s*bon[\s-]*friday/i).then((pfad) => {
+    if (pfad) { a.href = pfad; a.textContent = 'Zum nächsten BonFriday'; }
+  });
+</script>
+
 <style is:global>
-.astro-bbgs{background:#fff;padding:72px 0;scroll-margin-top:80px}
-.astro-bbgs__inner{max-width:900px;margin:0 auto;padding:0 40px}
-.astro-bbgs__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.4vw,40px);font-weight:700;color:#9a2d2d;margin:0 0 14px;line-height:1.15}
-.astro-bbgs__lead{font-size:clamp(17px,1.9vw,19px);line-height:1.65;color:#2c2420;margin:0 0 30px}
-.astro-bbgs__steps{list-style:none;display:flex;flex-direction:column;gap:16px;padding:0;margin:0}
-.astro-bbgs__step{display:flex;gap:18px;align-items:flex-start;background:#f7f3ef;border-radius:14px;padding:20px 22px}
-.astro-bbgs__num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#9a2d2d;color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.astro-bbgs__t{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:700;color:#2c2420;margin:0 0 4px}
-.astro-bbgs__d{font-size:16px;line-height:1.55;color:#4a3f37;margin:0}
-/* Gut sichtbarer Platzhalter — wird vor Go-Live durch echte Angaben ersetzt */
-.astro-bb-ph{background:#fff3b0;color:#3d2f00;padding:1px 6px;border-radius:4px;font-weight:600}
-@media(max-width:600px){.astro-bbgs{padding:52px 0}.astro-bbgs__inner{padding:0 20px}.astro-bbgs__step{padding:16px}}
+.astro-bbgs{background:#FBF4EF;padding:72px 0;scroll-margin-top:80px}
+.astro-bbgs__inner{max-width:1120px;margin:0 auto;padding:0 40px}
+.astro-bbgs__eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#B71C2C;font-weight:700;margin:0 0 10px;text-align:center}
+.astro-bbgs__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(30px,3.8vw,44px);font-weight:700;color:#B71C2C;margin:0 0 12px;line-height:1.12;text-align:center;text-wrap:balance}
+.astro-bbgs__lead{font-size:clamp(17px,1.9vw,19px);line-height:1.6;color:#2c2420;margin:0 auto 36px;max-width:620px;text-align:center}
+.astro-bbgs__cards{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:0;margin:0 0 40px}
+/* Karte = 2 Zeilen des Eltern-Grids (subgrid) → alle Köpfe und alle Körper gleich hoch */
+.astro-bbgs__card{display:grid;grid-template-rows:subgrid;grid-row:span 2;row-gap:0;scroll-margin-top:90px;filter:drop-shadow(0 4px 14px rgba(59,42,78,.13))}
+/* Einschnitte: Halbkreise per Maske wirklich ausgestanzt (unten am Kopf, oben am Körper) */
+.astro-bbgs__top,.astro-bbgs__body{--bbgs-r:13px}
+.astro-bbgs__top{position:relative;background:var(--bbgs-farbe);color:#fff;padding:22px 24px 26px;border-radius:18px 18px 0 0;display:flex;flex-direction:column;
+  -webkit-mask:radial-gradient(circle var(--bbgs-r) at 0 100%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle var(--bbgs-r) at 100% 100%,#0000 98%,#000) right/51% 100% no-repeat;
+  mask:radial-gradient(circle var(--bbgs-r) at 0 100%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle var(--bbgs-r) at 100% 100%,#0000 98%,#000) right/51% 100% no-repeat}
+.astro-bbgs__body{position:relative;background:#fff;padding:24px 24px 22px;border-radius:0 0 18px 18px;display:flex;flex-direction:column;
+  -webkit-mask:radial-gradient(circle var(--bbgs-r) at 0 0,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle var(--bbgs-r) at 100% 0,#0000 98%,#000) right/51% 100% no-repeat;
+  mask:radial-gradient(circle var(--bbgs-r) at 0 0,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle var(--bbgs-r) at 100% 0,#0000 98%,#000) right/51% 100% no-repeat}
+/* Abreiß-Linie zwischen den Einschnitten */
+.astro-bbgs__top::after{content:'';position:absolute;left:22px;right:22px;bottom:0;border-bottom:2px dashed rgba(255,255,255,.6)}
+.astro-bbgs__kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 16px}
+.astro-bbgs__label{display:inline-flex;align-items:center;margin:0;padding:6px 14px;border-radius:50px;background:#fff;color:var(--bbgs-farbe);font-size:14px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;line-height:1.2}
+.astro-bbgs__icon{display:block;flex-shrink:0;opacity:.95}
+.astro-bbgs__titel{font-family:'Playfair Display',Georgia,serif;font-size:clamp(25px,2.6vw,30px);font-weight:700;line-height:1.15;margin:0;color:#fff}
+.astro-bbgs__text{font-size:16.5px;line-height:1.55;color:#2c2420;margin:0 0 16px}
+.astro-bbgs__facts{margin:0 0 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.astro-bbgs__facts div{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:baseline}
+.astro-bbgs__facts dt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--bbgs-farbe)}
+.astro-bbgs__facts dd{margin:0;font-size:15.5px;line-height:1.5;color:#3d3530}
+.astro-bbgs__link{display:inline-flex;align-items:center;min-height:44px;font-size:15.5px;font-weight:600;color:var(--bbgs-farbe);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;align-self:flex-start}
+.astro-bbgs__link:hover{text-decoration-thickness:2px}
+.astro-bbgs__link:focus-visible{outline:3px solid var(--bbgs-farbe);outline-offset:2px;border-radius:4px}
+.astro-bbgs__steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0;margin:0}
+.astro-bbgs__step{display:flex;gap:14px;align-items:flex-start}
+.astro-bbgs__num{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:#B71C2C;color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.astro-bbgs__t{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:#2c2420;margin:4px 0 4px}
+.astro-bbgs__d{font-size:15.5px;line-height:1.55;color:#4a3f37;margin:0}
+@media(max-width:900px){
+  .astro-bbgs__cards{grid-template-columns:1fr;max-width:520px;margin-left:auto;margin-right:auto}
+  .astro-bbgs__card{grid-template-rows:auto 1fr}
+  .astro-bbgs__steps{grid-template-columns:1fr;max-width:520px;margin:0 auto}
+}
+@media(max-width:600px){.astro-bbgs{padding:52px 0}.astro-bbgs__inner{padding:0 20px}}
 </style>

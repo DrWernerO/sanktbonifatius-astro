@@ -1,0 +1,71 @@
+---
+// Ansprechpersonen der Landingpage „Baby" (/baby/): Frank Hoffmann und Dorothea Schneider, wie im
+// Heft „Hallo Baby!" mit „Wir freuen uns auf Sie!". Eigene Klassen `astro-bbteam`.
+// Kartengestaltung wie BfKontakt.astro (BonFamily-Seite, Wunsch Frank 25.11.2026): weiße Karte,
+// rundes Foto links mit rotem Ring, Name, Rolle kursiv, E-Mail + Telefon mit Symbol. Abweichungen:
+// cremefarbenes statt dunkles Band (darüber liegt schon das dunkle Kanäle-Band), Sie-Form,
+// Heft-Rot, Linkschrift 14,5 px statt 13 px (Checkliste: mobil ≥ 15 px Fließtext, Links gut tippbar).
+// Fotos: verkleinerte Kopien (400 px) von uploads/2025/06/DSC00850.jpg bzw. DSC00891.jpg.
+// Kontaktdaten wie Pastoralteam-Liste — bei Änderungen dort auch hier nachziehen.
+const personen = [
+  {
+    name: 'Frank Hoffmann', rolle: 'Referent für Familien',
+    img: '/uploads/2026/11/baby-team-frank.jpg',
+    alt: 'Frank Hoffmann, lächelnd, mit Brille und blauem Hemd',
+    tel: '069 695 97 58 53', telHref: 'tel:+4969695975853', mail: 'f.hoffmann@sanktbonifatius.de',
+  },
+  {
+    name: 'Dorothea Schneider', rolle: 'Pastoralreferentin',
+    img: '/uploads/2026/11/baby-team-dorothea.jpg',
+    alt: 'Dorothea Schneider, lachend, mit Brille und geblümtem Shirt',
+    tel: '069 695 97 58 50', telHref: 'tel:+4969695975850', mail: 'd.schneider@sanktbonifatius.de',
+  },
+];
+---
+<section class="astro-bbteam" aria-labelledby="astro-bbteam-hl">
+  <div class="astro-bbteam__inner">
+    <div class="astro-bbteam__head">
+      <h2 class="astro-bbteam__hl" id="astro-bbteam-hl">Wir freuen uns auf Sie!</h2>
+      <p class="astro-bbteam__lead">Bei Fragen zu den Lounges, zu BonFamily oder zu Ihren Gutscheinen sind wir gern für Sie da.</p>
+    </div>
+    <ul class="astro-bbteam__grid" role="list">
+      {personen.map((p) => (
+        <li class="astro-bbteam__card">
+          <img class="astro-bbteam__foto" src={p.img} alt={p.alt} width="400" height="400" loading="lazy" />
+          <div class="astro-bbteam__info">
+            <h3 class="astro-bbteam__name">{p.name}</h3>
+            <p class="astro-bbteam__rolle">{p.rolle}</p>
+            <a class="astro-bbteam__link" href={`mailto:${p.mail}`}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              {p.mail}
+            </a>
+            <a class="astro-bbteam__link" href={p.telHref}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              {p.tel}
+            </a>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-bbteam{background:#FBF4EF;padding:72px 0}
+.astro-bbteam__inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.astro-bbteam__head{text-align:center;margin-bottom:40px}
+.astro-bbteam__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.5vw,40px);font-weight:700;color:#B71C2C;margin:0 0 14px;line-height:1.15}
+.astro-bbteam__lead{font-size:17px;line-height:1.7;color:#4a3f37;margin:0 auto;max-width:600px}
+.astro-bbteam__grid{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:800px;margin:0 auto;padding:0}
+.astro-bbteam__card{background:#fff;border-radius:16px;padding:32px 30px;display:flex;align-items:flex-start;gap:22px;box-shadow:0 6px 24px rgba(59,42,78,.12)}
+.astro-bbteam__foto{width:80px;height:80px;border-radius:50%;object-fit:cover;flex-shrink:0;border:3px solid #B71C2C;display:block}
+.astro-bbteam__info{display:flex;flex-direction:column;gap:4px;min-width:0}
+.astro-bbteam__name{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#2c2420;margin:0}
+.astro-bbteam__rolle{font-size:15px;color:#6b5d52;font-style:italic;margin:0 0 4px}
+.astro-bbteam__link{display:flex;align-items:center;gap:8px;min-height:40px;font-size:14.5px;color:#5a4a3a;text-decoration:none;overflow-wrap:anywhere;transition:color .15s}
+.astro-bbteam__link:hover{color:#B71C2C}
+.astro-bbteam__link:focus-visible{outline:3px solid #B71C2C;outline-offset:2px;border-radius:4px}
+.astro-bbteam__link svg{flex-shrink:0;color:#B71C2C}
+@media(max-width:760px){.astro-bbteam__grid{grid-template-columns:1fr}.astro-bbteam__card{flex-direction:column;align-items:center;text-align:center}.astro-bbteam__link{justify-content:center}}
+@media(max-width:600px){.astro-bbteam{padding:52px 0}.astro-bbteam__inner{padding:0 20px}}
+</style>

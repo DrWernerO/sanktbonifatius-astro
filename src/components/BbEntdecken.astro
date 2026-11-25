@@ -1,0 +1,61 @@
+---
+// „Mehr entdecken"-Kacheln der Landingpage „Baby" (/baby/). Eigene Klassen `astro-bbent`.
+// Nur kurz anteasern und verlinken — die ausführlichen Texte stehen im Heft „Hallo Baby!" und auf
+// den Unterseiten (Briefing 2026-11, Abschnitt 1). Themenfarben wie im Heft.
+// Gottesdienste: bewusst KEIN Sonntags-Rhythmus nennen (Frank, 04.11.2026).
+// Better Together: Unterseite noch versteckt → BT_LINK (Terminkalender bzw. nächster Termin).
+import { BT_LINK } from '../lib/better-together';
+
+const kacheln = [
+  { titel: 'BonFamily', farbe: '#B71C2C', href: '/bonfamily/',
+    text: 'Unser Familienprogramm für Kinder jeden Alters und ihre Eltern.' },
+  { titel: 'Familien- und Kindergottesdienste', farbe: '#4A2C5E', href: '/bonfamily/familiengottesdienste/',
+    text: 'Fröhlich, bunt und kindgerecht. Ihr Baby ist herzlich willkommen.' },
+  { titel: 'Better Together', farbe: '#4E7A26', href: BT_LINK, bt: true,
+    text: 'Etwa einmal im Monat für Familien mit kleinen Kindern.' },
+  { titel: 'Büchereien', farbe: '#0E6E8C', href: '/kultur-begegnung/buechereien/',
+    text: 'Drei Büchereien in Sachsenhausen und Oberrad, mit vielen Kinderbüchern.' },
+  { titel: 'Kitas', farbe: '#C2185B', href: '/kitas/',
+    text: 'Fünf Kitas in der Pfarrei für Kinder von 0 bis 6 Jahren.' },
+  { titel: 'Taufe und Segnung', farbe: '#1F2A5C', href: '/segen-sakramente/taufe/',
+    text: 'Sprechen Sie uns gern an, ganz unverbindlich und ohne Druck.' },
+];
+---
+<section class="astro-bbent" aria-labelledby="astro-bbent-hl">
+  <div class="astro-bbent__inner">
+    <h2 class="astro-bbent__hl" id="astro-bbent-hl">Mehr entdecken</h2>
+    <ul class="astro-bbent__grid" role="list">
+      {kacheln.map((k) => (
+        <li>
+          <a class="astro-bbent__tile" href={k.href} style={`--bbent-farbe:${k.farbe}`} {...(k.bt ? { 'data-bt-link': '' } : {})}>
+            <span class="astro-bbent__titel">{k.titel}</span>
+            <span class="astro-bbent__text">{k.text}</span>
+            <svg class="astro-bbent__pfeil" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<script>
+  import { naechsterBtTermin, verlinkeBtTermin } from '../lib/better-together';
+  if (document.querySelector('.astro-bbent a[data-bt-link]')) naechsterBtTermin().then(verlinkeBtTermin);
+</script>
+
+<style is:global>
+.astro-bbent{background:#fff;padding:72px 0}
+.astro-bbent__inner{max-width:1100px;margin:0 auto;padding:0 40px}
+.astro-bbent__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.4vw,40px);font-weight:700;color:#B71C2C;margin:0 0 28px;line-height:1.15;text-align:center}
+.astro-bbent__grid{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0;margin:0}
+.astro-bbent__grid li{display:flex}
+.astro-bbent__tile{position:relative;display:flex;flex-direction:column;gap:6px;width:100%;background:#FBF4EF;border-radius:14px;border-top:5px solid var(--bbent-farbe);padding:20px 48px 20px 22px;text-decoration:none;color:#2c2420;box-shadow:0 2px 12px rgba(59,42,78,.07);transition:transform .18s,box-shadow .18s}
+.astro-bbent__tile:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(59,42,78,.12)}
+.astro-bbent__tile:focus-visible{outline:3px solid var(--bbent-farbe);outline-offset:3px}
+.astro-bbent__titel{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;line-height:1.25;color:var(--bbent-farbe)}
+.astro-bbent__text{font-size:15.5px;line-height:1.5;color:#4a3f37}
+.astro-bbent__pfeil{position:absolute;right:18px;top:24px;color:var(--bbent-farbe)}
+@media(prefers-reduced-motion:reduce){.astro-bbent__tile{transition:none}.astro-bbent__tile:hover{transform:none}}
+@media(max-width:900px){.astro-bbent__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.astro-bbent{padding:52px 0}.astro-bbent__inner{padding:0 20px}.astro-bbent__grid{grid-template-columns:1fr;gap:12px}}
+</style>

@@ -5,12 +5,16 @@
 // noindex/nofollow (+ X-Robots-Tag in public/_headers). Kein Eintrag in _redirects/llms.txt/robots.txt.
 // Zählung: QR-Kurzlink /go/baby (jeder Scan, cookiefrei) + GA4 nur mit Cookie-Einwilligung (Base.astro).
 // Nav + Footer global aus Base.astro. Kein WP-Inhalt, kein SEO_STATIC-Eintrag nötig.
-// ⚠️ Offene Platzhalter [..] (Gutscheinheft) siehe BbGutschein.astro.
+// Aufbau seit 25.11.2026 nach docs/2026-11-Hallo-Baby-Website-Briefing.md (Neuauflage Heft „Hallo Baby!"):
+// Gutscheinheft als Hauptsache direkt unter dem Hero; Angebote nur kurz anteasern; Farben wie im Heft.
+// Hero vorerst unverändert (Nutzungsrechte am Heft-Coverfoto noch offen).
 import Base from '../layouts/Base.astro';
 import BbHero from '../components/BbHero.astro';
 import BbGutschein from '../components/BbGutschein.astro';
 import BbBonfamily from '../components/BbBonfamily.astro';
-import BbTaufe from '../components/BbTaufe.astro';
+import BbEntdecken from '../components/BbEntdecken.astro';
+import BbTeam from '../components/BbTeam.astro';
+import BbKanaele from '../components/BbKanaele.astro';
 import BbFeedback from '../components/BbFeedback.astro';
 import WkKontakt from '../components/WkKontakt.astro';
 import EventCalendar from '../components/EventCalendar.astro';
@@ -26,7 +30,9 @@ import EventCalendar from '../components/EventCalendar.astro';
   <div id="termine" class="astro-bb-termine">
     <EventCalendar heading="Nächste Termine für Familien" moreHref="/terminkalender/" category={2586} categoryLabel="BonFamily" />
   </div>
-  <BbTaufe />
+  <BbEntdecken />
+  <BbKanaele />
+  <BbTeam />
   <BbFeedback />
   <WkKontakt />
 </Base>
@@ -35,5 +41,5 @@ import EventCalendar from '../components/EventCalendar.astro';
 .astro-bb-termine{scroll-margin-top:96px}
 .astro-bb-termine .astro-ev__hl,
 .astro-bb-termine .astro-ev-card__title,
-.astro-bb-termine .astro-ev-list__hl { color: #9a2d2d; }
+.astro-bb-termine .astro-ev-list__hl { color: #B71C2C; }
 </style>

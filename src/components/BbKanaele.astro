@@ -1,0 +1,53 @@
+---
+// „Bleiben Sie in Verbindung" der Landingpage „Baby" (/baby/). Eigene Klassen `astro-bbkan`.
+// Reihenfolge wie im Heft „Hallo Baby!": WhatsApp BonFamily, WhatsApp Pfarrei, Instagram. Homepage bewusst
+// weggelassen (man ist ja schon auf der Website — Frank, 25.11.2026). Steht über den Ansprechpersonen.
+// Facebook/YouTube bewusst nicht (Briefing 2026-11). Als Buttons, nicht als QR (Seite läuft auf dem Handy).
+// Kanal-Adressen wie WaCta.astro (BonFamily) bzw. PwaJoin.astro (Pfarrei) — bei Änderungen dort nachziehen.
+const kanaele = [
+  { label: 'WhatsApp-Kanal BonFamily', sub: 'Alles für Familien', href: 'https://whatsapp.com/channel/0029VbC6BfmJ3juxrDFhJy16', ext: true,
+    icon: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>' },
+  { label: 'WhatsApp-Kanal der Pfarrei', sub: 'Termine und Neuigkeiten', href: 'https://whatsapp.com/channel/0029VbB7E1CLikgAZ8cyHk1a', ext: true,
+    icon: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>' },
+  { label: 'Instagram', sub: '@bonifatiusffm', href: 'https://www.instagram.com/bonifatiusffm/', ext: true,
+    icon: '<rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>' },
+];
+---
+<section class="astro-bbkan" aria-labelledby="astro-bbkan-hl">
+  <div class="astro-bbkan__inner">
+    <h2 class="astro-bbkan__hl" id="astro-bbkan-hl">Bleiben Sie in Verbindung</h2>
+    <p class="astro-bbkan__lead">Kostenlos und unverbindlich: So erfahren Sie, was bei uns los ist.</p>
+    <ul class="astro-bbkan__list" role="list">
+      {kanaele.map((k) => (
+        <li>
+          <a class="astro-bbkan__btn" href={k.href} {...(k.ext ? { target: '_blank', rel: 'noopener' } : {})}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={k.icon} />
+            <span class="astro-bbkan__txt">
+              <span class="astro-bbkan__label">{k.label}</span>
+              <span class="astro-bbkan__sub">{k.sub}</span>
+            </span>
+            {k.ext && <span class="astro-bbkan__sr">(öffnet neues Fenster)</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+.astro-bbkan{background:#3B2A4E;color:#fff;padding:64px 0}
+.astro-bbkan__inner{max-width:1000px;margin:0 auto;padding:0 40px;text-align:center}
+.astro-bbkan__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3.2vw,38px);font-weight:700;color:#fff;margin:0 0 10px;line-height:1.15}
+.astro-bbkan__lead{font-size:clamp(16px,1.8vw,18px);line-height:1.6;color:#FFD3D3;margin:0 0 30px}
+.astro-bbkan__list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0;margin:0;text-align:left}
+.astro-bbkan__btn{display:flex;align-items:center;gap:14px;min-height:64px;padding:12px 20px;border-radius:14px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,211,211,.45);color:#fff;text-decoration:none;transition:background .18s,border-color .18s}
+.astro-bbkan__btn:hover{background:rgba(255,255,255,.16);border-color:#FFD3D3}
+.astro-bbkan__btn:focus-visible{outline:3px solid #FFD3D3;outline-offset:3px}
+.astro-bbkan__btn svg{flex-shrink:0;color:#FFD3D3}
+.astro-bbkan__txt{display:flex;flex-direction:column}
+.astro-bbkan__label{font-size:16.5px;font-weight:700;line-height:1.3}
+.astro-bbkan__sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.astro-bbkan__sub{font-size:15px;color:#f1e4ea;line-height:1.35}
+@media(max-width:600px){.astro-bbkan{padding:52px 0}.astro-bbkan__inner{padding:0 20px}.astro-bbkan__list{grid-template-columns:1fr}}
+@media(min-width:601px) and (max-width:900px){.astro-bbkan__list{grid-template-columns:1fr;max-width:460px;margin:0 auto}}
+</style>
