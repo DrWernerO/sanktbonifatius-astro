@@ -1,12 +1,13 @@
 // Better Together — zentraler Schalter für die Unterseite + nächster Termin (clientseitig).
 //
-// Stand 2026-11-03 (Frank): Die Unterseite /bonfamily/better-together/ ist online, aber VERSTECKT,
+// Seit 2026-11-26 ÖFFENTLICH (Frank: alle Foto-Freigaben liegen vor) — indexierbar, in der Sitemap,
+// interne Links zeigen auf die Seite. Vorher (ab 2026-11-03) war die Unterseite versteckt,
 // weil noch nicht alle Foto-Freigaben vorliegen: noindex, nicht in der Sitemap, und alle internen
 // Links (BonFamily-Treffpunkte-Kachel, Schnell-Link auf /bonfamily/familientreffpunkte/) führen
 // stattdessen zum nächsten Better-Together-Termin im Terminkalender.
 // Freischalten: BT_SEITE_OEFFENTLICH = true setzen und den Sitemap-Filter in astro.config.mjs
 // für '/bonfamily/better-together/' entfernen.
-export const BT_SEITE_OEFFENTLICH = false;
+export const BT_SEITE_OEFFENTLICH = true;
 export const BT_URL = '/bonfamily/better-together/';
 // Link-Ziel beim Bauen. Solange die Seite versteckt ist: Terminkalender als Rückfall, den
 // verlinkeBtTermin() im Browser durch den konkreten nächsten Termin ersetzt.

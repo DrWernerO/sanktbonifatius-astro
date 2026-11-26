@@ -1,7 +1,7 @@
 ---
 // Seite „Better Together" — neue Unterseite unter BonFamily, kein WP-Pendant
-// (rein redaktionell in Astro angelegt, daher kein SEO_STATIC-Eintrag, sondern
-// eigene title/description-Props → Base.astro-Fallback greift, Handbuch 1e).
+// (rein redaktionell in Astro angelegt). SEO-Head seit 2026-11-26 in SEO_STATIC (Handbuch 1e),
+// Vorschaubild uploads/og/og-better-together.jpg.
 // Bewusst allgemeine Konzeptseite ohne Termine/Preise/Anmeldung (siehe Handbuch-Regel:
 // zeitlose Inhalte bleiben in Astro, laufend wechselnde Daten verlinken nur dorthin).
 // Präfix `astro-bt`. Nav + Footer global aus Base.astro (Handbuch 4b).
@@ -12,13 +12,15 @@ import BtNaechstes from '../../components/BtNaechstes.astro';
 import BtAblauf from '../../components/BtAblauf.astro';
 import BtFuerWen from '../../components/BtFuerWen.astro';
 import BtCta from '../../components/BtCta.astro';
-// Seit 2026-11-03 versteckt (noindex + nicht in Sitemap + keine internen Links), bis alle
-// Foto-Freigaben da sind — Schalter in lib/better-together.ts.
+// 2026-11-03 bis 2026-11-26 versteckt (Foto-Freigaben fehlten), seitdem öffentlich —
+// Schalter in lib/better-together.ts.
 import { BT_SEITE_OEFFENTLICH } from '../../lib/better-together';
+import { SEO_STATIC } from '../../lib/seo-static.js';
+const seo = SEO_STATIC['/bonfamily/better-together/'];
 
 const description = 'Better Together ist die BonFamily-Reihe für junge Familien: gemeinsam etwas tun, erleben und andere Familien kennenlernen – in St. Bonifatius Frankfurt-Sachsenhausen.';
 ---
-<Base title="Better Together · BonFamily" description={description} noindex={!BT_SEITE_OEFFENTLICH}>
+<Base seo={seo} title="Better Together · BonFamily" description={description} noindex={!BT_SEITE_OEFFENTLICH}>
   <BtHero />
   <BtIdee />
   <BtNaechstes />

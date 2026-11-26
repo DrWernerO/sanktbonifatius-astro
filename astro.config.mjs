@@ -63,9 +63,7 @@ export default defineConfig({
         // Versteckte Bildseite, noindex — siehe src/pages/pastoral-der-zukunft.astro
         && !page.includes('/pastoral-der-zukunft/')
         // Versteckte Formularseite Ehevorbereitungsprotokoll, noindex — siehe src/pages/evp.astro
-        && !page.includes('/evp/')
-        // Better Together vorerst versteckt (Foto-Freigaben fehlen), noindex — siehe src/lib/better-together.ts
-        && !page.includes('/bonfamily/better-together/'),
+        && !page.includes('/evp/'),
     }),
   ],
   vite: {
