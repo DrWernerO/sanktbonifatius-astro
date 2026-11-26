@@ -1,5 +1,5 @@
 ---
-// „Mehr entdecken"-Kacheln der Landingpage „Baby" (/baby/). Eigene Klassen `astro-bbent`.
+// „Mehr Familienangebote"-Kacheln (bis 26.11.2026 „Mehr entdecken") der Landingpage „Baby" (/baby/). Eigene Klassen `astro-bbent`.
 // Nur kurz anteasern und verlinken — die ausführlichen Texte stehen im Heft „Hallo Baby!" und auf
 // den Unterseiten (Briefing 2026-11, Abschnitt 1). Themenfarben wie im Heft.
 // Gottesdienste: bewusst KEIN Sonntags-Rhythmus nennen (Frank, 04.11.2026).
@@ -23,7 +23,7 @@ const kacheln = [
 ---
 <section class="astro-bbent" aria-labelledby="astro-bbent-hl">
   <div class="astro-bbent__inner">
-    <h2 class="astro-bbent__hl" id="astro-bbent-hl">Mehr entdecken</h2>
+    <h2 class="astro-bbent__hl" id="astro-bbent-hl">Mehr Familienangebote</h2>
     <ul class="astro-bbent__grid" role="list">
       {kacheln.map((k) => (
         <li>
@@ -44,12 +44,12 @@ const kacheln = [
 </script>
 
 <style is:global>
-.astro-bbent{background:#fff;padding:72px 0}
+.astro-bbent{background:#FBF4EF;padding:72px 0}
 .astro-bbent__inner{max-width:1100px;margin:0 auto;padding:0 40px}
 .astro-bbent__hl{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.4vw,40px);font-weight:700;color:#B71C2C;margin:0 0 28px;line-height:1.15;text-align:center}
 .astro-bbent__grid{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0;margin:0}
 .astro-bbent__grid li{display:flex}
-.astro-bbent__tile{position:relative;display:flex;flex-direction:column;gap:6px;width:100%;background:#FBF4EF;border-radius:14px;border-top:5px solid var(--bbent-farbe);padding:20px 48px 20px 22px;text-decoration:none;color:#2c2420;box-shadow:0 2px 12px rgba(59,42,78,.07);transition:transform .18s,box-shadow .18s}
+.astro-bbent__tile{position:relative;display:flex;flex-direction:column;gap:6px;width:100%;background:#fff;border-radius:14px;border-top:5px solid var(--bbent-farbe);padding:20px 48px 20px 22px;text-decoration:none;color:#2c2420;box-shadow:0 2px 12px rgba(59,42,78,.07);transition:transform .18s,box-shadow .18s}
 .astro-bbent__tile:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(59,42,78,.12)}
 .astro-bbent__tile:focus-visible{outline:3px solid var(--bbent-farbe);outline-offset:3px}
 .astro-bbent__titel{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;line-height:1.25;color:var(--bbent-farbe)}

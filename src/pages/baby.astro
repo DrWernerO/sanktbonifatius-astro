@@ -27,10 +27,10 @@ import EventCalendar from '../components/EventCalendar.astro';
   <BbHero />
   <BbGutschein />
   <BbBonfamily />
+  <BbEntdecken />
   <div id="termine" class="astro-bb-termine">
     <EventCalendar heading="Nächste Termine für Familien" moreHref="/terminkalender/" category={2586} categoryLabel="BonFamily" />
   </div>
-  <BbEntdecken />
   <BbKanaele />
   <BbTeam />
   <BbFeedback />
@@ -39,6 +39,8 @@ import EventCalendar from '../components/EventCalendar.astro';
 
 <style is:global>
 .astro-bb-termine{scroll-margin-top:96px}
+/* Bänder: nach „Mehr entdecken“ (creme) weißer Termin-Block, dann das dunkle Kanäle-Band */
+.astro-bb-termine .astro-ev{background:#fff}
 .astro-bb-termine .astro-ev__hl,
 .astro-bb-termine .astro-ev-card__title,
 .astro-bb-termine .astro-ev-list__hl { color: #B71C2C; }
