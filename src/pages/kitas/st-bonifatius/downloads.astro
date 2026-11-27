@@ -4,13 +4,20 @@
 // Dateien liegen lokal unter public/uploads/ oder (Alt-Bestand) auf cms.sanktbonifatius.de.
 import Base from '../../../layouts/Base.astro';
 
+// `bis`: Dokument fällt beim ersten Build nach diesem Tag aus der Liste.
 const DOKUMENTE = [
+  {
+    titel: 'Schlie&szlig;tage 2027',
+    hinweis: 'Alle Schlie&szlig;- und Br&uuml;ckentage im &Uuml;berblick.',
+    url: '/uploads/2026/11/2027-Kita-St-Bonifatius-Schliesstage.pdf',
+  },
   {
     titel: 'Schlie&szlig;tage 2026',
     hinweis: 'Alle Schlie&szlig;- und Br&uuml;ckentage im &Uuml;berblick.',
     url: 'https://cms.sanktbonifatius.de/wp-content/uploads/2025/10/2026-Kita-St-Bonifatius-Schliesstage.pdf',
+    bis: '2026-12-31',
   },
-];
+].filter((d) => !d.bis || Date.now() <= Date.parse(`${d.bis}T23:59:59+01:00`));
 ---
 <Base
   title="Downloads – Kita St. Bonifatius Frankfurt"
