@@ -3,7 +3,10 @@
 // Die drei Gutscheine gibt es NUR hier digital (im gedruckten Heft „Hallo Baby!" bewusst gestrichen).
 // Festgelegt von Frank am 25.11.2026: Buch (ein bestimmtes Kinderbuch als Geschenk, Titel noch offen —
 // NICHT „aussuchen“ schreiben; abholbar in allen drei Büchereien), Brezel + Getränk für jedes
-// Familienmitglied beim BonFriday, Kaffee im Kirchcafé; Gültigkeit ein Jahr, jeder einmal pro Familie.
+// Familienmitglied beim BonFriday, Kaffee im Kirchcafé nach dem Familiengottesdienst.
+// ⚠️ Seit 27.11.2026 (Frank): KEINE Gültigkeit, kein „einmal pro Familie“, kein Kleingedrucktes — die
+// Gutscheine sind eine einladende Geste, kein Wertgutschein. Schritt 2 erst dann auf „in der Wallet
+// speichern“ umstellen, wenn die Wallet-Buttons wirklich funktionieren.
 // Briefing: docs/2026-11-Hallo-Baby-Website-Briefing.md. Farben = Wallet-Vorlagen (docs/hallo-baby-wallet/).
 // Einlösen: Karte auf dem Handy vorzeigen. Apple-/Google-Wallet-Buttons kommen später in
 // `.astro-bbgs__wallet` je Karte, sobald die Pässe signiert sind (Phase 2).
@@ -11,16 +14,15 @@
 // (src/lib/naechster-termin.ts); ohne Termin bleibt der Terminkalender als Ziel.
 // Gleiche Kopfhöhe: Karten nutzen `grid-template-rows: subgrid`; Einschnitte per CSS-Maske (echt
 // transparent), Schatten per `filter: drop-shadow` auf der Karte, damit er der Ausschnittform folgt.
-const GUELTIG = 'Ein Jahr lang gültig, einmal pro Familie';
-
 const gutscheine = [
   {
     key: 'buch',
     farbe: '#0E6E8C',
     titel: 'Ein Buch für Ihr Kind',
     text: 'Wir schenken Ihrem Kind ein Kinderbuch. Holen Sie es einfach in einer unserer Büchereien ab.',
-    wo: 'In allen unseren Büchereien: St. Bonifatius und St. Wendel in Sachsenhausen, Herz Jesu in Oberrad',
-    link: { href: '/kultur-begegnung/buechereien/', label: 'Adressen und Öffnungszeiten' },
+    // Öffnungszeiten wie BueCards.astro — bei Änderungen dort auch hier nachziehen
+    wo: ['St. Bonifatius: So 10:45–12:30 Uhr', 'St. Wendel: Mi 15:30–18:00 und So 10:30–12:30 Uhr', 'Herz Jesu (Oberrad): So 10:30–11:30 Uhr'],
+    link: { href: '/kultur-begegnung/buechereien/', label: 'Adressen der Büchereien' },
     icon: '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>',
   },
   {
@@ -28,7 +30,7 @@ const gutscheine = [
     farbe: '#B71C2C',
     titel: 'Brezel und Getränk',
     text: 'Für jedes Familienmitglied eine Brezel und ein Getränk beim BonFriday. Kommen Sie vorbei und lernen Sie andere Familien kennen.',
-    wo: 'Beim BonFriday im Pfarrgarten St. Bonifatius',
+    wo: ['Im Pfarrgarten St. Bonifatius, Holbeinstraße\u00a070'],
     link: { href: '/terminkalender/', label: 'Nächste Termine im Kalender', naechsterBonFriday: true },
     icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
   },
@@ -36,17 +38,17 @@ const gutscheine = [
     key: 'kaffee',
     farbe: '#4A2C5E',
     titel: 'Ein Kaffee',
-    text: 'Nach dem Gottesdienst geht der Kaffee auf uns, zum Beispiel nach einem Familiengottesdienst.',
-    wo: 'Im Kirchcafé nach dem Sonntagsgottesdienst',
+    text: 'Nach dem Familiengottesdienst geht der Kaffee auf uns.',
+    wo: ['Im Kirchcafé nach dem Familiengottesdienst'],
     link: { href: '/bonfamily/familiengottesdienste/', label: 'Zu den Familiengottesdiensten' },
     icon: '<path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/>',
   },
 ];
 
 const schritte = [
-  { n: '1', t: 'Aussuchen', d: 'Drei kleine Willkommensgeschenke warten auf Sie. Fangen Sie an, womit Sie möchten.' },
+  { n: '1', t: 'Aussuchen', d: 'Drei kleine Willkommensgeschenke warten auf Sie: ein Buch für Ihr Kind, eine Brezel und ein Getränk für die ganze Familie beim BonFriday und ein Kaffee im Kirchcafé. Fangen Sie an, womit Sie möchten.' },
   { n: '2', t: 'Vorzeigen', d: 'Zeigen Sie diese Seite vor Ort auf Ihrem Handy oder sagen Sie kurz, dass Sie über „Hallo Baby!“ kommen. Ein Ausdruck ist nicht nötig.' },
-  { n: '3', t: 'Genießen', d: 'Die Gutscheine gelten ein Jahr lang, jeder einmal pro Familie. Lassen Sie sich Zeit, wir freuen uns auf Sie!' },
+  { n: '3', t: 'Genießen', d: 'Stöbern Sie in Ruhe, lassen Sie es sich schmecken und lernen Sie andere Familien kennen. Lassen Sie sich Zeit – wir freuen uns auf Sie!' },
 ];
 ---
 <section class="astro-bbgs" id="gutschein" aria-labelledby="astro-bbgs-hl">
@@ -68,8 +70,7 @@ const schritte = [
           <div class="astro-bbgs__body">
             <p class="astro-bbgs__text">{g.text}</p>
             <dl class="astro-bbgs__facts">
-              <div><dt>Wo</dt><dd>{g.wo}</dd></div>
-              <div><dt>Gültig</dt><dd>{GUELTIG}</dd></div>
+              <div><dt>Wo und wann</dt>{g.wo.map((z) => <dd>{z}</dd>)}</div>
             </dl>
             <a class="astro-bbgs__link" href={g.link.href} {...(g.link.naechsterBonFriday ? { 'data-bonfriday-link': '' } : {})}>{g.link.label}</a>
           </div>
@@ -124,8 +125,8 @@ const schritte = [
 .astro-bbgs__titel{font-family:'Playfair Display',Georgia,serif;font-size:clamp(25px,2.6vw,30px);font-weight:700;line-height:1.15;margin:0;color:#fff}
 .astro-bbgs__text{font-size:16.5px;line-height:1.55;color:#2c2420;margin:0 0 16px}
 .astro-bbgs__facts{margin:0 0 16px;display:flex;flex-direction:column;gap:10px;flex:1}
-.astro-bbgs__facts div{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:baseline}
-.astro-bbgs__facts dt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--bbgs-farbe)}
+.astro-bbgs__facts div{display:flex;flex-direction:column;gap:3px}
+.astro-bbgs__facts dt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--bbgs-farbe);margin:0 0 2px}
 .astro-bbgs__facts dd{margin:0;font-size:15.5px;line-height:1.5;color:#3d3530}
 .astro-bbgs__link{display:inline-flex;align-items:center;min-height:44px;font-size:15.5px;font-weight:600;color:var(--bbgs-farbe);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;align-self:flex-start}
 .astro-bbgs__link:hover{text-decoration-thickness:2px}
