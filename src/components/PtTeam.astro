@@ -1,21 +1,22 @@
 ---
-// „Das Team" — 12 Team-Karten (Foto, Name, Rolle, ggf. Kirchort, E-Mail) + PDF-Download.
+// „Das Team" — 12 Team-Karten (je mit Sprungmarke `id`, z. B. #werner-otto — verlinkt von der
+// Taufe-Seite, TaufeTeam.astro; ids nicht ändern), (Foto, Name, Rolle, ggf. Kirchort, E-Mail) + PDF-Download.
 // Eigene Klassen `astro-ptteam`. Fotos lokal in public/uploads/ (Handbuch 1b). mailto im
 // Klartext (wartbar, Handbuch 11). aria-label auf Foto (Inventar 48534, Screenreader).
 const IMG = '/uploads';
 const TEAM = [
-  { name: 'Pfr. Dr. Werner Otto', role: 'Pfarrer', photo: `${IMG}/2023/07/Bonifatius_Pastoralteam_Werner-edited-1.jpg`, mail: 'w.otto@sanktbonifatius.de' },
-  { name: 'Pfr. Uwe Michler', role: 'Priesterlicher Mitarbeiter', photo: `${IMG}/2023/05/Bonifatius_Pastoralteam_Uwe-edited.jpg`, mail: 'u.michler@sanktbonifatius.de' },
-  { name: 'P. Gaby Geagea c.m.l', role: 'Priesterlicher Mitarbeiter', photo: `${IMG}/2023/07/Bonifatius_Pastoralteam_Gaby-e1659515837936-edited.jpg`, mail: 'g.geagea@sanktbonifatius.de' },
-  { name: 'Martin Kestler', role: 'Pastoralreferent', sub: 'Ansprechpartner St. Wendel', photo: `${IMG}/2023/05/Bonifatius_Pastoralteam_Martin-e1659516162716-edited.jpg`, mail: 'm.kestler@sanktbonifatius.de' },
-  { name: 'Lilian Wykipil', role: 'Pastoralreferentin', sub: 'Ansprechpartnerin St. Aposteln', photo: `${IMG}/2023/09/lilian-wykipil-1.jpeg`, mail: 'l.wykipil@sanktbonifatius.de' },
-  { name: 'Doly Kadavil', role: 'Pastoralreferentin', sub: 'Ansprechpartnerin Herz-Jesu', photo: `${IMG}/2023/08/image.png`, mail: 'd.kadavil@sanktbonifatius.de' },
-  { name: 'Sr. Bettina Rupp SSPS', role: 'Sozialarbeiterin', photo: `${IMG}/2025/06/DSC00931.jpg`, mail: 'bettina.rupp@ssps.de' },
-  { name: 'Dorothea Schneider', role: 'Pastoralreferentin', sub: 'Ansprechpartnerin St. Bonifatius', photo: `${IMG}/2025/06/DSC00891.jpg`, mail: 'd.schneider@sanktbonifatius.de' },
-  { name: 'Jakob Schorr', role: 'Pastoralassistent', photo: `${IMG}/2026/10/Jakob-Schorr.jpg`, mail: 'j.schorr@sanktbonifatius.de' },
-  { name: 'Frank Hoffmann', role: 'Referent Familienpastoral', photo: `${IMG}/2025/06/DSC00850-1.jpg`, mail: 'f.hoffmann@sanktbonifatius.de' },
-  { name: 'Sandra Roos-Greulich', role: 'Koordinatorin Kindertagesstätten', photo: `${IMG}/2026/07/Sandra-Roos-Greulich-2026.jpg`, mail: 's.roos-greulich@sanktbonifatius.de' },
-  { name: 'Annette Gause', role: 'Verwaltungsleiterin', photo: `${IMG}/2025/06/DSC00845.jpg`, mail: 'a.gause@sanktbonifatius.de' },
+  { id: 'werner-otto', name: 'Pfr. Dr. Werner Otto', role: 'Pfarrer', photo: `${IMG}/2023/07/Bonifatius_Pastoralteam_Werner-edited-1.jpg`, mail: 'w.otto@sanktbonifatius.de' },
+  { id: 'uwe-michler', name: 'Pfr. Uwe Michler', role: 'Priesterlicher Mitarbeiter', photo: `${IMG}/2023/05/Bonifatius_Pastoralteam_Uwe-edited.jpg`, mail: 'u.michler@sanktbonifatius.de' },
+  { id: 'gaby-geagea', name: 'P. Gaby Geagea c.m.l', role: 'Priesterlicher Mitarbeiter', photo: `${IMG}/2023/07/Bonifatius_Pastoralteam_Gaby-e1659515837936-edited.jpg`, mail: 'g.geagea@sanktbonifatius.de' },
+  { id: 'martin-kestler', name: 'Martin Kestler', role: 'Pastoralreferent', sub: 'Ansprechpartner St. Wendel', photo: `${IMG}/2023/05/Bonifatius_Pastoralteam_Martin-e1659516162716-edited.jpg`, mail: 'm.kestler@sanktbonifatius.de' },
+  { id: 'lilian-wykipil', name: 'Lilian Wykipil', role: 'Pastoralreferentin', sub: 'Ansprechpartnerin St. Aposteln', photo: `${IMG}/2023/09/lilian-wykipil-1.jpeg`, mail: 'l.wykipil@sanktbonifatius.de' },
+  { id: 'doly-kadavil', name: 'Doly Kadavil', role: 'Pastoralreferentin', sub: 'Ansprechpartnerin Herz-Jesu', photo: `${IMG}/2023/08/image.png`, mail: 'd.kadavil@sanktbonifatius.de' },
+  { id: 'bettina-rupp', name: 'Sr. Bettina Rupp SSPS', role: 'Sozialarbeiterin', photo: `${IMG}/2025/06/DSC00931.jpg`, mail: 'bettina.rupp@ssps.de' },
+  { id: 'dorothea-schneider', name: 'Dorothea Schneider', role: 'Pastoralreferentin', sub: 'Ansprechpartnerin St. Bonifatius', photo: `${IMG}/2025/06/DSC00891.jpg`, mail: 'd.schneider@sanktbonifatius.de' },
+  { id: 'jakob-schorr', name: 'Jakob Schorr', role: 'Pastoralassistent', photo: `${IMG}/2026/10/Jakob-Schorr.jpg`, mail: 'j.schorr@sanktbonifatius.de' },
+  { id: 'frank-hoffmann', name: 'Frank Hoffmann', role: 'Referent Familienpastoral', photo: `${IMG}/2025/06/DSC00850-1.jpg`, mail: 'f.hoffmann@sanktbonifatius.de' },
+  { id: 'sandra-roos-greulich', name: 'Sandra Roos-Greulich', role: 'Koordinatorin Kindertagesstätten', photo: `${IMG}/2026/07/Sandra-Roos-Greulich-2026.jpg`, mail: 's.roos-greulich@sanktbonifatius.de' },
+  { id: 'annette-gause', name: 'Annette Gause', role: 'Verwaltungsleiterin', photo: `${IMG}/2025/06/DSC00845.jpg`, mail: 'a.gause@sanktbonifatius.de' },
 ];
 const PDF = `${IMG}/2024/11/Arbeitsbereiche-Pastoralteam-2024.pdf`;
 ---
@@ -24,7 +25,7 @@ const PDF = `${IMG}/2024/11/Arbeitsbereiche-Pastoralteam-2024.pdf`;
     <h2 class="astro-ptteam__h2">Das Team</h2>
     <div class="astro-ptteam__grid">
       {TEAM.map((p) => (
-        <div class="astro-ptteam__card">
+        <div class="astro-ptteam__card" id={p.id}>
           <div class="astro-ptteam__photo" role="img" aria-label={`Foto von ${p.name}`}
                style={`background-image:url('${p.photo}')`}></div>
           <h3 class="astro-ptteam__name">{p.name}</h3>
@@ -54,6 +55,10 @@ const PDF = `${IMG}/2024/11/Arbeitsbereiche-Pastoralteam-2024.pdf`;
 .astro-ptteam__h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#2c2420;text-align:center;font-size:clamp(26px,3.4vw,38px);margin:0 0 44px}
 .astro-ptteam__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .astro-ptteam__card{background:#fff;border-radius:14px;padding:32px 24px;text-align:center;box-shadow:0 2px 16px rgba(30,21,18,.07);transition:transform .2s,box-shadow .2s}
+.astro-ptteam__card{scroll-margin-top:120px}
+.astro-ptteam__card:target{animation:astro-ptteam-hl 2.4s ease-out}
+@keyframes astro-ptteam-hl{0%,40%{box-shadow:0 0 0 3px #9a2d2d,0 12px 28px rgba(30,21,18,.12)}100%{box-shadow:0 2px 16px rgba(30,21,18,.07)}}
+@media(prefers-reduced-motion:reduce){.astro-ptteam__card:target{animation:none;box-shadow:0 0 0 3px #9a2d2d}}
 .astro-ptteam__card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(30,21,18,.12)}
 .astro-ptteam__photo{width:128px;height:128px;border-radius:50%;background-size:cover;background-position:center top;margin:0 auto 20px;box-shadow:0 4px 14px rgba(0,0,0,.15);border:4px solid #fff;background-color:#ede4d5}
 .astro-ptteam__name{font-family:'Playfair Display',Georgia,serif;font-size:21px;color:#2c2420;margin:0 0 6px;font-weight:700}

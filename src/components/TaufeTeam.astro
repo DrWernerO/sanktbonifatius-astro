@@ -1,13 +1,14 @@
 ---
 // „Wir begleiten Sie gern" — Seelsorgeteam (WP-Block `ta-team`). Eigene Klassen `astro-tateam`.
 // Fotos lokal in public/uploads/ (vom WP heruntergeladen, Handbuch 1b). Link zum Pastoralteam.
+// Jede Karte verlinkt auf die passende Karte der Pastoralteam-Seite (#id aus PtTeam.astro).
 const team = [
-  { name: 'Dr. Werner Otto',      role: 'Pfarrer',             img: '/uploads/2023/07/Bonifatius_Pastoralteam_Werner-edited-1.jpg' },
-  { name: 'Uwe Michler',          role: 'Pfarrer',             img: '/uploads/2023/05/Bonifatius_Pastoralteam_Uwe-edited.jpg' },
-  { name: 'Gaby Geagea',          role: 'Pfarrer',             img: '/uploads/2023/07/Bonifatius_Pastoralteam_Gaby-e1659515837936-edited.jpg' },
-  { name: 'Dorothea Schneider',   role: 'Pastoralreferentin',  img: '/uploads/2025/06/DSC00891.jpg' },
-  { name: 'Doly Kadavil',         role: 'Pastoralreferentin',  img: '/uploads/2023/08/doly-kadavil.png' },
-  { name: 'Martin Kestler',       role: 'Pastoralreferent',    img: '/uploads/2023/05/Bonifatius_Pastoralteam_Martin-e1659516162716-edited.jpg' },
+  { id: 'werner-otto', name: 'Dr. Werner Otto',      role: 'Pfarrer',             img: '/uploads/2023/07/Bonifatius_Pastoralteam_Werner-edited-1.jpg' },
+  { id: 'uwe-michler', name: 'Uwe Michler',          role: 'Pfarrer',             img: '/uploads/2023/05/Bonifatius_Pastoralteam_Uwe-edited.jpg' },
+  { id: 'gaby-geagea', name: 'Gaby Geagea',          role: 'Pfarrer',             img: '/uploads/2023/07/Bonifatius_Pastoralteam_Gaby-e1659515837936-edited.jpg' },
+  { id: 'dorothea-schneider', name: 'Dorothea Schneider',   role: 'Pastoralreferentin',  img: '/uploads/2025/06/DSC00891.jpg' },
+  { id: 'doly-kadavil', name: 'Doly Kadavil',         role: 'Pastoralreferentin',  img: '/uploads/2023/08/doly-kadavil.png' },
+  { id: 'martin-kestler', name: 'Martin Kestler',       role: 'Pastoralreferent',    img: '/uploads/2023/05/Bonifatius_Pastoralteam_Martin-e1659516162716-edited.jpg' },
 ];
 ---
 <section class="astro-tateam">
@@ -18,11 +19,12 @@ const team = [
     </div>
     <div class="astro-tateam__grid">
       {team.map((p) => (
-        <article class="astro-tateam-card">
-          <img class="astro-tateam-card__photo" src={p.img} alt={`Foto von ${p.name}`} loading="lazy" />
+        <a class="astro-tateam-card" href={`/ueberuns/pastoralteam/#${p.id}`} aria-label={`${p.name}, ${p.role} – mehr im Pastoralteam`}>
+          <img class="astro-tateam-card__photo" src={p.img} alt="" loading="lazy" />
           <h3 class="astro-tateam-card__name">{p.name}</h3>
           <p class="astro-tateam-card__role">{p.role}</p>
-        </article>
+          <span class="astro-tateam-card__more" aria-hidden="true">Mehr erfahren &#8594;</span>
+        </a>
       ))}
     </div>
     <div class="astro-tateam__more">
@@ -38,9 +40,17 @@ const team = [
 .astro-tateam__hl{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2c2420;margin:0 0 14px}
 .astro-tateam__sub{font-size:clamp(15px,1.7vw,18px);color:#6b5c52;line-height:1.6;margin:0 auto;max-width:560px}
 .astro-tateam__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.astro-tateam-card{background:#fff;border-radius:12px;padding:22px 18px;text-align:center;box-shadow:0 2px 12px rgba(30,21,18,.05)}
-.astro-tateam-card__photo{width:104px;height:104px;border-radius:50%;object-fit:cover;margin:0 auto 14px;background:#ede8e1}
-.astro-tateam-card__name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2c2420;margin:0 0 4px}
+.astro-tateam-card{display:block;background:#fff;border-radius:12px;padding:22px 18px;text-align:center;box-shadow:0 2px 12px rgba(30,21,18,.05);border:1.5px solid transparent;color:inherit;text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s}
+.astro-tateam-card:hover,.astro-tateam-card:focus-visible{transform:translateY(-4px);box-shadow:0 14px 30px rgba(30,21,18,.13);border-color:#9a2d2d}
+.astro-tateam-card:focus-visible{outline:3px solid #9a2d2d;outline-offset:3px}
+.astro-tateam-card__photo{width:104px;height:104px;border-radius:50%;object-fit:cover;margin:0 auto 14px;background:#ede8e1;transition:transform .25s}
+.astro-tateam-card:hover .astro-tateam-card__photo{transform:scale(1.05)}
+.astro-tateam-card:hover .astro-tateam-card__name{color:#9a2d2d}
+.astro-tateam-card__more{display:inline-block;margin-top:10px;font-size:13px;font-weight:600;color:#9a2d2d;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s}
+.astro-tateam-card:hover .astro-tateam-card__more,.astro-tateam-card:focus-visible .astro-tateam-card__more{opacity:1;transform:none}
+@media(hover:none){.astro-tateam-card__more{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.astro-tateam-card,.astro-tateam-card__photo,.astro-tateam-card__more{transition:none}.astro-tateam-card:hover{transform:none}.astro-tateam-card:hover .astro-tateam-card__photo{transform:none}}
+.astro-tateam-card__name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2c2420;margin:0 0 4px;transition:color .2s}
 .astro-tateam-card__role{font-size:13px;letter-spacing:.03em;color:var(--txt-muted-light);margin:0}
 .astro-tateam__more{text-align:center;margin:36px 0 0}
 .astro-tateam__link{display:inline-block;padding:13px 28px;border-radius:50px;border:1.5px solid #9a2d2d;color:#9a2d2d;font-size:15px;font-weight:600;transition:background .2s,color .2s}
