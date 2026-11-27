@@ -39,9 +39,31 @@ Leitgedanken für die Website:
 
 ### Texte für die drei Gutschein-Schritte (Entwurf, auf der Website noch Platzhalter)
 
-1. **Gutschein aussuchen** – In Ihrem Gutscheinheft warten kleine Willkommensgeschenke: ein Kaffee im Kirchcafé nach dem Familiengottesdienst und ein Buch für Ihr Kind in einer unserer Büchereien. Suchen Sie sich aus, womit Sie anfangen möchten.
-2. **Einlösen** – Zeigen Sie diese Seite einfach vor Ort auf Ihrem Handy vor oder sagen Sie kurz, dass Sie über „Hallo Baby!“ zu uns kommen. Mehr braucht es nicht, auch keinen Ausdruck.
-3. **Genießen** – Die Gutscheine gelten [GÜLTIGKEIT KLÄREN, z. B. im ersten Lebensjahr Ihres Kindes], jeder einmal pro Familie. Lassen Sie sich Zeit. Wir freuen uns auf Sie!
+1. **Gutschein aussuchen** – In Ihrem Gutscheinheft warten drei kleine Willkommensgeschenke: ein Buch für Ihr Kind in einer unserer Büchereien, eine Brezel und ein Getränk für die ganze Familie beim BonFriday und ein Kaffee im Kirchcafé. Suchen Sie sich aus, womit Sie anfangen möchten.
+2. **Speichern und einlösen** – Speichern Sie die Gutscheine mit einem Tipp in Ihrer Wallet auf dem Handy oder zeigen Sie einfach diese Seite vor Ort vor. Mehr braucht es nicht, auch keinen Ausdruck.
+3. **Genießen** – Stöbern Sie in Ruhe, lassen Sie es sich schmecken und lernen Sie andere Familien kennen. Lassen Sie sich Zeit – wir freuen uns auf Sie!
+
+### Texte für die drei Gutschein-Karten (Entwurf)
+
+- **Ein Buch für Ihr Kind** – Suchen Sie sich in einer unserer Büchereien ein Buch für Ihr Kind aus. Es gehört Ihnen. Wo und wann: St. Bonifatius (Holbeinstraße 70): So 10:45–12:30 · St. Wendel (Altes Schützenhüttengäßchen 4): Mi 15:30–18:00 und So 10:30–12:30, auch in den Ferien · Herz Jesu (Mathildenstraße 30, Oberrad): So 10:30–11:30. Mehr: /kultur-begegnung/buechereien/
+- **Brezel und Getränk beim BonFriday** – Eine Brezel und ein Getränk für jedes Familienmitglied. Kommen Sie vorbei und lernen Sie andere Familien kennen. Wo: im Pfarrgarten von St. Bonifatius (Holbeinstraße 70). Die nächsten Termine finden Sie im Terminkalender auf sanktbonifatius.de.
+- **Ein Kaffee im Kirchcafé** – Nach dem Familiengottesdienst geht der Kaffee auf uns. Die nächsten Familiengottesdienste finden Sie im Terminkalender auf sanktbonifatius.de. Mehr: /bonfamily/familiengottesdienste/
+
+## 2a. Gutscheine als Wallet-Ticket (Apple Wallet und Google Wallet)
+
+**Ziel:** Die drei Gutscheine sollen sich nicht nur als Seite oder PDF, sondern als echte „Tickets“ im Handy speichern lassen. Auf dem iPhone geht das mit Apple Wallet, auf Android mit Google Wallet. Auf der Seite erscheinen dazu die offiziellen Buttons „Zu Apple Wallet hinzufügen“ und „Zu Google Wallet hinzufügen“. Für alle, die das nicht nutzen, bleiben die Gutschein-Karten auf der Seite selbst als Fallback.
+
+**Empfohlener Aufbau:**
+- Drei einzelne Pässe, einer pro Gutschein, mit eigener Farbe (Bücherei-Petrol `#0E6E8C`, BonFriday z. B. Heft-Rot `#B71C2C`, Kirchcafé z. B. Lila `#4A2C5E`), Bonifatius-Logo, Titel, kurzer Beschreibung und Ort. Dazu ein Button „Alle drei speichern“. Apple kann mehrere Pässe als Bündel (`.pkpasses`) ausliefern, Google mehrere Objekte in einem „Save“-Link.
+- Passtyp: Apple `coupon`, Google „Generic“ oder „Offer“.
+- **Keine personenbezogenen Daten** auf den Pässen (kein Name, keine Adresse). Datenschutz geht vor.
+- **Einlösen auf Vertrauensbasis:** Die Mitarbeitenden schauen aufs Handy, fertig. Kein Scan-System, kein Barcode, keine Seriennummern und kein „eingelöst“-Status.
+
+**Technik:**
+- **Apple:** Jeder Pass muss mit einem Pass-Type-ID-Zertifikat signiert werden. Das Zertifikat gibt es nur mit einer Mitgliedschaft im Apple Developer Program (regulär 99 $/Jahr). Gemeinnützige Organisationen können sich von der Gebühr befreien lassen. Dafür wird u. a. eine D-U-N-S-Nummer gebraucht. Der Pass selbst ist eine signierte `.pkpass`-Datei (pass.json + Bilder + Signatur). Da alle Familien den gleichen Pass bekommen, kann er einmalig erzeugt und als statische Datei unter `public/` abgelegt werden (MIME-Typ `application/vnd.apple.pkpass`). Alternativ wird er über eine API-Route erzeugt, z. B. mit der npm-Bibliothek `passkit-generator`.
+- **Google:** kostenloses Issuer-Konto in der Google Pay & Wallet Console plus ein Google-Cloud-Servicekonto. Der „Zu Google Wallet hinzufügen“-Link besteht aus `https://pay.google.com/gp/v/save/` und einem signierten JWT. Das JWT wird serverseitig signiert, also über eine API-Route analog zu `src/pages/api/baby-rueckmeldung.ts`. Der Schlüssel des Servicekontos gehört in eine Umgebungsvariable und **niemals ins Repository**.
+- **Alternative ohne eigene Technik:** ein Wallet-Pass-Dienstleister, möglichst mit Sitz in der EU und DSGVO-konform. Dort gestaltet man die Pässe im Browser und bindet nur noch Links ein. Ob dabei ein eigenes Apple-Zertifikat nötig ist, unterscheidet sich je nach Anbieter. Kosten und Datenschutz vorher prüfen.
+- **Reihenfolge für Claude Code:** Zuerst Gestaltung und Inhalt der drei Pässe als Mock-up auf der Seite bauen, dazu die Buttons als Platzhalter. Danach prüfen, ob die Pfarrei bzw. das Bistum schon einen Apple-Developer-Account hat. Erst dann die echte Signierung einbauen. Zugangsdaten, Zertifikate und Schlüssel gibt Frank selbst ein, sie gehören nicht in den Code.
 
 ## 3. Angebote und Zielseiten (alle URLs am 23.11.2026 geprüft)
 
@@ -50,9 +72,9 @@ Leitgedanken für die Website:
 | BonFamily | Programm für Familien | /bonfamily/ |
 | Baby-Lounge | Fr 9:30–11:30, Kleiner Pfarrsaal St. Bonifatius (Zugang Achenbachstraße), bis 12 Monate, kostenlos, ohne Anmeldung, außer in den Schulferien | /bonfamily/familientreffpunkte/ |
 | Familien-Lounge | Fr 15:30–17:30, gleicher Ort, 1–3 Jahre | /bonfamily/familientreffpunkte/ |
-| Better Together | ca. monatlich, Familien mit Kindern ca. 1–4 J., Ort/Zeit/Thema wechseln | /bonfamily/better-together/ |
+| Better Together | einmal im Monat, Familien mit Kindern ca. 1–4 J., Ort/Zeit/Thema wechseln | /bonfamily/better-together/ |
 | Familien- und Kindergottesdienste | sonntags 11 Uhr (Rhythmus siehe offene Punkte) | /bonfamily/familiengottesdienste/ |
-| Büchereien | St. Bonifatius, St. Wendel, Herz Jesu (Teilnahme klären) | /kultur-begegnung/buechereien/ |
+| Büchereien | St. Bonifatius (So 10:45–12:30), St. Wendel (Mi 15:30–18:00, So 10:30–12:30, auch in den Ferien), Herz Jesu Oberrad (So 10:30–11:30); kostenlos, für alle offen | /kultur-begegnung/buechereien/ |
 | Taufe und Segnung | unverbindliche Beratung | /segen-sakramente/taufe/ |
 | Kitas | fünf Kitas, 0–6 Jahre | /kitas/ |
 | Gruppen & Treffpunkte | Überblick | /treffpunkte/ |
@@ -92,16 +114,19 @@ Die Bilder sind teils sehr groß (bis 15 MB) – für die Website bitte verklein
 
 ## 8. Offene Punkte, die auch die Website betreffen
 
-- [ ] **Gültigkeit der Gutscheine** (z. B. erstes Lebensjahr?) und wer Bücher/Kaffee bereitstellt; Teams in Kirchcafé und Büchereien informieren
+- [x] **Keine Gültigkeit, keine Formalien (Frank, 27.11.2026):** Die Gutscheine sind eine einladende Geste, kein Wertgutschein. Deshalb nirgends ein Gültigkeitszeitraum, kein „einmal pro Familie“, kein Kleingedrucktes – weder auf der Website noch auf den Wallet-Tickets. **Für die Website:** In `src/components/BbGutschein.astro` die Konstante `GUELTIG`, die Zeile „Gültig“ in den Gutschein-Karten und den Satz zur Gültigkeit in Schritt 3 entfernen; Schritt 3 wie oben in Abschnitt 2 formulieren.
+- [ ] Klären, wer Bücher, Brezeln/Getränke und Kaffee bereitstellt; Teams in Kirchcafé, Büchereien und BonFriday informieren
+- [x] **BonFriday:** findet im Pfarrgarten von St. Bonifatius statt. Bewusst ohne feste Termine (damit Texte und Tickets zeitlos bleiben), stattdessen Verweis auf den Terminkalender der Homepage. Auf der Website kann der Gutschein weiter auf den nächsten BonFriday-Termin verlinken (`src/lib/naechster-termin.ts`).
+- [ ] **Wallet:** Gibt es schon einen Apple-Developer-Account (Pfarrei oder Bistum) und eine D-U-N-S-Nummer? Eigenbau oder Dienstleister?
 - [ ] **Lounge-Geschenk:** Im Lounge-Text steht noch „bei Ihrem ersten Besuch gibt es ein kleines Geschenk“ – bleibt das, und ist es ein Gutschein?
 - [ ] **Gottesdienst-Rhythmus:** Website sagt „1. und 3. Sonntag“, die Termine im Dezember liegen am 1. und 2. Sonntag – klären
-- [ ] **Büchereien:** Welche machen beim Buch-Gutschein mit, gibt es Herz Jesu noch? Hausnummer St. Wendel (4 oder 6)?
+- [ ] **Büchereien:** Adressen und Zeiten geklärt (Homepage, 27.11.2026). Noch mit den Teams absprechen, dass alle drei den Buch-Gutschein einlösen.
 - [ ] **Kitas:** Anzahl der Betreuungsplätze
 
 ## Vorschlag für den Aufbau der Seite (nur als Anregung)
 
 1. Hero mit Coverfoto, „Herzlichen Glückwunsch!“ und direktem Sprung zum Gutscheinheft
-2. **Ihr digitales Gutscheinheft:** Gutschein-Karten zum Vorzeigen (Kaffee, Buch) + die drei Schritte
+2. **Ihr digitales Gutscheinheft:** drei Gutschein-Karten (Buch, Brezel & Getränk beim BonFriday, Kaffee) mit Wallet-Buttons + die drei Schritte
 3. Für den Start: Baby-Lounge und Familien-Lounge (kurz, mit Link)
 4. Nächste Termine für Familien (live)
 5. Mehr entdecken: kurze Kacheln zu BonFamily, Gottesdiensten, Better Together, Büchereien, Kitas, Taufe – jeweils mit Link

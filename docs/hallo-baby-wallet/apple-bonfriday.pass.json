@@ -28,12 +28,7 @@
       {
         "key": "wo",
         "label": "Wann & wo",
-        "value": "[BONFRIDAY-TERMINE UND ORT EINTRAGEN]"
-      },
-      {
-        "key": "gueltig",
-        "label": "Gültig",
-        "value": "[GÜLTIGKEIT KLÄREN]"
+        "value": "Pfarrgarten St. Bonifatius, Holbeinstraße 70 · Termine auf sanktbonifatius.de"
       }
     ],
     "backFields": [
@@ -44,8 +39,8 @@
       },
       {
         "key": "regel",
-        "label": "Hinweis",
-        "value": "Einmal pro Familie. Kein Ausdruck nötig."
+        "label": "So einfach geht's",
+        "value": "Einfach auf dem Handy vorzeigen – wir freuen uns auf Sie!"
       },
       {
         "key": "mehr",

@@ -28,12 +28,7 @@
       {
         "key": "wo",
         "label": "Wann & wo",
-        "value": "[BÜCHEREIEN UND ÖFFNUNGSZEITEN]"
-      },
-      {
-        "key": "gueltig",
-        "label": "Gültig",
-        "value": "[GÜLTIGKEIT KLÄREN]"
+        "value": "St. Bonifatius So 10:45–12:30 · St. Wendel Mi 15:30–18:00, So 10:30–12:30 · Herz Jesu So 10:30–11:30"
       }
     ],
     "backFields": [
@@ -44,8 +39,8 @@
       },
       {
         "key": "regel",
-        "label": "Hinweis",
-        "value": "Einmal pro Familie. Kein Ausdruck nötig."
+        "label": "So einfach geht's",
+        "value": "Einfach auf dem Handy vorzeigen – wir freuen uns auf Sie!"
       },
       {
         "key": "mehr",
