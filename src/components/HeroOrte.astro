@@ -2,8 +2,8 @@
 // Hero der Startseite (seit 03.11.2026): ein großes Foto, Dreiklang als h1, rechts ein schmaler
 // senkrechter Streifen mit „Laschen" je Kirchort (Handy: Reihe oben) — Klick wechselt das Hero-Foto.
 // Entwurf: Entwuerfe/startseite-hero/startseite.html (Werner, 03.11.2026).
-// FOTOS: nur St. Bonifatius und Herz Jesu vorhanden (public/uploads/startseite/). Für St. Aposteln
-// und St. Wendel `img` in `orte` eintragen (800 + 1600 px WebP, Handbuch 1g) — dann wird die Lasche
+// FOTOS: St. Bonifatius, Herz Jesu und St. Wendel vorhanden (public/uploads/startseite/). Für St. Aposteln
+// `img` in `orte` eintragen (800 + 1600 px WebP, Handbuch 1g) — dann wird die Lasche
 // automatisch klickbar; ohne `img` bleibt sie abgeblendet („Foto folgt").
 // Alle Fotos liegen als <img> im Dokument (nicht als CSS-Hintergrund, Checkliste Abschnitt 3);
 // nur das erste lädt mit hoher Priorität, die übrigen lazy.
@@ -11,10 +11,11 @@ const IMG = '/uploads/startseite/';
 const orte = [
   { id: 'bo', name: 'St. Bonifatius', img: 'hero-pfarrkirche', w: 1600, h: 1066,
     alt: 'Luftbild der Pfarrkirche St. Bonifatius in Sachsenhausen, dahinter die Frankfurter Skyline' },
-  { id: 'hj', name: 'Herz Jesu', img: 'hero-herzjesu', w: 1600, h: 1200,
-    alt: 'Der Turm der Herz-Jesu-Kirche in Oberrad im Abendlicht, dahinter die Frankfurter Skyline' },
+  { id: 'hj', name: 'Herz Jesu', img: 'hero-herzjesu-drohne', w: 1600, h: 900,
+    alt: 'Luftbild der Herz-Jesu-Kirche in Oberrad mit rosafarbenem Turm, dahinter die Frankfurter Skyline mit Europäischer Zentralbank' },
   { id: 'sa', name: 'St. Aposteln' },
-  { id: 'sw', name: 'St. Wendel' },
+  { id: 'sw', name: 'St. Wendel', img: 'hero-stwendel-drohne', w: 1600, h: 900,
+    alt: 'Luftbild der St.-Wendel-Kirche in Sachsenhausen mit rundem Steinbau und freistehendem Turm, dahinter die Frankfurter Skyline' },
 ];
 ---
 <section class="astro-hn" id="astro-hn" aria-labelledby="astro-hn-h1" data-ort="bo">
@@ -76,7 +77,8 @@ const orte = [
 .astro-hn__pic{opacity:0;transition:opacity .45s ease}
 .astro-hn__pic.is-on{opacity:1}
 .astro-hn__pic img{filter:saturate(1.22) contrast(1.08) brightness(1.05);position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 66%}
-.astro-hn__pic--hj img{object-position:50% 64%;filter:saturate(1.3) contrast(1.06) brightness(1.28)}
+.astro-hn__pic--hj img{object-position:50% 55%}
+.astro-hn__pic--sw img{object-position:50% 55%}
 /* Breiter Desktop: Foto St. Bonifatius vergrößert und nach links verankert, damit der Kirchturm rechts neben dem Text steht */
 @media (min-width:1101px){
   .astro-hn__pic--bo img{width:113%;height:auto;max-width:none;inset:auto auto auto 0;top:-10vw}
@@ -108,7 +110,8 @@ const orte = [
 @media (max-width:860px){
   .astro-hn{height:370px}
   .astro-hn__pic--bo img{object-position:46% 74%}
-  .astro-hn__pic--hj img{object-position:58% 40%}
+  .astro-hn__pic--hj img{object-position:58% 50%}
+  .astro-hn__pic--sw img{object-position:46% 50%}
   .astro-hn::after{background:linear-gradient(0deg,rgba(20,10,2,.74) 0%,rgba(20,10,2,.26) 52%,rgba(20,10,2,.02) 100%)}
   .astro-hn__in{padding:0 18px 20px}
   .astro-hn__txt{max-width:none}
